@@ -1,0 +1,12 @@
+[INIT]
+NumItems=2
+
+[Item1]
+Name = Espada Diabolica
+Index = 636
+Monedas = 1
+
+[Item2]
+Name = Armadura Puton
+Index = 635
+Monedas = 1

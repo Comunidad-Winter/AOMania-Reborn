@@ -61,10 +61,103 @@ Sub CommandParticipar(ByVal UserIndex As Integer)
                         Exit Sub
              End If
              
+             If .flags.EstaDueleando1 = True Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes ir a torneos estando plantes!." & FONTTYPE_WARNING)
+                Exit Sub
+
+            End If
+
+            If .flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas muerto!!!" & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+
+            If UserIndex = Team.Pj1 Or UserIndex = Team.Pj2 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes participar en eventos si esperas retos!!!" & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+            
+            If .Stats.ELV < lvlTorneo Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Debes ser lvl " & lvlTorneo & " o mas para entrar al torneo!" & FONTTYPE_INFO)
+                Exit Sub
+            End If
              
              Call Torneos_Entra(UserIndex)
+             
         End With
      
+End Sub
+
+Sub Torneos_Entra(ByVal UserIndex As Integer)
+
+    On Error GoTo errorh
+
+    Dim i As Integer
+        
+    If (Not Torneo_Activo) Then
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay ningun torneo!." & FONTTYPE_INFO)
+        Exit Sub
+
+    End If
+        
+    If (Not Torneo_Esperando) Then
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El torneo ya ha empezado, te quedaste fuera!." & FONTTYPE_INFO)
+        Exit Sub
+    End If
+        
+    For i = LBound(Torneo_Luchadores) To UBound(Torneo_Luchadores)
+
+        If (Torneo_Luchadores(i) = UserIndex) Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya estas dentro!" & FONTTYPE_WARNING)
+            Exit Sub
+
+        End If
+
+    Next i
+
+    For i = LBound(Torneo_Luchadores) To UBound(Torneo_Luchadores)
+
+        If (Torneo_Luchadores(i) = -1) Then
+        
+            If UserList(UserIndex).flags.Invisible = 1 Or UserList(UserIndex).flags.Oculto Then
+                        UserList(UserIndex).Counters.Invisibilidad = IntervaloInvisible
+                        UserList(UserIndex).flags.Invisible = 0
+                        UserList(UserIndex).Counters.Ocultando = 0
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "INVI0")
+           End If
+            
+            Torneo_Luchadores(i) = UserIndex
+            Dim NuevaPos  As WorldPos
+            Dim FuturePos As WorldPos
+            FuturePos.Map = mapatorneo
+            FuturePos.X = esperax
+            FuturePos.Y = esperay
+            Call ClosestLegalPos(FuturePos, NuevaPos)
+                    
+            If NuevaPos.X <> 0 And NuevaPos.Y <> 0 Then Call WarpUserChar(Torneo_Luchadores(i), NuevaPos.Map, NuevaPos.X, NuevaPos.Y, True)
+            UserList(Torneo_Luchadores(i)).flags.automatico = True
+                 
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas dentro del torneo!" & FONTTYPE_INFO)
+                
+            '  Call SendData(SendTarget.toall, 0, 0, "||Torneo: Entra el participante " & UserList(userindex).name & FONTTYPE_INFO)
+            If (i = UBound(Torneo_Luchadores)) Then
+                xao = 100
+                Call SendData(SendTarget.ToAll, 0, 0, "||Torneo: Empieza el torneo!" & FONTTYPE_GUILD)
+                Torneo_Esperando = False
+                Call Rondas_Combate(1)
+      
+            End If
+
+            Exit Sub
+
+        End If
+
+    Next i
+
+errorh:
+
 End Sub
 
 Sub Torneoauto_Cancela()
@@ -105,6 +198,7 @@ Sub Rondas_Cancela()
     If (Not Torneo_Activo And Not Torneo_Esperando) Then Exit Sub
     Torneo_Activo = False
     Torneo_Esperando = False
+    xao = 0
     Call SendData(SendTarget.ToAll, 0, 0, "||Torneo: Torneo Automatico cancelado por Game Master" & FONTTYPE_GUILD)
     Dim i As Integer
 
@@ -136,7 +230,7 @@ Sub Rondas_UsuarioMuere(ByVal UserIndex As Integer, Optional Real As Boolean = T
     Dim i       As Integer, pos As Integer, j As Integer
     Dim combate As Integer, LI1 As Integer, LI2 As Integer
     Dim UI1     As Integer, UI2 As Integer
-    Dim B As Byte
+    Dim b As Byte
 
     If (Not Torneo_Activo) Then
         Exit Sub
@@ -215,18 +309,19 @@ Sub Rondas_UsuarioMuere(ByVal UserIndex As Integer, Optional Real As Boolean = T
     'si es la ultima ronda
     If (Torneo_Rondas = 1) Then
         If RondaTorneo < "4" Then
-           B = 2
+           b = 2
            Else
-           B = 3
+           b = 3
         End If
         Call WarpUserChar(Torneo_Luchadores(LI1), mapa_fuera, fueraesperax, fueraesperay, True)
         Call SendData(SendTarget.ToAll, 0, 0, "||GANADOR DEL TORNEO: " & UserList(Torneo_Luchadores(LI1)).Name & FONTTYPE_GUILD)
-        Call SendData(SendTarget.ToAll, 0, 0, "||PREMIO: " & Left$(val(PremioTorneo * val(2 ^ RondaTorneo)), B) & "k de oro." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.ToAll, 0, 0, "||PREMIO: " & Left$(val(PremioTorneo * val(2 ^ RondaTorneo)), b) & "k de oro." & FONTTYPE_GUILD)
         UserList(Torneo_Luchadores(LI1)).Stats.GLD = UserList(Torneo_Luchadores(LI1)).Stats.GLD + val(PremioTorneo * val(2 ^ RondaTorneo))
         UserList(Torneo_Luchadores(LI1)).Stats.PuntosTorneo = UserList(Torneo_Luchadores(LI1)).Stats.PuntosTorneo + 1
         UserList(Torneo_Luchadores(LI1)).flags.automatico = False
         Call SendUserStatsBox(Torneo_Luchadores(LI1))
         Torneo_Activo = False
+        xao = 0
         Exit Sub
     Else
         'a su compañero se le teleporta dentro, condicional por seguridad
@@ -335,68 +430,6 @@ Sub Torneos_Inicia(ByVal UserIndex As Integer, ByVal rondas As Integer)
 
     For i = LBound(Torneo_Luchadores) To UBound(Torneo_Luchadores)
         Torneo_Luchadores(i) = -1
-    Next i
-
-errorh:
-
-End Sub
-
-Sub Torneos_Entra(ByVal UserIndex As Integer)
-
-    On Error GoTo errorh
-
-    Dim i As Integer
-        
-    If (Not Torneo_Activo) Then
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay ningun torneo!." & FONTTYPE_INFO)
-        Exit Sub
-
-    End If
-        
-    If (Not Torneo_Esperando) Then
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El torneo ya ha empezado, te quedaste fuera!." & FONTTYPE_INFO)
-        Exit Sub
-
-    End If
-        
-    For i = LBound(Torneo_Luchadores) To UBound(Torneo_Luchadores)
-
-        If (Torneo_Luchadores(i) = UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya estas dentro!" & FONTTYPE_WARNING)
-            Exit Sub
-
-        End If
-
-    Next i
-
-    For i = LBound(Torneo_Luchadores) To UBound(Torneo_Luchadores)
-
-        If (Torneo_Luchadores(i) = -1) Then
-            Torneo_Luchadores(i) = UserIndex
-            Dim NuevaPos  As WorldPos
-            Dim FuturePos As WorldPos
-            FuturePos.Map = mapatorneo
-            FuturePos.X = esperax
-            FuturePos.Y = esperay
-            Call ClosestLegalPos(FuturePos, NuevaPos)
-                    
-            If NuevaPos.X <> 0 And NuevaPos.Y <> 0 Then Call WarpUserChar(Torneo_Luchadores(i), NuevaPos.Map, NuevaPos.X, NuevaPos.Y, True)
-            UserList(Torneo_Luchadores(i)).flags.automatico = True
-                 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas dentro del torneo!" & FONTTYPE_INFO)
-                
-            '  Call SendData(SendTarget.toall, 0, 0, "||Torneo: Entra el participante " & UserList(userindex).name & FONTTYPE_INFO)
-            If (i = UBound(Torneo_Luchadores)) Then
-                Call SendData(SendTarget.ToAll, 0, 0, "||Torneo: Empieza el torneo!" & FONTTYPE_GUILD)
-                Torneo_Esperando = False
-                Call Rondas_Combate(1)
-      
-            End If
-
-            Exit Sub
-
-        End If
-
     Next i
 
 errorh:

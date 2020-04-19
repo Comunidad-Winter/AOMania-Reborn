@@ -1,0 +1,397 @@
+25/06/2019 2:50:14 Se conecto con ip:189.214.0.122Hora: 25/06/2019 2:50:14
+25/06/2019 2:50:18 Comando: /TELEP YO 34 31 51
+25/06/2019 2:50:18 Transporto a AMPERE hacia Mapa34 X:31 Y:51
+25/06/2019 2:52:29 Agarro:1 Objeto:Manzana Roja (Newbies)
+25/06/2019 2:53:21 Comando: /TELEP YO 34 25 46
+25/06/2019 2:53:21 Transporto a AMPERE hacia Mapa34 X:25 Y:46
+25/06/2019 2:53:24 Comando: /TELEP YO 34 28 50
+25/06/2019 2:53:24 Transporto a AMPERE hacia Mapa34 X:28 Y:50
+25/06/2019 2:59:16 Dijo: DALE DALE
+25/06/2019 2:59:28 Dijo: RAYO EL DRUIDA
+25/06/2019 2:59:31 Dijo: ARO NO
+25/06/2019 2:59:47 Dijo: BARDO NO USA RAYO
+25/06/2019 3:02:32 Dijo: Ç
+25/06/2019 3:02:34 Comando: /PANELGM
+25/06/2019 3:03:01 Comando: /SEARCHITEMS 
+25/06/2019 3:03:10 Comando: /SEARCHITEMS ESPADA SAGRADA
+25/06/2019 3:04:09 Comando: /CI 1064 1
+25/06/2019 3:04:09 Creo: 1 Espada Sagrada
+25/06/2019 3:04:42  tiró 1 Espada Sagrada
+25/06/2019 3:06:47 Comando: /sum guerre orco
+25/06/2019 3:06:53 Comando: /sum guerre
+25/06/2019 3:07:05 Comando: /sum guerreorco
+25/06/2019 3:07:05 /SUM guerreorco Map:34 X:29 Y:51
+25/06/2019 3:08:51 Dijo: y el max
+25/06/2019 3:08:59 Dijo: y cuando vais a duelar coño
+25/06/2019 3:09:17 Dijo: al 35 usas demoledora
+25/06/2019 3:09:28 Dijo: tonces
+25/06/2019 3:09:45 Dijo: la elfica
+25/06/2019 3:09:50 Dijo: del 35 al 45
+25/06/2019 3:11:10 Comando: /TELEP YO 34 28 47
+25/06/2019 3:11:10 Transporto a AMPERE hacia Mapa34 X:28 Y:47
+25/06/2019 3:11:12 Comando: /TELEP YO 34 26 44
+25/06/2019 3:11:12 Transporto a AMPERE hacia Mapa34 X:26 Y:44
+25/06/2019 3:11:13 Comando: /TELEP YO 34 25 39
+25/06/2019 3:11:13 Transporto a AMPERE hacia Mapa34 X:25 Y:39
+25/06/2019 3:11:14 Comando: /TELEP YO 34 25 33
+25/06/2019 3:11:14 Transporto a AMPERE hacia Mapa34 X:25 Y:33
+25/06/2019 3:11:15 Comando: /TELEP YO 34 25 33
+25/06/2019 3:11:15 Transporto a AMPERE hacia Mapa34 X:25 Y:33
+25/06/2019 3:11:15 Comando: /TELEP YO 34 24 26
+25/06/2019 3:11:15 Transporto a AMPERE hacia Mapa34 X:24 Y:26
+25/06/2019 3:11:17 Comando: /TELEP YO 34 25 27
+25/06/2019 3:11:17 Transporto a AMPERE hacia Mapa34 X:25 Y:27
+25/06/2019 3:11:17 Comando: /TELEP YO 34 24 20
+25/06/2019 3:11:17 Transporto a AMPERE hacia Mapa34 X:24 Y:20
+25/06/2019 3:11:17 Comando: /TELEP YO 34 25 20
+25/06/2019 3:11:17 Transporto a AMPERE hacia Mapa34 X:25 Y:20
+25/06/2019 3:11:17 Comando: /TELEP YO 34 26 14
+25/06/2019 3:11:17 Transporto a AMPERE hacia Mapa34 X:26 Y:14
+25/06/2019 3:11:18 Comando: /TELEP YO 34 27 8
+25/06/2019 3:11:18 Transporto a AMPERE hacia Mapa34 X:27 Y:8
+25/06/2019 3:11:21 Comando: /TELEP YO 35 34 88
+25/06/2019 3:11:21 Transporto a AMPERE hacia Mapa35 X:34 Y:88
+25/06/2019 3:11:21 Comando: /TELEP YO 35 39 86
+25/06/2019 3:11:21 Transporto a AMPERE hacia Mapa35 X:39 Y:86
+25/06/2019 3:11:22 Comando: /TELEP YO 35 39 86
+25/06/2019 3:11:22 Transporto a AMPERE hacia Mapa35 X:39 Y:86
+25/06/2019 3:11:22 Comando: /TELEP YO 35 44 84
+25/06/2019 3:11:22 Transporto a AMPERE hacia Mapa35 X:44 Y:84
+25/06/2019 3:11:23 Comando: /TELEP YO 35 49 82
+25/06/2019 3:11:23 Transporto a AMPERE hacia Mapa35 X:49 Y:82
+25/06/2019 3:11:24 Comando: /TELEP YO 35 54 80
+25/06/2019 3:11:24 Transporto a AMPERE hacia Mapa35 X:54 Y:80
+25/06/2019 3:11:28 Comando: /sum oro
+25/06/2019 3:11:28 /SUM oro Map:35 X:54 Y:80
+25/06/2019 3:11:33 Comando: /sum max
+25/06/2019 3:11:39 Comando: /sum maxenano
+25/06/2019 3:11:39 /SUM MAXENANO Map:35 X:51 Y:80
+25/06/2019 3:11:43 Comando: /sum oro
+25/06/2019 3:11:43 /SUM oro Map:35 X:51 Y:80
+25/06/2019 3:11:45 Dijo: pelea
+25/06/2019 3:11:46 Dijo: utoç
+25/06/2019 3:11:50 Dijo: puto
+25/06/2019 3:12:02 Dijo: antus
+25/06/2019 3:12:05 Dijo: santus
+25/06/2019 3:12:20 Dijo: asi
+25/06/2019 3:12:44 Comando: /telep oro 34 60 60
+25/06/2019 3:12:44 Transporto a oro hacia Mapa34 X:60 Y:60
+25/06/2019 3:12:44 Transporto a oro hacia Mapa34 X:60 Y:60
+25/06/2019 3:12:55 Comando: /telep oro 34 70 70
+25/06/2019 3:12:55 Transporto a oro hacia Mapa34 X:70 Y:70
+25/06/2019 3:12:55 Transporto a oro hacia Mapa34 X:70 Y:70
+25/06/2019 3:13:05 Comando: /telep oro 34 80 80
+25/06/2019 3:13:05 Transporto a oro hacia Mapa34 X:80 Y:80
+25/06/2019 3:13:05 Transporto a oro hacia Mapa34 X:80 Y:80
+25/06/2019 3:13:10 Comando: /telep oro 34 30 30
+25/06/2019 3:13:10 Transporto a oro hacia Mapa34 X:30 Y:30
+25/06/2019 3:13:10 Transporto a oro hacia Mapa34 X:30 Y:30
+25/06/2019 3:13:56 Comando: /sum oro 
+25/06/2019 3:14:00 Comando: /sum oro
+25/06/2019 3:14:00 /SUM oro Map:35 X:44 Y:82
+25/06/2019 3:14:08 Comando: /telep oro 34 30 30
+25/06/2019 3:14:08 Transporto a oro hacia Mapa34 X:30 Y:30
+25/06/2019 3:14:08 Transporto a oro hacia Mapa34 X:30 Y:30
+25/06/2019 3:14:14 Comando: /TELEP YO 35 52 84
+25/06/2019 3:14:14 Transporto a AMPERE hacia Mapa35 X:52 Y:84
+25/06/2019 3:14:16 Comando: /TELEP YO 35 50 84
+25/06/2019 3:14:16 Transporto a AMPERE hacia Mapa35 X:50 Y:84
+25/06/2019 3:14:20 Comando: /sum oro
+25/06/2019 3:14:20 /SUM oro Map:35 X:50 Y:84
+25/06/2019 3:14:31 Comando: /panelgm
+25/06/2019 3:14:40 Comando: /SEARCHITEMS santus
+25/06/2019 3:14:45 Comando: /CI 989 1
+25/06/2019 3:14:45 Creo: 1 Santus divina
+25/06/2019 3:14:53  tiró 1 Santus divina
+25/06/2019 3:15:56 Comando: /revivir oro
+25/06/2019 3:16:02 Dijo: ajsjasjsajas
+25/06/2019 3:17:11 Dijo: quieto
+25/06/2019 3:17:17 Dijo: curate
+25/06/2019 3:17:21 Dijo: y quieto
+25/06/2019 3:18:16 Dijo: darle
+25/06/2019 3:18:40 Dijo: wtf
+25/06/2019 3:18:44 Dijo: estas dopato?çç
+25/06/2019 3:18:49 Dijo: metete skills puto
+25/06/2019 3:19:08 Comando: /mod maxenano skill 300
+25/06/2019 3:19:23 Dijo: mod maxenano skillslibres 300
+25/06/2019 3:19:24 Dijo: hora
+25/06/2019 3:19:26 Dijo: puta
+25/06/2019 3:19:35 Comando: /mod maxenano skillslibres 300
+25/06/2019 3:19:38 Dijo: ahora prueba
+25/06/2019 3:22:20 Dijo: pegale
+25/06/2019 3:23:13 Comando: /revivir oro
+25/06/2019 3:23:22 Comando: /ira max
+25/06/2019 3:23:28 Comando: /ira maxenano
+25/06/2019 3:23:28 /IRA maxenano Mapa:34 X:29 Y:
+25/06/2019 3:23:32 Dijo: compra dopes
+25/06/2019 3:23:50 Comando: /mod oro ampere 10000000
+25/06/2019 3:24:28 Comando: /mod ampere oro 10000000
+25/06/2019 3:24:46 Comando: /ira oro
+25/06/2019 3:24:46 /IRA oro Mapa:35 X:49 Y:
+25/06/2019 3:24:50 Comando: /sum maxenano
+25/06/2019 3:24:50 /SUM maxenano Map:35 X:49 Y:86
+25/06/2019 3:25:03 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:25:07  tiró 201 Poción amarilla
+25/06/2019 3:25:11  tiró 201 Poción verde
+25/06/2019 3:25:28 Agarro:1 Objeto:Espada De Oro
+25/06/2019 3:25:34 Agarro:1 Objeto:Armadura Negra
+25/06/2019 3:25:38 Comando: /revivir oro
+25/06/2019 3:26:22 Comando: /echar oro
+25/06/2019 3:26:22 Echo a oro
+25/06/2019 3:26:25 Dijo: xD
+25/06/2019 3:26:29 Dijo: que tal'?
+25/06/2019 3:26:32 Dijo: como lo sientes
+25/06/2019 3:27:02 Dijo: a el lo dejas con 40 -50 de vida cuando le das un golpe
+25/06/2019 3:27:08 Dijo: iguak que esa
+25/06/2019 3:27:17 Dijo: la sagrada pega igual
+25/06/2019 3:27:23 Dijo: varia dependiendo del nivel
+25/06/2019 3:27:44 Comando: /mod magohum oro 10000000
+25/06/2019 3:27:54 Comando: /mod magohum skillslibres 300
+25/06/2019 3:30:45 Comando: /revivir maxenano
+25/06/2019 3:31:00 Comando: /telep yo 34 30 30
+25/06/2019 3:31:00 Transporto a AMPERE hacia Mapa34 X:30 Y:30
+25/06/2019 3:31:03 Comando: /TELEP YO 34 25 33
+25/06/2019 3:31:03 Transporto a AMPERE hacia Mapa34 X:25 Y:33
+25/06/2019 3:31:04 Comando: /TELEP YO 34 22 38
+25/06/2019 3:31:04 Transporto a AMPERE hacia Mapa34 X:22 Y:38
+25/06/2019 3:31:06 Comando: /TELEP YO 34 25 44
+25/06/2019 3:31:06 Transporto a AMPERE hacia Mapa34 X:25 Y:44
+25/06/2019 3:31:09 Comando: /TELEP YO 34 28 47
+25/06/2019 3:31:09 Transporto a AMPERE hacia Mapa34 X:28 Y:47
+25/06/2019 3:31:33 Comando: /ira oro
+25/06/2019 3:31:38 Comando: /ira magohum
+25/06/2019 3:31:38 /IRA MAGOHUM Mapa:35 X:44 Y:
+25/06/2019 3:31:53  tiró 2 Resucitar
+25/06/2019 3:31:59  tiró 2 Invisibilidad
+25/06/2019 3:37:49 Comando: /panelgm
+25/06/2019 3:41:10 Comando: /panelgm
+25/06/2019 3:41:17 Comando: /SEARCHNPCS momia
+25/06/2019 3:41:23 Comando: /SEARCHNPCSH momia
+25/06/2019 3:41:25 Comando: /ACC 574
+25/06/2019 3:41:25 Sumoneo a Lobo en mapa 35
+25/06/2019 3:41:25  Sumoneo un Lobo en mapa 35
+25/06/2019 3:43:18 Comando: /panelgm
+25/06/2019 3:43:24 Comando: /SEARCHNPCSH golem
+25/06/2019 3:43:36 Comando: /ACC 552
+25/06/2019 3:43:36 Sumoneo a Lobo en mapa 35
+25/06/2019 3:43:36  Sumoneo un Lobo en mapa 35
+25/06/2019 3:43:43 Dijo: quito
+25/06/2019 3:43:46 Dijo: quieto
+25/06/2019 3:43:56 Dijo: metete en el bardo
+25/06/2019 3:44:21 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:22 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:23 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:23 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:23 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:24 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:25 Agarro:6 Objeto:Manzana Roja
+25/06/2019 3:44:26 Agarro:2 Objeto:Manzana Roja (Newbies)
+25/06/2019 3:44:28 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:29 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:31 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:33 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:34 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:40 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:41 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:42 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:42 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:42 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:42 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:43 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:44 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:45 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:48 Agarro:1 Objeto:Manzana Roja
+25/06/2019 3:44:52 Agarro:1 Objeto:Poción azul
+25/06/2019 3:44:53 Agarro:1 Objeto:Pocion azul (NewBie)
+25/06/2019 3:44:55 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:44:55 Agarro:1 Objeto:Poción amarilla
+25/06/2019 3:45:02 Agarro:333 Objeto:Poción azul
+25/06/2019 3:45:48 Dijo: ta enfadao
+25/06/2019 3:45:50 Dijo: no follo
+25/06/2019 3:47:51 Se conecto con ip:189.214.0.122Hora: 25/06/2019 3:47:51
+25/06/2019 3:47:58 Comando: /ira magohum
+25/06/2019 3:47:58 /IRA MAGOHUM Mapa:35 X:53 Y:
+25/06/2019 3:48:04 Dijo: si
+25/06/2019 3:48:08 Dijo: y una pajilla tmb
+25/06/2019 3:48:21 Comando: /mod maxbard skillslibres 500
+25/06/2019 3:48:26 Dijo: 500 skil te di
+25/06/2019 3:48:39 Dijo: sali
+25/06/2019 3:48:40 Dijo: puto
+25/06/2019 3:48:48 Comando: /echar maxbard
+25/06/2019 3:48:48 Echo a maxbard
+25/06/2019 3:49:20 Dijo: demoledora
+25/06/2019 3:49:22 Comando: /panelgm
+25/06/2019 3:49:31 Comando: /SEARCHITEMS demoledora
+25/06/2019 3:49:35 Comando: /CI  1
+25/06/2019 3:49:44 Comando: /panelgm
+25/06/2019 3:49:51 Comando: /SEARCHITEMS demoledora
+25/06/2019 3:50:00 Comando: /CI  1
+25/06/2019 3:50:16 Comando: /ci 599
+25/06/2019 3:50:31 Comando: /ci 599
+25/06/2019 3:50:40 Comando: /ci 599 1
+25/06/2019 3:50:40 Creo: 1 Espada Demoledora
+25/06/2019 3:51:27 Dijo: dale pitp
+25/06/2019 3:51:31 Dijo: la ctm
+25/06/2019 3:51:36 Dijo: la verggggaaaa
+25/06/2019 3:51:51 Dijo: hola soy puto y de pierda
+25/06/2019 3:51:56 Dijo: jasjajsa
+25/06/2019 3:52:04 Comando: /TELEP YO 35 56 82
+25/06/2019 3:52:04 Transporto a AMPERE hacia Mapa35 X:56 Y:82
+25/06/2019 3:52:13 Dijo: surprise mf
+25/06/2019 3:52:36 Comando: /mod maxbard oro 10000000
+25/06/2019 3:53:19 Comando: /TELEP YO 35 52 85
+25/06/2019 3:53:19 Transporto a AMPERE hacia Mapa35 X:52 Y:85
+25/06/2019 3:54:23 Comando: /revivir magohum
+25/06/2019 3:56:18 Dijo: ase
+25/06/2019 3:56:20 Dijo: ase
+25/06/2019 3:56:23 Dijo: ase
+25/06/2019 3:56:41 Dijo: va a crear un ase
+25/06/2019 3:56:53 Comando: /mod asehum skillslibres 500
+25/06/2019 3:57:00 Comando: /mod asehum oro 10000000
+25/06/2019 3:57:13 Comando: /echar asehum
+25/06/2019 3:57:13 Echo a Asehum
+25/06/2019 3:57:22 Comando: /telep asehum 34 30 30
+25/06/2019 3:57:22 Transporto a Asehum hacia Mapa34 X:30 Y:30
+25/06/2019 3:57:22 Transporto a Asehum hacia Mapa34 X:30 Y:30
+25/06/2019 3:57:37 Comando: /panelgm
+25/06/2019 3:57:44 Comando: /SEARCHITEMS asesina
+25/06/2019 3:59:14 Dijo: por?
+25/06/2019 3:59:20 Dijo: el intervalo?
+25/06/2019 3:59:23 Dijo: eh?ç
+25/06/2019 3:59:25 Dijo: no lei
+25/06/2019 3:59:31 Dijo: que vida tieneS?
+25/06/2019 3:59:56 Dijo: 292 es la media del bardo al 35
+25/06/2019 4:00:01 Dijo: humao
+25/06/2019 4:00:18 Dijo: nop
+25/06/2019 4:00:34 Dijo: el que
+25/06/2019 4:00:45 Dijo: a mi es de los que mas me gustan
+25/06/2019 4:00:58 Dijo: si les llevas niveles
+25/06/2019 4:01:00 Dijo: lo aguantaras
+25/06/2019 4:01:56 Dijo: jasjasjsajsaj
+25/06/2019 4:03:12 Comando: /revivir asehum
+25/06/2019 4:03:25 Dijo: wtf
+25/06/2019 4:03:27 Dijo: pues canta
+25/06/2019 4:03:36 Dijo: pon bug
+25/06/2019 4:03:48 Dijo: duelar
+25/06/2019 4:04:14 Dijo: describelo bien
+25/06/2019 4:04:18 Dijo: en el discord
+25/06/2019 4:04:20 Dijo: te lo borro
+25/06/2019 4:05:02 Comando: /sum maxbard
+25/06/2019 4:05:02 /SUM maxbard Map:35 X:49 Y:82
+25/06/2019 4:05:08 Comando: /echar maxbard
+25/06/2019 4:05:08 Echo a maxbard
+25/06/2019 4:06:31 Dijo: solo
+25/06/2019 4:06:32 Dijo: curate
+25/06/2019 4:07:53 Comando: /revivir asehum
+25/06/2019 4:08:03 Dijo: D
+25/06/2019 4:10:57  tiró 334 Poción azul
+25/06/2019 4:11:42 Agarro:334 Objeto:Poción azul
+25/06/2019 4:13:01 Comando: /TELEP YO 35 44 82
+25/06/2019 4:13:01 Transporto a AMPERE hacia Mapa35 X:44 Y:82
+25/06/2019 4:13:03 Comando: /TELEP YO 35 42 83
+25/06/2019 4:13:03 Transporto a AMPERE hacia Mapa35 X:42 Y:83
+25/06/2019 4:13:05 Comando: /TELEP YO 35 42 84
+25/06/2019 4:13:05 Transporto a AMPERE hacia Mapa35 X:42 Y:84
+25/06/2019 4:13:13 Comando: /TELEP YO 35 45 87
+25/06/2019 4:13:13 Transporto a AMPERE hacia Mapa35 X:45 Y:87
+25/06/2019 4:13:15 Comando: /TELEP YO 35 48 87
+25/06/2019 4:13:15 Transporto a AMPERE hacia Mapa35 X:48 Y:87
+25/06/2019 4:13:17 Comando: /TELEP YO 35 47 87
+25/06/2019 4:13:17 Transporto a AMPERE hacia Mapa35 X:47 Y:87
+25/06/2019 4:13:21 Comando: /TELEP YO 35 46 87
+25/06/2019 4:13:21 Transporto a AMPERE hacia Mapa35 X:46 Y:87
+25/06/2019 4:13:32 Comando: /TELEP YO 35 42 87
+25/06/2019 4:13:32 Transporto a AMPERE hacia Mapa35 X:42 Y:87
+25/06/2019 4:13:41 Comando: /TELEP YO 35 42 87
+25/06/2019 4:13:41 Transporto a AMPERE hacia Mapa35 X:42 Y:87
+25/06/2019 4:13:49 Comando: /TELEP YO 35 42 84
+25/06/2019 4:13:49 Transporto a AMPERE hacia Mapa35 X:42 Y:84
+25/06/2019 4:13:53 Comando: /TELEP YO 35 47 87
+25/06/2019 4:13:53 Transporto a AMPERE hacia Mapa35 X:47 Y:87
+25/06/2019 4:13:55 Comando: /TELEP YO 35 51 85
+25/06/2019 4:13:55 Transporto a AMPERE hacia Mapa35 X:51 Y:85
+25/06/2019 4:13:57 Comando: /TELEP YO 35 48 85
+25/06/2019 4:13:57 Transporto a AMPERE hacia Mapa35 X:48 Y:85
+25/06/2019 4:14:00 Comando: /TELEP YO 35 48 87
+25/06/2019 4:14:00 Transporto a AMPERE hacia Mapa35 X:48 Y:87
+25/06/2019 4:14:08 Comando: /TELEP YO 35 42 84
+25/06/2019 4:14:08 Transporto a AMPERE hacia Mapa35 X:42 Y:84
+25/06/2019 4:14:21 Dijo: X.X
+25/06/2019 4:14:35 Dijo: X.X
+25/06/2019 4:14:38 Dijo: RIP
+25/06/2019 4:14:46 Dijo: AODRAG FOR LIFE
+25/06/2019 4:15:39 Comando: /TELEP YO 35 42 84
+25/06/2019 4:15:39 Transporto a AMPERE hacia Mapa35 X:42 Y:84
+25/06/2019 4:15:41 Comando: /TELEP YO 35 43 87
+25/06/2019 4:15:41 Transporto a AMPERE hacia Mapa35 X:43 Y:87
+25/06/2019 4:15:43 Comando: /TELEP YO 35 42 84
+25/06/2019 4:15:43 Transporto a AMPERE hacia Mapa35 X:42 Y:84
+25/06/2019 4:16:10 Comando: /TELEP YO 35 42 82
+25/06/2019 4:16:10 Transporto a AMPERE hacia Mapa35 X:42 Y:82
+25/06/2019 4:16:19 Comando: /TELEP YO 35 41 82
+25/06/2019 4:16:19 Transporto a AMPERE hacia Mapa35 X:41 Y:82
+25/06/2019 4:17:03 Comando: /TELEP YO 35 42 82
+25/06/2019 4:17:03 Transporto a AMPERE hacia Mapa35 X:42 Y:82
+25/06/2019 4:17:04 Comando: /TELEP YO 35 42 84
+25/06/2019 4:17:04 Transporto a AMPERE hacia Mapa35 X:42 Y:84
+25/06/2019 4:17:19 Comando: /TELEP YO 35 41 82
+25/06/2019 4:17:20 Transporto a AMPERE hacia Mapa35 X:41 Y:82
+25/06/2019 4:17:23 Comando: /TELEP YO 35 42 82
+25/06/2019 4:17:23 Transporto a AMPERE hacia Mapa35 X:42 Y:82
+25/06/2019 4:17:26 Comando: /TELEP YO 35 44 79
+25/06/2019 4:17:26 Transporto a AMPERE hacia Mapa35 X:44 Y:79
+25/06/2019 4:17:27 Comando: /TELEP YO 35 47 79
+25/06/2019 4:17:27 Transporto a AMPERE hacia Mapa35 X:47 Y:79
+25/06/2019 4:17:33 Comando: /TELEP YO 35 42 79
+25/06/2019 4:17:33 Transporto a AMPERE hacia Mapa35 X:42 Y:79
+25/06/2019 4:18:53 Comando: /TELEP YO 35 42 79
+25/06/2019 4:18:53 Transporto a AMPERE hacia Mapa35 X:42 Y:79
+25/06/2019 4:19:08 Comando: /TELEP YO 35 42 82
+25/06/2019 4:19:08 Transporto a AMPERE hacia Mapa35 X:42 Y:82
+25/06/2019 4:19:12 Comando: /TELEP YO 35 42 79
+25/06/2019 4:19:12 Transporto a AMPERE hacia Mapa35 X:42 Y:79
+25/06/2019 4:19:15 Comando: /TELEP YO 35 48 79
+25/06/2019 4:19:15 Transporto a AMPERE hacia Mapa35 X:48 Y:79
+25/06/2019 4:19:17 Comando: /TELEP YO 35 52 79
+25/06/2019 4:19:17 Transporto a AMPERE hacia Mapa35 X:52 Y:79
+25/06/2019 4:19:19 Comando: /TELEP YO 35 45 79
+25/06/2019 4:19:19 Transporto a AMPERE hacia Mapa35 X:45 Y:79
+25/06/2019 4:19:21 Comando: /TELEP YO 35 42 82
+25/06/2019 4:19:21 Transporto a AMPERE hacia Mapa35 X:42 Y:82
+02/07/2019 2:42:38 Se conecto con ip:189.214.2.254Hora: 02/07/2019 2:42:38
+02/07/2019 2:43:52 Se conecto con ip:189.214.2.254Hora: 02/07/2019 2:43:52
+02/07/2019 2:47:32 Se conecto con ip:189.214.2.254Hora: 02/07/2019 2:47:32
+02/07/2019 2:47:38 Comando: /ira nix
+02/07/2019 2:47:54 Comando: /telep 34 50 50
+02/07/2019 2:48:03 Comando: /telep yo 34 50 50
+02/07/2019 2:48:03 Transporto a AMPERE hacia Mapa34 X:50 Y:50
+02/07/2019 2:48:05 Comando: /TELEP YO 34 45 51
+02/07/2019 2:48:05 Transporto a AMPERE hacia Mapa34 X:45 Y:51
+02/07/2019 2:48:07 Comando: /TELEP YO 34 40 52
+02/07/2019 2:48:07 Transporto a AMPERE hacia Mapa34 X:40 Y:52
+02/07/2019 2:48:08 Comando: /TELEP YO 34 35 53
+02/07/2019 2:48:08 Transporto a AMPERE hacia Mapa34 X:35 Y:53
+02/07/2019 2:48:10 Comando: /TELEP YO 34 32 55
+02/07/2019 2:48:10 Transporto a AMPERE hacia Mapa34 X:32 Y:55
+02/07/2019 3:08:08 Se conecto con ip:189.214.2.254Hora: 02/07/2019 3:08:07
+02/07/2019 3:15:21 Se conecto con ip:189.214.2.254Hora: 02/07/2019 3:15:21
+02/07/2019 3:16:37 Se conecto con ip:189.214.2.254Hora: 02/07/2019 3:16:37
+02/07/2019 3:16:45 Comando: /TELEP YO 47 64 28
+02/07/2019 3:16:45 Transporto a AMPERE hacia Mapa47 X:64 Y:28
+02/07/2019 3:16:47 Comando: /TELEP YO 47 62 32
+02/07/2019 3:16:47 Transporto a AMPERE hacia Mapa47 X:62 Y:32
+02/07/2019 3:16:49 Comando: /TELEP YO 47 67 37
+02/07/2019 3:16:49 Transporto a AMPERE hacia Mapa47 X:67 Y:37
+02/07/2019 3:16:53 Comando: /TELEP YO 34 50 50
+02/07/2019 3:16:53 Transporto a AMPERE hacia Mapa34 X:50 Y:50
+02/07/2019 3:16:55 Comando: /TELEP YO 34 44 48
+02/07/2019 3:16:55 Transporto a AMPERE hacia Mapa34 X:44 Y:48
+02/07/2019 3:16:59 Comando: /TELEP YO 34 43 46
+02/07/2019 3:16:59 Transporto a AMPERE hacia Mapa34 X:43 Y:46
+02/07/2019 3:17:02 Comando: /TELEP YO 34 43 45
+02/07/2019 3:17:02 Transporto a AMPERE hacia Mapa34 X:43 Y:45
+02/07/2019 3:17:24 Comando: /INFO 
+02/07/2019 3:18:16 Comando: /TELEP YO 84 50 50
+02/07/2019 3:18:16 Transporto a AMPERE hacia Mapa84 X:50 Y:50
+02/07/2019 3:18:19 Comando: /TELEP YO 84 48 46
+02/07/2019 3:18:19 Transporto a AMPERE hacia Mapa84 X:48 Y:46
