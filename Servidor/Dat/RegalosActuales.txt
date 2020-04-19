@@ -1,0 +1,110 @@
+584 > Escudo Colores (+100 mana)
+600 > Ropa de montar
+977 > Alas premium
+983 > Alas premium Roja
+985 > Alas premium Oro
+986 > Curo Mundial (Solo GM)
+987 > Alas premium Rosa
+988 > Llama de Venus
+989 > Santus divina
+1002 > Piedra Cambio Faccion (donacion)
+1003 > Piedra del Héroe
+1056 > Alas premium Blackfur
+1057 > Solo GMs
+1061 > Alas del angel caido
+1062 > Alas Amanecer
+1064 > Espada Sagrada
+1069 > Santus divina (Solo clérigos)
+1187 > Botas Sagradas GM
+1188 > Espada Sagrada GM
+1189 > Armadura Sagrada GM
+1190 > Armadura Gm
+1195 > Alas premium Esmeralda
+1200 > Alas de Lucifer
+1201 > Alas de San Marcos
+1226 > Armadura Justiciera (+200 mana)
+1235 > Alas Veletus
+1237 > Alas de Colores
+1275 > Armadura Mágica Enanos (+300 Mana)
+1276 > Arco Mágico (33% ahorro flechas)
+1277 > Armadura Azul Enana (+3 Agilidad)
+1278 > Ropa Vampiro (+3 Agilidad)
+1279 > Placas de Oro (+5 Agilidad)
+1280 > Placas de Plata (+3 Agilidad)
+1281 > Placas Roja (+2 Agilidad)
+1283 > Túnica lujo Verde (+200 Mana)
+1284 > Túnica lujo azulón (+300 Mana)
+1285 > Armadura de asesino (+3 Agilidad)
+1286 > Placas Dorada enanos (+5 Agilidad)
+1287 > Escudo Cruz (+5 Fuerza)
+1289 > Escudo Celeste (+2 Fuerza)
+1290 > Escudo Bordes Dorados (+3 Agilidad)
+1291 > Escudo Negro (+3 Fuerza)
+1292 > Escudo Negro Dragón (+2 Agilidad)
+1294 > Báculo mágico (+300 Mana)
+1296 > Espada ensangrentada (+300 Mana)
+1297 > Hacha de las tinieblas (+200 Mana)
+1298 > Espada Dorada (+5 fuerza)
+1299 > Espada azul (+3 Fuerza)
+1300 > Espada dos puntas
+1302 > Casco Cubierto (+5 Agilidad)
+1303 > Casco Medieval (+2 Agilidad)
+1304 > Casco completo (+300 Mana)
+1305 > Escudo Sajón (+5 Fuerza)
+1306 > Sombrero azulado (+300 Mana)
+1307 > Espada de Cristal (5-7)
+1309 > Bastón de Supervivencia (8-15)
+1310 > Báculo de la Magia (2-8)
+1311 > Arco Mágico (50% ahorro flechas)
+1312 > Arco Mágico (75% ahorro flechas)
+1630 > Túnica mago lujo azul Hobbit (+300 Mana)
+1631 > Túnica mago lujo azul Enano (+300 Mana)
+1632 > Túnica mago lujo Verde Hobbit (+200 Mana)
+1633 > Túnica mago lujo Verde Enano (+200 Mana)
+1643 > Túnica de lujo Hobbit (+100 Mana)
+1644 > Túnica mago lujo Enano (+100 Mana)
+1651 > IRA DE DIOS
+1652 > RESURECCIÓN ANGEL
+1653 > REAVIVAR PODER
+1654 > PODER DEMONIACO
+1659 > Huevo de la gloria eterna
+1660 > Talisman de la gloria eterna
+1691 > Alas del fuego +1
+1692 > Alas del fuego +2
+1693 > Alas del fuego +3
+1694 > Alas del fuego +4
+1695 > Objeto Creacion de Alas 100%
+1696 > Pasaje para barcos
+1697 > Alas del agua +4
+1698 > Alas de tierra +4
+1699 > Alas del aire +4
+1700 > Armadura del Clan Warros (hombre)
+1701 > Armadura del Clan Warros (Mujer)
+1702 > Vale por 500k de experiencia
+1703 > Alas del agua +3
+1704 > Alas del agua +1
+1736 > Alas del agua +2
+1737 > Alas del aire +1
+1738 > Alas del aire +2
+1749 > Alas del aire +3
+1751 > Alas de tierra +1
+1752 > Alas de tierra +2
+1770 > Alas de tierra +3
+1984 > Pack 1 (Mago humano)
+1985 > Pack 1 (Mago hobbit)
+1986 > Pack 1 (Mago enano)
+1987 > Pack 2 (Paladin)
+1988 > Pack 3 (Asesino)
+1989 > Pack 4 (Arq/Cza)
+1990 > Pack 5 (clerigo)
+1991 > Pack 6 (¡PLUS!)
+1992 > Pack 7 (Guerrero )
+1993 > Pack 8 (Guerrero )
+1994 > Alas Sagradas
+2009 > Pasaje Luna de Miel
+2052 > montura Unicornio
+2053 > montura Caballo Negro
+2054 > montura Tigre
+2055 > montura Elefante
+2056 > montura dragon dorado
+2057 > montura rinosaurio

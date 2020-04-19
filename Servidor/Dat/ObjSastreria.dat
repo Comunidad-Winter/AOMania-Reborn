@@ -1,0 +1,72 @@
+[INIT]
+NumObjs=23
+
+
+[Obj1] ' noble
+Index=371
+
+[Obj2] ' Noble (Enanos)
+Index=1249
+
+[Obj3] ' Noble (Hobbits)
+Index=1250
+
+[Obj4] ' Armadura de Isis
+Index=1240
+
+[Obj5] ' Armadura de Heken
+Index=1228
+
+[Obj6] ' Armadura de Helios
+Index=801
+
+[Obj7] ' Armadura de Isis (Enanos)
+Index=1257
+
+[Obj8] ' Armadura de Heken (Enanos)
+Index=1253
+
+[Obj9] ' Armadura de Helios (Enanos)
+Index=1245
+
+[Obj10] ' Armadura de Isis (Hobbits)
+Index=1258
+
+[Obj11] ' Armadura de Heken (Hobbits)
+Index=1254
+
+[Obj12] ' Armadura de Helios (Hobbits)
+Index=1246
+
+[Obj13] ' Little Lady
+Index=1267
+
+[Obj14] ' Little Lady (Enanos)
+Index=1263
+
+[Obj15] ' Little Lady (Hobbits)
+Index=1265
+
+[Obj16] ' Túnica de Lujo Celeste
+Index=1640
+
+[Obj17] ' Túnica de Lujo Celeste (hobbit)
+Index=1641
+
+[Obj18] ' Túnica de Lujo Celeste (Enanos)
+Index=1642
+
+[Obj19] ' Túnica de Lujo Roja
+Index=1629
+
+[Obj20] ' Túnica de Lujo Roja (hobbit)
+Index=1628
+
+[Obj21] ' Túnica de Lujo Roja (enanos)
+Index=1627
+
+[Obj22] ' Sombrero de la Luz
+Index=1732
+
+[Obj23] ' Sombrero Blanco
+Index=1729
