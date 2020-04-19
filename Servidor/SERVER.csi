@@ -17,7 +17,7 @@
 16=#P0#=mb	#P1#=Rondas_UsuarioDesconecta	#P2#=AoManiaServer/TORNEOSBIN/Rondas_UsuarioDesconecta	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418195805	#P7#=0	#P8#=9	.
 17=#P0#=mb	#P1#=torneos_auto	#P2#=AoManiaServer/TORNEOSBIN/torneos_auto	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418193439	#P7#=0	#P8#=1	.
 18=#P0#=mb	#P1#=UserDie	#P2#=AoManiaServer/UsUaRiOs/UserDie	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418140201	#P7#=0	#P8#=164	.
-19=#P0#=mb	#P1#=CloseSocket	#P2#=AoManiaServer/TCP/CloseSocket	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418140150	#P7#=0	#P8#=31	.
+19=#P0#=mb	#P1#=CloseSocket	#P2#=AoManiaServer/TCP/CloseSocket	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200419213935	#P7#=0	#P8#=3	.
 20=#P0#=mb	#P1#=HandleData	#P2#=AoManiaServer/TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418022431	#P7#=0	#P8#=331	.
 21=#P0#=mb	#P1#=OpenNPC	#P2#=AoManiaServer/NPCs/OpenNPC	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418021036	#P7#=0	#P8#=1	.
 22=#P0#=mb	#P1#=CargarMapa	#P2#=AoManiaServer/ES/CargarMapa	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418021013	#P7#=0	#P8#=105	.
@@ -28,7 +28,7 @@
 27=#P0#=mb	#P1#=CargarInvent	#P2#=AoManiaServer/InvNpc/CargarInvent	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418020341	#P7#=0	#P8#=7	.
 28=#P0#=mb	#P1#=LeerNpc	#P2#=AoManiaServer/NPCs/LeerNpc	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418014726	#P7#=0	#P8#=3	.
 29=#P0#=mb	#P1#=CargaNpcsDat	#P2#=AoManiaServer/General/CargaNpcsDat	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200418014223	#P7#=0	#P8#=2	.
-30=#P0#=mb	#P1#=ConnectUser	#P2#=AoManiaServer/TCP/ConnectUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200417204714	#P7#=0	#P8#=385	.
+30=#P0#=mb	#P1#=ConnectUser	#P2#=AoManiaServer/TCP/ConnectUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200419214104	#P7#=0	#P8#=3	.
 31=#P0#=mb	#P1#=BanIpGuardar	#P2#=AoManiaServer/Admin/BanIpGuardar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200417184038	#P7#=0	#P8#=1	.
 32=#P0#=mb	#P1#=ConnectNewUser	#P2#=AoManiaServer/TCP/ConnectNewUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200417114425	#P7#=0	#P8#=158	.
 33=#P0#=mb	#P1#=DarCuerpoYCabeza	#P2#=AoManiaServer/TCP/DarCuerpoYCabeza	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200417114352	#P7#=0	#P8#=109	.
@@ -58,7 +58,7 @@
 57=#P0#=mb	#P1#=SpawnNpc	#P2#=AoManiaServer/NPCs/SpawnNpc	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200414061823	#P7#=0	#P8#=15	.
 58=#P0#=mb	#P1#=DumpTables	#P2#=AoManiaServer/SecurityIp/DumpTables	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200413204347	#P7#=0	#P8#=5	.
 59=#P0#=mb	#P1#=SendUserMiniStatsTxt	#P2#=AoManiaServer/UsUaRiOs/SendUserMiniStatsTxt	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200413030301	#P7#=0	#P8#=1	.
-60=#P0#=mb	#P1#=LoadGMs	#P2#=AoManiaServer/ModGM/LoadGMs	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200412232818	#P7#=0	#P8#=0	.
+60=#P0#=mb	#P1#=LoadGMs	#P2#=AoManiaServer/ModGM/LoadGMs	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200412232818	#P7#=0	#P8#=2	.
 61=#P0#=mb	#P1#=ComandosPermitidos	#P2#=AoManiaServer/ModGM/ComandosPermitidos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200412121022	#P7#=0	#P8#=32	.
 62=#P0#=mb	#P1#=ReadField	#P2#=AoManiaServer/General/ReadField	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200412105659	#P7#=0	#P8#=8	.
 63=#P0#=mb	#P1#=Main	#P2#=AoManiaServer/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200412091628	#P7#=0	#P8#=40	.

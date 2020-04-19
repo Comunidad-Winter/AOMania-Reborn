@@ -1,12 +1,12 @@
 [History]
 1=#P0#=mb	#P1#=StopMidi	#P2#=AoManiaCliente/clsAudio/StopMidi	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200419184719	#P7#=0	#P8#=7	.
-2=#P0#=mb	#P1#=PlayMIDI	#P2#=AoManiaCliente/clsAudio/PlayMIDI	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200419184633	#P7#=0	#P8#=1	.
-3=#P0#=mb	#P1#=picInv_MouseDown	#P2#=AoManiaCliente/frmMain/picInv_MouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419184543	#P7#=0	#P8#=29	.
-4=#P0#=mb	#P1#=Image13_Click	#P2#=AoManiaCliente/frmMain/Image13_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419184523	#P7#=0	#P8#=3	.
-5=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaCliente/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415175542	#P7#=0	#P8#=5	.
-6=#P0#=mb	#P1#=Form_MouseUp	#P2#=AoManiaCliente/frmMain/Form_MouseUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415175216	#P7#=0	#P8#=11	.
-7=#P0#=mb	#P1#=Form_MouseDown	#P2#=AoManiaCliente/frmMain/Form_MouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415175135	#P7#=0	#P8#=2	.
-8=#P0#=mb	#P1#=Form_KeyUp	#P2#=AoManiaCliente/frmMain/Form_KeyUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419184701	#P7#=0	#P8#=12	.
+2=#P0#=mb	#P1#=Form_KeyUp	#P2#=AoManiaCliente/frmMain/Form_KeyUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419184701	#P7#=0	#P8#=12	.
+3=#P0#=mb	#P1#=PlayMIDI	#P2#=AoManiaCliente/clsAudio/PlayMIDI	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200419184633	#P7#=0	#P8#=1	.
+4=#P0#=mb	#P1#=picInv_MouseDown	#P2#=AoManiaCliente/frmMain/picInv_MouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419184543	#P7#=0	#P8#=29	.
+5=#P0#=mb	#P1#=Image13_Click	#P2#=AoManiaCliente/frmMain/Image13_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419184523	#P7#=0	#P8#=3	.
+6=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaCliente/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415175542	#P7#=0	#P8#=5	.
+7=#P0#=mb	#P1#=Form_MouseUp	#P2#=AoManiaCliente/frmMain/Form_MouseUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415175216	#P7#=0	#P8#=11	.
+8=#P0#=mb	#P1#=Form_MouseDown	#P2#=AoManiaCliente/frmMain/Form_MouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415175135	#P7#=0	#P8#=2	.
 9=#P0#=mb	#P1#=AntiFLOOD_Timer	#P2#=AoManiaCliente/frmMain/AntiFLOOD_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415174644	#P7#=0	#P8#=-2	.
 10=#P0#=mb	#P1#=PasswordTxt_KeyDown	#P2#=AoManiaCliente/frmConnect/PasswordTxt_KeyDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200412073315	#P7#=0	#P8#=1	.
 11=#P0#=mb	#P1#=Winsock1_Connect	#P2#=AoManiaCliente/frmConnect/Winsock1_Connect	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200412073228	#P7#=0	#P8#=3	.
