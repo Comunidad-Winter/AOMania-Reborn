@@ -993,7 +993,7 @@ Private Sub GameTimer_Timer()
                                         Call Sanar(iUserIndex, bEnviarStats, SanaIntervaloSinDescansar)
 
                                         If bEnviarStats Then
-                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
+                                            Call SendData(SendTarget.toindex, iUserIndex, 0, "ASH" & .Stats.MinHP)
                                             bEnviarStats = False
                                         End If
                                       
@@ -1002,7 +1002,7 @@ Private Sub GameTimer_Timer()
                                       End If
 
                                         If bEnviarStats Then
-                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
+                                            Call SendData(SendTarget.toindex, iUserIndex, 0, "ASS" & .Stats.MinSta)
                                             bEnviarStats = False
                                         End If
 
@@ -1012,7 +1012,7 @@ Private Sub GameTimer_Timer()
                                         Call Sanar(iUserIndex, bEnviarStats, SanaIntervaloDescansar)
 
                                         If bEnviarStats Then
-                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
+                                            Call SendData(SendTarget.toindex, iUserIndex, 0, "ASH" & .Stats.MinHP)
                                             bEnviarStats = False
                                         End If
                                        
@@ -1021,14 +1021,14 @@ Private Sub GameTimer_Timer()
                                         End If
 
                                         If bEnviarStats Then
-                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
+                                            Call SendData(SendTarget.toindex, iUserIndex, 0, "ASS" & .Stats.MinSta)
                                             bEnviarStats = False
                                             End If
 
                                         'termina de descansar automaticamente
                                         If .Stats.MaxHP = .Stats.MinHP And .Stats.MaxSta = .Stats.MinSta Then
-                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "DOK")
-                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "||Has terminado de descansar." & FONTTYPE_INFO)
+                                            Call SendData(SendTarget.toindex, iUserIndex, 0, "DOK")
+                                            Call SendData(SendTarget.toindex, iUserIndex, 0, "||Has terminado de descansar." & FONTTYPE_INFO)
                                             .flags.Descansar = False
 
                                         End If
@@ -1045,7 +1045,7 @@ Private Sub GameTimer_Timer()
                                     Call Sanar(iUserIndex, bEnviarStats, SanaIntervaloSinDescansar)
 
                                     If bEnviarStats Then
-                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
+                                        Call SendData(SendTarget.toindex, iUserIndex, 0, "ASH" & .Stats.MinHP)
                                         bEnviarStats = False
 
                                     End If
@@ -1055,7 +1055,7 @@ Private Sub GameTimer_Timer()
                                    End If
                 
                                     If bEnviarStats Then
-                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
+                                        Call SendData(SendTarget.toindex, iUserIndex, 0, "ASS" & .Stats.MinSta)
                                         bEnviarStats = False
                                     End If
                                     
@@ -1066,21 +1066,21 @@ Private Sub GameTimer_Timer()
                                     Call Sanar(iUserIndex, bEnviarStats, SanaIntervaloDescansar)
 
                                     If bEnviarStats Then
-                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
+                                        Call SendData(SendTarget.toindex, iUserIndex, 0, "ASH" & .Stats.MinHP)
                                         bEnviarStats = False
                                     End If
 
                                     Call RecStamina(iUserIndex, bEnviarStats, StaminaIntervaloDescansar)
 
                                     If bEnviarStats Then
-                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
+                                        Call SendData(SendTarget.toindex, iUserIndex, 0, "ASS" & .Stats.MinSta)
                                         bEnviarStats = False
                                     End If
 
                                     'termina de descansar automaticamente
                                     If .Stats.MaxHP = .Stats.MinHP And .Stats.MaxSta = .Stats.MinSta Then
-                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "DOK")
-                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "||Has terminado de descansar." & FONTTYPE_INFO)
+                                        Call SendData(SendTarget.toindex, iUserIndex, 0, "DOK")
+                                        Call SendData(SendTarget.toindex, iUserIndex, 0, "||Has terminado de descansar." & FONTTYPE_INFO)
                                         .flags.Descansar = False
 
                                     End If
@@ -1485,7 +1485,7 @@ Private Sub tGranPoder_Timer()
         Else
          Call SendData(SendTarget.ToAll, 0, 0, "||" & UserList(GranPoder.UserIndex).Name & " poseedor del Aura de los Heroes!!!. En el mapa " & UserList(GranPoder.UserIndex).pos.Map & "." & FONTTYPE_GUERRA)
          Call SendData(SendTarget.ToPCArea, GranPoder.UserIndex, UserList(GranPoder.UserIndex).pos.Map, "CFX" & UserList(GranPoder.UserIndex).char.CharIndex & "," & FX_Poder & "," & 1)
-           Call SendData(SendTarget.ToIndex, GranPoder.UserIndex, 0, "TW" & Sound_Poder)
+           Call SendData(SendTarget.toindex, GranPoder.UserIndex, 0, "TW" & Sound_Poder)
         End If
     End If
     
@@ -2034,28 +2034,39 @@ Private Sub torneos_Timer()
 
     Select Case xao
     
-        Case 1
-           RondaTorneo = 1
-
-        Case 2
+        Case 19
+           RondaTorneo = RandomNumber(1, 6)
+           
+        Case 20
             Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario)" & FONTTYPE_GUILD)
             Call torneos_auto(RondaTorneo)
-        Case 3
+            
+        Case 21
             Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 9 minutos." & FONTTYPE_GUILD)
-
-        Case 4
-            Call SendData(SendTarget.ToAll, 0, 0, "||Torneo> En 1 minutos se realizará un torneo automatico." & FONTTYPE_GUILD)
-
-        'Case 5
-        '    Call torneos_auto("1")
-
-        Case 96
+        
+        Case 22
+            Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 8 minutos." & FONTTYPE_GUILD)
+        
+        Case 24
+            Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 6 minutos." & FONTTYPE_GUILD)
+            
+       Case 25
+            Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 5 minutos." & FONTTYPE_GUILD)
+       
+       Case 27
+            Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 3 minutos." & FONTTYPE_GUILD)
+    
+       Case 28
+            Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 2 minutos." & FONTTYPE_GUILD)
+            
+            
+        Case 30
 
             If Torneo_Esperando = True Then
                 Call Torneoauto_Cancela
-                xao = 2
+                xao = 0
             Else
-                xao = 2
+                xao = 0
 
             End If
 
@@ -2082,7 +2093,7 @@ Private Sub tPiqueteC_Timer()
 
             If MapData(UserList(i).pos.Map, UserList(i).pos.X, UserList(i).pos.Y).Trigger = eTrigger.ANTIPIQUETE Then
                 UserList(i).Counters.PiqueteC = UserList(i).Counters.PiqueteC + 1
-                Call SendData(SendTarget.ToIndex, i, 0, "Z39")
+                Call SendData(SendTarget.toindex, i, 0, "Z39")
 
                 If UserList(i).Counters.PiqueteC > 23 Then
                     UserList(i).Counters.PiqueteC = 0

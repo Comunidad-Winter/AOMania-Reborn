@@ -658,52 +658,8 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Case "/PARTICIPAR"
            
            Call CommandParticipar(UserIndex)
+           
            Exit Sub
-
-            If Not ValidMap(UserList(UserIndex).pos.Map) = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Solo puedes ir a eventos estando en una ciudad!." & FONTTYPE_WARNING)
-                Exit Sub
-
-            End If
-            
-            If UserList(UserIndex).flags.Invisible = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes ir a eventos estando invisible!." & FONTTYPE_WARNING)
-                Exit Sub
-
-            End If
-      
-            If UserList(UserIndex).flags.Oculto = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes ir a eventos estando invisible!." & FONTTYPE_WARNING)
-                Exit Sub
-
-            End If
-
-            If UserList(UserIndex).flags.EstaDueleando1 = True Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes ir a torneos estando plantes!." & FONTTYPE_WARNING)
-                Exit Sub
-
-            End If
-
-            If UserList(UserIndex).flags.Muerto = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas muerto!!!" & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            If UserIndex = Team.Pj1 Or UserIndex = Team.Pj2 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes participar en eventos si esperas retos!!!" & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-            
-            If UserList(UserIndex).Stats.ELV < lvlTorneo Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Debes ser lvl " & lvlTorneo & " o mas para entrar al torneo!" & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-       
-            Call Torneos_Entra(UserIndex)
-            Exit Sub
 
        Case "/GUERRA"
         
