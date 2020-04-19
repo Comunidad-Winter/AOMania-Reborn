@@ -1420,6 +1420,30 @@ Private Sub mnuRevivir_Click()
 
 End Sub
 
+Private Sub mnuround1user2_Click()
+      Call SendData("/TORNEOSAUTOMATICOS 1")
+End Sub
+
+Private Sub mnuround2user4_Click()
+  Call SendData("/TORNEOSAUTOMATICOS 2")
+End Sub
+
+Private Sub mnuround3user8_Click()
+   Call SendData("/TORNEOSAUTOMATICOS 3")
+End Sub
+
+Private Sub mnuround4user16_Click()
+   Call SendData("/TORNEOSAUTOMATICOS 4")
+End Sub
+
+Private Sub mnuround5user32_Click()
+   Call SendData("/TORNEOSAUTOMATICOS 5")
+End Sub
+
+Private Sub mnuround6user64_Click()
+   Call SendData("/TORNEOSAUTOMATICOS 6")
+End Sub
+
 Private Sub mnusavepjs_Click()
     Call SendData("/Grabar")
 
