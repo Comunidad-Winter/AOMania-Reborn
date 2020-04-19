@@ -1,0 +1,8 @@
+[History]
+1=#P0#=mb	#P1#=ImgGuardar_Click	#P2#=AoMania/FrmMain/ImgGuardar_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190609134910	#P7#=0	#P8#=7	.
+2=#P0#=mb	#P1#=ImgSalir_Click	#P2#=AoMania/FrmMain/ImgSalir_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190609125748	#P7#=0	#P8#=1	.
+3=#P0#=mb	#P1#=ImgBat_Click	#P2#=AoMania/FrmMain/ImgBat_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190601023726	#P7#=0	#P8#=1	.
+4=#P0#=mb	#P1#=LeerSetup	#P2#=AoMania/Mod_General/LeerSetup	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190530152312	#P7#=0	#P8#=17	.
+5=#P0#=mb	#P1#=Form_Load	#P2#=AoMania/FrmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190530151534	#P7#=0	#P8#=-1	.
+6=#P0#=mb	#P1#=FileExist	#P2#=AoMania/Declaraciones/FileExist	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190530150414	#P7#=0	#P8#=7	.
+7=#P0#=mb	#P1#=GetVar	#P2#=AoMania/Declaraciones/GetVar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190530143640	#P7#=0	#P8#=-2	.

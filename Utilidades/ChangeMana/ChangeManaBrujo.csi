@@ -1,0 +1,8 @@
+[History]
+1=#P0#=mb	#P1#=Form_Load	#P2#=ChangeManaBrujos/Form1/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200408151759	#P7#=0	#P8#=1	.
+2=#P0#=mb	#P1#=LoadFile_Click	#P2#=ChangeManaBrujos/Form1/LoadFile_Click	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200408162942	#P7#=0	#P8#=15	.
+3=#P0#=mb	#P1#=ReadField2	#P2#=ChangeManaBrujos/General/ReadField2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200408155504	#P7#=0	#P8#=0	.
+4=#P0#=mb	#P1#=ReadField	#P2#=ChangeManaBrujos/General/ReadField	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200408164343	#P7#=0	#P8#=-1	.
+5=#P0#=mb	#P1#=ChangeMana_Click	#P2#=ChangeManaBrujos/Form1/ChangeMana_Click	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200408170602	#P7#=0	#P8#=34	.
+6=#P0#=mb	#P1#=LogCreditos	#P2#=ChangeManaBrujos/General/LogCreditos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200408164355	#P7#=0	#P8#=0	.
+7=#P0#=mb	#P1#=LogCambios	#P2#=ChangeManaBrujos/General/LogCambios	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200408170229	#P7#=0	#P8#=5	.

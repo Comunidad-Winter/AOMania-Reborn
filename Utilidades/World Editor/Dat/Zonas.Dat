@@ -1,0 +1,26 @@
+[MAIN]
+NumZonas=4
+
+[Zona1]
+X=47
+Y=59
+MAP=119
+Nombre=El Dugeun Veril
+
+[Zona2]
+X=47
+Y=90
+MAP=147
+Nombre=Las Afueras de Icebill
+
+[Zona3]
+X=20
+Y=14
+MAP=138
+Nombre=Ciudad Esperanza
+
+[Zona4]
+X=33
+Y=22
+MAP=131
+Nombre=Puerto de Arghâl

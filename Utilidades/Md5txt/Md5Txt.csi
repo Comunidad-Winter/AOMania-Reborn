@@ -1,0 +1,7 @@
+[History]
+1=#P0#=mb	#P1#=Timer1_Timer	#P2#=MD5txt/frmMain/Timer1_Timer	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190613225245	#P7#=0	#P8#=23	.
+2=#P0#=mb	#P1#=Command1_Click	#P2#=MD5txt/ViewHDD/Command1_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190612230846	#P7#=0	#P8#=2	.
+3=#P0#=mb	#P1#=Command2_Click	#P2#=MD5txt/ViewHDD/Command2_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190612230758	#P7#=0	#P8#=1	.
+4=#P0#=mb	#P1#=Command1_Click	#P2#=MD5txt/frmMain/Command1_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190613220017	#P7#=0	#P8#=2	.
+5=#P0#=mb	#P1#=Disco	#P2#=MD5txt/General/Disco	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190612214844	#P7#=0	#P8#=-2	.
+6=#P0#=mb	#P1#=Form_Load	#P2#=MD5txt/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190613220007	#P7#=0	#P8#=-2	.
