@@ -55,6 +55,8 @@ Attribute VB_Exposed = False
 '           AddKey method to add key into the refered main node.
 '           DumpFile method to dump the data into a file.
 
+'test seth
+
 Option Explicit
 Option Base 0
 
