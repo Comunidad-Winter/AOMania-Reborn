@@ -797,7 +797,7 @@ Public Function PlayMIDI(Optional ByVal File As String = vbNullString, Optional 
     '***************************************************
     On Error GoTo ErrHandler
 
-    If CurrentMusicFile = File Then Exit Function ' No cargar nuevamnete el tema que ya estaba
+  '  If CurrentMusicFile = File Then Exit Function ' No cargar nuevamnete el tema que ya estaba
 
     If LenB(File) > 0 Then CurrentMusicFile = File
         
