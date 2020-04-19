@@ -1,4 +1,6 @@
 Attribute VB_Name = "General"
+'test seth
+
 Option Explicit
 
 Global LeerNPCs As New clsIniManager
@@ -922,11 +924,11 @@ Sub Main()
     Unload frmCargando
 
     'Log
-    Dim N As Integer
-    N = FreeFile
-    Open App.Path & "\logs\Main.log" For Append Shared As #N
-    Print #N, Date & " " & Time & " server iniciado " & App.Major & "."; App.Minor & "." & App.Revision
-    Close #N
+    Dim n As Integer
+    n = FreeFile
+    Open App.Path & "\logs\Main.log" For Append Shared As #n
+    Print #n, Date & " " & Time & " server iniciado " & App.Major & "."; App.Minor & "." & App.Revision
+    Close #n
 
     'Ocultar
     If HideMe = 1 Then
@@ -1396,11 +1398,11 @@ Sub Restart()
     If frmMain.Visible Then frmMain.txStatus.caption = "Escuchando conexiones entrantes ..."
 
     'Log it
-    Dim N As Integer
-    N = FreeFile
-    Open App.Path & "\logs\Main.log" For Append Shared As #N
-    Print #N, Date & " " & Time & " servidor reiniciado."
-    Close #N
+    Dim n As Integer
+    n = FreeFile
+    Open App.Path & "\logs\Main.log" For Append Shared As #n
+    Print #n, Date & " " & Time & " servidor reiniciado."
+    Close #n
 
     'Ocultar
 
@@ -1898,17 +1900,17 @@ Sub PasarSegundo()
         Encuesta.Tiempo = Encuesta.Tiempo + 1
 
         If Encuesta.Tiempo = 45 Then
-            Call SendData(SendTarget.toall, 0, 0, "||Faltan 15 segundos para terminar la encuesta." & FONTTYPE_GUILD)
+            Call SendData(SendTarget.ToAll, 0, 0, "||Faltan 15 segundos para terminar la encuesta." & FONTTYPE_GUILD)
         ElseIf Encuesta.Tiempo = 60 Then
-            Call SendData(SendTarget.toall, 0, 0, "||Encuesta: Terminada con éxito" & FONTTYPE_TALK)
-            Call SendData(SendTarget.toall, 0, 0, "||SI: " & Encuesta.EncSI & " / NO: " & Encuesta.EncNO & FONTTYPE_TALK)
+            Call SendData(SendTarget.ToAll, 0, 0, "||Encuesta: Terminada con éxito" & FONTTYPE_TALK)
+            Call SendData(SendTarget.ToAll, 0, 0, "||SI: " & Encuesta.EncSI & " / NO: " & Encuesta.EncNO & FONTTYPE_TALK)
 
             If Encuesta.EncNO < Encuesta.EncSI Then
-                Call SendData(SendTarget.toall, 0, 0, "||Gana: SI" & FONTTYPE_GUILD)
+                Call SendData(SendTarget.ToAll, 0, 0, "||Gana: SI" & FONTTYPE_GUILD)
             ElseIf Encuesta.EncSI < Encuesta.EncNO Then
-                Call SendData(SendTarget.toall, 0, 0, "||Gana: NO" & FONTTYPE_GUILD)
+                Call SendData(SendTarget.ToAll, 0, 0, "||Gana: NO" & FONTTYPE_GUILD)
             ElseIf Encuesta.EncNO = Encuesta.EncSI Then
-                Call SendData(SendTarget.toall, 0, 0, "||Encuesta empatada." & FONTTYPE_GUILD)
+                Call SendData(SendTarget.ToAll, 0, 0, "||Encuesta empatada." & FONTTYPE_GUILD)
 
             End If
 
@@ -1930,9 +1932,9 @@ Sub PasarSegundo()
 
     If CuentaRegresiva > 0 Then
         If CuentaRegresiva > 1 Then
-            Call SendData(SendTarget.toall, 0, 0, "||En..." & CuentaRegresiva - 1 & FONTTYPE_GUILD)
+            Call SendData(SendTarget.ToAll, 0, 0, "||En..." & CuentaRegresiva - 1 & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.toall, 0, 0, "||YA!!!!" & FONTTYPE_GUILD)
+            Call SendData(SendTarget.ToAll, 0, 0, "||YA!!!!" & FONTTYPE_GUILD)
 
         End If
 
@@ -1965,8 +1967,8 @@ Sub GuardarUsuarios(Optional ByVal DoBackUp As Boolean = True)
     If DoBackUp Then
         haciendoBK = True
     
-        Call SendData(SendTarget.toall, 0, 0, "BKW")
-        Call SendData(SendTarget.toall, 0, 0, "||°¨¨°(_.·´¯`·«¤°GUARDANDO PERSONAJES°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldCarga)
+        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
+        Call SendData(SendTarget.ToAll, 0, 0, "||°¨¨°(_.·´¯`·«¤°GUARDANDO PERSONAJES°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldCarga)
 
     End If
 
@@ -1982,8 +1984,8 @@ Sub GuardarUsuarios(Optional ByVal DoBackUp As Boolean = True)
     Next i
 
     If DoBackUp Then
-        Call SendData(SendTarget.toall, 0, 0, "||°¨¨°(_.·´¯`·«¤°PERSONAJES GUARDADOS°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldSave)
-        Call SendData(SendTarget.toall, 0, 0, "BKW")
+        Call SendData(SendTarget.ToAll, 0, 0, "||°¨¨°(_.·´¯`·«¤°PERSONAJES GUARDADOS°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldSave)
+        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
 
         haciendoBK = False
 
@@ -2124,7 +2126,7 @@ End Sub
           
      If CountTC = 25 Then CountTC = 1
      
-     Call SendData(SendTarget.toall, 0, 0, "H" & CountTC)
+     Call SendData(SendTarget.ToAll, 0, 0, "H" & CountTC)
      
      Call DayChange(CountTC)
      
@@ -2132,7 +2134,7 @@ End Sub
 
 Sub DayChange(ByVal Hora As Byte)
         
-        Dim N As Integer
+        Dim n As Integer
         Dim UserIndex As Integer
         
         CountTC = Hora
@@ -2140,93 +2142,93 @@ Sub DayChange(ByVal Hora As Byte)
         'Noche
         If Hora >= 1 And Hora <= 7 Then
            
-           Call SendData(SendTarget.toall, 0, 0, "TW53")
+           Call SendData(SendTarget.ToAll, 0, 0, "TW53")
            
            If NocheLicantropo = False Then
                NocheLicantropo = True
-               For N = 1 To NumUsers
+               For n = 1 To NumUsers
                    
-                   UserIndex = N
+                   UserIndex = n
                    
                    If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
                        UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
                           Call DarPoderLicantropo(UserIndex)
                    End If
                    
-               Next N
+               Next n
            End If
            
         End If
         
         'Amanecer
         If Hora >= 8 And Hora <= 12 Then
-           Call SendData(SendTarget.toall, 0, 0, "TW55")
+           Call SendData(SendTarget.ToAll, 0, 0, "TW55")
            If NocheLicantropo = True Then
                NocheLicantropo = False
-               For N = 1 To NumUsers
+               For n = 1 To NumUsers
                    
-                   UserIndex = N
+                   UserIndex = n
                    
                    If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
                        UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
                           Call QuitarPoderLicantropo(UserIndex)
                    End If
                    
-               Next N
+               Next n
            End If
         End If
         
         'Día
         If Hora >= 13 And Hora <= 18 Then
-           Call SendData(SendTarget.toall, 0, 0, "TW55")
+           Call SendData(SendTarget.ToAll, 0, 0, "TW55")
            If NocheLicantropo = True Then
                NocheLicantropo = False
-               For N = 1 To NumUsers
+               For n = 1 To NumUsers
                    
-                   UserIndex = N
+                   UserIndex = n
                    
                    If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
                        UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
                           Call QuitarPoderLicantropo(UserIndex)
                    End If
                    
-               Next N
+               Next n
            End If
         End If
         
         'Tarde
         If Hora >= 19 And Hora <= 21 Then
-            Call SendData(SendTarget.toall, 0, 0, "TW55")
+            Call SendData(SendTarget.ToAll, 0, 0, "TW55")
             If NocheLicantropo = True Then
                NocheLicantropo = False
-               For N = 1 To NumUsers
+               For n = 1 To NumUsers
                    
-                   UserIndex = N
+                   UserIndex = n
                    
                    If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
                        UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
                           Call QuitarPoderLicantropo(UserIndex)
                    End If
                    
-               Next N
+               Next n
            End If
         End If
         
         'Noche
         If Hora >= 22 And Hora <= 24 Then
-            Call SendData(SendTarget.toall, 0, 0, "TW53")
+            Call SendData(SendTarget.ToAll, 0, 0, "TW53")
             If NocheLicantropo = False Then
                NocheLicantropo = True
-               For N = 1 To NumUsers
+               For n = 1 To NumUsers
                    
-                   UserIndex = N
+                   UserIndex = n
                    
                    If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
                        UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
                           Call DarPoderLicantropo(UserIndex)
                    End If
                    
-               Next N
+               Next n
            End If
         End If
         
