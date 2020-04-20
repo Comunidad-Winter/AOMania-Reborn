@@ -1503,6 +1503,8 @@ Public Type User
     ComUsu As tCOmercioUsuario
     '[/Alejo]
     
+    Asedio As flagsAsedio
+    
     EmpoCont As Byte
     
     GuildIndex As Integer   'puntero al array global de guilds
@@ -1689,6 +1691,9 @@ Public Type npc
     Stats As NPCStats
     flags As NPCFlags
     Contadores As NpcCounters
+    
+    MurallaEquipo As Byte
+    MurallaIndex As Byte
     
     Invent As Inventario
     CanAttack As Byte

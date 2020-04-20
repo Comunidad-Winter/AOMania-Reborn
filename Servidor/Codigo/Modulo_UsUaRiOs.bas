@@ -18,10 +18,10 @@ Sub ActStats(ByVal VictimIndex As Integer, ByVal AttackerIndex As Integer)
     If UserList(AttackerIndex).Stats.Exp > MAXEXP Then UserList(AttackerIndex).Stats.Exp = MAXEXP
 
     'Lo mata
-    Call SendData(SendTarget.toindex, AttackerIndex, 0, "||Has matado a " & UserList(VictimIndex).Name & "!" & FONTTYPE_Motd4)
-    Call SendData(SendTarget.toindex, AttackerIndex, 0, "||Has ganado " & DaExp & " puntos de experiencia." & FONTTYPE_Motd4)
+    Call SendData(SendTarget.toIndex, AttackerIndex, 0, "||Has matado a " & UserList(VictimIndex).Name & "!" & FONTTYPE_Motd4)
+    Call SendData(SendTarget.toIndex, AttackerIndex, 0, "||Has ganado " & DaExp & " puntos de experiencia." & FONTTYPE_Motd4)
       
-    Call SendData(SendTarget.toindex, VictimIndex, 0, "||" & UserList(AttackerIndex).Name & " te ha matado!" & FONTTYPE_Motd4)
+    Call SendData(SendTarget.toIndex, VictimIndex, 0, "||" & UserList(AttackerIndex).Name & " te ha matado!" & FONTTYPE_Motd4)
 
     If TriggerZonaPelea(VictimIndex, AttackerIndex) <> TRIGGER6_PERMITE Then
         If (Not Criminal(VictimIndex)) Then
@@ -111,6 +111,60 @@ Sub ChangeUserChar(ByVal sndRoute As Byte, _
                    ByVal Casco As Integer, _
                    ByVal Alas As Integer)
     '[/MaTeO 9]
+    
+    If UserList(UserIndex).Asedio.Participando Then
+        If UserList(UserIndex).Raza = "Humano" Or _
+           UserList(UserIndex).Raza = "Elfo" Or _
+           UserList(UserIndex).Raza = "Elfo Oscuro" Then
+                If UCase$(UserList(UserIndex).Clase) = "MAGO" Then
+                    Select Case UserList(UserIndex).Asedio.Team
+                        Case Equipos.Azul
+                             Body = 516
+                        Case Equipos.Negro
+                             Body = 508
+                        Case Equipos.Rojo
+                             Body = 520
+                        Case Equipos.Verde
+                             Body = 512
+                    End Select
+                Else
+                    Select Case UserList(UserIndex).Asedio.Team
+                        Case Equipos.Azul
+                             Body = 514
+                        Case Equipos.Negro
+                             Body = 506
+                        Case Equipos.Rojo
+                             Body = 518
+                        Case Equipos.Verde
+                             Body = 510
+                    End Select
+                End If
+        Else
+                If UCase$(UserList(UserIndex).Clase) = "MAGO" Then
+                    Select Case UserList(UserIndex).Asedio.Team
+                        Case Equipos.Azul
+                             Body = 515
+                        Case Equipos.Negro
+                             Body = 507
+                        Case Equipos.Rojo
+                             Body = 519
+                        Case Equipos.Verde
+                             Body = 511
+                    End Select
+                Else
+                    Select Case UserList(UserIndex).Asedio.Team
+                        Case Equipos.Azul
+                             Body = 517
+                        Case Equipos.Negro
+                             Body = 509
+                        Case Equipos.Rojo
+                             Body = 521
+                        Case Equipos.Verde
+                             Body = 513
+                    End Select
+                End If
+        End If
+    End If
 
     UserList(UserIndex).char.Body = Body
     UserList(UserIndex).char.Head = Head
@@ -139,7 +193,7 @@ Sub ChangeUserChar(ByVal sndRoute As Byte, _
 End Sub
 
 Sub EnviarSubirNivel(ByVal UserIndex As Integer, ByVal Puntos As Integer)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "SUNI" & Puntos)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "SUNI" & Puntos)
 
 End Sub
 
@@ -151,7 +205,7 @@ Sub EnviarSkills(ByVal UserIndex As Integer)
         cad = cad & UserList(UserIndex).Stats.UserSkills(i) & ","
     Next i
     
-    SendData SendTarget.toindex, UserIndex, 0, "SKILLS" & cad$
+    SendData SendTarget.toIndex, UserIndex, 0, "SKILLS" & cad$
 
 End Sub
 
@@ -175,7 +229,7 @@ Sub EnviarFama(ByVal UserIndex As Integer)
     
     cad = cad & UserList(UserIndex).Reputacion.Promedio
     
-    SendData SendTarget.toindex, UserIndex, 0, "FAMA" & cad
+    SendData SendTarget.toIndex, UserIndex, 0, "FAMA" & cad
 
 End Sub
 
@@ -199,7 +253,7 @@ Sub EnviarFamaGM(ByVal UserIndex As Integer, ByVal rData As Integer)
     
     cad = cad & UserList(rData).Reputacion.Promedio
     
-    SendData SendTarget.toindex, UserIndex, 0, "FAMA" & cad
+    SendData SendTarget.toIndex, UserIndex, 0, "FAMA" & cad
 
 End Sub
 
@@ -210,7 +264,7 @@ Sub EnviarAtrib(ByVal UserIndex As Integer)
     For i = 1 To NUMATRIBUTOS
         cad = cad & UserList(UserIndex).Stats.UserAtributos(i) & ","
     Next
-    Call SendData(SendTarget.toindex, UserIndex, 0, "ATR" & cad)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "ATR" & cad)
 
 End Sub
 
@@ -221,7 +275,7 @@ Sub EnviarAtribGM(ByVal UserIndex As Integer, ByVal rData As Integer)
     For i = 1 To NUMATRIBUTOS
         cad = cad & UserList(rData).Stats.UserAtributos(i) & ","
     Next
-    Call SendData(SendTarget.toindex, UserIndex, 0, "ATR" & cad)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "ATR" & cad)
 
 End Sub
 
@@ -242,7 +296,7 @@ Public Sub EnviarMiniEstadisticasGM(ByVal UserIndex As Integer, ByVal rData As I
     
 
     With UserList(rData)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "MEST" & .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & _
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "MEST" & .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & _
                 .Stats.UsuariosMatados & "," & .Stats.NPCsMuertos & "," & .Clase & "," & .Counters.Pena & "," & .Raza & "," & .Clan.PuntosClan & "," & .Name & "," & _
                 .Genero & "," & .Stats.PuntosRetos & "," & .Stats.PuntosTorneo & "," & .Stats.PuntosDuelos & "," & .Stats.ELV & "," & .Stats.ELU & "," & .Stats.Exp & "," & _
                 .Stats.MinHP & "," & .Stats.MaxHP & "," & .Stats.MinMAN & "," & .Stats.MaxMAN & "," & .Stats.MinSta & "," & .Stats.MaxSta & "," & .Stats.GLD & "," & _
@@ -270,7 +324,7 @@ Public Sub EnviarMiniEstadisticas(ByVal UserIndex As Integer)
     
 
     With UserList(UserIndex)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "MEST" & .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & _
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "MEST" & .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & _
                 .Stats.UsuariosMatados & "," & .Stats.NPCsMuertos & "," & .Clase & "," & .Counters.Pena & "," & .Raza & "," & .Clan.PuntosClan & "," & .Name & "," & _
                 .Genero & "," & .Stats.PuntosRetos & "," & .Stats.PuntosTorneo & "," & .Stats.PuntosDuelos & "," & .Stats.ELV & "," & .Stats.ELU & "," & .Stats.Exp & "," & _
                 .Stats.MinHP & "," & .Stats.MaxHP & "," & .Stats.MinMAN & "," & .Stats.MaxMAN & "," & .Stats.MinSta & "," & .Stats.MaxSta & "," & .Stats.GLD & "," & _
@@ -382,7 +436,7 @@ Sub MakeUserChar(ByVal sndRoute As SendTarget, _
             End If
 
             If Len(klan) <> 0 Then
-                If sndRoute = SendTarget.toindex Then
+                If sndRoute = SendTarget.toIndex Then
      
                     Dim code As String
 
@@ -424,16 +478,16 @@ Sub MakeUserChar(ByVal sndRoute As SendTarget, _
 
             Else 'if tiene clan
 
-                If sndRoute = SendTarget.toindex Then
+                If sndRoute = SendTarget.toIndex Then
 
                     If .flags.Privilegios > PlayerType.User Then
                         If .showName Then
-                            Call SendData(SendTarget.toindex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & _
+                            Call SendData(SendTarget.toIndex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & _
                                     .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & _
                                     999 & "," & .char.CascoAnim & "," & .Name & "" & "," & bCr & "," & IIf(.flags.EsRolesMaster, 5, _
                                     .flags.Privilegios) & "," & .char.Alas)
                         Else
-                            Call SendData(SendTarget.toindex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & _
+                            Call SendData(SendTarget.toIndex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & _
                                     .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & _
                                     999 & "," & .char.CascoAnim & ",," & bCr & "," & IIf(.flags.EsRolesMaster, 5, .flags.Privilegios) & "," & _
                                     .char.Alas)
@@ -441,7 +495,7 @@ Sub MakeUserChar(ByVal sndRoute As SendTarget, _
                         End If
 
                     Else
-                        Call SendData(SendTarget.toindex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & _
+                        Call SendData(SendTarget.toIndex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & _
                                 .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 _
                                 & "," & .char.CascoAnim & "," & .Name & "" & "," & bCr & "," & IIf(.flags.PertAlCons = 1, 4, IIf( _
                                 .flags.PertAlConsCaos = 1, 6, 0)) & "," & .char.Alas)
@@ -610,31 +664,31 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
                     .char.CharIndex))
 
             If AumentoLVL = 1 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has subido de nivel!" & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has subido de nivel!" & FONTTYPE_INFO)
             Else
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has subido " & AumentoLVL & " Niveles!." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has subido " & AumentoLVL & " Niveles!." & FONTTYPE_INFO)
     
             End If
             
             'Notificamos al user
             If AumentoHP > 0 Then
-                SendData SendTarget.toindex, UserIndex, 0, "||Has ganado " & AumentoHP & " puntos de vida." & FONTTYPE_INFO
+                SendData SendTarget.toIndex, UserIndex, 0, "||Has ganado " & AumentoHP & " puntos de vida." & FONTTYPE_INFO
                
             End If
 
             If AumentoSTA > 0 Then
-                SendData SendTarget.toindex, UserIndex, 0, "||Has ganado " & AumentoSTA & " puntos de stamina." & FONTTYPE_INFO
+                SendData SendTarget.toIndex, UserIndex, 0, "||Has ganado " & AumentoSTA & " puntos de stamina." & FONTTYPE_INFO
 
             End If
 
             If AumentoMANA > 0 Then
-                SendData SendTarget.toindex, UserIndex, 0, "||Has ganado " & AumentoMANA & " puntos de mana." & FONTTYPE_INFO
+                SendData SendTarget.toIndex, UserIndex, 0, "||Has ganado " & AumentoMANA & " puntos de mana." & FONTTYPE_INFO
 
             End If
 
             If AumentoHIT > 0 Then
-                SendData SendTarget.toindex, UserIndex, 0, "||Tu golpe maximo aumento en " & AumentoHIT & " puntos." & FONTTYPE_INFO
-                SendData SendTarget.toindex, UserIndex, 0, "||Tu golpe minimo aumento en " & AumentoHIT & " puntos." & FONTTYPE_INFO
+                SendData SendTarget.toIndex, UserIndex, 0, "||Tu golpe maximo aumento en " & AumentoHIT & " puntos." & FONTTYPE_INFO
+                SendData SendTarget.toIndex, UserIndex, 0, "||Tu golpe minimo aumento en " & AumentoHIT & " puntos." & FONTTYPE_INFO
 
             End If
             
@@ -657,8 +711,8 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
                 ExPromedio = Round((.Stats.MaxHP - AumentoHP) / (.Stats.ELV - 1), 2)
                 Promedio = Round(.Stats.MaxHP / .Stats.ELV, 2)
                 
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||El Promedio de vida de tu Personaje era de " & CStr(ExPromedio) & FONTTYPE_ORO)
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahora el Promedio es de " & CStr(Promedio) & FONTTYPE_ORO)
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||El Promedio de vida de tu Personaje era de " & CStr(ExPromedio) & FONTTYPE_ORO)
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||Ahora el Promedio es de " & CStr(Promedio) & FONTTYPE_ORO)
 
             End If
             
@@ -684,7 +738,7 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
     
             .Stats.SkillPts = .Stats.SkillPts + Pts
     
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Has ganado un total de " & CStr(Pts) & " skillpoints." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||Has ganado un total de " & CStr(Pts) & " skillpoints." & FONTTYPE_INFO)
 
         End If
         
@@ -808,7 +862,7 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte)
 
                             End If
 
-                            Call SendData(SendTarget.toindex, CasperIndex, 0, "$" & CasperHeading)
+                            Call SendData(SendTarget.toIndex, CasperIndex, 0, "$" & CasperHeading)
                             
                             'Update map and user pos
                             .pos = CasPerPos
@@ -852,7 +906,7 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte)
                 Call ModAreas.CheckUpdateNeededUser(UserIndex, nHeading)
                         
             Else
-                Call SendData(SendTarget.toindex, UserIndex, 0, "PU" & .pos.X & "," & .pos.Y)
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "PU" & .pos.X & "," & .pos.Y)
                 
                 .flags.pendingUpdate = True
         
@@ -861,7 +915,7 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte)
             End If
 
         Else
-            Call SendData(SendTarget.toindex, UserIndex, 0, "PU" & .pos.X & "," & .pos.Y)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "PU" & .pos.X & "," & .pos.Y)
             
             .flags.pendingUpdate = True
         
@@ -905,7 +959,7 @@ Sub AutoCuraUser(ByVal UserIndex As Integer)
     If UserList(UserIndex).flags.Muerto = 1 Then
         Call RevivirUsuario(UserIndex)
         UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||El sacerdote te ha resucitado y curado." & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||El sacerdote te ha resucitado y curado." & FONTTYPE_INFO)
         Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 9 & "," & 1)
         Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW106")
         Call SendUserStatsBox(UserIndex)
@@ -914,7 +968,7 @@ Sub AutoCuraUser(ByVal UserIndex As Integer)
 
     If UserList(UserIndex).Stats.MinHP < UserList(UserIndex).Stats.MaxHP Then
         UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||El sacerdote te ha curado." & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||El sacerdote te ha curado." & FONTTYPE_INFO)
         Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 9 & "," & 1)
         Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW106")
         Call SendUserStatsBox(UserIndex)
@@ -940,13 +994,13 @@ Sub ChangeUserInv(UserIndex As Integer, Slot As Byte, Object As UserOBJ)
         End If
         End If
 
-        Call SendData(SendTarget.toindex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
                 Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & _
                 ObjData(Object.ObjIndex).MaxHit & "," & ObjData(Object.ObjIndex).MinHit & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
                 Object.ObjIndex).MinDef & "," & ObjData(Object.ObjIndex).Valor \ PrecioQl)
     Else
         'Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & ",0," & "(Vacío)" & ",0,0,0")
-        Call SendData(SendTarget.toindex, UserIndex, 0, "CSI" & Slot & "," & "0" & "," & "(None)" & "," & "0" & "," & "0")
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "CSI" & Slot & "," & "0" & "," & "(None)" & "," & "0" & "," & "0")
 
     End If
 
@@ -1077,8 +1131,8 @@ End Sub
 Sub EnviarVerdes(ByVal UserIndex As Integer)
 
     With UserList(UserIndex)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "VTG" & .flags.DuracionEfectoVerdes)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "VRG" & .Stats.UserAtributos(eAtributos.Fuerza))
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "VTG" & .flags.DuracionEfectoVerdes)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "VRG" & .Stats.UserAtributos(eAtributos.Fuerza))
 
     End With
 
@@ -1087,8 +1141,8 @@ End Sub
 Sub EnviarAmarillas(ByVal UserIndex As Integer)
 
     With UserList(UserIndex)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ATG" & .flags.DuracionEfectoAmarillas)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ARG" & .Stats.UserAtributos(eAtributos.Agilidad))
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "ATG" & .flags.DuracionEfectoAmarillas)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "ARG" & .Stats.UserAtributos(eAtributos.Agilidad))
 
     End With
 
@@ -1099,7 +1153,7 @@ Sub SendUserStatsBox(ByVal UserIndex As Integer)
     Call CompruebaOroRank(UserIndex)
     
 
-    Call SendData(SendTarget.toindex, UserIndex, 0, "EST" & UserList(UserIndex).Stats.MaxHP & "," & UserList(UserIndex).Stats.MinHP & "," & _
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "EST" & UserList(UserIndex).Stats.MaxHP & "," & UserList(UserIndex).Stats.MinHP & "," & _
             UserList(UserIndex).Stats.MaxMAN & "," & UserList(UserIndex).Stats.MinMAN & "," & UserList(UserIndex).Stats.MaxSta & "," & UserList( _
             UserIndex).Stats.MinSta & "," & UserList(UserIndex).Stats.GLD & "," & UserList(UserIndex).Stats.ELV & "," & UserList( _
             UserIndex).Stats.ELU & "," & UserList(UserIndex).Stats.Exp & "," & UserList(UserIndex).AoMCreditos & "," & UserList(UserIndex).AoMCanjes)
@@ -1111,7 +1165,7 @@ Sub EnviarHP(ByVal UserIndex As Integer)
     With UserList(UserIndex)
     
         If .Stats.MinHP < 0 Then .Stats.MinHP = 0
-        Call SendData(SendTarget.toindex, UserIndex, 0, "VID" & .Stats.MinHP)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "VID" & .Stats.MinHP)
 
 
         If .PartyIndex <> 0 Then
@@ -1131,21 +1185,21 @@ End Sub
 Sub EnviarMn(ByVal UserIndex As Integer)
 
     If UserList(UserIndex).Stats.MinMAN < 0 Then UserList(UserIndex).Stats.MinMAN = 0
-    Call SendData(SendTarget.toindex, UserIndex, 0, "MN" & UserList(UserIndex).Stats.MinMAN)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "MN" & UserList(UserIndex).Stats.MinMAN)
 
 End Sub
 
 Sub EnviarSta(ByVal UserIndex As Integer)
 
     If UserList(UserIndex).Stats.MinSta < 0 Then UserList(UserIndex).Stats.MinSta = 0
-    Call SendData(SendTarget.toindex, UserIndex, 0, "STA" & UserList(UserIndex).Stats.MinSta)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "STA" & UserList(UserIndex).Stats.MinSta)
 
 End Sub
 
 Sub EnviarOro(ByVal UserIndex As Integer)
       
     If UserList(UserIndex).Stats.GLD < 0 Then UserList(UserIndex).Stats.GLD = 0
-    Call SendData(SendTarget.toindex, UserIndex, 0, "ORO" & UserList(UserIndex).Stats.GLD)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "ORO" & UserList(UserIndex).Stats.GLD)
     
    Call CompruebaOroRank(UserIndex)
 End Sub
@@ -1153,7 +1207,7 @@ End Sub
 Sub EnviarExp(ByVal UserIndex As Integer)
 
     If UserList(UserIndex).Stats.Exp < 0 Then UserList(UserIndex).Stats.Exp = 0
-    Call SendData(SendTarget.toindex, UserIndex, 0, "EXP" & UserList(UserIndex).Stats.Exp)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "EXP" & UserList(UserIndex).Stats.Exp)
 
 End Sub
 
@@ -1162,53 +1216,53 @@ Sub EnviarHambreYsed(ByVal UserIndex As Integer)
     If UserList(UserIndex).Stats.MinAGU < 0 Then UserList(UserIndex).Stats.MinAGU = 0
     If UserList(UserIndex).Stats.MinHam < 0 Then UserList(UserIndex).Stats.MinHam = 0
 
-    Call SendData(SendTarget.toindex, UserIndex, 0, "EHYS" & UserList(UserIndex).Stats.MinAGU & "," & UserList(UserIndex).Stats.MinHam)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "EHYS" & UserList(UserIndex).Stats.MinAGU & "," & UserList(UserIndex).Stats.MinHam)
 
 End Sub
 
 Sub SendUserStatsTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
     Dim GuildI As Integer
 
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Estadisticas de: " & UserList(UserIndex).Name & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Nivel: " & UserList(UserIndex).Stats.ELV & "  EXP: " & UserList(UserIndex).Stats.Exp & "/" & _
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||Estadisticas de: " & UserList(UserIndex).Name & FONTTYPE_INFO)
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||Nivel: " & UserList(UserIndex).Stats.ELV & "  EXP: " & UserList(UserIndex).Stats.Exp & "/" & _
             UserList(UserIndex).Stats.ELU & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Salud: " & UserList(UserIndex).Stats.MinHP & "/" & UserList(UserIndex).Stats.MaxHP & _
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||Salud: " & UserList(UserIndex).Stats.MinHP & "/" & UserList(UserIndex).Stats.MaxHP & _
             "  Mana: " & UserList(UserIndex).Stats.MinMAN & "/" & UserList(UserIndex).Stats.MaxMAN & "  Vitalidad: " & UserList( _
             UserIndex).Stats.MinSta & "/" & UserList(UserIndex).Stats.MaxSta & FONTTYPE_INFO)
     
     If UserList(UserIndex).Invent.WeaponEqpObjIndex > 0 Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & UserList(UserIndex).Stats.MinHit & "/" & UserList( _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & UserList(UserIndex).Stats.MinHit & "/" & UserList( _
                 UserIndex).Stats.MaxHit & " (" & ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).MinHit & "/" & ObjData(UserList( _
                 UserIndex).Invent.WeaponEqpObjIndex).MaxHit & ")" & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & UserList(UserIndex).Stats.MinHit & "/" & UserList( _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & UserList(UserIndex).Stats.MinHit & "/" & UserList( _
                 UserIndex).Stats.MaxHit & FONTTYPE_INFO)
 
     End If
     
     If UserList(UserIndex).Invent.ArmourEqpObjIndex > 0 Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||(CUERPO) Min Def/Max Def: " & ObjData(UserList( _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||(CUERPO) Min Def/Max Def: " & ObjData(UserList( _
                 UserIndex).Invent.ArmourEqpObjIndex).MinDef & "/" & ObjData(UserList(UserIndex).Invent.ArmourEqpObjIndex).MaxDef & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||(CUERPO) Min Def/Max Def: 0" & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||(CUERPO) Min Def/Max Def: 0" & FONTTYPE_INFO)
 
     End If
     
     If UserList(UserIndex).Invent.CascoEqpObjIndex > 0 Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||(CABEZA) Min Def/Max Def: " & ObjData(UserList( _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||(CABEZA) Min Def/Max Def: " & ObjData(UserList( _
                 UserIndex).Invent.CascoEqpObjIndex).MinDef & "/" & ObjData(UserList(UserIndex).Invent.CascoEqpObjIndex).MaxDef & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||(CABEZA) Min Def/Max Def: 0" & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||(CABEZA) Min Def/Max Def: 0" & FONTTYPE_INFO)
 
     End If
     
     GuildI = UserList(UserIndex).GuildIndex
 
     If GuildI > 0 Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Clan: " & Guilds(GuildI).GuildName & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Clan: " & Guilds(GuildI).GuildName & FONTTYPE_INFO)
 
         If UCase$(Guilds(GuildI).GetLeader) = UCase$(UserList(sendIndex).Name) Then
-            Call SendData(SendTarget.toindex, sendIndex, 0, "||Status: Lider" & FONTTYPE_INFO)
+            Call SendData(SendTarget.toIndex, sendIndex, 0, "||Status: Lider" & FONTTYPE_INFO)
 
         End If
 
@@ -1216,28 +1270,28 @@ Sub SendUserStatsTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
         'Call SendData(SendTarget.ToIndex, sendIndex, 0, "||User GuildPoints: " & UserList(UserIndex).GuildInfo.GuildPoints & FONTTYPE_INFO)
     End If
     
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Oro: " & UserList(UserIndex).Stats.GLD & "  Posicion: " & UserList(UserIndex).pos.X & "," & _
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||Oro: " & UserList(UserIndex).Stats.GLD & "  Posicion: " & UserList(UserIndex).pos.X & "," & _
             UserList(UserIndex).pos.Y & " en mapa " & UserList(UserIndex).pos.Map & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Dados: " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) & ", " & UserList( _
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||Dados: " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) & ", " & UserList( _
             UserIndex).Stats.UserAtributos(eAtributos.Agilidad) & ", " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) & ", " & _
             UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) & ", " & UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) & _
             FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Oro: " & UserList(UserIndex).Stats.TrofOro & "~255~255~6~0~0~")
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Plata: " & UserList(UserIndex).Stats.TrofPlata & "~255~255~251~0~0~")
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Bronce: " & UserList(UserIndex).Stats.TrofBronce & "~187~0~0~0~0~")
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Amuletos de Madera: " & UserList(UserIndex).Stats.TrofMadera & "~237~207~139~0~0~")
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||Trofeos de Oro: " & UserList(UserIndex).Stats.TrofOro & "~255~255~6~0~0~")
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||Trofeos de Plata: " & UserList(UserIndex).Stats.TrofPlata & "~255~255~251~0~0~")
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||Trofeos de Bronce: " & UserList(UserIndex).Stats.TrofBronce & "~187~0~0~0~0~")
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||Amuletos de Madera: " & UserList(UserIndex).Stats.TrofMadera & "~237~207~139~0~0~")
 
 End Sub
 
 Sub SendUserMiniStatsTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
 
     With UserList(UserIndex)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pj: " & .Name & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||CiudadanosMatados: " & .Faccion.CiudadanosMatados & " CriminalesMatados: " & _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Pj: " & .Name & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||CiudadanosMatados: " & .Faccion.CiudadanosMatados & " CriminalesMatados: " & _
                 .Faccion.CriminalesMatados & " UsuariosMatados: " & .Stats.UsuariosMatados & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||NPCsMuertos: " & .Stats.NPCsMuertos & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Clase: " & .Clase & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pena: " & .Counters.Pena & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||NPCsMuertos: " & .Stats.NPCsMuertos & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Clase: " & .Clase & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Pena: " & .Counters.Pena & FONTTYPE_INFO)
 
     End With
 
@@ -1252,25 +1306,25 @@ Sub SendUserMiniStatsTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As S
     CharFile = CharPath & CharName & ".chr"
     
     If FileExist(CharFile) Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pj: " & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Pj: " & CharName & FONTTYPE_INFO)
         ' 3 en uno :p
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||CiudadanosMatados: " & GetVar(CharFile, "FACCIONES", "CiudMatados") & _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||CiudadanosMatados: " & GetVar(CharFile, "FACCIONES", "CiudMatados") & _
                 " CriminalesMatados: " & GetVar(CharFile, "FACCIONES", "CrimMatados") & " UsuariosMatados: " & GetVar(CharFile, "MUERTES", _
                 "UserMuertes") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||NPCsMuertos: " & GetVar(CharFile, "MUERTES", "NpcsMuertes") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Clase: " & GetVar(CharFile, "INIT", "Clase") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pena: " & GetVar(CharFile, "COUNTERS", "PENA") & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||NPCsMuertos: " & GetVar(CharFile, "MUERTES", "NpcsMuertes") & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Clase: " & GetVar(CharFile, "INIT", "Clase") & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Pena: " & GetVar(CharFile, "COUNTERS", "PENA") & FONTTYPE_INFO)
         Ban = GetVar(CharFile, "FLAGS", "Ban")
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Ban: " & Ban & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Ban: " & Ban & FONTTYPE_INFO)
 
         If Ban = "1" Then
-            Call SendData(SendTarget.toindex, sendIndex, 0, "||Baneado por: " & GetVar(CharFile, CharName, "BannedBy") & " El Motivo Fue: " & _
+            Call SendData(SendTarget.toIndex, sendIndex, 0, "||Baneado por: " & GetVar(CharFile, CharName, "BannedBy") & " El Motivo Fue: " & _
                     GetVar(BanDetailPath, CharName, "Reason") & FONTTYPE_INFO)
 
         End If
 
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||El pj no existe: " & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||El pj no existe: " & CharName & FONTTYPE_INFO)
 
     End If
     
@@ -1282,13 +1336,13 @@ Sub SendUserInvTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
 
     Dim j As Long
     
-    Call SendData(SendTarget.toindex, sendIndex, 0, "|| " & UserList(UserIndex).Name & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "|| Tiene " & UserList(UserIndex).Invent.NroItems & " objetos." & FONTTYPE_INFO)
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "|| " & UserList(UserIndex).Name & FONTTYPE_INFO)
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "|| Tiene " & UserList(UserIndex).Invent.NroItems & " objetos." & FONTTYPE_INFO)
     
     For j = 1 To MAX_INVENTORY_SLOTS
 
         If UserList(UserIndex).Invent.Object(j).ObjIndex > 0 Then
-            Call SendData(SendTarget.toindex, sendIndex, 0, "|| Objeto " & j & "  (Indice " & UserList(UserIndex).Invent.Object(j).ObjIndex & ") " & ObjData(UserList(UserIndex).Invent.Object(j).ObjIndex).Name & _
+            Call SendData(SendTarget.toIndex, sendIndex, 0, "|| Objeto " & j & "  (Indice " & UserList(UserIndex).Invent.Object(j).ObjIndex & ") " & ObjData(UserList(UserIndex).Invent.Object(j).ObjIndex).Name & _
                     " Cantidad: " & UserList(UserIndex).Invent.Object(j).Amount & FONTTYPE_INFO)
 
         End If
@@ -1308,8 +1362,8 @@ Sub SendUserInvTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As String)
     CharFile = CharPath & CharName & ".chr"
     
     If FileExist(CharFile, vbNormal) Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "Inventory", "CantidadItems") & " objetos." & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "Inventory", "CantidadItems") & " objetos." & FONTTYPE_INFO)
         
         For j = 1 To MAX_INVENTORY_SLOTS
             Tmp = GetVar(CharFile, "Inventory", "Obj" & j)
@@ -1317,7 +1371,7 @@ Sub SendUserInvTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As String)
             ObjCant = ReadField(2, Tmp, Asc("-"))
 
             If ObjInd > 0 Then
-                Call SendData(SendTarget.toindex, sendIndex, 0, "|| Objeto " & j & " " & ObjData(ObjInd).Name & " Cantidad:" & ObjCant & _
+                Call SendData(SendTarget.toIndex, sendIndex, 0, "|| Objeto " & j & " " & ObjData(ObjInd).Name & " Cantidad:" & ObjCant & _
                         FONTTYPE_INFO)
 
             End If
@@ -1325,7 +1379,7 @@ Sub SendUserInvTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As String)
         Next j
 
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
 
     End If
     
@@ -1336,12 +1390,12 @@ Sub SendUserSkillsTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
     On Error Resume Next
 
     Dim j As Integer
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||" & UserList(UserIndex).Name & FONTTYPE_INFO)
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||" & UserList(UserIndex).Name & FONTTYPE_INFO)
 
     For j = 1 To NUMSKILLS
-        Call SendData(SendTarget.toindex, sendIndex, 0, "|| " & SkillsNames(j) & " = " & UserList(UserIndex).Stats.UserSkills(j) & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "|| " & SkillsNames(j) & " = " & UserList(UserIndex).Stats.UserSkills(j) & FONTTYPE_INFO)
     Next
-    Call SendData(SendTarget.toindex, sendIndex, 0, "|| SkillLibres:" & UserList(UserIndex).Stats.SkillPts & FONTTYPE_INFO)
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "|| SkillLibres:" & UserList(UserIndex).Stats.SkillPts & FONTTYPE_INFO)
 
 End Sub
 
@@ -1350,7 +1404,7 @@ Function EsMascotaCiudadano(ByVal NpcIndex As Integer, ByVal UserIndex As Intege
     If Npclist(NpcIndex).MaestroUser > 0 Then
         EsMascotaCiudadano = Not Criminal(Npclist(NpcIndex).MaestroUser)
 
-        If EsMascotaCiudadano Then Call SendData(SendTarget.toindex, Npclist(NpcIndex).MaestroUser, 0, "||¡¡" & UserList(UserIndex).Name & _
+        If EsMascotaCiudadano Then Call SendData(SendTarget.toIndex, Npclist(NpcIndex).MaestroUser, 0, "||¡¡" & UserList(UserIndex).Name & _
                 " esta atacando tu mascota!!" & FONTTYPE_FIGHT)
 
     End If
@@ -1448,280 +1502,280 @@ Sub SubirSkill(ByVal UserIndex As Integer, ByVal Skill As Integer)
                     If .UserSkills(Skill) <= 3 And Lvl = 1 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 5 And Lvl = 2 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 8 And Lvl = 3 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 10 And Lvl = 4 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 13 And Lvl = 5 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 15 And Lvl = 6 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 18 And Lvl = 7 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 20 And Lvl = 8 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 23 And Lvl = 9 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 25 And Lvl = 10 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 28 And Lvl = 11 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 30 And Lvl = 12 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 33 And Lvl = 13 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 35 And Lvl = 14 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 38 And Lvl = 15 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 40 And Lvl = 16 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 43 And Lvl = 17 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 45 And Lvl = 18 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 48 And Lvl = 19 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 50 And Lvl = 20 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 53 And Lvl = 21 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 55 And Lvl = 22 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 58 And Lvl = 23 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 60 And Lvl = 24 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 63 And Lvl = 25 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 65 And Lvl = 26 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 68 And Lvl = 27 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 70 And Lvl = 28 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 73 And Lvl = 29 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 75 And Lvl = 30 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 78 And Lvl = 31 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 80 And Lvl = 32 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 83 And Lvl = 33 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 85 And Lvl = 34 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 88 And Lvl = 35 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 90 And Lvl = 36 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 92 And Lvl = 37 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 95 And Lvl = 38 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 98 And Lvl = 39 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
                     ElseIf .UserSkills(Skill) <= 100 And Lvl >= 40 Then
                         .UserSkills(Skill) = .UserSkills(Skill) + 1
                 
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
                                 " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
                             
                         .Exp = .Exp + 100
@@ -1730,7 +1784,7 @@ Sub SubirSkill(ByVal UserIndex As Integer, ByVal Skill As Integer)
 
                     If .Exp > MAXEXP Then .Exp = MAXEXP
                     
-                    Call SendData(SendTarget.toindex, UserIndex, 0, "Z25")
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "Z25")
                     Call CheckUserLevel(UserIndex)
                     Call EnviarExp(UserIndex)
                     Call EnviarSkills(UserIndex)
@@ -1785,43 +1839,43 @@ Sub UserDie(ByVal UserIndex As Integer)
       If UserList(UserIndex).flags.DuracionEfectoVerdes > 0 Then
          UserList(UserIndex).flags.DuracionEfectoVerdes = 0
           UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributosBackUP(eAtributos.Fuerza)
-         Call SendData(SendTarget.toindex, UserIndex, 0, "VTG" & UserList(UserIndex).flags.DuracionEfectoVerdes)
-         Call SendData(SendTarget.toindex, UserIndex, 0, "VRG" & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza))
+         Call SendData(SendTarget.toIndex, UserIndex, 0, "VTG" & UserList(UserIndex).flags.DuracionEfectoVerdes)
+         Call SendData(SendTarget.toIndex, UserIndex, 0, "VRG" & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza))
      End If
      
      '<<<< Amarillas >>>>
      If UserList(UserIndex).flags.DuracionEfectoAmarillas > 0 Then
          UserList(UserIndex).flags.DuracionEfectoAmarillas = 0
          UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributosBackUP(eAtributos.Agilidad)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ATG" & UserList(UserIndex).flags.DuracionEfectoAmarillas)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ARG" & UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad))
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "ATG" & UserList(UserIndex).flags.DuracionEfectoAmarillas)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "ARG" & UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad))
     End If
     
     '<<<< Paralisis >>>>
     If UserList(UserIndex).flags.Paralizado = 1 Then
         UserList(UserIndex).flags.Paralizado = 0
-        Call SendData(SendTarget.toindex, UserIndex, 0, "PARADOW")
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "PARADOW")
         
     End If
     
     '<<< Estupidez >>>
     If UserList(UserIndex).flags.Estupidez = 1 Then
         UserList(UserIndex).flags.Estupidez = 0
-        Call SendData(SendTarget.toindex, UserIndex, 0, "NESTUP")
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "NESTUP")
 
     End If
     
     '<<<< Descansando >>>>
     If UserList(UserIndex).flags.Descansar Then
         UserList(UserIndex).flags.Descansar = False
-        Call SendData(SendTarget.toindex, UserIndex, 0, "DOK")
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "DOK")
 
     End If
     
     '<<<< Meditando >>>>
     If UserList(UserIndex).flags.Meditando Then
         UserList(UserIndex).flags.Meditando = False
-        Call SendData(SendTarget.toindex, UserIndex, 0, "MEDOK")
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "MEDOK")
 
     End If
     
@@ -2056,6 +2110,10 @@ Sub UserDie(ByVal UserIndex As Integer)
         Call TerminarDuelo(UserList(UserIndex).flags.Oponente, UserIndex)
 
     End If
+    
+    If UserList(UserIndex).Asedio.Participando Then
+        Call modAsedio.MuereUser(UserIndex)
+    End If
 
     Exit Sub
 
@@ -2198,7 +2256,7 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
 
         'Quitar el dialogo
         Call SendToUserArea(UserIndex, "QDL" & .char.CharIndex)
-        Call SendData(SendTarget.toindex, UserIndex, .pos.Map, "QTDL")
+        Call SendData(SendTarget.toIndex, UserIndex, .pos.Map, "QTDL")
     
         OldMap = .pos.Map
         OldX = .pos.X
@@ -2207,9 +2265,9 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
         Call EraseUserChar(SendTarget.ToMap, 0, OldMap, UserIndex)
         
         If OldMap <> Map Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "CM" & Map & "," & MapInfo(.pos.Map).MapVersion)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "TM" & MapInfo(Map).Music)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "N~" & MapInfo(Map).Name)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "CM" & Map & "," & MapInfo(.pos.Map).MapVersion)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "TM" & MapInfo(Map).Music)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "N~" & MapInfo(Map).Name)
         
             'Update new Map Users
             MapInfo(Map).NumUsers = MapInfo(Map).NumUsers + 1
@@ -2245,7 +2303,7 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
         'Anti Pisadas
     
         Call MakeUserChar(SendTarget.ToMap, 0, Map, UserIndex, .pos.Map, .pos.X, .pos.Y)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "IP" & .char.CharIndex)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "IP" & .char.CharIndex)
     
         'Seguis invisible al pasar de mapa
         If (.flags.Invisible = 1 Or .flags.Oculto = 1) And (Not .flags.AdminInvisible = 1) Then
@@ -2291,26 +2349,26 @@ Sub UpdateUserMap(ByVal UserIndex As Integer)
         For X = XMinMapSize To XMaxMapSize
 
             If MapData(Map, X, Y).UserIndex > 0 And UserIndex <> MapData(Map, X, Y).UserIndex Then
-                Call MakeUserChar(SendTarget.toindex, UserIndex, 0, MapData(Map, X, Y).UserIndex, Map, X, Y)
+                Call MakeUserChar(SendTarget.toIndex, UserIndex, 0, MapData(Map, X, Y).UserIndex, Map, X, Y)
 
                 If UserList(MapData(Map, X, Y).UserIndex).flags.Invisible = 1 Or UserList(MapData(Map, X, Y).UserIndex).flags.Oculto = 1 Then Call _
-                        SendData(SendTarget.toindex, UserIndex, 0, "NOVER" & UserList(MapData(Map, X, Y).UserIndex).char.CharIndex & ",1," & _
+                        SendData(SendTarget.toIndex, UserIndex, 0, "NOVER" & UserList(MapData(Map, X, Y).UserIndex).char.CharIndex & ",1," & _
                         UserList(MapData(Map, X, Y).UserIndex).PartyIndex)
 
             End If
 
             If MapData(Map, X, Y).NpcIndex > 0 Then
-                Call MakeNPCChar(SendTarget.toindex, UserIndex, 0, MapData(Map, X, Y).NpcIndex, Map, X, Y)
+                Call MakeNPCChar(SendTarget.toIndex, UserIndex, 0, MapData(Map, X, Y).NpcIndex, Map, X, Y)
 
             End If
 
             If MapData(Map, X, Y).OBJInfo.ObjIndex > 0 Then
                 If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).ObjType <> eOBJType.otArboles Then
-                    Call MakeObj(SendTarget.toindex, UserIndex, 0, MapData(Map, X, Y).OBJInfo, Map, X, Y)
+                    Call MakeObj(SendTarget.toIndex, UserIndex, 0, MapData(Map, X, Y).OBJInfo, Map, X, Y)
 
                     If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).ObjType = eOBJType.otPuertas Then
-                        Call Bloquear(SendTarget.toindex, UserIndex, 0, Map, X, Y, MapData(Map, X, Y).Blocked)
-                        Call Bloquear(SendTarget.toindex, UserIndex, 0, Map, X - 1, Y, MapData(Map, X - 1, Y).Blocked)
+                        Call Bloquear(SendTarget.toIndex, UserIndex, 0, Map, X, Y, MapData(Map, X, Y).Blocked)
+                        Call Bloquear(SendTarget.toIndex, UserIndex, 0, Map, X - 1, Y, MapData(Map, X - 1, Y).Blocked)
 
                     End If
 
@@ -2415,7 +2473,7 @@ Sub Cerrar_Usuario(ByVal UserIndex As Integer, Optional ByVal Tiempo As Integer 
             UserList(UserIndex).Counters.Salir = IIf(UserList(UserIndex).flags.Privilegios > PlayerType.User Or Not MapInfo(UserList( _
                     UserIndex).pos.Map).Pk, IntervaloCerrarConexion, Tiempo)
     
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Cerrando...Se cerrará el juego en " & UserList(UserIndex).Counters.Salir & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||Cerrando...Se cerrará el juego en " & UserList(UserIndex).Counters.Salir & _
                     " segundos..." & FONTTYPE_INFO)
 
         End If
@@ -2461,29 +2519,29 @@ End Sub
 Sub SendUserStatsTxtOFF(ByVal sendIndex As Integer, ByVal nombre As String)
 
     If FileExist(CharPath & nombre & ".chr", vbArchive) = False Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pj Inexistente" & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Pj Inexistente" & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Estadisticas de: " & nombre & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Nivel: " & GetVar(CharPath & nombre & ".chr", "stats", "elv") & "  EXP: " & GetVar( _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Estadisticas de: " & nombre & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Nivel: " & GetVar(CharPath & nombre & ".chr", "stats", "elv") & "  EXP: " & GetVar( _
                 CharPath & nombre & ".chr", "stats", "Exp") & "/" & GetVar(CharPath & nombre & ".chr", "stats", "elu") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Vitalidad: " & GetVar(CharPath & nombre & ".chr", "stats", "minsta") & "/" & GetVar( _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Vitalidad: " & GetVar(CharPath & nombre & ".chr", "stats", "minsta") & "/" & GetVar( _
                 CharPath & nombre & ".chr", "stats", "maxSta") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Salud: " & GetVar(CharPath & nombre & ".chr", "stats", "MinHP") & "/" & GetVar(CharPath _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Salud: " & GetVar(CharPath & nombre & ".chr", "stats", "MinHP") & "/" & GetVar(CharPath _
                 & nombre & ".chr", "Stats", "MaxHP") & "  Mana: " & GetVar(CharPath & nombre & ".chr", "Stats", "MinMAN") & "/" & GetVar(CharPath & _
                 nombre & ".chr", "Stats", "MaxMAN") & FONTTYPE_INFO)
     
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & GetVar(CharPath & nombre & ".chr", "stats", "MaxHIT") & _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & GetVar(CharPath & nombre & ".chr", "stats", "MaxHIT") & _
                 FONTTYPE_INFO)
     
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "GLD") & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "GLD") & FONTTYPE_INFO)
     
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofOro") & _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Trofeos de Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofOro") & _
                 "~255~255~6~0~0~")
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Plata: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofPlata") & _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Trofeos de Plata: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofPlata") & _
                 "~255~255~251~0~0~")
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Bronce: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofBronce") & _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Trofeos de Bronce: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofBronce") & _
                 "~187~0~0~0~0~")
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Amuletos de Madera: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofMadera") & _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Amuletos de Madera: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofMadera") & _
                 "~237~207~139~0~0~")
 
     End If
@@ -2503,10 +2561,10 @@ Sub SendUserOROTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As String)
     CharFile = CharPath & CharName & ".chr"
 
     If FileExist(CharFile, vbNormal) Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "STATS", "BANCO") & " en el banco." & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "STATS", "BANCO") & " en el banco." & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
 
     End If
 
@@ -3628,19 +3686,19 @@ Public Sub DragToPos(ByVal UserIndex As Integer, ByVal X As Byte, ByVal Y As Byt
     'No puede dragear en esa pos?
     
       If Not UserList(UserIndex).flags.SeguroObjetos Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes tirar. Tienes el seguro de objetos activados!!!" & _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||No puedes tirar. Tienes el seguro de objetos activados!!!" & _
                         FONTTYPE_FIGHT)
                 Exit Sub
    End If
    
             If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
                     If ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Newbie = 1 And EsNewbie(UserIndex) Then
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes tirar el objeto." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||No puedes tirar el objeto." & FONTTYPE_INFO)
                         Exit Sub
                     End If
                     
                     If ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Caos = 1 Or ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Real = 1 Or ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Templ = 1 Or ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Nemes = 1 Then
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes tirar el objeto." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||No puedes tirar el objeto." & FONTTYPE_INFO)
                         Exit Sub
                     End If
               End If
@@ -3738,7 +3796,7 @@ End Function
 
 Public Sub WriteConsoleMsg(ByVal sendIndex As Integer, ByVal PacketId As String, ByVal Font As String)
                            
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||" & PacketId & Font)
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||" & PacketId & Font)
 
 End Sub
  
@@ -3997,7 +4055,7 @@ Sub IniciarChangeHead(ByVal UserIndex As Integer)
             
        End Select
        
-       Call SendData(SendTarget.toindex, UserIndex, 0, "ABRC" & CantHead & "@" & Heads)
+       Call SendData(SendTarget.toIndex, UserIndex, 0, "ABRC" & CantHead & "@" & Heads)
        
 End Sub
 

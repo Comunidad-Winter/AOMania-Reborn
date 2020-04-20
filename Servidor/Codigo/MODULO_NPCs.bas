@@ -49,6 +49,16 @@ End Sub
 
 Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
    
+   If Npclist(NpcIndex).Numero = ReyNPC And NpcIndex = ReyIndex Then
+        Call modAsedio.MuereRey(UserIndex)
+        Exit Sub
+    End If
+    If Npclist(NpcIndex).Numero = MurallaNPC Then
+        Call modAsedio.CalcularGrafico(NpcIndex)
+    End If
+   
+   
+   
     Dim MiNPC As npc
     Dim Map As Integer
     Dim X As Integer
@@ -68,7 +78,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     If MiNPC.Numero = 661 And Npclist(NpcIndex).pos.Map = mapainvo Then
         StatusInvo = False
         ConfInvo = 0
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has ganado 250000 puntos de experiencia!" & FONTTYPE_FIGHT)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has ganado 250000 puntos de experiencia!" & FONTTYPE_FIGHT)
         Call SendData(toall, 0, 0, "||" & UserList(UserIndex).Name & " ha matado al " & Npclist(NpcIndex).Name & _
                 "!! Felicidades!! Gana 250000 de experiencia." & FONTTYPE_GUILD)
         UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + 250000
@@ -202,7 +212,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
     End If
         
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||Has matado la criatura!" & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||Has matado la criatura!" & FONTTYPE_INFO)
 
         If UserList(UserIndex).Stats.NPCsMuertos < 32000 Then UserList(UserIndex).Stats.NPCsMuertos = UserList(UserIndex).Stats.NPCsMuertos + 1
         
@@ -246,7 +256,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     End If ' Userindex > 0
    
     'ReSpawn o no
-    Call ReSpawnNpc(MiNPC)
+    Call RespawnNPC(MiNPC)
    
 End Sub
 
@@ -722,7 +732,7 @@ Sub NpcEnvenenarUser(ByVal UserIndex As Integer)
 
     If n < 30 Then
         UserList(UserIndex).flags.Envenenado = 1
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡¡La criatura te ha envenenado!!" & FONTTYPE_Motd4)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡¡La criatura te ha envenenado!!" & FONTTYPE_Motd4)
 
     End If
 
@@ -807,7 +817,7 @@ Function SpawnNpc(ByVal NpcIndex As Integer, pos As WorldPos, ByVal FX As Boolea
 
 End Function
 
-Sub ReSpawnNpc(MiNPC As npc)
+Sub RespawnNPC(MiNPC As npc)
 
     If (MiNPC.flags.Respawn = 0) Then Call CrearNPC(MiNPC.Numero, MiNPC.pos.Map, MiNPC.Orig)
 
@@ -845,7 +855,7 @@ Sub NPCTirarOro(MiNPC As npc, UserIndex As Integer)
         Dim MiObj As Obj
         MiAux = MiNPC.GiveGLD
         
-           Call SendData(SendTarget.toindex, UserIndex, 0, "||La criatura ha dropeado " & MiAux & " monedas de oro." & FONTTYPE_Motd4)
+           Call SendData(SendTarget.toIndex, UserIndex, 0, "||La criatura ha dropeado " & MiAux & " monedas de oro." & FONTTYPE_Motd4)
 
         Do While MiAux > MAX_INVENTORY_OBJS
             MiObj.Amount = MAX_INVENTORY_OBJS
@@ -867,7 +877,7 @@ Sub NPCTirarOro(MiNPC As npc, UserIndex As Integer)
     End If
     
     If MiNPC.GiveGLD = 0 Then
-                   Call SendData(SendTarget.toindex, UserIndex, 0, "||La criatura no ha dejado oro." & FONTTYPE_Motd4)
+                   Call SendData(SendTarget.toIndex, UserIndex, 0, "||La criatura no ha dejado oro." & FONTTYPE_Motd4)
     End If
 
 End Sub
@@ -1107,7 +1117,7 @@ Sub EnviarListaCriaturas(ByVal UserIndex As Integer, ByVal NpcIndex)
     Next k
 
     SD = "LSTCRI" & SD
-    Call SendData(SendTarget.toindex, UserIndex, 0, SD)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, SD)
 
 End Sub
 
@@ -1162,18 +1172,18 @@ Sub LeerNpc(ByVal num As Long, ByVal Search As String, ByVal UserIndex As Intege
   
     If Search = "" Then
         CountNpc = CountNpc + 1
-        Call SendData(SendTarget.toindex, UserIndex, 0, "NNHS" & num & "#" & Name)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "NNHS" & num & "#" & Name)
     Else
 
         If InStr(LCase(Name), LCase(Search)) Then
             CountNpc = CountNpc + 1
-            Call SendData(SendTarget.toindex, UserIndex, 0, "NNHS" & num & "#" & Name)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "NNHS" & num & "#" & Name)
 
         End If
 
     End If
   
-    Call SendData(SendTarget.toindex, UserIndex, 0, "NNHC" & CountNpc)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "NNHC" & CountNpc)
 
 End Sub
 
@@ -1184,17 +1194,17 @@ Sub LeerNpcH(ByVal num As Long, ByVal Search As String, ByVal UserIndex As Integ
   
     If Search = "" Then
         CountNpcH = CountNpcH + 1
-        Call SendData(SendTarget.toindex, UserIndex, 0, "NHHS" & num & "#" & Name)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "NHHS" & num & "#" & Name)
     Else
 
         If InStr(LCase(Name), LCase(Search)) Then
             CountNpcH = CountNpcH + 1
-            Call SendData(SendTarget.toindex, UserIndex, 0, "NHHS" & num & "#" & Name)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "NHHS" & num & "#" & Name)
 
         End If
 
     End If
   
-    Call SendData(SendTarget.toindex, UserIndex, 0, "NHHC" & CountNpcH)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "NHHC" & CountNpcH)
 
 End Sub
