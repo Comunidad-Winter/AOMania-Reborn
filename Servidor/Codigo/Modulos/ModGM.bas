@@ -3309,7 +3309,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, ByVal rData As String, ByVal In
                 Call modAsedio.Iniciar_Asedio(UserIndex, val(ReadField(1, rData, Asc("@"))), val(ReadField(2, rData, Asc("@"))), val(ReadField(3, rData, Asc("@"))))
             End If
         End If
-        If UCase$(Left(rData, 13)) = "/CANCELARSEDIO" Then
+        If UCase$(Left(rData, 13)) = "/QUITARASEDIO" Then
             Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
             Call modAsedio.CancelAsedio
         End If
@@ -7199,7 +7199,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             End If
         End If
         
-        If UCase$(Left(rData, 13)) = "/CANCELARSEDIO" Then
+        If UCase$(Left(rData, 13)) = "/QUITARASEDIO" Then
             Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
             Call modAsedio.CancelAsedio
         End If
