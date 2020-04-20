@@ -50,7 +50,7 @@ Private Type CharVA
     X As Integer
     Y As Integer
     w As Integer
-    H As Integer
+    h As Integer
     
     Tx1 As Single
     Tx2 As Single
@@ -255,7 +255,7 @@ Public Type Char
     FxIndex As Integer
     
     Criminal As Byte
-    Nombre As String
+    nombre As String
         
     scrollDirectionX As Integer
     scrollDirectionY As Integer
@@ -551,8 +551,8 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, _
     ByVal nWidth As Long, _
     ByVal nHeight As Long, _
     ByVal hSrcDC As Long, _
-    ByVal xSrc As Long, _
-    ByVal ySrc As Long, _
+    ByVal XSrc As Long, _
+    ByVal YSrc As Long, _
     ByVal dwRop As Long) As Long
 
 Public ColorAmbiente()   As D3DCOLORVALUE
@@ -577,7 +577,7 @@ Private Declare Function OleLoadPicture Lib "olepro32" (pStream As Any, _
     riid As Any, _
     ppvObj As Any) As Long
 
-Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) As IPicture
+Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) As IPicture
     Dim o_hMem        As Long
     Dim o_lpMem       As Long
     Dim aGUID(0 To 3) As Long
@@ -594,7 +594,7 @@ Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) 
         o_lpMem = GlobalLock(o_hMem)
 
         If Not o_lpMem = 0& Then
-            Call CopyMemory(ByVal o_lpMem, inArray(offset), Size)
+            Call CopyMemory(ByVal o_lpMem, inArray(Offset), Size)
             Call GlobalUnlock(o_hMem)
 
             If CreateStreamOnHGlobal(o_hMem, 1&, IIStream) = 0& Then
@@ -1918,31 +1918,31 @@ Sub DrawGrhtoHdc(ByVal DestHdc As Long, ByVal GrhIndex As Long, ByRef DestRect A
 End Sub
 
 Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer, ByVal PixelOffSetY As Integer, ByRef Light() As Long)
-                       
-    Dim Moved             As Boolean
-    Dim PartyIndexTrue    As Boolean
+
+    Dim Moved As Boolean
+    Dim PartyIndexTrue As Boolean
     Dim ColorClan(0 To 3) As Long
-    Dim Color(0 To 3)     As Long
-    Dim MismoChar         As Boolean
+    Dim Color(0 To 3) As Long
+    Dim MismoChar As Boolean
     Dim pos As Integer
 
     With CharList(charindex)
 
         If .Moving Then
-            
+
             If .scrollDirectionX <> 0 Then
-            
+
                 .MoveOffsetX = .MoveOffsetX + ScrollPixelFrame * Sgn(.scrollDirectionX) * timerTicksPerFrame
-           
+
                 If .Body.Walk(.Heading).Speed > 0 Then .Body.Walk(.Heading).Started = 1
-                
+
                 .Alas.Walk(.Heading).Started = 1
                 .Arma.WeaponWalk(.Heading).Started = 1
                 .Escudo.ShieldWalk(.Heading).Started = 1
-           
+
                 Moved = True
                 .AnimTime = 10
-               
+
                 'Check if we already got there
                 If (Sgn(.scrollDirectionX) = 1 And .MoveOffsetX >= 0) Or (Sgn(.scrollDirectionX) = -1 And .MoveOffsetX <= 0) Then
                     .MoveOffsetX = 0
@@ -1951,7 +1951,7 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                 End If
 
             End If
-            
+
             If .scrollDirectionY <> 0 Then
                 .MoveOffsetY = .MoveOffsetY + ScrollPixelFrame * Sgn(.scrollDirectionY) * timerTicksPerFrame
 
@@ -1959,33 +1959,33 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                 .Alas.Walk(.Heading).Started = 1
                 .Arma.WeaponWalk(.Heading).Started = 1
                 .Escudo.ShieldWalk(.Heading).Started = 1
-              
+
                 Moved = True
                 .AnimTime = 10
-               
+
                 If (Sgn(.scrollDirectionY) = 1 And .MoveOffsetY >= 0) Or (Sgn(.scrollDirectionY) = -1 And .MoveOffsetY <= 0) Then
                     .MoveOffsetY = 0
                     .scrollDirectionY = 0
 
                 End If
-               
+
             End If
 
         End If
 
         If .Heading = 0 Then .Heading = 3
- 
+
         If Moved = 0 Then
-        
+
             If .AnimTime = 0 Then
                 .Moving = 0
-                            
+
                 .Body.Walk(.Heading).FrameCounter = 1
                 .Body.Walk(.Heading).Started = 0
-                           
+
                 .Alas.Walk(.Heading).FrameCounter = 1
                 .Alas.Walk(.Heading).Started = 0
-                
+
                 If .Arma.WeaponAttack > 0 Then
                     .Arma.WeaponAttack = .Arma.WeaponAttack - 0.2
 
@@ -2000,7 +2000,7 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                     .Arma.WeaponWalk(.Heading).Started = 0
 
                 End If
-                
+
                 If .Escudo.ShieldAttack > 0 Then
                     .Escudo.ShieldAttack = .Escudo.ShieldAttack - 0.2
 
@@ -2025,12 +2025,12 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
 
         PixelOffSetX = PixelOffSetX + .MoveOffsetX
         PixelOffSetY = PixelOffSetY + .MoveOffsetY
-        
+
         Velocidad = 0.5
         MismoChar = (UserCharIndex = charindex)
 
         If Not .Invisible Or MismoClan(charindex) Or MismoChar Or MismaParty(charindex) Or EsGm(UserCharIndex) Then
-             
+
             If MismoChar Then
                 If CharList(UserCharIndex).PartyIndex > 0 And (CharList(UserCharIndex).Invisible = True Or CharList(UserCharIndex).Invisible = False) Then
                     PartyIndexTrue = True
@@ -2043,14 +2043,14 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
             If .Heading = E_Heading.SOUTH Then
                 If .Alas.Walk(.Heading).GrhIndex <> 0 Then
                     Call DrawGrhtoSurface(.Alas.Walk(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y + 35, 1, 1, _
-                            White, 0)
+                                          White, 0)
 
                 End If
 
             End If
- 
+
             Call DrawGrhtoSurface(.Body.Walk(.Heading), PixelOffSetX, PixelOffSetY, 1, 1, White, 0)
-                       
+
             Call DrawGrhtoSurface(.Head.Head(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y, 1, 0, White)
 
             If .Casco.Head(.Heading).GrhIndex <> 0 Then
@@ -2061,10 +2061,10 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
             If .Heading <> E_Heading.SOUTH Then
                 If .Alas.Walk(.Heading).GrhIndex <> 0 Then
                     Call DrawGrhtoSurface(.Alas.Walk(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y + IIf(.Heading _
-                            = E_Heading.NORTH, 35, 35), 1, 1, White, 0) 'El primer 25, es cuando esta mirando para arriba, el siguiente 20 es cuando esta mirando para izquierda o derecha ¿Ta?, anda cambiando el "20"
+                                                                                                                                         = E_Heading.NORTH, 35, 35), 1, 1, White, 0)    'El primer 25, es cuando esta mirando para arriba, el siguiente 20 es cuando esta mirando para izquierda o derecha ¿Ta?, anda cambiando el "20"
                 End If
             End If
-            
+
             Dim xx As Integer
 
             If .Arma.WeaponWalk(.Heading).GrhIndex <> 0 Then
@@ -2113,7 +2113,7 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                 End If
                 Call DrawGrhtoSurface(.Arma.WeaponWalk(.Heading), PixelOffSetX, PixelOffSetY - xx, 1, 1, White, 0)
             End If
-            
+
             If .Escudo.ShieldWalk(.Heading).GrhIndex <> 0 Then
                 If .Body.HeadOffset.Y = -69 Then
                     xx = 31
@@ -2160,21 +2160,21 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                 End If
                 Call DrawGrhtoSurface(.Escudo.ShieldWalk(.Heading), PixelOffSetX, PixelOffSetY - xx, 1, 1, White, 0)
             End If
-                            
-              If Nombres Then
-                If Len(.Nombre) <> 0 Then
-                    pos = getTagPosition(.Nombre)
-                    Dim lCenter     As Long
+
+            If Nombres Then
+                If Len(.nombre) <> 0 Then
+                    pos = getTagPosition(.nombre)
+                    Dim lCenter As Long
                     Dim lCenterClan As Long
 
-                    If InStr(.Nombre, "<") > 0 And InStr(.Nombre, ">") > 0 Then
-                                        
+                    If InStr(.nombre, "<") > 0 And InStr(.nombre, ">") > 0 Then
+
                         Dim Line As String
-                        Line = Left$(.Nombre, pos - 2)
+                        Line = Left$(.nombre, pos - 2)
                         lCenter = (Len(Line) * 6 / 2) - 15
-                                            
+
                         Dim sClan As String
-                        sClan = mid$(.Nombre, pos)
+                        sClan = mid$(.nombre, pos)
                         lCenterClan = (Len(sClan) * 6 / 2) - 15
 
                         If .Criminal = 1 Then
@@ -2196,311 +2196,436 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                             'ColorClan = RGB(0, 128, 255)
                             ColorToArray ColorClan, RealClan
                         End If
-                                  
+
                         If PartyIndexTrue Then
                             'ColorClan = RGB(0, 255, 0)
                             ColorToArray ColorClan, VerdeF
-                            
+
                             If Len(sClan) = 0 Then
-                                   If .Invisible = True Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
-                                   Else
-                                        
-                                   Select Case .priv
-                                
-                                   Case 0
+                                If .Invisible = True Then
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                                Else
+
+                                    Select Case .priv
+
+                                    Case 0
                                         If .Criminal = 1 Then
-                                           ElseIf .Criminal = 1 Then
-                                          Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, CaosClan)
-                                           ElseIf .Criminal = 2 Then
-                                          Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
-                                           ElseIf .Criminal = 3 Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
-                                           ElseIf .Criminal = 4 Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                           ElseIf .Criminal = 5 Then
-                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
-                                            Else
-                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, RealClan)
-                                          End If
-                                      
-                                      Case Else 'el resto
-                                           longToArray Color, ColoresPJ(.priv)
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
-                                   End Select
-                               End If
-                               
-                        Else
-                              
-                              If .Invisible = True Then
-                                   Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
-                              
-                                 Select Case .priv
-                                  
-                                  Case 0
-                                  
-                                     If .Criminal = 1 Then
                                         ElseIf .Criminal = 1 Then
-                                          Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, CaosClan)
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, CaosClan)
                                         ElseIf .Criminal = 2 Then
-                                          Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
                                         ElseIf .Criminal = 3 Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
                                         ElseIf .Criminal = 4 Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
                                         ElseIf .Criminal = 5 Then
                                             Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
                                         Else
                                             Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, RealClan)
                                         End If
-                                    
-                                Case Else 'el resto
-                                       longToArray Color, ColoresPJ(.priv)
-                                       Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
-                                                        
-                                       longToArray ColorClan, D3DColorXRGB(255, 128, 64)
-                                       Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
-                              End Select
-                              
-                              Else
-                              
-                              Select Case .priv
-                                  
-                                  Case 0
-                                  
-                                     If .Criminal = 1 Then
-                                        ElseIf .Criminal = 1 Then ' Crimi comun
-                                        longToArray Color, ColoresPJ(50)
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
-                                        
-                                        ElseIf .Criminal = 2 Then ' Templario
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
-                                        
-                                        
-                                    ElseIf .Criminal = 3 Then ' Templario
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
-                                        
-                                     ElseIf .Criminal = 4 Then ' Clero
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
-                                           
-                                        
-                                    ElseIf .Criminal = 5 Then ' Namesis
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
-                                        
-                                    Else
-                                        longToArray Color, ColoresPJ(49)
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
 
-                                    End If
+                                    Case Else    'el resto
+                                        longToArray Color, ColoresPJ(.priv)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
+                                    End Select
+                                End If
 
-                                Case 25  'admin
-                                    longToArray ColorClan, D3DColorXRGB(255, 128, 64)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
-                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 45, sClan, ColorClan)
-                                                        
-                                Case Else 'el resto
-                                    longToArray Color, ColoresPJ(.priv)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
-                                                        
-                                    longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                            Else
+
+                                If .Invisible = True Then
                                     Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
-                              End Select
-                           End If
-                         End If
-                            
-                            If .Stats.MaxHP > 0 Then
-                                 If Len(sClan) = 0 Then
-                                     Draw_Box PixelOffSetX - 32, PixelOffSetY + 42, CLng(((.Stats.MaxHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Black
-                                     Draw_Box PixelOffSetX - 32, PixelOffSetY + 42, CLng(((.Stats.MinHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Red
-                                    Else
-                                     Draw_Box PixelOffSetX - 32, PixelOffSetY + 54, CLng(((.Stats.MaxHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Black
-                                     Draw_Box PixelOffSetX - 32, PixelOffSetY + 54, CLng(((.Stats.MinHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Red
+
+                                    Select Case .priv
+
+                                    Case 0
+
+                                        If .Criminal = 1 Then
+                                        ElseIf .Criminal = 1 Then
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, CaosClan)
+                                        ElseIf .Criminal = 2 Then
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
+                                        ElseIf .Criminal = 3 Then
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
+                                        ElseIf .Criminal = 4 Then
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
+                                        ElseIf .Criminal = 5 Then
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
+                                        Else
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, RealClan)
+                                        End If
+
+                                    Case Else    'el resto
+                                        longToArray Color, ColoresPJ(.priv)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
+
+                                        longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+                                    End Select
+
+                                Else
+
+                                    Select Case .priv
+
+                                    Case 0
+
+                                        If .Criminal = 1 Then
+                                        ElseIf .Criminal = 1 Then    ' Crimi comun
+                                            longToArray Color, ColoresPJ(50)
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
+                                            Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
+
+                                        ElseIf .Criminal = 2 Then    ' Templario
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
+                                            Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
+
+
+                                        ElseIf .Criminal = 3 Then    ' Templario
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
+                                            Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
+
+                                        ElseIf .Criminal = 4 Then    ' Clero
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
+                                            Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
+
+
+                                        ElseIf .Criminal = 5 Then    ' Namesis
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
+                                            Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
+
+                                        Else
+                                            longToArray Color, ColoresPJ(49)
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
+                                            Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
+
+                                        End If
+
+                                    Case 25  'admin
+                                        longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 45, sClan, ColorClan)
+
+                                    Case Else    'el resto
+                                        longToArray Color, ColoresPJ(.priv)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
+
+                                        longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+                                    End Select
                                 End If
                             End If
-                        
+
+                            If .Stats.MaxHP > 0 Then
+                                If Len(sClan) = 0 Then
+                                    Draw_Box PixelOffSetX - 32, PixelOffSetY + 42, CLng(((.Stats.MaxHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Black
+                                    Draw_Box PixelOffSetX - 32, PixelOffSetY + 42, CLng(((.Stats.MinHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Red
+                                Else
+                                    Draw_Box PixelOffSetX - 32, PixelOffSetY + 54, CLng(((.Stats.MaxHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Black
+                                    Draw_Box PixelOffSetX - 32, PixelOffSetY + 54, CLng(((.Stats.MinHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Red
+                                End If
+                            End If
+
                         Else
 
                             Select Case .priv
 
-                                Case 0
+                            Case 0
 
-                                    If .Invisible = True Then
-                                        If .Criminal = 1 Then
-                                        ElseIf .Criminal = 1 Then
-                                          Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, CaosClan)
-                                        ElseIf .Criminal = 2 Then
-                                          Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
-                                        ElseIf .Criminal = 3 Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
-                                        ElseIf .Criminal = 4 Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                        ElseIf .Criminal = 5 Then
-                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
-                                        Else
-                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, RealClan)
-                                        End If
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, VerdeF)
-                                        
-                                    ElseIf .Criminal = 1 Then ' Crimi comun
-                                        longToArray Color, ColoresPJ(50)
+                                If .Invisible = True Then
+                                    If .Criminal = 1 Then
+                                    ElseIf .Criminal = 1 Then
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, CaosClan)
+                                    ElseIf .Criminal = 2 Then
                                         Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
-                                    ElseIf .Criminal = 2 Then ' Templario
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
-                                    ElseIf .Criminal = 3 Then ' Templario
+                                    ElseIf .Criminal = 3 Then
                                         Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
-                                    ElseIf .Criminal = 4 Then ' Clero
+                                    ElseIf .Criminal = 4 Then
                                         Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
-                                    ElseIf .Criminal = 5 Then ' Namesis
+                                    ElseIf .Criminal = 5 Then
                                         Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
                                     Else
-                                        longToArray Color, ColoresPJ(49)
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, RealClan)
                                     End If
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, VerdeF)
 
-                                Case 25  'admin
-                                
-                                    longToArray ColorClan, D3DColorXRGB(255, 128, 64)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
-                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 45, sClan, ColorClan)
-                                                        
-                                Case Else 'el resto
-                                
-                                    longToArray Color, ColoresPJ(.priv)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
-                                                        
-                                    longToArray ColorClan, D3DColorXRGB(255, 128, 64)
-                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+                                ElseIf .Criminal = 1 Then    ' Crimi comun
+                                    longToArray Color, ColoresPJ(50)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
+                                ElseIf .Criminal = 2 Then    ' Templario
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
+                                ElseIf .Criminal = 3 Then    ' Templario
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
+                                ElseIf .Criminal = 4 Then    ' Clero
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
+                                ElseIf .Criminal = 5 Then    ' Namesis
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
+                                Else
+                                    longToArray Color, ColoresPJ(49)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
+                                End If
+
+                            Case 25  'admin
+
+                                longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                                Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 45, sClan, ColorClan)
+
+                            Case Else    'el resto
+
+                                longToArray Color, ColoresPJ(.priv)
+                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
+
+                                longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                                Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
                             End Select
                         End If
 
                     Else
-                      
-                       Line = Left$(.Nombre, pos - 2)
 
-                       lCenter = (Len(Line) * 6 / 2) - 15
-                       lCenterClan = (Len(sClan) * 6 / 2) - 15
-                       
+                        Line = Left$(.nombre, pos - 2)
+
+                        lCenter = (Len(Line) * 6 / 2) - 15
+                        lCenterClan = (Len(sClan) * 6 / 2) - 15
+
                         If PartyIndexTrue Then
                             ColorToArray ColorClan, VerdeF
-                            
+
                             If Len(sClan) = 0 Then
-                                  If .Invisible = True Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
-                                  Else
-                                        
-                                   Select Case .priv
-                                
-                                   Case 0
+                                If .Invisible = True Then
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                                Else
+
+                                    Select Case .priv
+
+                                    Case 0
                                         If .Criminal = 1 Then
-                                           ElseIf .Criminal = 1 Then
-                                          Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, CaosClan)
-                                           ElseIf .Criminal = 2 Then
-                                          Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
-                                           ElseIf .Criminal = 3 Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
-                                           ElseIf .Criminal = 4 Then
-                                           Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                           ElseIf .Criminal = 5 Then
+                                        ElseIf .Criminal = 1 Then
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, CaosClan)
+                                        ElseIf .Criminal = 2 Then
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
+                                        ElseIf .Criminal = 3 Then
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
+                                        ElseIf .Criminal = 4 Then
+                                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
+                                        ElseIf .Criminal = 5 Then
                                             Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
-                                            Else
+                                        Else
                                             Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, RealClan)
-                                          End If
-                                      
-                                Case Else 'el resto
-                                    longToArray Color, ColoresPJ(.priv)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
-                                  End Select
-                               End If
+                                        End If
+
+                                    Case Else    'el resto
+                                        longToArray Color, ColoresPJ(.priv)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
+                                    End Select
+                                End If
                             End If
-                            
+
                             If .Stats.MaxHP > 0 Then
-                                 If Len(sClan) = 0 Then
-                                  Draw_Box PixelOffSetX - 32, PixelOffSetY + 42, CLng(((.Stats.MaxHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Black
-                                  Draw_Box PixelOffSetX - 32, PixelOffSetY + 42, CLng(((.Stats.MinHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Red
-                                 Else
-                                     Draw_Box PixelOffSetX - 32, PixelOffSetY + 54, CLng(((.Stats.MaxHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Black
-                                     Draw_Box PixelOffSetX - 32, PixelOffSetY + 54, CLng(((.Stats.MinHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Red
-                                 End If
+                                If Len(sClan) = 0 Then
+                                    Draw_Box PixelOffSetX - 32, PixelOffSetY + 42, CLng(((.Stats.MaxHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Black
+                                    Draw_Box PixelOffSetX - 32, PixelOffSetY + 42, CLng(((.Stats.MinHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Red
+                                Else
+                                    Draw_Box PixelOffSetX - 32, PixelOffSetY + 54, CLng(((.Stats.MaxHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Black
+                                    Draw_Box PixelOffSetX - 32, PixelOffSetY + 54, CLng(((.Stats.MinHP / 100) / (.Stats.MaxHP / 100)) * 100), 10, Red
+                                End If
                             End If
-                        
+
                         Else
 
                             Select Case .priv
 
-                                Case 0
+                            Case 0
 
-                                    If .Invisible = True Then
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, VerdeF)
-                                    ElseIf .Criminal = 1 Then ' Crimi comun
-                                        longToArray Color, ColoresPJ(50)
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, CaosClan)
-                                    ElseIf .Criminal = 2 Then ' Caos
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Caos)
-                                      ElseIf .Criminal = 3 Then ' Templario
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, White)
-                                    ElseIf .Criminal = 4 Then ' Real
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Real)
-                                    ElseIf .Criminal = 5 Then ' Namesis
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Tini)
-                                    Else
-                                        longToArray Color, ColoresPJ(49)
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, RealClan)
-                                    End If
+                                If .Invisible = True Then
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, VerdeF)
+                                ElseIf .Criminal = 1 Then    ' Crimi comun
+                                    longToArray Color, ColoresPJ(50)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, CaosClan)
+                                ElseIf .Criminal = 2 Then    ' Caos
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Caos)
+                                ElseIf .Criminal = 3 Then    ' Templario
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, White)
+                                ElseIf .Criminal = 4 Then    ' Real
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Real)
+                                ElseIf .Criminal = 5 Then    ' Namesis
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Tini)
+                                Else
+                                    longToArray Color, ColoresPJ(49)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, RealClan)
+                                End If
 
-                                Case 7
-                                    longToArray Color, ColoresPJ(7)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Color)
+                            Case 7
+                                longToArray Color, ColoresPJ(7)
+                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Color)
 
-                                Case Else
-                                    longToArray Color, ColoresPJ(.priv)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Color)
+                            Case Else
+                                longToArray Color, ColoresPJ(.priv)
+                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Color)
                             End Select
                         End If
                     End If
                 End If
             End If
         End If
-    
-        Velocidad = 1
 
-        Dim i As Long
+        Select Case TempChar.priv
+        Case 0
 
-        If .Particle_Count > 0 Then
-            For i = 1 To .Particle_Count
-                If .Particle_Group(i) > 0 Then
-                    Call Particle_Group_Render(.Particle_Group(i), PixelOffSetX, PixelOffSetY)
+            'Mithrandir sistema de status
+            Select Case TempChar.priv
+            Case 0
+
+                    If TempChar.CvcBlue = 1 Then
+                        longToArray Color, ColoresPJ(49)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    ElseIf TempChar.CvcRed = 1 Then
+                        longToArray Color, ColoresPJ(50)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    Else
+                        longToArray Color, ColoresPJ(48)
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                    End If
+
+                Case 1
+
+                    If TempChar.CvcBlue = 1 Then
+                        longToArray Color, ColoresPJ(49)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    ElseIf TempChar.CvcRed = 1 Then
+                        longToArray Color, ColoresPJ(50)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    Else
+                        longToArray Color, ColoresPJ(49)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                    End If
+
+                Case 2
+
+                    If TempChar.CvcBlue = 1 Then
+                        longToArray Color, ColoresPJ(49)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    ElseIf TempChar.CvcRed = 1 Then
+                        longToArray Color, ColoresPJ(50)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    Else
+                        longToArray Color, ColoresPJ(50)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                    End If
+                    'Consejo
+                Case 3
+
+                    If TempChar.CvcBlue = 1 Then
+                        longToArray Color, ColoresPJ(49)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    ElseIf TempChar.CvcRed = 1 Then
+                        longToArray Color, ColoresPJ(50)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    Else
+                        longToArray Color, ColoresPJ(5)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                    End If
+                    'Consejo caos
+                Case 4
+
+                    If TempChar.CvcBlue = 1 Then
+                        longToArray Color, ColoresPJ(49)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    ElseIf TempChar.CvcRed = 1 Then
+                        longToArray Color, ColoresPJ(50)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                        
+                    Else
+                        longToArray Color, ColoresPJ(6)
+                        
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 30, Left(TempChar.nombre, InStr(TempChar.nombre, "<") - 1), Color)
+                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
+                        Call Dialogos.DrawText(iPPX - lCenter, iPPY + 45, sClan, Color)
+                    End If
+                End Select
+
+                Velocidad = 1
+
+                Dim i As Long
+
+                If .Particle_Count > 0 Then
+                    For i = 1 To .Particle_Count
+                        If .Particle_Group(i) > 0 Then
+                            Call Particle_Group_Render(.Particle_Group(i), PixelOffSetX, PixelOffSetY)
+                        End If
+                    Next i
                 End If
-            Next i
-        End If
 
-        Call Dialogos.UpdateDialogPos(PixelOffSetX + 4 + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y, charindex)
+                Call Dialogos.UpdateDialogPos(PixelOffSetX + 4 + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y, charindex)
 
-         If .FxIndex <> 0 Then
-            Dim Colormeditar(0 To 3) As Long
-            Call longToArray(Colormeditar, D3DColorRGBA(255, 255, 255, 120))
-               If AoSetup.bTransparencia = 0 Then
-                   Call DrawGrhtoSurface(.fx, PixelOffSetX + FxData(.FxIndex).OffsetX, PixelOffSetY + FxData(.FxIndex).OffsetY, 1, 1, Colormeditar)
-                Else
-                  Call DrawGrhtoSurface(.fx, PixelOffSetX + FxData(.FxIndex).OffsetX, PixelOffSetY + FxData(.FxIndex).OffsetY, 1, 1, White)
-              End If
-              If .fx.Started = 0 Then .FxIndex = 0
-        End If
+                If .FxIndex <> 0 Then
+                    Dim Colormeditar(0 To 3) As Long
+                    Call longToArray(Colormeditar, D3DColorRGBA(255, 255, 255, 120))
+                    If AoSetup.bTransparencia = 0 Then
+                        Call DrawGrhtoSurface(.fx, PixelOffSetX + FxData(.FxIndex).OffsetX, PixelOffSetY + FxData(.FxIndex).OffsetY, 1, 1, Colormeditar)
+                    Else
+                        Call DrawGrhtoSurface(.fx, PixelOffSetX + FxData(.FxIndex).OffsetX, PixelOffSetY + FxData(.FxIndex).OffsetY, 1, 1, White)
+                    End If
+                    If .fx.Started = 0 Then .FxIndex = 0
+                End If
 
-    End With
+            End With
 
-End Sub
+        End Sub
 
 Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffSetX As Integer, ByVal PixelOffSetY As Integer)
 
@@ -2858,7 +2983,7 @@ Private Sub ShowNextFrame()
     
     If (UserClicado > 0) Then
  
-         Call Text_Draw(315 + CharList(UserClicado).pos.X, 108 + CharList(UserClicado).pos.Y, "" & "Nick: " & CharList(UserClicado).Nombre, Orange)
+         Call Text_Draw(315 + CharList(UserClicado).pos.X, 108 + CharList(UserClicado).pos.Y, "" & "Nick: " & CharList(UserClicado).nombre, Orange)
         
          Call Text_Draw(315, 118, "" & "---------------", White)
         
@@ -3056,10 +3181,10 @@ Private Function MismoClan(ByVal userindex As Integer) As Boolean
     Dim SuClan As String
     Dim MiClan As String
     
-    pos = getTagPosition(CharList(userindex).Nombre)
-    SuClan = mid(CharList(userindex).Nombre, pos)
-    pos = getTagPosition(CharList(UserCharIndex).Nombre)
-    MiClan = mid(CharList(UserCharIndex).Nombre, pos)
+    pos = getTagPosition(CharList(userindex).nombre)
+    SuClan = mid(CharList(userindex).nombre, pos)
+    pos = getTagPosition(CharList(UserCharIndex).nombre)
+    MiClan = mid(CharList(UserCharIndex).nombre, pos)
     
     MismoClan = False
     
@@ -3267,7 +3392,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
 118           .BackBufferWidth = ScreenWidth
 120           .BackBufferHeight = ScreenHeight
 122           .BackBufferFormat = DirectD3Ddm.Format 'current display depth
-              .hDeviceWindow = frmMain.MainViewPic.hwnd
+              .hDeviceWindow = frmMain.MainViewPic.HWnd
 
           End With
 
@@ -3277,7 +3402,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
           End If
 
           'create device
-128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.hwnd, Flags, DirectD3Dpp)
+128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.HWnd, Flags, DirectD3Dpp)
 
 130       Call D3DXMatrixOrthoOffCenterLH(Projection, 0, ScreenWidth, ScreenHeight, 0, -1#, 1#)
 132       Call D3DXMatrixIdentity(View)
@@ -3371,12 +3496,12 @@ Private Sub Directx_RenderStates()
     
 End Sub
 
-Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal hwnd As Long)
+Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal HWnd As Long)
     
     Call SpriteBatch.Flush
     
     Call DirectDevice.EndScene
-    Call DirectDevice.Present(RECT, ByVal 0, hwnd, ByVal 0)
+    Call DirectDevice.Present(RECT, ByVal 0, HWnd, ByVal 0)
 
 End Sub
 
@@ -3491,7 +3616,7 @@ Private Sub Directx_Render_Text(ByRef Batch As clsBatch, _
 '
 '                End If
              
-                Batch.Draw TempVA.X, TempVA.Y, TempVA.w, TempVA.H, Color, TempVA.Tx1, TempVA.Ty1, TempVA.Tx2, TempVA.Ty2
+                Batch.Draw TempVA.X, TempVA.Y, TempVA.w, TempVA.h, Color, TempVA.Tx1, TempVA.Ty1, TempVA.Tx2, TempVA.Ty2
 
                 'Shift over the the position to render the next character
                 Count = Count + UseFont.HeaderInfo.CharWidth(ascii(j - 1))
@@ -3591,7 +3716,7 @@ Private Sub Directx_Init_FontSettings()
             .X = 0
             .Y = 0
             .w = cfonts.HeaderInfo.CellWidth
-            .H = cfonts.HeaderInfo.CellHeight
+            .h = cfonts.HeaderInfo.CellHeight
             .Tx1 = u
             .Ty1 = v
             .Tx2 = u + cfonts.ColFactor
@@ -3698,10 +3823,10 @@ Public Sub Directx_Renderer()
 
 End Sub
 
-Public Sub Draw_Box(ByVal X As Integer, ByVal Y As Integer, ByVal w As Integer, ByVal H As Integer, ByRef BackgroundColor() As Long)
+Public Sub Draw_Box(ByVal X As Integer, ByVal Y As Integer, ByVal w As Integer, ByVal h As Integer, ByRef BackgroundColor() As Long)
     
     Call SpriteBatch.SetTexture(Nothing)
-    Call SpriteBatch.Draw(X, Y, w, H, BackgroundColor)
+    Call SpriteBatch.Draw(X, Y, w, h, BackgroundColor)
      
 End Sub
 
