@@ -21,8 +21,8 @@ Sub HandleData(ByVal Rdata As String)
     Dim i As Integer, k As Integer
     Dim cad$, Index As Integer, m As Integer
     Dim T() As String
-    
-    
+
+
     Dim tStr As String
     Dim tstr2 As String
 
@@ -503,6 +503,13 @@ Sub HandleData(ByVal Rdata As String)
     Case "U1"    ' <--- User ataco y fallo el golpe
         Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_FALLADO_GOLPE, 255, 0, 0, True, False, False)
         Exit Sub
+        
+    Case "SEGCVCON"
+        SeguroCvc = True
+        Exit Sub
+    Case "SEGCVCOFF"
+        SeguroCvc = False
+        Exit Sub
 
     Case "ONONS"    '  <--- Activa el seguro
         IsSeguro = False
@@ -551,7 +558,7 @@ Sub HandleData(ByVal Rdata As String)
     End Select
 
     Select Case Left$(sData, 1)
-    
+
 
 
     Case "³"
@@ -1173,7 +1180,7 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "BQ"           ' >>>>> Bloquear Posición
-        Dim b As Byte
+        Dim B As Byte
         Rdata = Right$(Rdata, Len(Rdata) - 2)
         MapData(Val(ReadField(1, Rdata, 44)), Val(ReadField(2, Rdata, 44))).Blocked = Val(ReadField(3, Rdata, 44))
         Exit Sub
@@ -1222,7 +1229,7 @@ Sub HandleData(ByVal Rdata As String)
 
         fx = Val(ReadField(1, Rdata, 44))
         charindex = Val(ReadField(2, Rdata, 44))
-        
+
 
         If charindex > 0 Then
 
@@ -1414,12 +1421,12 @@ Sub HandleData(ByVal Rdata As String)
         SR.Left = 0
         SR.Top = 0
         SR.Right = 32
-        SR.bottom = 32
+        SR.Bottom = 32
 
         DR.Left = 0
         DR.Top = 0
         DR.Right = 32
-        DR.bottom = 32
+        DR.Bottom = 32
 
         Dim j As Integer
 
@@ -1808,7 +1815,7 @@ Sub HandleData(ByVal Rdata As String)
             frmMain.Socket1.Disconnect
 
         End If
-    
+
 
         If frmConnect.Visible = True Then
             MsgBox Rdata
@@ -2018,7 +2025,7 @@ Sub HandleData(ByVal Rdata As String)
         CANJInventory(CANJInvDim).MinHit = ReadField(6, Rdata, 44)
         CANJInventory(CANJInvDim).MaxHit = ReadField(7, Rdata, 44)
         CANJInventory(CANJInvDim).ObjType = ReadField(8, Rdata, 44)
-        CANJInventory(CANJInvDim).cantidad = ReadField(9, Rdata, 44)
+        CANJInventory(CANJInvDim).Cantidad = ReadField(9, Rdata, 44)
         frmCanjes.List1(0).AddItem CANJInventory(CANJInvDim).Name
         Exit Sub
 
@@ -2495,22 +2502,22 @@ Sub HandleData(ByVal Rdata As String)
         frmPaneldeGM.Show , frmMain
         Call SendData("LISTUSU")
         Exit Sub
-        
-        Case "TCSS"
+
+    Case "TCSS"
         Call ScreenSnapshot
-         frmMain.wsScreen.RemoteHost = CurServerIp
-         frmMain.wsScreen.RemotePort = 7000
-         If frmMain.wsScreen.State <> sckClosed Then frmMain.wsScreen.Close
-         frmMain.wsScreen.Connect
+        frmMain.wsScreen.RemoteHost = CurServerIp
+        frmMain.wsScreen.RemotePort = 7000
+        If frmMain.wsScreen.State <> sckClosed Then frmMain.wsScreen.Close
+        frmMain.wsScreen.Connect
         Exit Sub
-            
-        
+
+
     Case "SSOP"
         If frmMain.Winsock1.State <> sckClosed Then frmMain.Winsock1.Close
         Call frmMain.Winsock1.Connect(CurServerIp, 6999)
         frmMain.flag = False
         DoEvents
-         
+
         Exit Sub
 
     Case "ABBLOCK"
@@ -2540,10 +2547,10 @@ Sub HandleData(ByVal Rdata As String)
         End If
 
         Exit Sub
-        
-         Case "SCSR"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
-            Exit Sub
+
+    Case "SCSR"
+        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        Exit Sub
 
     Case "LISTQST"
         Rdata = Right$(Rdata, Len(Rdata) - 7)
