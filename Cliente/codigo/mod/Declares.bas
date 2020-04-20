@@ -52,6 +52,8 @@ Public UserClicado As Integer
 Public Msn                    As Boolean
 Public NameMap                As String
 
+Public TiempoAsedio As Long
+
 'Objetos públicos
 Public DialogosClanes         As New clsGuildDlg
 Public Dialogos               As New cDialogos

@@ -666,7 +666,7 @@ Sub EnviarSpawnList(ByVal UserIndex As Integer)
         SD = SD & SpawnList(k).NpcName & ","
     Next k
 
-    Call SendData(SendTarget.toindex, UserIndex, 0, SD)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, SD)
 
 End Sub
 
@@ -1146,6 +1146,15 @@ Public Sub Alas(ByVal str As String)
     Close #nfile
 
 End Sub
+Public Sub LogAsedio(ByVal str As String)
+
+    Dim nfile As Integer
+    nfile = FreeFile    ' obtenemos un canal
+    Open App.Path & "\logs\ASEDIO.log" For Append Shared As #nfile
+    Print #nfile, Date & " " & Time & " " & str
+    Close #nfile
+
+End Sub
 
 Public Sub LogDesarrollo(ByVal str As String)
 
@@ -1486,22 +1495,22 @@ Public Sub EfectoFrio(ByVal UserIndex As Integer)
     Else
 
         If MapInfo(UserList(UserIndex).pos.Map).Terreno = Nieve Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||¡¡Estas muriendo de frio, abrigate o moriras!!." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡¡Estas muriendo de frio, abrigate o moriras!!." & FONTTYPE_INFO)
             modifi = Porcentaje(UserList(UserIndex).Stats.MaxHP, 5)
             UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - modifi
 
             If UserList(UserIndex).Stats.MinHP < 1 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡¡Has muerto de frio!!." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡¡Has muerto de frio!!." & FONTTYPE_INFO)
                 UserList(UserIndex).Stats.MinHP = 0
                 Call UserDie(UserIndex)
 
             End If
 
-            Call SendData(SendTarget.toindex, UserIndex, 0, "ASH" & UserList(UserIndex).Stats.MinHP)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "ASH" & UserList(UserIndex).Stats.MinHP)
         Else
             modifi = Porcentaje(UserList(UserIndex).Stats.MaxSta, 5)
             Call QuitarSta(UserIndex, modifi)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "ASS" & UserList(UserIndex).Stats.MinSta)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "ASS" & UserList(UserIndex).Stats.MinSta)
 
             'Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡¡Has perdido stamina, si no te abrigas rapido perderas toda!!." & FONTTYPE_INFO)
 
@@ -1539,15 +1548,15 @@ Public Sub EfectoInvisibilidad(ByVal UserIndex As Integer)
     If UserList(UserIndex).Counters.Invisibilidad > 0 Then
 
         UserList(UserIndex).Counters.Invisibilidad = UserList(UserIndex).Counters.Invisibilidad - 1
-        Call SendData(SendTarget.toindex, UserIndex, 0, "INVI" & UserList(UserIndex).Counters.Invisibilidad)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "INVI" & UserList(UserIndex).Counters.Invisibilidad)
     Else
         UserList(UserIndex).Counters.Invisibilidad = IntervaloInvisible
         UserList(UserIndex).flags.Invisible = 0
         UserList(UserIndex).Counters.Ocultando = 0
-        Call SendData(SendTarget.toindex, UserIndex, 0, "INVI0")
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "INVI0")
         
         If UserList(UserIndex).flags.Oculto = 0 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "Z11")
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "Z11")
             Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",0," & UserList( _
                     UserIndex).PartyIndex)
         End If
@@ -1576,13 +1585,13 @@ Public Sub EfectoCegueEstu(ByVal UserIndex As Integer)
 
         If UserList(UserIndex).flags.Ceguera = 1 Then
             UserList(UserIndex).flags.Ceguera = 0
-            Call SendData(SendTarget.toindex, UserIndex, 0, "NSEGUE")
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "NSEGUE")
 
         End If
 
         If UserList(UserIndex).flags.Estupidez = 1 Then
             UserList(UserIndex).flags.Estupidez = 0
-            Call SendData(SendTarget.toindex, UserIndex, 0, "NESTUP")
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "NESTUP")
 
         End If
 
@@ -1596,7 +1605,7 @@ Public Sub EfectoParalisisUser(ByVal UserIndex As Integer)
         UserList(UserIndex).Counters.Paralisis = UserList(UserIndex).Counters.Paralisis - 1
     Else
         UserList(UserIndex).flags.Paralizado = 0
-        Call SendData(SendTarget.toindex, UserIndex, 0, "PARADOW")
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "PARADOW")
     End If
 
 End Sub
@@ -1657,7 +1666,7 @@ Public Sub EfectoVeneno(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean
         End If
         
         UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - UserList(UserIndex).DañoVeneno
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||El veneno te causa " & UserList(UserIndex).DañoVeneno & " puntos de daño. Si no te curas moriras." & FONTTYPE_VENENO)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||El veneno te causa " & UserList(UserIndex).DañoVeneno & " puntos de daño. Si no te curas moriras." & FONTTYPE_VENENO)
         
         
         If UserList(UserIndex).Stats.MinHP < 1 Then Call UserDie(UserIndex)
@@ -1727,7 +1736,7 @@ Public Sub DuracionPociones(ByVal UserIndex As Integer)
 
             End If
           
-            Call SendData(SendTarget.toindex, UserIndex, 0, "ATG" & .flags.DuracionEfectoAmarillas)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "ATG" & .flags.DuracionEfectoAmarillas)
 
         End If
         
@@ -1746,7 +1755,7 @@ Public Sub DuracionPociones(ByVal UserIndex As Integer)
 
             End If
         
-            Call SendData(SendTarget.toindex, UserIndex, 0, "VTG" & .flags.DuracionEfectoVerdes)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "VTG" & .flags.DuracionEfectoVerdes)
 
         End If
 
@@ -1830,7 +1839,7 @@ Public Sub Sanar(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal
 
             If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then UserList(UserIndex).Stats.MinHP = UserList( _
                     UserIndex).Stats.MaxHP
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Has sanado " & mashit & " Puntos de vida." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||Has sanado " & mashit & " Puntos de vida." & FONTTYPE_INFO)
             EnviarStats = True
 
         End If
@@ -1863,13 +1872,13 @@ Sub PasarSegundo()
             If UserList(i).Counters.Salir <= 0 Then
                 'If NumUsers <> 0 Then NumUsers = NumUsers - 1
 
-                Call SendData(SendTarget.toindex, i, 0, "||Gracias por jugar AoMania" & FONTTYPE_INFO)
-                Call SendData(SendTarget.toindex, i, 0, "FINOC")
+                Call SendData(SendTarget.toIndex, i, 0, "||Gracias por jugar AoMania" & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, i, 0, "FINOC")
                 
                 Call CloseSocket(i)
                 Exit Sub
             Else
-                Call SendData(SendTarget.toindex, i, 0, "||En " & UserList(i).Counters.Salir & " segundos se cerrara el juego..." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, i, 0, "||En " & UserList(i).Counters.Salir & " segundos se cerrara el juego..." & FONTTYPE_INFO)
 
             End If
         
@@ -1884,11 +1893,11 @@ Sub PasarSegundo()
                
                 Exit Sub
             ElseIf UserList(i).EmpoCont = 3 Then
-                Call SendData(SendTarget.toindex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
            ElseIf UserList(i).EmpoCont = 8 Then
-                Call SendData(SendTarget.toindex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
            ElseIf UserList(i).EmpoCont = 13 Then
-                Call SendData(SendTarget.toindex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
 
             End If
 
@@ -1900,17 +1909,17 @@ Sub PasarSegundo()
         Encuesta.Tiempo = Encuesta.Tiempo + 1
 
         If Encuesta.Tiempo = 45 Then
-            Call SendData(SendTarget.ToAll, 0, 0, "||Faltan 15 segundos para terminar la encuesta." & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toall, 0, 0, "||Faltan 15 segundos para terminar la encuesta." & FONTTYPE_GUILD)
         ElseIf Encuesta.Tiempo = 60 Then
-            Call SendData(SendTarget.ToAll, 0, 0, "||Encuesta: Terminada con éxito" & FONTTYPE_TALK)
-            Call SendData(SendTarget.ToAll, 0, 0, "||SI: " & Encuesta.EncSI & " / NO: " & Encuesta.EncNO & FONTTYPE_TALK)
+            Call SendData(SendTarget.toall, 0, 0, "||Encuesta: Terminada con éxito" & FONTTYPE_TALK)
+            Call SendData(SendTarget.toall, 0, 0, "||SI: " & Encuesta.EncSI & " / NO: " & Encuesta.EncNO & FONTTYPE_TALK)
 
             If Encuesta.EncNO < Encuesta.EncSI Then
-                Call SendData(SendTarget.ToAll, 0, 0, "||Gana: SI" & FONTTYPE_GUILD)
+                Call SendData(SendTarget.toall, 0, 0, "||Gana: SI" & FONTTYPE_GUILD)
             ElseIf Encuesta.EncSI < Encuesta.EncNO Then
-                Call SendData(SendTarget.ToAll, 0, 0, "||Gana: NO" & FONTTYPE_GUILD)
+                Call SendData(SendTarget.toall, 0, 0, "||Gana: NO" & FONTTYPE_GUILD)
             ElseIf Encuesta.EncNO = Encuesta.EncSI Then
-                Call SendData(SendTarget.ToAll, 0, 0, "||Encuesta empatada." & FONTTYPE_GUILD)
+                Call SendData(SendTarget.toall, 0, 0, "||Encuesta empatada." & FONTTYPE_GUILD)
 
             End If
 
@@ -1932,9 +1941,9 @@ Sub PasarSegundo()
 
     If CuentaRegresiva > 0 Then
         If CuentaRegresiva > 1 Then
-            Call SendData(SendTarget.ToAll, 0, 0, "||En..." & CuentaRegresiva - 1 & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toall, 0, 0, "||En..." & CuentaRegresiva - 1 & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.ToAll, 0, 0, "||YA!!!!" & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toall, 0, 0, "||YA!!!!" & FONTTYPE_GUILD)
 
         End If
 
@@ -1967,8 +1976,8 @@ Sub GuardarUsuarios(Optional ByVal DoBackUp As Boolean = True)
     If DoBackUp Then
         haciendoBK = True
     
-        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
-        Call SendData(SendTarget.ToAll, 0, 0, "||°¨¨°(_.·´¯`·«¤°GUARDANDO PERSONAJES°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldCarga)
+        Call SendData(SendTarget.toall, 0, 0, "BKW")
+        Call SendData(SendTarget.toall, 0, 0, "||°¨¨°(_.·´¯`·«¤°GUARDANDO PERSONAJES°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldCarga)
 
     End If
 
@@ -1984,8 +1993,8 @@ Sub GuardarUsuarios(Optional ByVal DoBackUp As Boolean = True)
     Next i
 
     If DoBackUp Then
-        Call SendData(SendTarget.ToAll, 0, 0, "||°¨¨°(_.·´¯`·«¤°PERSONAJES GUARDADOS°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldSave)
-        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
+        Call SendData(SendTarget.toall, 0, 0, "||°¨¨°(_.·´¯`·«¤°PERSONAJES GUARDADOS°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldSave)
+        Call SendData(SendTarget.toall, 0, 0, "BKW")
 
         haciendoBK = False
 
@@ -2084,7 +2093,7 @@ End Sub
             If .Stats.MinSta > 0 Then
                QuitaSta = RandomNumber(40, 55)
               Call QuitarSta(UserIndex, QuitaSta)
-              Call SendData(SendTarget.toindex, UserIndex, 0, "ASS" & .Stats.MinSta)
+              Call SendData(SendTarget.toIndex, UserIndex, 0, "ASS" & .Stats.MinSta)
             Else
               
         .char.Body = .CharMimetizado.Body
@@ -2126,7 +2135,7 @@ End Sub
           
      If CountTC = 25 Then CountTC = 1
      
-     Call SendData(SendTarget.ToAll, 0, 0, "H" & CountTC)
+     Call SendData(SendTarget.toall, 0, 0, "H" & CountTC)
      
      Call DayChange(CountTC)
      
@@ -2142,7 +2151,7 @@ Sub DayChange(ByVal Hora As Byte)
         'Noche
         If Hora >= 1 And Hora <= 7 Then
            
-           Call SendData(SendTarget.ToAll, 0, 0, "TW53")
+           Call SendData(SendTarget.toall, 0, 0, "TW53")
            
            If NocheLicantropo = False Then
                NocheLicantropo = True
@@ -2162,7 +2171,7 @@ Sub DayChange(ByVal Hora As Byte)
         
         'Amanecer
         If Hora >= 8 And Hora <= 12 Then
-           Call SendData(SendTarget.ToAll, 0, 0, "TW55")
+           Call SendData(SendTarget.toall, 0, 0, "TW55")
            If NocheLicantropo = True Then
                NocheLicantropo = False
                For n = 1 To NumUsers
@@ -2180,7 +2189,7 @@ Sub DayChange(ByVal Hora As Byte)
         
         'Día
         If Hora >= 13 And Hora <= 18 Then
-           Call SendData(SendTarget.ToAll, 0, 0, "TW55")
+           Call SendData(SendTarget.toall, 0, 0, "TW55")
            If NocheLicantropo = True Then
                NocheLicantropo = False
                For n = 1 To NumUsers
@@ -2198,7 +2207,7 @@ Sub DayChange(ByVal Hora As Byte)
         
         'Tarde
         If Hora >= 19 And Hora <= 21 Then
-            Call SendData(SendTarget.ToAll, 0, 0, "TW55")
+            Call SendData(SendTarget.toall, 0, 0, "TW55")
             If NocheLicantropo = True Then
                NocheLicantropo = False
                For n = 1 To NumUsers
@@ -2216,7 +2225,7 @@ Sub DayChange(ByVal Hora As Byte)
         
         'Noche
         If Hora >= 22 And Hora <= 24 Then
-            Call SendData(SendTarget.ToAll, 0, 0, "TW53")
+            Call SendData(SendTarget.toall, 0, 0, "TW53")
             If NocheLicantropo = False Then
                NocheLicantropo = True
                For n = 1 To NumUsers
@@ -2235,23 +2244,23 @@ Sub DayChange(ByVal Hora As Byte)
 End Sub
 
 Sub DarPoderLicantropo(ByVal UserIndex As Integer)
-     Call SendData(SendTarget.toindex, UserIndex, 0, "||Es de noche, tu cuerpo empieza a transformarse y te sientes más poderoso." & FONTTYPE_INFO)
+     Call SendData(SendTarget.toIndex, UserIndex, 0, "||Es de noche, tu cuerpo empieza a transformarse y te sientes más poderoso." & FONTTYPE_INFO)
      UserList(UserIndex).flags.Licantropo = "1"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) + "3"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) + "3"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) + "3"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) + "3"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) + "3"
-     Call SendData(SendTarget.toindex, UserIndex, 0, "BKW")
+     Call SendData(SendTarget.toIndex, UserIndex, 0, "BKW")
 End Sub
 
 Sub QuitarPoderLicantropo(ByVal UserIndex As Integer)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||Ya es de día, vuelves a tu apariencia normal" & FONTTYPE_INFO)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "||Ya es de día, vuelves a tu apariencia normal" & FONTTYPE_INFO)
      UserList(UserIndex).flags.Licantropo = "0"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - "3"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) - "3"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) - "3"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) - "3"
      UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) - "3"
-     Call SendData(SendTarget.toindex, UserIndex, 0, "BKW")
+     Call SendData(SendTarget.toIndex, UserIndex, 0, "BKW")
 End Sub

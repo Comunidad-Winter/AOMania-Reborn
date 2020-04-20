@@ -2969,6 +2969,7 @@ Private Sub ShowNextFrame()
     Call Text_Draw(415, 0, "FPS: " & FPS, White)
     Call Text_Draw(465, 16, NameDay, White)
     Call Text_Draw(430, 32, "Hay " & NumUsers & " Usuarios Online.", Onlines)
+    If TiempoAsedio <> 0 And (UserMap = 114 Or UserMap = 115) Then Call Text_Draw(260, 655, "Faltan " & TiempoAsedio & " minutos para que finalize el Asedio.", Cyan)
 
     Call Dialogos.Render
     Call DibujarCartel

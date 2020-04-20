@@ -737,7 +737,7 @@ Sub HandleData(ByVal Rdata As String)
 
         End Select
 
-        frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
+        frmMain.Exp.Caption = UserExp & "/" & UserPasarNivel
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
@@ -1509,7 +1509,7 @@ Sub HandleData(ByVal Rdata As String)
         frmMain.lblVidaBar.Caption = UserMinHP & "/" & UserMaxHP
         frmMain.lblManaBar.Caption = UserMinMAN & "/" & UserMaxMAN
         frmMain.lblStaBar.Caption = UserMinSTA & "/" & UserMaxSTA
-        frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
+        frmMain.Exp.Caption = UserExp & "/" & UserPasarNivel
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
@@ -1593,7 +1593,7 @@ Sub HandleData(ByVal Rdata As String)
         Rdata = Right$(Rdata, Len(Rdata) - 3)
         UserExp = Val(Rdata)
 
-        frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
+        frmMain.Exp.Caption = UserExp & "/" & UserPasarNivel
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
@@ -2121,6 +2121,12 @@ Sub HandleData(ByVal Rdata As String)
     Case "NENE"             ' >>>>> Nro de Personajes :: NENE
         Rdata = Right$(Rdata, Len(Rdata) - 4)
         AddtoRichTextBox frmMain.RecTxt, MENSAJE_NENE & Rdata, 255, 255, 255, 0, 0
+        Exit Sub
+        
+        Case "SSED"
+        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        'Debug.Print "¡ASED!" & Rdata
+        TiempoAsedio = Val(Rdata)
         Exit Sub
 
         '  Case "NNHS" 'Lista de Npcs no hostiles
