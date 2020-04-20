@@ -5,9 +5,9 @@ Private Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringA" (B
 Private Declare Function mciExecute Lib "winmm.dll" (ByVal lpstrCommand As String) As Long
 
 Public Sub SoundCarga()
-     Dim sPath As String
-     Dim lRet As Long
-     sPath = Chr(34) & App.Path + "\WAV\158.wav" & Chr(34)
-     lRet = mciSendString("OPEN " & sPath, 0&, 0, 0)
-     lRet = mciSendString("PLAY " & sPath & " FROM 0", 0&, 0, 0)
+    Dim sPath As String
+    Dim lRet As Long
+    sPath = Chr(34) & App.Path + "\WAV\158.wav" & Chr(34)
+    lRet = mciSendString("OPEN " & sPath, 0&, 0, 0)
+    lRet = mciSendString("PLAY " & sPath & " FROM 0", 0&, 0, 0)
 End Sub

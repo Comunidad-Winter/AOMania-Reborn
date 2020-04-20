@@ -2,9 +2,9 @@ Attribute VB_Name = "PathFinding"
 
 Option Explicit
 
-Private Const ROWS     As Integer = 100
-Private Const COLUMS   As Integer = 100
-Private Const MAXINT   As Integer = 1000
+Private Const ROWS As Integer = 100
+Private Const COLUMS As Integer = 100
+Private Const MAXINT As Integer = 1000
 Private Const Walkable As Integer = 0
 
 Private Type tIntermidiateWork
@@ -17,12 +17,16 @@ End Type
 
 Dim TmpArray(1 To ROWS, 1 To COLUMS) As tIntermidiateWork
 
-Dim TilePosX                         As Integer, TilePosY As Integer
+Dim TilePosX As Integer, TilePosY As Integer
+Attribute TilePosY.VB_VarUserMemId = 1073741825
 
-Dim MyVert                           As tVertice
-Dim MyFin                            As tVertice
+Dim MyVert As tVertice
+Attribute MyVert.VB_VarUserMemId = 1073741827
+Dim MyFin As tVertice
+Attribute MyFin.VB_VarUserMemId = 1073741828
 
-Dim Iter                             As Integer
+Dim Iter As Integer
+Attribute Iter.VB_VarUserMemId = 1073741829
 
 Private Function Limites(ByVal vfila As Integer, ByVal vcolu As Integer)
 
@@ -136,23 +140,23 @@ Private Sub ProcessAdjacents(ByVal MapIndex As Integer, _
         End If
 
     End If
-   
+
 End Sub
 
 Public Sub SeekPath(ByVal NpcIndex As Integer, Optional ByVal MaxSteps As Integer = 30)
 
-    '############################################################
-    'This Sub seeks a path from the npclist(npcindex).pos
-    'to the location NPCList(NpcIndex).PFINFO.Target.
-    'The optional parameter MaxSteps is the maximum of steps
-    'allowed for the path.
-    '############################################################
+'############################################################
+'This Sub seeks a path from the npclist(npcindex).pos
+'to the location NPCList(NpcIndex).PFINFO.Target.
+'The optional parameter MaxSteps is the maximum of steps
+'allowed for the path.
+'############################################################
 
     Dim cur_npc_pos As tVertice
     Dim tar_npc_pos As tVertice
-    Dim v           As tVertice
-    Dim NpcMap      As Integer
-    Dim steps       As Integer
+    Dim v As tVertice
+    Dim NpcMap As Integer
+    Dim steps As Integer
 
     NpcMap = Npclist(NpcIndex).pos.Map
 
@@ -161,8 +165,8 @@ Public Sub SeekPath(ByVal NpcIndex As Integer, Optional ByVal MaxSteps As Intege
     cur_npc_pos.X = Npclist(NpcIndex).pos.Y
     cur_npc_pos.Y = Npclist(NpcIndex).pos.X
 
-    tar_npc_pos.X = Npclist(NpcIndex).PFINFO.Target.X '  UserList(NPCList(NpcIndex).PFINFO.TargetUser).Pos.X
-    tar_npc_pos.Y = Npclist(NpcIndex).PFINFO.Target.Y '  UserList(NPCList(NpcIndex).PFINFO.TargetUser).Pos.Y
+    tar_npc_pos.X = Npclist(NpcIndex).PFINFO.Target.X    '  UserList(NPCList(NpcIndex).PFINFO.TargetUser).Pos.X
+    tar_npc_pos.Y = Npclist(NpcIndex).PFINFO.Target.Y    '  UserList(NPCList(NpcIndex).PFINFO.TargetUser).Pos.Y
 
     Call InitializeTable(TmpArray, cur_npc_pos)
     Call InitQueue
@@ -185,13 +189,13 @@ End Sub
 
 Private Sub MakePath(ByVal NpcIndex As Integer)
 
-    '#######################################################
-    'Builds the path previously calculated
-    '#######################################################
+'#######################################################
+'Builds the path previously calculated
+'#######################################################
 
     Dim Pasos As Integer
-    Dim miV   As tVertice
-    Dim i     As Integer
+    Dim miV As tVertice
+    Dim i As Integer
 
     Pasos = TmpArray(Npclist(NpcIndex).PFINFO.Target.Y, Npclist(NpcIndex).PFINFO.Target.X).DistV
     Npclist(NpcIndex).PFINFO.PathLenght = Pasos
@@ -216,14 +220,14 @@ Private Sub MakePath(ByVal NpcIndex As Integer)
 
     Npclist(NpcIndex).PFINFO.CurPos = 1
     Npclist(NpcIndex).PFINFO.NoPath = False
-   
+
 End Sub
 
 Private Sub InitializeTable(ByRef T() As tIntermidiateWork, ByRef s As tVertice, Optional ByVal MaxSteps As Integer = 30)
 
-    '#########################################################
-    'Initialize the array where we calculate the path
-    '#########################################################
+'#########################################################
+'Initialize the array where we calculate the path
+'#########################################################
 
     Dim j As Integer, k As Integer
     Const anymap = 1

@@ -104,16 +104,16 @@ End Function
 Public Function Existe(ByVal nombre As String) As Boolean
 
     On Error Resume Next
-  
-    Dim f                  As Boolean
-    Dim v                  As Variant
-    Dim i                  As Integer
+
+    Dim f As Boolean
+    Dim v As Variant
+    Dim i As Integer
     Dim NombreEnMayusculas As String
     NombreEnMayusculas = UCase$(nombre)
- 
+
     i = 1
     f = False
- 
+
     For i = 1 To Me.Longitud
         v = Me.VerElemento(i)
 
@@ -131,12 +131,12 @@ Public Sub Quitar(ByVal nombre As String)
 
     On Error Resume Next
 
-    Dim v                  As Variant
-    Dim i                  As Integer
+    Dim v As Variant
+    Dim i As Integer
     Dim NombreEnMayusculas As String
- 
+
     NombreEnMayusculas = UCase$(nombre)
- 
+
     For i = 1 To Me.Longitud
         v = Me.VerElemento(i)
 
@@ -147,7 +147,7 @@ Public Sub Quitar(ByVal nombre As String)
         End If
 
     Next i
- 
+
 End Sub
 
 Public Sub QuitarIndex(ByVal Index As Integer)
@@ -160,7 +160,7 @@ End Sub
 
 Private Sub Class_Terminate()
 
-    'Destruimos el objeto Cola
+'Destruimos el objeto Cola
     Set Cola = Nothing
 
 End Sub

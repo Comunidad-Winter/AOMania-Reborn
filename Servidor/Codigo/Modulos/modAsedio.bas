@@ -70,20 +70,20 @@ Public Sub Iniciar_Asedio(ByVal UserIndex As Integer, ByVal MaxSlot As Integer, 
 
     Select Case Asedio.Estado
     Case AStatus.Inscripcion
-        If UserIndex > 0 Then Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Las inscripciones están abiertas!" & FONTTYPE_Motd4)
+        If UserIndex > 0 Then Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Las inscripciones están abiertas!" & FONTTYPE_Motd4)
         Exit Sub
     Case AStatus.Curso
-        If UserIndex > 0 Then Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡El evento ya ha comenzado!" & FONTTYPE_Motd4)
+        If UserIndex > 0 Then Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡El evento ya ha comenzado!" & FONTTYPE_Motd4)
         Exit Sub
     End Select
 
-'    If MaxSlot Mod 4 <> 0 Then
-'        Call SendData(SendTarget.toIndex, UserIndex, 0, "||La cantidad de participantes tienen que ser múltiplos de 4!" & FONTTYPE_Motd4)
-'        Exit Sub
-'    End If
+    '    If MaxSlot Mod 4 <> 0 Then
+    '        Call SendData(SendTarget.toIndex, UserIndex, 0, "||La cantidad de participantes tienen que ser múltiplos de 4!" & FONTTYPE_Motd4)
+    '        Exit Sub
+    '    End If
 
     If Tiempo < 5 Then
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "||!El tiempo minimo es de 15 minutos¡" & FONTTYPE_Motd4)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||!El tiempo minimo es de 15 minutos¡" & FONTTYPE_Motd4)
         Exit Sub
     End If
 
@@ -153,42 +153,42 @@ Public Sub Iniciar_Asedio(ByVal UserIndex As Integer, ByVal MaxSlot As Integer, 
 
     ReDim UserAsedio(1 To Asedio.MaxSlots, 1 To 4) As Integer
 
-    Call SendData(SendTarget.toall, 0, 0, "||Se ha dado comienzo al Evento Asedio, para ingresar escribe /ASEDIO" & FONTTYPE_INFON)
-    Call SendData(SendTarget.toall, 0, 0, "||Precio de Inscripción: " & Asedio.Costo & FONTTYPE_INFON)
-    Call SendData(SendTarget.toall, 0, 0, "||Duración del Evento: " & Asedio.Tiempo & FONTTYPE_INFON)
-    Call SendData(SendTarget.toall, 0, 0, "TW48")
+    Call SendData(SendTarget.ToAll, 0, 0, "||Se ha dado comienzo al Evento Asedio, para ingresar escribe /ASEDIO" & FONTTYPE_INFON)
+    Call SendData(SendTarget.ToAll, 0, 0, "||Precio de Inscripción: " & Asedio.Costo & FONTTYPE_INFON)
+    Call SendData(SendTarget.ToAll, 0, 0, "||Duración del Evento: " & Asedio.Tiempo & FONTTYPE_INFON)
+    Call SendData(SendTarget.ToAll, 0, 0, "TW48")
 
 End Sub
 Public Sub Inscribir_Asedio(ByVal UserIndex As Integer)
 
 
     If UserList(UserIndex).flags.EstaDueleando1 = True Then
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡No puedes ir al evento si estás duelando!" & FONTTYPE_WARNING)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes ir al evento si estás duelando!" & FONTTYPE_WARNING)
         Exit Sub
     End If
 
 
     If UserList(UserIndex).pos.Map = 160 Then
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡No puedes ir al evento si estás en un torneo!" & FONTTYPE_WARNING)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes ir al evento si estás en un torneo!" & FONTTYPE_WARNING)
         Exit Sub
     End If
 
     If UserList(UserIndex).pos.Map = 48 Then
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡No puedes ir al evento si estás en la prisión! ¡Cumple la condena malhechor!" & FONTTYPE_WARNING)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes ir al evento si estás en la prisión! ¡Cumple la condena malhechor!" & FONTTYPE_WARNING)
         Exit Sub
     End If
     If UserList(UserIndex).Asedio.Participando Then
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Si ya estás dentro! ¿Qué quieres?" & FONTTYPE_WARNING)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Si ya estás dentro! ¿Qué quieres?" & FONTTYPE_WARNING)
         Exit Sub
     End If
 
     If Asedio.Slots = Asedio.MaxSlots Then
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Mira, si yo te dejaría entrar, pero no cabe ni un alfiler!" & FONTTYPE_WARNING)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Mira, si yo te dejaría entrar, pero no cabe ni un alfiler!" & FONTTYPE_WARNING)
         Exit Sub
     End If
 
     If UserList(UserIndex).Stats.GLD - Asedio.Costo < 0 Then
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "||No te digo que seas pobre, pero te falta oro para pagar la inscripción" & FONTTYPE_WARNING)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No te digo que seas pobre, pero te falta oro para pagar la inscripción" & FONTTYPE_WARNING)
         Exit Sub
     End If
 
@@ -213,7 +213,7 @@ Public Sub Inscribir_Asedio(ByVal UserIndex As Integer)
     UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD - Asedio.Costo
     Asedio.Premio = Asedio.Premio + Asedio.Costo
     Call SendUserStatsBox(UserIndex)
-    Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡Has ingresado al evento! ¡Estás en el equipo " & NombreEquipo(NumTeam) & "!" & FONTTYPE_WARNING)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has ingresado al evento! ¡Estás en el equipo " & NombreEquipo(NumTeam) & "!" & FONTTYPE_WARNING)
 
     Dim User_Position As tAsedioPos
     User_Position = PosBase(NumTeam)
@@ -313,7 +313,7 @@ Public Sub DoTimerAsedio()
         ' Call EnviarAsedio("||Se ha finalizado el tiempo del evento, pero al no tener un ganador se agregan 5 minutos." & FONTTYPE_WARNING)
         ' Asedio.Tiempo = Asedio.Tiempo + 5
         '  Else
-        Call SendData(SendTarget.toall, 0, 0, "||¡Ha finalizado el evento y el ganador es el equipo " & NombreEquipo(ReyTeam) & "!" & FONTTYPE_WARNING)
+        Call SendData(SendTarget.ToAll, 0, 0, "||¡Ha finalizado el evento y el ganador es el equipo " & NombreEquipo(ReyTeam) & "!" & FONTTYPE_WARNING)
         Dim i As Long
         Dim j As Long
         Dim Participantes As Long
@@ -336,9 +336,9 @@ Public Sub DoTimerAsedio()
                     Call LogAsedio("Damos premio a equipo: " & ReyTeam)
                     If j = ReyTeam Then
                         UserList(UserAsedio(i, j)).Stats.GLD = UserList(UserAsedio(i, j)).Stats.GLD + PremioxP
-                        Call SendData(SendTarget.toIndex, UserAsedio(i, j), 0, "||!Has ganado " & PremioxP & " de oro¡ " & FONTTYPE_INFO)
+                        Call SendData(SendTarget.ToIndex, UserAsedio(i, j), 0, "||!Has ganado " & PremioxP & " de oro¡ " & FONTTYPE_INFO)
                         UserList(UserAsedio(i, j)).AoMCanjes = UserList(UserAsedio(i, j)).AoMCanjes + 1
-                        Call SendData(SendTarget.toIndex, UserAsedio(i, j), 0, "||¡Has ganado 1 AoMCanje!" & FONTTYPE_INFO)
+                        Call SendData(SendTarget.ToIndex, UserAsedio(i, j), 0, "||¡Has ganado 1 AoMCanje!" & FONTTYPE_INFO)
                         Call SendUserStatsBox(UserAsedio(i, j))
                     End If
                     Call ResetFlagsAsedio(UserAsedio(i, j))
@@ -388,7 +388,7 @@ Public Sub ResetFlagsAsedio(ByVal UserIndex As Integer)
 
 End Sub
 Public Sub CancelAsedio()
-    Call SendData(SendTarget.toall, 0, 0, "||El Asedio ha sido cancelado. ¡El rey ha huido como un cobarde!" & FONTTYPE_WARNING)
+    Call SendData(SendTarget.ToAll, 0, 0, "||El Asedio ha sido cancelado. ¡El rey ha huido como un cobarde!" & FONTTYPE_WARNING)
     Dim i As Long
     Dim j As Long
     For i = 1 To Asedio.MaxSlots

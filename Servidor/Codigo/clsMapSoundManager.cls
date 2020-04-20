@@ -45,7 +45,7 @@ End Enum
 
 Private Sub Class_Initialize()
 
-    'armar el array
+'armar el array
     ReDim p_Mapas(1 To NumMaps) As p_tSoundMapInfo
     Call LoadSoundMapInfo
 
@@ -53,12 +53,12 @@ End Sub
 
 Public Sub LoadSoundMapInfo()
 
-    Dim i       As Integer
-    Dim j       As Integer
-    Dim Temps   As String
+    Dim i As Integer
+    Dim j As Integer
+    Dim Temps As String
     Dim MAPFILE As String
     MAPFILE = App.Path & MapPath & "MAPA"
-    
+
     For i = 1 To UBound(p_Mapas)
         Temps = GetVar(MAPFILE & i & ".dat", "SONIDOS", "Cantidad")
 
@@ -85,9 +85,9 @@ End Sub
 
 Public Sub ReproducirSonidosDeMapas()
 
-    Dim i           As Integer
+    Dim i As Integer
     Dim SonidosMapa As Byte
-    Dim SonidoMapa  As Byte
+    Dim SonidoMapa As Byte
 
     For i = 1 To UBound(p_Mapas)
 
@@ -99,14 +99,14 @@ Public Sub ReproducirSonidosDeMapas()
                 'tocarlo
                 If SecondaryWeather Then
                     If p_Mapas(i).flags(SonidoMapa) Xor p_eSoundFlags.Lluvia Then
-                        Call SendData(SendTarget.tomap, 0, i, "TW" & p_Mapas(i).SoundIndex(SonidoMapa))
+                        Call SendData(SendTarget.ToMap, 0, i, "TW" & p_Mapas(i).SoundIndex(SonidoMapa))
 
                     End If
 
                 Else
 
                     If p_Mapas(i).flags(SonidoMapa) Xor p_eSoundFlags.ninguna Then
-                        Call SendData(SendTarget.tomap, 0, i, "TW" & p_Mapas(i).SoundIndex(SonidoMapa))
+                        Call SendData(SendTarget.ToMap, 0, i, "TW" & p_Mapas(i).SoundIndex(SonidoMapa))
 
                     End If
 
@@ -117,11 +117,11 @@ Public Sub ReproducirSonidosDeMapas()
         End If
 
     Next i
-    
+
 End Sub
 
 Public Sub ReproducirSonido(ByVal Destino As Byte, ByVal UserIndex As Integer, ByVal Mapa As Integer, ByVal SoundIndex As Integer)
-                            
+
     Call SendData(Destino, UserIndex, Mapa, "TW" & SoundIndex)
 
 End Sub

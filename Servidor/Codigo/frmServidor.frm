@@ -552,20 +552,20 @@ Private Sub Command15_Click()
 
     On Error Resume Next
 
-    Dim Fn       As String
+    Dim Fn As String
     Dim cad$
-    Dim n        As Integer, k As Integer
+    Dim n As Integer, k As Integer
 
     Dim sENtrada As String
 
     sENtrada = InputBox( _
-            "Escribe ""estoy DE acuerdo"" entre comillas y con distición de mayusculas minusculas para desbanear a todos los personajes", "UnBan", _
-            "hola")
+               "Escribe ""estoy DE acuerdo"" entre comillas y con distición de mayusculas minusculas para desbanear a todos los personajes", "UnBan", _
+               "hola")
 
     If sENtrada = "estoy DE acuerdo" Then
 
         Fn = App.Path & "\logs\GenteBanned.log"
-    
+
         If FileExist(Fn, vbNormal) Then
             n = FreeFile
             Open Fn For Input Shared As #n
@@ -574,7 +574,7 @@ Private Sub Command15_Click()
                 k = k + 1
                 Input #n, cad$
                 Call UnBan(cad$)
-            
+
             Loop
             Close #n
             MsgBox "Se han habilitado " & k & " personajes."
@@ -593,7 +593,7 @@ Private Sub Command16_Click()
 End Sub
 
 Private Sub Command17_Click()
-    
+
     Call CargaNpcsDat
 
 End Sub
@@ -601,7 +601,7 @@ End Sub
 Private Sub Command18_Click()
 
     Me.MousePointer = 11
-    
+
     Call GuardarUsuarios
     Me.MousePointer = 0
     MsgBox "Grabado de personajes OK!"
@@ -610,21 +610,21 @@ End Sub
 
 Private Sub Command19_Click()
 
-    Dim i        As Long, n As Long
+    Dim i As Long, n As Long
 
     Dim sENtrada As String
 
     sENtrada = InputBox("Escribe ""estoy DE acuerdo"" sin comillas y con distición de mayusculas minusculas para desbanear a todos los personajes", _
-            "UnBan", "hola")
+                        "UnBan", "hola")
 
     If sENtrada = "estoy DE acuerdo" Then
-    
+
         n = BanIps.Count
 
         For i = 1 To BanIps.Count
             BanIps.Remove 1
         Next i
-    
+
         MsgBox "Se han habilitado " & n & " ipes"
 
     End If
@@ -651,11 +651,11 @@ Private Sub Command21_Click()
 
     If EnPausa = False Then
         EnPausa = True
-        Call SendData(SendTarget.toall, 0, 0, "BKW")
+        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
         Command21.caption = "Reanudar el servidor"
     Else
         EnPausa = False
-        Call SendData(SendTarget.toall, 0, 0, "BKW")
+        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
         Command21.caption = "Pausar el servidor"
 
     End If
@@ -673,18 +673,18 @@ Private Sub Command23_Click()
 
     If MsgBox("Esta seguro que desea hacer WorldSave, guardar pjs y cerrar ?", vbYesNo, "Apagar Magicamente") = vbYes Then
         Me.MousePointer = 11
-    
+
         FrmStat.Show
 
         'commit experiencia
-        
+
 
         'Guardar Pjs
         Call GuardarUsuarios
-        
+
         'WorldSave
         Call DoBackUp
-            
+
         'Chauuu
         Unload frmMain
 
@@ -700,9 +700,9 @@ End Sub
 
 Private Sub Command26_Click()
 
-    'Cierra el socket de escucha
+'Cierra el socket de escucha
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
-    
+
     'Inicia el socket de escucha
     SockListen = ListenForConnect(Puerto, hWndMsg, "")
 
@@ -737,7 +737,7 @@ End Sub
 
 Private Sub Command5_Click()
 
-    'Se asegura de que los sockets estan cerrados e ignora cualquier err
+'Se asegura de que los sockets estan cerrados e ignora cualquier err
     On Error Resume Next
 
     If frmMain.Visible Then frmMain.txStatus.caption = "Reiniciando."
@@ -746,22 +746,22 @@ Private Sub Command5_Click()
 
     Call apiclosesocket(SockListen)
 
-    Dim loopc As Integer
+    Dim LoopC As Integer
 
-    For loopc = 1 To MaxUsers
-        Call CloseSocket(loopc)
+    For LoopC = 1 To MaxUsers
+        Call CloseSocket(LoopC)
     Next
 
     LastUser = 0
     NumUsers = 0
 
-    ReDim Npclist(1 To MAXNPCS) As npc 'NPCS
+    ReDim Npclist(1 To MAXNPCS) As npc    'NPCS
     ReDim CharList(1 To MAXCHARS) As Integer
 
     Call LoadSini
     'Call CargarBackUp
     Call LoadOBJData
-  
+
     SockListen = ListenForConnect(Puerto, hWndMsg, "")
 
     If frmMain.Visible Then frmMain.txStatus.caption = "Escuchando conexiones entrantes ..."
