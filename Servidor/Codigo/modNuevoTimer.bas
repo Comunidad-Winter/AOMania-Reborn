@@ -38,7 +38,7 @@ Public Function IntervaloPermiteAtacar(ByVal UserIndex As Integer, Optional ByVa
         IntervaloPermiteAtacar = False
 
     End If
-  
+
 End Function
 
 ' ATAQUE CUERPO A CUERPO

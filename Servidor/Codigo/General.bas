@@ -27,7 +27,7 @@ Public ModClase() As ModClase
 Public Function ClaseToByte(ByVal Clase As String) As Byte
 
     Dim i As Long
-    
+
     Clase = UCase$(Clase)
 
     'Modificadores de Clase
@@ -40,41 +40,41 @@ Public Function ClaseToByte(ByVal Clase As String) As Byte
         End If
 
     Next i
-    
+
 End Function
 
 Public Function StringToClase(ByVal Class As String) As String
     Dim tStr As String
 
     Select Case UCase$(Class)
-     
-        Case "THESAUROS"
-            tStr = "TRABAJADOR"
 
-        Case "PESCADOR"
-            tStr = "TRABAJADOR"
+    Case "THESAUROS"
+        tStr = "TRABAJADOR"
 
-        Case "HERRERO"
-            tStr = "TRABAJADOR"
+    Case "PESCADOR"
+        tStr = "TRABAJADOR"
 
-        Case "LEÑADOR"
-            tStr = "TRABAJADOR"
+    Case "HERRERO"
+        tStr = "TRABAJADOR"
 
-        Case "MINERO"
-            tStr = "TRABAJADOR"
+    Case "LEÑADOR"
+        tStr = "TRABAJADOR"
 
-        Case "CARPINTERO"
-            tStr = "TRABAJADOR"
+    Case "MINERO"
+        tStr = "TRABAJADOR"
 
-        Case "SASTRE"
-            tStr = "TRABAJADOR"
+    Case "CARPINTERO"
+        tStr = "TRABAJADOR"
 
-        Case "HERRERO MAGICO"
-            tStr = "TRABAJADOR"
+    Case "SASTRE"
+        tStr = "TRABAJADOR"
 
-        Case Else
+    Case "HERRERO MAGICO"
+        tStr = "TRABAJADOR"
 
-            tStr = Class
+    Case Else
+
+        tStr = Class
 
     End Select
 
@@ -85,12 +85,12 @@ End Function
 Public Sub LoadBalance()
 
     Dim ReadDat As clsIniManager
-    Dim i       As Long
-    
+    Dim i As Long
+
     Set ReadDat = New clsIniManager
-    
+
     ReDim ModClase(1 To NUMCLASES) As ModClase
-        
+
     'Modificadores de Clase
     For i = 1 To NUMCLASES
 
@@ -107,26 +107,26 @@ Public Sub LoadBalance()
         End With
 
     Next i
-    
+
     Set ReadDat = Nothing
-    
+
     Call LoadBalanceVida
-    
+
 End Sub
 
 Sub CargarELU()
-    
+
     Dim X As Long
-    
+
     For X = 1 To STAT_MAXELV
         levelELU(X) = GetVar(DatPath & "Niveles.dat", "INIT", "Nivel" & X)
     Next X
-  
+
 End Sub
 
 Public Sub LoadBalanceVida()
-    
-    'Guerrero
+
+'Guerrero
     GCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA GUERRERO", "CONST21MINVIDA"))
     GCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA GUERRERO", "CONST21MAXVIDA"))
     GCONST20MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA GUERRERO", "CONST20MINVIDA"))
@@ -139,7 +139,7 @@ Public Sub LoadBalanceVida()
     GCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA GUERRERO", "CONST17MAXVIDA"))
     GCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA GUERRERO", "CONSTOTROMINVIDA"))
     GCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA GUERRERO", "CONSTOTROMAXVIDA"))
-    
+
     'Cazador
     CCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CAZADOR", "CONST21MINVIDA"))
     CCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CAZADOR", "CONST21MAXVIDA"))
@@ -153,7 +153,7 @@ Public Sub LoadBalanceVida()
     CCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CAZADOR", "CONST17MAXVIDA"))
     CCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CAZADOR", "CONSTOTROMINVIDA"))
     CCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CAZADOR", "CONSTOTROMAXVIDA"))
-    
+
     'Paladin
     PCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA PALADIN", "CONST21MINVIDA"))
     PCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA PALADIN", "CONST21MAXVIDA"))
@@ -167,7 +167,7 @@ Public Sub LoadBalanceVida()
     PCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA PALADIN", "CONST17MAXVIDA"))
     PCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA PALADIN", "CONSTOTROMINVIDA"))
     PCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA PALADIN", "CONSTOTROMAXVIDA"))
-    
+
     'Mago
     MCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA MAGO", "CONST21MINVIDA"))
     MCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA MAGO", "CONST21MAXVIDA"))
@@ -181,7 +181,7 @@ Public Sub LoadBalanceVida()
     MCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA MAGO", "CONST17MAXVIDA"))
     MCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA MAGO", "CONSTOTROMINVIDA"))
     MCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA MAGO", "CONSTOTROMAXVIDA"))
-    
+
     'Clerigo
     CLCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CLERIGO", "CONST21MINVIDA"))
     CLCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CLERIGO", "CONST21MAXVIDA"))
@@ -195,7 +195,7 @@ Public Sub LoadBalanceVida()
     CLCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CLERIGO", "CONST17MAXVIDA"))
     CLCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CLERIGO", "CONSTOTROMINVIDA"))
     CLCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA CLERIGO", "CONSTOTROMAXVIDA"))
-    
+
     'Asesino
     ACONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ASESINO", "CONST21MINVIDA"))
     ACONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ASESINO", "CONST21MAXVIDA"))
@@ -209,7 +209,7 @@ Public Sub LoadBalanceVida()
     ACONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ASESINO", "CONST17MAXVIDA"))
     ACONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ASESINO", "CONSTOTROMINVIDA"))
     ACONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ASESINO", "CONSTOTROMAXVIDA"))
-    
+
     'Bardo
     BACONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BARDO", "CONST21MINVIDA"))
     BACONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BARDO", "CONST21MAXVIDA"))
@@ -223,7 +223,7 @@ Public Sub LoadBalanceVida()
     BACONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BARDO", "CONST17MAXVIDA"))
     BACONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BARDO", "CONSTOTROMINVIDA"))
     BACONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BARDO", "CONSTOTROMAXVIDA"))
-    
+
     'ladron
     LCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA LADRON", "CONST21MINVIDA"))
     LCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA LADRON", "CONST21MAXVIDA"))
@@ -237,7 +237,7 @@ Public Sub LoadBalanceVida()
     LCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA LADRON", "CONST17MAXVIDA"))
     LCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA LADRON", "CONSTOTROMINVIDA"))
     LCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA LADRON", "CONSTOTROMAXVIDA"))
-        
+
     'Druida
     DCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA DRUIDA", "CONST21MINVIDA"))
     DCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA DRUIDA", "CONST21MAXVIDA"))
@@ -251,7 +251,7 @@ Public Sub LoadBalanceVida()
     DCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA DRUIDA", "CONST17MAXVIDA"))
     DCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA DRUIDA", "CONSTOTROMINVIDA"))
     DCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA DRUIDA", "CONSTOTROMAXVIDA"))
-           
+
     'Trabajador
     TCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA TRABAJADOR", "CONST21MINVIDA"))
     TCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA TRABAJADOR", "CONST21MAXVIDA"))
@@ -265,7 +265,7 @@ Public Sub LoadBalanceVida()
     TCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA TRABAJADOR", "CONST17MAXVIDA"))
     TCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA TRABAJADOR", "CONSTOTROMINVIDA"))
     TCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA TRABAJADOR", "CONSTOTROMAXVIDA"))
-           
+
     'Brujo
     BCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BRUJO", "CONST21MINVIDA"))
     BCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BRUJO", "CONST21MAXVIDA"))
@@ -279,7 +279,7 @@ Public Sub LoadBalanceVida()
     BCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BRUJO", "CONST17MAXVIDA"))
     BCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BRUJO", "CONSTOTROMINVIDA"))
     BCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA BRUJO", "CONSTOTROMAXVIDA"))
-            
+
     'Arquero
     ARCONST21MINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ARQUERO", "CONST21MINVIDA"))
     ARCONST21MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ARQUERO", "CONST21MAXVIDA"))
@@ -293,7 +293,7 @@ Public Sub LoadBalanceVida()
     ARCONST17MAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ARQUERO", "CONST17MAXVIDA"))
     ARCONSTOTROMINVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ARQUERO", "CONSTOTROMINVIDA"))
     ARCONSTOTROMAXVIDA = val(GetVar(DatPath & "Balance.dat", "MODVIDA ARQUERO", "CONSTOTROMAXVIDA"))
-           
+
 End Sub
 
 Function ZonaCura(ByVal UserIndex As Integer) As Boolean
@@ -302,7 +302,7 @@ Function ZonaCura(ByVal UserIndex As Integer) As Boolean
 
     For Y = UserList(UserIndex).pos.Y - MinYBorder + 1 To UserList(UserIndex).pos.Y + MinYBorder - 1
         For X = UserList(UserIndex).pos.X - MinXBorder + 1 To UserList(UserIndex).pos.X + MinXBorder - 1
-        
+
             If MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex > 0 Then
                 If Npclist(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex).NPCtype = 1 Then
                     If Distancia(UserList(UserIndex).pos, Npclist(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex).pos) < 10 Then
@@ -314,7 +314,7 @@ Function ZonaCura(ByVal UserIndex As Integer) As Boolean
                 End If
 
             End If
-            
+
         Next X
     Next Y
 
@@ -326,246 +326,246 @@ Sub DarCuerpoDesnudo(ByVal UserIndex As Integer, Optional ByVal Mimetizado As Bo
 
     Select Case UCase$(UserList(UserIndex).Raza)
 
-        Case "HUMANO"
+    Case "HUMANO"
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                Case "HOMBRE"
+        Case "HOMBRE"
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 21
-                    Else
-                        UserList(UserIndex).char.Body = 21
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 21
+            Else
+                UserList(UserIndex).char.Body = 21
 
-                    End If
+            End If
 
-                Case "MUJER"
+        Case "MUJER"
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 39
-                    Else
-                        UserList(UserIndex).char.Body = 39
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 39
+            Else
+                UserList(UserIndex).char.Body = 39
 
-                    End If
+            End If
 
-            End Select
+        End Select
 
-        Case "ELFO OSCURO"
+    Case "ELFO OSCURO"
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                Case "HOMBRE"
+        Case "HOMBRE"
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 32
-                    Else
-                        UserList(UserIndex).char.Body = 32
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 32
+            Else
+                UserList(UserIndex).char.Body = 32
 
-                    End If
+            End If
 
-                Case "MUJER"
+        Case "MUJER"
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 40
-                    Else
-                        UserList(UserIndex).char.Body = 40
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 40
+            Else
+                UserList(UserIndex).char.Body = 40
 
-                    End If
+            End If
 
-            End Select
+        End Select
 
-        Case "ENANO"
+    Case "ENANO"
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                Case "HOMBRE"
+        Case "HOMBRE"
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 53
-                    Else
-                        UserList(UserIndex).char.Body = 53
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 53
+            Else
+                UserList(UserIndex).char.Body = 53
 
-                    End If
+            End If
 
-                Case "MUJER"
+        Case "MUJER"
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 60
-                    Else
-                        UserList(UserIndex).char.Body = 60
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 60
+            Else
+                UserList(UserIndex).char.Body = 60
 
-                    End If
+            End If
 
-            End Select
+        End Select
 
-        Case "GNOMO"
+    Case "GNOMO"
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                Case "HOMBRE"
+        Case "HOMBRE"
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 53
-                    Else
-                        UserList(UserIndex).char.Body = 53
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 53
+            Else
+                UserList(UserIndex).char.Body = 53
 
-                    End If
+            End If
 
-                Case "MUJER"
+        Case "MUJER"
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 60
-                    Else
-                        UserList(UserIndex).char.Body = 60
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 60
+            Else
+                UserList(UserIndex).char.Body = 60
 
-                    End If
+            End If
 
-            End Select
-            
-        Case "HOBBIT"
+        End Select
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+    Case "HOBBIT"
 
-                Case "HOMBRE"
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 297
-                    Else
-                        UserList(UserIndex).char.Body = 297
+        Case "HOMBRE"
 
-                    End If
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 297
+            Else
+                UserList(UserIndex).char.Body = 297
 
-                Case "MUJER"
+            End If
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 298
-                    Else
-                        UserList(UserIndex).char.Body = 298
+        Case "MUJER"
 
-                    End If
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 298
+            Else
+                UserList(UserIndex).char.Body = 298
 
-            End Select
+            End If
 
-        Case "ORCO"
+        End Select
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+    Case "ORCO"
 
-                Case "HOMBRE"
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 300
-                    Else
-                        UserList(UserIndex).char.Body = 300
+        Case "HOMBRE"
 
-                    End If
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 300
+            Else
+                UserList(UserIndex).char.Body = 300
 
-                Case "MUJER"
+            End If
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 302
-                    Else
-                        UserList(UserIndex).char.Body = 302
+        Case "MUJER"
 
-                    End If
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 302
+            Else
+                UserList(UserIndex).char.Body = 302
 
-            End Select
+            End If
 
-        Case "LICANTROPO"
+        End Select
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+    Case "LICANTROPO"
 
-                Case "HOMBRE"
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 21
-                    Else
-                        UserList(UserIndex).char.Body = 21
+        Case "HOMBRE"
 
-                    End If
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 21
+            Else
+                UserList(UserIndex).char.Body = 21
 
-                Case "MUJER"
+            End If
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 39
-                    Else
-                        UserList(UserIndex).char.Body = 39
+        Case "MUJER"
 
-                    End If
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 39
+            Else
+                UserList(UserIndex).char.Body = 39
 
-            End Select
+            End If
 
-        Case "VAMPIRO"
+        End Select
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+    Case "VAMPIRO"
 
-                Case "HOMBRE"
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 32
-                    Else
-                        UserList(UserIndex).char.Body = 32
+        Case "HOMBRE"
 
-                    End If
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 32
+            Else
+                UserList(UserIndex).char.Body = 32
 
-                Case "MUJER"
+            End If
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 40
-                    Else
-                        UserList(UserIndex).char.Body = 40
+        Case "MUJER"
 
-                    End If
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 40
+            Else
+                UserList(UserIndex).char.Body = 40
 
-            End Select
-            
-        Case "CICLOPE"
+            End If
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+        End Select
 
-                Case "HOMBRE"
+    Case "CICLOPE"
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 21
-                    Else
-                        UserList(UserIndex).char.Body = 21
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                    End If
+        Case "HOMBRE"
 
-                Case "MUJER"
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 21
+            Else
+                UserList(UserIndex).char.Body = 21
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 39
-                    Else
-                        UserList(UserIndex).char.Body = 39
+            End If
 
-                    End If
+        Case "MUJER"
 
-            End Select
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 39
+            Else
+                UserList(UserIndex).char.Body = 39
 
-        Case Else
+            End If
 
-            Select Case UCase$(UserList(UserIndex).Genero)
+        End Select
 
-                Case "HOMBRE"
+    Case Else
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 21
-                    Else
-                        UserList(UserIndex).char.Body = 21
+        Select Case UCase$(UserList(UserIndex).Genero)
 
-                    End If
+        Case "HOMBRE"
 
-                Case "MUJER"
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 21
+            Else
+                UserList(UserIndex).char.Body = 21
 
-                    If Mimetizado Then
-                        UserList(UserIndex).CharMimetizado.Body = 39
-                    Else
-                        UserList(UserIndex).char.Body = 39
+            End If
 
-                    End If
+        Case "MUJER"
 
-            End Select
-    
+            If Mimetizado Then
+                UserList(UserIndex).CharMimetizado.Body = 39
+            Else
+                UserList(UserIndex).char.Body = 39
+
+            End If
+
+        End Select
+
     End Select
 
     UserList(UserIndex).flags.Desnudo = 1
@@ -578,9 +578,9 @@ Sub Bloquear(ByVal sndRoute As Byte, _
              Map As Integer, _
              ByVal X As Integer, _
              ByVal Y As Integer, _
-             b As Byte)
-    'b=1 bloquea el tile en (x,y)
-    'b=0 desbloquea el tile indicado
+           b As Byte)
+'b=1 bloquea el tile en (x,y)
+'b=0 desbloquea el tile indicado
 
     Call SendData(sndRoute, sndIndex, sndMap, "BQ" & X & "," & Y & "," & b)
 
@@ -606,21 +606,21 @@ End Function
 Sub LimpiarObjs()
 
     Call SendData(SendTarget.ToAllButIndex, 0, 0, "||Realizando Limpieza del Mundo" & FONTTYPE_Motd5)
-    Dim i    As Integer
-    Dim Y    As Integer
-    Dim X    As Integer
+    Dim i As Integer
+    Dim Y As Integer
+    Dim X As Integer
     Dim tInt As String
 
     For i = 1 To NumMaps
         For Y = YMinMapSize To YMaxMapSize
             For X = XMinMapSize To XMaxMapSize
-        
+
                 If X > 0 And Y > 0 And X < 101 And Y < 101 Then
                     If MapData(i, X, Y).OBJInfo.ObjIndex > 0 Then
                         tInt = ObjData(MapData(i, X, Y).OBJInfo.ObjIndex).ObjType
 
                         If ObjetosBorrable(MapData(i, X, Y).OBJInfo.ObjIndex) Then
-                                
+
                             Call EraseObj(ToMap, 0, i, MapData(i, X, Y).OBJInfo.Amount, i, X, Y)
 
                         End If
@@ -628,7 +628,7 @@ Sub LimpiarObjs()
                     End If
 
                 End If
-            
+
             Next X
         Next Y
     Next i
@@ -642,9 +642,9 @@ Sub LimpiarMundo()
     On Error Resume Next
 
     Dim i As Integer
-   
+
     Call SendData(SendTarget.ToAllButIndex, 0, 0, "||Realizando Limpieza del Mundo" & FONTTYPE_Motd5)
-   
+
     For i = 1 To TrashCollector.Count
         Dim d As cGarbage
         Set d = TrashCollector(1)
@@ -666,7 +666,7 @@ Sub EnviarSpawnList(ByVal UserIndex As Integer)
         SD = SD & SpawnList(k).NpcName & ","
     Next k
 
-    Call SendData(SendTarget.toIndex, UserIndex, 0, SD)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, SD)
 
 End Sub
 
@@ -675,21 +675,21 @@ Sub Main()
     On Error Resume Next
 
     Dim f As Date
-    
+
     Call SoundCarga
-    
+
     ChDir App.Path
     ChDrive App.Path
-    
+
     #If MYSQL = 1 Then
-       Call Load_Mysql
-       DoEvents
-       Call Add_DataBase("0", "Status")
+        Call Load_Mysql
+        DoEvents
+        Call Add_DataBase("0", "Status")
     #End If
-    
-    
+
+
     Call Load_Rank
-    
+
     Call LoadMotd
     Call BanIpCargar
 
@@ -704,7 +704,7 @@ Sub Main()
     LastBackup = Format(now, "Short Time")
     Minutos = Format(now, "Short Time")
 
-    ReDim Npclist(1 To MAXNPCS) As npc 'NPCS
+    ReDim Npclist(1 To MAXNPCS) As npc    'NPCS
     ReDim CharList(1 To MAXCHARS) As Integer
     ReDim Parties(1 To MAX_PARTIES) As clsParty
     ReDim Guilds(1 To MAX_GUILDS) As clsClan
@@ -722,19 +722,19 @@ Sub Main()
     ListaRazas(8) = "Licantropo"
     ListaRazas(9) = "Vampiro"
     ListaRazas(10) = "Ciclope"
-    
+
     Call modHDSerial.load_HDList
     Call mod_Climas.InitTimeLife
-    
+
     ReDim LevelSkill(1 To STAT_MAXELV) As LevelSkill
-  
+
     Dim i As Long
- 
+
     For i = 1 To STAT_MAXELV
 
         If i * 2.51 < 100 Then
             LevelSkill(i).LevelValue = i * 2.51
- 
+
             If LevelSkill(i).LevelValue Mod 10 > 5 Then LevelSkill(i).LevelValue = LevelSkill(i).LevelValue - 1
         Else
             LevelSkill(i).LevelValue = 100
@@ -742,7 +742,7 @@ Sub Main()
         End If
 
     Next i
-    
+
     'CP1="MAGO"
     'CP2="CLERIGO"
     'CP3="GUERRERO"
@@ -771,7 +771,7 @@ Sub Main()
     ListaClases(12) = "BRUJO"
     ListaClases(13) = "ARQUERO"
     ListaClases(14) = "DIOS"
-      
+
     Torneo_Clases_Validas(1) = "Guerrero"
     Torneo_Clases_Validas(2) = "Mago"
     Torneo_Clases_Validas(3) = "Paladin"
@@ -833,11 +833,11 @@ Sub Main()
     Call CargarSpawnList
     Call CargarForbidenWords
     '¿?¿?¿?¿?¿?¿?¿?¿ CARGAMOS DATOS DESDE ARCHIVOS ¿??¿?¿?¿?¿?¿?¿?¿
-    
+
     frmCargando.Label1(2).caption = "Cargando configuraciones del Servidor."
     MaxUsers = 0
     Call LoadSini
-    
+
     frmCargando.Label1(2).caption = "Cargando apuestas.."
     Call CargaApuestas
 
@@ -847,14 +847,14 @@ Sub Main()
 
     frmCargando.Label1(2).caption = "Cargando Objetos.."
     Call LoadOBJData
-    
+
     frmCargando.Label1(2).caption = "Cargando Hechizos.."
     Call CargarHechizos
-    
+
     frmCargando.Label1(2).caption = "Cargando Zonas.."
     Call LoadZonas
     Barcos.TiempoRest = 60
-    
+
     frmCargando.Label1(2).caption = "Cargando Objetos de Trabajadores.."
     Call LoadArmasHerreria
     Call LoadArmadurasHerreria
@@ -872,7 +872,7 @@ Sub Main()
         Call LoadMapData
     End If
     Call SonidosMapas.LoadSoundMapInfo
-    
+
     frmCargando.Label1(2).caption = "Cargando Balance.."
     Call LoadBalance
 
@@ -899,7 +899,7 @@ Sub Main()
         .TIMER_AI.Enabled = True
         .npcataca.Enabled = True
     End With
-    
+
     centinelaActivado = True
 
     '¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
@@ -907,12 +907,12 @@ Sub Main()
 
     Call SecurityIp.InitIpTables(1000)
 
-    If LastSockListen >= 0 Then Call apiclosesocket(LastSockListen) 'Cierra el socket de escucha
+    If LastSockListen >= 0 Then Call apiclosesocket(LastSockListen)    'Cierra el socket de escucha
     Call IniciaWsApi(frmMain.hWnd)
     SockListen = ListenForConnect(Puerto, hWndMsg, "")
 
     If SockListen <> -1 Then
-        Call WriteVar(IniPath & "Server.ini", "INIT", "LastSockListen", SockListen) ' Guarda el socket escuchando
+        Call WriteVar(IniPath & "Server.ini", "INIT", "LastSockListen", SockListen)    ' Guarda el socket escuchando
     Else
         MsgBox "Ha ocurrido un error al iniciar el socket del Servidor.", vbCritical + vbOKOnly
 
@@ -940,10 +940,10 @@ Sub Main()
 
     tInicioServer = GetTickCount() And &H7FFFFFFF
     denuncias = True
-    
+
     CountTC = RandomNumber(1, 23)
     NocheLicantropo = False
-    
+
     Call CargarCastillos
     Call Load_Criatura
     Call LoadGuerras
@@ -953,9 +953,9 @@ Sub Main()
     Call LoadDragonAlado
     Call TimeChange
     Call LoadGMs
-     
+
     ReDim ValidMap(1 To NumMaps) As Byte
-     
+
     For i = 1 To NumMaps
 
         If i <> 34 And i <> 1 And i <> 59 And i <> 84 And i <> 132 And i <> 86 Then
@@ -969,9 +969,9 @@ Sub Main()
 End Sub
 
 Function FileExist(ByVal File As String, Optional FileType As VbFileAttribute = vbNormal) As Boolean
-    '*****************************************************************
-    'Se fija si existe el archivo
-    '*****************************************************************
+'*****************************************************************
+'Se fija si existe el archivo
+'*****************************************************************
     FileExist = Dir$(File, FileType) <> ""
 
 End Function
@@ -982,22 +982,22 @@ Public Function ReadField(ByVal pos As Long, ByRef Text As String, ByVal SepASCI
 'Last Modify Date: 11/15/2004
 'Gets a field from a delimited string
 '*****************************************************************
- 
+
     Dim i As Long
     Dim lastPos As Long
     Dim CurrentPos As Long
- 
+
     For i = 1 To pos
         lastPos = CurrentPos
         CurrentPos = InStr(lastPos + 1, Text, ChrW$(SepASCII), vbBinaryCompare)
     Next i
-    
+
     If CurrentPos = 0 Then
         ReadField = mid$(Text, lastPos + 1, Len(Text) - lastPos)
     Else
         ReadField = mid$(Text, lastPos + 1, CurrentPos - lastPos - 1)
     End If
-    
+
 End Function
 
 Function MapaValido(ByVal Map As Integer) As Boolean
@@ -1010,7 +1010,7 @@ Public Sub LogCriticEvent(Desc As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\Eventos.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & Desc
     Close #nfile
@@ -1026,7 +1026,7 @@ Public Sub LogEjercitoReal(Desc As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\EjercitoReal.log" For Append Shared As #nfile
     Print #nfile, Desc
     Close #nfile
@@ -1042,7 +1042,7 @@ Public Sub LogEjercitoCaos(Desc As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\EjercitoCaos.log" For Append Shared As #nfile
     Print #nfile, Desc
     Close #nfile
@@ -1058,7 +1058,7 @@ Public Sub LogIndex(ByVal Index As Integer, ByVal Desc As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\" & Index & ".log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & Desc
     Close #nfile
@@ -1074,7 +1074,7 @@ Public Sub LogError(Desc As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\errores.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & Desc
     Close #nfile
@@ -1090,7 +1090,7 @@ Public Sub LogStatic(Desc As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\Stats.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & Desc
     Close #nfile
@@ -1106,7 +1106,7 @@ Public Sub LogTarea(Desc As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile(1) ' obtenemos un canal
+    nfile = FreeFile(1)    ' obtenemos un canal
     Open App.Path & "\logs\haciendo.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & Desc
     Close #nfile
@@ -1120,7 +1120,7 @@ End Sub
 Public Sub LogClanes(ByVal str As String)
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\clanes.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & str
     Close #nfile
@@ -1130,7 +1130,7 @@ End Sub
 Public Sub LogIP(ByVal str As String)
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\IP.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & str
     Close #nfile
@@ -1140,7 +1140,7 @@ End Sub
 Public Sub Alas(ByVal str As String)
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\ALAS.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & str
     Close #nfile
@@ -1159,7 +1159,7 @@ End Sub
 Public Sub LogDesarrollo(ByVal str As String)
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\desarrollo.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & str
     Close #nfile
@@ -1171,7 +1171,7 @@ Public Sub LogGM(nombre As String, texto As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
 
     Open App.Path & "\logs\Gms\" & nombre & ".log" For Append Shared As #nfile
 
@@ -1185,44 +1185,44 @@ errhandler:
 End Sub
 
 Public Sub LogCreditos(nombre As String, Tiene As Long, Gasto As Long, Item As String)
-   On Error GoTo errhandler
-   Dim nfile As Integer
-   nfile = FreeFile
-   Open App.Path & "\logs\Donaciones\" & nombre & ".log" For Append Shared As #nfile
-   Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
-   Close #nfile
-   Exit Sub
+    On Error GoTo errhandler
+    Dim nfile As Integer
+    nfile = FreeFile
+    Open App.Path & "\logs\Donaciones\" & nombre & ".log" For Append Shared As #nfile
+    Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
+    Close #nfile
+    Exit Sub
 errhandler:
 End Sub
 
 Public Sub LogCanjes(Opcion As Integer, nombre As String, Tiene As Long, Gasto As Long, Item As String)
-   On Error GoTo errhandler
-   Dim nfile As Integer
-   nfile = FreeFile
-   Open App.Path & "\logs\Canjeadores\" & nombre & ".log" For Append Shared As #nfile
+    On Error GoTo errhandler
+    Dim nfile As Integer
+    nfile = FreeFile
+    Open App.Path & "\logs\Canjeadores\" & nombre & ".log" For Append Shared As #nfile
     If Opcion = 1 Then
-     Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
+        Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
     ElseIf Opcion = 2 Then
-     Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Ganó: " & Gasto & " Por el item: " & Item
+        Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Ganó: " & Gasto & " Por el item: " & Item
     End If
-   Close #nfile
-   Exit Sub
+    Close #nfile
+    Exit Sub
 errhandler:
 End Sub
 
 Public Sub LogTelepatia(Envia As String, Recibe As String, Mensaje As String)
 
     On Error GoTo errhandler
-       
+
     Dim nfile As Integer
-       
+
     nfile = FreeFile
-       
+
     Open App.Path & "\logs\Telepatia\" & Envia & ".log" For Append Shared As #nfile
-       
+
     Print #nfile, Date & " " & Time & " Telepatia a " & Recibe & ": " & Mensaje
     Close #nfile
-       
+
 errhandler:
 
 End Sub
@@ -1232,7 +1232,7 @@ Public Sub LogUser(nombre As String, texto As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
 
     Open App.Path & "\logs\Usuarios\" & nombre & ".log" For Append Shared As #nfile
 
@@ -1251,7 +1251,7 @@ Public Sub LogAsesinato(texto As String)
 
     Dim nfile As Integer
 
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
 
     Open App.Path & "\logs\asesinatos.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & texto
@@ -1268,7 +1268,7 @@ Public Sub logVentaCasa(ByVal texto As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
 
     Open App.Path & "\logs\propiedades.log" For Append Shared As #nfile
     Print #nfile, "----------------------------------------------------------"
@@ -1287,7 +1287,7 @@ Public Sub LogHackAttemp(texto As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\HackAttemps.log" For Append Shared As #nfile
     Print #nfile, "----------------------------------------------------------"
     Print #nfile, Date & " " & Time & " " & texto
@@ -1305,7 +1305,7 @@ Public Sub LogCheating(texto As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\CH.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & texto
     Close #nfile
@@ -1321,7 +1321,7 @@ Public Sub LogCriticalHackAttemp(texto As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\CriticalHackAttemps.log" For Append Shared As #nfile
     Print #nfile, "----------------------------------------------------------"
     Print #nfile, Date & " " & Time & " " & texto
@@ -1339,7 +1339,7 @@ Public Sub LogAntiCheat(texto As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\AntiCheat.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & texto
     Print #nfile, ""
@@ -1353,7 +1353,7 @@ End Sub
 
 Function ValidInputNP(ByVal cad As String) As Boolean
     Dim Arg As String
-    Dim i   As Integer
+    Dim i As Integer
 
     For i = 1 To 33
 
@@ -1369,7 +1369,7 @@ End Function
 
 Sub Restart()
 
-    'Se asegura de que los sockets estan cerrados e ignora cualquier err
+'Se asegura de que los sockets estan cerrados e ignora cualquier err
     On Error Resume Next
 
     If frmMain.Visible Then frmMain.txStatus.caption = "Reiniciando."
@@ -1378,7 +1378,7 @@ Sub Restart()
 
     'Cierra el socket de escucha
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
-    
+
     'Inicia el socket de escucha
     SockListen = ListenForConnect(Puerto, hWndMsg, "")
 
@@ -1396,7 +1396,7 @@ Sub Restart()
     LastUser = 0
     NumUsers = 0
 
-    ReDim Npclist(1 To MAXNPCS) As npc 'NPCS
+    ReDim Npclist(1 To MAXNPCS) As npc    'NPCS
     ReDim CharList(1 To MAXCHARS) As Integer
 
     Call LoadSini
@@ -1421,7 +1421,7 @@ Sub Restart()
         Call frmMain.InitMain(0)
 
     End If
-  
+
 End Sub
 
 Public Function Intemperie(ByVal UserIndex As Integer) As Boolean
@@ -1430,7 +1430,7 @@ Public Function Intemperie(ByVal UserIndex As Integer) As Boolean
 
         If MapInfo(.pos.Map).Zona <> "DUNGEON" Then
             If MapData(.pos.Map, .pos.X, .pos.Y).Trigger <> 1 And MapData(.pos.Map, .pos.X, .pos.Y).Trigger <> 2 And MapData(.pos.Map, .pos.X, _
-                    .pos.Y).Trigger <> 4 Then Intemperie = True
+                                                                                                                             .pos.Y).Trigger <> 4 Then Intemperie = True
         Else
             Intemperie = False
 
@@ -1441,11 +1441,11 @@ Public Function Intemperie(ByVal UserIndex As Integer) As Boolean
 End Function
 
 Public Sub EfectoLluvia(ByVal UserIndex As Integer)
-    '***************************************************
-    'Author: Unknown
-    'Last Modification: -
-    '
-    '***************************************************
+'***************************************************
+'Author: Unknown
+'Last Modification: -
+'
+'***************************************************
 
     On Error GoTo errhandler
 
@@ -1455,7 +1455,7 @@ Public Sub EfectoLluvia(ByVal UserIndex As Integer)
             Call EnviarSta(UserIndex)
         End If
     End If
-    
+
     Exit Sub
 errhandler:
     LogError ("Error en EfectoLluvia")
@@ -1471,10 +1471,10 @@ Public Sub TiempoInvocacion(ByVal UserIndex As Integer)
         If UserList(UserIndex).MascotasIndex(i) > 0 Then
             If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia > 0 Then
                 Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = Npclist(UserList(UserIndex).MascotasIndex( _
-                        i)).Contadores.TiempoExistencia - 1
+                                                                                                    i)).Contadores.TiempoExistencia - 1
 
                 If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = 0 Then Call MuereNpc(UserList( _
-                        UserIndex).MascotasIndex(i), 0)
+                                                                                                                    UserIndex).MascotasIndex(i), 0)
 
             End If
 
@@ -1487,7 +1487,7 @@ End Sub
 Public Sub EfectoFrio(ByVal UserIndex As Integer)
 
     Dim modifi As Integer
-    
+
     If UserList(UserIndex).flags.Privilegios >= PlayerType.Consejero Then Exit Sub
 
     If UserList(UserIndex).Counters.Frio < IntervaloFrio Then
@@ -1495,29 +1495,29 @@ Public Sub EfectoFrio(ByVal UserIndex As Integer)
     Else
 
         If MapInfo(UserList(UserIndex).pos.Map).Terreno = Nieve Then
-            Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡¡Estas muriendo de frio, abrigate o moriras!!." & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Estas muriendo de frio, abrigate o moriras!!." & FONTTYPE_INFO)
             modifi = Porcentaje(UserList(UserIndex).Stats.MaxHP, 5)
             UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - modifi
 
             If UserList(UserIndex).Stats.MinHP < 1 Then
-                Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡¡Has muerto de frio!!." & FONTTYPE_INFO)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Has muerto de frio!!." & FONTTYPE_INFO)
                 UserList(UserIndex).Stats.MinHP = 0
                 Call UserDie(UserIndex)
 
             End If
 
-            Call SendData(SendTarget.toIndex, UserIndex, 0, "ASH" & UserList(UserIndex).Stats.MinHP)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ASH" & UserList(UserIndex).Stats.MinHP)
         Else
             modifi = Porcentaje(UserList(UserIndex).Stats.MaxSta, 5)
             Call QuitarSta(UserIndex, modifi)
-            Call SendData(SendTarget.toIndex, UserIndex, 0, "ASS" & UserList(UserIndex).Stats.MinSta)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ASS" & UserList(UserIndex).Stats.MinSta)
 
             'Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡¡Has perdido stamina, si no te abrigas rapido perderas toda!!." & FONTTYPE_INFO)
 
         End If
-  
+
         UserList(UserIndex).Counters.Frio = 0
-  
+
     End If
 
 End Sub
@@ -1529,40 +1529,40 @@ Public Sub EfectoMimetismo(ByVal UserIndex As Integer)
         'Else
         'restore old char
         'Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Recuperas tu apariencia normal." & FONTTYPE_INFO)
-    
+
         'UserList(UserIndex).char.Body = UserList(UserIndex).CharMimetizado.Body
         'UserList(UserIndex).char.Head = UserList(UserIndex).CharMimetizado.Head
         'UserList(UserIndex).char.CascoAnim = UserList(UserIndex).CharMimetizado.CascoAnim
         'UserList(UserIndex).char.ShieldAnim = UserList(UserIndex).CharMimetizado.ShieldAnim
         'UserList(UserIndex).char.WeaponAnim = UserList(UserIndex).CharMimetizado.WeaponAnim
-    
+
         'UserList(UserIndex).Counters.Mimetismo = 0
         'UserList(UserIndex).flags.Mimetizado = 0
         'Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.Heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim)
     End If
-            
+
 End Sub
 
 Public Sub EfectoInvisibilidad(ByVal UserIndex As Integer)
-    
+
     If UserList(UserIndex).Counters.Invisibilidad > 0 Then
 
         UserList(UserIndex).Counters.Invisibilidad = UserList(UserIndex).Counters.Invisibilidad - 1
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "INVI" & UserList(UserIndex).Counters.Invisibilidad)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "INVI" & UserList(UserIndex).Counters.Invisibilidad)
     Else
         UserList(UserIndex).Counters.Invisibilidad = IntervaloInvisible
         UserList(UserIndex).flags.Invisible = 0
         UserList(UserIndex).Counters.Ocultando = 0
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "INVI0")
-        
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "INVI0")
+
         If UserList(UserIndex).flags.Oculto = 0 Then
-            Call SendData(SendTarget.toIndex, UserIndex, 0, "Z11")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z11")
             Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",0," & UserList( _
-                    UserIndex).PartyIndex)
+                                                                            UserIndex).PartyIndex)
         End If
 
     End If
- 
+
 End Sub
 
 Public Sub EfectoParalisisNpc(ByVal NpcIndex As Integer)
@@ -1585,13 +1585,13 @@ Public Sub EfectoCegueEstu(ByVal UserIndex As Integer)
 
         If UserList(UserIndex).flags.Ceguera = 1 Then
             UserList(UserIndex).flags.Ceguera = 0
-            Call SendData(SendTarget.toIndex, UserIndex, 0, "NSEGUE")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "NSEGUE")
 
         End If
 
         If UserList(UserIndex).flags.Estupidez = 1 Then
             UserList(UserIndex).flags.Estupidez = 0
-            Call SendData(SendTarget.toIndex, UserIndex, 0, "NESTUP")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "NESTUP")
 
         End If
 
@@ -1605,70 +1605,70 @@ Public Sub EfectoParalisisUser(ByVal UserIndex As Integer)
         UserList(UserIndex).Counters.Paralisis = UserList(UserIndex).Counters.Paralisis - 1
     Else
         UserList(UserIndex).flags.Paralizado = 0
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "PARADOW")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
     End If
 
 End Sub
 
 Public Sub RecStamina(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal Intervalo As Integer)
     If UserList(UserIndex).flags.Desnudo = 0 Then
-    
-    If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
-            UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
-            UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
 
-    Dim massta As Integer
+        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
+                                                                                                                              UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
+                                                                                                                                                                                                                                                             UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
 
-    If UserList(UserIndex).Stats.MinSta < UserList(UserIndex).Stats.MaxSta Then
-        If UserList(UserIndex).Counters.STACounter < Intervalo Then
-            UserList(UserIndex).Counters.STACounter = UserList(UserIndex).Counters.STACounter + 1
-        Else
-            EnviarStats = True
-            UserList(UserIndex).Counters.STACounter = 0
-            massta = RandomNumber(1, Porcentaje(UserList(UserIndex).Stats.MaxSta, 5))
-            UserList(UserIndex).Stats.MinSta = UserList(UserIndex).Stats.MinSta + massta
+        Dim massta As Integer
 
-            If UserList(UserIndex).Stats.MinSta > UserList(UserIndex).Stats.MaxSta Then
-                UserList(UserIndex).Stats.MinSta = UserList(UserIndex).Stats.MaxSta
+        If UserList(UserIndex).Stats.MinSta < UserList(UserIndex).Stats.MaxSta Then
+            If UserList(UserIndex).Counters.STACounter < Intervalo Then
+                UserList(UserIndex).Counters.STACounter = UserList(UserIndex).Counters.STACounter + 1
+            Else
+                EnviarStats = True
+                UserList(UserIndex).Counters.STACounter = 0
+                massta = RandomNumber(1, Porcentaje(UserList(UserIndex).Stats.MaxSta, 5))
+                UserList(UserIndex).Stats.MinSta = UserList(UserIndex).Stats.MinSta + massta
+
+                If UserList(UserIndex).Stats.MinSta > UserList(UserIndex).Stats.MaxSta Then
+                    UserList(UserIndex).Stats.MinSta = UserList(UserIndex).Stats.MaxSta
+
+                End If
 
             End If
 
         End If
 
     End If
-    
-    End If
 
 End Sub
 
 Public Sub EfectoVeneno(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean)
-    
+
     If UserList(UserIndex).Counters.Veneno < IntervaloVeneno Then
         UserList(UserIndex).Counters.Veneno = UserList(UserIndex).Counters.Veneno + 1
-      '  Call SendData(SendTarget.toindex, UserIndex, 0, "ASH" & UserList(UserIndex).Stats.MinHP)
+        '  Call SendData(SendTarget.toindex, UserIndex, 0, "ASH" & UserList(UserIndex).Stats.MinHP)
     Else
-        
+
         If UserList(UserIndex).TipoVeneno = 0 Or UserList(UserIndex).TipoVeneno = 2 Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList( _
-                UserIndex).char.CharIndex & "," & 37 & "," & 1)
-            Else
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList( _
-                UserIndex).char.CharIndex & "," & 53 & "," & 1)
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList( _
+                                                                                       UserIndex).char.CharIndex & "," & 37 & "," & 1)
+        Else
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList( _
+                                                                                       UserIndex).char.CharIndex & "," & 53 & "," & 1)
         End If
-        
-        
+
+
         UserList(UserIndex).Counters.Veneno = 0
-        
+
         If UserList(UserIndex).flags.HechizoVeneno = 0 Then
             UserList(UserIndex).DañoVeneno = 1
-            Else
+        Else
             UserList(UserIndex).DañoVeneno = RandomNumber(6, UserList(UserIndex).AumentoVeneno)
         End If
-        
+
         UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - UserList(UserIndex).DañoVeneno
-        Call SendData(SendTarget.toIndex, UserIndex, 0, "||El veneno te causa " & UserList(UserIndex).DañoVeneno & " puntos de daño. Si no te curas moriras." & FONTTYPE_VENENO)
-        
-        
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El veneno te causa " & UserList(UserIndex).DañoVeneno & " puntos de daño. Si no te curas moriras." & FONTTYPE_VENENO)
+
+
         If UserList(UserIndex).Stats.MinHP < 1 Then Call UserDie(UserIndex)
         Call EnviarHP(UserIndex)
     End If
@@ -1676,49 +1676,49 @@ Public Sub EfectoVeneno(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean
 End Sub
 
 Public Sub EfectoMetamorfosis(ByVal UserIndex As Integer)
-      
-      If UserList(UserIndex).Counters.Metamorfosis > 0 Then
-          UserList(UserIndex).Counters.Metamorfosis = UserList(UserIndex).Counters.Metamorfosis - 1
-      End If
-      
-      If UserList(UserIndex).Counters.Metamorfosis = 0 Then
-          UserList(UserIndex).char.Body = UserList(UserIndex).CharMimetizado.Body
-          UserList(UserIndex).char.Head = UserList(UserIndex).CharMimetizado.Head
-          UserList(UserIndex).char.CascoAnim = UserList(UserIndex).CharMimetizado.CascoAnim
-          UserList(UserIndex).char.ShieldAnim = UserList(UserIndex).CharMimetizado.ShieldAnim
-          UserList(UserIndex).char.WeaponAnim = UserList(UserIndex).CharMimetizado.WeaponAnim
-          UserList(UserIndex).char.Alas = UserList(UserIndex).CharMimetizado.Alas
-          UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).CharMimetizado.Fuerza
-          UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).CharMimetizado.Agilidad
-          UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).CharMimetizado.Inteligencia
-        
-          UserList(UserIndex).Counters.Metamorfosis = 0
-          UserList(UserIndex).flags.Metamorfosis = 0
-          UserList(UserIndex).CharMimetizado.Fuerza = 0
-          UserList(UserIndex).CharMimetizado.Agilidad = 0
-          UserList(UserIndex).CharMimetizado.Inteligencia = 0
-       
-          Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserIndex, _
-          UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, _
-          UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
-        
-          Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & _
-                UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
-        End If
-      
+
+    If UserList(UserIndex).Counters.Metamorfosis > 0 Then
+        UserList(UserIndex).Counters.Metamorfosis = UserList(UserIndex).Counters.Metamorfosis - 1
+    End If
+
+    If UserList(UserIndex).Counters.Metamorfosis = 0 Then
+        UserList(UserIndex).char.Body = UserList(UserIndex).CharMimetizado.Body
+        UserList(UserIndex).char.Head = UserList(UserIndex).CharMimetizado.Head
+        UserList(UserIndex).char.CascoAnim = UserList(UserIndex).CharMimetizado.CascoAnim
+        UserList(UserIndex).char.ShieldAnim = UserList(UserIndex).CharMimetizado.ShieldAnim
+        UserList(UserIndex).char.WeaponAnim = UserList(UserIndex).CharMimetizado.WeaponAnim
+        UserList(UserIndex).char.Alas = UserList(UserIndex).CharMimetizado.Alas
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).CharMimetizado.Fuerza
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).CharMimetizado.Agilidad
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).CharMimetizado.Inteligencia
+
+        UserList(UserIndex).Counters.Metamorfosis = 0
+        UserList(UserIndex).flags.Metamorfosis = 0
+        UserList(UserIndex).CharMimetizado.Fuerza = 0
+        UserList(UserIndex).CharMimetizado.Agilidad = 0
+        UserList(UserIndex).CharMimetizado.Inteligencia = 0
+
+        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserIndex, _
+                            UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, _
+                            UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
+
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & _
+                                                                                   UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
+    End If
+
 End Sub
 
 Public Sub EfectoAttack(ByVal UserIndex As Integer)
 
-      If UserList(UserIndex).Counters.TimerAttack > 0 Then
-          UserList(UserIndex).Counters.TimerAttack = UserList(UserIndex).Counters.TimerAttack - 1
-      End If
-      
+    If UserList(UserIndex).Counters.TimerAttack > 0 Then
+        UserList(UserIndex).Counters.TimerAttack = UserList(UserIndex).Counters.TimerAttack - 1
+    End If
+
 End Sub
 
 Public Sub DuracionPociones(ByVal UserIndex As Integer)
 
-    'Controla la duracion de las pociones
+'Controla la duracion de las pociones
     With UserList(UserIndex)
 
         If .flags.DuracionEfectoAmarillas > 0 Then
@@ -1727,19 +1727,19 @@ Public Sub DuracionPociones(ByVal UserIndex As Integer)
             If .flags.DuracionEfectoAmarillas <= 0 Then
 
                 .flags.TomoPocionAmarilla = False
-                
+
                 'volvemos el atributo al estado normal
                 .Stats.UserAtributos(eAtributos.Agilidad) = .Stats.UserAtributosBackUP(eAtributos.Agilidad)
-                
+
                 Call EnviarAmarillas(UserIndex)
                 Exit Sub
 
             End If
-          
-            Call SendData(SendTarget.toIndex, UserIndex, 0, "ATG" & .flags.DuracionEfectoAmarillas)
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ATG" & .flags.DuracionEfectoAmarillas)
 
         End If
-        
+
         If .flags.DuracionEfectoVerdes > 0 Then
             .flags.DuracionEfectoVerdes = .flags.DuracionEfectoVerdes - 1
 
@@ -1749,13 +1749,13 @@ Public Sub DuracionPociones(ByVal UserIndex As Integer)
 
                 'volvemos el atributo al estado normal
                 .Stats.UserAtributos(eAtributos.Fuerza) = .Stats.UserAtributosBackUP(eAtributos.Fuerza)
-           
+
                 Call EnviarVerdes(UserIndex)
                 Exit Sub
 
             End If
-        
-            Call SendData(SendTarget.toIndex, UserIndex, 0, "VTG" & .flags.DuracionEfectoVerdes)
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "VTG" & .flags.DuracionEfectoVerdes)
 
         End If
 
@@ -1765,16 +1765,16 @@ End Sub
 
 Public Sub HambreYSed(ByVal UserIndex As Integer, ByRef fEnviarAyS As Boolean)
 
-    '***************************************************
-    'Author: Unknown
-    'Last Modification: -
-    '
-    '***************************************************
-   
+'***************************************************
+'Author: Unknown
+'Last Modification: -
+'
+'***************************************************
+
     With UserList(UserIndex)
-    
-      If .flags.Privilegios >= PlayerType.Consejero Then Exit Sub
-        
+
+        If .flags.Privilegios >= PlayerType.Consejero Then Exit Sub
+
         'Sed
         If .Stats.MinAGU > 0 Then
             If .Counters.AGUACounter < IntervaloSed Then
@@ -1782,19 +1782,19 @@ Public Sub HambreYSed(ByVal UserIndex As Integer, ByRef fEnviarAyS As Boolean)
             Else
                 .Counters.AGUACounter = 0
                 .Stats.MinAGU = .Stats.MinAGU - RandomNumber(1, 5)
-                
+
                 If .Stats.MinAGU <= 0 Then
                     .Stats.MinAGU = 0
                     .flags.Sed = 1
 
                 End If
-                
+
                 fEnviarAyS = True
 
             End If
 
         End If
-        
+
         'hambre
         If .Stats.MinHam > 0 Then
             If .Counters.COMCounter < IntervaloHambre Then
@@ -1822,8 +1822,8 @@ End Sub
 Public Sub Sanar(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal Intervalo As Integer)
 
     If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
-            UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
-            UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
+                                                                                                                          UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
+                                                                                                                                                                                                                                                         UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
 
     Dim mashit As Integer
 
@@ -1833,13 +1833,13 @@ Public Sub Sanar(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal
             UserList(UserIndex).Counters.HPCounter = UserList(UserIndex).Counters.HPCounter + 1
         Else
             mashit = RandomNumber(2, Porcentaje(UserList(UserIndex).Stats.MaxSta, 5))
-                           
+
             UserList(UserIndex).Counters.HPCounter = 0
             UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP + mashit
 
             If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then UserList(UserIndex).Stats.MinHP = UserList( _
-                    UserIndex).Stats.MaxHP
-            Call SendData(SendTarget.toIndex, UserIndex, 0, "||Has sanado " & mashit & " Puntos de vida." & FONTTYPE_INFO)
+               UserIndex).Stats.MaxHP
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has sanado " & mashit & " Puntos de vida." & FONTTYPE_INFO)
             EnviarStats = True
 
         End If
@@ -1857,14 +1857,14 @@ End Sub
 Sub PasarSegundo()
 
     Dim Saturin As Integer
-    Dim pos     As WorldPos
-    Dim Posa    As WorldPos
-    Dim i       As Long
+    Dim pos As WorldPos
+    Dim Posa As WorldPos
+    Dim i As Long
 
     For i = 1 To LastUser
-    
+
         If SecondaryWeather Then Call EfectoLluvia(i)
- 
+
         'Cerrar usuario
         If UserList(i).Counters.Saliendo Then
             UserList(i).Counters.Salir = UserList(i).Counters.Salir - 1
@@ -1872,54 +1872,54 @@ Sub PasarSegundo()
             If UserList(i).Counters.Salir <= 0 Then
                 'If NumUsers <> 0 Then NumUsers = NumUsers - 1
 
-                Call SendData(SendTarget.toIndex, i, 0, "||Gracias por jugar AoMania" & FONTTYPE_INFO)
-                Call SendData(SendTarget.toIndex, i, 0, "FINOC")
-                
+                Call SendData(SendTarget.ToIndex, i, 0, "||Gracias por jugar AoMania" & FONTTYPE_INFO)
+                Call SendData(SendTarget.ToIndex, i, 0, "FINOC")
+
                 Call CloseSocket(i)
                 Exit Sub
             Else
-                Call SendData(SendTarget.toIndex, i, 0, "||En " & UserList(i).Counters.Salir & " segundos se cerrara el juego..." & FONTTYPE_INFO)
+                Call SendData(SendTarget.ToIndex, i, 0, "||En " & UserList(i).Counters.Salir & " segundos se cerrara el juego..." & FONTTYPE_INFO)
 
             End If
-        
+
             'ANTIEMPOLLOS
         ElseIf UserList(i).flags.EstaEmpo = 1 Then
             UserList(i).EmpoCont = UserList(i).EmpoCont + 1
 
             If UserList(i).EmpoCont = 18 Then
                 Call Encarcelar(i, "25", UserList(i).Name)
-                 
-               UserList(i).EmpoCont = 0
-               
+
+                UserList(i).EmpoCont = 0
+
                 Exit Sub
             ElseIf UserList(i).EmpoCont = 3 Then
-                Call SendData(SendTarget.toIndex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
-           ElseIf UserList(i).EmpoCont = 8 Then
-                Call SendData(SendTarget.toIndex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
-           ElseIf UserList(i).EmpoCont = 13 Then
-                Call SendData(SendTarget.toIndex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
+                Call SendData(SendTarget.ToIndex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
+            ElseIf UserList(i).EmpoCont = 8 Then
+                Call SendData(SendTarget.ToIndex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
+            ElseIf UserList(i).EmpoCont = 13 Then
+                Call SendData(SendTarget.ToIndex, i, 0, "||Estás bloqueando el acceso a un objeto, muévete o serás encarcelado." & FONTTYPE_INFO)
 
             End If
 
         End If
 
     Next i
-    
+
     If Encuesta.ACT = 1 Then
         Encuesta.Tiempo = Encuesta.Tiempo + 1
 
         If Encuesta.Tiempo = 45 Then
-            Call SendData(SendTarget.toall, 0, 0, "||Faltan 15 segundos para terminar la encuesta." & FONTTYPE_GUILD)
+            Call SendData(SendTarget.ToAll, 0, 0, "||Faltan 15 segundos para terminar la encuesta." & FONTTYPE_GUILD)
         ElseIf Encuesta.Tiempo = 60 Then
-            Call SendData(SendTarget.toall, 0, 0, "||Encuesta: Terminada con éxito" & FONTTYPE_TALK)
-            Call SendData(SendTarget.toall, 0, 0, "||SI: " & Encuesta.EncSI & " / NO: " & Encuesta.EncNO & FONTTYPE_TALK)
+            Call SendData(SendTarget.ToAll, 0, 0, "||Encuesta: Terminada con éxito" & FONTTYPE_TALK)
+            Call SendData(SendTarget.ToAll, 0, 0, "||SI: " & Encuesta.EncSI & " / NO: " & Encuesta.EncNO & FONTTYPE_TALK)
 
             If Encuesta.EncNO < Encuesta.EncSI Then
-                Call SendData(SendTarget.toall, 0, 0, "||Gana: SI" & FONTTYPE_GUILD)
+                Call SendData(SendTarget.ToAll, 0, 0, "||Gana: SI" & FONTTYPE_GUILD)
             ElseIf Encuesta.EncSI < Encuesta.EncNO Then
-                Call SendData(SendTarget.toall, 0, 0, "||Gana: NO" & FONTTYPE_GUILD)
+                Call SendData(SendTarget.ToAll, 0, 0, "||Gana: NO" & FONTTYPE_GUILD)
             ElseIf Encuesta.EncNO = Encuesta.EncSI Then
-                Call SendData(SendTarget.toall, 0, 0, "||Encuesta empatada." & FONTTYPE_GUILD)
+                Call SendData(SendTarget.ToAll, 0, 0, "||Encuesta empatada." & FONTTYPE_GUILD)
 
             End If
 
@@ -1941,9 +1941,9 @@ Sub PasarSegundo()
 
     If CuentaRegresiva > 0 Then
         If CuentaRegresiva > 1 Then
-            Call SendData(SendTarget.toall, 0, 0, "||En..." & CuentaRegresiva - 1 & FONTTYPE_GUILD)
+            Call SendData(SendTarget.ToAll, 0, 0, "||En..." & CuentaRegresiva - 1 & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.toall, 0, 0, "||YA!!!!" & FONTTYPE_GUILD)
+            Call SendData(SendTarget.ToAll, 0, 0, "||YA!!!!" & FONTTYPE_GUILD)
 
         End If
 
@@ -1952,32 +1952,32 @@ Sub PasarSegundo()
     End If
 
 End Sub
- 
+
 Public Sub ReiniciarServidor(Optional ByVal EjecutarLauncher As Boolean = True)
 
-    'commit experiencias
-    
+'commit experiencias
 
-    'Guardar Pjs
+
+'Guardar Pjs
     Call GuardarUsuarios
-    
+
     'WorldSave
     Call DoBackUp
-    
+
     If EjecutarLauncher Then Shell (App.Path & "\AoM.exe")
 
     'Chauuu
     Unload frmMain
 
 End Sub
- 
+
 Sub GuardarUsuarios(Optional ByVal DoBackUp As Boolean = True)
 
     If DoBackUp Then
         haciendoBK = True
-    
-        Call SendData(SendTarget.toall, 0, 0, "BKW")
-        Call SendData(SendTarget.toall, 0, 0, "||°¨¨°(_.·´¯`·«¤°GUARDANDO PERSONAJES°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldCarga)
+
+        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
+        Call SendData(SendTarget.ToAll, 0, 0, "||°¨¨°(_.·´¯`·«¤°GUARDANDO PERSONAJES°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldCarga)
 
     End If
 
@@ -1993,8 +1993,8 @@ Sub GuardarUsuarios(Optional ByVal DoBackUp As Boolean = True)
     Next i
 
     If DoBackUp Then
-        Call SendData(SendTarget.toall, 0, 0, "||°¨¨°(_.·´¯`·«¤°PERSONAJES GUARDADOS°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldSave)
-        Call SendData(SendTarget.toall, 0, 0, "BKW")
+        Call SendData(SendTarget.ToAll, 0, 0, "||°¨¨°(_.·´¯`·«¤°PERSONAJES GUARDADOS°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldSave)
+        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
 
         haciendoBK = False
 
@@ -2003,7 +2003,7 @@ Sub GuardarUsuarios(Optional ByVal DoBackUp As Boolean = True)
 End Sub
 
 Sub ActSlot()
-   Dim LoopC As Integer
+    Dim LoopC As Integer
 
     For LoopC = 1 To MaxUsers
 
@@ -2013,7 +2013,7 @@ Sub ActSlot()
 
     Next LoopC
 End Sub
- 
+
 Public Sub LoadAntiCheat()
 
     Dim i As Integer
@@ -2079,188 +2079,188 @@ Public Sub DescargaLac(UserIndex As Integer)
     End With
 
 End Sub
- 
- Public Sub DuracionAngelyDemonio(ByVal UserIndex As Integer)
-     
-      Dim QuitaSta As Byte
-    
-     With UserList(UserIndex)
-           
-           If .Counters.Frio < IntervaloFrio Then
-               .Counters.Frio = .Counters.Frio + 1
-            Else
-            
+
+Public Sub DuracionAngelyDemonio(ByVal UserIndex As Integer)
+
+    Dim QuitaSta As Byte
+
+    With UserList(UserIndex)
+
+        If .Counters.Frio < IntervaloFrio Then
+            .Counters.Frio = .Counters.Frio + 1
+        Else
+
             If .Stats.MinSta > 0 Then
-               QuitaSta = RandomNumber(40, 55)
-              Call QuitarSta(UserIndex, QuitaSta)
-              Call SendData(SendTarget.toIndex, UserIndex, 0, "ASS" & .Stats.MinSta)
+                QuitaSta = RandomNumber(40, 55)
+                Call QuitarSta(UserIndex, QuitaSta)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "ASS" & .Stats.MinSta)
             Else
-              
-        .char.Body = .CharMimetizado.Body
-        .char.Head = .CharMimetizado.Head
-        .char.CascoAnim = .CharMimetizado.CascoAnim
-        .char.ShieldAnim = .CharMimetizado.ShieldAnim
-        .char.WeaponAnim = .CharMimetizado.WeaponAnim
-        .char.Alas = .CharMimetizado.Alas
-        
-        .Counters.Mimetismo = 0
-        .flags.Mimetizado = 0
-       
-        Call ChangeUserChar(SendTarget.ToMap, UserIndex, .pos.Map, UserIndex, _
-        .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, _
-        .char.CascoAnim, .char.Alas)
-        
-        Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "CFX" & _
-                .char.CharIndex & "," & 1 & "," & 1)
-        
-        If .Metamorfosis.Angel = 1 Then
-           .Metamorfosis.Angel = 0
-        ElseIf .Metamorfosis.Demonio = 1 Then
-           .Metamorfosis.Demonio = 0
+
+                .char.Body = .CharMimetizado.Body
+                .char.Head = .CharMimetizado.Head
+                .char.CascoAnim = .CharMimetizado.CascoAnim
+                .char.ShieldAnim = .CharMimetizado.ShieldAnim
+                .char.WeaponAnim = .CharMimetizado.WeaponAnim
+                .char.Alas = .CharMimetizado.Alas
+
+                .Counters.Mimetismo = 0
+                .flags.Mimetizado = 0
+
+                Call ChangeUserChar(SendTarget.ToMap, UserIndex, .pos.Map, UserIndex, _
+                                    .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, _
+                                    .char.CascoAnim, .char.Alas)
+
+                Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "CFX" & _
+                                                                        .char.CharIndex & "," & 1 & "," & 1)
+
+                If .Metamorfosis.Angel = 1 Then
+                    .Metamorfosis.Angel = 0
+                ElseIf .Metamorfosis.Demonio = 1 Then
+                    .Metamorfosis.Demonio = 0
+                End If
+
+            End If
+
+            .Counters.Frio = 0
+
         End If
-        
-       End If
-       
-           .Counters.Frio = 0
-        
-      End If
-            
-     End With
-     
- End Sub
- 
- Sub TimeChange()
-     
-     CountTC = CountTC + 1
-          
-     If CountTC = 25 Then CountTC = 1
-     
-     Call SendData(SendTarget.toall, 0, 0, "H" & CountTC)
-     
-     Call DayChange(CountTC)
-     
+
+    End With
+
+End Sub
+
+Sub TimeChange()
+
+    CountTC = CountTC + 1
+
+    If CountTC = 25 Then CountTC = 1
+
+    Call SendData(SendTarget.ToAll, 0, 0, "H" & CountTC)
+
+    Call DayChange(CountTC)
+
 End Sub
 
 Sub DayChange(ByVal Hora As Byte)
-        
-        Dim n As Integer
-        Dim UserIndex As Integer
-        
-        CountTC = Hora
-        
-        'Noche
-        If Hora >= 1 And Hora <= 7 Then
-           
-           Call SendData(SendTarget.toall, 0, 0, "TW53")
-           
-           If NocheLicantropo = False Then
-               NocheLicantropo = True
-               For n = 1 To NumUsers
-                   
-                   UserIndex = n
-                   
-                   If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
-                       UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
-                          Call DarPoderLicantropo(UserIndex)
-                   End If
-                   
-               Next n
-           End If
-           
+
+    Dim n As Integer
+    Dim UserIndex As Integer
+
+    CountTC = Hora
+
+    'Noche
+    If Hora >= 1 And Hora <= 7 Then
+
+        Call SendData(SendTarget.ToAll, 0, 0, "TW53")
+
+        If NocheLicantropo = False Then
+            NocheLicantropo = True
+            For n = 1 To NumUsers
+
+                UserIndex = n
+
+                If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
+                   UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
+                    Call DarPoderLicantropo(UserIndex)
+                End If
+
+            Next n
         End If
-        
-        'Amanecer
-        If Hora >= 8 And Hora <= 12 Then
-           Call SendData(SendTarget.toall, 0, 0, "TW55")
-           If NocheLicantropo = True Then
-               NocheLicantropo = False
-               For n = 1 To NumUsers
-                   
-                   UserIndex = n
-                   
-                   If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
-                       UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
-                          Call QuitarPoderLicantropo(UserIndex)
-                   End If
-                   
-               Next n
-           End If
+
+    End If
+
+    'Amanecer
+    If Hora >= 8 And Hora <= 12 Then
+        Call SendData(SendTarget.ToAll, 0, 0, "TW55")
+        If NocheLicantropo = True Then
+            NocheLicantropo = False
+            For n = 1 To NumUsers
+
+                UserIndex = n
+
+                If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
+                   UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
+                    Call QuitarPoderLicantropo(UserIndex)
+                End If
+
+            Next n
         End If
-        
-        'Día
-        If Hora >= 13 And Hora <= 18 Then
-           Call SendData(SendTarget.toall, 0, 0, "TW55")
-           If NocheLicantropo = True Then
-               NocheLicantropo = False
-               For n = 1 To NumUsers
-                   
-                   UserIndex = n
-                   
-                   If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
-                       UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
-                          Call QuitarPoderLicantropo(UserIndex)
-                   End If
-                   
-               Next n
-           End If
+    End If
+
+    'Día
+    If Hora >= 13 And Hora <= 18 Then
+        Call SendData(SendTarget.ToAll, 0, 0, "TW55")
+        If NocheLicantropo = True Then
+            NocheLicantropo = False
+            For n = 1 To NumUsers
+
+                UserIndex = n
+
+                If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
+                   UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
+                    Call QuitarPoderLicantropo(UserIndex)
+                End If
+
+            Next n
         End If
-        
-        'Tarde
-        If Hora >= 19 And Hora <= 21 Then
-            Call SendData(SendTarget.toall, 0, 0, "TW55")
-            If NocheLicantropo = True Then
-               NocheLicantropo = False
-               For n = 1 To NumUsers
-                   
-                   UserIndex = n
-                   
-                   If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
-                       UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
-                          Call QuitarPoderLicantropo(UserIndex)
-                   End If
-                   
-               Next n
-           End If
+    End If
+
+    'Tarde
+    If Hora >= 19 And Hora <= 21 Then
+        Call SendData(SendTarget.ToAll, 0, 0, "TW55")
+        If NocheLicantropo = True Then
+            NocheLicantropo = False
+            For n = 1 To NumUsers
+
+                UserIndex = n
+
+                If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
+                   UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
+                    Call QuitarPoderLicantropo(UserIndex)
+                End If
+
+            Next n
         End If
-        
-        'Noche
-        If Hora >= 22 And Hora <= 24 Then
-            Call SendData(SendTarget.toall, 0, 0, "TW53")
-            If NocheLicantropo = False Then
-               NocheLicantropo = True
-               For n = 1 To NumUsers
-                   
-                   UserIndex = n
-                   
-                   If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
-                       UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
-                          Call DarPoderLicantropo(UserIndex)
-                   End If
-                   
-               Next n
-           End If
+    End If
+
+    'Noche
+    If Hora >= 22 And Hora <= 24 Then
+        Call SendData(SendTarget.ToAll, 0, 0, "TW53")
+        If NocheLicantropo = False Then
+            NocheLicantropo = True
+            For n = 1 To NumUsers
+
+                UserIndex = n
+
+                If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
+                   UCase$(UserList(UserIndex).Raza) = "LICANTROPO" Then
+                    Call DarPoderLicantropo(UserIndex)
+                End If
+
+            Next n
         End If
-        
+    End If
+
 End Sub
 
 Sub DarPoderLicantropo(ByVal UserIndex As Integer)
-     Call SendData(SendTarget.toIndex, UserIndex, 0, "||Es de noche, tu cuerpo empieza a transformarse y te sientes más poderoso." & FONTTYPE_INFO)
-     UserList(UserIndex).flags.Licantropo = "1"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) + "3"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) + "3"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) + "3"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) + "3"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) + "3"
-     Call SendData(SendTarget.toIndex, UserIndex, 0, "BKW")
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Es de noche, tu cuerpo empieza a transformarse y te sientes más poderoso." & FONTTYPE_INFO)
+    UserList(UserIndex).flags.Licantropo = "1"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) + "3"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) + "3"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) + "3"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) + "3"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) + "3"
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "BKW")
 End Sub
 
 Sub QuitarPoderLicantropo(ByVal UserIndex As Integer)
-    Call SendData(SendTarget.toIndex, UserIndex, 0, "||Ya es de día, vuelves a tu apariencia normal" & FONTTYPE_INFO)
-     UserList(UserIndex).flags.Licantropo = "0"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - "3"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) - "3"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) - "3"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) - "3"
-     UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) - "3"
-     Call SendData(SendTarget.toIndex, UserIndex, 0, "BKW")
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya es de día, vuelves a tu apariencia normal" & FONTTYPE_INFO)
+    UserList(UserIndex).flags.Licantropo = "0"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - "3"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) - "3"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) - "3"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) - "3"
+    UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) - "3"
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "BKW")
 End Sub

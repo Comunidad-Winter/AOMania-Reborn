@@ -31,12 +31,12 @@ Public Function AppHook(ByVal idHook As Long, ByVal wParam As Long, ByVal lParam
 
     Select Case CWP.message
 
-        Case WM_CREATE
-            SetForegroundWindow CWP.hWnd
-            AppHook = CallNextHookEx(hHook, idHook, wParam, ByVal lParam)
-            UnhookWindowsHookEx hHook
-            hHook = 0
-            Exit Function
+    Case WM_CREATE
+        SetForegroundWindow CWP.hWnd
+        AppHook = CallNextHookEx(hHook, idHook, wParam, ByVal lParam)
+        UnhookWindowsHookEx hHook
+        hHook = 0
+        Exit Function
 
     End Select
 

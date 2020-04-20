@@ -15,21 +15,21 @@ Option Explicit
 
 Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (ByRef destination As Any, ByRef source As Any, ByVal length As Long)
 
-Private data()                      As Byte
+Private data() As Byte
 
-Private CurrentPos                  As Long
-Private lastPos                     As Long
-Private hFile                       As Long
+Private CurrentPos As Long
+Private lastPos As Long
+Private hFile As Long
 
-Private Const INVALID_FILE_HANDLER  As Integer = -1
+Private Const INVALID_FILE_HANDLER As Integer = -1
 Private Const DEFAULT_MAX_SIZE_FILE As Long = 65535
-Private Const BYTE_SIZE             As Byte = 1
-Private Const BOOL_SIZE             As Byte = 2
-Private Const INTEGER_SIZE          As Byte = 2
-Private Const LONG_SIZE             As Byte = 4
-Private Const SINGLE_SIZE           As Byte = 4
-Private Const DOUBLE_SIZE           As Byte = 8
-Private Const STRING_LENGTH_SIZE    As Byte = 2
+Private Const BYTE_SIZE As Byte = 1
+Private Const BOOL_SIZE As Byte = 2
+Private Const INTEGER_SIZE As Byte = 2
+Private Const LONG_SIZE As Byte = 4
+Private Const SINGLE_SIZE As Byte = 4
+Private Const DOUBLE_SIZE As Byte = 8
+Private Const STRING_LENGTH_SIZE As Byte = 2
 
 Public Sub initializeReader(ByRef arrayByte() As Byte)
 
@@ -106,7 +106,7 @@ End Function
 
 Public Function getString(Optional ByVal length As Integer = -1) As String
 
-    Dim ret() As Byte
+    Dim Ret() As Byte
 
     If length < 0 Then
         length = getInteger()
@@ -114,11 +114,11 @@ Public Function getString(Optional ByVal length As Integer = -1) As String
     Else
 
         If length > 0 Then
-            ReDim ret(length - 1) As Byte
-        
-            Call CopyMemory(ret(0), data(CurrentPos), length)
-        
-            getString = StrConv(ret, vbUnicode)
+            ReDim Ret(length - 1) As Byte
+
+            Call CopyMemory(Ret(0), data(CurrentPos), length)
+
+            getString = StrConv(Ret, vbUnicode)
             CurrentPos = CurrentPos + length
 
         End If
@@ -182,7 +182,7 @@ Public Sub putString(ByRef str As String, Optional ByVal withLength As Boolean =
 
         If length > 0 Then
             Call CopyMemory(data(lastPos + 1), ByVal StrPtr(StrConv(str, vbFromUnicode)), length)
-    
+
             lastPos = lastPos + length
 
         End If
@@ -237,7 +237,7 @@ Public Sub saveBuffer()
 
     If hFile > 0 Then
         ReDim buf(lastPos) As Byte
-    
+
         Call CopyMemory(buf(0), data(0), lastPos + 1)
         Put hFile, , buf
 

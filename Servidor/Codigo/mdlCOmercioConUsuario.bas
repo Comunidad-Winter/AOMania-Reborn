@@ -10,14 +10,14 @@ Private Const MAX_ORO_LOGUEABLE As Long = 90000
 
 Public Type tCOmercioUsuario
 
-    DestUsu As Integer 'El otro Usuario
+    DestUsu As Integer    'El otro Usuario
     DestNick As String
-    Objeto As Integer 'Indice del inventario a comerciar, que objeto desea dar
-    
+    Objeto As Integer    'Indice del inventario a comerciar, que objeto desea dar
+
     'El tipo de datos de Cant ahora es Long (antes Integer)
     'asi se puede comerciar con oro > 32k
     '[CORREGIDO]
-    Cant As Long 'Cuantos comerciar, cuantos objetos desea dar
+    Cant As Long    'Cuantos comerciar, cuantos objetos desea dar
     '[/CORREGIDO]
     Acepto As Boolean
 
@@ -47,9 +47,9 @@ Public Sub IniciarComercioConUsuario(ByVal Origen As Integer, ByVal Destino As I
     Else
         'Es el primero que comercia ?
         Call SendData(SendTarget.ToIndex, Destino, 0, "||" & UserList(Origen).Name & " desea comerciar. Si deseas aceptar, Escribe /COMERCIAR." & _
-                FONTTYPE_TALK)
+                                                      FONTTYPE_TALK)
         UserList(Destino).flags.TargetUser = Origen
-    
+
     End If
 
     Exit Sub
@@ -61,7 +61,7 @@ End Sub
 'envia a AQuien el objeto del otro
 Public Sub EnviarObjetoTransaccion(ByVal AQuien As Integer)
 
-    Dim ObjInd  As Integer
+    Dim ObjInd As Integer
     Dim ObjCant As Long
 
     '[Alejo]: En esta funcion se centralizaba el problema
@@ -81,8 +81,8 @@ Public Sub EnviarObjetoTransaccion(ByVal AQuien As Integer)
 
     If ObjInd > 0 And ObjCant > 0 Then
         Call SendData(SendTarget.ToIndex, AQuien, 0, "COMUSUPET" & 1 & "," & ObjInd & "," & ObjData(ObjInd).Name & "," & ObjCant & "," & 0 & "," & _
-                ObjData(ObjInd).GrhIndex & "," & ObjData(ObjInd).OBJType & "," & ObjData(ObjInd).MaxHit & "," & ObjData(ObjInd).MinHit & "," & _
-                ObjData(ObjInd).MaxDef & "," & ObjData(ObjInd).MinDef & "," & ObjData(ObjInd).Valor \ 3)
+                                                     ObjData(ObjInd).GrhIndex & "," & ObjData(ObjInd).ObjType & "," & ObjData(ObjInd).MaxHit & "," & ObjData(ObjInd).MinHit & "," & _
+                                                     ObjData(ObjInd).MaxDef & "," & ObjData(ObjInd).MinDef & "," & ObjData(ObjInd).Valor \ 3)
 
     End If
 
@@ -96,7 +96,7 @@ Public Sub FinComerciarUsu(ByVal UserIndex As Integer)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "FINCOMUSUOK")
 
         End If
-    
+
         .ComUsu.Acepto = False
         .ComUsu.Cant = 0
         .ComUsu.DestUsu = 0
@@ -110,7 +110,7 @@ End Sub
 
 Public Sub AceptarComercioUsu(ByVal UserIndex As Integer)
 
-    Dim Obj1          As Obj, Obj2 As Obj
+    Dim Obj1 As Obj, Obj2 As Obj
     Dim OtroUserIndex As Integer
     Dim TerminarAhora As Boolean
 
@@ -219,13 +219,13 @@ Public Sub AceptarComercioUsu(ByVal UserIndex As Integer)
         UserList(OtroUserIndex).Stats.GLD = UserList(OtroUserIndex).Stats.GLD - UserList(OtroUserIndex).ComUsu.Cant
 
         If UserList(OtroUserIndex).ComUsu.Cant > MAX_ORO_LOGUEABLE Then Call LogDesarrollo(Date & " " & UserList(OtroUserIndex).Name & _
-                " solto oro en comercio seguro con " & UserList(UserIndex).Name & ". Cantidad: " & UserList(OtroUserIndex).ComUsu.Cant)
+                                                                                         " solto oro en comercio seguro con " & UserList(UserIndex).Name & ". Cantidad: " & UserList(OtroUserIndex).ComUsu.Cant)
         Call EnviarOro(OtroUserIndex)
         'y se la doy al otro
         UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD + UserList(OtroUserIndex).ComUsu.Cant
 
         If UserList(OtroUserIndex).ComUsu.Cant > MAX_ORO_LOGUEABLE Then Call LogDesarrollo(Date & " " & UserList(UserIndex).Name & _
-                " recibio oro en comercio seguro con " & UserList(OtroUserIndex).Name & ". Cantidad: " & UserList(OtroUserIndex).ComUsu.Cant)
+                                                                                         " recibio oro en comercio seguro con " & UserList(OtroUserIndex).Name & ". Cantidad: " & UserList(OtroUserIndex).ComUsu.Cant)
         Call EnviarOro(UserIndex)
     Else
 
@@ -245,13 +245,13 @@ Public Sub AceptarComercioUsu(ByVal UserIndex As Integer)
         UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD - UserList(UserIndex).ComUsu.Cant
 
         If UserList(UserIndex).ComUsu.Cant > MAX_ORO_LOGUEABLE Then Call LogDesarrollo(Date & " " & UserList(UserIndex).Name & _
-                " solto oro en comercio seguro con " & UserList(OtroUserIndex).Name & ". Cantidad: " & UserList(UserIndex).ComUsu.Cant)
+                                                                                     " solto oro en comercio seguro con " & UserList(OtroUserIndex).Name & ". Cantidad: " & UserList(UserIndex).ComUsu.Cant)
         Call EnviarOro(UserIndex)
         'y se la doy al otro
         UserList(OtroUserIndex).Stats.GLD = UserList(OtroUserIndex).Stats.GLD + UserList(UserIndex).ComUsu.Cant
 
         If UserList(UserIndex).ComUsu.Cant > MAX_ORO_LOGUEABLE Then Call LogDesarrollo(Date & " " & UserList(OtroUserIndex).Name & _
-                " recibio oro en comercio seguro con " & UserList(UserIndex).Name & ". Cantidad: " & UserList(UserIndex).ComUsu.Cant)
+                                                                                     " recibio oro en comercio seguro con " & UserList(UserIndex).Name & ". Cantidad: " & UserList(UserIndex).ComUsu.Cant)
         Call EnviarOro(OtroUserIndex)
     Else
 
@@ -272,7 +272,7 @@ Public Sub AceptarComercioUsu(ByVal UserIndex As Integer)
 
     Call FinComerciarUsu(UserIndex)
     Call FinComerciarUsu(OtroUserIndex)
- 
+
 End Sub
 
 '[/Alejo]

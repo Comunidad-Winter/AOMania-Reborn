@@ -11,10 +11,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
- 
+
 Public Intervalo As Long
-Private Tiempo   As Long
-Private Puede    As Boolean
+Private Tiempo As Long
+Private Puede As Boolean
 
 Public Sub init(Inter As Long)
 
@@ -25,7 +25,7 @@ End Sub
 
 Public Function Puedo() As Boolean
 
-    If GetTickCount < Intervalo - 1 Then 'me fijo que el tiempo no vuelva a cerro
+    If GetTickCount < Intervalo - 1 Then    'me fijo que el tiempo no vuelva a cerro
         Tiempo = GetTickCount + Intervalo
 
     End If

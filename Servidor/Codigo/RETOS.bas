@@ -8,8 +8,8 @@ Public Sub ComensarDuelo(ByVal UserIndex As Integer, ByVal TIndex As Integer)
     Call WarpUserChar(TIndex, 78, 41, 50)
     UserList(TIndex).flags.Oponente = UserIndex
     Call WarpUserChar(UserIndex, 78, 60, 50)
-    Call SendData(toall, 0, 0, "||Retos: " & UserList(TIndex).Name & " y " & UserList(UserIndex).Name & " van a competir en un Reto." & _
-            FONTTYPE_RETOS)
+    Call SendData(ToAll, 0, 0, "||Retos: " & UserList(TIndex).Name & " y " & UserList(UserIndex).Name & " van a competir en un Reto." & _
+                               FONTTYPE_RETOS)
     Retos1 = UserList(TIndex).Name
     Retos2 = UserList(UserIndex).Name
 
@@ -22,7 +22,7 @@ Public Sub ResetDuelo(ByVal UserIndex As Integer, ByVal TIndex As Integer)
     UserList(UserIndex).flags.EsperandoDuelo = False
     UserList(UserIndex).flags.Oponente = 0
     UserList(UserIndex).flags.EstaDueleando = False
-    Dim NuevaPos  As WorldPos
+    Dim NuevaPos As WorldPos
     Dim FuturePos As WorldPos
     FuturePos.Map = 1
     FuturePos.X = 50
@@ -45,7 +45,7 @@ Public Sub TerminarDuelo(ByVal Ganador As Integer, ByVal Perdedor As Integer)
 
     On Error GoTo errorxao
 
-    Call SendData(toall, Ganador, 0, "||Retos: " & UserList(Ganador).Name & " venció a " & UserList(Perdedor).Name & " en un reto." & FONTTYPE_RETOS)
+    Call SendData(ToAll, Ganador, 0, "||Retos: " & UserList(Ganador).Name & " venció a " & UserList(Perdedor).Name & " en un reto." & FONTTYPE_RETOS)
 
     If UserList(Perdedor).Stats.GLD >= entrarReto Then
         UserList(Perdedor).Stats.GLD = UserList(Perdedor).Stats.GLD - entrarReto
@@ -54,7 +54,7 @@ Public Sub TerminarDuelo(ByVal Ganador As Integer, ByVal Perdedor As Integer)
 
     UserList(Ganador).Stats.GLD = UserList(Ganador).Stats.GLD + entrarReto
     UserList(Ganador).Stats.PuntosRetos = UserList(Ganador).Stats.PuntosRetos + 1
-    
+
     Call SendUserStatsBox(Perdedor)
     Call SendUserStatsBox(Ganador)
     Call ResetDuelo(Ganador, Perdedor)
@@ -66,7 +66,7 @@ Public Sub DesconectarDuelo(ByVal Ganador As Integer, ByVal Perdedor As Integer)
 
     On Error GoTo errorxaoo
 
-    Call SendData(toall, Ganador, 0, "||Retos: El reto ha sido cancelado por la desconexión de " & UserList(Perdedor).Name & "." & FONTTYPE_RETOS)
+    Call SendData(ToAll, Ganador, 0, "||Retos: El reto ha sido cancelado por la desconexión de " & UserList(Perdedor).Name & "." & FONTTYPE_RETOS)
     Call ResetDuelo(Ganador, Perdedor)
 errorxaoo:
 

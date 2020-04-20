@@ -40,10 +40,10 @@ Public Sub VerificarDosVDos(ByVal UserIndex As Integer)
         Call SendUserStatsBox(Team.pj4)
         Call SendUserStatsBox(Team.Pj2)
         Call SendUserStatsBox(Team.Pj1)
-        Call SendData(toall, UserIndex, 0, "||2Vs2: " & UserList(Team.Pj1).Name & " y " & UserList(Team.Pj2).Name & " han perdido contra " & _
-                UserList(Team.pj3).Name & " y " & UserList(Team.pj4).Name & FONTTYPE_RETOS2V2)
+        Call SendData(ToAll, UserIndex, 0, "||2Vs2: " & UserList(Team.Pj1).Name & " y " & UserList(Team.Pj2).Name & " han perdido contra " & _
+                                           UserList(Team.pj3).Name & " y " & UserList(Team.pj4).Name & FONTTYPE_RETOS2V2)
         Call TerminoDosVDos
-    
+
     ElseIf UserList(Team.pj3).flags.ParejaMuerta = True And UserList(Team.pj4).flags.ParejaMuerta = True Then
 
         If UserList(Team.pj3).Stats.GLD >= entrarReto2v2 Then
@@ -65,15 +65,15 @@ Public Sub VerificarDosVDos(ByVal UserIndex As Integer)
         Call SendUserStatsBox(Team.pj4)
         Call SendUserStatsBox(Team.Pj2)
         Call SendUserStatsBox(Team.Pj1)
-        Call SendData(toall, UserIndex, 0, "||2Vs2: " & UserList(Team.pj3).Name & " y " & UserList(Team.pj4).Name & " han perdido contra " & _
-                UserList(Team.Pj1).Name & " y " & UserList(Team.Pj2).Name & FONTTYPE_RETOS2V2)
-       
+        Call SendData(ToAll, UserIndex, 0, "||2Vs2: " & UserList(Team.pj3).Name & " y " & UserList(Team.pj4).Name & " han perdido contra " & _
+                                           UserList(Team.Pj1).Name & " y " & UserList(Team.Pj2).Name & FONTTYPE_RETOS2V2)
+
         Call TerminoDosVDos
 
     End If
 
 errorh:
-    
+
 End Sub
 
 Public Sub TerminoDosVDos()
@@ -96,7 +96,7 @@ Public Sub TerminoDosVDos()
     UserList(Team.Pj2).flags.ParejaMuerta = False
     UserList(Team.pj3).flags.ParejaMuerta = False
     UserList(Team.pj4).flags.ParejaMuerta = False
-    Dim NuevaPos  As WorldPos
+    Dim NuevaPos As WorldPos
     Dim FuturePos As WorldPos
     FuturePos.Map = 1
     FuturePos.X = 50
@@ -128,9 +128,9 @@ Sub CerroEnDuelo(ByVal UserIndex As Integer)
     On Error GoTo errorh
 
     Call TerminoDosVDos
- 
-    Call SendData(toall, 0, 0, "||2Vs2: El reto se cancela porque " & UserList(UserIndex).Name & " desconectó. Se le penaliza con 2kk de oro." & _
-            FONTTYPE_RETOS2V2)
+
+    Call SendData(ToAll, 0, 0, "||2Vs2: El reto se cancela porque " & UserList(UserIndex).Name & " desconectó. Se le penaliza con 2kk de oro." & _
+                               FONTTYPE_RETOS2V2)
 
     If UserList(UserIndex).Stats.GLD >= 2000000 Then
         UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD - 2000000

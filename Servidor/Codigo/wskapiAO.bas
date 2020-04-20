@@ -13,8 +13,8 @@ Option Explicit
 #Const WSAPI_CREAR_LABEL = True
 
 Private Const SD_RECEIVE As Long = &H0
-Private Const SD_SEND    As Long = &H1
-Private Const SD_BOTH    As Long = &H2
+Private Const SD_SEND As Long = &H1
+Private Const SD_BOTH As Long = &H2
 
 Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
@@ -61,26 +61,26 @@ Public Type tSockCache
 
 End Type
 
-Public WSAPISock2Usr  As New Collection
+Public WSAPISock2Usr As New Collection
 
 ' ====================================================================================
 ' ====================================================================================
 
-Public OldWProc       As Long
-Public ActualWProc    As Long
-Public hWndMsg        As Long
+Public OldWProc As Long
+Public ActualWProc As Long
+Public hWndMsg As Long
 
 ' ====================================================================================
 ' ====================================================================================
 
-Public SockListen     As Long
+Public SockListen As Long
 Public LastSockListen As Long
 
 ' ====================================================================================
 ' ====================================================================================
 
 Public Sub IniciaWsApi(ByVal hwndParent As Long)
- 
+
     Call LogApiSock("IniciaWsApi")
     Debug.Print "IniciaWsApi"
 
@@ -88,7 +88,7 @@ Public Sub IniciaWsApi(ByVal hwndParent As Long)
         hWndMsg = CreateWindowEx(0, "STATIC", "AOMSG", WS_CHILD, 0, 0, 0, 0, hwndParent, 0, App.hInstance, ByVal 0&)
     #Else
         hWndMsg = hwndParent
-    #End If 'WSAPI_CREAR_LABEL
+    #End If    'WSAPI_CREAR_LABEL
 
     OldWProc = SetWindowLong(hWndMsg, GWL_WNDPROC, AddressOf WndProc)
     ActualWProc = GetWindowLong(hWndMsg, GWL_WNDPROC)
@@ -99,7 +99,7 @@ Public Sub IniciaWsApi(ByVal hwndParent As Long)
 End Sub
 
 Public Sub LimpiaWsApi(ByVal hWnd As Long)
-  
+
     Call LogApiSock("LimpiaWsApi")
 
     If WSAStartedUp Then
@@ -128,13 +128,13 @@ Public Function BuscaSlotSock(ByVal s As Long, Optional ByVal CacheInd As Boolea
 
     On Error GoTo hayerror
 
-    If WSAPISock2Usr.Count <> 0 Then ' GSZAO
+    If WSAPISock2Usr.Count <> 0 Then    ' GSZAO
         BuscaSlotSock = WSAPISock2Usr.Item(CStr(s))
     Else
         BuscaSlotSock = -1
 
     End If
-        
+
     Exit Function
 
 hayerror:
@@ -145,7 +145,7 @@ End Function
 Public Sub AgregaSlotSock(ByVal Sock As Long, ByVal Slot As Long)
 
     Debug.Print "AgregaSockSlot"
- 
+
     'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("AgregaSlotSock:: sock=" & Sock & " slot=" & Slot)
 
     If WSAPISock2Usr.Count > MaxUsers Then
@@ -200,20 +200,20 @@ Public Sub BorraSlotSock(ByVal Sock As Long, Optional ByVal CacheIndice As Long)
     WSAPISock2Usr.Remove CStr(Sock)
 
     Debug.Print "BorraSockSlot " & Cant & " -> " & WSAPISock2Usr.Count
-   
+
 End Sub
 
 Public Function WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
 
     On Error Resume Next
 
-    Dim ret      As Long
-    Dim Tmp      As String
+    Dim Ret As Long
+    Dim Tmp As String
 
-    Dim s        As Long, e As Long
-    Dim n        As Integer
-    
-    Dim Dale     As Boolean
+    Dim s As Long, e As Long
+    Dim n As Integer
+
+    Dim Dale As Boolean
     Dim UltError As Long
 
     WndProc = 0
@@ -225,138 +225,138 @@ Public Function WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As L
 
     Select Case Msg
 
-        Case 1025
+    Case 1025
 
-            s = wParam
-            e = WSAGetSelectEvent(lParam)
-            'Debug.Print "Msg: " & msg & " W: " & wParam & " L: " & lParam
-            Call LogApiSock("Msg: " & Msg & " W: " & wParam & " L: " & lParam)
-    
-            Select Case e
+        s = wParam
+        e = WSAGetSelectEvent(lParam)
+        'Debug.Print "Msg: " & msg & " W: " & wParam & " L: " & lParam
+        Call LogApiSock("Msg: " & Msg & " W: " & wParam & " L: " & lParam)
 
-                Case FD_ACCEPT
+        Select Case e
 
-                    'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("FD_ACCEPT")
-                    If s = SockListen Then
-                        'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("sockLIsten = " & s & ". Llamo a Eventosocketaccept")
-                        Call EventoSockAccept(s)
+        Case FD_ACCEPT
 
-                    End If
-        
-                    '    Case FD_WRITE
-                    '        N = BuscaSlotSock(s)
-                    '        If N < 0 And s <> SockListen Then
-                    '            'Call apiclosesocket(s)
-                    '            call WSApiCloseSocket(s)
-                    '            Exit Function
-                    '        End If
-                    '
-                    '        UserList(N).SockPuedoEnviar = True
+            'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("FD_ACCEPT")
+            If s = SockListen Then
+                'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("sockLIsten = " & s & ". Llamo a Eventosocketaccept")
+                Call EventoSockAccept(s)
 
-                    '        Call IntentarEnviarDatosEncolados(N)
-                    '
-                    ''        Dale = UserList(N).ColaSalida.Count > 0
-                    ''        Do While Dale
-                    ''            Ret = WsApiEnviar(N, UserList(N).ColaSalida.Item(1), False)
-                    ''            If Ret <> 0 Then
-                    ''                If Ret = WSAEWOULDBLOCK Then
-                    ''                    Dale = False
-                    ''                Else
-                    ''                    'y aca que hacemo' ?? help! i need somebody, help!
-                    ''                    Dale = False
-                    ''                    Debug.Print "ERROR AL ENVIAR EL DATO DESDE LA COLA " & Ret & ": " & GetWSAErrorString(Ret)
-                    ''                End If
-                    ''            Else
-                    ''            '    Debug.Print "Dato de la cola enviado"
-                    ''                UserList(N).ColaSalida.Remove 1
-                    ''                Dale = (UserList(N).ColaSalida.Count > 0)
-                    ''            End If
-                    ''        Loop
+            End If
 
-                Case FD_READ
-        
-                    n = BuscaSlotSock(s)
+            '    Case FD_WRITE
+            '        N = BuscaSlotSock(s)
+            '        If N < 0 And s <> SockListen Then
+            '            'Call apiclosesocket(s)
+            '            call WSApiCloseSocket(s)
+            '            Exit Function
+            '        End If
+            '
+            '        UserList(N).SockPuedoEnviar = True
 
-                    If n < 0 And s <> SockListen Then
-                        'Call apiclosesocket(s)
-                        Call WSApiCloseSocket(s)
-                        Exit Function
+            '        Call IntentarEnviarDatosEncolados(N)
+            '
+            ''        Dale = UserList(N).ColaSalida.Count > 0
+            ''        Do While Dale
+            ''            Ret = WsApiEnviar(N, UserList(N).ColaSalida.Item(1), False)
+            ''            If Ret <> 0 Then
+            ''                If Ret = WSAEWOULDBLOCK Then
+            ''                    Dale = False
+            ''                Else
+            ''                    'y aca que hacemo' ?? help! i need somebody, help!
+            ''                    Dale = False
+            ''                    Debug.Print "ERROR AL ENVIAR EL DATO DESDE LA COLA " & Ret & ": " & GetWSAErrorString(Ret)
+            ''                End If
+            ''            Else
+            ''            '    Debug.Print "Dato de la cola enviado"
+            ''                UserList(N).ColaSalida.Remove 1
+            ''                Dale = (UserList(N).ColaSalida.Count > 0)
+            ''            End If
+            ''        Loop
 
-                    End If
-        
-                    'Call WSAAsyncSelect(s, hWndMsg, ByVal 1025, ByVal (0))
-        
-                    '4k de buffer
-                    'buffer externo
-                    Tmp = Space$(SIZE_RCVBUF)   'si cambias este valor, tambien hacelo mas abajo
-                    'donde dice ret = 8192 :)
-        
-                    ret = recv(s, Tmp, Len(Tmp), 0)
+        Case FD_READ
 
-                    ' Comparo por = 0 ya que esto es cuando se cierra
-                    ' "gracefully". (mas abajo)
-                    If ret < 0 Then
-                        UltError = Err.LastDllError
+            n = BuscaSlotSock(s)
 
-                        If UltError = WSAEMSGSIZE Then
-                            Debug.Print "WSAEMSGSIZE"
-                            ret = SIZE_RCVBUF
-                        Else
-                            Debug.Print "Error en Recv: " & GetWSAErrorString(UltError)
-                            Call LogApiSock("Error en Recv: N=" & n & " S=" & s & " Str=" & GetWSAErrorString(UltError))
-                
-                            'no hay q llamar a CloseSocket() directamente,
-                            'ya q pueden abusar de algun error para
-                            'desconectarse sin los 10segs. CREEME.
-                            '    Call C l o s e Socket(N)
-                            
-                            If UserList(n).flags.Privilegios = User Then
-                                Call CloseSocketSL(n)
-                                Call Cerrar_Usuario(n)
+            If n < 0 And s <> SockListen Then
+                'Call apiclosesocket(s)
+                Call WSApiCloseSocket(s)
+                Exit Function
 
-                            End If
+            End If
 
-                            Exit Function
+            'Call WSAAsyncSelect(s, hWndMsg, ByVal 1025, ByVal (0))
 
-                        End If
+            '4k de buffer
+            'buffer externo
+            Tmp = Space$(SIZE_RCVBUF)   'si cambias este valor, tambien hacelo mas abajo
+            'donde dice ret = 8192 :)
 
-                    ElseIf ret = 0 Then
+            Ret = recv(s, Tmp, Len(Tmp), 0)
 
-                        If UserList(n).flags.Privilegios = User Then
-                            Call CloseSocketSL(n)
-                            Call Cerrar_Usuario(n)
+            ' Comparo por = 0 ya que esto es cuando se cierra
+            ' "gracefully". (mas abajo)
+            If Ret < 0 Then
+                UltError = Err.LastDllError
 
-                        End If
+                If UltError = WSAEMSGSIZE Then
+                    Debug.Print "WSAEMSGSIZE"
+                    Ret = SIZE_RCVBUF
+                Else
+                    Debug.Print "Error en Recv: " & GetWSAErrorString(UltError)
+                    Call LogApiSock("Error en Recv: N=" & n & " S=" & s & " Str=" & GetWSAErrorString(UltError))
+
+                    'no hay q llamar a CloseSocket() directamente,
+                    'ya q pueden abusar de algun error para
+                    'desconectarse sin los 10segs. CREEME.
+                    '    Call C l o s e Socket(N)
+
+                    If UserList(n).flags.Privilegios = User Then
+                        Call CloseSocketSL(n)
+                        Call Cerrar_Usuario(n)
 
                     End If
-        
-                    'Call WSAAsyncSelect(s, hWndMsg, ByVal 1025, ByVal (FD_READ Or FD_WRITE Or FD_CLOSE Or FD_ACCEPT))
-        
-                    Tmp = Left(Tmp, ret)
-        
-                    'Call LogApiSock("WndProc:FD_READ:N=" & N & ":TMP=" & Tmp)
-        
-                    Call EventoSockRead(n, Tmp)
-        
-                Case FD_CLOSE
-                    n = BuscaSlotSock(s)
 
-                    If s <> SockListen Then Call apiclosesocket(s)
-        
-                    Call LogApiSock("WndProc:FD_CLOSE:N=" & n & ":Err=" & WSAGetAsyncError(lParam))
-        
-                    If n > 0 Then
-                        Call BorraSlotSock(UserList(n).ConnID)
-                        UserList(n).ConnID = -1
-                        UserList(n).ConnIDValida = False
-                        Call EventoSockClose(n)
+                    Exit Function
 
-                    End If
-        
-            End Select
+                End If
 
-        Case Else
-            WndProc = CallWindowProc(OldWProc, hWnd, Msg, wParam, lParam)
+            ElseIf Ret = 0 Then
+
+                If UserList(n).flags.Privilegios = User Then
+                    Call CloseSocketSL(n)
+                    Call Cerrar_Usuario(n)
+
+                End If
+
+            End If
+
+            'Call WSAAsyncSelect(s, hWndMsg, ByVal 1025, ByVal (FD_READ Or FD_WRITE Or FD_CLOSE Or FD_ACCEPT))
+
+            Tmp = Left(Tmp, Ret)
+
+            'Call LogApiSock("WndProc:FD_READ:N=" & N & ":TMP=" & Tmp)
+
+            Call EventoSockRead(n, Tmp)
+
+        Case FD_CLOSE
+            n = BuscaSlotSock(s)
+
+            If s <> SockListen Then Call apiclosesocket(s)
+
+            Call LogApiSock("WndProc:FD_CLOSE:N=" & n & ":Err=" & WSAGetAsyncError(lParam))
+
+            If n > 0 Then
+                Call BorraSlotSock(UserList(n).ConnID)
+                UserList(n).ConnID = -1
+                UserList(n).ConnIDValida = False
+                Call EventoSockClose(n)
+
+            End If
+
+        End Select
+
+    Case Else
+        WndProc = CallWindowProc(OldWProc, hWnd, Msg, wParam, lParam)
 
     End Select
 
@@ -365,32 +365,32 @@ End Function
 'Retorna 0 cuando se envió o se metio en la cola,
 'retorna <> 0 cuando no se pudo enviar o no se pudo meter en la cola
 Public Function WsApiEnviar(ByVal Slot As Integer, ByVal str As String) As Long
-  
-    'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("WsApiEnviar:: slot=" & Slot & " str=" & str & " len(str)=" & Len(str) & " encolar=" & Encolar)
 
-    Dim ret      As String
+'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("WsApiEnviar:: slot=" & Slot & " str=" & str & " len(str)=" & Len(str) & " encolar=" & Encolar)
+
+    Dim Ret As String
     Dim UltError As Long
-    Dim Retorno  As Long
+    Dim Retorno As Long
 
     Retorno = 0
 
     'Debug.Print ">>>> " & str
 
     If UserList(Slot).ConnID <> -1 And UserList(Slot).ConnIDValida Then
-          
-        ret = send(ByVal UserList(Slot).ConnID, ByVal str, ByVal Len(str), ByVal 0)
 
-        If ret < 0 Then
+        Ret = send(ByVal UserList(Slot).ConnID, ByVal str, ByVal Len(str), ByVal 0)
+
+        If Ret < 0 Then
             UltError = Err.LastDllError
 
             'If UltError = WSAEWOULDBLOCK Then
-                 
+
             'End If
 
             Retorno = UltError
 
         End If
-      
+
     ElseIf UserList(Slot).ConnID <> -1 And Not UserList(Slot).ConnIDValida Then
 
         If Not UserList(Slot).Counters.Saliendo Then
@@ -409,7 +409,7 @@ Public Sub LogCustom(ByVal str As String)
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\custom.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & "(" & Timer & ") " & str
     Close #nfile
@@ -417,15 +417,15 @@ Public Sub LogCustom(ByVal str As String)
     Exit Sub
 
 errhandler:
-    
+
 End Sub
 
 Public Sub LogApiSock(ByVal str As String)
-  
+
     On Error GoTo errhandler
 
     Dim nfile As Integer
-    nfile = FreeFile ' obtenemos un canal
+    nfile = FreeFile    ' obtenemos un canal
     Open App.Path & "\logs\wsapi.log" For Append Shared As #nfile
     Print #nfile, Date & " " & Time & " " & str
     Close #nfile
@@ -438,35 +438,35 @@ End Sub
 
 Public Sub EventoSockAccept(ByVal SockID As Long)
 
-    '==========================================================
-    'USO DE LA API DE WINSOCK
-    '========================
-    
-    Dim NewIndex  As Integer
-    Dim ret       As Long
-    Dim Tam       As Long, sa As sockaddr
+'==========================================================
+'USO DE LA API DE WINSOCK
+'========================
+
+    Dim NewIndex As Integer
+    Dim Ret As Long
+    Dim Tam As Long, sa As sockaddr
     Dim NuevoSock As Long
-    Dim i         As Long
-    Dim tStr      As String
-    
+    Dim i As Long
+    Dim tStr As String
+
     Tam = sockaddr_size
-    
+
     '=============================================
     'SockID es en este caso es el socket de escucha,
     'a diferencia de socketwrench que es el nuevo
     'socket de la nueva conn
-    
+
     'Modificado por Maraxus
     'Ret = WSAAccept(SockID, sa, Tam, AddressOf CondicionSocket, 0)
-    ret = accept(SockID, sa, Tam)
+    Ret = accept(SockID, sa, Tam)
 
-    If ret = INVALID_SOCKET Then
+    If Ret = INVALID_SOCKET Then
         i = Err.LastDllError
         Call LogCriticEvent("Error en Accept() API " & i & ": " & GetWSAErrorString(i))
         Exit Sub
 
     End If
-    
+
     If Not SecurityIp.IpSecurityAceptarNuevaConexion(sa.sin_addr) Then
         Call WSApiCloseSocket(NuevoSock)
         Exit Sub
@@ -489,8 +489,8 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
     '    End If
     'End If
 
-    NuevoSock = ret
-    
+    NuevoSock = Ret
+
     'Seteamos el tamaño del buffer de entrada a 512 bytes
     If setsockopt(NuevoSock, SOL_SOCKET, SO_RCVBUFFER, SIZE_RCVBUF, 4) <> 0 Then
         i = Err.LastDllError
@@ -513,18 +513,18 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
         Exit Sub
 
     End If
-    
+
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '   BIENVENIDO AL SERVIDOR!!!!!!!!
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    
+
     'Mariano: Baje la busqueda de slot abajo de CondicionSocket y limite x ip
-    NewIndex = NextOpenUser ' Nuevo indice
-    
+    NewIndex = NextOpenUser    ' Nuevo indice
+
     If NewIndex <= MaxUsers Then
-        
+
         UserList(NewIndex).ip = GetAscIP(sa.sin_addr)
 
         'Busca si esta banneada la ip
@@ -559,15 +559,15 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
         End If
 
         ' terminamos el bombardeo de ip
-    
+
         If NewIndex > LastUser Then LastUser = NewIndex
-        
+
         'UserList(NewIndex).SockPuedoEnviar = True
         UserList(NewIndex).ConnID = NuevoSock
         UserList(NewIndex).ConnIDValida = True
         'Set UserList(NewIndex).CommandsBuffer = New CColaArray
         'Set UserList(NewIndex).ColaSalida = New Collection
-        
+
         Call AgregaSlotSock(NuevoSock, NewIndex)
     Else
         tStr = "ERRServer lleno." & ENDC
@@ -577,13 +577,13 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
         Call WSApiCloseSocket(NuevoSock)
 
     End If
-    
+
 End Sub
 
 Public Sub EventoSockRead(ByVal Slot As Integer, ByRef Datos As String)
-   
-    Dim T()   As String
-    Dim loopc As Long
+
+    Dim T() As String
+    Dim LoopC As Long
 
     UserList(Slot).RDBuffer = UserList(Slot).RDBuffer & Datos
 
@@ -591,8 +591,8 @@ Public Sub EventoSockRead(ByVal Slot As Integer, ByRef Datos As String)
 
     If UBound(T) > 0 Then
         UserList(Slot).RDBuffer = T(UBound(T))
-    
-        For loopc = 0 To UBound(T) - 1
+
+        For LoopC = 0 To UBound(T) - 1
 
             '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             '%%% SI ESTA OPCION SE ACTIVA SOLUCIONA %%%
@@ -600,24 +600,24 @@ Public Sub EventoSockRead(ByVal Slot As Integer, ByRef Datos As String)
             '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
             If UserList(Slot).ConnID <> -1 Then
-                Call HandleData(Slot, T(loopc))
+                Call HandleData(Slot, T(LoopC))
             Else
                 Exit Sub
 
             End If
 
-        Next loopc
+        Next LoopC
 
     End If
 
 End Sub
 
 Public Sub EventoSockClose(ByVal Slot As Integer)
-  
-    'Es el mismo user al que está revisando el centinela??
-    'Si estamos acá es porque se cerró la conexión, no es un /salir, y no queremos banearlo....
+
+'Es el mismo user al que está revisando el centinela??
+'Si estamos acá es porque se cerró la conexión, no es un /salir, y no queremos banearlo....
     If Centinela.RevisandoUserIndex = Slot Then Call modCentinela.CentinelaUserLogout
-    
+
     If UserList(Slot).flags.UserLogged Then
         Call CloseSocketSL(Slot)
         Call Cerrar_Usuario(Slot)
@@ -625,7 +625,7 @@ Public Sub EventoSockClose(ByVal Slot As Integer)
         Call CloseSocket(Slot)
 
     End If
- 
+
 End Sub
 
 Public Sub WSApiReiniciarSockets()
@@ -634,7 +634,7 @@ Public Sub WSApiReiniciarSockets()
 
     'Cierra el socket de escucha
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
-    
+
     'Cierra todas las conexiones
     For i = 1 To MaxUsers
 
@@ -642,10 +642,10 @@ Public Sub WSApiReiniciarSockets()
             Call CloseSocket(i)
 
         End If
-        
+
         'Call ResetUserSlot(i)
     Next i
-    
+
     ' No 'ta el PRESERVE :p
     ReDim UserList(1 To MaxUsers)
 
@@ -653,12 +653,12 @@ Public Sub WSApiReiniciarSockets()
         UserList(i).ConnID = -1
         UserList(i).ConnIDValida = False
     Next i
-    
+
     LastUser = 1
     NumUsers = 0
-   
+
     Call Sleep(100)
-        
+
     Call LimpiaWsApi(frmMain.hWnd)
     Call Sleep(100)
     Call IniciaWsApi(frmMain.hWnd)
@@ -667,7 +667,7 @@ Public Sub WSApiReiniciarSockets()
 End Sub
 
 Public Sub WSApiCloseSocket(ByVal Socket As Long)
-   
+
     Call WSAAsyncSelect(Socket, hWndMsg, ByVal 1025, ByVal (FD_CLOSE))
     Call ShutDown(Socket, SD_BOTH)
 
@@ -681,9 +681,9 @@ Public Function CondicionSocket(ByRef lpCallerId As WSABUF, _
                                 ByRef lpCalleeData As WSABUF, _
                                 ByRef Group As Long, _
                                 ByVal dwCallbackData As Long) As Long
-  
+
     Dim sa As sockaddr
-    
+
     'Check if we were requested to force reject
 
     If dwCallbackData = 1 Then
@@ -691,17 +691,17 @@ Public Function CondicionSocket(ByRef lpCallerId As WSABUF, _
         Exit Function
 
     End If
-    
+
     'Get the address
 
     CopyMemory sa, ByVal lpCallerId.lpBuffer, lpCallerId.dwBufferLen
-    
+
     If Not SecurityIp.IpSecurityAceptarNuevaConexion(sa.sin_addr) Then
         CondicionSocket = CF_REJECT
         Exit Function
 
     End If
 
-    CondicionSocket = CF_ACCEPT 'En realdiad es al pedo, porque CondicionSocket se inicializa a 0, pero así es más claro....
-    
+    CondicionSocket = CF_ACCEPT    'En realdiad es al pedo, porque CondicionSocket se inicializa a 0, pero así es más claro....
+
 End Function

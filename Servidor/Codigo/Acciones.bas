@@ -22,164 +22,164 @@ Sub Accion(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Integer,
 
     '¿Posicion valida?
     If InMapBounds(Map, X, Y) Then
-   
-        Dim FoundChar      As Byte
-        Dim FoundSomething As Byte
-        Dim TempCharIndex  As Integer
-           
-           
-             'USUARIO
-'        If MapData(Map, X, Y).UserIndex > 0 And UserList(UserIndex).flags.Privilegios <> PlayerType.User Then
-'
-'
-'                UserList(UserIndex).flags.SeleccioneA = UserList(MapData(Map, X, Y).UserIndex).Name
-'                UserList(UserList(UserIndex).flags.TargetUser).flags.EstoySelec = 1
-'
-'                Call SendData(SendTarget.ToIndex, UserList(UserIndex).flags.TargetUser, 0, "||El GM te a seleccionado para teletransportarte." & _
-'                        FONTTYPE_INFO)
-'
-'                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Seleccionaste a: " & UserList(UserIndex).flags.SeleccioneA & FONTTYPE_INFO)
-'                Call SendData(SendTarget.ToIndex, UserIndex, 0, "TX")
-'
-'        End If
 
-         'USUARIO
-        
+        Dim FoundChar As Byte
+        Dim FoundSomething As Byte
+        Dim TempCharIndex As Integer
+
+
+        'USUARIO
+        '        If MapData(Map, X, Y).UserIndex > 0 And UserList(UserIndex).flags.Privilegios <> PlayerType.User Then
+        '
+        '
+        '                UserList(UserIndex).flags.SeleccioneA = UserList(MapData(Map, X, Y).UserIndex).Name
+        '                UserList(UserList(UserIndex).flags.TargetUser).flags.EstoySelec = 1
+        '
+        '                Call SendData(SendTarget.ToIndex, UserList(UserIndex).flags.TargetUser, 0, "||El GM te a seleccionado para teletransportarte." & _
+                         '                        FONTTYPE_INFO)
+        '
+        '                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Seleccionaste a: " & UserList(UserIndex).flags.SeleccioneA & FONTTYPE_INFO)
+        '                Call SendData(SendTarget.ToIndex, UserIndex, 0, "TX")
+        '
+        '        End If
+
+        'USUARIO
+
         '¿Es un obj?
         If MapData(Map, X, Y).OBJInfo.ObjIndex > 0 Then
             UserList(UserIndex).flags.TargetObj = MapData(Map, X, Y).OBJInfo.ObjIndex
-        
-            Select Case ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).OBJType
-            
-                Case eOBJType.otPuertas 'Es una puerta
-                    Call AccionParaPuerta(Map, X, Y, UserIndex)
 
-                Case eOBJType.otCARTELES 'Es un cartel
-                    Call AccionParaCartel(Map, X, Y, UserIndex)
+            Select Case ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).ObjType
 
-                Case eOBJType.otFOROS 'Foro
-                    Call AccionParaForo(Map, X, Y, UserIndex)
+            Case eOBJType.otPuertas    'Es una puerta
+                Call AccionParaPuerta(Map, X, Y, UserIndex)
 
-                Case eOBJType.otLeña    'Leña
+            Case eOBJType.otCARTELES    'Es un cartel
+                Call AccionParaCartel(Map, X, Y, UserIndex)
 
-                    If MapData(Map, X, Y).OBJInfo.ObjIndex = FOGATA_APAG And UserList(UserIndex).flags.Muerto = 0 Then
-                        Call AccionParaRamita(Map, X, Y, UserIndex)
+            Case eOBJType.otFOROS    'Foro
+                Call AccionParaForo(Map, X, Y, UserIndex)
 
-                    End If
+            Case eOBJType.otLeña    'Leña
+
+                If MapData(Map, X, Y).OBJInfo.ObjIndex = FOGATA_APAG And UserList(UserIndex).flags.Muerto = 0 Then
+                    Call AccionParaRamita(Map, X, Y, UserIndex)
+
+                End If
 
             End Select
-            
-      
+
+
 
             '>>>>>>>>>>>OBJETOS QUE OCUPAM MAS DE UN TILE<<<<<<<<<<<<<
         ElseIf MapData(Map, X + 1, Y).OBJInfo.ObjIndex > 0 And MapData(Map, X, Y).NpcIndex = 0 Then
             UserList(UserIndex).flags.TargetObj = MapData(Map, X + 1, Y).OBJInfo.ObjIndex
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "SELE" & ObjData(MapData(Map, X + 1, Y).OBJInfo.ObjIndex).OBJType & "," & ObjData( _
-                    MapData(Map, X + 1, Y).OBJInfo.ObjIndex).Name & "," & "OBJ")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "SELE" & ObjData(MapData(Map, X + 1, Y).OBJInfo.ObjIndex).ObjType & "," & ObjData( _
+                                                            MapData(Map, X + 1, Y).OBJInfo.ObjIndex).Name & "," & "OBJ")
 
-            Select Case ObjData(MapData(Map, X + 1, Y).OBJInfo.ObjIndex).OBJType
-            
-                Case 6 'Es una puerta
-                    Call AccionParaPuerta(Map, X + 1, Y, UserIndex)
-            
+            Select Case ObjData(MapData(Map, X + 1, Y).OBJInfo.ObjIndex).ObjType
+
+            Case 6    'Es una puerta
+                Call AccionParaPuerta(Map, X + 1, Y, UserIndex)
+
             End Select
-            
+
 
         ElseIf MapData(Map, X + 1, Y + 1).OBJInfo.ObjIndex > 0 Then
             UserList(UserIndex).flags.TargetObj = MapData(Map, X + 1, Y + 1).OBJInfo.ObjIndex
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "SELE" & ObjData(MapData(Map, X + 1, Y + 1).OBJInfo.ObjIndex).OBJType & "," & ObjData( _
-                    MapData(Map, X + 1, Y + 1).OBJInfo.ObjIndex).Name & "," & "OBJ")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "SELE" & ObjData(MapData(Map, X + 1, Y + 1).OBJInfo.ObjIndex).ObjType & "," & ObjData( _
+                                                            MapData(Map, X + 1, Y + 1).OBJInfo.ObjIndex).Name & "," & "OBJ")
 
-            Select Case ObjData(MapData(Map, X + 1, Y + 1).OBJInfo.ObjIndex).OBJType
-            
-                Case 6 'Es una puerta
-                    Call AccionParaPuerta(Map, X + 1, Y + 1, UserIndex)
-            
+            Select Case ObjData(MapData(Map, X + 1, Y + 1).OBJInfo.ObjIndex).ObjType
+
+            Case 6    'Es una puerta
+                Call AccionParaPuerta(Map, X + 1, Y + 1, UserIndex)
+
             End Select
 
         ElseIf MapData(Map, X, Y + 1).OBJInfo.ObjIndex > 0 Then
             UserList(UserIndex).flags.TargetObj = MapData(Map, X, Y + 1).OBJInfo.ObjIndex
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "SELE" & ObjData(MapData(Map, X, Y + 1).OBJInfo.ObjIndex).OBJType & "," & ObjData( _
-                    MapData(Map, X, Y + 1).OBJInfo.ObjIndex).Name & "," & "OBJ")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "SELE" & ObjData(MapData(Map, X, Y + 1).OBJInfo.ObjIndex).ObjType & "," & ObjData( _
+                                                            MapData(Map, X, Y + 1).OBJInfo.ObjIndex).Name & "," & "OBJ")
 
-            Select Case ObjData(MapData(Map, X, Y + 1).OBJInfo.ObjIndex).OBJType
-            
-                Case 6 'Es una puerta
-                    Call AccionParaPuerta(Map, X, Y + 1, UserIndex)
-            
+            Select Case ObjData(MapData(Map, X, Y + 1).OBJInfo.ObjIndex).ObjType
+
+            Case 6    'Es una puerta
+                Call AccionParaPuerta(Map, X, Y + 1, UserIndex)
+
             End Select
-            
-    
+
+
         ElseIf MapData(Map, X, Y).UserIndex > 0 Then
-        
+
             If UserList(UserIndex).flags.Privilegios > User Then _
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "TEST" & UserList(UserList(UserIndex).flags.TargetUser).Name & ", " & _
-            UserList(UserList(UserIndex).flags.TargetUser).Stats.UsuariosMatados & ", " & UserList(UserList(UserIndex).flags.TargetUser).Clase)
-    
+               Call SendData(SendTarget.ToIndex, UserIndex, 0, "TEST" & UserList(UserList(UserIndex).flags.TargetUser).Name & ", " & _
+                                                               UserList(UserList(UserIndex).flags.TargetUser).Stats.UsuariosMatados & ", " & UserList(UserList(UserIndex).flags.TargetUser).Clase)
+
         ElseIf MapData(Map, X, Y).NpcIndex > 0 Then     'Acciones NPCs
             'Set the target NPC
             UserList(UserIndex).flags.TargetNpc = MapData(Map, X, Y).NpcIndex
-        
+
             If Npclist(MapData(Map, X, Y).NpcIndex).Comercia = 1 Then
-                
+
                 If Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Creditos Then
 
-                If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).pos, UserList(UserIndex).pos) > 4 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
+                    If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).pos, UserList(UserIndex).pos) > 4 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).flags.Montado = True Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes comerciar estando arriba de tu Mascota!" & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    'A depositar de una
+                    Call Mod_Monedas.IniciarComercioCreditos(UserIndex)
                     Exit Sub
 
-                End If
+                ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Canjes Then
 
-                If UserList(UserIndex).flags.Montado = True Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes comerciar estando arriba de tu Mascota!" & FONTTYPE_INFO)
+                    If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).pos, UserList(UserIndex).pos) > 4 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).flags.Montado = True Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes comerciar estando arriba de tu Mascota!" & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    'A depositar de una
+                    Call Mod_Monedas.IniciarComercioCanjes(UserIndex)
                     Exit Sub
-
                 End If
 
-                'A depositar de una
-                 Call Mod_Monedas.IniciarComercioCreditos(UserIndex)
-                 Exit Sub
-            
-            ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Canjes Then
-                 
-                 If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).pos, UserList(UserIndex).pos) > 4 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
-                    Exit Sub
-
-                End If
-
-                If UserList(UserIndex).flags.Montado = True Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes comerciar estando arriba de tu Mascota!" & FONTTYPE_INFO)
-                    Exit Sub
-
-                End If
-
-                'A depositar de una
-                 Call Mod_Monedas.IniciarComercioCanjes(UserIndex)
-                 Exit Sub
-            End If
-            
                 If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 3 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                     Exit Sub
                 End If
-                
+
                 If UserList(UserIndex).flags.Montado = True Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes comerciar estando arriba de tu Mascota!" & FONTTYPE_INFO)
                     Exit Sub
 
                 End If
-                                   
+
                 'Iniciamos la rutina pa' comerciar.
                 Call IniciarCOmercioNPC(UserIndex)
-                    
+
             ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Banquero Then
 
                 If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).pos, UserList(UserIndex).pos) > 4 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                     Exit Sub
                 End If
-                
+
                 If UserList(UserIndex).flags.ValidBank = 0 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "VLDB")
                     Exit Sub
@@ -187,7 +187,7 @@ Sub Accion(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Integer,
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "BANP" & UserList(UserIndex).Stats.Banco & "," & UserList(UserIndex).Stats.GLD & "," & UserList(UserIndex).BancoInvent.NroItems)
                     Exit Sub
                 End If
-        
+
             ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Revividor Then
 
                 If Distancia(UserList(UserIndex).pos, Npclist(MapData(Map, X, Y).NpcIndex).pos) > 10 Then
@@ -206,39 +206,39 @@ Sub Accion(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Integer,
                     Call RevivirUsuario(UserIndex)
 
                 End If
-            
+
                 'curamos totalmente
                 UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP
-            
+
                 Call EnviarHP(UserIndex)
-          
-          ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.OlvidarHechizo Then
-                
+
+            ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.OlvidarHechizo Then
+
                 If Distancia(UserList(UserIndex).pos, Npclist(MapData(Map, X, Y).NpcIndex).pos) > 5 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                     Exit Sub
                 End If
-                
+
                 If OroHechizo > UserList(UserIndex).Stats.GLD Then
-                   Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes oro suficiente." & FONTTYPE_TALKMSG)
-                   Exit Sub
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes oro suficiente." & FONTTYPE_TALKMSG)
+                    Exit Sub
                 End If
-          
+
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "HECA" & FONTTYPE_INFO)
-          
-          ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Cirujia Then
+
+            ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Cirujia Then
                 If Distancia(UserList(UserIndex).pos, Npclist(MapData(Map, X, Y).NpcIndex).pos) > 5 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                     Exit Sub
                 End If
-                 
-                 If OroCirujia > UserList(UserIndex).Stats.GLD Then
-                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes suficientes monedas de oro para la cirujía." & FONTTYPE_INFO)
-                     Exit Sub
+
+                If OroCirujia > UserList(UserIndex).Stats.GLD Then
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes suficientes monedas de oro para la cirujía." & FONTTYPE_INFO)
+                    Exit Sub
                 End If
-                 
+
                 Call IniciarChangeHead(UserIndex)
-          End If
+            End If
 
         Else
             UserList(UserIndex).flags.TargetNpc = 0
@@ -291,7 +291,7 @@ Sub AccionParaForo(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer,
             Loop
             Close #n
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "FMSG" & tit & Chr(176) & men)
-        
+
         Next
 
     End If
@@ -305,7 +305,7 @@ Sub AccionParaPuerta(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
     On Error Resume Next
 
     Dim MiObj As Obj
-    Dim wp    As WorldPos
+    Dim wp As WorldPos
 
     If Not (Distance(UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y, X, Y) > 2) Then
         If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).Llave = 0 Then
@@ -313,22 +313,22 @@ Sub AccionParaPuerta(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
 
                 'Abre la puerta
                 If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).Llave = 0 Then
-                    
+
                     MapData(Map, X, Y).OBJInfo.ObjIndex = ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).IndexAbierta
-                    
+
                     Call ModAreas.SendToAreaByPos(Map, X, Y, "HO" & ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).GrhIndex & "," & X & "," & Y)
-                     
+
                     'Desbloquea
                     MapData(Map, X, Y).Blocked = 0
                     MapData(Map, X - 1, Y).Blocked = 0
-                    
+
                     'Bloquea todos los mapas
                     Call Bloquear(SendTarget.ToMap, 0, Map, Map, X, Y, 0)
                     Call Bloquear(SendTarget.ToMap, 0, Map, Map, X - 1, Y, 0)
-                      
+
                     'Sonido
                     SendData SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_PUERTA
-                    
+
                 Else
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La puerta esta cerrada con llave." & FONTTYPE_INFO)
 
@@ -337,19 +337,19 @@ Sub AccionParaPuerta(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
             Else
                 'Cierra puerta
                 MapData(Map, X, Y).OBJInfo.ObjIndex = ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).IndexCerrada
-                
+
                 Call ModAreas.SendToAreaByPos(Map, X, Y, "HO" & ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).GrhIndex & "," & X & "," & Y)
-                
+
                 MapData(Map, X, Y).Blocked = 1
                 MapData(Map, X - 1, Y).Blocked = 1
-                
+
                 Call Bloquear(SendTarget.ToMap, 0, Map, Map, X - 1, Y, 1)
                 Call Bloquear(SendTarget.ToMap, 0, Map, Map, X, Y, 1)
-                
+
                 SendData SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_PUERTA
 
             End If
-        
+
             UserList(UserIndex).flags.TargetObj = MapData(Map, X, Y).OBJInfo.ObjIndex
         Else
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La puerta esta cerrada con llave." & FONTTYPE_INFO)
@@ -369,14 +369,14 @@ Sub AccionParaCartel(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
 
     Dim MiObj As Obj
 
-    If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).OBJType = 8 Then
-  
+    If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).ObjType = 8 Then
+
         If Len(ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).texto) > 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "MCAR" & ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).texto & Chr(176) & ObjData( _
-                    MapData(Map, X, Y).OBJInfo.ObjIndex).GrhSecundario)
+                                                            MapData(Map, X, Y).OBJInfo.ObjIndex).GrhSecundario)
 
         End If
-  
+
     End If
 
 End Sub
@@ -386,11 +386,11 @@ Sub AccionParaRamita(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
     On Error Resume Next
 
     Dim Suerte As Byte
-    Dim exito  As Byte
-    Dim Obj    As Obj
-    Dim raise  As Integer
+    Dim exito As Byte
+    Dim Obj As Obj
+    Dim raise As Integer
 
-    Dim pos    As WorldPos
+    Dim pos As WorldPos
     pos.Map = Map
     pos.X = X
     pos.Y = Y
@@ -401,7 +401,7 @@ Sub AccionParaRamita(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
 
     End If
 
-    If MapData(Map, X, Y).trigger = eTrigger.ZONASEGURA Or MapInfo(Map).Pk = False Then
+    If MapData(Map, X, Y).Trigger = eTrigger.ZONASEGURA Or MapInfo(Map).Pk = False Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||En zona segura no puedes hacer fogatas." & FONTTYPE_INFO)
         Exit Sub
 
@@ -422,12 +422,12 @@ Sub AccionParaRamita(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
         If MapInfo(UserList(UserIndex).pos.Map).Zona <> Ciudad Then
             Obj.ObjIndex = FOGATA
             Obj.Amount = 1
-        
+
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has prendido la fogata." & FONTTYPE_INFO)
             Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "FO")
-        
+
             Call MakeObj(ToMap, 0, Map, Obj, Map, X, Y)
-        
+
             'Las fogatas prendidas se deben eliminar
             Dim Fogatita As New cGarbage
             Fogatita.Map = Map

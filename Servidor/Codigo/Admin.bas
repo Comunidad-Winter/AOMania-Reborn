@@ -9,7 +9,7 @@ Public Type tMotd
 End Type
 
 Public MaxLines As Integer
-Public MOTD()   As tMotd
+Public MOTD() As tMotd
 
 Public Type tAPuestas
 
@@ -19,55 +19,55 @@ Public Type tAPuestas
 
 End Type
 
-Public Apuestas                     As tAPuestas
+Public Apuestas As tAPuestas
 
-Public NPCs                         As Long
-Public DebugSocket                  As Boolean
+Public NPCs As Long
+Public DebugSocket As Boolean
 
-Public Horas                        As Long
-Public Dias                         As Long
-Public MinsRunning                  As Long
+Public Horas As Long
+Public Dias As Long
+Public MinsRunning As Long
 
-Public ReiniciarServer              As Long
+Public ReiniciarServer As Long
 
-Public tInicioServer                As Long
+Public tInicioServer As Long
 
-Public SanaIntervaloSinDescansar    As Integer
+Public SanaIntervaloSinDescansar As Integer
 Public StaminaIntervaloSinDescansar As Integer
-Public SanaIntervaloDescansar       As Integer
-Public StaminaIntervaloDescansar    As Integer
-Public IntervaloSed                 As Integer
-Public IntervaloHambre              As Integer
-Public IntervaloVeneno              As Integer
-Public IntervaloParalizado          As Integer
-Public IntervaloInvisible           As Integer
-Public IntervaloFrio                As Integer
-Public IntervaloWavFx               As Integer
-Public IntervaloLanzaHechizo        As Integer
-Public IntervaloNPCPuedeAtacar      As Integer
-Public IntervaloNPCAI               As Integer
-Public IntervaloInvocacion          As Integer
-Public IntervaloUserPuedeAtacar     As Long
-Public IntervaloUserPuedeCastear    As Long
-Public IntervaloUserPuedeTrabajar   As Long
-Public IntervaloParaConexion        As Long
-Public IntervaloCerrarConexion      As Long '[Gonzalo]
-Public IntervaloUserPuedeUsar       As Long
-Public IntervaloFlechasCazadores    As Long
-Public IntervaloMetamorfosis  As Long
+Public SanaIntervaloDescansar As Integer
+Public StaminaIntervaloDescansar As Integer
+Public IntervaloSed As Integer
+Public IntervaloHambre As Integer
+Public IntervaloVeneno As Integer
+Public IntervaloParalizado As Integer
+Public IntervaloInvisible As Integer
+Public IntervaloFrio As Integer
+Public IntervaloWavFx As Integer
+Public IntervaloLanzaHechizo As Integer
+Public IntervaloNPCPuedeAtacar As Integer
+Public IntervaloNPCAI As Integer
+Public IntervaloInvocacion As Integer
+Public IntervaloUserPuedeAtacar As Long
+Public IntervaloUserPuedeCastear As Long
+Public IntervaloUserPuedeTrabajar As Long
+Public IntervaloParaConexion As Long
+Public IntervaloCerrarConexion As Long    '[Gonzalo]
+Public IntervaloUserPuedeUsar As Long
+Public IntervaloFlechasCazadores As Long
+Public IntervaloMetamorfosis As Long
 
-Public MinutosWs                    As Long
-Public MinutosGuardarUsuarios       As Long
-Public MinutosLimpia                As Long
-Public Puerto                       As Integer
+Public MinutosWs As Long
+Public MinutosGuardarUsuarios As Long
+Public MinutosLimpia As Long
+Public Puerto As Integer
 
-Public MAXPASOS                     As Long
+Public MAXPASOS As Long
 
-Public BootDelBackUp                As Byte
-Public DeNoche                      As Boolean
+Public BootDelBackUp As Byte
+Public DeNoche As Boolean
 
-Public IpList                       As New Collection
-Public ClientsCommandsQueue         As Byte
+Public IpList As New Collection
+Public ClientsCommandsQueue As Byte
 
 Public Type TCPESStats
 
@@ -95,7 +95,7 @@ Public Function ValidarLoginMSG(ByVal n As Integer) As Integer
 
     On Error Resume Next
 
-    Dim AuxInteger  As Integer
+    Dim AuxInteger As Integer
     Dim AuxInteger2 As Integer
     AuxInteger = SD(n)
     AuxInteger2 = SDM(n)
@@ -107,27 +107,27 @@ Sub ReSpawnOrigPosNpcs()
 
     On Error Resume Next
 
-    Dim i     As Integer
+    Dim i As Integer
     Dim MiNPC As npc
-        
+
     For i = 1 To LastNPC
 
         'OJO
         If Npclist(i).flags.NPCActive Then
-              
+
             If InMapBounds(Npclist(i).Orig.Map, Npclist(i).Orig.X, Npclist(i).Orig.Y) And Npclist(i).Numero = Guardias Then
                 MiNPC = Npclist(i)
                 Call QuitarNPC(i)
-                Call ReSpawnNpc(MiNPC)
+                Call RespawnNPC(MiNPC)
 
             End If
-              
+
             'tildada por sugerencia de yind
             'If Npclist(i).Contadores.TiempoExistencia > 0 Then
             '        Call MuereNpc(i, 0)
             'End If
         End If
-         
+
     Next i
 
 End Sub
@@ -136,32 +136,32 @@ Sub RespGuerrasAngeles()
 
     On Error Resume Next
 
-    Dim i       As Integer
-    Dim MiNPC   As npc
-    Dim Npc4    As Integer
+    Dim i As Integer
+    Dim MiNPC As npc
+    Dim Npc4 As Integer
     Dim Npc4Pos As WorldPos
     Npc4 = 941
     Npc4Pos.Map = 66
     Npc4Pos.X = 77
     Npc4Pos.Y = 77
-            
+
     For i = 1 To LastNPC
 
         'OJO
         If Npclist(i).flags.NPCActive Then
-              
+
             If Npclist(i).Numero = Npc4 Then
                 MiNPC = Npclist(i)
                 Call QuitarNPC(i)
-                     
+
             End If
-                
+
             'tildada por sugerencia de yind
             'If Npclist(i).Contadores.TiempoExistencia > 0 Then
             '        Call MuereNpc(i, 0)
             'End If
         End If
-         
+
     Next i
 
 End Sub
@@ -170,32 +170,32 @@ Sub RespGuerrasDemonio()
 
     On Error Resume Next
 
-    Dim i       As Integer
-    Dim MiNPC   As npc
-    Dim Npc3    As Integer
+    Dim i As Integer
+    Dim MiNPC As npc
+    Dim Npc3 As Integer
     Dim Npc3Pos As WorldPos
     Npc3 = 940
     Npc3Pos.Map = 66
     Npc3Pos.X = 77
     Npc3Pos.Y = 23
-            
+
     For i = 1 To LastNPC
 
         'OJO
         If Npclist(i).flags.NPCActive Then
-              
+
             If Npclist(i).Numero = Npc3 Then
                 MiNPC = Npclist(i)
                 Call QuitarNPC(i)
-                    
+
             End If
-                
+
             'tildada por sugerencia de yind
             'If Npclist(i).Contadores.TiempoExistencia > 0 Then
             '        Call MuereNpc(i, 0)
             'End If
         End If
-         
+
     Next i
 
 End Sub
@@ -205,10 +205,10 @@ Sub WorldSave()
     Dim loopX As Long
     Dim hFile As Integer
 
-    Call SendData(SendTarget.toall, 0, 0, "||°¨¨°(_.·´¯`·«¤°GUARDANDO CONFIGURACIÓN AOMANÍA°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldCarga)
+    Call SendData(SendTarget.ToAll, 0, 0, "||°¨¨°(_.·´¯`·«¤°GUARDANDO CONFIGURACIÓN AOMANÍA°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldCarga)
 
-    Call ReSpawnOrigPosNpcs 'respawn de los guardias en las pos originales
-    
+    Call ReSpawnOrigPosNpcs    'respawn de los guardias en las pos originales
+
     Call SaveConfig
 
     Dim j As Integer, k As Integer
@@ -223,9 +223,9 @@ Sub WorldSave()
     FrmStat.ProgressBar1.value = 0
 
     For loopX = 1 To NumMaps
-          
+
         If MapInfo(loopX).BackUp = 1 Then
-          
+
             Call GrabarMapa(loopX, App.Path & "\WorldBackUp\Mapa" & loopX)
             FrmStat.ProgressBar1.value = FrmStat.ProgressBar1.value + 1
 
@@ -238,9 +238,9 @@ Sub WorldSave()
 
     If FileExist(DatPath & "\bkNpcs.dat", vbNormal) Then Kill (DatPath & "bkNpcs.dat")
     hFile = FreeFile()
-    
+
     Open DatPath & "\bkNpcs.dat" For Output As hFile
-    
+
     For loopX = 1 To LastNPC
 
         If Npclist(loopX).flags.BackUp = 1 Then
@@ -250,8 +250,8 @@ Sub WorldSave()
     Next loopX
 
     Close hFile
-    
-    Call SendData(SendTarget.toall, 0, 0, "||°¨¨°(_.·´¯`·«¤°CONFIGURACIÓN AOMANÍA GUARDADA°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldSave)
+
+    Call SendData(SendTarget.ToAll, 0, 0, "||°¨¨°(_.·´¯`·«¤°CONFIGURACIÓN AOMANÍA GUARDADA°¤»·´¯`·._)°¨¨°" & FONTTYPE_WorldSave)
 
 End Sub
 
@@ -262,20 +262,20 @@ Public Sub PurgarPenas()
     For i = 1 To LastUser
 
         If UserList(i).flags.UserLogged Then
-          
+
             If UserList(i).Counters.Pena > 0 Then
-                      
+
                 UserList(i).Counters.Pena = UserList(i).Counters.Pena - 1
-                      
+
                 If UserList(i).Counters.Pena < 1 Then
                     UserList(i).Counters.Pena = 0
                     Call WarpUserChar(i, Libertad.Map, Libertad.X, Libertad.Y, True)
-                    Call SendData(SendTarget.toindex, i, 0, "||Has sido liberado." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.ToIndex, i, 0, "||Has sido liberado." & FONTTYPE_INFO)
 
                 End If
-                      
+
             End If
-              
+
         End If
 
     Next i
@@ -283,18 +283,18 @@ Public Sub PurgarPenas()
 End Sub
 
 Public Sub Encarcelar(ByVal UserIndex As Integer, ByVal Minutos As Long, Optional ByVal GMName As String = "")
-              
+
     UserList(UserIndex).Counters.Pena = Minutos
-              
+
     Call WarpUserChar(UserIndex, Prision.Map, Prision.X, Prision.Y, True)
-              
-     If GMName = "" Then
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||Has sido encarcelado. Deberas permanecer en la carcel " & Minutos & " minutos." & FONTTYPE_FIGHT)
-        Call SendData(SendTarget.toall, 0, 0, "||" & UserList(UserIndex).Name & " ha sido encarcelado " & Minutos & " minutos." & FONTTYPE_TALKMSG)
-     Else
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||" & GMName & " te ha encarcelado. Deberás permanecer en la carcel " & Minutos & " minutos." & FONTTYPE_FIGHT)
-     End If
-              
+
+    If GMName = "" Then
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has sido encarcelado. Deberas permanecer en la carcel " & Minutos & " minutos." & FONTTYPE_FIGHT)
+        Call SendData(SendTarget.ToAll, 0, 0, "||" & UserList(UserIndex).Name & " ha sido encarcelado " & Minutos & " minutos." & FONTTYPE_TALKMSG)
+    Else
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & GMName & " te ha encarcelado. Deberás permanecer en la carcel " & Minutos & " minutos." & FONTTYPE_FIGHT)
+    End If
+
 End Sub
 
 Public Sub BorrarUsuario(ByVal UserName As String)
@@ -322,7 +322,7 @@ End Function
 
 Public Function UnBan(ByVal Name As String) As Boolean
 
-    'Unban the character
+'Unban the character
     Call WriteVar(App.Path & "\charfile\" & Name & ".chr", "FLAGS", "Ban", "0")
 
     'Remove it from the banned people database
@@ -365,7 +365,7 @@ End Sub
 
 Public Function BanIpBuscar(ByVal ip As String) As Long
 
-    Dim Dale  As Boolean
+    Dim Dale As Boolean
     Dim LoopC As Long
 
     Dale = True
@@ -407,8 +407,8 @@ End Function
 Public Sub BanIpGuardar()
 
     Dim ArchivoBanIp As String
-    Dim ArchN        As Long
-    Dim LoopC        As Long
+    Dim ArchN As Long
+    Dim LoopC As Long
 
     ArchivoBanIp = App.Path & "\Dat\BanIps.dat"
 
@@ -425,8 +425,8 @@ End Sub
 
 Public Sub BanIpCargar()
 
-    Dim ArchN        As Long
-    Dim Tmp          As String
+    Dim ArchN As Long
+    Dim Tmp As String
     Dim ArchivoBanIp As String
 
     ArchivoBanIp = App.Path & "\Dat\BanIps.dat"
@@ -449,7 +449,7 @@ End Sub
 
 Public Sub ActualizaStatsES()
 
-    Static TUlt      As Single
+    Static TUlt As Single
     Dim Transcurrido As Single
 
     Transcurrido = Timer - TUlt
@@ -462,19 +462,19 @@ Public Sub ActualizaStatsES()
             .BytesRecibidosXSEG = CLng(.BytesRecibidos / Transcurrido)
             .BytesEnviados = 0
             .BytesRecibidos = 0
-              
+
             If .BytesEnviadosXSEG > .BytesEnviadosXSEGMax Then
                 .BytesEnviadosXSEGMax = .BytesEnviadosXSEG
                 .BytesEnviadosXSEGCuando = CDate(now)
 
             End If
-              
+
             If .BytesRecibidosXSEG > .BytesRecibidosXSEGMax Then
                 .BytesRecibidosXSEGMax = .BytesRecibidosXSEG
                 .BytesRecibidosXSEGCuando = CDate(now)
 
             End If
-              
+
             If frmEstadisticas.Visible Then
                 Call frmEstadisticas.ActualizaStats
 

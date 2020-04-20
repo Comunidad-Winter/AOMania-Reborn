@@ -27,20 +27,20 @@ Private Type diccElem
 
 End Type
 
-Private p_elementos(1 To MAX_ELEM) As diccElem 'visual basic es una mierda para usar memoria dinamica, asi que uso esto
-Private p_cant                     As Integer
+Private p_elementos(1 To MAX_ELEM) As diccElem    'visual basic es una mierda para usar memoria dinamica, asi que uso esto
+Private p_cant As Integer
 
 Public Sub Class_Initialize()
 
-    'constructor
+'constructor
     p_cant = 0
 
 End Sub
 
 Public Sub Class_Terminate()
 
-    'destructor
-    'destruir los variants?????
+'destructor
+'destruir los variants?????
 End Sub
 
 Public Property Get CantElem() As Integer
@@ -115,10 +115,10 @@ End Function
 
 Public Function MayorValor(ByRef Cant As Integer) As String
 
-    'parchecito para el AO, me da la clave con mayor valor en valor
-    'y la cantidad de claves con ese valor (por si hay empate)
-    Dim i     As Integer
-    Dim max   As Integer
+'parchecito para el AO, me da la clave con mayor valor en valor
+'y la cantidad de claves con ese valor (por si hay empate)
+    Dim i As Integer
+    Dim max As Integer
     Dim clave As String
     max = -1
     Cant = 0

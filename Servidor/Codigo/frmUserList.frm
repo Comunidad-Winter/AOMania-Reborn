@@ -62,7 +62,7 @@ Option Explicit
 
 Private Sub Command1_Click()
 
-    Dim loopc As Integer
+    Dim LoopC As Integer
 
     Text2.Text = "MaxUsers: " & MaxUsers & vbCrLf
     Text2.Text = Text2.Text & "LastUser: " & LastUser & vbCrLf
@@ -71,24 +71,24 @@ Private Sub Command1_Click()
 
     List1.Clear
 
-    For loopc = 1 To MaxUsers
-        List1.AddItem Format(loopc, "000") & " " & IIf(UserList(loopc).flags.UserLogged, UserList(loopc).Name, "")
-        List1.ItemData(List1.NewIndex) = loopc
-    Next loopc
+    For LoopC = 1 To MaxUsers
+        List1.AddItem Format(LoopC, "000") & " " & IIf(UserList(LoopC).flags.UserLogged, UserList(LoopC).Name, "")
+        List1.ItemData(List1.NewIndex) = LoopC
+    Next LoopC
 
 End Sub
 
 Private Sub Command2_Click()
 
-    Dim loopc As Integer
+    Dim LoopC As Integer
 
-    For loopc = 1 To MaxUsers
+    For LoopC = 1 To MaxUsers
 
-        If UserList(loopc).ConnID <> -1 And Not UserList(loopc).flags.UserLogged Then
-            Call CloseSocket(loopc)
+        If UserList(LoopC).ConnID <> -1 And Not UserList(LoopC).flags.UserLogged Then
+            Call CloseSocket(LoopC)
         End If
 
-    Next loopc
+    Next LoopC
 
 End Sub
 
