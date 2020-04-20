@@ -999,13 +999,13 @@ Sub HandleData(ByVal Rdata As String)
 
         SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
 
-        CharList(charindex).nombre = ReadField(12, Rdata, 44)
+        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
         CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
         CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
 
         If charindex = UserCharIndex Then
-            If InStr(CharList(charindex).nombre, "<") > 0 And InStr(CharList(charindex).nombre, ">") > 0 Then
-                UserClan = mid(CharList(charindex).nombre, InStr(CharList(charindex).nombre, "<"))
+            If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
+                UserClan = mid(CharList(charindex).Nombre, InStr(CharList(charindex).Nombre, "<"))
             Else
                 UserClan = Empty
 
@@ -1035,14 +1035,14 @@ Sub HandleData(ByVal Rdata As String)
         'charlist(CharIndex).FxLoopTimes = Val(ReadField(10, Rdata, 44))
         SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
 
-        CharList(charindex).nombre = ReadField(12, Rdata, 44)
+        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
         CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
         CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
         CharList(charindex).PartyIndex = Val(ReadField(16, Rdata, 44))
 
         If charindex = UserCharIndex Then
-            If InStr(CharList(charindex).nombre, "<") > 0 And InStr(CharList(charindex).nombre, ">") > 0 Then
-                UserClan = mid(CharList(charindex).nombre, InStr(CharList(charindex).nombre, "<"))
+            If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
+                UserClan = mid(CharList(charindex).Nombre, InStr(CharList(charindex).Nombre, "<"))
             Else
                 UserClan = Empty
 
@@ -1174,7 +1174,7 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "BQ"           ' >>>>> Bloquear Posición
-        Dim b As Byte
+        Dim B As Byte
         Rdata = Right$(Rdata, Len(Rdata) - 2)
         MapData(Val(ReadField(1, Rdata, 44)), Val(ReadField(2, Rdata, 44))).Blocked = Val(ReadField(3, Rdata, 44))
         Exit Sub
@@ -1295,6 +1295,18 @@ Sub HandleData(ByVal Rdata As String)
     End Select
 
     Select Case Left$(sData, 3)
+    
+    Case "CVB"              ' >>>>>>>> By ZaikO/Diego Sistema de CVC TPAO STYLE!
+             Rdata = Right$(Rdata, Len(Rdata) - 3)
+            charindex = ReadField(1, Rdata, 44)
+            CharList(charindex).CvcBlue = Val(ReadField(2, Rdata, 44))
+        Exit Sub
+        
+        Case "CVR"              ' >>>>>>>> By ZaikO/Diego Sistema de CVC TPAO STYLE!
+             Rdata = Right$(Rdata, Len(Rdata) - 3)
+            charindex = ReadField(1, Rdata, 44)
+            CharList(charindex).CvcRed = Val(ReadField(2, Rdata, 44))
+        Exit Sub
 
     Case "BKW"                  ' >>>>> Pausa :: BKW
         pausa = Not pausa

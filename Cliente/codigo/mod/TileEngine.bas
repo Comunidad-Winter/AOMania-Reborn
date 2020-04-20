@@ -50,7 +50,7 @@ Private Type CharVA
     X As Integer
     Y As Integer
     w As Integer
-    h As Integer
+    H As Integer
     
     Tx1 As Single
     Tx2 As Single
@@ -233,6 +233,8 @@ Public Type Char
     Heading As Byte ' As E_Heading ?
     pos As WorldPos
     oldPos As WorldPos
+    CvcBlue As Byte
+    CvcRed As Byte
 
     BodyNum As Integer
     
@@ -253,7 +255,7 @@ Public Type Char
     FxIndex As Integer
     
     Criminal As Byte
-    nombre As String
+    Nombre As String
         
     scrollDirectionX As Integer
     scrollDirectionY As Integer
@@ -549,8 +551,8 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, _
     ByVal nWidth As Long, _
     ByVal nHeight As Long, _
     ByVal hSrcDC As Long, _
-    ByVal XSrc As Long, _
-    ByVal YSrc As Long, _
+    ByVal xSrc As Long, _
+    ByVal ySrc As Long, _
     ByVal dwRop As Long) As Long
 
 Public ColorAmbiente()   As D3DCOLORVALUE
@@ -575,7 +577,7 @@ Private Declare Function OleLoadPicture Lib "olepro32" (pStream As Any, _
     riid As Any, _
     ppvObj As Any) As Long
 
-Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) As IPicture
+Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) As IPicture
     Dim o_hMem        As Long
     Dim o_lpMem       As Long
     Dim aGUID(0 To 3) As Long
@@ -592,7 +594,7 @@ Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) 
         o_lpMem = GlobalLock(o_hMem)
 
         If Not o_lpMem = 0& Then
-            Call CopyMemory(ByVal o_lpMem, inArray(Offset), Size)
+            Call CopyMemory(ByVal o_lpMem, inArray(offset), Size)
             Call GlobalUnlock(o_hMem)
 
             If CreateStreamOnHGlobal(o_hMem, 1&, IIStream) = 0& Then
@@ -605,7 +607,7 @@ Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) 
 
 End Function
  
-Public Function PictureFromByteStream(b() As Byte) As IPicture
+Public Function PictureFromByteStream(B() As Byte) As IPicture
     Dim LowerBound As Long
     Dim byteCount  As Long
     Dim hMem       As Long
@@ -615,20 +617,20 @@ Public Function PictureFromByteStream(b() As Byte) As IPicture
 
     On Error GoTo Err_Init
 
-    If UBound(b, 1) < 0 Then
+    If UBound(B, 1) < 0 Then
         Exit Function
 
     End If
     
-    LowerBound = LBound(b)
-    byteCount = (UBound(b) - LowerBound) + 1
+    LowerBound = LBound(B)
+    byteCount = (UBound(B) - LowerBound) + 1
     hMem = GlobalAlloc(&H2, byteCount)
 
     If hMem <> 0 Then
         lpMem = GlobalLock(hMem)
 
         If lpMem <> 0 Then
-            MoveMemory ByVal lpMem, b(LowerBound), byteCount
+            MoveMemory ByVal lpMem, B(LowerBound), byteCount
             Call GlobalUnlock(hMem)
 
             If CreateStreamOnHGlobal(hMem, 1, istm) = 0 Then
@@ -684,7 +686,7 @@ Public Sub Ambient_LoadColor()
         
             .r = Val(GetVar(PathDir, i, "R"))
             .G = Val(GetVar(PathDir, i, "G"))
-            .b = Val(GetVar(PathDir, i, "B"))
+            .B = Val(GetVar(PathDir, i, "B"))
             .a = 255
 
         End With
@@ -703,8 +705,8 @@ End Sub
   
 Public Sub Ambient_Fade()
  
-    CalculateRGB colorFinal.r, colorFinal.G, colorFinal.b
-    Fade = Not (colorFinal.r = colorActual.r And colorFinal.G = colorActual.G And colorFinal.b = colorActual.b)
+    CalculateRGB colorFinal.r, colorFinal.G, colorFinal.B
+    Fade = Not (colorFinal.r = colorActual.r And colorFinal.G = colorActual.G And colorFinal.B = colorActual.B)
  
     Dim X As Long, Y As Long, i As Long
  
@@ -713,7 +715,7 @@ Public Sub Ambient_Fade()
         
             For i = 0 To 3
             
-                MapData(X, Y).Color(i) = D3DColorXRGB(colorActual.r, colorActual.G, colorActual.b)
+                MapData(X, Y).Color(i) = D3DColorXRGB(colorActual.r, colorActual.G, colorActual.B)
  
             Next i
         Next Y
@@ -721,11 +723,11 @@ Public Sub Ambient_Fade()
   
 End Sub
  
-Public Sub Ambient_SetActual(ByVal r As Byte, ByVal G As Byte, ByVal b As Byte)
+Public Sub Ambient_SetActual(ByVal r As Byte, ByVal G As Byte, ByVal B As Byte)
  
     colorActual.r = r
     colorActual.G = G
-    colorActual.b = b
+    colorActual.B = B
  
 End Sub
  
@@ -736,15 +738,15 @@ Public Sub Ambient_SetFinal(ByVal Ambiente As Byte)
         .a = ColorAmbiente(Ambiente).a
         .r = ColorAmbiente(Ambiente).r
         .G = ColorAmbiente(Ambiente).G
-        .b = ColorAmbiente(Ambiente).b
+        .B = ColorAmbiente(Ambiente).B
         
-        Fade = Not (.r = colorActual.r And .G = colorActual.G And .b = colorActual.b)
+        Fade = Not (.r = colorActual.r And .G = colorActual.G And .B = colorActual.B)
 
     End With
 
 End Sub
  
-Public Sub CalculateRGB(ByVal r As Byte, ByVal G As Byte, ByVal b As Byte)
+Public Sub CalculateRGB(ByVal r As Byte, ByVal G As Byte, ByVal B As Byte)
  
     With colorActual
  
@@ -755,10 +757,10 @@ Public Sub CalculateRGB(ByVal r As Byte, ByVal G As Byte, ByVal b As Byte)
  
         End If
  
-        If .b < b Then
-            .b = .b + 1
-        ElseIf .b > b Then
-            .b = .b - 1
+        If .B < B Then
+            .B = .B + 1
+        ElseIf .B > B Then
+            .B = .B - 1
  
         End If
  
@@ -2160,19 +2162,19 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
             End If
                             
               If Nombres Then
-                If Len(.nombre) <> 0 Then
-                    pos = getTagPosition(.nombre)
+                If Len(.Nombre) <> 0 Then
+                    pos = getTagPosition(.Nombre)
                     Dim lCenter     As Long
                     Dim lCenterClan As Long
 
-                    If InStr(.nombre, "<") > 0 And InStr(.nombre, ">") > 0 Then
+                    If InStr(.Nombre, "<") > 0 And InStr(.Nombre, ">") > 0 Then
                                         
                         Dim Line As String
-                        Line = Left$(.nombre, pos - 2)
+                        Line = Left$(.Nombre, pos - 2)
                         lCenter = (Len(Line) * 6 / 2) - 15
                                             
                         Dim sClan As String
-                        sClan = mid$(.nombre, pos)
+                        sClan = mid$(.Nombre, pos)
                         lCenterClan = (Len(sClan) * 6 / 2) - 15
 
                         If .Criminal = 1 Then
@@ -2385,7 +2387,7 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
 
                     Else
                       
-                       Line = Left$(.nombre, pos - 2)
+                       Line = Left$(.Nombre, pos - 2)
 
                        lCenter = (Len(Line) * 6 / 2) - 15
                        lCenterClan = (Len(sClan) * 6 / 2) - 15
@@ -2440,30 +2442,30 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                                 Case 0
 
                                     If .Invisible = True Then
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, VerdeF)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, VerdeF)
                                     ElseIf .Criminal = 1 Then ' Crimi comun
                                         longToArray Color, ColoresPJ(50)
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, CaosClan)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, CaosClan)
                                     ElseIf .Criminal = 2 Then ' Caos
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Caos)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Caos)
                                       ElseIf .Criminal = 3 Then ' Templario
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, White)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, White)
                                     ElseIf .Criminal = 4 Then ' Real
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Real)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Real)
                                     ElseIf .Criminal = 5 Then ' Namesis
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Tini)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Tini)
                                     Else
                                         longToArray Color, ColoresPJ(49)
-                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, RealClan)
+                                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, RealClan)
                                     End If
 
                                 Case 7
                                     longToArray Color, ColoresPJ(7)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Color)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Color)
 
                                 Case Else
                                     longToArray Color, ColoresPJ(.priv)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Color)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Color)
                             End Select
                         End If
                     End If
@@ -2856,7 +2858,7 @@ Private Sub ShowNextFrame()
     
     If (UserClicado > 0) Then
  
-         Call Text_Draw(315 + CharList(UserClicado).pos.X, 108 + CharList(UserClicado).pos.Y, "" & "Nick: " & CharList(UserClicado).nombre, Orange)
+         Call Text_Draw(315 + CharList(UserClicado).pos.X, 108 + CharList(UserClicado).pos.Y, "" & "Nick: " & CharList(UserClicado).Nombre, Orange)
         
          Call Text_Draw(315, 118, "" & "---------------", White)
         
@@ -2969,6 +2971,13 @@ Private Sub ShowNextFrame()
     Call Text_Draw(415, 0, "FPS: " & FPS, White)
     Call Text_Draw(465, 16, NameDay, White)
     Call Text_Draw(430, 32, "Hay " & NumUsers & " Usuarios Online.", Onlines)
+    
+    If SeguroCvc = True Then
+        Call Text_Draw(430, 48, "Seguro de Cvc Activado", Green)
+        Else
+        Call Text_Draw(430, 48, "Seguro de Cvc Desactivado", Red)
+        End If
+    
     If TiempoAsedio <> 0 And (UserMap = 114 Or UserMap = 115) Then Call Text_Draw(260, 655, "Faltan " & TiempoAsedio & " minutos para que finalize el Asedio.", Cyan)
 
     Call Dialogos.Render
@@ -3047,10 +3056,10 @@ Private Function MismoClan(ByVal userindex As Integer) As Boolean
     Dim SuClan As String
     Dim MiClan As String
     
-    pos = getTagPosition(CharList(userindex).nombre)
-    SuClan = mid(CharList(userindex).nombre, pos)
-    pos = getTagPosition(CharList(UserCharIndex).nombre)
-    MiClan = mid(CharList(UserCharIndex).nombre, pos)
+    pos = getTagPosition(CharList(userindex).Nombre)
+    SuClan = mid(CharList(userindex).Nombre, pos)
+    pos = getTagPosition(CharList(UserCharIndex).Nombre)
+    MiClan = mid(CharList(UserCharIndex).Nombre, pos)
     
     MismoClan = False
     
@@ -3258,7 +3267,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
 118           .BackBufferWidth = ScreenWidth
 120           .BackBufferHeight = ScreenHeight
 122           .BackBufferFormat = DirectD3Ddm.Format 'current display depth
-              .hDeviceWindow = frmMain.MainViewPic.HWnd
+              .hDeviceWindow = frmMain.MainViewPic.hwnd
 
           End With
 
@@ -3268,7 +3277,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
           End If
 
           'create device
-128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.HWnd, Flags, DirectD3Dpp)
+128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.hwnd, Flags, DirectD3Dpp)
 
 130       Call D3DXMatrixOrthoOffCenterLH(Projection, 0, ScreenWidth, ScreenHeight, 0, -1#, 1#)
 132       Call D3DXMatrixIdentity(View)
@@ -3362,12 +3371,12 @@ Private Sub Directx_RenderStates()
     
 End Sub
 
-Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal HWnd As Long)
+Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal hwnd As Long)
     
     Call SpriteBatch.Flush
     
     Call DirectDevice.EndScene
-    Call DirectDevice.Present(RECT, ByVal 0, HWnd, ByVal 0)
+    Call DirectDevice.Present(RECT, ByVal 0, hwnd, ByVal 0)
 
 End Sub
 
@@ -3482,7 +3491,7 @@ Private Sub Directx_Render_Text(ByRef Batch As clsBatch, _
 '
 '                End If
              
-                Batch.Draw TempVA.X, TempVA.Y, TempVA.w, TempVA.h, Color, TempVA.Tx1, TempVA.Ty1, TempVA.Tx2, TempVA.Ty2
+                Batch.Draw TempVA.X, TempVA.Y, TempVA.w, TempVA.H, Color, TempVA.Tx1, TempVA.Ty1, TempVA.Tx2, TempVA.Ty2
 
                 'Shift over the the position to render the next character
                 Count = Count + UseFont.HeaderInfo.CharWidth(ascii(j - 1))
@@ -3582,7 +3591,7 @@ Private Sub Directx_Init_FontSettings()
             .X = 0
             .Y = 0
             .w = cfonts.HeaderInfo.CellWidth
-            .h = cfonts.HeaderInfo.CellHeight
+            .H = cfonts.HeaderInfo.CellHeight
             .Tx1 = u
             .Ty1 = v
             .Tx2 = u + cfonts.ColFactor
@@ -3689,10 +3698,10 @@ Public Sub Directx_Renderer()
 
 End Sub
 
-Public Sub Draw_Box(ByVal X As Integer, ByVal Y As Integer, ByVal w As Integer, ByVal h As Integer, ByRef BackgroundColor() As Long)
+Public Sub Draw_Box(ByVal X As Integer, ByVal Y As Integer, ByVal w As Integer, ByVal H As Integer, ByRef BackgroundColor() As Long)
     
     Call SpriteBatch.SetTexture(Nothing)
-    Call SpriteBatch.Draw(X, Y, w, h, BackgroundColor)
+    Call SpriteBatch.Draw(X, Y, w, H, BackgroundColor)
      
 End Sub
 
