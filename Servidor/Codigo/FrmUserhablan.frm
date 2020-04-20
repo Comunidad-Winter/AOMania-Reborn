@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
 Begin VB.Form FrmUserhablan 
    BorderStyle     =   0  'None
    Caption         =   "Form1"
@@ -194,11 +194,11 @@ Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hW
 Private Const LB_SETHORIZONTALEXTENT = &H225
 
 Private Sub AddHScroll(LB As ListBox)
-     
-    Dim i       As Long
+
+    Dim i As Long
     Dim lLength As Long
-    Dim lWdith  As Long
-     
+    Dim lWdith As Long
+
     'see what the longest entry is
     For i = 0 To LB.ListCount - 1
 
@@ -208,10 +208,10 @@ Private Sub AddHScroll(LB As ListBox)
         End If
 
     Next i
-     
+
     'add a little space
     lWdith = LB.Parent.TextWidth(LB.List(lLength) + Space(5))
-     
+
     'Convert to Pixels
     lWdith = lWdith \ Screen.TwipsPerPixelX
 
@@ -227,20 +227,20 @@ End Sub
 
 Public Sub hUser(ByVal texto As String)
     Dim CadenaOne() As String
-    Dim CountLen    As Long
-    Dim LenMax      As Long
+    Dim CountLen As Long
+    Dim LenMax As Long
 
     CadenaOne = Split(texto, Chr(62))
     User.AddItem (CadenaOne(0))
- 
+
     CountLen = Len(CadenaOne(1))
     LenMax = 128
- 
+
     If CountLen < 100 Then
         User.AddItem (mid(LCase(CadenaOne(1)), 1, 100))
 
     End If
- 
+
     If CountLen > 100 And CountLen < 200 Then
         User.AddItem (mid(LCase(CadenaOne(1)), 1, "100"))
         User.AddItem (mid(LCase(CadenaOne(1)), 101, "100"))
@@ -258,20 +258,20 @@ End Sub
 
 Public Sub hClan(ByVal texto As String)
     Dim CadenaOne() As String
-    Dim CountLen    As Long
-    Dim LenMax      As Long
+    Dim CountLen As Long
+    Dim LenMax As Long
 
     CadenaOne = Split(texto, Chr(62))
     Clan.AddItem (CadenaOne(0))
- 
+
     CountLen = Len(CadenaOne(1))
     LenMax = 128
- 
+
     If CountLen < 100 Then
         Clan.AddItem (mid(LCase(CadenaOne(1)), 1, 100))
 
     End If
- 
+
     If CountLen > 100 And CountLen < 200 Then
         Clan.AddItem (mid(LCase(CadenaOne(1)), 1, "100"))
         Clan.AddItem (mid(LCase(CadenaOne(1)), 101, "100"))
@@ -289,20 +289,20 @@ End Sub
 
 Public Sub hPrivado(ByVal texto As String)
     Dim CadenaOne() As String
-    Dim CountLen    As Long
-    Dim LenMax      As Long
+    Dim CountLen As Long
+    Dim LenMax As Long
 
     CadenaOne = Split(texto, Chr(62))
     Privado.AddItem (CadenaOne(0))
- 
+
     CountLen = Len(CadenaOne(1))
     LenMax = 128
- 
+
     If CountLen < 100 Then
         Privado.AddItem (mid(LCase(CadenaOne(1)), 1, 100))
 
     End If
- 
+
     If CountLen > 100 And CountLen < 200 Then
         Privado.AddItem (mid(LCase(CadenaOne(1)), 1, "100"))
         Privado.AddItem (mid(LCase(CadenaOne(1)), 101, "100"))
@@ -320,20 +320,20 @@ End Sub
 
 Public Sub hParty(ByVal texto As String)
     Dim CadenaOne() As String
-    Dim CountLen    As Long
-    Dim LenMax      As Long
+    Dim CountLen As Long
+    Dim LenMax As Long
 
     CadenaOne = Split(texto, Chr(62))
     Party.AddItem (CadenaOne(0))
- 
+
     CountLen = Len(CadenaOne(1))
     LenMax = 128
- 
+
     If CountLen < 100 Then
         Party.AddItem (mid(LCase(CadenaOne(1)), 1, 100))
 
     End If
- 
+
     If CountLen > 100 And CountLen < 200 Then
         Party.AddItem (mid(LCase(CadenaOne(1)), 1, "100"))
         Party.AddItem (mid(LCase(CadenaOne(1)), 101, "100"))

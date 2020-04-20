@@ -84,7 +84,7 @@ Private Sub Command1_Click()
     TIndex = NameIndex(cboPjs.Text)
 
     If TIndex > 0 Then
-        Call SendData(SendTarget.toall, 0, 0, "||AOMania> " & UserList(TIndex).Name & " ha sido hechado. " & FONTTYPE_SERVER)
+        Call SendData(SendTarget.ToAll, 0, 0, "||AOMania> " & UserList(TIndex).Name & " ha sido hechado. " & FONTTYPE_SERVER)
         Call CloseSocket(TIndex)
 
     End If
@@ -93,24 +93,24 @@ End Sub
 
 Public Sub ActualizaListaPjs()
 
-    Dim loopc As Long
+    Dim LoopC As Long
 
     With cboPjs
         .Clear
-    
-        For loopc = 1 To LastUser
 
-            If UserList(loopc).flags.UserLogged And UserList(loopc).ConnID >= 0 And UserList(loopc).ConnIDValida Then
+        For LoopC = 1 To LastUser
 
-                If UserList(loopc).flags.Privilegios = PlayerType.User Then
-                    .AddItem UserList(loopc).Name
-                    .ItemData(.NewIndex) = loopc
+            If UserList(LoopC).flags.UserLogged And UserList(LoopC).ConnID >= 0 And UserList(LoopC).ConnIDValida Then
+
+                If UserList(LoopC).flags.Privilegios = PlayerType.User Then
+                    .AddItem UserList(LoopC).Name
+                    .ItemData(.NewIndex) = LoopC
 
                 End If
 
             End If
 
-        Next loopc
+        Next LoopC
 
     End With
 

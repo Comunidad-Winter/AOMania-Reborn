@@ -90,22 +90,22 @@ End Type
 Type WSABUF
 
     dwBufferLen As Long
-    lpBuffer    As Long
+    lpBuffer As Long
 
 End Type
 
 'Agregado por Maraxus
 Type FLOWSPEC
 
-    TokenRate           As Long     'In Bytes/sec
-    TokenBucketSize     As Long     'In Bytes
-    PeakBandwidth       As Long     'In Bytes/sec
-    Latency             As Long     'In microseconds
-    DelayVariation      As Long     'In microseconds
-    ServiceType         As Integer  'Guaranteed, Predictive,
+    TokenRate As Long    'In Bytes/sec
+    TokenBucketSize As Long    'In Bytes
+    PeakBandwidth As Long    'In Bytes/sec
+    Latency As Long             'In microseconds
+    DelayVariation As Long    'In microseconds
+    ServiceType As Integer    'Guaranteed, Predictive,
     'Best Effort, etc.
-    MaxSduSize          As Long     'In Bytes
-    MinimumPolicedSize  As Long     'In Bytes
+    MaxSduSize As Long    'In Bytes
+    MinimumPolicedSize As Long    'In Bytes
 
 End Type
 
@@ -321,7 +321,7 @@ Public Const FIOASYNC = &H8004667D
                                                  AddrLen As Integer, _
                                                  ByVal lpfnCondition As Long, _
                                                  ByVal dwCallbackData As Long) As Integer
-    
+
     Public Const SOMAXCONN As Integer = &H7FFF            ' Agregado por Maraxus
 
 #ElseIf Win32 Then
@@ -501,43 +501,69 @@ End Function
 
 'this function should work on 16 and 32 bit systems
 #If Win16 Then
-    Function ConnectSock(ByVal Host$, ByVal Port%, retIpPort$, ByVal HWndToMsg%, ByVal Async%) As Integer
-        Dim s%, SelectOps%, dummy%
-    #ElseIf Win32 Then
-        Function ConnectSock(ByVal Host$, ByVal Port&, retIpPort$, ByVal HWndToMsg&, ByVal Async%) As Long
-            Dim s&, SelectOps&, dummy&
-        #End If
-        Dim sockin As sockaddr
-        SockReadBuffer$ = ""
-        sockin = saZero
-        sockin.sin_family = AF_INET
-        sockin.sin_port = htons(Port)
+Function ConnectSock(ByVal Host$, ByVal Port%, retIpPort$, ByVal HWndToMsg%, ByVal Async%) As Integer
+    Dim s%, SelectOps%, dummy%
+#ElseIf Win32 Then
+Function ConnectSock(ByVal Host$, ByVal Port&, retIpPort$, ByVal HWndToMsg&, ByVal Async%) As Long
+    Dim s&, SelectOps&, dummy&
+#End If
+Dim sockin As sockaddr
+SockReadBuffer$ = ""
+sockin = saZero
+sockin.sin_family = AF_INET
+sockin.sin_port = htons(Port)
 
-        If sockin.sin_port = INVALID_SOCKET Then
-            ConnectSock = INVALID_SOCKET
-            Exit Function
+If sockin.sin_port = INVALID_SOCKET Then
+    ConnectSock = INVALID_SOCKET
+    Exit Function
+
+End If
+
+sockin.sin_addr = GetHostByNameAlias(Host$)
+
+If sockin.sin_addr = INADDR_NONE Then
+    ConnectSock = INVALID_SOCKET
+    Exit Function
+
+End If
+
+retIpPort$ = GetAscIP$(sockin.sin_addr) & ":" & ntohs(sockin.sin_port)
+
+s = Socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
+
+If s < 0 Then
+    ConnectSock = INVALID_SOCKET
+    Exit Function
+
+End If
+
+If SetSockLinger(s, 1, 0) = SOCKET_ERROR Then
+    If s > 0 Then
+        dummy = apiclosesocket(s)
+
+    End If
+
+    ConnectSock = INVALID_SOCKET
+    Exit Function
+
+End If
+
+If Not Async Then
+    If Not connect(s, sockin, sockaddr_size) = 0 Then
+        If s > 0 Then
+            dummy = apiclosesocket(s)
 
         End If
 
-        sockin.sin_addr = GetHostByNameAlias(Host$)
+        ConnectSock = INVALID_SOCKET
+        Exit Function
 
-        If sockin.sin_addr = INADDR_NONE Then
-            ConnectSock = INVALID_SOCKET
-            Exit Function
+    End If
 
-        End If
+    If HWndToMsg <> 0 Then
+        SelectOps = FD_READ Or FD_WRITE Or FD_CONNECT Or FD_CLOSE
 
-        retIpPort$ = GetAscIP$(sockin.sin_addr) & ":" & ntohs(sockin.sin_port)
-
-        s = Socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)
-
-        If s < 0 Then
-            ConnectSock = INVALID_SOCKET
-            Exit Function
-
-        End If
-
-        If SetSockLinger(s, 1, 0) = SOCKET_ERROR Then
+        If WSAAsyncSelect(s, HWndToMsg, ByVal 1025, ByVal SelectOps) Then
             If s > 0 Then
                 dummy = apiclosesocket(s)
 
@@ -548,103 +574,77 @@ End Function
 
         End If
 
-        If Not Async Then
-            If Not connect(s, sockin, sockaddr_size) = 0 Then
-                If s > 0 Then
-                    dummy = apiclosesocket(s)
+    End If
 
-                End If
+Else
+    SelectOps = FD_READ Or FD_WRITE Or FD_CONNECT Or FD_CLOSE
 
-                ConnectSock = INVALID_SOCKET
-                Exit Function
-
-            End If
-
-            If HWndToMsg <> 0 Then
-                SelectOps = FD_READ Or FD_WRITE Or FD_CONNECT Or FD_CLOSE
-
-                If WSAAsyncSelect(s, HWndToMsg, ByVal 1025, ByVal SelectOps) Then
-                    If s > 0 Then
-                        dummy = apiclosesocket(s)
-
-                    End If
-
-                    ConnectSock = INVALID_SOCKET
-                    Exit Function
-
-                End If
-
-            End If
-
-        Else
-            SelectOps = FD_READ Or FD_WRITE Or FD_CONNECT Or FD_CLOSE
-
-            If WSAAsyncSelect(s, HWndToMsg, ByVal 1025, ByVal SelectOps) Then
-                If s > 0 Then
-                    dummy = apiclosesocket(s)
-
-                End If
-
-                ConnectSock = INVALID_SOCKET
-                Exit Function
-
-            End If
-
-            If connect(s, sockin, sockaddr_size) <> -1 Then
-                If s > 0 Then
-                    dummy = apiclosesocket(s)
-
-                End If
-
-                ConnectSock = INVALID_SOCKET
-                Exit Function
-
-            End If
+    If WSAAsyncSelect(s, HWndToMsg, ByVal 1025, ByVal SelectOps) Then
+        If s > 0 Then
+            dummy = apiclosesocket(s)
 
         End If
 
-        ConnectSock = s
-
-    End Function
-
-#If Win32 Then
-    Public Function SetSockLinger(ByVal SockNum&, ByVal OnOff%, ByVal LingerTime%) As Long
-
-    #Else
-        Public Function SetSockLinger(ByVal SockNum%, ByVal OnOff%, ByVal LingerTime%) As Integer
-
-        #End If
-        Dim Linger As LingerType
-        Linger.l_onoff = OnOff
-        Linger.l_linger = LingerTime
-
-        If setsockopt(SockNum, SOL_SOCKET, SO_LINGER, Linger, 4) Then
-            Debug.Print "Error setting linger info: " & WSAGetLastError()
-            SetSockLinger = SOCKET_ERROR
-        Else
-
-            If getsockopt(SockNum, SOL_SOCKET, SO_LINGER, Linger, 4) Then
-                Debug.Print "Error getting linger info: " & WSAGetLastError()
-                SetSockLinger = SOCKET_ERROR
-            Else
-                Debug.Print "Linger is on if nonzero: "; Linger.l_onoff
-                Debug.Print "Linger time if linger is on: "; Linger.l_linger
-
-            End If
-
-        End If
-
-    End Function
-
-Sub EndWinsock()
-    Dim ret&
-
-    If WSAIsBlocking() Then
-        ret = WSACancelBlockingCall()
+        ConnectSock = INVALID_SOCKET
+        Exit Function
 
     End If
 
-    ret = WSACleanup()
+    If connect(s, sockin, sockaddr_size) <> -1 Then
+        If s > 0 Then
+            dummy = apiclosesocket(s)
+
+        End If
+
+        ConnectSock = INVALID_SOCKET
+        Exit Function
+
+    End If
+
+End If
+
+ConnectSock = s
+
+End Function
+
+#If Win32 Then
+Public Function SetSockLinger(ByVal SockNum&, ByVal OnOff%, ByVal LingerTime%) As Long
+
+#Else
+Public Function SetSockLinger(ByVal SockNum%, ByVal OnOff%, ByVal LingerTime%) As Integer
+
+#End If
+Dim Linger As LingerType
+Linger.l_onoff = OnOff
+Linger.l_linger = LingerTime
+
+If setsockopt(SockNum, SOL_SOCKET, SO_LINGER, Linger, 4) Then
+    Debug.Print "Error setting linger info: " & WSAGetLastError()
+    SetSockLinger = SOCKET_ERROR
+Else
+
+    If getsockopt(SockNum, SOL_SOCKET, SO_LINGER, Linger, 4) Then
+        Debug.Print "Error getting linger info: " & WSAGetLastError()
+        SetSockLinger = SOCKET_ERROR
+    Else
+        Debug.Print "Linger is on if nonzero: "; Linger.l_onoff
+        Debug.Print "Linger time if linger is on: "; Linger.l_linger
+
+    End If
+
+End If
+
+End Function
+
+Sub EndWinsock()
+    Dim Ret&
+
+    If WSAIsBlocking() Then
+        Ret = WSACancelBlockingCall()
+
+    End If
+
+    Ret = WSACleanup()
     WSAStartedUp = False
 
 End Sub
@@ -677,7 +677,7 @@ End Function
 
 Public Function GetHostByAddress(ByVal addr As Long) As String
 
-    Dim phe&, ret&
+    Dim phe&, Ret&
     Dim heDestHost As HostEnt
     Dim HostName$
     phe = gethostbyaddr(addr, 4, PF_INET)
@@ -697,7 +697,7 @@ End Function
 'returns IP as long, in network byte order
 Public Function GetHostByNameAlias(ByVal HostName$) As Long
 
-    'Return IP address as a long, in network byte order
+'Return IP address as a long, in network byte order
     Dim phe&
     Dim heDestHost As HostEnt
     Dim addrList&
@@ -744,128 +744,128 @@ Public Function GetLocalHostName() As String
 End Function
 
 #If Win16 Then
-    Public Function GetPeerAddress(ByVal s%) As String
+Public Function GetPeerAddress(ByVal s%) As String
 
-        Dim AddrLen%
-    #ElseIf Win32 Then
-        Public Function GetPeerAddress(ByVal s&) As String
+    Dim AddrLen%
+#ElseIf Win32 Then
+Public Function GetPeerAddress(ByVal s&) As String
 
-            Dim AddrLen&
-        #End If
-        Dim sa As sockaddr
-        AddrLen = sockaddr_size
+    Dim AddrLen&
+#End If
+Dim sa As sockaddr
+AddrLen = sockaddr_size
 
-        If getpeername(s, sa, AddrLen) Then
-            GetPeerAddress = ""
-        Else
-            GetPeerAddress = SockAddressToString(sa)
+If getpeername(s, sa, AddrLen) Then
+    GetPeerAddress = ""
+Else
+    GetPeerAddress = SockAddressToString(sa)
 
-        End If
+End If
 
-    End Function
-
-#If Win16 Then
-    Public Function GetPortFromString(ByVal PortStr$) As Integer
-
-    #ElseIf Win32 Then
-        Public Function GetPortFromString(ByVal PortStr$) As Long
-
-        #End If
-
-        'sometimes users provide ports outside the range of a VB
-        'integer, so this function returns an integer for a string
-        'just to keep an error from happening, it converts the
-        'number to a negative if needed
-        If val(PortStr$) > 32767 Then
-            GetPortFromString = CInt(val(PortStr$) - &H10000)
-        Else
-            GetPortFromString = val(PortStr$)
-
-        End If
-
-        If Err Then GetPortFromString = 0
-
-    End Function
+End Function
 
 #If Win16 Then
-    Function GetProtocolByName(ByVal Protocol$) As Integer
-        Dim tmpShort%
-    #ElseIf Win32 Then
-        Function GetProtocolByName(ByVal Protocol$) As Long
-            Dim tmpShort&
-        #End If
-        Dim ppe&
-        Dim peDestProt As protoent
-        ppe = getprotobyname(Protocol)
+Public Function GetPortFromString(ByVal PortStr$) As Integer
 
-        If ppe Then
-            MemCopy peDestProt, ByVal ppe, protoent_size
-            GetProtocolByName = peDestProt.p_proto
-        Else
-            tmpShort = val(Protocol)
+#ElseIf Win32 Then
+Public Function GetPortFromString(ByVal PortStr$) As Long
 
-            If tmpShort Then
-                GetProtocolByName = htons(tmpShort)
-            Else
-                GetProtocolByName = SOCKET_ERROR
+#End If
 
-            End If
+'sometimes users provide ports outside the range of a VB
+'integer, so this function returns an integer for a string
+'just to keep an error from happening, it converts the
+'number to a negative if needed
+If val(PortStr$) > 32767 Then
+    GetPortFromString = CInt(val(PortStr$) - &H10000)
+Else
+    GetPortFromString = val(PortStr$)
 
-        End If
+End If
 
-    End Function
+If Err Then GetPortFromString = 0
+
+End Function
 
 #If Win16 Then
-    Function GetServiceByName(ByVal service$, ByVal Protocol$) As Integer
-        Dim Serv%
-    #ElseIf Win32 Then
-        Function GetServiceByName(ByVal service$, ByVal Protocol$) As Long
-            Dim Serv&
-        #End If
-        Dim pse&
-        Dim seDestServ As servent
-        pse = getservbyname(service, Protocol)
+Function GetProtocolByName(ByVal Protocol$) As Integer
+    Dim tmpShort%
+#ElseIf Win32 Then
+Function GetProtocolByName(ByVal Protocol$) As Long
+    Dim tmpShort&
+#End If
+Dim ppe&
+Dim peDestProt As protoent
+ppe = getprotobyname(Protocol)
 
-        If pse Then
-            MemCopy seDestServ, ByVal pse, servent_size
-            GetServiceByName = seDestServ.s_port
-        Else
-            Serv = val(service)
+If ppe Then
+    MemCopy peDestProt, ByVal ppe, protoent_size
+    GetProtocolByName = peDestProt.p_proto
+Else
+    tmpShort = val(Protocol)
 
-            If Serv Then
-                GetServiceByName = htons(Serv)
-            Else
-                GetServiceByName = INVALID_SOCKET
+    If tmpShort Then
+        GetProtocolByName = htons(tmpShort)
+    Else
+        GetProtocolByName = SOCKET_ERROR
 
-            End If
+    End If
 
-        End If
+End If
 
-    End Function
+End Function
+
+#If Win16 Then
+Function GetServiceByName(ByVal service$, ByVal Protocol$) As Integer
+    Dim Serv%
+#ElseIf Win32 Then
+Function GetServiceByName(ByVal service$, ByVal Protocol$) As Long
+    Dim Serv&
+#End If
+Dim pse&
+Dim seDestServ As servent
+pse = getservbyname(service, Protocol)
+
+If pse Then
+    MemCopy seDestServ, ByVal pse, servent_size
+    GetServiceByName = seDestServ.s_port
+Else
+    Serv = val(service)
+
+    If Serv Then
+        GetServiceByName = htons(Serv)
+    Else
+        GetServiceByName = INVALID_SOCKET
+
+    End If
+
+End If
+
+End Function
 
 'this function DOES work on 16 and 32 bit systems
 #If Win16 Then
-    Function GetSockAddress(ByVal s%) As String
-        Dim AddrLen%
-        Dim ret%
-    #ElseIf Win32 Then
-        Function GetSockAddress(ByVal s&) As String
-            Dim AddrLen&
-            Dim ret&
-        #End If
-        Dim sa As sockaddr
-        Dim szRet$
-        szRet = String(32, 0)
-        AddrLen = sockaddr_size
+Function GetSockAddress(ByVal s%) As String
+    Dim AddrLen%
+    Dim Ret%
+#ElseIf Win32 Then
+Function GetSockAddress(ByVal s&) As String
+    Dim AddrLen&
+    Dim Ret&
+#End If
+Dim sa As sockaddr
+Dim szRet$
+szRet = String(32, 0)
+AddrLen = sockaddr_size
 
-        If getsockname(s, sa, AddrLen) Then
-            GetSockAddress = ""
-        Else
-            GetSockAddress = SockAddressToString(sa)
+If getsockname(s, sa, AddrLen) Then
+    GetSockAddress = ""
+Else
+    GetSockAddress = SockAddressToString(sa)
 
-        End If
+End If
 
-    End Function
+End Function
 
 'this function should work on 16 and 32 bit systems
 Function GetWSAErrorString(ByVal errnum&) As String
@@ -874,160 +874,160 @@ Function GetWSAErrorString(ByVal errnum&) As String
 
     Select Case errnum
 
-        Case 10004
-            GetWSAErrorString = "Interrupted system call."
+    Case 10004
+        GetWSAErrorString = "Interrupted system call."
 
-        Case 10009
-            GetWSAErrorString = "Bad file number."
+    Case 10009
+        GetWSAErrorString = "Bad file number."
 
-        Case 10013
-            GetWSAErrorString = "Permission Denied."
+    Case 10013
+        GetWSAErrorString = "Permission Denied."
 
-        Case 10014
-            GetWSAErrorString = "Bad Address."
+    Case 10014
+        GetWSAErrorString = "Bad Address."
 
-        Case 10022
-            GetWSAErrorString = "Invalid Argument."
+    Case 10022
+        GetWSAErrorString = "Invalid Argument."
 
-        Case 10024
-            GetWSAErrorString = "Too many open files."
+    Case 10024
+        GetWSAErrorString = "Too many open files."
 
-        Case 10035
-            GetWSAErrorString = "Operation would block."
+    Case 10035
+        GetWSAErrorString = "Operation would block."
 
-        Case 10036
-            GetWSAErrorString = "Operation now in progress."
+    Case 10036
+        GetWSAErrorString = "Operation now in progress."
 
-        Case 10037
-            GetWSAErrorString = "Operation already in progress."
+    Case 10037
+        GetWSAErrorString = "Operation already in progress."
 
-        Case 10038
-            GetWSAErrorString = "Socket operation on nonsocket."
+    Case 10038
+        GetWSAErrorString = "Socket operation on nonsocket."
 
-        Case 10039
-            GetWSAErrorString = "Destination address required."
+    Case 10039
+        GetWSAErrorString = "Destination address required."
 
-        Case 10040
-            GetWSAErrorString = "Message too long."
+    Case 10040
+        GetWSAErrorString = "Message too long."
 
-        Case 10041
-            GetWSAErrorString = "Protocol wrong type for socket."
+    Case 10041
+        GetWSAErrorString = "Protocol wrong type for socket."
 
-        Case 10042
-            GetWSAErrorString = "Protocol not available."
+    Case 10042
+        GetWSAErrorString = "Protocol not available."
 
-        Case 10043
-            GetWSAErrorString = "Protocol not supported."
+    Case 10043
+        GetWSAErrorString = "Protocol not supported."
 
-        Case 10044
-            GetWSAErrorString = "Socket type not supported."
+    Case 10044
+        GetWSAErrorString = "Socket type not supported."
 
-        Case 10045
-            GetWSAErrorString = "Operation not supported on socket."
+    Case 10045
+        GetWSAErrorString = "Operation not supported on socket."
 
-        Case 10046
-            GetWSAErrorString = "Protocol family not supported."
+    Case 10046
+        GetWSAErrorString = "Protocol family not supported."
 
-        Case 10047
-            GetWSAErrorString = "Address family not supported by protocol family."
+    Case 10047
+        GetWSAErrorString = "Address family not supported by protocol family."
 
-        Case 10048
-            GetWSAErrorString = "Address already in use."
+    Case 10048
+        GetWSAErrorString = "Address already in use."
 
-        Case 10049
-            GetWSAErrorString = "Can't assign requested address."
+    Case 10049
+        GetWSAErrorString = "Can't assign requested address."
 
-        Case 10050
-            GetWSAErrorString = "Network is down."
+    Case 10050
+        GetWSAErrorString = "Network is down."
 
-        Case 10051
-            GetWSAErrorString = "Network is unreachable."
+    Case 10051
+        GetWSAErrorString = "Network is unreachable."
 
-        Case 10052
-            GetWSAErrorString = "Network dropped connection."
+    Case 10052
+        GetWSAErrorString = "Network dropped connection."
 
-        Case 10053
-            GetWSAErrorString = "Software caused connection abort."
+    Case 10053
+        GetWSAErrorString = "Software caused connection abort."
 
-        Case 10054
-            GetWSAErrorString = "Connection reset by peer."
+    Case 10054
+        GetWSAErrorString = "Connection reset by peer."
 
-        Case 10055
-            GetWSAErrorString = "No buffer space available."
+    Case 10055
+        GetWSAErrorString = "No buffer space available."
 
-        Case 10056
-            GetWSAErrorString = "Socket is already connected."
+    Case 10056
+        GetWSAErrorString = "Socket is already connected."
 
-        Case 10057
-            GetWSAErrorString = "Socket is not connected."
+    Case 10057
+        GetWSAErrorString = "Socket is not connected."
 
-        Case 10058
-            GetWSAErrorString = "Can't send after socket shutdown."
+    Case 10058
+        GetWSAErrorString = "Can't send after socket shutdown."
 
-        Case 10059
-            GetWSAErrorString = "Too many references: can't splice."
+    Case 10059
+        GetWSAErrorString = "Too many references: can't splice."
 
-        Case 10060
-            GetWSAErrorString = "Connection timed out."
+    Case 10060
+        GetWSAErrorString = "Connection timed out."
 
-        Case 10061
-            GetWSAErrorString = "Connection refused."
+    Case 10061
+        GetWSAErrorString = "Connection refused."
 
-        Case 10062
-            GetWSAErrorString = "Too many levels of symbolic links."
+    Case 10062
+        GetWSAErrorString = "Too many levels of symbolic links."
 
-        Case 10063
-            GetWSAErrorString = "File name too long."
+    Case 10063
+        GetWSAErrorString = "File name too long."
 
-        Case 10064
-            GetWSAErrorString = "Host is down."
+    Case 10064
+        GetWSAErrorString = "Host is down."
 
-        Case 10065
-            GetWSAErrorString = "No route to host."
+    Case 10065
+        GetWSAErrorString = "No route to host."
 
-        Case 10066
-            GetWSAErrorString = "Directory not empty."
+    Case 10066
+        GetWSAErrorString = "Directory not empty."
 
-        Case 10067
-            GetWSAErrorString = "Too many processes."
+    Case 10067
+        GetWSAErrorString = "Too many processes."
 
-        Case 10068
-            GetWSAErrorString = "Too many users."
+    Case 10068
+        GetWSAErrorString = "Too many users."
 
-        Case 10069
-            GetWSAErrorString = "Disk quota exceeded."
+    Case 10069
+        GetWSAErrorString = "Disk quota exceeded."
 
-        Case 10070
-            GetWSAErrorString = "Stale NFS file handle."
+    Case 10070
+        GetWSAErrorString = "Stale NFS file handle."
 
-        Case 10071
-            GetWSAErrorString = "Too many levels of remote in path."
+    Case 10071
+        GetWSAErrorString = "Too many levels of remote in path."
 
-        Case 10091
-            GetWSAErrorString = "Network subsystem is unusable."
+    Case 10091
+        GetWSAErrorString = "Network subsystem is unusable."
 
-        Case 10092
-            GetWSAErrorString = "Winsock DLL cannot support this application."
+    Case 10092
+        GetWSAErrorString = "Winsock DLL cannot support this application."
 
-        Case 10093
-            GetWSAErrorString = "Winsock not initialized."
+    Case 10093
+        GetWSAErrorString = "Winsock not initialized."
 
-        Case 10101
-            GetWSAErrorString = "Disconnect."
+    Case 10101
+        GetWSAErrorString = "Disconnect."
 
-        Case 11001
-            GetWSAErrorString = "Host not found."
+    Case 11001
+        GetWSAErrorString = "Host not found."
 
-        Case 11002
-            GetWSAErrorString = "Nonauthoritative host not found."
+    Case 11002
+        GetWSAErrorString = "Nonauthoritative host not found."
 
-        Case 11003
-            GetWSAErrorString = "Nonrecoverable error."
+    Case 11003
+        GetWSAErrorString = "Nonrecoverable error."
 
-        Case 11004
-            GetWSAErrorString = "Valid name, no data record of requested type."
+    Case 11004
+        GetWSAErrorString = "Valid name, no data record of requested type."
 
-        Case Else:
+    Case Else:
 
     End Select
 
@@ -1047,8 +1047,8 @@ End Function
 'this function DOES work on 16 and 32 bit systems
 Function IrcGetAscIp(ByVal IPL$) As String
 
-    'this function is IRC specific, it expects a long ip stored in Network byte order, in a string
-    'the kind that would be parsed out of a DCC command string
+'this function is IRC specific, it expects a long ip stored in Network byte order, in a string
+'the kind that would be parsed out of a DCC command string
     On Error GoTo IrcGetAscIPError:
 
     Dim lpStr&
@@ -1100,8 +1100,8 @@ End Function
 'this function DOES work on 16 and 32 bit systems
 Function IrcGetLongIp(ByVal AscIp$) As String
 
-    'this function converts an ascii ip string into a long ip in network byte order
-    'and stick it in a string suitable for use in a DCC command.
+'this function converts an ascii ip string into a long ip in network byte order
+'and stick it in a string suitable for use in a DCC command.
     On Error GoTo IrcGetLongIpError:
 
     Dim inn&
@@ -1127,140 +1127,140 @@ End Function
 
 'this function should work on 16 and 32 bit systems
 #If Win16 Then
-    Public Function ListenForConnect(ByVal Port%, ByVal HWndToMsg%, ByVal Enlazar As String) As Integer
+Public Function ListenForConnect(ByVal Port%, ByVal HWndToMsg%, ByVal Enlazar As String) As Integer
 
-        Dim s%, dummy%
-        Dim SelectOps%
-    #ElseIf Win32 Then
-        Public Function ListenForConnect(ByVal Port&, ByVal HWndToMsg&, ByVal Enlazar As String) As Long
+    Dim s%, dummy%
+    Dim SelectOps%
+#ElseIf Win32 Then
+Public Function ListenForConnect(ByVal Port&, ByVal HWndToMsg&, ByVal Enlazar As String) As Long
 
-            Dim s&, dummy&
-            Dim SelectOps&
-        #End If
-        Dim sockin As sockaddr
-        sockin = saZero     'zero out the structure
-        sockin.sin_family = AF_INET
-        sockin.sin_port = htons(Port)
+    Dim s&, dummy&
+    Dim SelectOps&
+#End If
+Dim sockin As sockaddr
+sockin = saZero     'zero out the structure
+sockin.sin_family = AF_INET
+sockin.sin_port = htons(Port)
 
-        If sockin.sin_port = INVALID_SOCKET Then
-            ListenForConnect = INVALID_SOCKET
-            Exit Function
+If sockin.sin_port = INVALID_SOCKET Then
+    ListenForConnect = INVALID_SOCKET
+    Exit Function
 
-        End If
+End If
 
-        If Enlazar = "" Then
-            sockin.sin_addr = htonl(INADDR_ANY)
-        Else
-            sockin.sin_addr = inet_addr(Enlazar)
+If Enlazar = "" Then
+    sockin.sin_addr = htonl(INADDR_ANY)
+Else
+    sockin.sin_addr = inet_addr(Enlazar)
 
-        End If
+End If
 
-        If sockin.sin_addr = INADDR_NONE Then
-            ListenForConnect = INVALID_SOCKET
-            Exit Function
+If sockin.sin_addr = INADDR_NONE Then
+    ListenForConnect = INVALID_SOCKET
+    Exit Function
 
-        End If
+End If
 
-        s = Socket(PF_INET, SOCK_STREAM, 0)
+s = Socket(PF_INET, SOCK_STREAM, 0)
 
-        If s < 0 Then
-            ListenForConnect = INVALID_SOCKET
-            Exit Function
+If s < 0 Then
+    ListenForConnect = INVALID_SOCKET
+    Exit Function
 
-        End If
-    
-        'Agregado por Maraxus
-        'If setsockopt(s, SOL_SOCKET, SO_CONDITIONAL_ACCEPT, True, 2) Then
-        '    LogApiSock ("Error seteando conditional accept")
-        '    Debug.Print "Error seteando conditional accept"
-        'Else
-        '    LogApiSock ("Conditional accept seteado")
-        '    Debug.Print "Conditional accept seteado ^^"
-        'End If
-    
-        If bind(s, sockin, sockaddr_size) Then
-            If s > 0 Then
-                dummy = apiclosesocket(s)
+End If
 
-            End If
+'Agregado por Maraxus
+'If setsockopt(s, SOL_SOCKET, SO_CONDITIONAL_ACCEPT, True, 2) Then
+'    LogApiSock ("Error seteando conditional accept")
+'    Debug.Print "Error seteando conditional accept"
+'Else
+'    LogApiSock ("Conditional accept seteado")
+'    Debug.Print "Conditional accept seteado ^^"
+'End If
 
-            ListenForConnect = INVALID_SOCKET
-            Exit Function
+If bind(s, sockin, sockaddr_size) Then
+    If s > 0 Then
+        dummy = apiclosesocket(s)
 
-        End If
+    End If
 
-        '    SelectOps = FD_READ Or FD_WRITE Or FD_CLOSE Or FD_ACCEPT
-        SelectOps = FD_READ Or FD_CLOSE Or FD_ACCEPT
+    ListenForConnect = INVALID_SOCKET
+    Exit Function
 
-        If WSAAsyncSelect(s, HWndToMsg, ByVal 1025, ByVal SelectOps) Then
-            If s > 0 Then
-                dummy = apiclosesocket(s)
+End If
 
-            End If
+'    SelectOps = FD_READ Or FD_WRITE Or FD_CLOSE Or FD_ACCEPT
+SelectOps = FD_READ Or FD_CLOSE Or FD_ACCEPT
 
-            ListenForConnect = SOCKET_ERROR
-            Exit Function
+If WSAAsyncSelect(s, HWndToMsg, ByVal 1025, ByVal SelectOps) Then
+    If s > 0 Then
+        dummy = apiclosesocket(s)
 
-        End If
-    
-        'If listen(s, 5) Then
-        If listen(s, SOMAXCONN) Then
-            If s > 0 Then
-                dummy = apiclosesocket(s)
+    End If
 
-            End If
+    ListenForConnect = SOCKET_ERROR
+    Exit Function
 
-            ListenForConnect = INVALID_SOCKET
-            Exit Function
+End If
 
-        End If
+'If listen(s, 5) Then
+If listen(s, SOMAXCONN) Then
+    If s > 0 Then
+        dummy = apiclosesocket(s)
 
-        ListenForConnect = s
+    End If
 
-    End Function
+    ListenForConnect = INVALID_SOCKET
+    Exit Function
+
+End If
+
+ListenForConnect = s
+
+End Function
 
 'this function should work on 16 and 32 bit systems
 #If Win16 Then
-    Public Function kSendData(ByVal s%, vMessage As Variant) As Integer
+Public Function kSendData(ByVal s%, vMessage As Variant) As Integer
 
-    #ElseIf Win32 Then
-        Public Function kSendData(ByVal s&, vMessage As Variant) As Long
+#ElseIf Win32 Then
+Public Function kSendData(ByVal s&, vMessage As Variant) As Long
 
-        #End If
-        Dim TheMsg() As Byte, sTemp$
-        TheMsg = ""
+#End If
+Dim TheMsg() As Byte, sTemp$
+TheMsg = ""
 
-        Select Case VarType(vMessage)
+Select Case VarType(vMessage)
 
-            Case 8209   'byte array
-                sTemp = vMessage
-                TheMsg = sTemp
+Case 8209   'byte array
+    sTemp = vMessage
+    TheMsg = sTemp
 
-            Case 8      'string, if we recieve a string, its assumed we are linemode
-                #If Win32 Then
-                    sTemp = StrConv(vMessage, vbFromUnicode)
-                #Else
-                    sTemp = vMessage
-                #End If
+Case 8      'string, if we recieve a string, its assumed we are linemode
+    #If Win32 Then
+        sTemp = StrConv(vMessage, vbFromUnicode)
+    #Else
+        sTemp = vMessage
+    #End If
 
-            Case Else
-                sTemp = CStr(vMessage)
-                #If Win32 Then
-                    sTemp = StrConv(vMessage, vbFromUnicode)
-                #Else
-                    sTemp = vMessage
-                #End If
+Case Else
+    sTemp = CStr(vMessage)
+    #If Win32 Then
+        sTemp = StrConv(vMessage, vbFromUnicode)
+    #Else
+        sTemp = vMessage
+    #End If
 
-        End Select
+End Select
 
-        TheMsg = sTemp
+TheMsg = sTemp
 
-        If UBound(TheMsg) > -1 Then
-            kSendData = send(s, TheMsg(0), UBound(TheMsg) + 1, 0)
+If UBound(TheMsg) > -1 Then
+    kSendData = send(s, TheMsg(0), UBound(TheMsg) + 1, 0)
 
-        End If
+End If
 
-    End Function
+End Function
 
 Public Function SockAddressToString(sa As sockaddr) As String
 

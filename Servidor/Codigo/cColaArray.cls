@@ -14,12 +14,12 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private m_maxelem   As Long
+Private m_maxelem As Long
 
-Private m_array()   As String
-Private m_lastelem  As Integer
+Private m_array() As String
+Private m_lastelem As Integer
 Private m_firstelem As Integer
-Private m_size      As Integer
+Private m_size As Integer
 
 Public Function IsEmpty() As Boolean
 
@@ -29,7 +29,7 @@ End Function
 
 Public Function IsFull() As Boolean
 
-    'IsFull = m_lastelem = m_maxelem
+'IsFull = m_lastelem = m_maxelem
     IsFull = m_size = m_maxelem
 
 End Function
@@ -37,15 +37,15 @@ End Function
 Public Function Push(ByVal aString As String) As Boolean
 
     If Not Me.IsFull Then
-    
+
         If Me.IsEmpty Then m_firstelem = 1
-    
+
         m_lastelem = m_lastelem + 1
 
         If (m_lastelem > m_maxelem) Then m_lastelem = m_lastelem - m_maxelem
         m_size = m_size + 1
         m_array(m_lastelem) = aString
-    
+
         Push = True
     Else
         Push = False
@@ -57,13 +57,13 @@ End Function
 Public Function Pop() As String
 
     If Not Me.IsEmpty Then
-    
+
         Pop = m_array(m_firstelem)
         m_firstelem = m_firstelem + 1
 
         If (m_firstelem > m_maxelem) Then m_firstelem = m_firstelem - m_maxelem
         m_size = m_size - 1
-    
+
         'If m_firstelem > m_lastelem And m_size = 0 Then
         If m_size = 0 Then
             m_lastelem = 0
@@ -74,7 +74,7 @@ Public Function Pop() As String
 
     Else
         Pop = ""
-    
+
     End If
 
 End Function

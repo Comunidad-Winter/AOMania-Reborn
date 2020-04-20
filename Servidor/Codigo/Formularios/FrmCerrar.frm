@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "COMCTL32.OCX"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
 Begin VB.Form FrmCerrar 
    Caption         =   "Form1"
    ClientHeight    =   3135
@@ -40,43 +40,43 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Form_Load()
-      Dim i As Integer
-      
-      For i = 1 To LastNPC
-          
-          Select Case Npclist(i).Numero
-          
-                 Case NpcYetiOscura, NpcYeti, NpcCleopatra, NpcReyScorpion, NpcDarkSeth, NpcTiburonBlanco, _
-                          NpcElfica, NpcGranDragonRojo, NpcNosfe, NpcThorn, NpcDragonAlado, NPC_CENTINELA_TIERRA
-                          Call QuitarNPC(i)
-                  
-                  Case NpcBruja
-                          If Npclist(i).pos.Map = MapaCasaAbandonada1 Then
-                             Call QuitarNPC(i)
-                          End If
-                  
-          End Select
-          
-      Next i
-      
-      DoEvents
-      ProgressBar1.value = 20
-      
-      Call GuardarUsuarios
-      DoEvents
-      ProgressBar1.value = 40
-      
-      Call DoBackUp
-      
-      DoEvents
-      ProgressBar1.value = 99
-      
-      Dim f
-      
+    Dim i As Integer
+
+    For i = 1 To LastNPC
+
+        Select Case Npclist(i).Numero
+
+        Case NpcYetiOscura, NpcYeti, NpcCleopatra, NpcReyScorpion, NpcDarkSeth, NpcTiburonBlanco, _
+             NpcElfica, NpcGranDragonRojo, NpcNosfe, NpcThorn, NpcDragonAlado, NPC_CENTINELA_TIERRA
+            Call QuitarNPC(i)
+
+        Case NpcBruja
+            If Npclist(i).pos.Map = MapaCasaAbandonada1 Then
+                Call QuitarNPC(i)
+            End If
+
+        End Select
+
+    Next i
+
+    DoEvents
+    ProgressBar1.value = 20
+
+    Call GuardarUsuarios
+    DoEvents
+    ProgressBar1.value = 40
+
+    Call DoBackUp
+
+    DoEvents
+    ProgressBar1.value = 99
+
+    Dim f
+
     For Each f In Forms
 
-         Unload f
-     Next
-      
-      
+        Unload f
+    Next
+
+
 End Sub

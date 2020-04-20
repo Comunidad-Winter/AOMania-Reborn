@@ -22,24 +22,26 @@ Option Explicit
 ' que la performance de estas rutinas NO es critica.
 ' by el oso :p
 
-Private p_GuildName             As String
-Private p_OnlineMembers         As Collection   'Array de UserIndexes!
-Private p_GMsOnline             As Collection
-Private p_PropuestasDePaz       As Collection
-Private p_PropuestasDeAlianza   As Collection
-Private p_IteradorRelaciones    As Integer
+Private p_GuildName As String
+Private p_OnlineMembers As Collection    'Array de UserIndexes!
+Private p_GMsOnline As Collection
+Private p_PropuestasDePaz As Collection
+Private p_PropuestasDeAlianza As Collection
+Private p_IteradorRelaciones As Integer
 Private p_IteradorOnlineMembers As Integer
-Private p_IteradorPropuesta     As Integer
-Private p_IteradorOnlineGMs     As Integer
-Private p_GuildNumber           As Integer      'Numero de guild en el mundo
-Private p_Relaciones()          As RELACIONES_GUILD 'array de relaciones con los otros clanes
-Private GUILDINFOFILE           As String
-Private GUILDPATH               As String       'aca pq me es mas comodo setearlo y pq en ningun disenio
-Private MEMBERSFILE             As String       'decente la capa de arriba se entera donde estan
-Private SOLICITUDESFILE         As String       'los datos fisicamente
-Private PROPUESTASFILE          As String
-Private RELACIONESFILE          As String
-Private VOTACIONESFILE          As String
+Private p_IteradorPropuesta As Integer
+Private p_IteradorOnlineGMs As Integer
+Private p_GuildNumber As Integer    'Numero de guild en el mundo
+Private p_Relaciones() As RELACIONES_GUILD    'array de relaciones con los otros clanes
+Private GUILDINFOFILE As String
+Private GUILDPATH As String    'aca pq me es mas comodo setearlo y pq en ningun disenio
+Private MEMBERSFILE As String    'decente la capa de arriba se entera donde estan
+Private SOLICITUDESFILE As String    'los datos fisicamente
+Private PROPUESTASFILE As String
+Private RELACIONESFILE As String
+Private VOTACIONESFILE As String
+Public TieneParaDesafiar As Boolean
+Public ClanPideDesafio As String
 
 Private Const NEWSLENGTH = 1024
 Private Const DESCLENGTH = 256
@@ -117,11 +119,11 @@ Public Sub Inicializar(ByVal GuildName As String, ByVal GuildNumber As Integer)
 
             Select Case String2Relacion(Trim$(GetVar(PROPUESTASFILE, CStr(i), "Tipo")))
 
-                Case RELACIONES_GUILD.ALIADOS
-                    p_PropuestasDeAlianza.Add i
+            Case RELACIONES_GUILD.ALIADOS
+                p_PropuestasDeAlianza.Add i
 
-                Case RELACIONES_GUILD.PAZ
-                    p_PropuestasDePaz.Add i
+            Case RELACIONES_GUILD.PAZ
+                p_PropuestasDePaz.Add i
 
             End Select
 
@@ -209,22 +211,22 @@ End Function
 
 Public Function GetMemberList(ByVal Separador As String) As String
 
-    Dim OldQ    As Integer
+    Dim OldQ As Integer
     Dim TempStr As String
 
     OldQ = Me.CantidadDeMiembros
-    
+
     While OldQ > 0
 
         TempStr = TempStr & GetVar(MEMBERSFILE, "Members", "Member" & OldQ) & Separador
         OldQ = OldQ - 1
     Wend
-    
+
     If Len(TempStr) > 0 Then
         TempStr = Left$(TempStr, Len(TempStr) - Len(Separador))
 
     End If
-    
+
     GetMemberList = TempStr
 
 End Function
@@ -253,11 +255,11 @@ End Sub
 
 Public Sub AceptarNuevoMiembro(ByRef nombre As String)
 
-    Dim OldQ   As Integer
-    Dim CantP  As Integer
+    Dim OldQ As Integer
+    Dim CantP As Integer
     Dim CantPs As String
-    Dim OldQs  As String
-    
+    Dim OldQs As String
+
     If Dir(CharPath & nombre & ".chr") <> vbNullString Then
         Call WriteVar(CharPath & nombre & ".chr", "GUILD", "GUILDINDEX", p_GuildNumber)
         Call WriteVar(CharPath & nombre & ".chr", "GUILD", "AspiranteA", "0")
@@ -286,9 +288,9 @@ End Sub
 
 Public Sub ExpulsarMiembro(ByRef nombre As String)
 
-    Dim OldQ      As Integer
-    Dim Temps     As String
-    Dim i         As Integer
+    Dim OldQ As Integer
+    Dim Temps As String
+    Dim i As Integer
     Dim EsMiembro As Boolean
     Dim MiembroDe As String
 
@@ -302,7 +304,7 @@ Public Sub ExpulsarMiembro(ByRef nombre As String)
             i = i + 1
         Wend
         EsMiembro = i <= OldQ
-        
+
         If EsMiembro Then
             Call WriteVar(CharPath & nombre & ".chr", "GUILD", "GuildIndex", vbNullString)
 
@@ -332,7 +334,7 @@ Public Sub ExpulsarMiembro(ByRef nombre As String)
         End If
 
     End If
-    
+
     Call WriteVar(CharPath & nombre & ".chr", "GUILD", "Miembro", "")
 
 End Sub
@@ -343,22 +345,22 @@ End Sub
 
 Public Function GetAspirantes(ByVal Separador As String) As String
 
-    Dim OldQ    As Integer
+    Dim OldQ As Integer
     Dim TempStr As String
 
     OldQ = Me.CantidadAspirantes()
-    
+
     While OldQ > 0
 
         TempStr = TempStr & GetVar(SOLICITUDESFILE, "SOLICITUD" & OldQ, "Nombre") & Separador
         OldQ = OldQ - 1
     Wend
-    
+
     If Len(TempStr) > 0 Then
         TempStr = Left$(TempStr, Len(TempStr) - Len(Separador))
 
     End If
-    
+
     GetAspirantes = TempStr
 
 End Function
@@ -387,11 +389,11 @@ End Function
 
 Public Function NumeroDeAspirante(ByRef nombre As String) As Integer
 
-    Dim i       As Integer
+    Dim i As Integer
     Dim CantAsp As Integer
-    
+
     NumeroDeAspirante = 0
-    
+
     For i = 1 To MAXASPIRANTES
 
         If UCase$(Trim$(GetVar(SOLICITUDESFILE, "SOLICITUD" & i, "Nombre"))) = UCase$(nombre) Then
@@ -406,8 +408,8 @@ End Function
 
 Public Sub NuevoAspirante(ByRef nombre As String, ByRef Peticion As String)
 
-    Dim i     As Integer
-    Dim OldQ  As String
+    Dim i As Integer
+    Dim OldQ As String
     Dim OldQI As Integer
 
     OldQ = GetVar(SOLICITUDESFILE, "INIT", "CantSolicitudes")
@@ -436,10 +438,10 @@ End Sub
 
 Public Sub RetirarAspirante(ByRef nombre As String, ByRef NroAspirante As Integer)
 
-    Dim OldQ    As String
-    Dim OldQI   As String
+    Dim OldQ As String
+    Dim OldQI As String
     Dim Pedidos As String
-    Dim i       As Integer
+    Dim i As Integer
 
     OldQ = GetVar(SOLICITUDESFILE, "INIT", "CantSolicitudes")
 
@@ -465,17 +467,17 @@ Public Sub RetirarAspirante(ByRef nombre As String, ByRef NroAspirante As Intege
         Call WriteVar(CharPath & nombre & ".chr", "GUILD", "Pedidos", Pedidos)
 
     End If
-    
+
     Call WriteVar(SOLICITUDESFILE, "INIT", "CantSolicitudes", OldQI - 1)
 
     For i = NroAspirante To modGuilds.MAXASPIRANTES - 1
         Call WriteVar(SOLICITUDESFILE, "SOLICITUD" & i, "Nombre", GetVar(SOLICITUDESFILE, "SOLICITUD" & (i + 1), "Nombre"))
         Call WriteVar(SOLICITUDESFILE, "SOLICITUD" & i, "Detalle", GetVar(SOLICITUDESFILE, "SOLICITUD" & (i + 1), "Detalle"))
     Next i
-    
+
     Call WriteVar(SOLICITUDESFILE, "SOLICITUD" & modGuilds.MAXASPIRANTES, "Nombre", vbNullString)
     Call WriteVar(SOLICITUDESFILE, "SOLICITUD" & modGuilds.MAXASPIRANTES, "Detalle", vbNullString)
-    
+
 End Sub
 
 Public Sub InformarRechazoEnChar(ByRef nombre As String, ByRef Detalles As String)
@@ -523,9 +525,9 @@ End Function
 Public Sub SetGuildNews(ByRef News As String)
 
     Call ReplaceInvalidChars(News)
-    
+
     News = Left$(News, NEWSLENGTH)
-    
+
     Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "GuildNews", News)
 
 End Sub
@@ -540,7 +542,7 @@ Public Sub SetDesc(ByRef Desc As String)
 
     Call ReplaceInvalidChars(Desc)
     Desc = Left$(Desc, DESCLENGTH)
-    
+
     Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Desc", Desc)
 
 End Sub
@@ -568,7 +570,7 @@ End Function
 Public Sub AbrirElecciones()
 
     Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "EleccionesAbiertas", "1")
-    Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "EleccionesFinalizan", DateAdd("d", 1, Now))
+    Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "EleccionesFinalizan", DateAdd("d", 1, now))
     Call WriteVar(VOTACIONESFILE, "INIT", "NumVotos", "0")
 
 End Sub
@@ -583,7 +585,7 @@ End Sub
 
 Public Sub ContabilizarVoto(ByRef Votante As String, ByRef Votado As String)
 
-    Dim q     As Integer
+    Dim q As Integer
     Dim Temps As String
 
     Temps = GetVar(VOTACIONESFILE, "INIT", "NumVotos")
@@ -601,13 +603,13 @@ End Function
 
 Private Function ContarVotos(ByRef CantGanadores As Integer) As String
 
-    Dim q     As Integer
-    Dim i     As Integer
+    Dim q As Integer
+    Dim i As Integer
     Dim Temps As String
     Dim tempV As String
     Dim tempN As String
     Dim tempW As String
-    Dim d     As diccionario
+    Dim d As diccionario
 
     On Error GoTo errh
 
@@ -619,14 +621,14 @@ Private Function ContarVotos(ByRef CantGanadores As Integer) As String
     If q > 0 Then
         'el diccionario tiene clave el elegido y valor la #votos
         Set d = New diccionario
-        
+
         For i = 1 To q
             'miembro del clan
             Temps = GetVar(MEMBERSFILE, "MEMBERS", "Member" & i)
-            
+
             'a quienvoto
             tempV = GetVar(VOTACIONESFILE, "VOTOS", Temps)
-            
+
             'si voto a alguien contabilizamos el voto
             If tempV <> vbNullString Then
                 If Not IsNull(d.At(tempV)) Then  'cuantos votos tiene?
@@ -639,14 +641,14 @@ Private Function ContarVotos(ByRef CantGanadores As Integer) As String
             End If
 
         Next i
-    
+
         'quien quedo con mas votos, y cuantos tuvieron esos votos?
         ContarVotos = d.MayorValor(CantGanadores)
-    
+
         Set d = Nothing
 
     End If
-    
+
     Exit Function
 errh:
     LogError ("clsClan.Contarvotos: " & Err.Description)
@@ -659,19 +661,19 @@ End Function
 Public Function RevisarElecciones() As Boolean
 
     Dim FechaSufragio As Date
-    Dim Temps         As String
-    Dim Ganador       As String
+    Dim Temps As String
+    Dim Ganador As String
     Dim CantGanadores As Integer
 
     RevisarElecciones = False
     Temps = Trim$(GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "EleccionesFinalizan"))
-    
+
     If Temps = vbNullString Then Exit Function
-    
+
     If IsDate(Temps) Then
         FechaSufragio = CDate(Temps)
 
-        If FechaSufragio < Now Then     'toca!
+        If FechaSufragio < now Then     'toca!
             Ganador = ContarVotos(CantGanadores)
 
             If CantGanadores > 1 Then
@@ -692,9 +694,9 @@ Public Function RevisarElecciones() As Boolean
                 Call SetGuildNews("*El período de votación se cerró sin votos*")
 
             End If
-            
+
             Call CerrarElecciones
-            
+
         End If
 
     Else
@@ -714,13 +716,13 @@ Public Property Get CantidadPropuestas(ByVal Tipo As RELACIONES_GUILD) As Intege
 
     Select Case Tipo
 
-        Case RELACIONES_GUILD.ALIADOS
-            CantidadPropuestas = p_PropuestasDeAlianza.Count
+    Case RELACIONES_GUILD.ALIADOS
+        CantidadPropuestas = p_PropuestasDeAlianza.Count
 
-        Case RELACIONES_GUILD.GUERRA
-        
-        Case RELACIONES_GUILD.PAZ
-            CantidadPropuestas = p_PropuestasDePaz.Count
+    Case RELACIONES_GUILD.GUERRA
+
+    Case RELACIONES_GUILD.PAZ
+        CantidadPropuestas = p_PropuestasDePaz.Count
 
     End Select
 
@@ -767,11 +769,11 @@ Public Sub SetPropuesta(ByVal Tipo As RELACIONES_GUILD, ByVal OtroGuild As Integ
 
     Select Case Tipo
 
-        Case RELACIONES_GUILD.ALIADOS
-            p_PropuestasDeAlianza.Add OtroGuild
+    Case RELACIONES_GUILD.ALIADOS
+        p_PropuestasDeAlianza.Add OtroGuild
 
-        Case RELACIONES_GUILD.PAZ
-            p_PropuestasDePaz.Add OtroGuild
+    Case RELACIONES_GUILD.PAZ
+        p_PropuestasDePaz.Add OtroGuild
 
     End Select
 
@@ -795,12 +797,12 @@ Public Sub AnularPropuestas(ByVal OtroGuild As Integer)
         If p_PropuestasDeAlianza.Item(i) = OtroGuild Then p_PropuestasDeAlianza.Remove (i)
         Exit Sub
     Next i
-    
+
 End Sub
 
 Public Function GetPropuesta(ByVal OtroGuild As Integer, ByRef Tipo As RELACIONES_GUILD) As String
 
-    'trae la solicitd que haya, no valida si es actual o de que tipo es
+'trae la solicitd que haya, no valida si es actual o de que tipo es
     GetPropuesta = GetVar(PROPUESTASFILE, CStr(OtroGuild), "Detalle")
     Tipo = String2Relacion(GetVar(PROPUESTASFILE, CStr(OtroGuild), "Tipo"))
 
@@ -814,29 +816,29 @@ Public Function HayPropuesta(ByVal OtroGuild As Integer, ByRef Tipo As RELACIONE
 
     Select Case Tipo
 
-        Case RELACIONES_GUILD.ALIADOS
+    Case RELACIONES_GUILD.ALIADOS
 
-            For i = 1 To p_PropuestasDeAlianza.Count
+        For i = 1 To p_PropuestasDeAlianza.Count
 
-                If p_PropuestasDeAlianza.Item(i) = OtroGuild Then
-                    HayPropuesta = True
+            If p_PropuestasDeAlianza.Item(i) = OtroGuild Then
+                HayPropuesta = True
 
-                End If
+            End If
 
-            Next i
+        Next i
 
-        Case RELACIONES_GUILD.PAZ
+    Case RELACIONES_GUILD.PAZ
 
-            For i = 1 To p_PropuestasDePaz.Count
+        For i = 1 To p_PropuestasDePaz.Count
 
-                If p_PropuestasDePaz.Item(i) = OtroGuild Then
-                    HayPropuesta = True
+            If p_PropuestasDePaz.Item(i) = OtroGuild Then
+                HayPropuesta = True
 
-                End If
+            End If
 
-            Next i
+        Next i
 
-        Case RELACIONES_GUILD.GUERRA
+    Case RELACIONES_GUILD.GUERRA
 
     End Select
 
@@ -855,39 +857,39 @@ End Function
 '
 
 Public Function Iterador_ProximaPropuesta(ByVal Tipo As RELACIONES_GUILD) As Integer
-    
+
     Iterador_ProximaPropuesta = 0
 
     Select Case Tipo
 
-        Case RELACIONES_GUILD.ALIADOS
+    Case RELACIONES_GUILD.ALIADOS
 
-            If p_IteradorPropuesta < p_PropuestasDeAlianza.Count Then
-                p_IteradorPropuesta = p_IteradorPropuesta + 1
-                Iterador_ProximaPropuesta = p_PropuestasDeAlianza.Item(p_IteradorPropuesta)
-            Else
-                p_IteradorPropuesta = 0
-                Iterador_ProximaPropuesta = 0
+        If p_IteradorPropuesta < p_PropuestasDeAlianza.Count Then
+            p_IteradorPropuesta = p_IteradorPropuesta + 1
+            Iterador_ProximaPropuesta = p_PropuestasDeAlianza.Item(p_IteradorPropuesta)
+        Else
+            p_IteradorPropuesta = 0
+            Iterador_ProximaPropuesta = 0
 
-            End If
+        End If
 
-        Case RELACIONES_GUILD.PAZ
+    Case RELACIONES_GUILD.PAZ
 
-            If p_IteradorPropuesta < p_PropuestasDePaz.Count Then
-                p_IteradorPropuesta = p_IteradorPropuesta + 1
-                Iterador_ProximaPropuesta = p_PropuestasDePaz.Item(p_IteradorPropuesta)
-            Else
-                p_IteradorPropuesta = 0
-                Iterador_ProximaPropuesta = 0
+        If p_IteradorPropuesta < p_PropuestasDePaz.Count Then
+            p_IteradorPropuesta = p_IteradorPropuesta + 1
+            Iterador_ProximaPropuesta = p_PropuestasDePaz.Item(p_IteradorPropuesta)
+        Else
+            p_IteradorPropuesta = 0
+            Iterador_ProximaPropuesta = 0
 
-            End If
+        End If
 
     End Select
-    
+
 End Function
 
 Public Function m_Iterador_ProximoUserIndex() As Integer
-    
+
     If p_IteradorOnlineMembers < p_OnlineMembers.Count Then
         p_IteradorOnlineMembers = p_IteradorOnlineMembers + 1
         m_Iterador_ProximoUserIndex = p_OnlineMembers.Item(p_IteradorOnlineMembers)
@@ -900,7 +902,7 @@ Public Function m_Iterador_ProximoUserIndex() As Integer
 End Function
 
 Public Function Iterador_ProximoGM() As Integer
-    
+
     If p_IteradorOnlineGMs < p_GMsOnline.Count Then
         p_IteradorOnlineGMs = p_IteradorOnlineGMs + 1
         Iterador_ProximoGM = p_GMsOnline.Item(p_IteradorOnlineGMs)
@@ -913,9 +915,9 @@ Public Function Iterador_ProximoGM() As Integer
 End Function
 
 Public Function Iterador_ProximaRelacion(ByVal r As RELACIONES_GUILD) As Integer
-    
+
     While p_IteradorRelaciones < UBound(p_Relaciones)
-        
+
         p_IteradorRelaciones = p_IteradorRelaciones + 1
 
         If p_Relaciones(p_IteradorRelaciones) = r Then
@@ -977,79 +979,79 @@ End Sub
 
 Public Sub SetAddPunto(ByVal UserIndex As Integer)
 
-   Dim PuntosClan As Long
-   
-   PuntosClan = val(val(GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep")) + 1)
-   
-   Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep", PuntosClan)
-   
-   PuntosClan = val(UserList(UserIndex).Clan.PuntosClan + 1)
-   
-   UserList(UserIndex).Clan.PuntosClan = PuntosClan
-   
+    Dim PuntosClan As Long
+
+    PuntosClan = val(val(GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep")) + 1)
+
+    Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep", PuntosClan)
+
+    PuntosClan = val(UserList(UserIndex).Clan.PuntosClan + 1)
+
+    UserList(UserIndex).Clan.PuntosClan = PuntosClan
+
 End Sub
 
 Public Sub SetCastleAddPunto(ByVal UserIndex As Integer)
 
-   Dim PuntosClan As Long
-   
-   PuntosClan = val(val(GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep")) + 5)
-   
-   Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep", PuntosClan)
-   
-   PuntosClan = val(UserList(UserIndex).Clan.PuntosClan + 5)
-   
-   UserList(UserIndex).Clan.PuntosClan = PuntosClan
-   
+    Dim PuntosClan As Long
+
+    PuntosClan = val(val(GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep")) + 5)
+
+    Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep", PuntosClan)
+
+    PuntosClan = val(UserList(UserIndex).Clan.PuntosClan + 5)
+
+    UserList(UserIndex).Clan.PuntosClan = PuntosClan
+
 End Sub
 
 Public Sub SetDelPunto(ByVal UserIndex As Integer)
 
-   Dim PuntosClan As Long
-   
-   PuntosClan = val(val(GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep")) - 1)
-   
-   Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep", PuntosClan)
-    
+    Dim PuntosClan As Long
+
+    PuntosClan = val(val(GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep")) - 1)
+
+    Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Rep", PuntosClan)
+
     If UserList(UserIndex).Clan.PuntosClan >= 0 Then
-   
-   PuntosClan = val(UserList(UserIndex).Clan.PuntosClan - 1)
-   
-   UserList(UserIndex).Clan.PuntosClan = PuntosClan
-   
-   End If
-   
+
+        PuntosClan = val(UserList(UserIndex).Clan.PuntosClan - 1)
+
+        UserList(UserIndex).Clan.PuntosClan = PuntosClan
+
+    End If
+
 End Sub
 
 Public Sub SetPassword(ByVal Password As String)
 
-  Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Password", Password)
-  
+    Call WriteVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Password", Password)
+
 End Sub
 
 Public Function ViewPassword(ByVal UserIndex As Integer, ByVal Password As String) As Boolean
-       
-       Dim GuildLeader As String
-       Dim UserName As String
-       Dim Pass As String
-       
-       GuildLeader = GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Leader")
-       UserName = UserList(UserIndex).Name
-       Pass = GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Password")
-       
-       If UCase$(GuildLeader) = UCase$(UserName) Then
-           ViewPassword = True
-           Else
-           ViewPassword = False
-           Exit Function
-       End If
-       
-       If Pass = Password Then
-          ViewPassword = True
-          Else
-          ViewPassword = False
-          Exit Function
-       End If
-       
-       ViewPassword = True
+
+    Dim GuildLeader As String
+    Dim UserName As String
+    Dim Pass As String
+
+    GuildLeader = GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Leader")
+    UserName = UserList(UserIndex).Name
+    Pass = GetVar(GUILDINFOFILE, "GUILD" & p_GuildNumber, "Password")
+
+    If UCase$(GuildLeader) = UCase$(UserName) Then
+        ViewPassword = True
+    Else
+        ViewPassword = False
+        Exit Function
+    End If
+
+    If Pass = Password Then
+        ViewPassword = True
+    Else
+        ViewPassword = False
+        Exit Function
+    End If
+
+    ViewPassword = True
 End Function

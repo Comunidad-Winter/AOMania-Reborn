@@ -551,11 +551,11 @@ Const WM_MBUTTONUP = &H208
 Const WM_MBUTTONDBLCLK = &H209
 
 Private Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hWnd As _
-    Long, lpdwProcessId As Long) As Long
+                                                                Long, lpdwProcessId As Long) As Long
 
 Private Declare Function SetCapture Lib "user32" (ByVal hWnd As Long) As Long
 Private Declare Function Shell_NotifyIconA Lib "SHELL32" (ByVal dwMessage As _
-    Long, lpData As NOTIFYICONDATA) As Integer
+                                                          Long, lpData As NOTIFYICONDATA) As Integer
 Dim lBytes As Long
 Public flag As Boolean
 Dim lFileSize As Long
@@ -591,14 +591,14 @@ End Function
 '
 '                If .Counters.IdleCount >= IdleLimit Then
 '                    Call SendData(SendTarget.toindex, iUserIndex, 0, _
-'                            "Has sido desconectado por permanecer mas de 30 minutos inactivo.")
+                     '                            "Has sido desconectado por permanecer mas de 30 minutos inactivo.")
 '
 '                    'mato los comercios seguros
 '                    If .ComUsu.DestUsu > 0 Then
 '                        If UserList(.ComUsu.DestUsu).flags.UserLogged Then
 '                            If UserList(.ComUsu.DestUsu).ComUsu.DestUsu = iUserIndex Then
 '                                Call SendData(SendTarget.toindex, .ComUsu.DestUsu, 0, _
-'                                        "||Comercio cancelado por el otro usuario" & FONTTYPE_TALK)
+                                 '                                        "||Comercio cancelado por el otro usuario" & FONTTYPE_TALK)
 '                                Call FinComerciarUsu(.ComUsu.DestUsu)
 '
 '                            End If
@@ -641,11 +641,11 @@ Private Sub AutoSave_Timer()
     On Error GoTo errhandler
 
     'fired every minute
-    Static Minutos          As Long
+    Static Minutos As Long
     Static MinutosLatsClean As Long
-    Static MinsPjesSave     As Long
+    Static MinsPjesSave As Long
 
-    Dim i                   As Long
+    Dim i As Long
 
     Minutos = Minutos + 1
     MinsPjesSave = MinsPjesSave + 1
@@ -654,7 +654,7 @@ Private Sub AutoSave_Timer()
     '¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
     Call ModAreas.AreasOptimizacion
     '¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
-    
+
     Call SpendTime
     Call RecompensaCastillos
 
@@ -662,18 +662,18 @@ Private Sub AutoSave_Timer()
     'Call SendData(SendTarget.toall, 0, 0, "||CharSave en 1 minuto ..." & FONTTYPE_VENENO)
     'Else
     If MinsPjesSave >= MinutosGuardarUsuarios Then
-        
+
         Call GuardarUsuarios(False)
         MinsPjesSave = 0
 
     End If
 
     If Minutos = MinutosWs - 1 Then
-        Call SendData(SendTarget.toall, 0, 0, "||Worldsave y Limpieza en 1 minuto ..." & FONTTYPE_VENENO)
+        Call SendData(SendTarget.ToAll, 0, 0, "||Worldsave y Limpieza en 1 minuto ..." & FONTTYPE_VENENO)
 
     ElseIf Minutos >= MinutosWs Then
         Call aClon.VaciarColeccion
-        
+
         Call GuardarUsuarios
         'WorldSave
         Call DoBackUp
@@ -684,7 +684,7 @@ Private Sub AutoSave_Timer()
     End If
 
     If MinutosLatsClean = MinutosLimpia - 1 Then
-        Call SendData(SendTarget.toall, 0, 0, "||Limpieza del mundo en 1 minuto ..." & FONTTYPE_VENENO)
+        Call SendData(SendTarget.ToAll, 0, 0, "||Limpieza del mundo en 1 minuto ..." & FONTTYPE_VENENO)
 
     ElseIf MinutosLatsClean >= MinutosLimpia Then
         MinutosLatsClean = 0
@@ -712,13 +712,13 @@ End Sub
 
 
 Private Sub Timer_Sistemas_Timer()
-    
+
     On Error GoTo errordm:
-    
+
     Dim iUserIndex As Integer
-    
+
     Call Timer_GuerradeBanda
-    
+
     For iUserIndex = 1 To LastUser
 
         With UserList(iUserIndex)
@@ -728,50 +728,50 @@ Private Sub Timer_Sistemas_Timer()
 
                 '¿User valido?
                 If .ConnIDValida And .flags.UserLogged Then
-                
-                   If .Castillos.Norte = 1 Then
-                      If .Castillos.tNorte > 0 Then
-                          .Castillos.tNorte = .Castillos.tNorte - 1
-                          Else
-                          .Castillos.Norte = 0
-                          .Castillos.tNorte = 0
-                      End If
-                   ElseIf .Castillos.Oeste = 1 Then
-                      If .Castillos.tOeste > 0 Then
-                          .Castillos.tOeste = .Castillos.tOeste - 1
-                          Else
-                          .Castillos.Oeste = 0
-                          .Castillos.tOeste = 0
-                      End If
-                   ElseIf .Castillos.Este = 1 Then
-                      If .Castillos.tEste > 0 Then
-                          .Castillos.tEste = .Castillos.tEste - 1
-                          Else
-                          .Castillos.Este = 0
-                          .Castillos.tEste = 0
-                      End If
-                   ElseIf .Castillos.Sur = 1 Then
-                       If .Castillos.tSur > 0 Then
-                          .Castillos.tSur = .Castillos.tSur - 1
-                          Else
-                          .Castillos.Sur = 0
-                          .Castillos.tSur = 0
-                      End If
-                   ElseIf .Castillos.Fortaleza = 1 Then
+
+                    If .Castillos.Norte = 1 Then
+                        If .Castillos.tNorte > 0 Then
+                            .Castillos.tNorte = .Castillos.tNorte - 1
+                        Else
+                            .Castillos.Norte = 0
+                            .Castillos.tNorte = 0
+                        End If
+                    ElseIf .Castillos.Oeste = 1 Then
+                        If .Castillos.tOeste > 0 Then
+                            .Castillos.tOeste = .Castillos.tOeste - 1
+                        Else
+                            .Castillos.Oeste = 0
+                            .Castillos.tOeste = 0
+                        End If
+                    ElseIf .Castillos.Este = 1 Then
+                        If .Castillos.tEste > 0 Then
+                            .Castillos.tEste = .Castillos.tEste - 1
+                        Else
+                            .Castillos.Este = 0
+                            .Castillos.tEste = 0
+                        End If
+                    ElseIf .Castillos.Sur = 1 Then
+                        If .Castillos.tSur > 0 Then
+                            .Castillos.tSur = .Castillos.tSur - 1
+                        Else
+                            .Castillos.Sur = 0
+                            .Castillos.tSur = 0
+                        End If
+                    ElseIf .Castillos.Fortaleza = 1 Then
                         If .Castillos.tFortaleza > 0 Then
-                          .Castillos.tFortaleza = .Castillos.tFortaleza - 1
-                          Else
-                          .Castillos.Fortaleza = 0
-                          .Castillos.tFortaleza = 0
-                      End If
-                   End If
-                
-                
+                            .Castillos.tFortaleza = .Castillos.tFortaleza - 1
+                        Else
+                            .Castillos.Fortaleza = 0
+                            .Castillos.tFortaleza = 0
+                        End If
+                    End If
+
+
                 End If
-            
-          End If
-          
-          End With
+
+            End If
+
+        End With
     Next iUserIndex
 
 errordm:
@@ -796,7 +796,7 @@ Private Sub CMDDUMP_Click()
 
     For i = 1 To MaxUsers
         Call LogCriticEvent(i & ") ConnID: " & UserList(i).ConnID & ". ConnidValida: " & UserList(i).ConnIDValida & " Name: " & UserList(i).Name & _
-                " UserLogged: " & UserList(i).flags.UserLogged)
+                          " UserLogged: " & UserList(i).flags.UserLogged)
     Next i
 
     Call LogCriticEvent("Lastuser: " & LastUser & " NextOpenUser: " & NextOpenUser)
@@ -804,7 +804,7 @@ Private Sub CMDDUMP_Click()
 End Sub
 
 Private Sub Command1_Click()
-    Call SendData(SendTarget.toall, 0, 0, "||AoMania> " & BroadMsg.Text & FONTTYPE_SERVER)
+    Call SendData(SendTarget.ToAll, 0, 0, "||AoMania> " & BroadMsg.Text & FONTTYPE_SERVER)
 
 End Sub
 
@@ -820,7 +820,7 @@ Public Sub InitMain(ByVal f As Byte)
 End Sub
 
 Private Sub Command2_Click()
-    Call SendData(SendTarget.toall, 0, 0, "!!" & BroadMsg.Text & ENDC)
+    Call SendData(SendTarget.ToAll, 0, 0, "!!" & BroadMsg.Text & ENDC)
 
 End Sub
 
@@ -853,21 +853,21 @@ Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y A
 
         Select Case X \ Screen.TwipsPerPixelX
 
-            Case WM_LBUTTONDBLCLK
-                WindowState = vbNormal
-                Visible = True
-                Dim hProcess As Long
-                GetWindowThreadProcessId hWnd, hProcess
-                AppActivate hProcess
+        Case WM_LBUTTONDBLCLK
+            WindowState = vbNormal
+            Visible = True
+            Dim hProcess As Long
+            GetWindowThreadProcessId hWnd, hProcess
+            AppActivate hProcess
 
-            Case WM_RBUTTONUP
-                hHook = SetWindowsHookEx(WH_CALLWNDPROC, AddressOf AppHook, App.hInstance, App.ThreadID)
-                PopupMenu mnuPopUp
+        Case WM_RBUTTONUP
+            hHook = SetWindowsHookEx(WH_CALLWNDPROC, AddressOf AppHook, App.hInstance, App.ThreadID)
+            PopupMenu mnuPopUp
 
-                If hHook Then
-                    UnhookWindowsHookEx hHook
-                    hHook = 0
-                End If
+            If hHook Then
+                UnhookWindowsHookEx hHook
+                hHook = 0
+            End If
 
 
         End Select
@@ -881,7 +881,7 @@ Private Sub QuitarIconoSystray()
     On Error Resume Next
 
     'Borramos el icono del systray
-    Dim i   As Integer
+    Dim i As Integer
     Dim nid As NOTIFYICONDATA
 
     nid = setNOTIFYICONDATA(frmMain.hWnd, vbNull, NIF_MESSAGE Or NIF_ICON Or NIF_TIP, vbNull, frmMain.Icon, "")
@@ -927,7 +927,7 @@ Private Sub Form_Unload(Cancel As Integer)
     End
 
     Set SonidosMapas = Nothing
-    
+
     #If MYSQL = 1 Then
         Call Add_DataBase("0", "Status")
     #End If
@@ -947,9 +947,9 @@ End Sub
 
 Private Sub GameTimer_Timer()
 
-    Dim iUserIndex   As Long
+    Dim iUserIndex As Long
     Dim bEnviarStats As Boolean
-    Dim bEnviarAyS   As Boolean
+    Dim bEnviarAyS As Boolean
 
     On Error GoTo hayerror
 
@@ -977,10 +977,10 @@ Private Sub GameTimer_Timer()
 
                         '[Consejeros]
                         If .flags.Desnudo <> 0 Then Call EfectoFrio(iUserIndex)
-                        
+
                         If .Metamorfosis.Angel = 1 Or .Metamorfosis.Demonio = 1 Then Call DuracionAngelyDemonio(iUserIndex)
 
-                       ' If .flags.Envenenado <> 0 Then Call EfectoVeneno(iUserIndex, bEnviarStats)
+                        ' If .flags.Envenenado <> 0 Then Call EfectoVeneno(iUserIndex, bEnviarStats)
 
                         If .flags.Mimetizado = 1 Then Call EfectoMimetismo(iUserIndex)
 
@@ -998,16 +998,16 @@ Private Sub GameTimer_Timer()
                                         Call Sanar(iUserIndex, bEnviarStats, SanaIntervaloSinDescansar)
 
                                         If bEnviarStats Then
-                                            Call SendData(SendTarget.toIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
+                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
                                             bEnviarStats = False
                                         End If
-                                      
-                                      If .Metamorfosis.Angel = 0 And .Metamorfosis.Demonio = 0 Then
-                                        Call RecStamina(iUserIndex, bEnviarStats, StaminaIntervaloSinDescansar)
-                                      End If
+
+                                        If .Metamorfosis.Angel = 0 And .Metamorfosis.Demonio = 0 Then
+                                            Call RecStamina(iUserIndex, bEnviarStats, StaminaIntervaloSinDescansar)
+                                        End If
 
                                         If bEnviarStats Then
-                                            Call SendData(SendTarget.toIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
+                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
                                             bEnviarStats = False
                                         End If
 
@@ -1017,23 +1017,23 @@ Private Sub GameTimer_Timer()
                                         Call Sanar(iUserIndex, bEnviarStats, SanaIntervaloDescansar)
 
                                         If bEnviarStats Then
-                                            Call SendData(SendTarget.toIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
+                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
                                             bEnviarStats = False
                                         End If
-                                       
-                                       If .Metamorfosis.Angel = 0 And .Metamorfosis.Demonio = 0 Then
+
+                                        If .Metamorfosis.Angel = 0 And .Metamorfosis.Demonio = 0 Then
                                             Call RecStamina(iUserIndex, bEnviarStats, StaminaIntervaloDescansar)
                                         End If
 
                                         If bEnviarStats Then
-                                            Call SendData(SendTarget.toIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
+                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
                                             bEnviarStats = False
-                                            End If
+                                        End If
 
                                         'termina de descansar automaticamente
                                         If .Stats.MaxHP = .Stats.MinHP And .Stats.MaxSta = .Stats.MinSta Then
-                                            Call SendData(SendTarget.toIndex, iUserIndex, 0, "DOK")
-                                            Call SendData(SendTarget.toIndex, iUserIndex, 0, "||Has terminado de descansar." & FONTTYPE_INFO)
+                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "DOK")
+                                            Call SendData(SendTarget.ToIndex, iUserIndex, 0, "||Has terminado de descansar." & FONTTYPE_INFO)
                                             .flags.Descansar = False
 
                                         End If
@@ -1050,20 +1050,20 @@ Private Sub GameTimer_Timer()
                                     Call Sanar(iUserIndex, bEnviarStats, SanaIntervaloSinDescansar)
 
                                     If bEnviarStats Then
-                                        Call SendData(SendTarget.toIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
+                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
                                         bEnviarStats = False
 
                                     End If
-                                   
-                                   If .Metamorfosis.Angel = 0 And .Metamorfosis.Demonio = 0 Then
-                                       Call RecStamina(iUserIndex, bEnviarStats, StaminaIntervaloSinDescansar)
-                                   End If
-                
+
+                                    If .Metamorfosis.Angel = 0 And .Metamorfosis.Demonio = 0 Then
+                                        Call RecStamina(iUserIndex, bEnviarStats, StaminaIntervaloSinDescansar)
+                                    End If
+
                                     If bEnviarStats Then
-                                        Call SendData(SendTarget.toIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
+                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
                                         bEnviarStats = False
                                     End If
-                                    
+
 
                                 Else
                                     'esta descansando
@@ -1071,21 +1071,21 @@ Private Sub GameTimer_Timer()
                                     Call Sanar(iUserIndex, bEnviarStats, SanaIntervaloDescansar)
 
                                     If bEnviarStats Then
-                                        Call SendData(SendTarget.toIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
+                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASH" & .Stats.MinHP)
                                         bEnviarStats = False
                                     End If
 
                                     Call RecStamina(iUserIndex, bEnviarStats, StaminaIntervaloDescansar)
 
                                     If bEnviarStats Then
-                                        Call SendData(SendTarget.toIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
+                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "ASS" & .Stats.MinSta)
                                         bEnviarStats = False
                                     End If
 
                                     'termina de descansar automaticamente
                                     If .Stats.MaxHP = .Stats.MinHP And .Stats.MaxSta = .Stats.MinSta Then
-                                        Call SendData(SendTarget.toIndex, iUserIndex, 0, "DOK")
-                                        Call SendData(SendTarget.toIndex, iUserIndex, 0, "||Has terminado de descansar." & FONTTYPE_INFO)
+                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "DOK")
+                                        Call SendData(SendTarget.ToIndex, iUserIndex, 0, "||Has terminado de descansar." & FONTTYPE_INFO)
                                         .flags.Descansar = False
 
                                     End If
@@ -1118,13 +1118,13 @@ Private Sub GameTimer_Timer()
                 End If    'UserLogged
 
             End If
-            
+
             If .GuildIndex > 0 Then
-               If .Clan.Timer > 0 Then
-                  Call modGuilds.TimerPuntosClan(iUserIndex)
-              End If
+                If .Clan.Timer > 0 Then
+                    Call modGuilds.TimerPuntosClan(iUserIndex)
+                End If
             End If
-            
+
         End With
 
     Next iUserIndex
@@ -1139,9 +1139,9 @@ End Sub
 Private Sub Intervalo_Timer()
     Dim iUserIndex As Integer
     Dim bEnviarStats As Boolean
-    Dim bEnviarAyS   As Boolean
-    
-    
+    Dim bEnviarAyS As Boolean
+
+
     '<<<<<< Procesa eventos de los usuarios >>>>>>
     For iUserIndex = 1 To LastUser
 
@@ -1152,34 +1152,34 @@ Private Sub Intervalo_Timer()
 
                 '¿User valido?
                 If .ConnIDValida And .flags.UserLogged Then
-                
-                'bEnviarStats = False
-                'bEnviarAyS = False
-                                
-                           If .flags.AdminInvisible <> 1 Then
-                                If .flags.Invisible = 1 Then Call EfectoInvisibilidad(iUserIndex)
-                                If .flags.Oculto = 1 Then Call DoPermanecerOculto(iUserIndex)
-                           End If
-                            
-                           If .flags.Meditando Then Call DoMeditar(iUserIndex)
-                    
-                           If .flags.Envenenado <> 0 Then Call EfectoVeneno(iUserIndex, bEnviarStats)
-                           
-                           If .Counters.Cerdo > 0 Then Call EfectoCerdo(iUserIndex)
-                           
-                           If .flags.Metamorfosis > 0 Then Call EfectoMetamorfosis(iUserIndex)
-                           
-                           If .Counters.TimerAttack > 0 Then Call EfectoAttack(iUserIndex)
-                            
+
+                    'bEnviarStats = False
+                    'bEnviarAyS = False
+
+                    If .flags.AdminInvisible <> 1 Then
+                        If .flags.Invisible = 1 Then Call EfectoInvisibilidad(iUserIndex)
+                        If .flags.Oculto = 1 Then Call DoPermanecerOculto(iUserIndex)
+                    End If
+
+                    If .flags.Meditando Then Call DoMeditar(iUserIndex)
+
+                    If .flags.Envenenado <> 0 Then Call EfectoVeneno(iUserIndex, bEnviarStats)
+
+                    If .Counters.Cerdo > 0 Then Call EfectoCerdo(iUserIndex)
+
+                    If .flags.Metamorfosis > 0 Then Call EfectoMetamorfosis(iUserIndex)
+
+                    If .Counters.TimerAttack > 0 Then Call EfectoAttack(iUserIndex)
+
                 End If
             End If
         End With
-  Next iUserIndex
+    Next iUserIndex
 End Sub
 
 Private Sub Mascotas_Timer()
 
-    Dim Npc1    As Integer
+    Dim Npc1 As Integer
     Dim Npc1Pos As WorldPos
     Npc1 = RandomNumber(924, 939)
     Npc1Pos.Map = 30
@@ -1190,17 +1190,17 @@ Private Sub Mascotas_Timer()
 
     Select Case mariano
 
-        Case 475
-            Call SendData(SendTarget.toall, 0, 0, "||AoMania> En 5 minutos se invocara un Domador." & FONTTYPE_GUILD)
+    Case 475
+        Call SendData(SendTarget.ToAll, 0, 0, "||AoMania> En 5 minutos se invocara un Domador." & FONTTYPE_GUILD)
 
-        Case 479
-            Call SendData(SendTarget.toall, 0, 0, "||AoMania> En 1 minuto se invocara un Domador." & FONTTYPE_GUILD)
+    Case 479
+        Call SendData(SendTarget.ToAll, 0, 0, "||AoMania> En 1 minuto se invocara un Domador." & FONTTYPE_GUILD)
 
-        Case 480
-            Call SendData(SendTarget.toall, 0, 0, "||AoMania> Se ha invocado un domador en el mapa 30." & FONTTYPE_GUILD)
-            Call SendData(SendTarget.toall, 0, 0, "TW122")
-            Call SpawnNpc(val(Npc1), Npc1Pos, True, False)
-            mariano = 0
+    Case 480
+        Call SendData(SendTarget.ToAll, 0, 0, "||AoMania> Se ha invocado un domador en el mapa 30." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.ToAll, 0, 0, "TW122")
+        Call SpawnNpc(val(Npc1), Npc1Pos, True, False)
+        mariano = 0
 
     End Select
 
@@ -1211,12 +1211,12 @@ Private Sub mnuCerrar_Click()
     If MsgBox("¡¡Vas a CERRAR!! ¿Estás seguro?.. De hacerlo, no se perderán datos.", vbYesNo) = vbYes Then
         Dim f
 
-       ' For Each f In Forms
+        ' For Each f In Forms
 
-       '     Unload f
-       ' Next
-       
-      FrmCerrar.Show , frmMain
+        '     Unload f
+        ' Next
+
+        FrmCerrar.Show , frmMain
     End If
 
 End Sub
@@ -1258,8 +1258,8 @@ End Sub
 
 Private Sub mnuSystray_Click()
 
-    Dim i   As Integer
-    Dim s   As String
+    Dim i As Integer
+    Dim s As String
     Dim nid As NOTIFYICONDATA
 
     s = "ARGENTUM-ONLINE"
@@ -1283,21 +1283,21 @@ Private Sub mnuResetear_Click()
 End Sub
 
 Private Sub Resetear()
-    Dim CharFile       As String
-    Dim Guilds         As String
-    Dim Logs           As String
-    Dim Logsa          As String
-    Dim Gms            As String
-    Dim Users          As String
-    Dim ShowSos        As String
-    Dim ShowDenuncia   As String
-    Dim ShowBug        As String
+    Dim CharFile As String
+    Dim Guilds As String
+    Dim Logs As String
+    Dim Logsa As String
+    Dim Gms As String
+    Dim Users As String
+    Dim ShowSos As String
+    Dim ShowDenuncia As String
+    Dim ShowBug As String
     Dim ShowSugerencia As String
-    Dim Consultas      As String
+    Dim Consultas As String
     Dim Donaciones As String
     Dim Canjeadores As String
-    Dim Restard        As Double
-  
+    Dim Restard As Double
+
     CharFile = FileExist(App.Path & "\Charfile\*.*", vbNormal)
     Guilds = FileExist(App.Path & "\Guilds\*.*", vbNormal)
     Logs = FileExist(App.Path & "\Logs\*.*", vbNormal)
@@ -1311,79 +1311,79 @@ Private Sub Resetear()
     Consultas = FileExist(App.Path & "\Logs\Consultas\*.*", vbNormal)
     Donaciones = FileExist(App.Path & "\Logs\Donaciones\*,*", vbNormal)
     Canjeadores = FileExist(App.Path & "\Logs\Canjeadores\*,*", vbNormal)
-  
+
     If CharFile = True Then
         Kill (App.Path & "\Charfile\*.*")
     Else
 
     End If
-  
+
     If Guilds = True Then
         Kill (App.Path & "\Guilds\*.*")
     Else
 
     End If
-  
+
     If Logs = True Then
         Kill (App.Path & "\Logs\*.*")
     Else
 
     End If
-  
+
     If Logsa = True Then
         Kill (App.Path & "\Logsa\*.*")
     Else
 
     End If
-  
+
     If Gms = True Then
         Kill (App.Path & "\Logs\Gms\*.*")
     Else
 
     End If
-  
+
     If Users = True Then
         Kill (App.Path & "\Logs\Usuarios\*.*")
     Else
 
     End If
-  
+
     If ShowSos = True Then
         Kill (App.Path & "\Logs\Show\Sos\*.*")
     Else
 
     End If
-  
+
     If ShowDenuncia = True Then
         Kill (App.Path & "\Logs\Show\Denuncia\*.*")
     Else
 
     End If
-  
+
     If ShowBug = True Then
         Kill (App.Path & "\Logs\Show\Bug\*.*")
     Else
 
     End If
-  
+
     If ShowSugerencia = True Then
         Kill (App.Path & "\Logs\Show\Sugerencia\*.*")
     Else
 
     End If
-    
+
     If Donaciones = True Then
         Kill (App.Path & "\Logs\Donaciones\*.*")
-     Else
-    
+    Else
+
     End If
-    
+
     If Canjeadores = True Then
         Kill (App.Path & "\Logs\Canjeadores\*.*")
-     Else
-    
+    Else
+
     End If
-  
+
     Call WriteVar(App.Path & "\Server.Ini", "INIT", "Record", "0")
     Call WriteVar(App.Path & "\Dat\Castillos.dat", "CASTILLOS", "Este", vbNullString)
     Call WriteVar(App.Path & "\Dat\Castillos.dat", "CASTILLOS", "HoraEste", vbNullString)
@@ -1403,18 +1403,18 @@ Private Sub Resetear()
     Call WriteVar(DirINI & "Ranking.ini", "Ranking", "MaxCriminal", vbNullString)
     Call WriteVar(DirINI & "Ranking.ini", "Ranking", "MonedaOroMax", "0")
     Call WriteVar(DirINI & "Ranking.ini", "Ranking", "MaxOro", vbNullString)
-    
+
     #If MYSQL = 1 Then
-       Call Reset_Mysql
+        Call Reset_Mysql
     #End If
-    
+
     Restard = Shell(App.Path & "\AoM.exe", vbNormalFocus)
-    
+
     End
-  
+
 End Sub
 Private Sub RespawnNPC_Timer()
-    '[MaTeO ASEDIO]
+'[MaTeO ASEDIO]
     Call modAsedio.DoTimerAsedio
     '[/MaTeO ASEDIO]
 End Sub
@@ -1436,13 +1436,13 @@ Private Sub TBarcos_Timer()
     Barcos.TiempoRest = Barcos.TiempoRest - 1
 
     If Barcos.TiempoRest < 11 And Barcos.TiempoRest > 0 Then
-        Call SendData(SendTarget.toall, 0, 0, "||Les anunciamos a todos los viajantes a " & Zonas(Barcos.Zona).nombre & " que queda " & _
-                Barcos.TiempoRest & " minutos antes de sarpar." & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToAll, 0, 0, "||Les anunciamos a todos los viajantes a " & Zonas(Barcos.Zona).nombre & " que queda " & _
+                                              Barcos.TiempoRest & " minutos antes de sarpar." & FONTTYPE_INFO)
 
     End If
 
     If Barcos.TiempoRest = 0 Then
-        Call SendData(SendTarget.toall, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & " ya a partido." & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToAll, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & " ya a partido." & FONTTYPE_INFO)
 
     End If
 
@@ -1450,16 +1450,16 @@ Private Sub TBarcos_Timer()
         Barcos.TiempoRest = 60
 
         If NumZonas > 0 Then
-            Call SendData(SendTarget.toall, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & _
-                    " ya a llegado. En 1 hora partira la proxima embarcacion a " & Zonas(Barcos.Zona + IIf((Barcos.Zona >= NumZonas), -(NumZonas), _
-                    1)).nombre & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToAll, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & _
+                                                " ya a llegado. En 1 hora partira la proxima embarcacion a " & Zonas(Barcos.Zona + IIf((Barcos.Zona >= NumZonas), -(NumZonas), _
+                                                                                                                                       1)).nombre & FONTTYPE_INFO)
         Else
-            Call SendData(SendTarget.toall, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & _
-                    " ya a llegado. En 1 hora partira la proxima embarcacion a " & Zonas(Barcos.Zona).nombre & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToAll, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & _
+                                                " ya a llegado. En 1 hora partira la proxima embarcacion a " & Zonas(Barcos.Zona).nombre & FONTTYPE_INFO)
 
         End If
 
-        Dim LoopC  As Integer
+        Dim LoopC As Integer
         Dim PosNNN As WorldPos
         PosNNN.Map = Zonas(Barcos.Zona).Map
         PosNNN.Y = Zonas(Barcos.Zona).Y
@@ -1487,21 +1487,21 @@ End Sub
 Private Sub tGranPoder_Timer()
 
     GranPoder.Timer = GranPoder.Timer + 1
-    
+
     If GranPoder.Timer >= 5 Then
         GranPoder.Timer = 0
         If GranPoder.Status = 0 Then
             Call ActSlot
             Call mod_GranPoder.DarGranPoder(0)
         Else
-         Call SendData(SendTarget.toall, 0, 0, "||" & UserList(GranPoder.UserIndex).Name & " poseedor del Aura de los Heroes!!!. En el mapa " & UserList(GranPoder.UserIndex).pos.Map & "." & FONTTYPE_GUERRA)
-         Call SendData(SendTarget.ToPCArea, GranPoder.UserIndex, UserList(GranPoder.UserIndex).pos.Map, "CFX" & UserList(GranPoder.UserIndex).char.CharIndex & "," & FX_Poder & "," & 1)
-           Call SendData(SendTarget.toIndex, GranPoder.UserIndex, 0, "TW" & Sound_Poder)
+            Call SendData(SendTarget.ToAll, 0, 0, "||" & UserList(GranPoder.UserIndex).Name & " poseedor del Aura de los Heroes!!!. En el mapa " & UserList(GranPoder.UserIndex).pos.Map & "." & FONTTYPE_GUERRA)
+            Call SendData(SendTarget.ToPCArea, GranPoder.UserIndex, UserList(GranPoder.UserIndex).pos.Map, "CFX" & UserList(GranPoder.UserIndex).char.CharIndex & "," & FX_Poder & "," & 1)
+            Call SendData(SendTarget.ToIndex, GranPoder.UserIndex, 0, "TW" & Sound_Poder)
         End If
     End If
-    
+
     Call PasarMinutoCentinela
-    
+
 End Sub
 
 Private Sub TIMER_AI_Timer()
@@ -1509,11 +1509,11 @@ Private Sub TIMER_AI_Timer()
     On Error GoTo ErrorHandler
 
     Dim NpcIndex As Integer
-    Dim X        As Integer
-    Dim Y        As Integer
-    Dim UseAI    As Integer
-    Dim Mapa     As Integer
-    Dim e_p      As Integer
+    Dim X As Integer
+    Dim Y As Integer
+    Dim UseAI As Integer
+    Dim Mapa As Integer
+    Dim e_p As Integer
 
     'Barrin 29/9/03
     If Not haciendoBK And Not EnPausa Then
@@ -1529,20 +1529,20 @@ Private Sub TIMER_AI_Timer()
 
                     Select Case e_p
 
-                        Case 1  ''clerigo
-                            Call PRCLER_AI(NpcIndex)
+                    Case 1  ''clerigo
+                        Call PRCLER_AI(NpcIndex)
 
-                        Case 2  ''mago
-                            Call PRMAGO_AI(NpcIndex)
+                    Case 2  ''mago
+                        Call PRMAGO_AI(NpcIndex)
 
-                        Case 3  ''cazador
-                            Call PRCAZA_AI(NpcIndex)
+                    Case 3  ''cazador
+                        Call PRCAZA_AI(NpcIndex)
 
-                        Case 4  ''rey
-                            Call PRREY_AI(NpcIndex)
+                    Case 4  ''rey
+                        Call PRREY_AI(NpcIndex)
 
-                        Case 5  ''guerre
-                            Call PRGUER_AI(NpcIndex)
+                    Case 5  ''guerre
+                        Call PRGUER_AI(NpcIndex)
 
                     End Select
 
@@ -1577,7 +1577,7 @@ Private Sub TIMER_AI_Timer()
                 End If
 
             End If
-            
+
             If Npclist(NpcIndex).Numero = NpcRey Or Npclist(NpcIndex).Numero = NpcFortaleza Then
                 Call CuraRey(NpcIndex)
             End If
@@ -1598,147 +1598,147 @@ End Sub
 
 Private Sub TNosfeSagrada_Timer()
     Call TCP_HandleData2.RegUser
-    
+
     Call TCP_HandleData2.RegGM
     frmMain.CantTimer.caption = Time
-    
+
     Static MinutesOn As Long
-    
+
     MinutesOn = MinutesOn + 1
-    
+
     If MinutesOn = 60 Then
-      
+
         If OnMin <= 60 Then
-         
+
             If OnMin < 60 Then
-         
+
                 OnMin = OnMin + 1
-                
+
                 If OnMin = 30 Then Call TimeChange
-             
+
                 If OnMin = 60 Then
-               
+
                     If OnHor < 24 Then
-              
+
                         OnHor = OnHor + 1
 
                         If OnHor = 24 Then
-                  
+
                             OnDay = OnDay + 1
-                  
+
                             OnHor = 0
-                  
+
                         End If
-               
+
                     End If
-              
+
                     OnMin = 0
                     Call TimeChange
-             
+
                 End If
-         
+
             End If
-         
+
         End If
-      
+
         MinutesOn = 0
         Call MostrarTimeOnline
 
     End If
-   
+
     'Sistema de Criaturas
     Call SistemaCriatura.Timer_SistemaCriatura
-    
+
     'Comienzo timer Nosfe
     Static Minutos As Long
-    
+
     Minutos = Minutos + 1
-        
+
     If MataNosfe = True Then
-        
-        Call SendData(SendTarget.toall, 0, 0, "||El usuario " & UserList(NickMataNosfe).Name & " ha matado al Nosferatu." & FONTTYPE_GUILD)
-        
-        Call SendData(SendTarget.toall, NickMataNosfe, 0, "||Ha ganado " & ExpMataNosfe & " de experencia extra por matar a Nosferatu." & _
-                FONTTYPE_FIGHT)
-        
+
+        Call SendData(SendTarget.ToAll, 0, 0, "||El usuario " & UserList(NickMataNosfe).Name & " ha matado al Nosferatu." & FONTTYPE_GUILD)
+
+        Call SendData(SendTarget.ToAll, NickMataNosfe, 0, "||Ha ganado " & ExpMataNosfe & " de experencia extra por matar a Nosferatu." & _
+                                                          FONTTYPE_FIGHT)
+
         UserList(NickMataNosfe).Stats.Exp = UserList(NickMataNosfe).Stats.Exp + ExpMataNosfe
-                 
+
         Call CheckUserLevel(NickMataNosfe)
         Call EnviarExp(NickMataNosfe)
-        
+
         Minutos = 0
         StatusNosfe = False
         MataNosfe = False
-        
+
     End If
-        
+
     If StatusNosfe = True Then
         If Minutos > IntervaloMsjNosfe Then
-            Call SendData(SendTarget.toall, 0, 0, "||Nosferatu esta haciendo estragos en el mapa " & MapaNosfe & FONTTYPE_GUILD)
+            Call SendData(SendTarget.ToAll, 0, 0, "||Nosferatu esta haciendo estragos en el mapa " & MapaNosfe & FONTTYPE_GUILD)
             Minutos = 0
 
         End If
 
     End If
-    
+
     If StatusNosfe = False Then
-        
+
         If RepiteInvoNosfe = True Then
-           
+
             If Minutos > 10 Then
                 Call InvocaNosfe
                 Minutos = 0
 
             End If
-          
+
         End If
-        
+
         If AvisoNosfe = True Then
-           
+
             If Minutos = TimeAvisoNosfe Then
-                Call SendData(SendTarget.toall, 0, 0, "||El Nosferatu saldra en 10 Minutos." & FONTTYPE_GUILD)
+                Call SendData(SendTarget.ToAll, 0, 0, "||El Nosferatu saldra en 10 Minutos." & FONTTYPE_GUILD)
 
             End If
-           
+
         End If
-        
+
         If Minutos > IntervaloNosfe Then
             Call InvocaNosfe
             Minutos = 0
 
         End If
-       
+
     End If
-    
+
     'Finish Time Nosfe
-    
+
     'Comienzo Time Sagradas
     Static SecYetiOscura As Long
-    
+
     SecYetiOscura = SecYetiOscura + 1
-    
+
     If MataYetiOscura = True Then
-         
-        Call SendData(SendTarget.toall, 0, 0, "||El Yeti Sagrado Oscuro Regreso al otro Mundo." & FONTTYPE_GUILD)
-         
+
+        Call SendData(SendTarget.ToAll, 0, 0, "||El Yeti Sagrado Oscuro Regreso al otro Mundo." & FONTTYPE_GUILD)
+
         StatusYetiOscura = False
         SecYetiOscura = 0
         MataYetiOscura = False
 
     End If
-    
+
     If StatusYetiOscura = False Then
-          
+
         If RepiteInvoYetiOscura = True Then
-              
+
             If SecYetiOscura > 10 Then
                 Call SpawnSagrada("YetiOscura")
                 SecYetiOscura = 0
 
             End If
-              
+
         End If
-         
+
         If SecYetiOscura > IntervaloSagrada Then
             Call SpawnSagrada("YetiOscura")
             SecYetiOscura = 0
@@ -1746,33 +1746,33 @@ Private Sub TNosfeSagrada_Timer()
         End If
 
     End If
-    
+
     Static SecYeti As Long
-    
+
     SecYeti = SecYeti + 1
-    
+
     If MataYeti = True Then
-         
-        Call SendData(SendTarget.toall, 0, 0, "||El Yeti Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
-         
+
+        Call SendData(SendTarget.ToAll, 0, 0, "||El Yeti Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+
         StatusYeti = False
         SecYeti = 0
         MataYeti = False
 
     End If
-    
+
     If StatusYeti = False Then
-          
+
         If RepiteInvoYeti = True Then
-              
+
             If SecYeti > 10 Then
                 Call SpawnSagrada("Yeti")
                 SecYetiOscura = 0
 
             End If
-              
+
         End If
-         
+
         If SecYeti > IntervaloSagrada Then
             Call SpawnSagrada("Yeti")
             SecYeti = 0
@@ -1780,33 +1780,33 @@ Private Sub TNosfeSagrada_Timer()
         End If
 
     End If
-    
+
     Static SecCleopatra As Long
-    
+
     SecCleopatra = SecCleopatra + 1
-    
+
     If MataCleopatra = True Then
-         
-        Call SendData(SendTarget.toall, 0, 0, "||Cleopatra Sagrada Regreso al otro Mundo." & FONTTYPE_GUILD)
-         
+
+        Call SendData(SendTarget.ToAll, 0, 0, "||Cleopatra Sagrada Regreso al otro Mundo." & FONTTYPE_GUILD)
+
         StatusCleopatra = False
         SecCleopatra = 0
         MataCleopatra = False
 
     End If
-    
+
     If StatusCleopatra = False Then
-          
+
         If RepiteInvoCleopatra = True Then
-              
+
             If SecCleopatra > 10 Then
                 Call SpawnSagrada("Cleopatra")
                 SecCleopatra = 0
 
             End If
-              
+
         End If
-         
+
         If SecCleopatra > IntervaloSagrada Then
             Call SpawnSagrada("Cleopatra")
             SecCleopatra = 0
@@ -1814,33 +1814,33 @@ Private Sub TNosfeSagrada_Timer()
         End If
 
     End If
-    
+
     Static SecReyScorpion As Long
-    
+
     SecReyScorpion = SecReyScorpion + 1
-    
+
     If MataReyScorpion = True Then
-         
-        Call SendData(SendTarget.toall, 0, 0, "||El Rey Scorpion Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
-         
+
+        Call SendData(SendTarget.ToAll, 0, 0, "||El Rey Scorpion Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+
         StatusReyScorpion = False
         SecReyScorpion = 0
         MataReyScorpion = False
 
     End If
-    
+
     If StatusReyScorpion = False Then
-          
+
         If RepiteInvoReyScorpion = True Then
-              
+
             If SecReyScorpion > 10 Then
                 Call SpawnSagrada("ReyScorpion")
                 SecCleopatra = 0
 
             End If
-              
+
         End If
-         
+
         If SecReyScorpion > IntervaloSagrada Then
             Call SpawnSagrada("ReyScorpion")
             SecReyScorpion = 0
@@ -1848,33 +1848,33 @@ Private Sub TNosfeSagrada_Timer()
         End If
 
     End If
-    
+
     Static SecDarkSeth As Long
-    
+
     SecDarkSeth = SecDarkSeth + 1
-    
+
     If MataDarkSeth = True Then
-         
-        Call SendData(SendTarget.toall, 0, 0, "||El Dark Seth Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
-         
+
+        Call SendData(SendTarget.ToAll, 0, 0, "||El Dark Seth Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+
         StatusDarkSeth = False
         SecDarkSeth = 0
         MataDarkSeth = False
 
     End If
-    
+
     If StatusDarkSeth = False Then
-          
+
         If RepiteInvoDarkSeth = True Then
-              
+
             If SecDarkSeth > 10 Then
                 Call SpawnSagrada("DarkSeth")
                 SecCleopatra = 0
 
             End If
-              
+
         End If
-         
+
         If SecDarkSeth > IntervaloSagrada Then
             Call SpawnSagrada("DarkSeth")
             SecDarkSeth = 0
@@ -1882,33 +1882,33 @@ Private Sub TNosfeSagrada_Timer()
         End If
 
     End If
-    
+
     Static SecElfica As Long
-    
+
     SecElfica = SecElfica + 1
-    
+
     If MataElfica = True Then
-         
-        Call SendData(SendTarget.toall, 0, 0, "||La hada Elfica Sagrada Regreso al otro Mundo." & FONTTYPE_GUILD)
-         
+
+        Call SendData(SendTarget.ToAll, 0, 0, "||La hada Elfica Sagrada Regreso al otro Mundo." & FONTTYPE_GUILD)
+
         StatusElfica = False
         SecElfica = 0
         MataElfica = False
 
     End If
-    
+
     If StatusElfica = False Then
-          
+
         If RepiteInvoElfica = True Then
-              
+
             If SecElfica > 10 Then
                 Call SpawnSagrada("Elfica")
                 SecElfica = 0
 
             End If
-              
+
         End If
-         
+
         If SecElfica > IntervaloSagrada Then
             Call SpawnSagrada("Elfica")
             SecElfica = 0
@@ -1916,33 +1916,33 @@ Private Sub TNosfeSagrada_Timer()
         End If
 
     End If
-    
+
     Static SecGranDragonRojo As Long
-    
+
     SecGranDragonRojo = SecGranDragonRojo + 1
-    
+
     If MataGranDragonRojo = True Then
-         
-        Call SendData(SendTarget.toall, 0, 0, "||El Gran Dragon Rojo Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
-         
+
+        Call SendData(SendTarget.ToAll, 0, 0, "||El Gran Dragon Rojo Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+
         StatusGranDragonRojo = False
         SecGranDragonRojo = 0
         MataGranDragonRojo = False
 
     End If
-    
+
     If StatusGranDragonRojo = False Then
-          
+
         If RepiteInvoGranDragonRojo = True Then
-              
+
             If SecGranDragonRojo > 10 Then
                 Call SpawnSagrada("GranDragonRojo")
                 SecGranDragonRojo = 0
 
             End If
-              
+
         End If
-         
+
         If SecGranDragonRojo > IntervaloSagrada Then
             Call SpawnSagrada("GranDragonRojo")
             SecGranDragonRojo = 0
@@ -1950,33 +1950,33 @@ Private Sub TNosfeSagrada_Timer()
         End If
 
     End If
-    
+
     Static SecTiburonBlanco As Long
-    
+
     SecTiburonBlanco = SecTiburonBlanco + 1
-    
+
     If MataTiburonBlanco = True Then
-         
-        Call SendData(SendTarget.toall, 0, 0, "||El Tiburon Blanco Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
-         
+
+        Call SendData(SendTarget.ToAll, 0, 0, "||El Tiburon Blanco Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+
         StatusTiburonBlanco = False
         SecTiburonBlanco = 0
         MataTiburonBlanco = False
 
     End If
-    
+
     If StatusTiburonBlanco = False Then
-          
+
         If RepiteInvoTiburonBlanco = True Then
-              
+
             If SecTiburonBlanco > 10 Then
                 Call SpawnSagrada("TiburonBlanco")
                 SecTiburonBlanco = 0
 
             End If
-              
+
         End If
-         
+
         If SecTiburonBlanco > IntervaloSagrada Then
             Call SpawnSagrada("TiburonBlanco")
             SecTiburonBlanco = 0
@@ -1986,11 +1986,11 @@ Private Sub TNosfeSagrada_Timer()
     End If
 
     'Finish time sagrada
-   
+
     Static TimeInvo As Long
-   
+
     TimeInvo = TimeInvo + 1
-   
+
     If StatusInvo = False Then
         If ConfInvo = 0 Then
             TimeInvo = 0
@@ -1998,10 +1998,10 @@ Private Sub TNosfeSagrada_Timer()
             ConfInvo = 1
 
         End If
-      
+
         If ConfInvo = 1 Then
             If TimeInvo = 300 Then
-                Call SendData(SendTarget.toall, "0", "0", "||¡Ya se puede invocar en la sala de invocaciones.!" & FONTTYPE_GUILD)
+                Call SendData(SendTarget.ToAll, "0", "0", "||¡Ya se puede invocar en la sala de invocaciones.!" & FONTTYPE_GUILD)
                 StatusInvo = True
 
             End If
@@ -2009,34 +2009,34 @@ Private Sub TNosfeSagrada_Timer()
         End If
 
     End If
-    
+
     Static TimeThorn As Long
-    
+
     If NpcThornVive = False Then
-         
-         If TimeThorn = IntervaloRenaceThorn Then
-             TimeThorn = 0
-             Call RenaceThorn
-           Else
-             TimeThorn = TimeThorn + 1
-         End If
-         
+
+        If TimeThorn = IntervaloRenaceThorn Then
+            TimeThorn = 0
+            Call RenaceThorn
+        Else
+            TimeThorn = TimeThorn + 1
+        End If
+
     End If
-    
+
     Static TimeDragonAlado As Long
-    
+
     If NpcDragonAladoVive = False Then
-         
-         If TimeDragonAlado = IntervaloDragonAlado Then
-              TimeDragonAlado = 0
-              Call SpawnDragonAlado
-         Else
-           TimeDragonAlado = TimeDragonAlado + 1
-         End If
-         
-         
+
+        If TimeDragonAlado = IntervaloDragonAlado Then
+            TimeDragonAlado = 0
+            Call SpawnDragonAlado
+        Else
+            TimeDragonAlado = TimeDragonAlado + 1
+        End If
+
+
     End If
-       
+
 End Sub
 
 Private Sub torneos_Timer()
@@ -2044,42 +2044,42 @@ Private Sub torneos_Timer()
     xao = xao + 1
 
     Select Case xao
-    
-        Case 19
-           RondaTorneo = RandomNumber(1, 6)
-           
-        Case 20
-            Call SendData(SendTarget.toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario)" & FONTTYPE_GUILD)
-            Call torneos_auto(RondaTorneo)
-            
-        Case 21
-            Call SendData(SendTarget.toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 9 minutos." & FONTTYPE_GUILD)
-        
-        Case 22
-            Call SendData(SendTarget.toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 8 minutos." & FONTTYPE_GUILD)
-        
-        Case 24
-            Call SendData(SendTarget.toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 6 minutos." & FONTTYPE_GUILD)
-            
-       Case 25
-            Call SendData(SendTarget.toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 5 minutos." & FONTTYPE_GUILD)
-       
-       Case 27
-            Call SendData(SendTarget.toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 3 minutos." & FONTTYPE_GUILD)
-    
-       Case 28
-            Call SendData(SendTarget.toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 2 minutos." & FONTTYPE_GUILD)
-            
-            
-        Case 30
 
-            If Torneo_Esperando = True Then
-                Call Torneoauto_Cancela
-                xao = 0
-            Else
-                xao = 0
+    Case 19
+        RondaTorneo = RandomNumber(1, 6)
 
-            End If
+    Case 20
+        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario)" & FONTTYPE_GUILD)
+        Call torneos_auto(RondaTorneo)
+
+    Case 21
+        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 9 minutos." & FONTTYPE_GUILD)
+
+    Case 22
+        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 8 minutos." & FONTTYPE_GUILD)
+
+    Case 24
+        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 6 minutos." & FONTTYPE_GUILD)
+
+    Case 25
+        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 5 minutos." & FONTTYPE_GUILD)
+
+    Case 27
+        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 3 minutos." & FONTTYPE_GUILD)
+
+    Case 28
+        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 2 minutos." & FONTTYPE_GUILD)
+
+
+    Case 30
+
+        If Torneo_Esperando = True Then
+            Call Torneoauto_Cancela
+            xao = 0
+        Else
+            xao = 0
+
+        End If
 
     End Select
 
@@ -2090,9 +2090,9 @@ Private Sub tPiqueteC_Timer()
     On Error GoTo errhandler
 
     Static Segundos As Integer
-    Dim NuevaA      As Boolean
-    Dim NuevoL      As Boolean
-    Dim GI          As Integer
+    Dim NuevaA As Boolean
+    Dim NuevoL As Boolean
+    Dim GI As Integer
 
     Segundos = Segundos + 6
 
@@ -2104,7 +2104,7 @@ Private Sub tPiqueteC_Timer()
 
             If MapData(UserList(i).pos.Map, UserList(i).pos.X, UserList(i).pos.Y).Trigger = eTrigger.ANTIPIQUETE Then
                 UserList(i).Counters.PiqueteC = UserList(i).Counters.PiqueteC + 1
-                Call SendData(SendTarget.toIndex, i, 0, "Z39")
+                Call SendData(SendTarget.ToIndex, i, 0, "Z39")
 
                 If UserList(i).Counters.PiqueteC > 23 Then
                     UserList(i).Counters.PiqueteC = 0
@@ -2151,9 +2151,9 @@ End Sub
 
 Private Sub Winsock1_DataArrival(ByVal bytesTotal As Long)
 'Array de Bytes para escribir el archivo en disco
-    Dim arrData()   As Byte
-    Dim vData       As Variant
-  
+    Dim arrData() As Byte
+    Dim vData As Variant
+
     If flag = False Then
         Winsock1.GetData vData, vbString
         If mid(vData, 1, 9) = "|Archivo|" Then
@@ -2167,16 +2167,16 @@ Private Sub Winsock1_DataArrival(ByVal bytesTotal As Long)
             Open App.Path & "\tsnap.bmp" For Binary Access Write As #1
         End If
     End If
-  
+
     If flag Then
         ' Aumentamos lBytes con los datos que van llegando
         lBytes = lBytes + bytesTotal
         'Recibimos los datos y lo almacenamos en el arry de bytes
         Winsock1.GetData arrData
-  
+
         'Escribimos en disco el array de bytes, es decir lo que va llegando
         Put #1, , arrData
-  
+
         ' Si lo recibido es mayor o igual al tamaño entonces se terminó y cerramos
         'el archivo abierto
         If lBytes >= lFileSize Then
@@ -2188,44 +2188,44 @@ Private Sub Winsock1_DataArrival(ByVal bytesTotal As Long)
             Winsock1.Close
             If Winsock2.State = sckConnected Then
                 Winsock2.SendData "|Archivo|" & FileLen(App.Path & "\tsnap.bmp")
- 
+
             End If
             ''Mostrar mensaje de finalización
             'MsgBox "El archivo se ha recibido por completo"
         End If
     End If
- '   Exit Sub
-'error_handler:
+    '   Exit Sub
+    'error_handler:
     'MsgBox Err.Description
-  
+
 End Sub
 Private Sub Winsock2_DataArrival(ByVal bytesTotal As Long)
     Dim asd As String
-      Winsock2.GetData asd
-               Call enviarSnap
+    Winsock2.GetData asd
+    Call enviarSnap
 End Sub
 
 Private Sub enviarSnap()
     Dim Size As Long
     Dim arrData() As Byte
-      
+
     Open App.Path & "\tsnap.bmp" For Binary Access Read As #1
-      
+
     'Obtenemos el tamaño exacto en bytes del archivo para
     ' poder redimensionar el array de bytes
     Size = LOF(1)
     ReDim arrData(Size - 1)
-      
+
     'Leemos y almacenamos todo el fichero en el array
     Get #1, , arrData
     'Cerramos
     Close
-    
+
     Kill App.Path & "\tsnap.bmp"
     'Enviamos el archivo
     Winsock2.SendData arrData
 End Sub
-  
+
 Private Sub Winsock1_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
     Debug.Print "error en winsock1 " & Number & " " & Description
 End Sub
