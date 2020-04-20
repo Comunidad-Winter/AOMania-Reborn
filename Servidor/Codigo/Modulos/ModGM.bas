@@ -2817,21 +2817,6 @@ Public Sub CommandGm(ByVal UserIndex As Integer, ByVal rData As String, ByVal In
 
     Case 13    '<<<<<<<<<<<<<Comandos 13>>>>>>>>>>>>>>
 
-        If UCase$(Left(rData, 9)) = "/CREARASEDIO " Then
-            Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-            rData = Right$(rData, Len(rData) - 9)
-            If Len(ReadField(1, rData, Asc("@"))) = 0 Or Len(ReadField(2, rData, Asc("@"))) = 0 Or Len(ReadField(3, rData, Asc("@"))) = 0 Then
-                Call SendData(SendTarget.toIndex, UserIndex, 0, "||Formato invalido, el formato deberia ser /CREARASEDIO SLOTS@COSTE@TIEMPO." & FONTTYPE_INFO)
-            Else
-                Call modAsedio.Iniciar_Asedio(UserIndex, val(ReadField(1, rData, Asc("@"))), val(ReadField(2, rData, Asc("@"))), val(ReadField(3, rData, Asc("@"))))
-            End If
-        End If
-        If UCase$(Left(rData, 13)) = "/CANCELARSEDIO" Then
-            Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-            Call modAsedio.CancelAsedio
-        End If
-
-
         If UCase(Left(rData, 9)) = "/UNBANIP " Then
             Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
@@ -3313,6 +3298,20 @@ Public Sub CommandGm(ByVal UserIndex As Integer, ByVal rData As String, ByVal In
             Call Rondas_Cancela
 
             Exit Sub
+        End If
+        
+         If UCase$(Left(rData, 9)) = "/CREARASEDIO " Then
+            Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+            rData = Right$(rData, Len(rData) - 9)
+            If Len(ReadField(1, rData, Asc("@"))) = 0 Or Len(ReadField(2, rData, Asc("@"))) = 0 Or Len(ReadField(3, rData, Asc("@"))) = 0 Then
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||Formato invalido, el formato deberia ser /CREARASEDIO SLOTS@COSTE@TIEMPO." & FONTTYPE_INFO)
+            Else
+                Call modAsedio.Iniciar_Asedio(UserIndex, val(ReadField(1, rData, Asc("@"))), val(ReadField(2, rData, Asc("@"))), val(ReadField(3, rData, Asc("@"))))
+            End If
+        End If
+        If UCase$(Left(rData, 13)) = "/QUITARASEDIO" Then
+            Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+            Call modAsedio.CancelAsedio
         End If
 
     Case 16    '<<<<<<<<<<<<<Comandos 16>>>>>>>>>>>>>>
@@ -7189,6 +7188,21 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         Exit Sub
     End If
+    
+     If UCase$(Left(rData, 9)) = "/CREARASEDIO " Then
+            Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+            rData = Right$(rData, Len(rData) - 9)
+            If Len(ReadField(1, rData, Asc("@"))) = 0 Or Len(ReadField(2, rData, Asc("@"))) = 0 Or Len(ReadField(3, rData, Asc("@"))) = 0 Then
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||Formato invalido, el formato deberia ser /CREARASEDIO SLOTS@COSTE@TIEMPO." & FONTTYPE_INFO)
+            Else
+                Call modAsedio.Iniciar_Asedio(UserIndex, val(ReadField(1, rData, Asc("@"))), val(ReadField(2, rData, Asc("@"))), val(ReadField(3, rData, Asc("@"))))
+            End If
+        End If
+        
+        If UCase$(Left(rData, 13)) = "/QUITARASEDIO" Then
+            Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+            Call modAsedio.CancelAsedio
+        End If
 
     If UCase$(Left$(rData, 5)) = "/MAP " Then
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
