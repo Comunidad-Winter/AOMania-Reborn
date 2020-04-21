@@ -72,6 +72,12 @@ Sub HandleData2(ByVal Rdata As String)
    
    Select Case UCase$(Left$(Rdata, 4))
    
+      Case "HUCT"
+           Rdata = Right$(Rdata, Len(Rdata) - 4)
+           TimeChange = Rdata
+         Call DayNameChange(Rdata)
+           Exit Sub
+   
        Case "VLDB"
              frmValidarBanco.Show , frmMain
              Exit Sub
@@ -179,12 +185,5 @@ Sub HandleData2(ByVal Rdata As String)
           
    End Select
    
-   Select Case UCase$(Left$(Rdata, 1))
-       Case "H"
-           Rdata = Right$(Rdata, Len(Rdata) - 1)
-           TimeChange = Rdata
-         Call DayNameChange(Rdata)
-           Exit Sub
-   End Select
-   
+
 End Sub

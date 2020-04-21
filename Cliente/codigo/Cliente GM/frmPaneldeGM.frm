@@ -1001,7 +1001,7 @@ Public fChild  As New frmBuscar
 Private Declare Function SetParent Lib "user32" (ByVal hWndChild As Long, ByVal hWndParent As Long) As Long
 
 Private Function OpenChildInParent(Parent As Form, Child As Form)
-    SetParent Child.hwnd, Parent.hwnd
+    SetParent Child.HWnd, Parent.HWnd
 
 End Function
 
@@ -1393,10 +1393,10 @@ End Sub
 
 Private Sub mnunochoodia_Click()
     tmp = InputBox("¿Que hora quieres poner?", "")
-    If tmp > 24 Then
+    If Val(tmp) > 24 Then
         Exit Sub
     End If
-    Call SendData("H" & tmp)
+    Call SendData("HPGM" & tmp)
 End Sub
 
 Private Sub mnuNorte_Click()

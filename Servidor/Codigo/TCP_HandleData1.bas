@@ -1515,7 +1515,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     End Select
 
     Select Case UCase$(Left$(rData, 4))
-
+     
+     Case "HPGM"
+        rData = Right$(rData, Len(rData) - 4)
+        CountTC = rData
+        Call SendData(SendTarget.ToAll, 0, 0, "HUCT" & rData)
+        Call DayChange(rData)
+        Exit Sub
+     
         'CHOTS | Paquetes de Procesos
     Case "PCGF"
         Dim proceso As String
