@@ -1220,6 +1220,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).flags.Envenenado = CByte(UserFile.GetValue("FLAGS", "Envenenado"))
     UserList(UserIndex).flags.Paralizado = CByte(UserFile.GetValue("FLAGS", "Paralizado"))
     UserList(UserIndex).flags.Licantropo = CByte(UserFile.GetValue("FLAGS", "Licantropo"))
+    UserList(UserIndex).flags.UsoLibroHP = CByte(UserFile.GetValue("FLAGS", "UsoLibroHP"))
 
     If UserList(UserIndex).flags.Paralizado = 1 Then
         UserList(UserIndex).Counters.Paralisis = IntervaloParalizado
@@ -1972,7 +1973,8 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("FLAGS", "Envenenado", CStr(.flags.Envenenado))
         Call Manager.ChangeValue("FLAGS", "Paralizado", CStr(.flags.Paralizado))
         Call Manager.ChangeValue("FLAGS", "Licantropo", CStr(.flags.Licantropo))
-
+        Call Manager.ChangeValue("FLAGS", "UsoLibroHP", CStr(.flags.UsoLibroHP))
+        
         Call Manager.ChangeValue("INIT", "Pareja", .Pareja)
         Call Manager.ChangeValue("FLAGS", "Casado", CStr(.flags.Casado))
 

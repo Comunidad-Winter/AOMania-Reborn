@@ -489,7 +489,7 @@ ObjHierba=30
 [OBJ40]
 Name=Atlas Argentum
 GrhIndex=538
-ObjType=12
+ObjType=999
 Texto=Argentum
 VGrande=501
  

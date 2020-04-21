@@ -1726,6 +1726,32 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
         Call UpdateUserInv(False, UserIndex, Slot)
 
+
+    Case eOBJType.otLibromagico
+
+        If UserList(UserIndex).flags.Muerto = 1 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes usar el item si estás muerto!" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+        
+        If UserList(UserIndex).flags.UsoLibroHP = 15 Then
+            SendData SendTarget.ToIndex, UserIndex, 0, "||¡Ya no puedes ganar más vida!." & FONTTYPE_INFO
+            Exit Sub
+        End If
+        
+        If UserList(UserIndex).Stats.MaxHP > STAT_MAXHP Then UserList(UserIndex).Stats.MaxHP = STAT_MAXHP
+
+        UserList(UserIndex).Stats.MaxHP = UserList(UserIndex).Stats.MaxHP + 1
+        
+'        If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then _
+'           UserList(UserIndex).Stats.MaxHP = UserList(UserIndex).Stats.MaxHP + 1
+
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has ganado 1 punto de vida!" & FONTTYPE_INFO)
+        Call SendUserStatsBox(UserIndex)
+        Call QuitarUserInvItem(UserIndex, Slot, 1)    'te quito el item que ya te hice el efecto
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_CHIRP)            'Plus de sonido escojan el que quieran
+        Call UpdateUserInv(True, UserIndex, 0)
+
     Case eOBJType.otBebidas
 
         If UserList(UserIndex).flags.Muerto = 1 Then
