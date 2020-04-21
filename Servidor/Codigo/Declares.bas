@@ -540,6 +540,7 @@ Public Const SND_ESCUDO As Byte = 37
 Public Const MARTILLOHERRERO As Byte = 41
 Public Const LABUROCARPINTERO As Byte = 42
 Public Const SND_POTEAR As Byte = 46
+Public Const SND_CHIRP As Byte = 47
 Public Const SND_BEBER As Byte = 175
 
 ''
@@ -599,6 +600,7 @@ Public Enum eOBJType
     otPack = 51
     otMontura = 60
     otPLATA = 77
+    otLibromagico = 999
     otCualquiera = 1000
 
 End Enum
@@ -1326,6 +1328,9 @@ Public Type UserFlags
     Metamorfosis As Byte
 
     Licantropo As Byte
+    
+    UsoLibroHP As Byte
+    
 
 End Type
 
@@ -1516,6 +1521,7 @@ Public Type User
 
     Stats As UserStats
     flags As UserFlags
+    
 
     BytesTransmitidosUser As Long
     BytesTransmitidosSvr As Long
