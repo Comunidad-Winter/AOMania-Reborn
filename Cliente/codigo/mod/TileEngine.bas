@@ -2495,11 +2495,13 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                         lCenter = (frmMain.TextWidth(sClan) / 2) - 16
                         Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 45, sClan, Color)
                         
-                    Else
-                        longToArray Color, ColoresPJ(48)
-                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Left(TempChar.Nombre, InStr(TempChar.Nombre, "<") - 1), Color)
-                        lCenter = (frmMain.TextWidth(sClan) / 2) - 16
-                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 45, sClan, Color)
+                    Else 'ciudadano sin faccion
+                        longToArray Color, ColoresPJ(49)
+                        
+                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Color)
+                        lCenterClan = (Len(sClan) * 6 / 2) - 15
+                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+                      
                     End If
 
                 Case 1
