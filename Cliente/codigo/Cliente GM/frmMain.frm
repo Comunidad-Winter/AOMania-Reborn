@@ -147,7 +147,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -989,7 +988,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -1530,7 +1528,7 @@ Const WM_NCLBUTTONDOWN = &HA1
 Const HTCAPTION = 2
 
 Private Declare Function ReleaseCapture Lib "user32" () As Long
-Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal HWnd As Long, _
+Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, _
     ByVal wMsg As Long, _
     ByVal wParam As Long, _
     lParam As Any) As Long
@@ -1541,7 +1539,7 @@ Public StatusCondi As Long
 Private Declare Function GetAsyncKeyState Lib "user32" (ByVal vKey As Long) As Integer
 
 'Quitar Bordes del ListBox
-Private Declare Function SetWindowRgn Lib "user32" (ByVal HWnd As Long, ByVal hRgn As Long, ByVal bRedraw As Boolean) As Long
+Private Declare Function SetWindowRgn Lib "user32" (ByVal hwnd As Long, ByVal hRgn As Long, ByVal bRedraw As Boolean) As Long
 
 Private Declare Function CreateRectRgn Lib "gdi32" (ByVal X1 As Long, ByVal Y1 As Long, ByVal X2 As Long, ByVal Y2 As Long) As Long
 
@@ -1550,12 +1548,12 @@ Private Declare Function CombineRgn Lib "gdi32" (ByVal hDestRgn As Long, _
     ByVal hSrcRgn2 As Long, _
     ByVal nCombineMode As Long) As Long
 
-Private Declare Function GetWindowRect Lib "user32" (ByVal HWnd As Long, lpRect As RECT) As Long
+Private Declare Function GetWindowRect Lib "user32" (ByVal hwnd As Long, lpRect As RECT) As Long
 
 'Transparencia ListBox
 Private Declare Function CreatePatternBrush Lib "gdi32" (ByVal hBitmap As Long) As Long
 Private Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Long) As Long
-Private Declare Function InvalidateRect Lib "user32" (ByVal HWnd As Long, lpRect As Any, ByVal bErase As Long) As Long
+Private Declare Function InvalidateRect Lib "user32" (ByVal hwnd As Long, lpRect As Any, ByVal bErase As Long) As Long
 Private Declare Function SetBkMode Lib "gdi32" (ByVal hdc As Long, ByVal nBkMode As Long) As Long
 Private Declare Function SetTextColor Lib "gdi32" (ByVal hdc As Long, ByVal crColor As Long) As Long
 Private Declare Function SetBrushOrgEx Lib "gdi32" (ByVal hdc As Long, ByVal nXOrg As Long, ByVal nYOrg As Long, lppt As Any) As Long
@@ -1571,7 +1569,7 @@ Private Const WM_VSCROLL         As Long = &H115
 Const GWL_EXSTYLE = (-20)
 Const WS_EX_TRANSPARENT = &H20&
 
-Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal HWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
+Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
 
 'Transparencia ListBox
 Dim WithEvents wndProc As clsTrickSubclass
@@ -2089,7 +2087,7 @@ Private Sub picInv_MouseDown(Button As Integer, Shift As Integer, X As Single, Y
                     DR.Left = 0
                     DR.Top = 0
                     DR.Right = 32
-                    DR.bottom = 32
+                    DR.Bottom = 32
                     
                     ' Esto tiene que ir si o si
                     Call DrawGrhtoHdc(Me.Picture5.hdc, GrhIndex, DR)
@@ -2299,8 +2297,10 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
                         Call SendData("RPU")
                         UserPuedeRefrescar = False
                         Beep
-
                     End If
+                    
+                Case CustomKeys.BindedKey(eKeyType.mKeySeguroCvc)
+                     'para Seth: Aquí lo que hace el COMANDO!
 
             End Select
 
@@ -2436,8 +2436,8 @@ Private Sub Form_Load()
     'Consola transparente
     Dim result As Long
    
-    result = SetWindowLong(RecTxt.HWnd, GWL_EXSTYLE, WS_EX_TRANSPARENT)
-    result = SetWindowLong(SendCMSTXT.HWnd, GWL_EXSTYLE, WS_EX_TRANSPARENT)
+    result = SetWindowLong(RecTxt.hwnd, GWL_EXSTYLE, WS_EX_TRANSPARENT)
+    result = SetWindowLong(SendCMSTXT.hwnd, GWL_EXSTYLE, WS_EX_TRANSPARENT)
     
     Set InvEqu.Picture = Interfaces.FrmMain_Inventario
     Set frmMain.Picture = Interfaces.FrmMain_Principal
@@ -2448,8 +2448,8 @@ Private Sub Form_Load()
     Set wndProc = New clsTrickSubclass
     Set lstProc = New clsTrickSubclass
     
-    wndProc.Hook Me.HWnd
-    lstProc.Hook hlst.HWnd
+    wndProc.Hook Me.hwnd
+    lstProc.Hook hlst.hwnd
    
     'Esta funcion no es necesaria usarla.
     ' Do While hlst.ListCount < 35
@@ -2457,11 +2457,11 @@ Private Sub Form_Load()
     ' Loop
      
     'Borde ListBox
-    Dim Rgn1 As Long
-    Rgn1 = CreateRectRgn(1, 1, hlst.Width - 1, hlst.Height - 1)
-    SetWindowRgn hlst.HWnd, Rgn1, True
+    Dim rgn1 As Long
+    rgn1 = CreateRectRgn(1, 1, hlst.Width - 1, hlst.Height - 1)
+    SetWindowRgn hlst.hwnd, rgn1, True
      
-    Detectar RecTxt.HWnd, Me.HWnd
+    Detectar RecTxt.hwnd, Me.hwnd
     
     InitDrawMain DragPantalla
 
@@ -3117,13 +3117,13 @@ Private Sub Ulla_Click()
     Call SendData("/DEFULLA")
 End Sub
 
-Private Sub lstProc_wndProc(ByVal HWnd As Long, ByVal msg As Long, ByVal wParam As Long, ByVal lParam As Long, ret As Long, DefCall As Boolean)
+Private Sub lstProc_wndProc(ByVal hwnd As Long, ByVal msg As Long, ByVal wParam As Long, ByVal lParam As Long, ret As Long, DefCall As Boolean)
     
     Select Case msg
         
         Case WM_VSCROLL
     
-            InvalidateRect HWnd, ByVal 0&, 0
+            InvalidateRect hwnd, ByVal 0&, 0
 
     End Select
    
@@ -3131,18 +3131,18 @@ Private Sub lstProc_wndProc(ByVal HWnd As Long, ByVal msg As Long, ByVal wParam 
     
 End Sub
 
-Private Sub wndProc_WndProc(ByVal HWnd As Long, ByVal msg As Long, ByVal wParam As Long, ByVal lParam As Long, ret As Long, DefCall As Boolean)
+Private Sub wndProc_WndProc(ByVal hwnd As Long, ByVal msg As Long, ByVal wParam As Long, ByVal lParam As Long, ret As Long, DefCall As Boolean)
     
     Select Case msg
 
         Case WM_CTLCOLORSTATIC, WM_CTLCOLORLISTBOX
             Dim pts(1) As Long
     
-            MapWindowPoints lParam, Me.HWnd, pts(0), 1
+            MapWindowPoints lParam, Me.hwnd, pts(0), 1
      
             SetBrushOrgEx wParam, -pts(0), -pts(1), ByVal 0&
  
-            If lParam = hlst.HWnd Then
+            If lParam = hlst.hwnd Then
                 SetBkMode wParam, Transparent
                 SetTextColor wParam, vbWhite
         
