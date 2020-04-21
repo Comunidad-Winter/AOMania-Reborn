@@ -763,7 +763,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, ByVal rData As String, ByVal In
                     If Npclist(NpcIndex).flags.NPCActive And Npclist(NpcIndex).pos.Map = val(rData) And Npclist(NpcIndex).Hostile = 1 And Npclist( _
                        NpcIndex).Stats.Alineacion = 2 Then
                         ContS = ContS & Npclist(NpcIndex).Name & ", "
-
+                        LoopC = LoopC + 1
                     End If
 
                 Next NpcIndex
@@ -776,7 +776,9 @@ Public Sub CommandGm(ByVal UserIndex As Integer, ByVal rData As String, ByVal In
                 End If
 
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Npcs en mapa: " & ContS & FONTTYPE_INFO)
-
+                
+                Call SendData(ToIndex, UserIndex, 0, "VWNN" & LoopC & "," & rData & "," & ContS)
+                
             End If
 
             Exit Sub
@@ -3932,7 +3934,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 If Npclist(NpcIndex).flags.NPCActive And Npclist(NpcIndex).pos.Map = val(rData) And Npclist(NpcIndex).Hostile = 1 And Npclist( _
                    NpcIndex).Stats.Alineacion = 2 Then
                     ContS = ContS & Npclist(NpcIndex).Name & ", "
-
+                    LoopC = LoopC + 1
                 End If
 
             Next NpcIndex
@@ -3945,7 +3947,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             End If
 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Npcs en mapa: " & ContS & FONTTYPE_INFO)
-
+            Call SendData(ToIndex, UserIndex, 0, "VWNN" & LoopC & "," & rData & "," & ContS)
         End If
 
         Exit Sub

@@ -18,6 +18,15 @@ Begin VB.Form frmCustomKeys
    StartUpPosition =   1  'CenterOwner
    Begin VB.TextBox txtText1 
       Height          =   285
+      Index           =   32
+      Left            =   6240
+      TabIndex        =   31
+      Text            =   "Text1"
+      Top             =   6765
+      Width           =   1635
+   End
+   Begin VB.TextBox txtText1 
+      Height          =   285
       Index           =   6
       Left            =   6360
       TabIndex        =   30
@@ -386,7 +395,7 @@ Private Sub Form_Load()
 
 End Sub
 
-Private Sub salir_Click()
+Private Sub Salir_Click()
 
     Unload Me
 

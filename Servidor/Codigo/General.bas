@@ -2135,7 +2135,7 @@ Sub TimeChange()
 
     If CountTC = 25 Then CountTC = 1
 
-    Call SendData(SendTarget.ToAll, 0, 0, "H" & CountTC)
+    Call SendData(SendTarget.ToAll, 0, 0, "HUCT" & CountTC)
 
     Call DayChange(CountTC)
 

@@ -49,7 +49,7 @@ Option Explicit
 
 ''
 'Number of Customizable Keys
-Private Const NUM_CUSTOM_KEYS            As Byte = 31
+Private Const NUM_CUSTOM_KEYS            As Byte = 32
 
 ''
 'Error Raised in case the key file doesn't exist
@@ -332,7 +332,7 @@ End Property
 '@param index Index of the key to change
 '@param NewVal New key code
 
-Public Property Let BindedKey(ByVal Index As eKeyType, ByVal NewVal As Integer)
+Public Property Let BindedKey(ByVal Index As eKeyType, ByVal newVal As Integer)
 
     '***************************************************
     'Author: Rapsodius
@@ -341,18 +341,18 @@ Public Property Let BindedKey(ByVal Index As eKeyType, ByVal NewVal As Integer)
     '***************************************************
     If Index < 1 Or Index > NUM_CUSTOM_KEYS Then Exit Property
     
-    If LenB(ReadableName(NewVal)) = 0 Then 'If key is not valid...
+    If LenB(ReadableName(newVal)) = 0 Then 'If key is not valid...
 
         Exit Property                      'Rejects the new assignment
 
     End If
     
-    If KeyAssigned(NewVal) Then 'Also reject it in case key is already assigned
+    If KeyAssigned(newVal) Then 'Also reject it in case key is already assigned
         Exit Property
 
     End If
     
-    mappedKeys(Index) = NewVal
+    mappedKeys(Index) = newVal
 
 End Property
 

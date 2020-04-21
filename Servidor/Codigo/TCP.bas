@@ -1657,7 +1657,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         Next X
 
         Call SendData(ToAll, 0, 0, "³" & Total)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "H" & CountTC)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "HUCT" & CountTC)
 
         If NocheLicantropo = True Then
             If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
@@ -2421,13 +2421,6 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
     End If
 
     Select Case Left$(rData, 1)
-
-    Case "H"
-        rData = Right$(rData, Len(rData) - 1)
-        CountTC = rData
-        Call SendData(SendTarget.ToAll, 0, 0, "H" & rData)
-        Call DayChange(rData)
-        Exit Sub
 
     Case ";"
 

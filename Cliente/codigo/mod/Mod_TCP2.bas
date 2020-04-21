@@ -1,13 +1,12 @@
 Attribute VB_Name = "Mod_TCP2"
 Option Explicit
 
-
-
 Sub HandleData2(ByVal Rdata As String)
    
    Dim Rs As Integer
    Dim LoopC As Integer
    Dim charindex As Long
+   Dim x As Integer
    
    Select Case UCase$(Left$(Rdata, 3))
        
@@ -71,6 +70,30 @@ Sub HandleData2(ByVal Rdata As String)
    End Select
    
    Select Case UCase$(Left$(Rdata, 4))
+   
+      Case "HUCT"
+           Rdata = Right$(Rdata, Len(Rdata) - 4)
+           TimeChange = Rdata
+         Call DayNameChange(Rdata)
+           Exit Sub
+     
+      Case "VWNN"
+           
+           Rdata = Right$(Rdata, Len(Rdata) - 4)
+           
+           FrmNene.Info.Caption = "Hay " & ReadField(1, Rdata, 44) & " en el mapa " & ReadField(2, Rdata, 44) & "."
+           
+           x = ReadField(1, Rdata, 44) + 2
+           
+           For LoopC = 3 To x
+                
+                FrmNene.Npc.AddItem ReadField(LoopC, Rdata, 44)
+                
+           Next LoopC
+           
+           FrmNene.Show , frmMain
+           
+      Exit Sub
    
        Case "VLDB"
              frmValidarBanco.Show , frmMain
@@ -179,12 +202,5 @@ Sub HandleData2(ByVal Rdata As String)
           
    End Select
    
-   Select Case UCase$(Left$(Rdata, 1))
-       Case "H"
-           Rdata = Right$(Rdata, Len(Rdata) - 1)
-           TimeChange = Rdata
-         Call DayNameChange(Rdata)
-           Exit Sub
-   End Select
-   
+
 End Sub

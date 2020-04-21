@@ -1,7 +1,7 @@
 [History]
 1=#P0#=mb	#P1#=CharRender	#P2#=AoManiaCliente/Mod_TileEngine/CharRender	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200421021555	#P7#=0	#P8#=11	.
 2=#P0#=mb	#P1#=StopMidi	#P2#=AoManiaCliente/clsAudio/StopMidi	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200419184719	#P7#=0	#P8#=7	.
-3=#P0#=mb	#P1#=Form_KeyUp	#P2#=AoManiaCliente/frmMain/Form_KeyUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419184701	#P7#=0	#P8#=12	.
+3=#P0#=mb	#P1#=Form_KeyUp	#P2#=AoManiaCliente/frmMain/Form_KeyUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200421191032	#P7#=0	#P8#=95	.
 4=#P0#=mb	#P1#=PlayMIDI	#P2#=AoManiaCliente/clsAudio/PlayMIDI	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200419184633	#P7#=0	#P8#=1	.
 5=#P0#=mb	#P1#=picInv_MouseDown	#P2#=AoManiaCliente/frmMain/picInv_MouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419184543	#P7#=0	#P8#=29	.
 6=#P0#=mb	#P1#=Image13_Click	#P2#=AoManiaCliente/frmMain/Image13_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419184523	#P7#=0	#P8#=3	.
