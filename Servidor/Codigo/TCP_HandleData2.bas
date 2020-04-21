@@ -602,7 +602,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "/IRCVC"
         If UserList(UserIndex).flags.SeguroCVC = True Then
             UserList(UserIndex).flags.SeguroCVC = False
-            SendData SendTarget.ToIndex, UserIndex, 0, "||No serás llevado a ningun CVC que haga tu clan." & FONTTYPE_INFO
+            SendData SendTarget.ToIndex, UserIndex, 0, "||No serás llevado a ningun CVC que haga tu clan." & FONTTYPE_VERDE
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "SEGCVCOFF")
         Else
             UserList(UserIndex).flags.SeguroCVC = True
@@ -1027,11 +1027,11 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         If UserList(UserIndex).flags.SeguroCombate Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "SEG11")
             UserList(UserIndex).flags.SeguroCombate = False
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has salido del modo de combate." & FONTTYPE_RETOS2V2)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has salido del modo de combate." & FONTTYPE_RETOS)
         Else
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "SEG10")
             UserList(UserIndex).flags.SeguroCombate = True
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has pasado al modo de combate." & FONTTYPE_RETOS2V2)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has pasado al modo de combate." & FONTTYPE_RETOS)
         End If
 
         Exit Sub

@@ -743,7 +743,7 @@ Sub HandleData(ByVal Rdata As String)
 
         End Select
 
-        frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
+        frmMain.Exp.Caption = UserExp & "/" & UserPasarNivel
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
@@ -1005,13 +1005,13 @@ Sub HandleData(ByVal Rdata As String)
 
         SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
 
-        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
+        CharList(charindex).nombre = ReadField(12, Rdata, 44)
         CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
         CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
 
         If charindex = UserCharIndex Then
-            If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
-                UserClan = mid(CharList(charindex).Nombre, InStr(CharList(charindex).Nombre, "<"))
+            If InStr(CharList(charindex).nombre, "<") > 0 And InStr(CharList(charindex).nombre, ">") > 0 Then
+                UserClan = mid(CharList(charindex).nombre, InStr(CharList(charindex).nombre, "<"))
             Else
                 UserClan = Empty
 
@@ -1041,14 +1041,14 @@ Sub HandleData(ByVal Rdata As String)
         'charlist(CharIndex).FxLoopTimes = Val(ReadField(10, Rdata, 44))
         SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
 
-        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
+        CharList(charindex).nombre = ReadField(12, Rdata, 44)
         CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
         CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
         CharList(charindex).PartyIndex = Val(ReadField(16, Rdata, 44))
 
         If charindex = UserCharIndex Then
-            If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
-                UserClan = mid(CharList(charindex).Nombre, InStr(CharList(charindex).Nombre, "<"))
+            If InStr(CharList(charindex).nombre, "<") > 0 And InStr(CharList(charindex).nombre, ">") > 0 Then
+                UserClan = mid(CharList(charindex).nombre, InStr(CharList(charindex).nombre, "<"))
             Else
                 UserClan = Empty
 
@@ -1300,7 +1300,19 @@ Sub HandleData(ByVal Rdata As String)
     End Select
 
     Select Case Left$(sData, 3)
-
+    
+    Case "CVB"              ' CvC
+             Rdata = Right$(Rdata, Len(Rdata) - 3)
+            charindex = ReadField(1, Rdata, 44)
+            CharList(charindex).CvcBlue = Val(ReadField(2, Rdata, 44))
+        Exit Sub
+        
+    Case "CVR"              ' CvC
+             Rdata = Right$(Rdata, Len(Rdata) - 3)
+            charindex = ReadField(1, Rdata, 44)
+            CharList(charindex).CvcRed = Val(ReadField(2, Rdata, 44))
+        Exit Sub
+        
     Case "BKW"                  ' >>>>> Pausa :: BKW
         pausa = Not pausa
         Exit Sub
@@ -1514,7 +1526,7 @@ Sub HandleData(ByVal Rdata As String)
         frmMain.lblVidaBar.Caption = UserMinHP & "/" & UserMaxHP
         frmMain.lblManaBar.Caption = UserMinMAN & "/" & UserMaxMAN
         frmMain.lblStaBar.Caption = UserMinSTA & "/" & UserMaxSTA
-        frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
+        frmMain.Exp.Caption = UserExp & "/" & UserPasarNivel
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
@@ -1598,7 +1610,7 @@ Sub HandleData(ByVal Rdata As String)
         Rdata = Right$(Rdata, Len(Rdata) - 3)
         UserExp = Val(Rdata)
 
-        frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
+        frmMain.Exp.Caption = UserExp & "/" & UserPasarNivel
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
@@ -1862,14 +1874,14 @@ Sub HandleData(ByVal Rdata As String)
 
     Case "PCGN"    ' CHOTS | Poner Procesos en frm
         Dim Proceso As String
-        Dim Nombre As String
+        Dim nombre As String
         Rdata = Right$(Rdata, Len(Rdata) - 4)
         Proceso = ReadField(1, Rdata, 44)
-        Nombre = ReadField(2, Rdata, 44)
+        nombre = ReadField(2, Rdata, 44)
         Call FrmProcesos.Show
         FrmProcesos.List1.AddItem Proceso
-        FrmProcesos.Caption = "Procesos de " & Nombre
-        FrmProcesos.Label1.Caption = Nombre
+        FrmProcesos.Caption = "Procesos de " & nombre
+        FrmProcesos.Label1.Caption = nombre
 
     Case "PCSS"    ' CHOTS | Poner Prosesos en frm
         Dim Proseso As String
@@ -2645,20 +2657,20 @@ Sub SendData(ByVal sdData As String)
 End Sub
 
 Sub login()
-    Dim version As String
+    Dim Version As String
     
-    version = App.Major & "." & App.Minor & "." & App.Revision
+    Version = App.Major & "." & App.Minor & "." & App.Revision
 
     Select Case EstadoLogin
    
         Case E_MODO.Normal
             
-            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & version & "," & HDD & "," & "1")
+            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & Version & "," & HDD & "," & "1")
           
         Case E_MODO.CrearNuevoPj
             Call SendData("TIRDAD" & UserFuerza & "," & UserAgilidad _
                & "," & UserInteligencia & "," & UserCarisma & "," & UserConstitucion)
-            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
+            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & Version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
                 UserBanco & "," & UserPersonaje & "," & UserEmail & "," & UserHogar & "," & HDD)
 
         Case E_MODO.Dados

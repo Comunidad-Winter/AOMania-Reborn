@@ -506,6 +506,13 @@ Sub HandleData(ByVal Rdata As String)
         Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_FALLADO_GOLPE, 255, 0, 0, True, False, False)
         Exit Sub
 
+    Case "SEGCVCON"
+            SeguroCvc = True
+            Exit Sub
+    Case "SEGCVCOFF"
+            SeguroCvc = False
+            Exit Sub
+
     Case "ONONS"    '  <--- Activa el seguro
         IsSeguro = False
         Exit Sub
@@ -737,7 +744,7 @@ Sub HandleData(ByVal Rdata As String)
 
         End Select
 
-        frmMain.Exp.Caption = UserExp & "/" & UserPasarNivel
+        frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
@@ -1296,13 +1303,13 @@ Sub HandleData(ByVal Rdata As String)
 
     Select Case Left$(sData, 3)
     
-    Case "CVB"              ' >>>>>>>> By ZaikO/Diego Sistema de CVC TPAO STYLE!
+    Case "CVB"              'CvC
              Rdata = Right$(Rdata, Len(Rdata) - 3)
             charindex = ReadField(1, Rdata, 44)
             CharList(charindex).CvcBlue = Val(ReadField(2, Rdata, 44))
         Exit Sub
         
-        Case "CVR"              ' >>>>>>>> By ZaikO/Diego Sistema de CVC TPAO STYLE!
+        Case "CVR"              'CvC
              Rdata = Right$(Rdata, Len(Rdata) - 3)
             charindex = ReadField(1, Rdata, 44)
             CharList(charindex).CvcRed = Val(ReadField(2, Rdata, 44))
@@ -1521,7 +1528,7 @@ Sub HandleData(ByVal Rdata As String)
         frmMain.lblVidaBar.Caption = UserMinHP & "/" & UserMaxHP
         frmMain.lblManaBar.Caption = UserMinMAN & "/" & UserMaxMAN
         frmMain.lblStaBar.Caption = UserMinSTA & "/" & UserMaxSTA
-        frmMain.Exp.Caption = UserExp & "/" & UserPasarNivel
+        frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
@@ -1605,7 +1612,7 @@ Sub HandleData(ByVal Rdata As String)
         Rdata = Right$(Rdata, Len(Rdata) - 3)
         UserExp = Val(Rdata)
 
-        frmMain.Exp.Caption = UserExp & "/" & UserPasarNivel
+        frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"

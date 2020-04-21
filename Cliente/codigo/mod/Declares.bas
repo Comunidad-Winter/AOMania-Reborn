@@ -7,7 +7,7 @@ Public TickCountServer As Long
 Public delayCl(0 To 3) As Long
 Public delaySv(0 To 1) As Long
 Public requestPing As Byte
-Public SeguroCvc    As Boolean
+Public SeguroCvc As Boolean
 
 Public Const CASPER_HEAD       As Integer = 500
 Public Const FRAGATA_FANTASMAL As Integer = 87
@@ -24,7 +24,7 @@ Public Const VK_SNAPSHOT As Byte = 44 ' PrintScreen virtual keycode
 Public Const PS_TheForm = 0
 Public Const PS_TheScreen As Byte = 1
 
-Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, _
+Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal HWnd As Long, _
     ByVal lpOperation As String, _
     ByVal lpFile As String, _
     ByVal lpParameters As String, _
@@ -410,7 +410,7 @@ Type CanjInv
     MaxHit As Integer
     MinHit As Integer
     ObjType As Integer
-    cantidad As Integer
+    Cantidad As Integer
     
 End Type
 

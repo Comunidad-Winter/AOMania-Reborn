@@ -1,9 +1,9 @@
 VERSION 5.00
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
-Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "Cswsk32.ocx"
+Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "CSWSK32.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
 Object = "{B370EF78-425C-11D1-9A28-004033CA9316}#2.0#0"; "Captura.ocx"
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "COMCTL32.OCX"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
 Begin VB.Form frmMain 
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
@@ -2236,6 +2236,10 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 
                 Case CustomKeys.BindedKey(eKeyType.mKeyHechizos)
                     Call SendData("/SEGHZS")
+                    
+                Case CustomKeys.BindedKey(eKeyType.mKeySeguroCvc)
+                    Call SendData("/ircvc")
+                    SeguroCvc = Not SeguroCvc
 
                 Case vbKeyZ:
                     frmMain.RecTxt.Text = vbNullString

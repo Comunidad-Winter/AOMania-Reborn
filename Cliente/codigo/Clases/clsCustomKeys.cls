@@ -126,6 +126,7 @@ Public Enum eKeyType
     mKeyCombate
     mKeyObjetos
     mKeyHechizos
+    mKeySeguroCvc
 
 End Enum
 
@@ -396,6 +397,7 @@ Public Sub LoadDefaults()
     mappedKeys(eKeyType.mKeyCombate) = KeyCodeConstants.vbKeyC
     mappedKeys(eKeyType.mKeyObjetos) = KeyCodeConstants.vbKeyX
     mappedKeys(eKeyType.mKeyHechizos) = KeyCodeConstants.vbKeyMultiply
+    mappedKeys(eKeyType.mKeySeguroCvc) = KeyCodeConstants.vbKeyI
 
 End Sub
 
