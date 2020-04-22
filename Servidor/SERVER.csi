@@ -1,8 +1,8 @@
 [History]
-1=#P0#=mb	#P1#=HandleData	#P2#=AoManiaServer/TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200421133729	#P7#=0	#P8#=312	.
-2=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200420092743	#P7#=0	#P8#=2420	.
-3=#P0#=mb	#P1#=CommandGm	#P2#=AoManiaServer/ModGM/CommandGm	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200421210932	#P7#=0	#P8#=160	.
-4=#P0#=mb	#P1#=AllCommands	#P2#=AoManiaServer/ModGM/AllCommands	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200421211442	#P7#=0	#P8#=136	.
+1=#P0#=mb	#P1#=AllCommands	#P2#=AoManiaServer/ModGM/AllCommands	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200421211442	#P7#=0	#P8#=136	.
+2=#P0#=mb	#P1#=CommandGm	#P2#=AoManiaServer/ModGM/CommandGm	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200421210932	#P7#=0	#P8#=160	.
+3=#P0#=mb	#P1#=HandleData	#P2#=AoManiaServer/TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200421133729	#P7#=0	#P8#=312	.
+4=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200420092743	#P7#=0	#P8#=2420	.
 5=#P0#=mb	#P1#=ConnectUser	#P2#=AoManiaServer/TCP/ConnectUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200419214104	#P7#=0	#P8#=3	.
 6=#P0#=mb	#P1#=CloseSocket	#P2#=AoManiaServer/TCP/CloseSocket	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200419213935	#P7#=0	#P8#=3	.
 7=#P0#=mb	#P1#=TNosfeSagrada_Timer	#P2#=AoManiaServer/frmMain/TNosfeSagrada_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419154359	#P7#=0	#P8#=365	.
@@ -51,8 +51,8 @@
 50=#P0#=mb	#P1#=addConsole	#P2#=AoManiaServer/ModConsola/addConsole	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200415143506	#P7#=0	#P8#=-1	.
 51=#P0#=mb	#P1#=addConsolee	#P2#=AoManiaServer/ModConsola/addConsolee	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200415143442	#P7#=0	#P8#=6	.
 52=#P0#=mb	#P1#=ComensarDuelo	#P2#=AoManiaServer/RETOS/ComensarDuelo	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200415132045	#P7#=0	#P8#=10	.
-53=#P0#=mb	#P1#=Command6_Click	#P2#=AoManiaServer/frmMain/Command6_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415131944	#P7#=0	#P8#=4	.
-54=#P0#=mb	#P1#=Form_MouseMove	#P2#=AoManiaServer/frmMain/Form_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415131944	#P7#=0	#P8#=-2	.
+53=#P0#=mb	#P1#=Form_MouseMove	#P2#=AoManiaServer/frmMain/Form_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415131944	#P7#=0	#P8#=-2	.
+54=#P0#=mb	#P1#=Command6_Click	#P2#=AoManiaServer/frmMain/Command6_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415131944	#P7#=0	#P8#=4	.
 55=#P0#=mb	#P1#=LoadUserStats	#P2#=AoManiaServer/ES/LoadUserStats	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200415131438	#P7#=0	#P8#=39	.
 56=#P0#=mb	#P1#=Desequipar	#P2#=AoManiaServer/InvUsuario/Desequipar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200414170156	#P7#=0	#P8#=1	.
 57=#P0#=mb	#P1#=SpawnNpc	#P2#=AoManiaServer/NPCs/SpawnNpc	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200414061823	#P7#=0	#P8#=15	.

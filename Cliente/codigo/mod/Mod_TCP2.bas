@@ -4,9 +4,9 @@ Option Explicit
 Sub HandleData2(ByVal Rdata As String)
    
    Dim Rs As Integer
-   Dim LoopC As Integer
+   Dim LooPC As Integer
    Dim charindex As Long
-   Dim x As Integer
+   Dim X As Integer
    
    Select Case UCase$(Left$(Rdata, 3))
        
@@ -19,22 +19,22 @@ Sub HandleData2(ByVal Rdata As String)
               frmParty.Label1.Visible = True
            ElseIf Rs = 1 Then
               
-              For LoopC = 1 To MaxVerParty
+              For LooPC = 1 To MaxVerParty
               
-                  frmParty.Label2(LoopC).Caption = PartyData(LoopC).Name
-                  frmParty.Label2(LoopC).Visible = True
-                  frmParty.Label3(LoopC).Caption = PartyData(LoopC).MinHP & "/" & PartyData(LoopC).MaxHP
-                  frmParty.Label3(LoopC).Visible = True
-                  frmParty.Label4(LoopC).Visible = True
-                  frmParty.Shape1(LoopC).Visible = True
+                  frmParty.Label2(LooPC).Caption = PartyData(LooPC).Name
+                  frmParty.Label2(LooPC).Visible = True
+                  frmParty.Label3(LooPC).Caption = PartyData(LooPC).MinHP & "/" & PartyData(LooPC).MaxHP
+                  frmParty.Label3(LooPC).Visible = True
+                  frmParty.Label4(LooPC).Visible = True
+                  frmParty.Shape1(LooPC).Visible = True
                   
-                 If PartyData(LoopC).MinHP > 0 Then
-                     frmParty.Label4(LoopC).Width = (((PartyData(LoopC).MinHP / 100) / (PartyData(LoopC).MaxHP / 100)) * 101)
+                 If PartyData(LooPC).MinHP > 0 Then
+                     frmParty.Label4(LooPC).Width = (((PartyData(LooPC).MinHP / 100) / (PartyData(LooPC).MaxHP / 100)) * 101)
                    Else
-                     frmParty.Label4(LoopC).Width = 0
+                     frmParty.Label4(LooPC).Width = 0
                  End If
                  
-              Next LoopC
+              Next LooPC
               
                  frmParty.CmdSalir.Visible = True
               
@@ -76,24 +76,6 @@ Sub HandleData2(ByVal Rdata As String)
            TimeChange = Rdata
          Call DayNameChange(Rdata)
            Exit Sub
-     
-      Case "VWNN"
-           
-           Rdata = Right$(Rdata, Len(Rdata) - 4)
-           
-           FrmNene.Info.Caption = "Hay " & ReadField(1, Rdata, 44) & " en el mapa " & ReadField(2, Rdata, 44) & "."
-           
-           x = ReadField(1, Rdata, 44) + 2
-           
-           For LoopC = 3 To x
-                
-                FrmNene.Npc.AddItem ReadField(LoopC, Rdata, 44)
-                
-           Next LoopC
-           
-           FrmNene.Show , frmMain
-           
-      Exit Sub
    
        Case "VLDB"
              frmValidarBanco.Show , frmMain
@@ -153,10 +135,10 @@ Sub HandleData2(ByVal Rdata As String)
           ReDim Heads(1 To Rs)
           frmCabezas.List1.Clear
           
-          For LoopC = 1 To Rs
-             frmCabezas.List1.AddItem "Cabeza" & LoopC
-             Heads(LoopC) = ReadField(LoopC, Rdata, 44)
-          Next LoopC
+          For LooPC = 1 To Rs
+             frmCabezas.List1.AddItem "Cabeza" & LooPC
+             Heads(LooPC) = ReadField(LooPC, Rdata, 44)
+          Next LooPC
           
           frmCabezas.Show , frmMain
           Exit Sub
