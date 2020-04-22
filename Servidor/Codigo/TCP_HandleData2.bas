@@ -611,7 +611,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         End If
         Exit Sub
 
-    Case "/SICVC"
+    Case "/GOCVC"
 
         If Not UserList(UserIndex).GuildIndex >= 1 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No perteneces a ningún clan." & FONTTYPE_INFO)
@@ -1612,7 +1612,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
                             If pret = vbNullString Then
                             Else
 
-                                SendData SendTarget.ToIndex, h, 0, "||El clan " & Guilds(UserList(UserIndex).GuildIndex).GuildName & " (" & "Usuarios: " & Usuarios & ") " & " desafia a tu clan en una Guerra de Clanes, para aceptar escribe /SICVC." & FONTTYPE_ROJO
+                                SendData SendTarget.ToIndex, h, 0, "||El clan " & Guilds(UserList(UserIndex).GuildIndex).GuildName & " (" & "Usuarios: " & Usuarios & ") " & " desafia a tu clan en una Guerra de Clanes, para aceptar escribe /GOCVC." & FONTTYPE_ROJO
                             End If
                             Guilds(UserList(h).GuildIndex).TieneParaDesafiar = True
                             Guilds(UserList(h).GuildIndex).ClanPideDesafio = Guilds(UserList(UserIndex).GuildIndex).GuildName
