@@ -2665,7 +2665,7 @@ Sub login()
             Call SendData("TIRDAD" & UserFuerza & "," & UserAgilidad _
                & "," & UserInteligencia & "," & UserCarisma & "," & UserConstitucion)
             Call SendData("ZORRON" & UserName & "," & UserPassword & "," & version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
-                UserBanco & "," & UserPersonaje & "," & UserEmail & "," & UserHogar & "," & HDD)
+                UserBanco & "," & UserPersonaje & "," & UserEmail & "," & HDD)
 
         Case E_MODO.Dados
             frmCrearPersonaje.Show
