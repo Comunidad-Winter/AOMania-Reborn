@@ -3763,3 +3763,24 @@
 20/04/2020 11:18:59 Se conecto con ip:127.0.0.1Hora: 20/04/2020 11:18:59
 20/04/2020 11:20:28 Se conecto con ip:127.0.0.1Hora: 20/04/2020 11:20:28
 21/04/2020 3:35:03 Se conecto con ip:127.0.0.1Hora: 21/04/2020 3:35:03
+22/04/2020 18:18:18 Se conecto con ip:127.0.0.1Hora: 22/04/2020 18:18:18
+22/04/2020 18:18:23 Comando: /mod artharionn nivel 30
+22/04/2020 18:18:25 Comando: /ira artha
+22/04/2020 18:18:25 /IRA artharionn Mapa:34 X:45 Y:
+22/04/2020 18:18:27 Comando: /panelgm
+22/04/2020 18:18:30 Comando: /SEARCHITEMS huev
+22/04/2020 18:18:32 Comando: /CI 1659 1
+22/04/2020 18:18:32 Creo: 1 Huevo de la gloria eterna
+22/04/2020 18:18:36 Comando: /SEARCHITEMS sagrada
+22/04/2020 18:18:39 Comando: /CI 651 1
+22/04/2020 18:18:39 Creo: 1 Tunica Sagrada
+22/04/2020 18:18:48 Comando: /mod artharionn oro 10000000
+22/04/2020 18:19:01 Comando: /panelgm
+22/04/2020 18:19:04 Comando: /SEARCHITEMS sagrada
+22/04/2020 18:19:07 Comando: /CI 651 1
+22/04/2020 18:19:07 Creo: 1 Tunica Sagrada
+22/04/2020 18:19:10 Comando: /SEARCHITEMS huev
+22/04/2020 18:19:11 Comando: /CI 1659 1
+22/04/2020 18:19:11 Creo: 1 Huevo de la gloria eterna
+22/04/2020 18:19:57 Comando: /mod pera nivel 30
+22/04/2020 18:20:03 Comando: /mod pera oro 1000000
