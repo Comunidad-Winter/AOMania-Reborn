@@ -1001,7 +1001,7 @@ Public fChild  As New frmBuscar
 Private Declare Function SetParent Lib "user32" (ByVal hWndChild As Long, ByVal hWndParent As Long) As Long
 
 Private Function OpenChildInParent(Parent As Form, Child As Form)
-    SetParent Child.HWnd, Parent.HWnd
+    SetParent Child.hwnd, Parent.hwnd
 
 End Function
 
@@ -1195,12 +1195,24 @@ End Sub
 
 Private Sub mnuactobj_Click()
     Call SendData("/RELOADOBJ")
-
 End Sub
 
 Private Sub mnuactspell_Click()
     Call SendData("/RELOADHECHIZOS")
+End Sub
 
+Private Sub mnuBanClan_Click()
+   tmp = InputBox("¿Que clan?", "")
+   Call SendData("/BANCLAN " & tmp)
+End Sub
+
+Private Sub mnubanip_Click()
+   tmp = ComboNick.Text
+   Call SendData("/BANIP " & tmp)
+End Sub
+
+Private Sub mnubloqtile_Click()
+    Call SendData("/BLOQ")
 End Sub
 
 Private Sub mnuBoveda_Click()
@@ -1213,7 +1225,6 @@ Private Sub mnuCarcelCinco_Click()
     tmp = ComboNick.Text
     tmp1 = InputBox("¿Cual es el motivo?", "")
     Call SendData("/CARCEL " & tmp & "@" & tmp1 & "@" & "5")
-
 End Sub
 
 Private Sub mnuCarcelQuince_Click()
@@ -1228,6 +1239,10 @@ Private Sub mnuCarcelTreinta_Click()
     tmp1 = InputBox("¿Cual es el motivo?", "")
     Call SendData("/CARCEL " & tmp & "@" & tmp1 & "@" & "30")
 
+End Sub
+
+Private Sub mnucentitrabajando_Click()
+    Call SendData("/TRABAJANDO")
 End Sub
 
 Private Sub mnuciuarghal_Click()
@@ -1298,7 +1313,11 @@ End Sub
 Private Sub mnuEchar_Click()
     tmp = ComboNick.Text
     Call SendData("/ECHAR " & tmp)
+End Sub
 
+Private Sub mnuenemigoenmapa_Click()
+   tmp = InputBox("¿En qué mapa?", "")
+   Call SendData("/NENE " & tmp)
 End Sub
 
 Private Sub mnuenviarhora_Click()
@@ -1344,10 +1363,14 @@ Private Sub mnuiodlluvia_Click()
 
 End Sub
 
+Private Sub mnuIpnick_Click()
+     tmp = ComboNick.Text
+     Call SendData("/NICKIP " & tmp)
+End Sub
+
 Private Sub mnuIra_Click()
     tmp = ComboNick.Text
     Call SendData("/IRA " & tmp)
-
 End Sub
 
 Private Sub mnuIrasrestri_Click()
@@ -1358,6 +1381,15 @@ End Sub
 Private Sub mnuLiberar_Click()
     tmp = ComboNick.Text
     Call SendData("/LIBERAR " & tmp)
+End Sub
+
+Private Sub mnulimpiaroro_Click()
+    Call SendData("/MASSORO")
+End Sub
+
+Private Sub mnuMiembrtoclan_Click()
+    tmp = InputBox("¿Que clan?", "")
+    Call SendData("/ONCLAN " & tmp)
 End Sub
 
 Private Sub mnumsjgms_Click()
@@ -1393,10 +1425,14 @@ End Sub
 
 Private Sub mnunochoodia_Click()
     tmp = InputBox("¿Que hora quieres poner?", "")
+
     If Val(tmp) > 24 Then
         Exit Sub
+
     End If
+
     Call SendData("HPGM" & tmp)
+
 End Sub
 
 Private Sub mnuNorte_Click()
@@ -1411,17 +1447,46 @@ End Sub
 
 Private Sub mnuoffserv_Click()
     Call SendData("/OFFE")
+End Sub
+
+Private Sub mnupuntos_Click()
+    tmp = ComboNick.Text
+    Call SendData("/CASTIGOPUNTOS " & tmp)
+
+End Sub
+
+Private Sub mnupuntosclan_Click()
+    tmp = ComboNick.Text
+    Call SendData("/CASTIGOCLAN " & tmp)
+
+End Sub
+
+Private Sub mnuPuntosretos_Click()
+    tmp = ComboNick.Text
+    Call SendData("/CASTIGORETOS " & tmp)
+
+End Sub
+
+Private Sub mnupuntostorneos_Click()
+    tmp = ComboNick.Text
+    Call SendData("/CASTIGOTORNEO " & tmp)
+
+End Sub
+
+Private Sub mnuresetpuntos_Click()
+    tmp = ComboNick.Text
+    Call SendData("/CASTIGOTODOS " & tmp)
 
 End Sub
 
 Private Sub mnuRevivir_Click()
     tmp = ComboNick.Text
     Call SendData("/REVIVIR " & tmp)
-
 End Sub
 
 Private Sub mnuround1user2_Click()
-      Call SendData("/TORNEOSAUTOMATICOS 1")
+    Call SendData("/TORNEOSAUTOMATICOS 1")
+
 End Sub
 
 Private Sub mnuround2user4_Click()
@@ -1446,7 +1511,6 @@ End Sub
 
 Private Sub mnusavepjs_Click()
     Call SendData("/Grabar")
-
 End Sub
 
 Private Sub mnuSilenciarCinco_Click()
@@ -1489,15 +1553,31 @@ Private Sub mnuStartWorld_Click()
 
 End Sub
 
+Private Sub mnuSubirNivel_Click()
+   tmp = ComboNick.Text
+   tmp1 = InputBox("Nivel", "")
+   Call SendData("/SUBIR " & tmp & " " & tmp1)
+End Sub
+
+Private Sub mnuSubiroro_Click()
+    tmp = ComboNick.Text
+    tmp1 = InputBox("Cuanto Oro", "")
+    Call SendData("/MOD " & tmp & " ORO " & tmp1)
+End Sub
+
+Private Sub mnuSubirSkills_Click()
+    tmp = ComboNick.Text
+    tmp1 = InputBox("Cuantos Skills", "")
+    Call SendData("/DARSKILL " & tmp & " " & tmp1)
+End Sub
+
 Private Sub mnuSumonear_Click()
     tmp = ComboNick.Text
     Call SendData("/SUM " & tmp)
-
 End Sub
 
 Private Sub mnuSur_Click()
     Call SendData("/telep PaneldeGM 99 61 83")
-
 End Sub
 
 Private Sub mnutransuser_Click()
@@ -1512,7 +1592,15 @@ End Sub
 Private Sub mnuUbicacion_Click()
     tmp = ComboNick.Text
     Call SendData("/DONDE " & tmp)
+End Sub
 
+Private Sub mnuUserMap_Click()
+    Call SendData("/ONLINEMAP")
+End Sub
+
+Private Sub mnuUserRajarClan_Click()
+    tmp = ComboNick.Text
+    Call SendData("/RAJARCLAN " & tmp)
 End Sub
 
 Private Sub msjcontadortorneos_Click()
