@@ -1553,6 +1553,18 @@ Private Sub mnuStartWorld_Click()
 
 End Sub
 
+Private Sub mnusubirciu_Click()
+    tmp = ComboNick.Text
+    tmp1 = InputBox("Cuantas muertes ciudadanos", "")
+    Call SendData("/CAMBIARCIU " & tmp & " " & tmp1)
+End Sub
+
+Private Sub mnuSubircri_Click()
+    tmp = ComboNick.Text
+    tmp1 = InputBox("Cuantas muertes criminales", "")
+    Call SendData("/CAMBIARCRI " & tmp & " " & tmp1)
+End Sub
+
 Private Sub mnuSubirNivel_Click()
    tmp = ComboNick.Text
    tmp1 = InputBox("Nivel", "")
