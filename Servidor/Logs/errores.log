@@ -1675,3 +1675,100 @@
 24/04/2020 0:26:27 HandleData. CadOri:/MOD Bassinger ORO 1 Nom:BassingerUI:1 N: 0 D: 
 24/04/2020 0:29:28 HandleData. CadOri:/REM aaa Nom:BassingerUI:1 N: 0 D: 
 24/04/2020 0:29:31 HandleData. CadOri:/HORA Bassinger Nom:BassingerUI:1 N: 0 D: 
+24/04/2020 4:09:20 HandleData. CadOri:/ira swe Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:10:02 HandleData. CadOri:/MOV Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:10:07 HandleData. CadOri:/mod sweety nivel 44 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:10:15 HandleData. CadOri:/mod pega nivel 44 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:10:17 HandleData. CadOri:/ira swe Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:10:18 HandleData. CadOri:/MOV Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:10:19 HandleData. CadOri:/MOV Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:10:21 HandleData. CadOri:/MOV Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:10:27 HandleData. CadOri:/info swe Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:10:58 HandleData. CadOri:/mod sweety oro 1000000 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:05 HandleData. CadOri:/mod pegauna oro 10000000 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:12 HandleData. CadOri:/SEARCHNPCS hec Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:14 HandleData. CadOri:/ACC 18 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:15 HandleData. CadOri:/ACC 223 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:16 HandleData. CadOri:/ACC 224 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:17 HandleData. CadOri:/ACC 225 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:17 HandleData. CadOri:/ACC 247 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:20 HandleData. CadOri:/TELEP YO 34 30 48 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:21 HandleData. CadOri:/TELEP YO 34 32 49 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:24 HandleData. CadOri:/SEARCHNPCS mag Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:27 HandleData. CadOri:/ACC 298 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:28 HandleData. CadOri:/ACC 47 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:28 HandleData. CadOri:/ACC 46 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:29 HandleData. CadOri:/ACC 45 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:29 HandleData. CadOri:/ACC 44 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:30 HandleData. CadOri:/ACC 43 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:31 HandleData. CadOri:/ACC 42 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:33 HandleData. CadOri:/TELEP YO 34 30 53 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:53 HandleData. CadOri:/CI 570 11 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:11:55 HandleData. CadOri:/CI 651 11 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:01 HandleData. CadOri:/TELEP YO 34 29 53 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:03 HandleData. CadOri:/TELEP YO 34 31 53 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:08 HandleData. CadOri:/crear 37 100000 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:12 HandleData. CadOri:/crear 37 10000 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:14 HandleData. CadOri:/crear Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:17 HandleData. CadOri:/cit 37 10000 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:25 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:26 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:26 HandleData. CadOri:/cit 37 1200/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:26 HandleData. CadOri:/cit 37 1200/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:27 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:30 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:32 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:32 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:33 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:33 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:34 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:12:34 HandleData. CadOri:/cit 37 1200 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:13:10 HandleData. CadOri:/CI 1001 1 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:13:15 HandleData. CadOri:/CI 553 1111 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:13:17 HandleData. CadOri:/CI 1313 1111 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:13:20 HandleData. CadOri:/CI 1314 1111 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:13:51 HandleData. CadOri:/sum pegauna Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:14:10 HandleData. CadOri:/MOV Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:14:12 HandleData. CadOri:/MOV Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:14:48 HandleData. CadOri:/telep yo 154 50 50 Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:14:51 HandleData. CadOri:/sum swee Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:14:56 HandleData. CadOri:/sum pega Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:15:40 HandleData. CadOri:/revivir sweety Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:15:42 HandleData. CadOri:/sum swee Nom:sethUI:2 N: 0 D: 
+24/04/2020 4:15:50 HandleData. CadOri:/echar seth Nom:UI:2 N: 0 D: 
+24/04/2020 4:22:52 HandleData. CadOri:WLC19,55,2 Nom:GeloUI:3 N: 9 D: El subíndice está fuera del intervalo
+24/04/2020 4:22:53 HandleData. CadOri:WLC19,54,2 Nom:GeloUI:3 N: 9 D: El subíndice está fuera del intervalo
+24/04/2020 4:22:55 HandleData. CadOri:WLC24,41,2 Nom:GeloUI:3 N: 9 D: El subíndice está fuera del intervalo
+24/04/2020 4:23:28 HandleData. CadOri:/mod seth oro 100000000 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:23:29 HandleData. CadOri:/ira se Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:23:30 HandleData. CadOri:WLC67,55,2 Nom:GeloUI:3 N: 9 D: El subíndice está fuera del intervalo
+24/04/2020 4:23:32 HandleData. CadOri:/ira swe Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:23:36 HandleData. CadOri:/MOV Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:23:39 HandleData. CadOri:/MOV Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:23:40 HandleData. CadOri:/MOV Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:23:40 HandleData. CadOri:/MOV Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:23:50 HandleData. CadOri:/mod sweety oro 100000000 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:23:58 HandleData. CadOri:/limpiar Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:24:43 HandleData. CadOri:/CI 1702 111 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:25:39 HandleData. CadOri:/telep yo 37 50 50 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:25:41 HandleData. CadOri:/TELEP YO 37 50 58 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:25:41 HandleData. CadOri:/TELEP YO 37 52 67 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:25:42 HandleData. CadOri:/TELEP YO 37 43 67 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:25:42 HandleData. CadOri:/TELEP YO 37 32 66 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:25:42 HandleData. CadOri:/TELEP YO 37 31 61 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:25:45 HandleData. CadOri:WLC62,29,2 Nom:GeloUI:3 N: 9 D: El subíndice está fuera del intervalo
+24/04/2020 4:25:47 HandleData. CadOri:/ct 34 30 50 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:26:32 HandleData. CadOri:/crear 1702 1200 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:26:37 HandleData. CadOri:/crear 1702 1200 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:26:46 HandleData. CadOri:/CI 1702 1111 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:26:48 HandleData. CadOri:/CI 1702 1111 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:26:51 HandleData. CadOri:/CI 1702 1111 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:26:52 HandleData. CadOri:/CI 1702 1111 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:26:54 HandleData. CadOri:/CI 1702 1111 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:26:55 HandleData. CadOri:/CI 1702 1111 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:26:57 HandleData. CadOri:/CI 1702 1111 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:27:44 HandleData. CadOri:/mod seth nivel 55 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:27:55 HandleData. CadOri:/CI 986 1 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:27:57 HandleData. CadOri:/CI 1057 1 Nom:sethUI:5 N: 0 D: 
+24/04/2020 4:31:13 HandleData. CadOri:/duelos Nom:El papolinUI:1 N: 9 D: El subíndice está fuera del intervalo
+24/04/2020 4:36:56 HandleData. CadOri:/duelos Nom:El papolinUI:1 N: 9 D: El subíndice está fuera del intervalo

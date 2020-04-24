@@ -86,5 +86,5 @@ TCP_HandleData3 = 78, 78, 644, 447,
 Sounds = 156, 156, 777, 525, C
 FrmCerrar = 0, 0, 0, 0, C, 26, 26, 1406, 435, C
 Mod_Campaign = 26, 26, 596, 421, C
-ModGM = 130, 130, 700, 525, Z
-modAsedio = 26, 26, 1276, 650, 
+ModGM = 130, 130, 700, 525, 
+modAsedio = 26, 26, 1276, 650, Z
