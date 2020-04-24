@@ -385,6 +385,7 @@ Public Enum eNPCType
     Banda = 33
     Medusa = 38
     OlvidarHechizo = 54
+    nQuest = 97
     Canjes = 98
     Creditos = 99
 

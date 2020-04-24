@@ -5565,6 +5565,15 @@ Body=189
 Heading=3
 Comercia=1
 
+[NPC304]
+Name=SrQuest
+Desc=Soy el señor de las quest, si quieres comenzar/terminar tu quest hazme doble click.
+NpcType=97
+Head=12
+Body=189
+Heading=3
+Comercia=0
+
 [NPC500]
 Name=Murcielago
 Head=0
