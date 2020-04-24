@@ -236,7 +236,7 @@ Sub ConnectNewUser(UserIndex As Integer, _
                    UserSexo As String, _
                    UserClase As String, _
                    UserBanco As String, _
-                   UserPersonaje As String, UserEmail As String, Hogar As String, ByVal HdSerial As String)
+                   UserPersonaje As String, UserEmail As String, ByVal HdSerial As String)
 
     If Not AsciiValidos(Name) Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRNombre invalido.")
@@ -278,7 +278,6 @@ Sub ConnectNewUser(UserIndex As Integer, _
     UserList(UserIndex).Raza = UserRaza
     UserList(UserIndex).Genero = UserSexo
     UserList(UserIndex).Email = UserEmail
-    UserList(UserIndex).Hogar = Hogar
     UserList(UserIndex).flags.Casado = 0
     UserList(UserIndex).Pareja = ""
 
@@ -2592,13 +2591,13 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
             If VersionOK(Ver) Then
 
-                HDD_Serial = ReadField(35, rData, 44)
+                HDD_Serial = ReadField(10, rData, 44)
 
                 If modHDSerial.check_HD(HDD_Serial) = -1 Then
 
                     Call ConnectNewUser(UserIndex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(4, rData, 44), ReadField(5, _
                                                                                                                                         rData, 44), ReadField(6, rData, 44), ReadField(7, rData, 44), ReadField(8, rData, 44), ReadField(9, rData, 44), _
-                                                                                                                                        ReadField(10, rData, 44), HDD_Serial)
+                                                                                                                                        HDD_Serial)
                 Else
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERR1")
 

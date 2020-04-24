@@ -675,7 +675,6 @@ Function CheckData() As Boolean
     If SkillPoints > 0 Then
         MsgBox "Asigne los skillpoints del personaje."
         Exit Function
-
     End If
 
     Dim i As Integer
@@ -1063,11 +1062,10 @@ Function CheckDatos() As Boolean
 
                 End If
                 
-                If DadoStatus < 1 Then
-                    MsgBox "Debes tirar los dados antes!!"
-                    Exit Function
-
-                End If
+                'If DadoStatus < 1 Then
+                '    MsgBox "Debes tirar los dados antes!!"
+                '    Exit Function
+                'End If
                 
                 If UserBanco = "" Then
                    MsgBox "Elige una contraseña para el Banco."
