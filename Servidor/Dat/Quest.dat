@@ -1,0 +1,14 @@
+'###########################QUEST###############################
+' Los siguientes variables para datear es la siguiente:
+' 
+' Nombre=Nombre de la quest.
+' Descripcion=Descripcion breve de la quest.
+
+
+
+[INIT]
+NumQuests=1
+
+[QUEST1]
+Nombre=El comienzo.
+Descripcion=Pudiste hacerlo leer de la forma professional.

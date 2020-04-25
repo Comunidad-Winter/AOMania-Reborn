@@ -875,6 +875,9 @@ Sub Main()
 
     frmCargando.Label1(2).caption = "Cargando Balance.."
     Call LoadBalance
+    
+    frmCargando.Label1(2).caption = "Cargando Quests.."
+    Call Load_Quest
 
     'Comentado porque hay worldsave en ese mapa!
     'Call CrearClanPretoriano(MAPA_PRETORIANO, ALCOBA2_X, ALCOBA2_Y)
@@ -1166,14 +1169,14 @@ Public Sub LogDesarrollo(ByVal str As String)
 
 End Sub
 
-Public Sub LogGM(nombre As String, texto As String)
+Public Sub LogGM(Nombre As String, texto As String)
 
     On Error GoTo errhandler
 
     Dim nfile As Integer
     nfile = FreeFile    ' obtenemos un canal
 
-    Open App.Path & "\logs\Gms\" & nombre & ".log" For Append Shared As #nfile
+    Open App.Path & "\logs\Gms\" & Nombre & ".log" For Append Shared As #nfile
 
     Print #nfile, Date & " " & Time & " " & texto
     Close #nfile
@@ -1184,26 +1187,26 @@ errhandler:
 
 End Sub
 
-Public Sub LogCreditos(nombre As String, Tiene As Long, Gasto As Long, Item As String)
+Public Sub LogCreditos(Nombre As String, Tiene As Long, Gasto As Long, Item As String)
     On Error GoTo errhandler
     Dim nfile As Integer
     nfile = FreeFile
-    Open App.Path & "\logs\Donaciones\" & nombre & ".log" For Append Shared As #nfile
-    Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
+    Open App.Path & "\logs\Donaciones\" & Nombre & ".log" For Append Shared As #nfile
+    Print #nfile, Date & "  " & Time; " " & Nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
     Close #nfile
     Exit Sub
 errhandler:
 End Sub
 
-Public Sub LogCanjes(Opcion As Integer, nombre As String, Tiene As Long, Gasto As Long, Item As String)
+Public Sub LogCanjes(Opcion As Integer, Nombre As String, Tiene As Long, Gasto As Long, Item As String)
     On Error GoTo errhandler
     Dim nfile As Integer
     nfile = FreeFile
-    Open App.Path & "\logs\Canjeadores\" & nombre & ".log" For Append Shared As #nfile
+    Open App.Path & "\logs\Canjeadores\" & Nombre & ".log" For Append Shared As #nfile
     If Opcion = 1 Then
-        Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
+        Print #nfile, Date & "  " & Time; " " & Nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
     ElseIf Opcion = 2 Then
-        Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Ganó: " & Gasto & " Por el item: " & Item
+        Print #nfile, Date & "  " & Time; " " & Nombre & ": Tenía: " & Tiene & " Ganó: " & Gasto & " Por el item: " & Item
     End If
     Close #nfile
     Exit Sub
@@ -1227,14 +1230,14 @@ errhandler:
 
 End Sub
 
-Public Sub LogUser(nombre As String, texto As String)
+Public Sub LogUser(Nombre As String, texto As String)
 
     On Error GoTo errhandler
 
     Dim nfile As Integer
     nfile = FreeFile    ' obtenemos un canal
 
-    Open App.Path & "\logs\Usuarios\" & nombre & ".log" For Append Shared As #nfile
+    Open App.Path & "\logs\Usuarios\" & Nombre & ".log" For Append Shared As #nfile
 
     Print #nfile, Date & " " & Time & " " & texto
     Close #nfile
