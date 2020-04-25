@@ -2104,27 +2104,46 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     '[Alejo]
     Select Case UCase$(Left$(rData, 7))
 
-    Case "BANEAME"
-        rData = Right(rData, Len(rData) - 7)
-        h = FreeFile
-        Open App.Path & "\LOGS\CHEATERS.log" For Append Shared As h
-
-        Print #h, "########################################################################"
-        Print #h, "Usuario: " & UserList(UserIndex).Name
-        Print #h, "Fecha: " & Date
-        Print #h, "Hora: " & Time
-        Print #h, "CHEAT: " & rData
-        Print #h, "########################################################################"
-        Print #h, " "
-        Close #h
-
-        'UserList(UserIndex).flags.Ban = 1
-
-        'Avisamos a los admins
-        Call SendData(SendTarget.ToAdmins, 0, 0, "||Sistema Antichit> " & UserList(UserIndex).Name & " ha sido Echado por uso de " & rData & _
-                                                 FONTTYPE_SERVER)
-        'Call CloseSocket(UserIndex)
-        Exit Sub
+    Case "SACSAC1"
+            rData = Right(rData, Len(rData) - 7)
+            h = FreeFile
+            Open App.Path & "\LOGS\CHEATERS.log" For Append Shared As h
+            
+            Print #h, "########################################################################"
+            Print #h, "Usuario: " & UserList(UserIndex).Name
+            Print #h, "Fecha: " & Date
+            Print #h, "Hora: " & Time
+            Select Case val(rData)
+                Case 1
+                    Print #h, "CHEAT: Se detectaron intervalos parecidos en los clicks en lista de hechizos y boton lanzar, posible macro o mouse gamer"
+                    
+                Case 2
+                    Print #h, "CHEAT: Se detectaron intervalos parecidos en los clicks boton inventario y click dentro del inventario, posible macro o mouse gamer"
+                
+                Case 3
+                    Print #h, "CHEAT: Se detectaron intervalos parecidos en los clicks en inventario y boton hechizos, posible macro o mouse gamer"
+                    
+                Case 4
+                    Print #h, "CHEAT: Se detectaron posiciones iguales en clicks en el boton lanzar, posible macro o mouse gamer"
+                
+                Case 5
+                    Print #h, "CHEAT: Se detectaron posiciones iguales en clicks en el boton hechizos, posible macro o mouse gamer"
+                    
+                Case 6
+                    Print #h, "CHEAT: Se detectaron posiciones iguales en clicks en el boton inventario, posible macro o mouse gamer"
+                    
+            End Select
+            Print #h, "########################################################################"
+            Print #h, " "
+            Close #h
+            
+            'UserList(UserIndex).flags.Ban = 1
+        
+            'Avisamos a los admins
+            'Call SendData(SendTarget.ToAdmins, 0, 0, "||Sistema Antichit> " & UserList(UserIndex).Name & " ha sido Echado por uso de " & rData & _
+                    FONTTYPE_SERVER)
+            'Call CloseSocket(UserIndex)
+            Exit Sub
 
     Case "OFRECER"
         rData = Right$(rData, Len(rData) - 7)

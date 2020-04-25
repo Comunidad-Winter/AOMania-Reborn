@@ -102,6 +102,7 @@ Form=Codigo\Frm\frmHechiceria.frm
 Form=Codigo\Frm\frmHerreroMagico.frm
 Form=codigo\Formularios\frmCapturas.frm
 Module=modCapturas; codigo\modCapturas.bas
+Module=mod_MouseGamer; codigo\mod_MouseGamer.bas
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""

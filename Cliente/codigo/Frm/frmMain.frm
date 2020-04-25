@@ -1,9 +1,9 @@
 VERSION 5.00
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
-Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "Cswsk32.ocx"
+Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "CSWSK32.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
 Object = "{B370EF78-425C-11D1-9A28-004033CA9316}#2.0#0"; "Captura.ocx"
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "COMCTL32.OCX"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
 Begin VB.Form frmMain 
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
@@ -138,7 +138,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -969,7 +968,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -1385,7 +1383,7 @@ Begin VB.Form frmMain
    End
    Begin VB.Image CmdLanzar 
       Height          =   315
-      Left            =   12315
+      Left            =   12360
       MouseIcon       =   "frmMain.frx":33345
       MousePointer    =   99  'Custom
       Picture         =   "frmMain.frx":3400F
@@ -1621,6 +1619,8 @@ Private Sub CmdLanzar_MouseUp(Button As Integer, Shift As Integer, X As Single, 
     If hlst.List(hlst.ListIndex) <> "(Vacío)" Then
         Call SendData("VB" & hlst.ListIndex + 1)
         Call SendData("UK" & Magia)
+        ClickEnObjetoPos eTipo.BotonLanzar, X, Y
+        mod_MouseGamer.ClickLanzar
     End If
 End Sub
 
@@ -1703,6 +1703,11 @@ Private Sub imgSkillpts_MouseMove(Button As Integer, Shift As Integer, X As Sing
     imgSkillpts.MouseIcon = Iconos.Ico_Mano
 End Sub
 
+Private Sub Label4_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+
+    ClickEnObjetoPos eTipo.BotonInventario, X, Y
+    mod_MouseGamer.ClickCambioInv
+End Sub
 Private Sub lblPorcLvl_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
     lblPorcLvl.Caption = UserExp & "/" & UserPasarNivel
@@ -1764,7 +1769,7 @@ Private Sub imgSkillpts_Click()
     Next i
 
     Alocados = SkillPoints
-    frmSkills3.puntos.Caption = SkillPoints
+    frmSkills3.Puntos.Caption = SkillPoints
     frmSkills3.Show , frmMain
 
 End Sub
@@ -1795,6 +1800,9 @@ Private Sub Label7_MouseUp(Button As Integer, Shift As Integer, X As Single, Y A
     Call Audio.PlayWave(SND_CLICK)
 
     Set InvEqu.Picture = Interfaces.FrmMain_Hechizos
+    
+    ClickEnObjetoPos eTipo.BotonHechizos, X, Y
+    mod_MouseGamer.ClickCambioHech
     '%%%%%%OCULTAMOS EL INV&&&&&&&&&&&&
     'DespInv(0).Visible = False
     'DespInv(1).Visible = False
@@ -2843,7 +2851,7 @@ Private Sub Socket1_Connect()
   
     ElseIf EstadoLogin = E_MODO.RecuperarPass Then
         Dim cmd As String
-        cmd = "PASSRECO" & frmRecuperar.txtNombre.Text & "~" & frmRecuperar.Txtcorreo
+        cmd = "PASSRECO" & frmRecuperar.txtNombre.Text & "~" & frmRecuperar.txtCorreo
         frmMain.Socket1.Write cmd, Len(cmd)
 
     End If
@@ -2945,7 +2953,7 @@ Private Sub Socket1_Read(DataLength As Integer, IsUrgent As Integer)
     
     On Error Resume Next
     
-    Dim LoopC             As Long
+    Dim LooPC             As Long
     Dim RD                As String
     Dim rBuffer(1 To 500) As String
 
@@ -2971,19 +2979,19 @@ Private Sub Socket1_Read(DataLength As Integer, IsUrgent As Integer)
 
     Lenght = Len(RD)
 
-    For LoopC = 1 To Lenght
+    For LooPC = 1 To Lenght
 
-        tChar = mid$(RD, LoopC, 1)
+        tChar = mid$(RD, LooPC, 1)
 
         If tChar = ENDC Then
             CR = CR + 1
-            Echar = LoopC - sChar
+            Echar = LooPC - sChar
             rBuffer(CR) = mid$(RD, sChar, Echar)
-            sChar = LoopC + 1
+            sChar = LooPC + 1
 
         End If
 
-    Next LoopC
+    Next LooPC
 
     'Check for broken line and save for next time
     If Lenght - (sChar - 1) <> 0 Then
@@ -2992,9 +3000,9 @@ Private Sub Socket1_Read(DataLength As Integer, IsUrgent As Integer)
     End If
 
     'Send buffer to Handle data
-    For LoopC = 1 To CR
-        Call HandleData(rBuffer(LoopC))
-    Next LoopC
+    For LooPC = 1 To CR
+        Call HandleData(rBuffer(LooPC))
+    Next LooPC
 
 End Sub
 

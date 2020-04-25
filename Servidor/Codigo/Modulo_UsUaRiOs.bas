@@ -1818,6 +1818,9 @@ Sub UserDie(ByVal UserIndex As Integer)
 
     'Quitar el dialogo del user muerto
     Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "QDL" & UserList(UserIndex).char.CharIndex)
+    
+    'enviar efecto de sangre
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "SFX" & UserList(UserIndex).char.CharIndex & "-0")
 
     UserList(UserIndex).Stats.MinHP = 0
     UserList(UserIndex).Stats.MinSta = 0

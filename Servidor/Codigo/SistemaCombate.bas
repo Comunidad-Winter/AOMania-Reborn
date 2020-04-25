@@ -504,12 +504,12 @@ Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 
     ' animacion daño sobre 100
     If Daño >= 100 Then
-        Call SendData(SendTarget.ToNPCArea, NpcIndex, Npclist(NpcIndex).pos.Map, "CFX" & Npclist(NpcIndex).char.CharIndex & "," & 38 & "," & 0)
+        'Call SendData(SendTarget.ToNPCArea, NpcIndex, Npclist(NpcIndex).pos.Map, "CFX" & Npclist(NpcIndex).char.CharIndex & "," & 38 & "," & 0)
     End If
 
     ' animacion daño bajo 100
     If Daño < 100 Then
-        Call SendData(SendTarget.ToNPCArea, NpcIndex, Npclist(NpcIndex).pos.Map, "CFX" & Npclist(NpcIndex).char.CharIndex & "," & 14 & "," & 0)
+        'Call SendData(SendTarget.ToNPCArea, NpcIndex, Npclist(NpcIndex).pos.Map, "CFX" & Npclist(NpcIndex).char.CharIndex & "," & 14 & "," & 0)
     End If
 
     If UserList(UserIndex).Invent.WeaponEqpObjIndex > 0 Then
@@ -1027,6 +1027,7 @@ Public Sub UsuarioAtacaNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer
         End If
 
         Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "SFX" & Npclist(NpcIndex).char.CharIndex & "-1") ' kalii
 
         Call UserDañoNpc(UserIndex, NpcIndex)
 
