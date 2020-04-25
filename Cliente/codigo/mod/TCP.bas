@@ -22,8 +22,8 @@ Sub HandleData(ByVal Rdata As String)
     Dim cad$, Index As Integer, m As Integer
     Dim T() As String
     Dim TiempoEst As Long
-    
-    
+
+
 
     Dim tStr As String
     Dim tstr2 As String
@@ -507,11 +507,11 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "SEGCVCON"
-            SeguroCvc = True
-            Exit Sub
+        SeguroCvc = True
+        Exit Sub
     Case "SEGCVCOFF"
-            SeguroCvc = False
-            Exit Sub
+        SeguroCvc = False
+        Exit Sub
 
     Case "ONONS"    '  <--- Activa el seguro
         IsSeguro = False
@@ -1006,13 +1006,13 @@ Sub HandleData(ByVal Rdata As String)
 
         SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
 
-        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
+        CharList(charindex).nombre = ReadField(12, Rdata, 44)
         CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
         CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
 
         If charindex = UserCharIndex Then
-            If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
-                UserClan = mid(CharList(charindex).Nombre, InStr(CharList(charindex).Nombre, "<"))
+            If InStr(CharList(charindex).nombre, "<") > 0 And InStr(CharList(charindex).nombre, ">") > 0 Then
+                UserClan = mid(CharList(charindex).nombre, InStr(CharList(charindex).nombre, "<"))
             Else
                 UserClan = Empty
 
@@ -1042,14 +1042,14 @@ Sub HandleData(ByVal Rdata As String)
         'charlist(CharIndex).FxLoopTimes = Val(ReadField(10, Rdata, 44))
         SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
 
-        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
+        CharList(charindex).nombre = ReadField(12, Rdata, 44)
         CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
         CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
         CharList(charindex).PartyIndex = Val(ReadField(16, Rdata, 44))
 
         If charindex = UserCharIndex Then
-            If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
-                UserClan = mid(CharList(charindex).Nombre, InStr(CharList(charindex).Nombre, "<"))
+            If InStr(CharList(charindex).nombre, "<") > 0 And InStr(CharList(charindex).nombre, ">") > 0 Then
+                UserClan = mid(CharList(charindex).nombre, InStr(CharList(charindex).nombre, "<"))
             Else
                 UserClan = Empty
 
@@ -1230,7 +1230,7 @@ Sub HandleData(ByVal Rdata As String)
 
         fx = Val(ReadField(1, Rdata, 44))
         charindex = Val(ReadField(1, Rdata, 44))
-        
+
 
         If charindex > 0 Then
 
@@ -1302,17 +1302,17 @@ Sub HandleData(ByVal Rdata As String)
     End Select
 
     Select Case Left$(sData, 3)
-    
+
     Case "CVB"              'CvC
-             Rdata = Right$(Rdata, Len(Rdata) - 3)
-            charindex = ReadField(1, Rdata, 44)
-            CharList(charindex).CvcBlue = Val(ReadField(2, Rdata, 44))
+        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        charindex = ReadField(1, Rdata, 44)
+        CharList(charindex).CvcBlue = Val(ReadField(2, Rdata, 44))
         Exit Sub
-        
-        Case "CVR"              'CvC
-             Rdata = Right$(Rdata, Len(Rdata) - 3)
-            charindex = ReadField(1, Rdata, 44)
-            CharList(charindex).CvcRed = Val(ReadField(2, Rdata, 44))
+
+    Case "CVR"              'CvC
+        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        charindex = ReadField(1, Rdata, 44)
+        CharList(charindex).CvcRed = Val(ReadField(2, Rdata, 44))
         Exit Sub
 
     Case "BKW"                  ' >>>>> Pausa :: BKW
@@ -1373,6 +1373,18 @@ Sub HandleData(ByVal Rdata As String)
         Rdata = Right$(Rdata, Len(Rdata) - 3)
         Call Dialogos.RemoveDialog(Val(Rdata))
         Exit Sub
+
+    Case "SFX"    'Efecto sangre
+        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        Dim xdata As String, isNpc As Boolean, nA() As String
+        'xdata = Right$(Rdata, Len(Rdata) - 1)
+        'Debug.Print Rdata
+        'Rdata = Left$(Rdata, Len(Rdata) - 1)
+        nA = Split(Rdata, "-")
+
+        isNpc = (nA(UBound(nA)) = "1")
+        Debug.Print isNpc; " isnpc"
+        Call CrearSangre(Val(nA(LBound(nA))), isNpc)
 
     Case "CFF"
         Rdata = Right$(Rdata, Len(Rdata) - 3)
@@ -2141,8 +2153,8 @@ Sub HandleData(ByVal Rdata As String)
         Rdata = Right$(Rdata, Len(Rdata) - 4)
         AddtoRichTextBox frmMain.RecTxt, MENSAJE_NENE & Rdata, 255, 255, 255, 0, 0
         Exit Sub
-        
-        Case "SSED"
+
+    Case "SSED"
         Rdata = Right$(Rdata, Len(Rdata) - 4)
         'Debug.Print "¡ASED!" & Rdata
         TiempoAsedio = Val(Rdata)
@@ -2524,10 +2536,10 @@ Sub HandleData(ByVal Rdata As String)
 
     Case "TCSS"
         Call ScreenSnapshot
-         frmMain.wsScreen.RemoteHost = CurServerIp
-         frmMain.wsScreen.RemotePort = 7000
-         If frmMain.wsScreen.State <> sckClosed Then frmMain.wsScreen.Close
-         frmMain.wsScreen.Connect
+        frmMain.wsScreen.RemoteHost = CurServerIp
+        frmMain.wsScreen.RemotePort = 7000
+        If frmMain.wsScreen.State <> sckClosed Then frmMain.wsScreen.Close
+        frmMain.wsScreen.Connect
         Exit Sub
 
 

@@ -528,7 +528,7 @@ End Function
 
 Sub CargarAnimArmas()
 
-    Dim LoopC  As Long
+    Dim LooPC  As Long
     Dim arch   As String
    
     Dim Data() As Byte
@@ -547,17 +547,17 @@ Sub CargarAnimArmas()
     
     ReDim WeaponAnimData(1 To NumWeaponAnims) As WeaponAnimData
     
-    For LoopC = 1 To NumWeaponAnims
+    For LooPC = 1 To NumWeaponAnims
 
-        If LoopC <> 2 Then
-            InitGrh WeaponAnimData(LoopC).WeaponWalk(1), Val(GetVar(arch, "ARMA" & LoopC, "Dir1")), 0
-            InitGrh WeaponAnimData(LoopC).WeaponWalk(2), Val(GetVar(arch, "ARMA" & LoopC, "Dir2")), 0
-            InitGrh WeaponAnimData(LoopC).WeaponWalk(3), Val(GetVar(arch, "ARMA" & LoopC, "Dir3")), 0
-            InitGrh WeaponAnimData(LoopC).WeaponWalk(4), Val(GetVar(arch, "ARMA" & LoopC, "Dir4")), 0
+        If LooPC <> 2 Then
+            InitGrh WeaponAnimData(LooPC).WeaponWalk(1), Val(GetVar(arch, "ARMA" & LooPC, "Dir1")), 0
+            InitGrh WeaponAnimData(LooPC).WeaponWalk(2), Val(GetVar(arch, "ARMA" & LooPC, "Dir2")), 0
+            InitGrh WeaponAnimData(LooPC).WeaponWalk(3), Val(GetVar(arch, "ARMA" & LooPC, "Dir3")), 0
+            InitGrh WeaponAnimData(LooPC).WeaponWalk(4), Val(GetVar(arch, "ARMA" & LooPC, "Dir4")), 0
 
         End If
 
-    Next LoopC
+    Next LooPC
 
     If FileExist(arch, vbArchive) Then Call Kill(arch)
        
@@ -596,7 +596,7 @@ End Sub
 
 Sub CargarAnimEscudos()
 
-    Dim LoopC  As Long
+    Dim LooPC  As Long
     Dim arch   As String
     Dim Data() As Byte
     Dim handle As Integer
@@ -614,17 +614,17 @@ Sub CargarAnimEscudos()
     
     ReDim ShieldAnimData(1 To NumEscudosAnims) As ShieldAnimData
     
-    For LoopC = 1 To NumEscudosAnims
+    For LooPC = 1 To NumEscudosAnims
 
-        If LoopC <> 2 Then
-            InitGrh ShieldAnimData(LoopC).ShieldWalk(1), Val(GetVar(arch, "ESC" & LoopC, "Dir1")), 0
-            InitGrh ShieldAnimData(LoopC).ShieldWalk(2), Val(GetVar(arch, "ESC" & LoopC, "Dir2")), 0
-            InitGrh ShieldAnimData(LoopC).ShieldWalk(3), Val(GetVar(arch, "ESC" & LoopC, "Dir3")), 0
-            InitGrh ShieldAnimData(LoopC).ShieldWalk(4), Val(GetVar(arch, "ESC" & LoopC, "Dir4")), 0
+        If LooPC <> 2 Then
+            InitGrh ShieldAnimData(LooPC).ShieldWalk(1), Val(GetVar(arch, "ESC" & LooPC, "Dir1")), 0
+            InitGrh ShieldAnimData(LooPC).ShieldWalk(2), Val(GetVar(arch, "ESC" & LooPC, "Dir2")), 0
+            InitGrh ShieldAnimData(LooPC).ShieldWalk(3), Val(GetVar(arch, "ESC" & LooPC, "Dir3")), 0
+            InitGrh ShieldAnimData(LooPC).ShieldWalk(4), Val(GetVar(arch, "ESC" & LooPC, "Dir4")), 0
 
         End If
 
-    Next LoopC
+    Next LooPC
 
     If FileExist(arch, vbArchive) Then Call Kill(arch)
     
@@ -685,7 +685,7 @@ End Function
 
 Function CheckUserData(ByVal checkemail As Boolean) As Boolean
     'Validamos los datos del user
-    Dim LoopC     As Long
+    Dim LooPC     As Long
     Dim CharAscii As Integer
     
     If checkemail And UserEmail = "" Then
@@ -700,8 +700,8 @@ Function CheckUserData(ByVal checkemail As Boolean) As Boolean
 
     End If
     
-    For LoopC = 1 To Len(UserPassword)
-        CharAscii = Asc(mid$(UserPassword, LoopC, 1))
+    For LooPC = 1 To Len(UserPassword)
+        CharAscii = Asc(mid$(UserPassword, LooPC, 1))
 
         If Not LegalCharacter(CharAscii) Then
             MsgBox ("Password inválido. El caractér " & Chr$(CharAscii) & " no está permitido.")
@@ -709,7 +709,7 @@ Function CheckUserData(ByVal checkemail As Boolean) As Boolean
 
         End If
 
-    Next LoopC
+    Next LooPC
     
     If UserName = "" Then
         MsgBox ("Ingrese un nombre de personaje.")
@@ -723,8 +723,8 @@ Function CheckUserData(ByVal checkemail As Boolean) As Boolean
 
     End If
     
-    For LoopC = 1 To Len(UserName)
-        CharAscii = Asc(mid$(UserName, LoopC, 1))
+    For LooPC = 1 To Len(UserName)
+        CharAscii = Asc(mid$(UserName, LooPC, 1))
 
         If Not LegalCharacter(CharAscii) Then
             MsgBox ("Nombre inválido. El caractér " & Chr$(CharAscii) & " no está permitido.")
@@ -732,7 +732,7 @@ Function CheckUserData(ByVal checkemail As Boolean) As Boolean
 
         End If
 
-    Next LoopC
+    Next LooPC
     
     CheckUserData = True
 
@@ -954,7 +954,7 @@ Sub SwitchMap(ByVal Map As Integer)
     Dim TempInt  As Integer
     Dim ByFlags  As Byte
     Dim FileBuff As clsByteBuffer
-      
+    Dim ii       As Long
     Set FileBuff = New clsByteBuffer
     
     Dim Data() As Byte
@@ -1027,6 +1027,11 @@ Sub SwitchMap(ByVal Map As Integer)
                 MapData(X, Y).Trigger = 0
 
             End If
+            
+            For ii = 1 To 5 'inicialiamos los grhs de la sangre
+                Call InitGrh(MapData(X, Y).Sangre(ii).grhSangre, 17355, 0)
+                
+            Next ii
            
             'Erase NPCs
 
@@ -1146,7 +1151,7 @@ Sub Main()
     frmMain.Socket1.Startup
     frmConnect.Visible = True
         
-    Dim LoopC          As Long
+    Dim LooPC          As Long
     
     Dim f              As Boolean
     Dim ulttick        As Long, esttick As Long
@@ -1171,8 +1176,8 @@ Sub Main()
         'Sistema de timers renovado:
         esttick = GetTickCount
 
-        For LoopC = 1 To UBound(timers)
-            timers(LoopC) = timers(LoopC) + (esttick - ulttick)
+        For LooPC = 1 To UBound(timers)
+            timers(LooPC) = timers(LooPC) + (esttick - ulttick)
 
             'Timer de trabajo
             If timers(1) >= tUs Then
@@ -1189,7 +1194,7 @@ Sub Main()
 
             End If
 
-        Next LoopC
+        Next LooPC
 
         ulttick = GetTickCount
         
@@ -1565,14 +1570,14 @@ End Sub
 
 Public Function LONGTORGBDX8(ByVal lColor As Long) As Long
 
-    Dim r As Long, b As Long, G As Long
+    Dim r As Long, B As Long, G As Long
     
     'Convert LONG to RGB:
-    b = lColor \ 65536
-    G = (lColor - b * 65536) \ 256
-    r = lColor - b * 65536 - G * 256
+    B = lColor \ 65536
+    G = (lColor - B * 65536) \ 256
+    r = lColor - B * 65536 - G * 256
     
-    LONGTORGBDX8 = D3DColorXRGB(r, G, b)
+    LONGTORGBDX8 = D3DColorXRGB(r, G, B)
 
 End Function
 
