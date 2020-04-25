@@ -1772,35 +1772,43 @@
 24/04/2020 4:27:57 HandleData. CadOri:/CI 1057 1 Nom:sethUI:5 N: 0 D: 
 24/04/2020 4:31:13 HandleData. CadOri:/duelos Nom:El papolinUI:1 N: 9 D: El subíndice está fuera del intervalo
 24/04/2020 4:36:56 HandleData. CadOri:/duelos Nom:El papolinUI:1 N: 9 D: El subíndice está fuera del intervalo
-25/04/2020 1:35:15 HandleData. CadOri:/Acc 304 Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:20 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:25 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:29 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:30 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:30 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:31 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:32 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:32 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:32 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:33 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:34 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:34 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:34 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:35 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:35 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:36 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:35:37 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:36:09 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:36:28 HandleData. CadOri:/reloadnpc Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:37:32 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:37:40 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:37:48 HandleData. CadOri:/acc 303 Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:37:50 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:37:51 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:37:53 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:37:54 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:37:54 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:37:55 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:38:03 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:39:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
-25/04/2020 1:39:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+25/04/2020 7:01:05 HandleData. CadOri:/ira artha Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:01:16 HandleData. CadOri:/CI 1057 1 Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:01:29 HandleData. CadOri:/mata cabron Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:01:33 HandleData. CadOri:/mataus cabron Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:01:41 HandleData. CadOri:/revivir cabron Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:02:23 HandleData. CadOri:/map Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:02:24 HandleData. CadOri:/map pk Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:03:18 HandleData. CadOri:/map pk Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:03:28 HandleData. CadOri:/map pk 1 Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:03:30 HandleData. CadOri:/map pk 2 Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:03:33 HandleData. CadOri:/map pk verdadero Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:03:46 HandleData. CadOri:/map pk 0 Nom:sethUI:6 N: 0 D: 
+25/04/2020 7:11:30 HandleData. CadOri:/ira art Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:11:34 HandleData. CadOri:/map pk 0 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:20 HandleData. CadOri:/telep yo 34 30 50 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:33 HandleData. CadOri:/telep yo 192 50 50 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:34 HandleData. CadOri:/TELEP YO 192 52 57 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:34 HandleData. CadOri:/TELEP YO 192 50 64 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:34 HandleData. CadOri:/TELEP YO 192 45 71 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:34 HandleData. CadOri:/TELEP YO 192 40 78 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:34 HandleData. CadOri:/TELEP YO 192 34 85 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:35 HandleData. CadOri:/TELEP YO 192 39 92 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:35 HandleData. CadOri:/TELEP YO 192 39 92 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:35 HandleData. CadOri:/TELEP YO 192 37 84 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:35 HandleData. CadOri:/TELEP YO 192 32 78 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:35 HandleData. CadOri:/TELEP YO 192 25 72 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:35 HandleData. CadOri:/TELEP YO 192 17 65 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:36 HandleData. CadOri:/TELEP YO 192 18 58 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:36 HandleData. CadOri:/TELEP YO 192 23 52 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:36 HandleData. CadOri:/TELEP YO 192 29 46 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:36 HandleData. CadOri:/TELEP YO 192 36 42 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:36 HandleData. CadOri:/TELEP YO 192 41 46 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:36 HandleData. CadOri:/TELEP YO 192 39 50 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:36 HandleData. CadOri:/TELEP YO 192 31 51 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:37 HandleData. CadOri:/TELEP YO 192 23 47 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:37 HandleData. CadOri:/TELEP YO 192 22 40 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:12:37 HandleData. CadOri:/TELEP YO 192 28 33 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:14:37 HandleData. CadOri:/telep yo 3430 50 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:14:40 HandleData. CadOri:/telep yo 34 30 50 Nom:sethUI:5 N: 0 D: 
+25/04/2020 7:14:42 HandleData. CadOri:/echar seth Nom:UI:5 N: 0 D: 

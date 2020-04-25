@@ -64,7 +64,6 @@ Begin VB.Form frmComerciarUsu
          Left            =   1440
          TabIndex        =   14
          Top             =   240
-         Visible         =   0   'False
          Width           =   915
       End
       Begin VB.OptionButton optQue 
@@ -316,7 +315,7 @@ Private Sub Form_Deactivate()
 
 End Sub
 
-Private Sub form_load()
+Private Sub Form_Load()
 
     'Valores máximos y mínimos para el ScrollBar
    

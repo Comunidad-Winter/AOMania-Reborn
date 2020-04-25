@@ -1826,6 +1826,51 @@ Sub UserDie(ByVal UserIndex As Integer)
     UserList(UserIndex).flags.Envenenado = 0
     UserList(UserIndex).flags.Muerto = 1
 
+    '  2vs2
+    If HayPareja = True Then
+        If UserList(Pareja.Jugador1).flags.EnPareja = True And UserList(Pareja.Jugador2).flags.EnPareja = True And UserList(Pareja.Jugador1).flags.Muerto = 1 And UserList(Pareja.Jugador2).flags.Muerto = 1 Then
+            Call WarpUserChar(Pareja.Jugador1, 34, 30, 50)
+            Call WarpUserChar(Pareja.Jugador2, 34, 30, 51)
+            Call WarpUserChar(Pareja.Jugador3, 34, 30, 52)
+            Call WarpUserChar(Pareja.Jugador4, 34, 30, 53)
+            UserList(Pareja.Jugador1).flags.EnPareja = False
+            UserList(Pareja.Jugador1).flags.EsperaPareja = False
+            UserList(Pareja.Jugador1).flags.SuPareja = 0
+            UserList(Pareja.Jugador2).flags.EnPareja = False
+            UserList(Pareja.Jugador2).flags.EsperaPareja = False
+            UserList(Pareja.Jugador2).flags.SuPareja = 0
+            UserList(Pareja.Jugador3).flags.EnPareja = False
+            UserList(Pareja.Jugador3).flags.EsperaPareja = False
+            UserList(Pareja.Jugador3).flags.SuPareja = 0
+            UserList(Pareja.Jugador4).flags.EnPareja = False
+            UserList(Pareja.Jugador4).flags.EsperaPareja = False
+            UserList(Pareja.Jugador4).flags.SuPareja = 0
+            HayPareja = False
+            Call SendData(SendTarget.ToAll, 0, 0, "||2 vs 2 > " & UserList(Pareja.Jugador1).Name & " y " & UserList(Pareja.Jugador2).Name & " han sido derrotados" & FONTTYPE_GUILD)
+        End If
+
+        If UserList(Pareja.Jugador3).flags.EnPareja = True And UserList(Pareja.Jugador4).flags.EnPareja = True And UserList(Pareja.Jugador3).flags.Muerto = 1 And UserList(Pareja.Jugador4).flags.Muerto = 1 Then
+            Call WarpUserChar(Pareja.Jugador1, 34, 30, 50)
+            Call WarpUserChar(Pareja.Jugador2, 34, 30, 51)
+            Call WarpUserChar(Pareja.Jugador3, 34, 30, 52)
+            Call WarpUserChar(Pareja.Jugador4, 34, 30, 53)
+            UserList(Pareja.Jugador1).flags.EnPareja = False
+            UserList(Pareja.Jugador1).flags.EsperaPareja = False
+            UserList(Pareja.Jugador1).flags.SuPareja = 0
+            UserList(Pareja.Jugador2).flags.EnPareja = False
+            UserList(Pareja.Jugador2).flags.EsperaPareja = False
+            UserList(Pareja.Jugador2).flags.SuPareja = 0
+            UserList(Pareja.Jugador3).flags.EnPareja = False
+            UserList(Pareja.Jugador3).flags.EsperaPareja = False
+            UserList(Pareja.Jugador3).flags.SuPareja = 0
+            UserList(Pareja.Jugador4).flags.EnPareja = False
+            UserList(Pareja.Jugador4).flags.EsperaPareja = False
+            UserList(Pareja.Jugador4).flags.SuPareja = 0
+            HayPareja = False
+            Call SendData(SendTarget.ToAll, 0, 0, "||2 vs 2 > " & UserList(Pareja.Jugador3).Name & " y " & UserList(Pareja.Jugador4).Name & " han sido derrotados" & FONTTYPE_GUILD)
+        End If
+    End If
+
     Dim aN As Integer
 
     aN = UserList(UserIndex).flags.AtacadoPorNpc
@@ -1957,38 +2002,38 @@ Sub UserDie(ByVal UserIndex As Integer)
         Call Desequipar(UserIndex, UserList(UserIndex).Invent.EscudoEqpSlot)
 
     End If
-     If UserList(UserIndex).EnCvc Then
-            'Dim ijaji As Integer
-            'For ijaji = 1 To LastUser
-                With UserList(UserIndex)
-                    If Guilds(.GuildIndex).GuildName = Nombre1 Then
-                        If .EnCvc = True Then
-                            If .flags.Muerto Then
-                                modGuilds.UsuariosEnCvcClan1 = modGuilds.UsuariosEnCvcClan1 - 1
-                                If modGuilds.UsuariosEnCvcClan1 = 0 Then
-                                    Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & "El clan " & Nombre2 & " derrotó al clan " & Nombre1 & "." & FONTTYPE_GUILD)
-                                    CvcFunciona = False
-                                    Call LlevarUsuarios
-                                End If
-                            End If
-                         End If
-                     End If
-                      
-                
-                    If Guilds(.GuildIndex).GuildName = Nombre2 Then
-                        If .EnCvc = True Then
-                            If .flags.Muerto Then
-                                modGuilds.UsuariosEnCvcClan2 = modGuilds.UsuariosEnCvcClan2 - 1
-                                If modGuilds.UsuariosEnCvcClan2 = 0 Then
-                                    Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & "El clan " & Nombre1 & " derrotó al clan " & Nombre2 & "." & FONTTYPE_GUILD)
-                                    CvcFunciona = False
-                                    Call LlevarUsuarios
-                                End If
-                            End If
+    If UserList(UserIndex).EnCvc Then
+        'Dim ijaji As Integer
+        'For ijaji = 1 To LastUser
+        With UserList(UserIndex)
+            If Guilds(.GuildIndex).GuildName = Nombre1 Then
+                If .EnCvc = True Then
+                    If .flags.Muerto Then
+                        modGuilds.UsuariosEnCvcClan1 = modGuilds.UsuariosEnCvcClan1 - 1
+                        If modGuilds.UsuariosEnCvcClan1 = 0 Then
+                            Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & "El clan " & Nombre2 & " derrotó al clan " & Nombre1 & "." & FONTTYPE_GUILD)
+                            CvcFunciona = False
+                            Call LlevarUsuarios
                         End If
                     End If
-                End With
-            'Next ijaji
+                End If
+            End If
+
+
+            If Guilds(.GuildIndex).GuildName = Nombre2 Then
+                If .EnCvc = True Then
+                    If .flags.Muerto Then
+                        modGuilds.UsuariosEnCvcClan2 = modGuilds.UsuariosEnCvcClan2 - 1
+                        If modGuilds.UsuariosEnCvcClan2 = 0 Then
+                            Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & "El clan " & Nombre1 & " derrotó al clan " & Nombre2 & "." & FONTTYPE_GUILD)
+                            CvcFunciona = False
+                            Call LlevarUsuarios
+                        End If
+                    End If
+                End If
+            End If
+        End With
+        'Next ijaji
     End If
 
     ' << Reseteamos los posibles FX sobre el personaje >>

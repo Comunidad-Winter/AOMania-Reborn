@@ -305,13 +305,19 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "/SALIR"
 
         If UserList(UserIndex).flags.Montado = True Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes salir estando en montado en tu mascota!." & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes salir estando en montado en tu mascota!" & FONTTYPE_INFO)
             Exit Sub
-
         End If
 
+        '2 vs 2
+        If UserList(UserIndex).pos.Map = 192 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes salir en el mapa 2 vs 2." & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
+
         If UserList(UserIndex).flags.Paralizado = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes salir estando paralizado." & FONTTYPE_WARNING)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes salir estando paralizado!" & FONTTYPE_WARNING)
             Exit Sub
 
         End If
@@ -995,6 +1001,24 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Call SendHelp(UserIndex)
         Exit Sub
 
+    Case "/ABANDONAR"
+        If MapInfo(192).NumUsers = 2 And UserList(UserIndex).flags.EnPareja = True Then    'mapa de duelos 2vs2
+            Call WarpUserChar(Pareja.Jugador1, 35, 30, 50)
+            Call WarpUserChar(Pareja.Jugador2, 35, 30, 50)
+            Call SendData(SendTarget.ToAll, 0, 0, "||2 vs 2 > " & UserList(Pareja.Jugador1).Name & " y " & UserList(Pareja.Jugador2).Name & " abandonaron la sala de duelos 2vs2" & FONTTYPE_GUILD)
+            UserList(Pareja.Jugador1).flags.EnPareja = False
+            UserList(Pareja.Jugador1).flags.EsperaPareja = False
+            UserList(Pareja.Jugador1).flags.SuPareja = 0
+            UserList(Pareja.Jugador2).flags.EnPareja = False
+            UserList(Pareja.Jugador2).flags.EsperaPareja = False
+            UserList(Pareja.Jugador2).flags.SuPareja = 0
+            HayPareja = False
+            Exit Sub
+        Else
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes utilizar este comando si no estas en la sala 2 vs 2" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
     Case "/SEG"
 
         If UserList(UserIndex).flags.Seguro Then
@@ -1546,7 +1570,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Dim Ret As String
 
         Dim Que As String
-        Dim Usuarios As Integer
+        Dim UsUaRiOs As Integer
         Dim ja As Integer
         Dim pre As Long
         Dim h As Integer
@@ -1578,16 +1602,16 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
                         End If
                         If UserList(ja).flags.SeguroCVC = True Then
                             'If UserList(ja).Counters.Pena > 0 Or UserList(ja).flags.Muerto = 1 Or UserList(ja).flags.EnDuelo = True Or UserList(ja).flags.DueleandoTorneo = True Or UserList(ja).flags.DueleandoTorneo2 = True Or UserList(ja).flags.DueleandoTorneo3 = True Or UserList(ja).flags.DueleandoTorneo4 = True Or UserList(ja).flags.DueleandoFinal = True Or UserList(ja).flags.DueleandoFinal2 = True Or UserList(ja).flags.DueleandoFinal3 = True Or UserList(ja).flags.DueleandoFinal4 = True Or UserList(ja).flags.EnPareja = True Or UserList(ja).Pos.Map = 81 Or UserList(ja).flags.EstaDueleando = True Or UserList(ja).flags.Desafio = 1 Or UserList(ja).flags.EnDesafio = 1 Then
-                            Usuarios = Usuarios + 1
+                            UsUaRiOs = UsUaRiOs + 1
                         Else
-                            Usuarios = Usuarios
+                            UsUaRiOs = UsUaRiOs
                         End If
                     End If
                 End If
             End If
             'End If
         Next ja
-        If Usuarios <= 2 Then
+        If UsUaRiOs <= 2 Then
             SendData SendTarget.ToIndex, UserIndex, 0, "||Necesitas que 3 usuarios del Clan tengan el Seguro Activado para jugar guerra de clanes." & FONTTYPE_INFO
             Exit Sub
         End If
@@ -1612,7 +1636,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
                             If pret = vbNullString Then
                             Else
 
-                                SendData SendTarget.ToIndex, h, 0, "||El clan " & Guilds(UserList(UserIndex).GuildIndex).GuildName & " (" & "Usuarios: " & Usuarios & ") " & " desafia a tu clan en una Guerra de Clanes, para aceptar escribe /GOCVC." & FONTTYPE_ROJO
+                                SendData SendTarget.ToIndex, h, 0, "||El clan " & Guilds(UserList(UserIndex).GuildIndex).GuildName & " (" & "Usuarios: " & UsUaRiOs & ") " & " desafia a tu clan en una Guerra de Clanes, para aceptar escribe /GOCVC." & FONTTYPE_ROJO
                             End If
                             Guilds(UserList(h).GuildIndex).TieneParaDesafiar = True
                             Guilds(UserList(h).GuildIndex).ClanPideDesafio = Guilds(UserList(UserIndex).GuildIndex).GuildName
@@ -1936,6 +1960,95 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
     End Select
 
     Select Case UCase$(Left$(rData, 8))
+
+        '2vs2
+    Case "/PAREJA "
+        rData = Right$(rData, Len(rData) - 8)
+        TIndex = NameIndex(ReadField(1, rData, 32))
+
+        If TIndex = UserIndex Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes formar pareja contigo mismo" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
+        If TIndex <= 0 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
+        If UserList(UserIndex).flags.Muerto = 1 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estás muerto" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
+        If UserList(TIndex).flags.Muerto = 1 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tu pareja está muerta" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
+        If UserList(UserIndex).pos.Map = 192 Then    'mapa de duelos 2vs2
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya estas en la sala de duelos 2vs2" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
+        If HayPareja = True Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Esta ocupado la sala 2 vs 2" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
+        If Not UserList(UserIndex).pos.Map = 34 Then
+            Call SendData(ToIndex, UserIndex, 0, "||Para hacer el duelo 2 vs 2, tienes que estar en nix" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
+        If Not UserList(TIndex).pos.Map = 34 Then
+            Call SendData(ToIndex, UserIndex, 0, "||Para hacer el duelo 2 vs 2, tu compañero tiene que estar en nix" & FONTTYPE_INFO)
+            Exit Sub
+        End If
+
+
+        If MapInfo(192).NumUsers = 0 Then    'mapa de duelos 2vs2
+            UserList(TIndex).flags.EsperaPareja = True
+            UserList(UserIndex).flags.SuPareja = TIndex
+
+            If UserList(UserIndex).flags.EsperaPareja = False Then
+                Call SendData(SendTarget.ToIndex, TIndex, 0, "||2 vs 2 > " & UserList(UserIndex).Name & " te ha ofrecido formar pareja, escribe /pareja " & UserList(UserIndex).Name & " para ingresar el duelo 2vs2" & FONTTYPE_INFO)
+            End If
+
+            If UserList(TIndex).flags.SuPareja = UserIndex Then
+                Pareja.Jugador1 = UserIndex
+                Pareja.Jugador2 = TIndex
+                UserList(Pareja.Jugador1).flags.EnPareja = True
+                UserList(Pareja.Jugador2).flags.EnPareja = True
+                Call WarpUserChar(Pareja.Jugador1, 192, 50, 70)    'mapa 2vs2, posicion jugador numero 1
+                Call WarpUserChar(Pareja.Jugador2, 192, 50, 72)    'mapa 2vs2, posicion jugador numero 2
+                Call SendData(SendTarget.ToAll, 0, 0, "||2 vs 2 > " & UserList(UserIndex).Name & " y " & UserList(TIndex).Name & " ingresaron a la sala de duelos 2vs2, para desafiarlos escribe /pareja y el nombre de tu pareja" & FONTTYPE_GUILD)
+            End If
+
+            Exit Sub
+        End If
+
+        If MapInfo(192).NumUsers = 2 Then    'mapa de duelos 2vs2
+            UserList(TIndex).flags.EsperaPareja = True
+            UserList(UserIndex).flags.SuPareja = TIndex
+
+            If UserList(UserIndex).flags.EsperaPareja = False Then
+                Call SendData(SendTarget.ToIndex, TIndex, 0, "||2 vs 2 > " & UserList(UserIndex).Name & " te ha ofrecido formar pareja, escribe /pareja " & UserList(UserIndex).Name & " para ingresar el duelo 2vs2" & FONTTYPE_INFO)
+            End If
+
+            If UserList(TIndex).flags.SuPareja = UserIndex Then
+                Pareja.Jugador3 = UserIndex
+                Pareja.Jugador4 = TIndex
+                UserList(Pareja.Jugador3).flags.EnPareja = True
+                UserList(Pareja.Jugador4).flags.EnPareja = True
+                Call WarpUserChar(Pareja.Jugador3, 192, 50, 74)    'mapa 2vs2, posicion jugador numero 3
+                Call WarpUserChar(Pareja.Jugador4, 192, 50, 75)    'mapa 2vs2, posicion jugador numero 4
+                Call SendData(SendTarget.ToAll, 0, 0, "||2 vs 2 > " & UserList(UserIndex).Name & " y " & UserList(TIndex).Name & " han ingresado a la sala de duelos 2vs2" & FONTTYPE_GUILD)
+                HayPareja = True
+            End If
+
+            Exit Sub
+        End If
 
     Case "/PASSWD "
         rData = Right$(rData, Len(rData) - 8)

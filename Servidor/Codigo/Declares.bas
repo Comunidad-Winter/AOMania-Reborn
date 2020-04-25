@@ -110,12 +110,15 @@ Public numduelos As Integer
 Public Const MAPADUELO As Integer = 154
 
 Public CuentaRegresiva As Long
+'2vs2
+Public HayPareja As Boolean
 
 Type tEstadisticasDiarias
 
     Segundos As Double
     MaxUsuarios As Integer
     Promedio As Integer
+
 
 End Type
 
@@ -1173,12 +1176,25 @@ Public Type UserStats
     TinieblaMatados As Long
 
 End Type
+'2vs2
+Public Pareja As Pareja
+
+Public Type Pareja
+    Jugador1 As Integer
+    Jugador2 As Integer
+    Jugador3 As Integer
+    Jugador4 As Integer
+End Type
 
 'Flags
 Public Type UserFlags
 
     SeleccioneA As String
     EstoySelec As Long
+    
+    SuPareja As Integer
+    EsperaPareja As Boolean
+    EnPareja As Boolean
 
     'Casarse?
     Casado As Byte
@@ -1186,10 +1202,10 @@ Public Type UserFlags
     Quien As Integer    'El otro
     QuienName As String
     SolicitudC As String
-    
+
     EnCvc As Boolean
     CvcBlue As Byte
-    CvcRed As Byte ' by ZaikO Dieguito; Tu Papá !
+    CvcRed As Byte    ' by ZaikO Dieguito; Tu Papá !
     SeguroCVC As Boolean
 
     'Jua
@@ -1329,9 +1345,9 @@ Public Type UserFlags
     Metamorfosis As Byte
 
     Licantropo As Byte
-    
+
     UsoLibroHP As Byte
-    
+
 
 End Type
 
@@ -1522,7 +1538,7 @@ Public Type User
 
     Stats As UserStats
     flags As UserFlags
-    
+
 
     BytesTransmitidosUser As Long
     BytesTransmitidosSvr As Long
