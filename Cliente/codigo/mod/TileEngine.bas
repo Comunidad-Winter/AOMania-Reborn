@@ -255,7 +255,7 @@ Public Type Char
     FxIndex As Integer
     
     Criminal As Byte
-    nombre As String
+    Nombre As String
         
     scrollDirectionX As Integer
     scrollDirectionY As Integer
@@ -288,7 +288,7 @@ Private Type tSangre
     Activo As Boolean
     Estado As Byte
     grhSangre As Grh
-    counter As Long
+    Counter As Long
     osX As Integer
     OSY As Integer
 End Type
@@ -2175,19 +2175,19 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
             End If
 
             If Nombres Then
-                If Len(.nombre) <> 0 Then
-                    pos = getTagPosition(.nombre)
+                If Len(.Nombre) <> 0 Then
+                    pos = getTagPosition(.Nombre)
                     Dim lCenter As Long
                     Dim lCenterClan As Long
 
-                    If InStr(.nombre, "<") > 0 And InStr(.nombre, ">") > 0 Then
+                    If InStr(.Nombre, "<") > 0 And InStr(.Nombre, ">") > 0 Then
 
                         Dim Line As String
-                        Line = Left$(.nombre, pos - 2)
+                        Line = Left$(.Nombre, pos - 2)
                         lCenter = (Len(Line) * 6 / 2) - 15
 
                         Dim sClan As String
-                        sClan = mid$(.nombre, pos)
+                        sClan = mid$(.Nombre, pos)
                         lCenterClan = (Len(sClan) * 6 / 2) - 15
 
                         If .Criminal = 1 Then
@@ -2400,7 +2400,7 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
 
                     Else
 
-                        Line = Left$(.nombre, pos - 2)
+                        Line = Left$(.Nombre, pos - 2)
 
                         lCenter = (Len(Line) * 6 / 2) - 15
                         lCenterClan = (Len(sClan) * 6 / 2) - 15
@@ -2457,30 +2457,30 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                             Case 0
 
                                 If .Invisible = True Then
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, VerdeF)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, VerdeF)
                                 ElseIf .Criminal = 1 Then    ' Crimi comun
                                     longToArray Color, ColoresPJ(50)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, CaosClan)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, CaosClan)
                                 ElseIf .Criminal = 2 Then    ' Caos
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Caos)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Caos)
                                 ElseIf .Criminal = 3 Then    ' Templario
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, White)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, White)
                                 ElseIf .Criminal = 4 Then    ' Real
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Real)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Real)
                                 ElseIf .Criminal = 5 Then    ' Namesis
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Tini)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Tini)
                                 Else
                                     longToArray Color, ColoresPJ(49)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, RealClan)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, RealClan)
                                 End If
 
                             Case 7
                                 longToArray Color, ColoresPJ(7)
-                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Color)
+                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Color)
 
                             Case Else
                                 longToArray Color, ColoresPJ(.priv)
-                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .nombre, Color)
+                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, .Nombre, Color)
                             End Select
                         End If
                     End If
@@ -2493,9 +2493,9 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
         'Clan vs Clan
         If .CvcBlue = 1 Or .CvcRed = 1 Then
 
-            Line = Left$(.nombre, pos - 2)
+            Line = Left$(.Nombre, pos - 2)
             lCenter = (Len(Line) * 6 / 2) - 15
-            sClan = mid$(.nombre, pos)
+            sClan = mid$(.Nombre, pos)
             lCenterClan = (Len(sClan) * 6 / 2) - 15
 
             If .CvcBlue = 1 Then
@@ -2553,7 +2553,7 @@ Sub crearsangrepos(ByVal X As Byte, ByVal Y As Byte)
                     .Sangre(ii).Activo = True
                     .Sangre(ii).AlphaB = 0
                     .Sangre(ii).Estado = 0
-                    .Sangre(ii).counter = GetTickCount
+                    .Sangre(ii).Counter = GetTickCount
                     haySlot = True
                     Exit For
                 End If
@@ -2563,7 +2563,7 @@ Sub crearsangrepos(ByVal X As Byte, ByVal Y As Byte)
                 .Sangre(1).Activo = True
                 .Sangre(1).AlphaB = 0
                 .Sangre(1).Estado = 0
-                .Sangre(1).counter = GetTickCount
+                .Sangre(1).Counter = GetTickCount
             End If
             
         End With
@@ -2580,7 +2580,7 @@ Sub CrearSangre(ByVal nChar As Integer, Optional ByVal npc As Boolean = False)
                     .Sangre(ii).Activo = True
                     .Sangre(ii).AlphaB = 0
                     .Sangre(ii).Estado = 0
-                    .Sangre(ii).counter = GetTickCount
+                    .Sangre(ii).Counter = GetTickCount
                     
                     If npc = True Then
                         
@@ -2599,7 +2599,7 @@ Sub CrearSangre(ByVal nChar As Integer, Optional ByVal npc As Boolean = False)
                 .Sangre(1).Activo = True
                 .Sangre(1).AlphaB = 0
                 .Sangre(1).Estado = 0
-                .Sangre(1).counter = GetTickCount
+                .Sangre(1).Counter = GetTickCount
                 If npc = True Then
                     .Sangre(1).osX = RandomNumber(-xDistance, xDistance)
                     .Sangre(1).OSY = RandomNumber(-xDistance, xDistance)
@@ -2640,6 +2640,9 @@ On Local Error Resume Next
     
     Dim iPPX       As Integer 'For centering grhs
     Dim iPPY       As Integer 'For centering grhs
+    Dim sColor(3) As Long
+    Dim ii As Long
+    Static cSangre As Long
     
     'Figure out Ends and Starts of screen
     screenminY = TileY - HalfWindowTileHeight
@@ -2764,21 +2767,21 @@ On Local Error Resume Next
                                 Call DrawGrhtoSurface(nSangre(4), iPPX + .Sangre(ii).osX, iPPY + .Sangre(ii).OSY, 1, 0, temp_rgb) ', , , .Sangre(ii).AlphaB)
                                 
                                
-                                    If GetTickCount - .Sangre(ii).counter > IIf((.Sangre(ii).AlphaB > 0), 1500, 10) Then
+                                    If GetTickCount - .Sangre(ii).Counter > IIf((.Sangre(ii).AlphaB > 0), 1500, 10) Then
                                         
                                         .Sangre(ii).AlphaB = (.Sangre(ii).AlphaB) + 1
                                          ', , , .Sangre(ii).AlphaB)
                                         If .Sangre(ii).AlphaB = 255 Then .Sangre(ii).Activo = False
                                         'Debug.Print .Sangre(ii).AlphaB
-                                        cSangre = .Sangre(ii).counter
+                                        cSangre = .Sangre(ii).Counter
                                     End If
                                     
                             Else
                                 
                                  Call DrawGrhtoSurface(nSangre(.Sangre(ii).Estado), iPPX + .Sangre(ii).osX, iPPY + .Sangre(ii).OSY, 1, 0, .Color)
-                                 If GetTickCount - .Sangre(ii).counter > 50 Then
+                                 If GetTickCount - .Sangre(ii).Counter > 50 Then
                                     .Sangre(ii).Estado = (.Sangre(ii).Estado) + 1
-                                    .Sangre(ii).counter = GetTickCount
+                                    .Sangre(ii).Counter = GetTickCount
                                     'Debug.Print "subio estado"
                                 End If
                             End If
@@ -3011,7 +3014,7 @@ Private Sub ShowNextFrame()
     
     If (UserClicado > 0) Then
  
-         Call Text_Draw(315 + CharList(UserClicado).pos.X, 108 + CharList(UserClicado).pos.Y, "" & "Nick: " & CharList(UserClicado).nombre, Orange)
+         Call Text_Draw(315 + CharList(UserClicado).pos.X, 108 + CharList(UserClicado).pos.Y, "" & "Nick: " & CharList(UserClicado).Nombre, Orange)
         
          Call Text_Draw(315, 118, "" & "---------------", White)
         
@@ -3211,10 +3214,10 @@ Private Function MismoClan(ByVal userindex As Integer) As Boolean
     Dim SuClan As String
     Dim MiClan As String
     
-    pos = getTagPosition(CharList(userindex).nombre)
-    SuClan = mid(CharList(userindex).nombre, pos)
-    pos = getTagPosition(CharList(UserCharIndex).nombre)
-    MiClan = mid(CharList(UserCharIndex).nombre, pos)
+    pos = getTagPosition(CharList(userindex).Nombre)
+    SuClan = mid(CharList(userindex).Nombre, pos)
+    pos = getTagPosition(CharList(UserCharIndex).Nombre)
+    MiClan = mid(CharList(UserCharIndex).Nombre, pos)
     
     MismoClan = False
     

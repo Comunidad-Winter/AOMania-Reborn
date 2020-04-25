@@ -135,7 +135,7 @@ Private Function CompararPosiciones(ByRef ints() As Single) As Byte 'Devuelve la
     Dim advs As Byte
     Dim nDif As Byte
     Dim Advertencias As Byte
-    ReDim Preserve dif(0 To 1) As Singlew
+    ReDim Preserve dif(0 To 1) As Single
     For xx = 0 To 4
         For yy = 0 To 4
             If yy <> xx Then
