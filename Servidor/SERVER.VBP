@@ -96,6 +96,7 @@ Module=Mod_Campaign; Codigo\Modulos\Mod_Campaign.bas
 Module=ModGM; Codigo\Modulos\ModGM.bas
 Module=modAsedio; Codigo\Modulos\modAsedio.bas
 Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0; Mscomctl.ocx
+Module=Mod_Quest; Codigo\Modulos\Mod_Quest.bas
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""
