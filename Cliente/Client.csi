@@ -1,10 +1,12 @@
 [History]
-1=#P0#=mb	#P1#=HandleData	#P2#=AoManiaCliente/Mod_TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426102301	#P7#=0	#P8#=1024	.
-2=#P0#=mb	#P1#=SwitchMap	#P2#=AoManiaCliente/Mod_General/SwitchMap	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426020009	#P7#=0	#P8#=42	.
-3=#P0#=mb	#P1#=DrawGrhtoSurface	#P2#=AoManiaCliente/Mod_TileEngine/DrawGrhtoSurface	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426015611	#P7#=0	#P8#=66	.
-4=#P0#=mb	#P1#=DrawGrhtoHdc	#P2#=AoManiaCliente/Mod_TileEngine/DrawGrhtoHdc	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426015526	#P7#=0	#P8#=1	.
-5=#P0#=mb	#P1#=Directx_Render_Text	#P2#=AoManiaCliente/Mod_TileEngine/Directx_Render_Text	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012809	#P7#=0	#P8#=6	.
-6=#P0#=mb	#P1#=EraseChar	#P2#=AoManiaCliente/Mod_TileEngine/EraseChar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012715	#P7#=0	#P8#=1	.
-7=#P0#=mb	#P1#=ShowNextFrame	#P2#=AoManiaCliente/Mod_TileEngine/ShowNextFrame	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012647	#P7#=0	#P8#=1	.
-8=#P0#=mb	#P1#=RenderScreen	#P2#=AoManiaCliente/Mod_TileEngine/RenderScreen	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012609	#P7#=0	#P8#=1	.
-9=#P0#=mb	#P1#=InitTileEngine	#P2#=AoManiaCliente/Mod_TileEngine/InitTileEngine	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012515	#P7#=0	#P8#=5	.
+1=#P0#=mb	#P1#=CharRender	#P2#=AoManiaCliente/Mod_TileEngine/CharRender	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426185652	#P7#=0	#P8#=612	.
+2=#P0#=mb	#P1#=DrawGrhtoHdc	#P2#=AoManiaCliente/Mod_TileEngine/DrawGrhtoHdc	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426184937	#P7#=0	#P8#=39	.
+3=#P0#=mb	#P1#=crearsangrepos	#P2#=AoManiaCliente/Mod_TileEngine/crearsangrepos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426184137	#P7#=0	#P8#=-1	.
+4=#P0#=mb	#P1#=HandleData	#P2#=AoManiaCliente/Mod_TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426102301	#P7#=0	#P8#=1024	.
+5=#P0#=mb	#P1#=SwitchMap	#P2#=AoManiaCliente/Mod_General/SwitchMap	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426020009	#P7#=0	#P8#=42	.
+6=#P0#=mb	#P1#=DrawGrhtoSurface	#P2#=AoManiaCliente/Mod_TileEngine/DrawGrhtoSurface	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426015611	#P7#=0	#P8#=66	.
+7=#P0#=mb	#P1#=Directx_Render_Text	#P2#=AoManiaCliente/Mod_TileEngine/Directx_Render_Text	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012809	#P7#=0	#P8#=6	.
+8=#P0#=mb	#P1#=EraseChar	#P2#=AoManiaCliente/Mod_TileEngine/EraseChar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012715	#P7#=0	#P8#=1	.
+9=#P0#=mb	#P1#=ShowNextFrame	#P2#=AoManiaCliente/Mod_TileEngine/ShowNextFrame	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012647	#P7#=0	#P8#=1	.
+10=#P0#=mb	#P1#=RenderScreen	#P2#=AoManiaCliente/Mod_TileEngine/RenderScreen	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012609	#P7#=0	#P8#=1	.
+11=#P0#=mb	#P1#=InitTileEngine	#P2#=AoManiaCliente/Mod_TileEngine/InitTileEngine	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426012515	#P7#=0	#P8#=5	.

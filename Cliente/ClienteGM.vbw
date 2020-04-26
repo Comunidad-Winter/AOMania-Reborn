@@ -1,7 +1,7 @@
 frmCantidad = 0, 0, 0, 0, C, 52, 52, 188, 318, C
 frmCargando = 208, 208, 1456, 832, C, 78, 78, 214, 344, C
 frmComerciar = 0, 0, 0, 0, C, 104, 104, 240, 370, C
-frmConnect = 52, 52, 618, 421, C, 130, 130, 266, 396, C
+frmConnect = 52, 52, 618, 421, , 130, 130, 266, 396, C
 frmOldPersonaje = 0, 0, 0, 0, C, 0, 0, 136, 266, C
 frmSkills3 = 0, 0, 0, 0, C, 26, 26, 162, 292, C
 Carteles = 0, 0, 0, 0, C

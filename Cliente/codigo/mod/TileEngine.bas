@@ -50,7 +50,7 @@ Private Type CharVA
     X As Integer
     Y As Integer
     w As Integer
-    H As Integer
+    h As Integer
     
     Tx1 As Single
     Tx2 As Single
@@ -564,8 +564,8 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, _
     ByVal nWidth As Long, _
     ByVal nHeight As Long, _
     ByVal hSrcDC As Long, _
-    ByVal xSrc As Long, _
-    ByVal ySrc As Long, _
+    ByVal XSrc As Long, _
+    ByVal YSrc As Long, _
     ByVal dwRop As Long) As Long
 
 Public ColorAmbiente()   As D3DCOLORVALUE
@@ -590,7 +590,7 @@ Private Declare Function OleLoadPicture Lib "olepro32" (pStream As Any, _
     riid As Any, _
     ppvObj As Any) As Long
 
-Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) As IPicture
+Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) As IPicture
     Dim o_hMem        As Long
     Dim o_lpMem       As Long
     Dim aGUID(0 To 3) As Long
@@ -607,7 +607,7 @@ Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) 
         o_lpMem = GlobalLock(o_hMem)
 
         If Not o_lpMem = 0& Then
-            Call CopyMemory(ByVal o_lpMem, inArray(offset), Size)
+            Call CopyMemory(ByVal o_lpMem, inArray(Offset), Size)
             Call GlobalUnlock(o_hMem)
 
             If CreateStreamOnHGlobal(o_hMem, 1&, IIStream) = 0& Then
@@ -2076,7 +2076,7 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
             If .Heading <> E_Heading.SOUTH Then
                 If .Alas.Walk(.Heading).GrhIndex <> 0 Then
                     Call DrawGrhtoSurface(.Alas.Walk(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y + IIf(.Heading _
-                                                                                                                                         = E_Heading.NORTH, 35, 35), 1, 1, White, 0)    'El primer 25, es cuando esta mirando para arriba, el siguiente 20 es cuando esta mirando para izquierda o derecha ¿Ta?, anda cambiando el "20"
+                                                                                                                                         = E_Heading.NORTH, 35, 35), 1, 1, White, 0)    'El primer 25, es cuando esta mirando para arriba, el siguiente 20 es cuando esta mirando para izquierda o derecha ?Ta?, anda cambiando el "20"
                 End If
             End If
 
@@ -2555,6 +2555,7 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
     End With
 
 End Sub
+
 Sub crearsangrepos(ByVal X As Byte, ByVal Y As Byte)
         With MapData(X, Y)
             Dim ii As Long, haySlot As Boolean
@@ -3435,7 +3436,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
 118           .BackBufferWidth = ScreenWidth
 120           .BackBufferHeight = ScreenHeight
 122           .BackBufferFormat = DirectD3Ddm.Format 'current display depth
-              .hDeviceWindow = frmMain.MainViewPic.hwnd
+              .hDeviceWindow = frmMain.MainViewPic.HWnd
 
           End With
 
@@ -3445,7 +3446,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
           End If
 
           'create device
-128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.hwnd, Flags, DirectD3Dpp)
+128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.HWnd, Flags, DirectD3Dpp)
 
 130       Call D3DXMatrixOrthoOffCenterLH(Projection, 0, ScreenWidth, ScreenHeight, 0, -1#, 1#)
 132       Call D3DXMatrixIdentity(View)
@@ -3539,12 +3540,12 @@ Private Sub Directx_RenderStates()
     
 End Sub
 
-Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal hwnd As Long)
+Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal HWnd As Long)
     
     Call SpriteBatch.Flush
     
     Call DirectDevice.EndScene
-    Call DirectDevice.Present(RECT, ByVal 0, hwnd, ByVal 0)
+    Call DirectDevice.Present(RECT, ByVal 0, HWnd, ByVal 0)
 
 End Sub
 
@@ -3659,7 +3660,7 @@ Private Sub Directx_Render_Text(ByRef Batch As clsBatch, _
 '
 '                End If
              
-                Batch.Draw TempVA.X, TempVA.Y, TempVA.w, TempVA.H, Color, TempVA.Tx1, TempVA.Ty1, TempVA.Tx2, TempVA.Ty2
+                Batch.Draw TempVA.X, TempVA.Y, TempVA.w, TempVA.h, Color, TempVA.Tx1, TempVA.Ty1, TempVA.Tx2, TempVA.Ty2
 
                 'Shift over the the position to render the next character
                 Count = Count + UseFont.HeaderInfo.CharWidth(ascii(j - 1))
@@ -3759,7 +3760,7 @@ Private Sub Directx_Init_FontSettings()
             .X = 0
             .Y = 0
             .w = cfonts.HeaderInfo.CellWidth
-            .H = cfonts.HeaderInfo.CellHeight
+            .h = cfonts.HeaderInfo.CellHeight
             .Tx1 = u
             .Ty1 = v
             .Tx2 = u + cfonts.ColFactor
@@ -3866,10 +3867,10 @@ Public Sub Directx_Renderer()
 
 End Sub
 
-Public Sub Draw_Box(ByVal X As Integer, ByVal Y As Integer, ByVal w As Integer, ByVal H As Integer, ByRef BackgroundColor() As Long)
+Public Sub Draw_Box(ByVal X As Integer, ByVal Y As Integer, ByVal w As Integer, ByVal h As Integer, ByRef BackgroundColor() As Long)
     
     Call SpriteBatch.SetTexture(Nothing)
-    Call SpriteBatch.Draw(X, Y, w, H, BackgroundColor)
+    Call SpriteBatch.Draw(X, Y, w, h, BackgroundColor)
      
 End Sub
 

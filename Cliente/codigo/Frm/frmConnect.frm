@@ -220,7 +220,7 @@ Private Sub Form_Activate()
     Winsock1.Close
      Winsock1.RemoteHost = CurServerIp
      Winsock1.RemotePort = 6000
-    Winsock1.Connect
+    'Winsock1.Connect
  
 End Sub
 
@@ -249,7 +249,7 @@ Private Sub Form_Load()
     Set Image3.Picture = Interfaces.FrmConnect_BtRecuperar
     Set FONDO.MouseIcon = Iconos.Ico_Diablo
 
-    PasswordTxt.Text = GetSetting(App.exeName, "textos", "Pasword", vbNullString)
+    PasswordTXT.Text = GetSetting(App.exeName, "textos", "Pasword", vbNullString)
     NombreTXT.Text = GetSetting(App.exeName, "textos", "Cuenta", vbNullString)
 
 End Sub
@@ -280,7 +280,7 @@ Private Sub Image2_Click()
            
     UserName = NombreTXT.Text
    
-    UserPassword = MD5String(PasswordTxt.Text)
+    UserPassword = MD5String(PasswordTXT.Text)
 
     If CheckUserData(False) = True Then
         'SendNewChar = False
@@ -293,7 +293,7 @@ Private Sub Image2_Click()
 
     End If
     
-    SaveSetting App.exeName, "textos", "Pasword", PasswordTxt.Text
+    SaveSetting App.exeName, "textos", "Pasword", PasswordTXT.Text
     SaveSetting App.exeName, "textos", "Cuenta", NombreTXT.Text
 
 End Sub
