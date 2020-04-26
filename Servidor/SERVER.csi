@@ -59,8 +59,8 @@
 58=#P0#=mb	#P1#=addConsole	#P2#=AoManiaServer/ModConsola/addConsole	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200415143506	#P7#=0	#P8#=-1	.
 59=#P0#=mb	#P1#=addConsolee	#P2#=AoManiaServer/ModConsola/addConsolee	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200415143442	#P7#=0	#P8#=6	.
 60=#P0#=mb	#P1#=ComensarDuelo	#P2#=AoManiaServer/RETOS/ComensarDuelo	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200415132045	#P7#=0	#P8#=10	.
-61=#P0#=mb	#P1#=Form_MouseMove	#P2#=AoManiaServer/frmMain/Form_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415131944	#P7#=0	#P8#=-2	.
-62=#P0#=mb	#P1#=Command6_Click	#P2#=AoManiaServer/frmMain/Command6_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415131944	#P7#=0	#P8#=4	.
+61=#P0#=mb	#P1#=Command6_Click	#P2#=AoManiaServer/frmMain/Command6_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415131944	#P7#=0	#P8#=4	.
+62=#P0#=mb	#P1#=Form_MouseMove	#P2#=AoManiaServer/frmMain/Form_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200415131944	#P7#=0	#P8#=-2	.
 63=#P0#=mb	#P1#=LoadUserStats	#P2#=AoManiaServer/ES/LoadUserStats	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200415131438	#P7#=0	#P8#=39	.
 64=#P0#=mb	#P1#=Desequipar	#P2#=AoManiaServer/InvUsuario/Desequipar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200414170156	#P7#=0	#P8#=1	.
 65=#P0#=mb	#P1#=SpawnNpc	#P2#=AoManiaServer/NPCs/SpawnNpc	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200414061823	#P7#=0	#P8#=15	.

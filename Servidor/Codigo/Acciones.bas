@@ -245,6 +245,10 @@ Sub Accion(ByVal UserIndex As Integer, _
                 Call IniciarChangeHead(UserIndex)
 
             End If
+            
+            If Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.nQuest Then
+               Call SendData(ToIndex, UserIndex, 0, "||Creo, que estás haciendo doble click al NPCQUEST!" & FONTTYPE_INFO)
+           End If
 
         Else
             UserList(UserIndex).flags.TargetNpc = 0
@@ -252,10 +256,6 @@ Sub Accion(ByVal UserIndex As Integer, _
             UserList(UserIndex).flags.TargetUser = 0
             UserList(UserIndex).flags.TargetObj = 0
 
-        End If
-        
-        If Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.nQuest Then
-            Call SendData(ToIndex, UserIndex, 0, "||Creo, que estás haciendo doble click al NPCQUEST!" & FONTTYPE_INFO)
         End If
 
     End If

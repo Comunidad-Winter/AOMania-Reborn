@@ -412,7 +412,7 @@ ReSpawn=0
 BackUp=1
 Domable=0
 NroItems=1
-Obj1=127-1000
+Obj1=127-998
 
 [NPC268]
 Name=Subastador
