@@ -576,7 +576,7 @@ Sub MakeNPCChar(sndRoute As Byte, _
     Else
         Call SendData(sndRoute, sndIndex, sndMap, "BC" & Npclist(NpcIndex).char.Body & "," & Npclist(NpcIndex).char.Head & "," & Npclist( _
                                                   NpcIndex).char.heading & "," & Npclist(NpcIndex).char.CharIndex & "," & X & "," & Y)
-
+        Call SendData(sndRoute, sndIndex, sndMap, "XN" & Npclist(NpcIndex).char.CharIndex & "," & Npclist(NpcIndex).NPCtype & "," & Npclist(NpcIndex).Name)
     End If
 
 End Sub

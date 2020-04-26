@@ -992,7 +992,13 @@ Sub HandleData(ByVal Rdata As String)
         UserPos = CharList(UserCharIndex).pos
         Call ActualizarShpUserPos
         Exit Sub
-
+    
+    Case "XN"             '>>>>>> Coge información de quest NPC
+       Rdata = Right$(Rdata, Len(Rdata) - 2)
+       charindex = ReadField(1, Rdata, 44)
+       CharList(charindex).NpcType = ReadField(2, Rdata, 44)
+       Exit Sub
+    
     Case "BC"              ' >>>>> Crear un NPC :: BC
         Rdata = Right$(Rdata, Len(Rdata) - 2)
         charindex = ReadField(4, Rdata, 44)

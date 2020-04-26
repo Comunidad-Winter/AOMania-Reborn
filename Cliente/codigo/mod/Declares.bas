@@ -24,7 +24,7 @@ Public Const VK_SNAPSHOT As Byte = 44 ' PrintScreen virtual keycode
 Public Const PS_TheForm = 0
 Public Const PS_TheScreen As Byte = 1
 
-Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal HWnd As Long, _
+Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, _
     ByVal lpOperation As String, _
     ByVal lpFile As String, _
     ByVal lpParameters As String, _
@@ -240,6 +240,37 @@ Public Enum Skills
     Recolectar = 24
     Hechiceria = 25
     Herrero = 26
+End Enum
+
+
+Public Enum eNPCType
+
+    Comun = 0
+    Revividor = 1
+    GuardiaReal = 2
+    Entrenador = 3
+    Banquero = 4
+    Armada = 5
+    dragon = 6
+    Cirujia = 7
+    Guardia = 9
+    Duelos = 10
+    CambiaCabeza = 11
+    Teleport = 12
+    Guardiascaos = 17
+    Casamiento = 18
+    Clero = 20
+    Abbadon = 21
+    Timbero = 23
+    Templario = 26
+    Tiniebla = 29
+    Banda = 33
+    Medusa = 38
+    OlvidarHechizo = 54
+    nQuest = 97
+    Canjes = 98
+    Creditos = 99
+
 End Enum
 
 ' CATEGORIAS PRINCIPALES
