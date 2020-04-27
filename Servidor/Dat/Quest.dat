@@ -19,7 +19,7 @@
 'Clases=Si es para clases especificas añade numeración, si no hay clases especificas por defecto es 0.
 '(Como se configura clases especificas)
 'Clases1=Mago
-'Clases2=Brujos
+'Clases2=Brujo
 'Razas=Si es para razas especificas añade numeración, si no hay razas especificas por defecto es 0.
 '(Como se configura razas especificas)
 'Razas1=Humano
@@ -27,6 +27,45 @@
 'Alineacion=0 Ninguna, 1 Ciudadano, 2 Criminal
 'Faccion=0 Ninguno, 1 Que tenga faccion
 'RangoFaccion=0 Ninguno, Otra numeracion a elegir rango.
+'MataNPC=Cantidad de NPC a matar en la quest.
+'(Como se configura mata npc)
+'MataNPC1=IDNPC-CANTIDAD
+'MataNPC2=IDNPC-CANTIDAD
+'MataUSER=Cantidad de Usuarios a matar en la quest.
+'Como se configura matauser
+'MUMinNivel=Minimo nivel para matar a un usuario de quest.
+'MUMaxNivel=Maximo nivel para matar a un usuario de quest.
+'MUClases=Clases especificas para matar a un usuario de quest.
+'(Como se configura clases especificas)
+'MUClases1=Mago
+'MUClases2=Brujo
+'MURazas=Razas especificas para matar a un usuario de quest.
+'(Como se configura razas especificas)
+'MURazas1=Humano
+'MURazas2=Enano
+'MUAlineacion=0 Ninguna, 1 Ciudadano, 2 Criminal
+'MUFaccion=0 Ninguna, 1 Que tenga faccion
+'MURango=0 Ninguno, Otra numeracion a elegir rango.
+'BuscaObjetos=Numeros de objetos que tiene que buscar.
+'(Como configurar Busca Objetos)
+'BuscaObjetos1=IDObj-Cantidad
+'BuscaObjetos2=IDObj-Cantidad
+'ObjetoNpc=Cantidad de objeto para entregar a NPC
+'(Como configurar Objeto Npc)
+'ObjetoNpc1=IDNpc-IDObj-Cantidad
+'ObjetoNpc2=IDNpc-IDObj-Cantidad 
+'NpcDD=Numeros de npcs para darle doble clicks.
+'(Como configurar Npc Doble Click)
+'NpcDD1=IDNpc
+'NpcDD2=IDNpc
+'EncontrarMapa=Numero de mapas a encontrar en la quest.
+'(Como configurar encontrar mapas)
+'EncontrarMapa1=34
+'EncontrarMapa2=1
+'DescrubePalabra=Numero de npcs para descubrir palabras. (/frase)
+'(Como configurar Descubre Palabra)
+'DescubrePalabra1=IDNpc-Frase
+'DescubrePalabra2=IDNpc-Frase
 
 [INIT]
 NumQuests=1
