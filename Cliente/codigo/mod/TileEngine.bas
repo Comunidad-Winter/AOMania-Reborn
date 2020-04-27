@@ -50,7 +50,7 @@ Private Type CharVA
     X As Integer
     Y As Integer
     w As Integer
-    h As Integer
+    H As Integer
     
     Tx1 As Single
     Tx2 As Single
@@ -223,6 +223,10 @@ Public Type rStats
       MaxHP As Long
 End Type
 
+Public Type tQuest
+      Proceso As Byte
+End Type
+
 Public Type Char
 
     Particle_Count As Integer
@@ -274,6 +278,8 @@ Public Type Char
     Stats As rStats
     
     NpcType As Byte
+    
+    Quest As tQuest
     
 End Type
 
@@ -564,8 +570,8 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, _
     ByVal nWidth As Long, _
     ByVal nHeight As Long, _
     ByVal hSrcDC As Long, _
-    ByVal XSrc As Long, _
-    ByVal YSrc As Long, _
+    ByVal xSrc As Long, _
+    ByVal ySrc As Long, _
     ByVal dwRop As Long) As Long
 
 Public ColorAmbiente()   As D3DCOLORVALUE
@@ -590,7 +596,7 @@ Private Declare Function OleLoadPicture Lib "olepro32" (pStream As Any, _
     riid As Any, _
     ppvObj As Any) As Long
 
-Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) As IPicture
+Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) As IPicture
     Dim o_hMem        As Long
     Dim o_lpMem       As Long
     Dim aGUID(0 To 3) As Long
@@ -607,7 +613,7 @@ Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) 
         o_lpMem = GlobalLock(o_hMem)
 
         If Not o_lpMem = 0& Then
-            Call CopyMemory(ByVal o_lpMem, inArray(Offset), Size)
+            Call CopyMemory(ByVal o_lpMem, inArray(offset), Size)
             Call GlobalUnlock(o_hMem)
 
             If CreateStreamOnHGlobal(o_hMem, 1&, IIStream) = 0& Then
@@ -1939,7 +1945,7 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
     Dim MismoChar As Boolean
     Dim pos As Integer
     Dim TempChar As Char
-
+    Dim ProcesoQuest As Byte
 
     With CharList(charindex)
 
@@ -2490,8 +2496,6 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
             End If
         End If
 
-
-
         'Clan vs Clan
         If .CvcBlue = 1 Or .CvcRed = 1 Then
 
@@ -2516,14 +2520,33 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
 
             End If
 
-
+        End If
+        
+        If UCase$(.Nombre) = UCase$(frmMain.lblUserName) Then
+            ProcesoQuest = CharList(charindex).Quest.Proceso
         End If
         
         If .NpcType = eNPCType.nQuest Then
+        
+           If ProcesoQuest = 0 Then
             
+           With GrhData("17394")
+                    Call Directx_Render_Texture(.FileNum, PixelOffSetX + 12.5, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
+           End With
+           
+           ElseIf ProcesoQuest = 1 Then
+           
            With GrhData("17397")
                     Call Directx_Render_Texture(.FileNum, PixelOffSetX + 10, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
            End With
+           
+           ElseIf ProcesoQuest = 2 Then
+            
+            With GrhData("17396")
+                    Call Directx_Render_Texture(.FileNum, PixelOffSetX + 10, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
+           End With
+           
+           End If
             
         End If
 
@@ -3436,7 +3459,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
 118           .BackBufferWidth = ScreenWidth
 120           .BackBufferHeight = ScreenHeight
 122           .BackBufferFormat = DirectD3Ddm.Format 'current display depth
-              .hDeviceWindow = frmMain.MainViewPic.HWnd
+              .hDeviceWindow = frmMain.MainViewPic.hwnd
 
           End With
 
@@ -3446,7 +3469,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
           End If
 
           'create device
-128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.HWnd, Flags, DirectD3Dpp)
+128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.hwnd, Flags, DirectD3Dpp)
 
 130       Call D3DXMatrixOrthoOffCenterLH(Projection, 0, ScreenWidth, ScreenHeight, 0, -1#, 1#)
 132       Call D3DXMatrixIdentity(View)
@@ -3540,12 +3563,12 @@ Private Sub Directx_RenderStates()
     
 End Sub
 
-Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal HWnd As Long)
+Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal hwnd As Long)
     
     Call SpriteBatch.Flush
     
     Call DirectDevice.EndScene
-    Call DirectDevice.Present(RECT, ByVal 0, HWnd, ByVal 0)
+    Call DirectDevice.Present(RECT, ByVal 0, hwnd, ByVal 0)
 
 End Sub
 
@@ -3660,7 +3683,7 @@ Private Sub Directx_Render_Text(ByRef Batch As clsBatch, _
 '
 '                End If
              
-                Batch.Draw TempVA.X, TempVA.Y, TempVA.w, TempVA.h, Color, TempVA.Tx1, TempVA.Ty1, TempVA.Tx2, TempVA.Ty2
+                Batch.Draw TempVA.X, TempVA.Y, TempVA.w, TempVA.H, Color, TempVA.Tx1, TempVA.Ty1, TempVA.Tx2, TempVA.Ty2
 
                 'Shift over the the position to render the next character
                 Count = Count + UseFont.HeaderInfo.CharWidth(ascii(j - 1))
@@ -3760,7 +3783,7 @@ Private Sub Directx_Init_FontSettings()
             .X = 0
             .Y = 0
             .w = cfonts.HeaderInfo.CellWidth
-            .h = cfonts.HeaderInfo.CellHeight
+            .H = cfonts.HeaderInfo.CellHeight
             .Tx1 = u
             .Ty1 = v
             .Tx2 = u + cfonts.ColFactor
@@ -3867,10 +3890,10 @@ Public Sub Directx_Renderer()
 
 End Sub
 
-Public Sub Draw_Box(ByVal X As Integer, ByVal Y As Integer, ByVal w As Integer, ByVal h As Integer, ByRef BackgroundColor() As Long)
+Public Sub Draw_Box(ByVal X As Integer, ByVal Y As Integer, ByVal w As Integer, ByVal H As Integer, ByRef BackgroundColor() As Long)
     
     Call SpriteBatch.SetTexture(Nothing)
-    Call SpriteBatch.Draw(X, Y, w, h, BackgroundColor)
+    Call SpriteBatch.Draw(X, Y, w, H, BackgroundColor)
      
 End Sub
 
