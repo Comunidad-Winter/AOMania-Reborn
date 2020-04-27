@@ -18,6 +18,15 @@ Public Type tQuestList
     RecompensaExp As Long
     RecompensaItem As Byte
     RecompensaObjeto() As tRecompensaObjeto
+    HablarNpc As Byte
+    HablaNpc() As Integer
+    NumClases As Byte
+    Clases() As String
+    NumRazas As Byte
+    Razas() As String
+    Alineacion As Byte
+    Faccion As Byte
+    RangoFaccion As Byte
 End Type
 
 Public QuestList() As tQuestList
@@ -26,7 +35,7 @@ Public Sub Load_Quest()
 
     Dim Quest As Integer
 
-    Dim LooPC As Integer
+    Dim LoopC As Integer
 
     Dim Datos As String
     
@@ -55,16 +64,52 @@ Public Sub Load_Quest()
        
         If QuestList(Quest).RecompensaItem > 0 Then
 
-            For LooPC = 1 To MAX_INVENTORY_SLOTS
+            For LoopC = 1 To MAX_INVENTORY_SLOTS
              
-                Datos = Leer.GetValue("Quest" & Quest, "RecompensaItem" & LooPC)
+                Datos = Leer.GetValue("Quest" & Quest, "RecompensaItem" & LoopC)
              
-                QuestList(Quest).RecompensaObjeto(LooPC).ObjIndex = val(ReadField(1, Datos, 45))
-                QuestList(Quest).RecompensaObjeto(LooPC).Amount = val(ReadField(2, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LoopC).ObjIndex = val(ReadField(1, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LoopC).Amount = val(ReadField(2, Datos, 45))
              
-            Next LooPC
+            Next LoopC
 
         End If
+        
+        QuestList(Quest).HablarNpc = val(Leer.GetValue("Quest" & Quest, "HablarNPC"))
+        
+        If QuestList(Quest).HablarNpc > 0 Then
+            
+            For LoopC = 1 To MAX_INVENTORY_SLOTS
+                   QuestList(Quest).HablaNpc(LoopC) = val(Leer.GetValue("Quest" & Quest, "HablarNPC" & LoopC))
+            Next LoopC
+            
+        End If
+        
+        QuestList(Quest).NumClases = val(Leer.GetValue("Quest" & Quest, "Clases"))
+        
+        If QuestList(Quest).NumClases > 0 Then
+            
+            For LoopC = 1 To NumClases
+            
+               QuestList(Quest).Clases(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "Clases" & LoopC))
+               
+            Next LoopC
+            
+        End If
+        
+        QuestList(Quest).NumRazas = val(Leer.GetValue("Quest" & Quest, "Razas"))
+        
+        If QuestList(Quest).NumRazas > 0 Then
+            
+            For LoopC = 1 To NumRazas
+                 QuestList(Quest).Razas(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "Razas" & LoopC))
+            Next LoopC
+            
+        End If
+        
+        QuestList(Quest).Alineacion = val(Leer.GetValue("Quest" & Quest, "Alineacion"))
+        QuestList(Quest).Faccion = val(Leer.GetValue("Quest" & Quest, "Faccion"))
+        QuestList(Quest).RangoFaccion = val(Leer.GetValue("Quest" & Quest, "RangoFaccion"))
        
         frmCargando.cargar.value = frmCargando.cargar.value + 1
        

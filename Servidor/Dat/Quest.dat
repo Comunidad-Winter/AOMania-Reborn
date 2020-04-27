@@ -12,7 +12,21 @@
 ' (Como se configura las recompensas item)
 ' RecompensaItem1=Objeto-Cantidad 
 ' RecompensaItem2=Objeto-Cantidad	 
-
+'HablarNPC=Numero de NPC con los que tiene que hablar.
+'(Como se configura para hablar los NPC's)
+'HablarNPC1=ID del NPC
+'HablarNPC2=ID del NPC
+'Clases=Si es para clases especificas añade numeración, si no hay clases especificas por defecto es 0.
+'(Como se configura clases especificas)
+'Clases1=Mago
+'Clases2=Brujos
+'Razas=Si es para razas especificas añade numeración, si no hay razas especificas por defecto es 0.
+'(Como se configura razas especificas)
+'Razas1=Humano
+'Razas2=Enano
+'Alineacion=0 Ninguna, 1 Ciudadano, 2 Criminal
+'Faccion=0 Ninguno, 1 Que tenga faccion
+'RangoFaccion=0 Ninguno, Otra numeracion a elegir rango.
 
 [INIT]
 NumQuests=1
