@@ -1,7 +1,7 @@
 Attribute VB_Name = "Mod_Quest"
 Option Explicit
 
-Private NumQuests As Long
+Public NumQuests As Long
 
 Public Type tRecompensaObjeto
      ObjIndex As Integer
@@ -16,9 +16,9 @@ End Type
 Public Type tMataUser
     MinNivel As Byte
     MaxNivel As Byte
-    NumClases As Byte
+    NUMCLASES As Byte
     Clases() As String
-    NumRazas As Byte
+    NUMRAZAS As Byte
     Razas() As String
     Alineacion As Byte
     Faccion As Byte
@@ -42,7 +42,7 @@ Public Type tDescubrePalabra
 End Type
 
 Public Type tQuestList
-    Nombre As String
+    nombre As String
     Descripcion As String
     Rehacer As Byte
     MinNivel As Byte
@@ -53,9 +53,9 @@ Public Type tQuestList
     RecompensaObjeto() As tRecompensaObjeto
     HablarNpc As Byte
     HablaNpc() As Integer
-    NumClases As Byte
+    NUMCLASES As Byte
     Clases() As String
-    NumRazas As Byte
+    NUMRAZAS As Byte
     Razas() As String
     Alineacion As Byte
     Faccion As Byte
@@ -100,7 +100,7 @@ Public Sub Load_Quest()
     
     For Quest = 1 To NumQuests
        
-        QuestList(Quest).Nombre = Leer.GetValue("Quest" & Quest, "Nombre")
+        QuestList(Quest).nombre = Leer.GetValue("Quest" & Quest, "Nombre")
         QuestList(Quest).Descripcion = Leer.GetValue("Quest" & Quest, "Descripcion")
         QuestList(Quest).Rehacer = val(Leer.GetValue("Quest" & Quest, "Rehacer"))
         QuestList(Quest).MinNivel = val(Leer.GetValue("Quest" & Quest, "MinNivel"))
@@ -132,11 +132,11 @@ Public Sub Load_Quest()
             
         End If
         
-        QuestList(Quest).NumClases = val(Leer.GetValue("Quest" & Quest, "Clases"))
+        QuestList(Quest).NUMCLASES = val(Leer.GetValue("Quest" & Quest, "Clases"))
         
-        If QuestList(Quest).NumClases > 0 Then
+        If QuestList(Quest).NUMCLASES > 0 Then
             
-            For LoopC = 1 To NumClases
+            For LoopC = 1 To NUMCLASES
             
                QuestList(Quest).Clases(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "Clases" & LoopC))
                
@@ -144,11 +144,11 @@ Public Sub Load_Quest()
             
         End If
         
-        QuestList(Quest).NumRazas = val(Leer.GetValue("Quest" & Quest, "Razas"))
+        QuestList(Quest).NUMRAZAS = val(Leer.GetValue("Quest" & Quest, "Razas"))
         
-        If QuestList(Quest).NumRazas > 0 Then
+        If QuestList(Quest).NUMRAZAS > 0 Then
             
-            For LoopC = 1 To NumRazas
+            For LoopC = 1 To NUMRAZAS
                  QuestList(Quest).Razas(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "Razas" & LoopC))
             Next LoopC
             
@@ -175,21 +175,21 @@ Public Sub Load_Quest()
         If QuestList(Quest).NumUser > 0 Then
             QuestList(Quest).MataUser.MinNivel = val(Leer.GetValue("Quest" & Quest, "MUMinNivel"))
             QuestList(Quest).MataUser.MaxNivel = val(Leer.GetValue("Quest" & Quest, "MUMaxNivel"))
-            QuestList(Quest).MataUser.NumClases = val(Leer.GetValue("Quest" & Quest, "MUClases"))
+            QuestList(Quest).MataUser.NUMCLASES = val(Leer.GetValue("Quest" & Quest, "MUClases"))
             
-            If QuestList(Quest).MataUser.NumClases > 0 Then
+            If QuestList(Quest).MataUser.NUMCLASES > 0 Then
                    
-                   For LoopC = 1 To NumClases
+                   For LoopC = 1 To NUMCLASES
                          QuestList(Quest).MataUser.Clases(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "MUClases" & LoopC))
                    Next LoopC
                    
             End If
             
-            QuestList(Quest).MataUser.NumRazas = val(Leer.GetValue("Quest" & Quest, "MURazas"))
+            QuestList(Quest).MataUser.NUMRAZAS = val(Leer.GetValue("Quest" & Quest, "MURazas"))
             
-            If QuestList(Quest).MataUser.NumRazas > 0 Then
+            If QuestList(Quest).MataUser.NUMRAZAS > 0 Then
                   
-                  For LoopC = 1 To NumRazas
+                  For LoopC = 1 To NUMRAZAS
                        QuestList(Quest).MataUser.Razas(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "MURazas" & LoopC))
                   Next LoopC
                   
@@ -271,4 +271,11 @@ Public Sub Load_Quest()
        
     Next Quest
     
+End Sub
+
+Public Sub IniciarVentanaQuest(ByVal UserIndex As Integer)
+     
+     
+     
+     
 End Sub
