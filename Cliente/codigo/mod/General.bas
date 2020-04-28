@@ -528,36 +528,36 @@ End Function
 
 Sub CargarAnimArmas()
 
-    Dim LooPC  As Long
+    Dim LoopC  As Long
     Dim arch   As String
    
     Dim Data() As Byte
-    Dim handle As Integer
+    Dim Handle As Integer
         
     If Not Get_File_Data(DirRecursos, "ARMAS.DAT", Data, INIT_RESOURCE_FILE) Then Exit Sub
 
     arch = DirRecursos & "Armas.dat"
     
-    handle = FreeFile
-    Open arch For Binary Access Write As handle
-    Put handle, , Data
-    Close handle
+    Handle = FreeFile
+    Open arch For Binary Access Write As Handle
+    Put Handle, , Data
+    Close Handle
      
     NumWeaponAnims = Val(GetVar(arch, "INIT", "NumArmas"))
     
     ReDim WeaponAnimData(1 To NumWeaponAnims) As WeaponAnimData
     
-    For LooPC = 1 To NumWeaponAnims
+    For LoopC = 1 To NumWeaponAnims
 
-        If LooPC <> 2 Then
-            InitGrh WeaponAnimData(LooPC).WeaponWalk(1), Val(GetVar(arch, "ARMA" & LooPC, "Dir1")), 0
-            InitGrh WeaponAnimData(LooPC).WeaponWalk(2), Val(GetVar(arch, "ARMA" & LooPC, "Dir2")), 0
-            InitGrh WeaponAnimData(LooPC).WeaponWalk(3), Val(GetVar(arch, "ARMA" & LooPC, "Dir3")), 0
-            InitGrh WeaponAnimData(LooPC).WeaponWalk(4), Val(GetVar(arch, "ARMA" & LooPC, "Dir4")), 0
+        If LoopC <> 2 Then
+            InitGrh WeaponAnimData(LoopC).WeaponWalk(1), Val(GetVar(arch, "ARMA" & LoopC, "Dir1")), 0
+            InitGrh WeaponAnimData(LoopC).WeaponWalk(2), Val(GetVar(arch, "ARMA" & LoopC, "Dir2")), 0
+            InitGrh WeaponAnimData(LoopC).WeaponWalk(3), Val(GetVar(arch, "ARMA" & LoopC, "Dir3")), 0
+            InitGrh WeaponAnimData(LoopC).WeaponWalk(4), Val(GetVar(arch, "ARMA" & LoopC, "Dir4")), 0
 
         End If
 
-    Next LooPC
+    Next LoopC
 
     If FileExist(arch, vbArchive) Then Call Kill(arch)
        
@@ -567,16 +567,16 @@ Sub CargarColores()
 
     Dim arch   As String
     Dim Data() As Byte
-    Dim handle As Integer
+    Dim Handle As Integer
     
     If Not Get_File_Data(DirRecursos, "COLORES.DAT", Data, INIT_RESOURCE_FILE) Then Exit Sub
 
     arch = DirRecursos & "COLORES.dat"
     
-    handle = FreeFile
-    Open arch For Binary Access Write As handle
-    Put handle, , Data
-    Close handle
+    Handle = FreeFile
+    Open arch For Binary Access Write As Handle
+    Put Handle, , Data
+    Close Handle
         
     Dim i As Long
 
@@ -596,35 +596,35 @@ End Sub
 
 Sub CargarAnimEscudos()
 
-    Dim LooPC  As Long
+    Dim LoopC  As Long
     Dim arch   As String
     Dim Data() As Byte
-    Dim handle As Integer
+    Dim Handle As Integer
     
     If Not Get_File_Data(DirRecursos, "ESCUDOS.DAT", Data, INIT_RESOURCE_FILE) Then Exit Sub
 
     arch = DirRecursos & "ESCUDOS.DAT"
     
-    handle = FreeFile
-    Open arch For Binary Access Write As handle
-    Put handle, , Data
-    Close handle
+    Handle = FreeFile
+    Open arch For Binary Access Write As Handle
+    Put Handle, , Data
+    Close Handle
  
     NumEscudosAnims = Val(GetVar(arch, "INIT", "NumEscudos"))
     
     ReDim ShieldAnimData(1 To NumEscudosAnims) As ShieldAnimData
     
-    For LooPC = 1 To NumEscudosAnims
+    For LoopC = 1 To NumEscudosAnims
 
-        If LooPC <> 2 Then
-            InitGrh ShieldAnimData(LooPC).ShieldWalk(1), Val(GetVar(arch, "ESC" & LooPC, "Dir1")), 0
-            InitGrh ShieldAnimData(LooPC).ShieldWalk(2), Val(GetVar(arch, "ESC" & LooPC, "Dir2")), 0
-            InitGrh ShieldAnimData(LooPC).ShieldWalk(3), Val(GetVar(arch, "ESC" & LooPC, "Dir3")), 0
-            InitGrh ShieldAnimData(LooPC).ShieldWalk(4), Val(GetVar(arch, "ESC" & LooPC, "Dir4")), 0
+        If LoopC <> 2 Then
+            InitGrh ShieldAnimData(LoopC).ShieldWalk(1), Val(GetVar(arch, "ESC" & LoopC, "Dir1")), 0
+            InitGrh ShieldAnimData(LoopC).ShieldWalk(2), Val(GetVar(arch, "ESC" & LoopC, "Dir2")), 0
+            InitGrh ShieldAnimData(LoopC).ShieldWalk(3), Val(GetVar(arch, "ESC" & LoopC, "Dir3")), 0
+            InitGrh ShieldAnimData(LoopC).ShieldWalk(4), Val(GetVar(arch, "ESC" & LoopC, "Dir4")), 0
 
         End If
 
-    Next LooPC
+    Next LoopC
 
     If FileExist(arch, vbArchive) Then Call Kill(arch)
     
@@ -685,7 +685,7 @@ End Function
 
 Function CheckUserData(ByVal checkemail As Boolean) As Boolean
     'Validamos los datos del user
-    Dim LooPC     As Long
+    Dim LoopC     As Long
     Dim CharAscii As Integer
     
     If checkemail And UserEmail = "" Then
@@ -700,8 +700,8 @@ Function CheckUserData(ByVal checkemail As Boolean) As Boolean
 
     End If
     
-    For LooPC = 1 To Len(UserPassword)
-        CharAscii = Asc(mid$(UserPassword, LooPC, 1))
+    For LoopC = 1 To Len(UserPassword)
+        CharAscii = Asc(mid$(UserPassword, LoopC, 1))
 
         If Not LegalCharacter(CharAscii) Then
             MsgBox ("Password inválido. El caractér " & Chr$(CharAscii) & " no está permitido.")
@@ -709,7 +709,7 @@ Function CheckUserData(ByVal checkemail As Boolean) As Boolean
 
         End If
 
-    Next LooPC
+    Next LoopC
     
     If UserName = "" Then
         MsgBox ("Ingrese un nombre de personaje.")
@@ -723,8 +723,8 @@ Function CheckUserData(ByVal checkemail As Boolean) As Boolean
 
     End If
     
-    For LooPC = 1 To Len(UserName)
-        CharAscii = Asc(mid$(UserName, LooPC, 1))
+    For LoopC = 1 To Len(UserName)
+        CharAscii = Asc(mid$(UserName, LoopC, 1))
 
         If Not LegalCharacter(CharAscii) Then
             MsgBox ("Nombre inválido. El caractér " & Chr$(CharAscii) & " no está permitido.")
@@ -732,7 +732,7 @@ Function CheckUserData(ByVal checkemail As Boolean) As Boolean
 
         End If
 
-    Next LooPC
+    Next LoopC
     
     CheckUserData = True
 
@@ -1151,7 +1151,7 @@ Sub Main()
     frmMain.Socket1.Startup
     frmConnect.Visible = True
         
-    Dim LooPC          As Long
+    Dim LoopC          As Long
     
     Dim f              As Boolean
     Dim ulttick        As Long, esttick As Long
@@ -1176,8 +1176,8 @@ Sub Main()
         'Sistema de timers renovado:
         esttick = GetTickCount
 
-        For LooPC = 1 To UBound(timers)
-            timers(LooPC) = timers(LooPC) + (esttick - ulttick)
+        For LoopC = 1 To UBound(timers)
+            timers(LoopC) = timers(LoopC) + (esttick - ulttick)
 
             'Timer de trabajo
             If timers(1) >= tUs Then
@@ -1194,7 +1194,7 @@ Sub Main()
 
             End If
 
-        Next LooPC
+        Next LoopC
 
         ulttick = GetTickCount
         
@@ -1254,6 +1254,7 @@ Private Sub LoadInitialConfig()
     Call CargarArrayLluvia
     Call CargarAnimArmas
     Call CargarAnimEscudos
+    Call Load_Quest
     
     If Not Directx_Initialize(0) Then
         Call CloseClient

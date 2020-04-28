@@ -1,9 +1,10 @@
 VERSION 5.00
 Begin VB.Form frmCanjes 
+   BorderStyle     =   0  'None
    Caption         =   "Venta de Canjes"
    ClientHeight    =   6075
-   ClientLeft      =   60
-   ClientTop       =   405
+   ClientLeft      =   -60
+   ClientTop       =   -60
    ClientWidth     =   6210
    ClipControls    =   0   'False
    LinkTopic       =   "Form1"
@@ -171,12 +172,12 @@ Private Sub BuyItem_Click()
     If List1(Index).List(List1(Index).ListIndex) = "Nada" Or List1(Index).ListIndex < 0 Then Exit Sub
     
     UseItem = List1(Index).ListIndex + 1
-    Monedas = CANJInventory(UseItem).Monedas * cantidad.Text
+    Monedas = CANJInventory(UseItem).Monedas * Cantidad.Text
     
     If Monedas = 0 Then Exit Sub
     
     If UserCanjes >= CANJInventory(UseItem).Monedas Then
-        SendData ("COAJ" & "," & UseItem & "," & cantidad.Text)
+        SendData ("COAJ" & "," & UseItem & "," & Cantidad.Text)
     Else
         AddtoRichTextBox frmMain.RecTxt, "No tienes suficiente AoMCanjes.", 0, 0, 174, 1, 1
         Exit Sub
@@ -193,18 +194,18 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub List1_Click(Index As Integer)
-    Dim SR As RECT, dr As RECT
+    Dim SR As RECT, DR As RECT
     Dim UseItem As Integer
 
     SR.Left = 0
     SR.Top = 0
     SR.Right = 32
-    SR.bottom = 32
+    SR.Bottom = 32
 
-    dr.Left = 0
-    dr.Top = 0
-    dr.Right = 32
-    dr.bottom = 32
+    DR.Left = 0
+    DR.Top = 0
+    DR.Right = 32
+    DR.Bottom = 32
     
     If Index = 0 Then
        
@@ -223,7 +224,7 @@ Private Sub List1_Click(Index As Integer)
       
         Label1(0).Caption = CANJInventory(UseItem).Name
         Label1(1).Caption = CANJInventory(UseItem).Monedas
-        Label1(2).Caption = CANJInventory(UseItem).cantidad
+        Label1(2).Caption = CANJInventory(UseItem).Cantidad
        
         Select Case CANJInventory(UseItem).ObjType
             Case 2
@@ -252,7 +253,7 @@ Private Sub List1_Click(Index As Integer)
                 Label1(4).Visible = False
         End Select
        
-        Call DrawGrhtoHdc(Picture1.hdc, CANJInventory(UseItem).GrhIndex, dr)
+        Call DrawGrhtoHdc(Picture1.hdc, CANJInventory(UseItem).GrhIndex, DR)
     
     ElseIf Index = 1 Then
         
@@ -303,7 +304,7 @@ Private Sub List1_Click(Index As Integer)
         End Select
 
         
-        Call DrawGrhtoHdc(Picture1.hdc, Inventario.GrhIndex(UseItem), dr)
+        Call DrawGrhtoHdc(Picture1.hdc, Inventario.GrhIndex(UseItem), DR)
     End If
     
 End Sub
@@ -321,5 +322,5 @@ Private Sub SellItem_Click()
     
     UseItem = List1(Index).ListIndex + 1
     
-    Call SendData("VEAJ" & "," & UseItem & "," & cantidad.Text)
+    Call SendData("VEAJ" & "," & UseItem & "," & Cantidad.Text)
 End Sub

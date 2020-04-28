@@ -1481,6 +1481,10 @@ Public Type tGm
     Command(1 To 18) As Byte
 End Type
 
+Public Type UserQuest
+      UserQuest(1 To 1000) As Integer
+End Type
+
 'Tipo de los Usuarios
 Public Type User
 
@@ -1587,6 +1591,8 @@ Public Type User
     SnapShotAdmin As Integer
 
     Gm As tGm
+    
+    Quest As UserQuest
 
 End Type
 

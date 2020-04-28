@@ -1812,3 +1812,74 @@
 25/04/2020 7:14:37 HandleData. CadOri:/telep yo 3430 50 Nom:sethUI:5 N: 0 D: 
 25/04/2020 7:14:40 HandleData. CadOri:/telep yo 34 30 50 Nom:sethUI:5 N: 0 D: 
 25/04/2020 7:14:42 HandleData. CadOri:/echar seth Nom:UI:5 N: 0 D: 
+26/04/2020 0:45:41 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 0:45:45 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 0:45:47 HandleData. CadOri:/prueba Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:30:57 HandleData. CadOri:/TELEP YO 47 61 22 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:31:50 HandleData. CadOri:/TELEP YO 47 63 23 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:32:49 HandleData. CadOri:/TELEP YO 47 60 22 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:32:53 HandleData. CadOri:/TELEP YO 47 63 22 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:33:08 HandleData. CadOri:/acc 303 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:36:34 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:38:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:39:06 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:39:11 HandleData. CadOri:/Acc 304 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:39:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:39:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:39:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:39:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 10:39:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:14 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:15 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:15 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:34 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:35 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:36 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:36 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:37 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:38 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:46 HandleData. CadOri:/ACC 303 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:49 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:25:59 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:26:03 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:26:07 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 11:37:23 Mas de 60 iteraciones en SpawnNpc Mapa:146 Index:640
+26/04/2020 13:35:07 HandleData. CadOri:/acc 304 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 13:35:16 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 13:43:41 HandleData. CadOri:/acc 304 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 14:45:21 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 14:53:45 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 17:38:35 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 17:57:50 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 17:57:55 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 18:01:36 HandleData. CadOri:MARAKAKeoH,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,0 Nom:UI:1 N: 13 D: No coinciden los tipos
+26/04/2020 18:03:26 HandleData. CadOri:/sum cabron Nom:BassingerUI:2 N: 0 D: 
+26/04/2020 18:04:06 HandleData. CadOri:/party Nom:BassingerUI:2 N: 0 D: 
+26/04/2020 18:11:38 Mas de 60 iteraciones en SpawnNpc Mapa:146 Index:640
+26/04/2020 18:18:50 HandleData. CadOri:/TELEP YO 34 27 45 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 18:18:50 HandleData. CadOri:/TELEP YO 34 26 39 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 18:18:51 HandleData. CadOri:/TELEP YO 34 26 32 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 18:18:51 HandleData. CadOri:/TELEP YO 34 26 25 Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 18:19:06 HandleData. CadOri:/revivir cabron Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 18:19:08 HandleData. CadOri:/Sum cabr Nom:BassingerUI:1 N: 0 D: 
+26/04/2020 18:40:05 Error en CloseUser. Número 9 Descripción: El subíndice está fuera del intervalo
+26/04/2020 19:32:46 HandleData. CadOri:WLC24,89,2 Nom:artharionUI:1 N: 9 D: El subíndice está fuera del intervalo
+26/04/2020 19:36:22 HandleData. CadOri:/MOV Nom:BassingerUI:2 N: 0 D: 
+26/04/2020 19:36:23 HandleData. CadOri:/MOV Nom:BassingerUI:2 N: 0 D: 
+26/04/2020 19:36:24 HandleData. CadOri:/MOV Nom:BassingerUI:2 N: 0 D: 
+26/04/2020 19:36:28 HandleData. CadOri:/MOV Nom:BassingerUI:2 N: 0 D: 
+26/04/2020 19:36:36 HandleData. CadOri:/acc 304 Nom:BassingerUI:2 N: 0 D: 
+28/04/2020 0:23:39 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:23:40 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:23:41 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:23:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:23:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:23:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:23:43 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:24:46 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:25:10 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:26:21 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 0:29:32 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 1:22:25 Mas de 60 iteraciones en SpawnNpc Mapa:146 Index:640
+28/04/2020 2:32:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+28/04/2020 2:32:47 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 

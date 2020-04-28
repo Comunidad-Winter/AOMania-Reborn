@@ -1422,7 +1422,14 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).Clan.PuntosClan = val(UserFile.GetValue("GUILD", "PuntosClan"))
     UserList(UserIndex).Clan.UMuerte = UserFile.GetValue("GUILD", "UltimaMuerte")
     UserList(UserIndex).Clan.ParticipoClan = val(UserFile.GetValue("GUILD", "PARTICIPOCLAN"))
-
+    
+    If NumQuests > 0 Then
+        
+        For LoopC = 1 To NumQuests
+               UserList(UserIndex).Quest.UserQuest(LoopC) = val(UserFile.GetValue("QUEST", "Q" & LoopC))
+        Next LoopC
+        
+    End If
 
 End Sub
 
@@ -2199,6 +2206,16 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("GUILD", "PuntosClan", .Clan.PuntosClan)
         Call Manager.ChangeValue("GUILD", "UltimaMuerte", .Clan.UMuerte)
         Call Manager.ChangeValue("GUILD", "PARTICIPOCLAN", .Clan.ParticipoClan)
+        
+        If NumQuests > 0 Then
+            
+            For LoopC = 1 To NumQuests
+                    
+                    Call Manager.ChangeValue("QUEST", "Q" & LoopC, .Quest.UserQuest(LoopC))
+                    
+            Next LoopC
+            
+        End If
 
     End With
 

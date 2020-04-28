@@ -242,6 +242,37 @@ Public Enum Skills
     Herrero = 26
 End Enum
 
+
+Public Enum eNPCType
+
+    Comun = 0
+    Revividor = 1
+    GuardiaReal = 2
+    Entrenador = 3
+    Banquero = 4
+    Armada = 5
+    dragon = 6
+    Cirujia = 7
+    Guardia = 9
+    Duelos = 10
+    CambiaCabeza = 11
+    Teleport = 12
+    Guardiascaos = 17
+    Casamiento = 18
+    Clero = 20
+    Abbadon = 21
+    Timbero = 23
+    Templario = 26
+    Tiniebla = 29
+    Banda = 33
+    Medusa = 38
+    OlvidarHechizo = 54
+    nQuest = 97
+    Canjes = 98
+    Creditos = 99
+
+End Enum
+
 ' CATEGORIAS PRINCIPALES
 Public Enum eObjType
 
@@ -724,3 +755,6 @@ Public Heads() As Integer
 
 Public TimeChange As Byte
 Public NameDay As String
+
+
+

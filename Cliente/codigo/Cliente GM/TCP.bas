@@ -992,7 +992,7 @@ Sub HandleData(ByVal Rdata As String)
         UserPos = CharList(UserCharIndex).pos
         Call ActualizarShpUserPos
         Exit Sub
-
+    
     Case "BC"              ' >>>>> Crear un NPC :: BC
         Rdata = Right$(Rdata, Len(Rdata) - 2)
         charindex = ReadField(4, Rdata, 44)
@@ -2674,20 +2674,20 @@ Sub SendData(ByVal sdData As String)
 End Sub
 
 Sub login()
-    Dim Version As String
+    Dim version As String
     
-    Version = App.Major & "." & App.Minor & "." & App.Revision
+    version = App.Major & "." & App.Minor & "." & App.Revision
 
     Select Case EstadoLogin
    
         Case E_MODO.Normal
             
-            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & Version & "," & HDD & "," & "1")
+            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & version & "," & HDD & "," & "1")
           
         Case E_MODO.CrearNuevoPj
             Call SendData("TIRDAD" & UserFuerza & "," & UserAgilidad _
                & "," & UserInteligencia & "," & UserCarisma & "," & UserConstitucion)
-            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & Version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
+            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
                 UserBanco & "," & UserPersonaje & "," & UserEmail & "," & UserHogar & "," & HDD)
 
         Case E_MODO.Dados
