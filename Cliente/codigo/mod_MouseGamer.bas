@@ -29,6 +29,7 @@ Public Enum eTipo
     BotonLanzar = 1
     BotonHechizos = 2
     BotonInventario = 3
+    ListaHechizos = 4
 End Enum
 
 Private Type tClickPositions
@@ -37,7 +38,7 @@ Private Type tClickPositions
     aInt As Byte
 End Type
 
-Public ClickPositions(1 To 3) As tClickPositions
+Public ClickPositions(1 To 4) As tClickPositions
 
 
 Public GameClick(1 To 3) As tClicks
@@ -55,13 +56,14 @@ End Sub
 Public Sub ClickEnInv() 'Click en algun objeto del inventario
     With GameClick(2)
         If .Pend = True Then
-            .aInt = .aInt + 1
+            
             .intClick(.aInt) = GetTickCount - .LCLista
             .Pend = False
             If .aInt = 4 Then
                 .aInt = 0
                 Call CompararInt(2)
             End If
+            .aInt = .aInt + 1
         End If
     End With
     GameClick(3).LCLista = GetTickCount
@@ -71,13 +73,14 @@ End Sub
 Public Sub ClickCambioHech() ' cambio al menu de hechizos
     With GameClick(3)
         If .Pend = True Then
-            .aInt = .aInt + 1
+            
             .intClick(.aInt) = GetTickCount - .LCLista
             .Pend = False
             If .aInt = 4 Then
                 .aInt = 0
                 Call CompararInt(3)
             End If
+            .aInt = .aInt + 1
         End If
     End With
 End Sub
@@ -91,13 +94,14 @@ End Sub
 Public Sub ClickLanzar()
     With GameClick(1)
         If .Pend = True Then
-            .aInt = .aInt + 1
+            
             .intClick(.aInt) = GetTickCount - .LCLista
             .Pend = False
             If .aInt = 4 Then
                 .aInt = 0
                 Call CompararInt(1)
             End If
+            .aInt = .aInt + 1
         End If
     End With
 End Sub
@@ -109,21 +113,21 @@ Private Sub CompararInt(ByVal Index As Byte)
         
             advs = CompararIntervalos(.intClick)
     
-            If advs >= 2 Then _
+            If advs >= 6 Then _
                 Call SendData("SACSAC1" & Index)
                 
         End With
     Else
         With ClickPositions(Index - 3)
-        
+            
             advs = CompararPosiciones(.X)
-    
-            If advs >= 5 Then _
+            
+            If advs >= 8 Then _
                 Call SendData("SACSAC1" & Index)
                 
             advs = CompararPosiciones(.Y)
     
-            If advs >= 5 Then _
+            If advs >= 8 Then _
                 Call SendData("SACSAC1" & Index)
                 
         End With
@@ -135,7 +139,7 @@ Private Function CompararPosiciones(ByRef ints() As Single) As Byte 'Devuelve la
     Dim advs As Byte
     Dim nDif As Byte
     Dim Advertencias As Byte
-    ReDim Preserve dif(0 To 1) As Single
+    ReDim Preserve dif(0 To 1) As Singlew
     For xx = 0 To 4
         For yy = 0 To 4
             If yy <> xx Then
@@ -185,6 +189,8 @@ Public Sub ClickEnObjetoPos(ByVal TIPO As eTipo, ByVal X As Single, ByVal Y As S
         End If
     End With
 End Sub
+
+
 
 
 
