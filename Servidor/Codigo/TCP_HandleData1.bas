@@ -4,7 +4,7 @@ Option Explicit
 
 Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Procesado As Boolean)
 
-    Dim LoopC As Integer
+    Dim LooPC As Integer
     Dim nPos As WorldPos
     Dim tStr As String
     Dim tInt As Integer
@@ -23,7 +23,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Dim Mapa As Integer
     Dim Name As String
     Dim ind
-    Dim n As Integer
+    Dim N As Integer
     Dim wpaux As WorldPos
     Dim mifile As Integer
     Dim X As Integer
@@ -1483,14 +1483,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tInt = ReadField(1, rData, 44)  ' Slot
         X = ReadField(2, rData, 44)     ' Pos X
         Y = ReadField(3, rData, 44)     ' Pos Y
-        n = ReadField(4, rData, 44)     ' Cantidad
+        N = ReadField(4, rData, 44)     ' Cantidad
 
         Mapa = UserList(UserIndex).pos.Map
 
         If InMapBounds(Mapa, X, Y) Then
 
             'Desequipa
-            If n > 0 Or n <= MAX_INVENTORY_OBJS Then
+            If N > 0 Or N <= MAX_INVENTORY_OBJS Then
 
                 Dim tUser As Integer
                 Dim tNpc As Integer
@@ -1498,11 +1498,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 tNpc = MapData(Mapa, X, Y).NpcIndex
 
                 If tNpc > 0 Then
-                    Call DragToNPC(UserIndex, tNpc, tInt, n)
+                    Call DragToNPC(UserIndex, tNpc, tInt, N)
                 ElseIf tUser > 0 Then
-                    Call DragToUser(UserIndex, tUser, tInt, n)
+                    Call DragToUser(UserIndex, tUser, tInt, N)
                 Else
-                    Call DragToPos(UserIndex, X, Y, tInt, n)
+                    Call DragToPos(UserIndex, X, Y, tInt, N)
 
                 End If
 
@@ -2237,8 +2237,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     '[/Alejo]
 
     Select Case UCase$(Left$(rData, 8))
-
-        'clanesnuevo
+    
+    Case "INIQUEST"
+     rData = Right$(rData, Len(rData) - 8)
+     
+     Call IniciarMisionQuest(UserIndex, rData)
+    
+    Exit Sub
+    
     Case "ACEPPEAT"    'aceptar paz
         rData = Right$(rData, Len(rData) - 8)
         tInt = modGuilds.r_AceptarPropuestaDePaz(UserIndex, rData, tStr)

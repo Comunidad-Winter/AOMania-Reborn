@@ -1483,6 +1483,8 @@ End Type
 
 Public Type UserQuest
       UserQuest(1 To 1000) As Integer
+      Quest As Integer
+      Start As Byte
 End Type
 
 'Tipo de los Usuarios

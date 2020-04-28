@@ -79,6 +79,16 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Sub cmdIniciar_Click()
+     
+     Dim Index As Integer
+     
+     Index = ListQuest.ListIndex + 1
+     
+     Call SendData("INIQUEST" & Index)
+     
+End Sub
+
 Private Sub Form_Load()
      
      Dim LooPC As Integer

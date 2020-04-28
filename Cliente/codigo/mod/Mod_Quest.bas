@@ -10,16 +10,16 @@ End Type
 
 Public Type tMataNpc
      NpcIndex As Integer
-     cantidad As Integer
+     Cantidad As Integer
 End Type
 
 Public Type tMataUser
     MinNivel As Byte
     MaxNivel As Byte
     NUMCLASES As Byte
-    Clases() As String
+    Clases(1 To NUMCLASES) As String
     NUMRAZAS As Byte
-    Razas() As String
+    Razas(1 To NUMRAZAS) As String
     Alineacion As Byte
     Faccion As Byte
     RangoFaccion As Byte
@@ -52,16 +52,16 @@ Public Type tQuestList
     RecompensaItem As Byte
     RecompensaObjeto() As tRecompensaObjeto
     HablarNpc As Byte
-    HablaNpc() As Integer
+    HablaNpc(1 To 10) As Integer
     NUMCLASES As Byte
-    Clases() As String
+    Clases(1 To NUMCLASES) As String
     NUMRAZAS As Byte
-    Razas() As String
+    Razas(1 To NUMRAZAS) As String
     Alineacion As Byte
     Faccion As Byte
     RangoFaccion As Byte
     NumNpc As Byte
-    MataNpc() As tMataNpc
+    MataNpc(1 To 10) As tMataNpc
     NumUser As Integer
     MataUser As tMataUser
     NumObjs As Byte
@@ -69,11 +69,11 @@ Public Type tQuestList
     NumObjsNpc As Byte
     ObjsNpc As tObjsNpc
     NumNpcDD As Byte
-    NpcDD() As Integer
+    NpcDD(1 To 10) As Integer
     NumMapas As Integer
-    Mapas() As Integer
+    Mapas(1 To 10) As Integer
     NumDescubre As Integer
-    DescubrePalabra() As tDescubrePalabra
+    DescubrePalabra(1 To 10) As tDescubrePalabra
 End Type
 
 Public QuestList() As tQuestList
@@ -187,7 +187,7 @@ Public Sub Load_Quest()
                 Datos = Leer.GetValue("Quest" & Quest, "MataNPC" & LooPC)
                 
                 QuestList(Quest).MataNpc(LooPC).NpcIndex = Val(ReadField(1, Datos, 45))
-                QuestList(Quest).MataNpc(LooPC).cantidad = Val(ReadField(2, Datos, 45))
+                QuestList(Quest).MataNpc(LooPC).Cantidad = Val(ReadField(2, Datos, 45))
                 
             Next LooPC
         End If
