@@ -42,7 +42,7 @@ Public Type tDescubrePalabra
 End Type
 
 Public Type tQuestList
-    nombre As String
+    Nombre As String
     Descripcion As String
     Rehacer As Byte
     MinNivel As Byte
@@ -100,7 +100,7 @@ Public Sub Load_Quest()
     
     For Quest = 1 To NumQuests
        
-        QuestList(Quest).nombre = Leer.GetValue("Quest" & Quest, "Nombre")
+        QuestList(Quest).Nombre = Leer.GetValue("Quest" & Quest, "Nombre")
         QuestList(Quest).Descripcion = Leer.GetValue("Quest" & Quest, "Descripcion")
         QuestList(Quest).Rehacer = val(Leer.GetValue("Quest" & Quest, "Rehacer"))
         QuestList(Quest).MinNivel = val(Leer.GetValue("Quest" & Quest, "MinNivel"))
@@ -270,12 +270,25 @@ Public Sub Load_Quest()
         frmCargando.cargar.value = frmCargando.cargar.value + 1
        
     Next Quest
-    
+  
 End Sub
 
 Public Sub IniciarVentanaQuest(ByVal UserIndex As Integer)
      
+    Dim LoopC As Integer
+
+    Dim Datos As String
      
+    With UserList(UserIndex)
      
+        For LoopC = 1 To NumQuests
+            Datos = Datos & .Quest.UserQuest(LoopC) & ", "
+        Next LoopC
+      
+        Datos = Left$(Datos, Len(Datos) - 2)
      
+        Call SendData(toindex, UserIndex, 0, "XU" & Datos)
+
+    End With
+        
 End Sub

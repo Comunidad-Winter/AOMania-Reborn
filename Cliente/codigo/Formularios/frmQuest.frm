@@ -47,7 +47,7 @@ Begin VB.Form frmQuest
       FCOL            =   0
       FCOLO           =   16576
       MCOL            =   12632256
-      MPTR            =   0
+      MPTR            =   1
       MICON           =   "frmQuest.frx":0000
       UMCOL           =   -1  'True
       SOFT            =   0   'False
@@ -85,7 +85,7 @@ Begin VB.Form frmQuest
       FCOL            =   0
       FCOLO           =   16576
       MCOL            =   12632256
-      MPTR            =   0
+      MPTR            =   1
       MICON           =   "frmQuest.frx":001C
       UMCOL           =   -1  'True
       SOFT            =   0   'False
@@ -123,7 +123,7 @@ Begin VB.Form frmQuest
       FCOL            =   0
       FCOLO           =   16576
       MCOL            =   12632256
-      MPTR            =   0
+      MPTR            =   1
       MICON           =   "frmQuest.frx":0038
       UMCOL           =   -1  'True
       SOFT            =   0   'False
@@ -165,4 +165,5 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+
 

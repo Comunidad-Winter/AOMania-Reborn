@@ -24,7 +24,7 @@ Public Const VK_SNAPSHOT As Byte = 44 ' PrintScreen virtual keycode
 Public Const PS_TheForm = 0
 Public Const PS_TheScreen As Byte = 1
 
-Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, _
+Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal HWnd As Long, _
     ByVal lpOperation As String, _
     ByVal lpFile As String, _
     ByVal lpParameters As String, _
@@ -755,3 +755,6 @@ Public Heads() As Integer
 
 Public TimeChange As Byte
 Public NameDay As String
+
+
+

@@ -116,6 +116,7 @@ UserControl=codigo\Modulos\ChameleonButton.ctl
 Object={B389CD47-E20E-4D96-A4EC-576F2B1F43BF}#1.0#0; hook-menu-2.ocx
 Form=codigo\Formularios\FrmNene.frm
 Form=codigo\Formularios\frmQuest.frm
+Module=Mod_Quest; codigo\mod\Mod_Quest.bas
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""
