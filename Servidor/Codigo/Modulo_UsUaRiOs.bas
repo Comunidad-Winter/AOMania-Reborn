@@ -303,7 +303,10 @@ Public Sub EnviarMiniEstadisticasGM(ByVal UserIndex As Integer, ByVal rData As I
                                                         .Stats.Banco & "," & .pos.Map & "," & .pos.X & "," & .pos.Y & "," & .Stats.SkillPts & "," & .Clan.ParticipoClan & "," & .Stats.AbbadonMatados & "," & .Stats.CleroMatados & "," & _
                                                         .Stats.TinieblaMatados & "," & .Stats.TemplarioMatados & "," & UserArmada & "," & .Faccion.Reenlistadas & "," & UserRecompensas & "," & _
                                                         .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & .Faccion.FEnlistado)
+    Debug.Print .Genero
     End With
+    
+    
 End Sub
 
 Public Sub EnviarMiniEstadisticas(ByVal UserIndex As Integer)
@@ -2605,32 +2608,32 @@ Public Sub Empollando(ByVal UserIndex As Integer)
 
 End Sub
 
-Sub SendUserStatsTxtOFF(ByVal sendIndex As Integer, ByVal Nombre As String)
+Sub SendUserStatsTxtOFF(ByVal sendIndex As Integer, ByVal nombre As String)
 
-    If FileExist(CharPath & Nombre & ".chr", vbArchive) = False Then
+    If FileExist(CharPath & nombre & ".chr", vbArchive) = False Then
         Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Pj Inexistente" & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Estadisticas de: " & Nombre & FONTTYPE_INFO)
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Nivel: " & GetVar(CharPath & Nombre & ".chr", "stats", "elv") & "  EXP: " & GetVar( _
-                                                        CharPath & Nombre & ".chr", "stats", "Exp") & "/" & GetVar(CharPath & Nombre & ".chr", "stats", "elu") & FONTTYPE_INFO)
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Vitalidad: " & GetVar(CharPath & Nombre & ".chr", "stats", "minsta") & "/" & GetVar( _
-                                                        CharPath & Nombre & ".chr", "stats", "maxSta") & FONTTYPE_INFO)
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Salud: " & GetVar(CharPath & Nombre & ".chr", "stats", "MinHP") & "/" & GetVar(CharPath _
-                                                                                                                                        & Nombre & ".chr", "Stats", "MaxHP") & "  Mana: " & GetVar(CharPath & Nombre & ".chr", "Stats", "MinMAN") & "/" & GetVar(CharPath & _
-                                                                                                                                                                                                                                                                   Nombre & ".chr", "Stats", "MaxMAN") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Estadisticas de: " & nombre & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Nivel: " & GetVar(CharPath & nombre & ".chr", "stats", "elv") & "  EXP: " & GetVar( _
+                                                        CharPath & nombre & ".chr", "stats", "Exp") & "/" & GetVar(CharPath & nombre & ".chr", "stats", "elu") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Vitalidad: " & GetVar(CharPath & nombre & ".chr", "stats", "minsta") & "/" & GetVar( _
+                                                        CharPath & nombre & ".chr", "stats", "maxSta") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Salud: " & GetVar(CharPath & nombre & ".chr", "stats", "MinHP") & "/" & GetVar(CharPath _
+                                                                                                                                        & nombre & ".chr", "Stats", "MaxHP") & "  Mana: " & GetVar(CharPath & nombre & ".chr", "Stats", "MinMAN") & "/" & GetVar(CharPath & _
+                                                                                                                                                                                                                                                                   nombre & ".chr", "Stats", "MaxMAN") & FONTTYPE_INFO)
 
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & GetVar(CharPath & Nombre & ".chr", "stats", "MaxHIT") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & GetVar(CharPath & nombre & ".chr", "stats", "MaxHIT") & _
                                                         FONTTYPE_INFO)
 
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Oro: " & GetVar(CharPath & Nombre & ".chr", "stats", "GLD") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "GLD") & FONTTYPE_INFO)
 
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Oro: " & GetVar(CharPath & Nombre & ".chr", "stats", "TrofOro") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofOro") & _
                                                         "~255~255~6~0~0~")
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Plata: " & GetVar(CharPath & Nombre & ".chr", "stats", "TrofPlata") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Plata: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofPlata") & _
                                                         "~255~255~251~0~0~")
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Bronce: " & GetVar(CharPath & Nombre & ".chr", "stats", "TrofBronce") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Bronce: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofBronce") & _
                                                         "~187~0~0~0~0~")
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Amuletos de Madera: " & GetVar(CharPath & Nombre & ".chr", "stats", "TrofMadera") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Amuletos de Madera: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofMadera") & _
                                                         "~237~207~139~0~0~")
 
     End If
