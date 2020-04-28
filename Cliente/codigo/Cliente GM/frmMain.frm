@@ -147,6 +147,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -988,6 +989,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -2960,7 +2962,7 @@ Private Sub Socket1_Read(DataLength As Integer, IsUrgent As Integer)
     
     On Error Resume Next
     
-    Dim LoopC             As Long
+    Dim LooPC             As Long
     Dim RD                As String
     Dim rBuffer(1 To 500) As String
 
@@ -2986,19 +2988,19 @@ Private Sub Socket1_Read(DataLength As Integer, IsUrgent As Integer)
 
     Lenght = Len(RD)
 
-    For LoopC = 1 To Lenght
+    For LooPC = 1 To Lenght
 
-        tChar = mid$(RD, LoopC, 1)
+        tChar = mid$(RD, LooPC, 1)
 
         If tChar = ENDC Then
             CR = CR + 1
-            Echar = LoopC - sChar
+            Echar = LooPC - sChar
             rBuffer(CR) = mid$(RD, sChar, Echar)
-            sChar = LoopC + 1
+            sChar = LooPC + 1
 
         End If
 
-    Next LoopC
+    Next LooPC
 
     'Check for broken line and save for next time
     If Lenght - (sChar - 1) <> 0 Then
@@ -3007,9 +3009,9 @@ Private Sub Socket1_Read(DataLength As Integer, IsUrgent As Integer)
     End If
 
     'Send buffer to Handle data
-    For LoopC = 1 To CR
-        Call HandleData(rBuffer(LoopC))
-    Next LoopC
+    For LooPC = 1 To CR
+        Call HandleData(rBuffer(LooPC))
+    Next LooPC
 
 End Sub
 

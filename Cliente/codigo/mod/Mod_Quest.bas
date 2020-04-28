@@ -4,13 +4,13 @@ Option Explicit
 Public NumQuests As Long
 
 Public Type tRecompensaObjeto
-     ObjIndex As Integer
+     ObjIndex As String
      Amount As Integer
 End Type
 
 Public Type tMataNpc
      NpcIndex As Integer
-     Cantidad As Integer
+     cantidad As Integer
 End Type
 
 Public Type tMataUser
@@ -93,13 +93,13 @@ Public Sub Load_Quest()
     
     Dim Quest As Integer
 
-    Dim LoopC As Integer
+    Dim LooPC As Integer
 
     Dim Datos As String
     
     Dim Data() As Byte
     
-    Dim Handle As Integer
+    Dim handle As Integer
     
     Dim arch As String
     
@@ -107,10 +107,10 @@ Public Sub Load_Quest()
     
     arch = DirRecursos & "Quest.dat"
     
-    Handle = FreeFile
-    Open arch For Binary Access Write As Handle
-    Put Handle, , Data
-    Close Handle
+    handle = FreeFile
+    Open arch For Binary Access Write As handle
+    Put handle, , Data
+    Close handle
     
     Dim Leer As New clsIniManager
     
@@ -133,14 +133,14 @@ Public Sub Load_Quest()
        
         If QuestList(Quest).RecompensaItem > 0 Then
 
-            For LoopC = 1 To MAX_INVENTORY_SLOTS
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
              
-                Datos = Leer.GetValue("Quest" & Quest, "RecompensaItem" & LoopC)
+                Datos = Leer.GetValue("Quest" & Quest, "RecompensaItem" & LooPC)
              
-                QuestList(Quest).RecompensaObjeto(LoopC).ObjIndex = Val(ReadField(1, Datos, 45))
-                QuestList(Quest).RecompensaObjeto(LoopC).Amount = Val(ReadField(2, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LooPC).ObjIndex = Val(ReadField(1, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LooPC).Amount = Val(ReadField(2, Datos, 45))
              
-            Next LoopC
+            Next LooPC
 
         End If
         
@@ -148,9 +148,9 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).HablarNpc > 0 Then
             
-            For LoopC = 1 To MAX_INVENTORY_SLOTS
-                   QuestList(Quest).HablaNpc(LoopC) = Val(Leer.GetValue("Quest" & Quest, "HablarNPC" & LoopC))
-            Next LoopC
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
+                   QuestList(Quest).HablaNpc(LooPC) = Val(Leer.GetValue("Quest" & Quest, "HablarNPC" & LooPC))
+            Next LooPC
             
         End If
         
@@ -158,11 +158,11 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NUMCLASES > 0 Then
             
-            For LoopC = 1 To NUMCLASES
+            For LooPC = 1 To NUMCLASES
             
-               QuestList(Quest).Clases(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "Clases" & LoopC))
+               QuestList(Quest).Clases(LooPC) = CStr(Leer.GetValue("Quest" & Quest, "Clases" & LooPC))
                
-            Next LoopC
+            Next LooPC
             
         End If
         
@@ -170,9 +170,9 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NUMRAZAS > 0 Then
             
-            For LoopC = 1 To NUMRAZAS
-                 QuestList(Quest).Razas(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "Razas" & LoopC))
-            Next LoopC
+            For LooPC = 1 To NUMRAZAS
+                 QuestList(Quest).Razas(LooPC) = CStr(Leer.GetValue("Quest" & Quest, "Razas" & LooPC))
+            Next LooPC
             
         End If
         
@@ -182,14 +182,14 @@ Public Sub Load_Quest()
         QuestList(Quest).NumNpc = Val(Leer.GetValue("Quest" & Quest, "MataNPC"))
         
         If QuestList(Quest).NumNpc > 0 Then
-            For LoopC = 1 To MAX_INVENTORY_SLOTS
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
                 
-                Datos = Leer.GetValue("Quest" & Quest, "MataNPC" & LoopC)
+                Datos = Leer.GetValue("Quest" & Quest, "MataNPC" & LooPC)
                 
-                QuestList(Quest).MataNpc(LoopC).NpcIndex = Val(ReadField(1, Datos, 45))
-                QuestList(Quest).MataNpc(LoopC).Cantidad = Val(ReadField(2, Datos, 45))
+                QuestList(Quest).MataNpc(LooPC).NpcIndex = Val(ReadField(1, Datos, 45))
+                QuestList(Quest).MataNpc(LooPC).cantidad = Val(ReadField(2, Datos, 45))
                 
-            Next LoopC
+            Next LooPC
         End If
         
         QuestList(Quest).NumUser = Val(Leer.GetValue("Quest" & Quest, "MataUSER"))
@@ -201,9 +201,9 @@ Public Sub Load_Quest()
             
             If QuestList(Quest).MataUser.NUMCLASES > 0 Then
                    
-                   For LoopC = 1 To NUMCLASES
-                         QuestList(Quest).MataUser.Clases(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "MUClases" & LoopC))
-                   Next LoopC
+                   For LooPC = 1 To NUMCLASES
+                         QuestList(Quest).MataUser.Clases(LooPC) = CStr(Leer.GetValue("Quest" & Quest, "MUClases" & LooPC))
+                   Next LooPC
                    
             End If
             
@@ -211,9 +211,9 @@ Public Sub Load_Quest()
             
             If QuestList(Quest).MataUser.NUMRAZAS > 0 Then
                   
-                  For LoopC = 1 To NUMRAZAS
-                       QuestList(Quest).MataUser.Razas(LoopC) = CStr(Leer.GetValue("Quest" & Quest, "MURazas" & LoopC))
-                  Next LoopC
+                  For LooPC = 1 To NUMRAZAS
+                       QuestList(Quest).MataUser.Razas(LooPC) = CStr(Leer.GetValue("Quest" & Quest, "MURazas" & LooPC))
+                  Next LooPC
                   
             End If
             
@@ -227,14 +227,14 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumObjs > 0 Then
              
-             For LoopC = 1 To MAX_INVENTORY_SLOTS
+             For LooPC = 1 To MAX_INVENTORY_SLOTS
                     
-                    Datos = Leer.GetValue("Quest" & Quest, "BuscaObjetos" & LoopC)
+                    Datos = Leer.GetValue("Quest" & Quest, "BuscaObjetos" & LooPC)
                     
                     QuestList(Quest).BuscaObj.ObjIndex = Val(ReadField(1, Datos, 45))
                     QuestList(Quest).BuscaObj.Amount = Val(ReadField(2, Datos, 45))
                     
-             Next LoopC
+             Next LooPC
              
         End If
         
@@ -242,15 +242,15 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumObjsNpc > 0 Then
             
-            For LoopC = 1 To MAX_INVENTORY_SLOTS
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
                    
-                   Datos = Leer.GetValue("Quest" & Quest, "ObjetoNpc" & LoopC)
+                   Datos = Leer.GetValue("Quest" & Quest, "ObjetoNpc" & LooPC)
                    
                    QuestList(Quest).ObjsNpc.NpcIndex = Val(ReadField(1, Datos, 45))
                    QuestList(Quest).ObjsNpc.ObjIndex = Val(ReadField(2, Datos, 45))
                    QuestList(Quest).ObjsNpc.Amount = Val(ReadField(3, Datos, 45))
                    
-            Next LoopC
+            Next LooPC
             
         End If
         
@@ -258,9 +258,9 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumNpcDD > 0 Then
             
-            For LoopC = 1 To MAX_INVENTORY_SLOTS
-                   QuestList(Quest).NpcDD(LoopC) = Val(Leer.GetValue("Quest" & Quest, "NpcDD" & LoopC))
-            Next LoopC
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
+                   QuestList(Quest).NpcDD(LooPC) = Val(Leer.GetValue("Quest" & Quest, "NpcDD" & LooPC))
+            Next LooPC
             
         End If
         
@@ -268,9 +268,9 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumMapas > 0 Then
             
-            For LoopC = 1 To MAX_INVENTORY_SLOTS
-                QuestList(Quest).Mapas(LoopC) = Val(Leer.GetValue("Quest" & Quest, "EncontrarMapa" & LoopC))
-            Next LoopC
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
+                QuestList(Quest).Mapas(LooPC) = Val(Leer.GetValue("Quest" & Quest, "EncontrarMapa" & LooPC))
+            Next LooPC
             
         End If
         
@@ -278,14 +278,14 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumDescubre > 0 Then
               
-              For LoopC = 1 To MAX_INVENTORY_SLOTS
+              For LooPC = 1 To MAX_INVENTORY_SLOTS
                      
-                     Datos = Leer.GetValue("Quest" & Quest, "DescubrePalabra" & LoopC)
+                     Datos = Leer.GetValue("Quest" & Quest, "DescubrePalabra" & LooPC)
                      
-                     QuestList(Quest).DescubrePalabra(LoopC).NpcIndex = Val(ReadField(1, Datos, 45))
-                     QuestList(Quest).DescubrePalabra(LoopC).Frase = Val(ReadField(2, Datos, 45))
+                     QuestList(Quest).DescubrePalabra(LooPC).NpcIndex = Val(ReadField(1, Datos, 45))
+                     QuestList(Quest).DescubrePalabra(LooPC).Frase = Val(ReadField(2, Datos, 45))
                      
-              Next LoopC
+              Next LooPC
               
         End If
        
