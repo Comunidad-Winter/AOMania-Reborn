@@ -79,6 +79,18 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Sub cmdEntregar_Click()
+    
+    Dim Index As Integer
+    
+    Index = ListQuest.ListIndex + 1
+    
+    Call SendData("ENTQUEST")
+    
+    Unload Me
+    
+End Sub
+
 Private Sub cmdIniciar_Click()
      
      Dim Index As Integer

@@ -78,7 +78,9 @@ Rehacer=0
 'MaxNivel=13
 RecompensaOro=20000
 RecompensaExp=0
-RecompensaItem=0
+RecompensaItem=2
+RecompensaItem1=5-2
+RecompensaItem2=55-1
 MataNPC=1
 MataNPC1=501-5
 
