@@ -1020,20 +1020,20 @@ Function NextOpenCharIndex() As Integer
 
     On Local Error GoTo hayerror
 
-    Dim LoopC As Integer
+    Dim LooPC As Integer
 
-    LoopC = 1
+    LooPC = 1
 
-    While LoopC < MAXCHARS
+    While LooPC < MAXCHARS
 
-        If CharList(LoopC) = 0 And Not ((LoopC And &HFFC0&) = 64) Then
-            NextOpenCharIndex = LoopC
+        If CharList(LooPC) = 0 And Not ((LooPC And &HFFC0&) = 64) Then
+            NextOpenCharIndex = LooPC
             NumChars = NumChars + 1
 
-            If LoopC > LastChar Then LastChar = LoopC
+            If LooPC > LastChar Then LastChar = LooPC
             Exit Function
         Else
-            LoopC = LoopC + 1
+            LooPC = LooPC + 1
 
         End If
 
@@ -1046,15 +1046,15 @@ hayerror:
 End Function
 
 Function NextOpenUser() As Integer
-    Dim LoopC As Long
+    Dim LooPC As Long
 
-    For LoopC = 1 To MaxUsers + 1
+    For LooPC = 1 To MaxUsers + 1
 
-        If LoopC > MaxUsers Then Exit For
-        If (UserList(LoopC).ConnID = -1 And UserList(LoopC).flags.UserLogged = False) Then Exit For
-    Next LoopC
+        If LooPC > MaxUsers Then Exit For
+        If (UserList(LooPC).ConnID = -1 And UserList(LooPC).flags.UserLogged = False) Then Exit For
+    Next LooPC
 
-    NextOpenUser = LoopC
+    NextOpenUser = LooPC
 
 End Function
 
@@ -2266,7 +2266,7 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos, ByRef Obj As Obj)
 'Call LogTarea("Sub Tilelibre")
 
     Dim Notfound As Boolean
-    Dim LoopC As Integer
+    Dim LooPC As Integer
     Dim Tx As Integer
     Dim Ty As Integer
     Dim hayobj As Boolean
@@ -2275,14 +2275,14 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos, ByRef Obj As Obj)
 
     Do While Not LegalPos(pos.Map, nPos.X, nPos.Y) Or hayobj
 
-        If LoopC > 15 Then
+        If LooPC > 15 Then
             Notfound = True
             Exit Do
 
         End If
 
-        For Ty = pos.Y - LoopC To pos.Y + LoopC
-            For Tx = pos.X - LoopC To pos.X + LoopC
+        For Ty = pos.Y - LooPC To pos.Y + LooPC
+            For Tx = pos.X - LooPC To pos.X + LooPC
 
                 If LegalPos(nPos.Map, Tx, Ty) Then
                     'We continue if: a - the item is different from 0 and the dropped item or b - the amount dropped + amount in map exceeds MAX_INVENTORY_OBJS
@@ -2293,8 +2293,8 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos, ByRef Obj As Obj)
                     If Not hayobj And MapData(nPos.Map, Tx, Ty).TileExit.Map = 0 Then
                         nPos.X = Tx
                         nPos.Y = Ty
-                        Tx = pos.X + LoopC
-                        Ty = pos.Y + LoopC
+                        Tx = pos.X + LooPC
+                        Ty = pos.Y + LooPC
 
                     End If
 
@@ -2303,7 +2303,7 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos, ByRef Obj As Obj)
             Next Tx
         Next Ty
 
-        LoopC = LoopC + 1
+        LooPC = LooPC + 1
 
     Loop
 
@@ -2416,7 +2416,16 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
         End If
 
         Call WarpMascotas(UserIndex)
-
+        
+        'Encontrar mapas.
+        
+        If .Quest.Start = 1 Then
+            If .Quest.NumMap > 0 Then
+                Call EncuentraMapaQuest(UserIndex, .Quest.Quest)
+            End If
+        End If
+        
+        
     End With
 
 End Sub

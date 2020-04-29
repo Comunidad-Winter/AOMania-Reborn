@@ -1486,9 +1486,11 @@ Public Type UserQuest
       Quest As Integer
       Start As Byte
       NumNpc As Integer
-      MataNpc(1 To 10)
+      MataNpc(1 To 10) As Integer
       NumObj As Integer
-      BuscaObj(1 To 10)
+      BuscaObj(1 To 10) As Integer
+      NumMap As Integer
+      Mapa(1 To 10) As Integer
 End Type
 
 'Tipo de los Usuarios

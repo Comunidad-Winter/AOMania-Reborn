@@ -1433,10 +1433,12 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
         UserList(UserIndex).Quest.Quest = val(UserFile.GetValue("QUEST", "Quest"))
         UserList(UserIndex).Quest.NumNpc = val(UserFile.GetValue("QUEST", "NumNpcs"))
         UserList(UserIndex).Quest.NumObj = val(UserFile.GetValue("QUEST", "NumObjs"))
+        UserList(UserIndex).Quest.NumMap = val(UserFile.GetValue("QUEST", "NumMap"))
         
         For LooPC = 1 To 10
             UserList(UserIndex).Quest.MataNpc(LooPC) = val(UserFile.GetValue("QUEST", "MataNPC" & LooPC))
             UserList(UserIndex).Quest.BuscaObj(LooPC) = val(UserFile.GetValue("QUEST", "BuscaOBJ" & LooPC))
+            UserList(UserIndex).Quest.Mapa(LooPC) = val(UserFile.GetValue("QUEST", "Mapa" & LooPC))
         Next LooPC
         
     End If
@@ -2229,10 +2231,12 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
             Call Manager.ChangeValue("QUEST", "Quest", .Quest.Quest)
             Call Manager.ChangeValue("QUEST", "NumNpcs", .Quest.NumNpc)
             Call Manager.ChangeValue("QUEST", "NumObjs", .Quest.NumObj)
+            Call Manager.ChangeValue("QUEST", "NumMap", .Quest.NumMap)
             
             For LooPC = 1 To 10
                   Call Manager.ChangeValue("QUEST", "MataNPC" & LooPC, .Quest.MataNpc(LooPC))
                   Call Manager.ChangeValue("QUEST", "BuscaOBJ" & LooPC, .Quest.BuscaObj(LooPC))
+                  Call Manager.ChangeValue("QUEST", "Mapa" & LooPC, .Quest.Mapa(LooPC))
             Next LooPC
             
         End If

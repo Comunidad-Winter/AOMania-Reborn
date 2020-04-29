@@ -83,17 +83,16 @@ RecompensaItem1=5-2
 RecompensaItem2=55-1
 MataNPC=1
 MataNPC1=501-5
-BuscaObjetos=2
-BuscaObjetos1=26-5
-BuscaObjetos2=64-5
+
 
 [QUEST2]
-Nombre=Don Serpiente
-Descripcion=Debes buscar a 5 serpientes venenosas, y matarlas.
+Nombre=El viajero
+Descripcion=Encuentra el mapa 34 y 35.
 Rehacer=1
 RecompensaOro=50000
-MataNPC=1
-MataNPC1=504-1
+EncontrarMapa=1
+EncontrarMapa1=34
+EncontrarMapa2=35
 
 [QUEST3]
 Nombre=The Walking Dead
