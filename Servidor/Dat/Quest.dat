@@ -68,7 +68,7 @@
 'DescubrePalabra2=IDNpc-Frase
 
 [INIT]
-NumQuests=1
+NumQuests=3
 
 [QUEST1]
 Nombre=El poteador
@@ -81,3 +81,19 @@ RecompensaExp=0
 RecompensaItem=0
 MataNPC=1
 MataNPC1=501-5
+
+[QUEST2]
+Nombre=Don Serpiente
+Descripcion=Debes buscar a 5 serpientes venenosas, y matarlas.
+Rehacer=1
+RecompensaOro=50000
+MataNPC=1
+MataNPC1=504-1
+
+[QUEST3]
+Nombre=The Walking Dead
+Descripcion=Hay una plaga de zombies por los bosques, encuentra a 5 y acaba con ellos.
+Rehacer=1
+RecompensaOro=50000
+MataNPC=1
+MataNPC1=502-1

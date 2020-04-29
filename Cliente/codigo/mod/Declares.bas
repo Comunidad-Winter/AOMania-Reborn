@@ -758,3 +758,4 @@ Public NameDay As String
 
 Public Declare Function timeGetTime Lib "winmm.dll" () As Long
 
+Public ProcesoQuest As Byte

@@ -186,8 +186,8 @@ Public Sub Load_Quest()
                 
                 Datos = Leer.GetValue("Quest" & Quest, "MataNPC" & LooPC)
                 
-                QuestList(Quest).MataNpc(LooPC).NpcIndex = Val(ReadField(1, Datos, 45))
-                QuestList(Quest).MataNpc(LooPC).Cantidad = Val(ReadField(2, Datos, 45))
+'                QuestList(Quest).MataNpc(LooPC).NpcIndex = Val(ReadField(1, Datos, 45))
+      '          QuestList(Quest).MataNpc(LooPC).Cantidad = Val(ReadField(2, Datos, 45))
                 
             Next LooPC
         End If

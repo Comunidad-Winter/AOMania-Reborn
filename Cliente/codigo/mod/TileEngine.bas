@@ -223,10 +223,6 @@ Public Type rStats
       MaxHP As Long
 End Type
 
-Public Type tQuest
-      Proceso As Byte
-End Type
-
 Public Type Char
 
     Particle_Count As Integer
@@ -278,9 +274,7 @@ Public Type Char
     Stats As rStats
     
     NpcType As Byte
-    
-    Quest As tQuest
-    
+
 End Type
 
 'Info de un objeto
@@ -1945,7 +1939,6 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
     Dim MismoChar As Boolean
     Dim pos As Integer
     Dim TempChar As Char
-    Dim ProcesoQuest As Byte
 
     With CharList(charindex)
 
@@ -2520,10 +2513,6 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
 
             End If
 
-        End If
-        
-        If UCase$(.Nombre) = UCase$(frmMain.lblUserName) Then
-            ProcesoQuest = CharList(charindex).Quest.Proceso
         End If
         
         If .NpcType = eNPCType.nQuest Then

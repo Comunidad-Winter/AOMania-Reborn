@@ -82,7 +82,7 @@ Public Sub Load_Quest()
 
     Dim Quest As Integer
 
-    Dim Loopc As Integer
+    Dim LooPC As Integer
 
     Dim Datos As String
     
@@ -111,14 +111,14 @@ Public Sub Load_Quest()
        
         If QuestList(Quest).RecompensaItem > 0 Then
 
-            For Loopc = 1 To MAX_INVENTORY_SLOTS
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
              
-                Datos = Leer.GetValue("Quest" & Quest, "RecompensaItem" & Loopc)
+                Datos = Leer.GetValue("Quest" & Quest, "RecompensaItem" & LooPC)
              
-                QuestList(Quest).RecompensaObjeto(Loopc).ObjIndex = val(ReadField(1, Datos, 45))
-                QuestList(Quest).RecompensaObjeto(Loopc).Amount = val(ReadField(2, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LooPC).ObjIndex = val(ReadField(1, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LooPC).Amount = val(ReadField(2, Datos, 45))
              
-            Next Loopc
+            Next LooPC
 
         End If
         
@@ -126,9 +126,9 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).HablarNpc > 0 Then
             
-            For Loopc = 1 To MAX_INVENTORY_SLOTS
-                   QuestList(Quest).HablaNpc(Loopc) = val(Leer.GetValue("Quest" & Quest, "HablarNPC" & Loopc))
-            Next Loopc
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
+                   QuestList(Quest).HablaNpc(LooPC) = val(Leer.GetValue("Quest" & Quest, "HablarNPC" & LooPC))
+            Next LooPC
             
         End If
         
@@ -136,11 +136,11 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NUMCLASES > 0 Then
             
-            For Loopc = 1 To NUMCLASES
+            For LooPC = 1 To NUMCLASES
             
-               QuestList(Quest).Clases(Loopc) = CStr(Leer.GetValue("Quest" & Quest, "Clases" & Loopc))
+               QuestList(Quest).Clases(LooPC) = CStr(Leer.GetValue("Quest" & Quest, "Clases" & LooPC))
                
-            Next Loopc
+            Next LooPC
             
         End If
         
@@ -148,9 +148,9 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NUMRAZAS > 0 Then
             
-            For Loopc = 1 To NUMRAZAS
-                 QuestList(Quest).Razas(Loopc) = CStr(Leer.GetValue("Quest" & Quest, "Razas" & Loopc))
-            Next Loopc
+            For LooPC = 1 To NUMRAZAS
+                 QuestList(Quest).Razas(LooPC) = CStr(Leer.GetValue("Quest" & Quest, "Razas" & LooPC))
+            Next LooPC
             
         End If
         
@@ -160,14 +160,14 @@ Public Sub Load_Quest()
         QuestList(Quest).NumNpc = val(Leer.GetValue("Quest" & Quest, "MataNPC"))
         
         If QuestList(Quest).NumNpc > 0 Then
-            For Loopc = 1 To MAX_INVENTORY_SLOTS
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
                 
-                Datos = Leer.GetValue("Quest" & Quest, "MataNPC" & Loopc)
+                Datos = Leer.GetValue("Quest" & Quest, "MataNPC" & LooPC)
                 
-                QuestList(Quest).MataNpc(Loopc).NpcIndex = val(ReadField(1, Datos, 45))
-                QuestList(Quest).MataNpc(Loopc).Cantidad = val(ReadField(2, Datos, 45))
+                QuestList(Quest).MataNpc(LooPC).NpcIndex = val(ReadField(1, Datos, 45))
+                QuestList(Quest).MataNpc(LooPC).Cantidad = val(ReadField(2, Datos, 45))
                 
-            Next Loopc
+            Next LooPC
         End If
         
         QuestList(Quest).NumUser = val(Leer.GetValue("Quest" & Quest, "MataUSER"))
@@ -179,9 +179,9 @@ Public Sub Load_Quest()
             
             If QuestList(Quest).MataUser.NUMCLASES > 0 Then
                    
-                   For Loopc = 1 To NUMCLASES
-                         QuestList(Quest).MataUser.Clases(Loopc) = CStr(Leer.GetValue("Quest" & Quest, "MUClases" & Loopc))
-                   Next Loopc
+                   For LooPC = 1 To NUMCLASES
+                         QuestList(Quest).MataUser.Clases(LooPC) = CStr(Leer.GetValue("Quest" & Quest, "MUClases" & LooPC))
+                   Next LooPC
                    
             End If
             
@@ -189,9 +189,9 @@ Public Sub Load_Quest()
             
             If QuestList(Quest).MataUser.NUMRAZAS > 0 Then
                   
-                  For Loopc = 1 To NUMRAZAS
-                       QuestList(Quest).MataUser.Razas(Loopc) = CStr(Leer.GetValue("Quest" & Quest, "MURazas" & Loopc))
-                  Next Loopc
+                  For LooPC = 1 To NUMRAZAS
+                       QuestList(Quest).MataUser.Razas(LooPC) = CStr(Leer.GetValue("Quest" & Quest, "MURazas" & LooPC))
+                  Next LooPC
                   
             End If
             
@@ -205,14 +205,14 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumObjs > 0 Then
              
-             For Loopc = 1 To MAX_INVENTORY_SLOTS
+             For LooPC = 1 To MAX_INVENTORY_SLOTS
                     
-                    Datos = Leer.GetValue("Quest" & Quest, "BuscaObjetos" & Loopc)
+                    Datos = Leer.GetValue("Quest" & Quest, "BuscaObjetos" & LooPC)
                     
                     QuestList(Quest).BuscaObj.ObjIndex = val(ReadField(1, Datos, 45))
                     QuestList(Quest).BuscaObj.Amount = val(ReadField(2, Datos, 45))
                     
-             Next Loopc
+             Next LooPC
              
         End If
         
@@ -220,15 +220,15 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumObjsNpc > 0 Then
             
-            For Loopc = 1 To MAX_INVENTORY_SLOTS
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
                    
-                   Datos = Leer.GetValue("Quest" & Quest, "ObjetoNpc" & Loopc)
+                   Datos = Leer.GetValue("Quest" & Quest, "ObjetoNpc" & LooPC)
                    
                    QuestList(Quest).ObjsNpc.NpcIndex = val(ReadField(1, Datos, 45))
                    QuestList(Quest).ObjsNpc.ObjIndex = val(ReadField(2, Datos, 45))
                    QuestList(Quest).ObjsNpc.Amount = val(ReadField(3, Datos, 45))
                    
-            Next Loopc
+            Next LooPC
             
         End If
         
@@ -236,9 +236,9 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumNpcDD > 0 Then
             
-            For Loopc = 1 To MAX_INVENTORY_SLOTS
-                   QuestList(Quest).NpcDD(Loopc) = val(Leer.GetValue("Quest" & Quest, "NpcDD" & Loopc))
-            Next Loopc
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
+                   QuestList(Quest).NpcDD(LooPC) = val(Leer.GetValue("Quest" & Quest, "NpcDD" & LooPC))
+            Next LooPC
             
         End If
         
@@ -246,9 +246,9 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumMapas > 0 Then
             
-            For Loopc = 1 To MAX_INVENTORY_SLOTS
-                QuestList(Quest).Mapas(Loopc) = val(Leer.GetValue("Quest" & Quest, "EncontrarMapa" & Loopc))
-            Next Loopc
+            For LooPC = 1 To MAX_INVENTORY_SLOTS
+                QuestList(Quest).Mapas(LooPC) = val(Leer.GetValue("Quest" & Quest, "EncontrarMapa" & LooPC))
+            Next LooPC
             
         End If
         
@@ -256,14 +256,14 @@ Public Sub Load_Quest()
         
         If QuestList(Quest).NumDescubre > 0 Then
               
-              For Loopc = 1 To MAX_INVENTORY_SLOTS
+              For LooPC = 1 To MAX_INVENTORY_SLOTS
                      
-                     Datos = Leer.GetValue("Quest" & Quest, "DescubrePalabra" & Loopc)
+                     Datos = Leer.GetValue("Quest" & Quest, "DescubrePalabra" & LooPC)
                      
-                     QuestList(Quest).DescubrePalabra(Loopc).NpcIndex = val(ReadField(1, Datos, 45))
-                     QuestList(Quest).DescubrePalabra(Loopc).Frase = val(ReadField(2, Datos, 45))
+                     QuestList(Quest).DescubrePalabra(LooPC).NpcIndex = val(ReadField(1, Datos, 45))
+                     QuestList(Quest).DescubrePalabra(LooPC).Frase = val(ReadField(2, Datos, 45))
                      
-              Next Loopc
+              Next LooPC
               
         End If
         
@@ -275,15 +275,15 @@ End Sub
 
 Public Sub IniciarVentanaQuest(ByVal UserIndex As Integer)
      
-    Dim Loopc As Integer
+    Dim LooPC As Integer
 
     Dim Datos As String
      
     With UserList(UserIndex)
      
-        For Loopc = 1 To NumQuests
-            Datos = Datos & .Quest.UserQuest(Loopc) & ", "
-        Next Loopc
+        For LooPC = 1 To NumQuests
+            Datos = Datos & .Quest.UserQuest(LooPC) & ", "
+        Next LooPC
       
         Datos = Left$(Datos, Len(Datos) - 2)
      
@@ -293,24 +293,46 @@ Public Sub IniciarVentanaQuest(ByVal UserIndex As Integer)
         
 End Sub
 
+Public Sub ConnectQuest(ByVal UserIndex As Integer)
+       
+       With UserList(UserIndex)
+       
+            If .Quest.Start = 0 Then
+                Call SendData(ToIndex, UserIndex, 0, "XP" & UserList(UserIndex).char.CharIndex & "," & "0")
+            ElseIf .Quest.Start = 1 Then
+               Call SendData(ToIndex, UserIndex, 0, "XP" & UserList(UserIndex).char.CharIndex & "," & "1")
+            ElseIf .Quest.Start = 2 Then
+               Call SendData(ToIndex, UserIndex, 0, "XP" & UserList(UserIndex).char.CharIndex & "," & "2")
+            End If
+       
+       End With
+       
+End Sub
+
 Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
        
-       Dim Loopc As Integer
-       Dim n As Integer
+       Dim LooPC As Integer
+       Dim N As Integer
        Dim c As Integer
        Dim Datos As String
         
         With UserList(UserIndex)
         
-              If .Quest.Start = 1 Then
+              If .Quest.Start > 0 Then
                   Call SendData(ToIndex, UserIndex, 0, "||Ya tienes una misión iniciada!! Acabala antes de volver a empezar otra." & FONTTYPE_INFO)
                   Exit Sub
               End If
               
-              'If .Quest.Quest < Quest Then
-              '    Call SendData(ToIndex, UserIndex, 0, "||No te adelantes!! Debes hacer una misión antes que esta!!" & FONTTYPE_INFO)
-              '    Exit Sub
-              'End If
+              If CompruebaIniciarQuest(UserIndex, Quest) = 1 Then
+                  Call SendData(ToIndex, UserIndex, 0, "||Tienes otras misiones que realizar, antes que esta!! Revise la lista de misiones!!" & FONTTYPE_INFO)
+                  Exit Sub
+              ElseIf CompruebaIniciarQuest(UserIndex, Quest) = 2 Then
+                  Call SendData(ToIndex, UserIndex, 0, "||Debes completar todas las misiones, para poder repetir esta mision!!" & FONTTYPE_INFO)
+                  Exit Sub
+               ElseIf CompruebaIniciarQuest(UserIndex, Quest) = 3 Then
+                  Call SendData(ToIndex, UserIndex, 0, "||Esta mision no se puede rehacer, intente con otra!!" & FONTTYPE_INFO)
+                  Exit Sub
+              End If
               
               'AQUI DEBES PONER IDENTIFICADOR SI TIENE HECHO, REHAGA O NO.
               
@@ -332,15 +354,15 @@ Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
               
               If QuestList(Quest).NUMCLASES > 0 Then
                   
-                  n = QuestList(Quest).NUMCLASES
+                  N = QuestList(Quest).NUMCLASES
                   
-                  For Loopc = 1 To n
-                         Debug.Print UCase$(QuestList(Quest).Clases(Loopc))
-                         If UCase$(QuestList(Quest).Clases(Loopc)) = UCase$(.Clase) Then
+                  For LooPC = 1 To N
+                         Debug.Print UCase$(QuestList(Quest).Clases(LooPC))
+                         If UCase$(QuestList(Quest).Clases(LooPC)) = UCase$(.Clase) Then
                              c = c + 1
                          End If
                          
-                  Next Loopc
+                  Next LooPC
                   
                   If c = 0 Then
                      Call SendData(ToIndex, UserIndex, 0, "||Tu clase no esta permitida para realizar esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
@@ -354,13 +376,13 @@ Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
               
               If QuestList(Quest).NUMRAZAS > 0 Then
                   
-                  n = QuestList(Quest).NUMRAZAS
+                  N = QuestList(Quest).NUMRAZAS
                   
-                  For Loopc = 1 To n
-                     If UCase$(QuestList(Quest).Razas(Loopc)) = UCase$(.Raza) Then
+                  For LooPC = 1 To N
+                     If UCase$(QuestList(Quest).Razas(LooPC)) = UCase$(.Raza) Then
                          c = c + 1
                      End If
-                  Next Loopc
+                  Next LooPC
                   
                   If c = 0 Then
                      Call SendData(ToIndex, UserIndex, 0, "||Tu raza no esta permitida para realizar esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
@@ -443,9 +465,9 @@ Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
               
               If QuestList(Quest).NumNpc > 0 Then
                   
-                  For Loopc = 1 To QuestList(Quest).NumNpc
-                         Datos = Datos & "Mata " & QuestList(Quest).MataNpc(Loopc).Cantidad & " " & Npclist(BuscoNpcQuest(QuestList(Quest).MataNpc(Loopc).NpcIndex)).Name & "||"
-                  Next Loopc
+                  For LooPC = 1 To QuestList(Quest).NumNpc
+                         Datos = Datos & "Mata " & QuestList(Quest).MataNpc(LooPC).Cantidad & " " & Npclist(BuscoNpcQuest(QuestList(Quest).MataNpc(LooPC).NpcIndex)).Name & "||"
+                  Next LooPC
                   
                   .Quest.NumNpc = QuestList(Quest).NumNpc
                   
@@ -455,29 +477,33 @@ Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
               
               Call SendData(ToIndex, UserIndex, 0, "||" & Datos & FONTTYPE_GUILD)
               
+              Call SendData(ToIndex, UserIndex, 0, "XP" & UserList(UserIndex).char.CharIndex & "," & "1")
+              
         End With
         
 End Sub
 
 Public Sub ActualizaQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
       
-      Dim Loopc As Integer
+      Dim LooPC As Integer
        
        With UserList(UserIndex)
             
             If QuestList(Quest).NumNpc > 0 Then
                 
-                For Loopc = 1 To QuestList(Quest).NumNpc
+                For LooPC = 1 To QuestList(Quest).NumNpc
                      
-                     If QuestList(Quest).MataNpc(Loopc).Cantidad <> .Quest.MataNpc(Loopc) Then
+                     If QuestList(Quest).MataNpc(LooPC).Cantidad <> .Quest.MataNpc(LooPC) Then
                          Exit Sub
                      End If
                      
-                Next Loopc
+                Next LooPC
                 
             End If
             
             Call SendData(ToIndex, UserIndex, 0, "||Tu quest ha finalizado, puedes ir a entregarla para recibir tu recompensa." & FONTTYPE_QUEST)
+            .Quest.Start = 2
+            Call SendData(ToIndex, UserIndex, 0, "XP" & UserList(UserIndex).char.CharIndex & "," & "2")
             
        End With
        
@@ -485,19 +511,19 @@ End Sub
 
 Public Sub MuereNpcQuest(ByVal UserIndex As Integer, ByVal NpcIndex As Integer, ByVal Quest As Integer)
       
-      Dim Loopc As Integer
+      Dim LooPC As Integer
       Dim c As Integer
       
       With UserList(UserIndex)
           
-          For Loopc = 1 To QuestList(Quest).NumNpc
+          For LooPC = 1 To QuestList(Quest).NumNpc
                  
-                 If QuestList(Quest).MataNpc(Loopc).NpcIndex = Npclist(NpcIndex).Numero Then
-                      .Quest.MataNpc(Loopc) = .Quest.MataNpc(Loopc) + 1
+                 If QuestList(Quest).MataNpc(LooPC).NpcIndex = Npclist(NpcIndex).Numero Then
+                      .Quest.MataNpc(LooPC) = .Quest.MataNpc(LooPC) + 1
                       c = c + 1
                  End If
                  
-          Next Loopc
+          Next LooPC
       
       End With
       
@@ -509,14 +535,80 @@ End Sub
 
 Function BuscoNpcQuest(ByVal IDNpc As Integer) As Integer
       
-      Dim Loopc As Integer
+      Dim LooPC As Integer
       
-      For Loopc = 1 To MAXNPCS
+      For LooPC = 1 To MAXNPCS
           
-          If IDNpc = Npclist(Loopc).Numero Then
-              BuscoNpcQuest = Loopc
+          If IDNpc = Npclist(LooPC).Numero Then
+              BuscoNpcQuest = LooPC
               Exit Function
           End If
           
-     Next Loopc
+     Next LooPC
+End Function
+
+Function CompruebaIniciarQuest(ByVal UserIndex As Integer, _
+                               ByVal Quest As Integer) As Integer
+        
+    Dim Update As Boolean
+    Dim LooPC  As Integer
+    Dim N As Integer
+        
+    With UserList(UserIndex)
+
+             For LooPC = 1 To NumQuests
+                    
+                    If .Quest.UserQuest(LooPC) = 1 Then
+                        N = N + 1
+                    End If
+                    
+              Next
+        
+             If NumQuests = N Then
+                 Update = True
+             End If
+        
+             If Update = True Then
+                 
+                 For LooPC = 1 To NumQuests
+                        
+                        If Quest = LooPC Then
+                            
+                            If QuestList(Quest).Rehacer = 0 Then
+                                CompruebaIniciarQuest = 0
+                                Exit Function
+                            ElseIf QuestList(Quest).Rehacer = 1 Then
+                                CompruebaIniciarQuest = 3
+                                Exit Function
+                            End If
+                            
+                        End If
+                        
+                 Next LooPC
+             
+             ElseIf Update = False Then
+                  
+                  For LooPC = 1 To NumQuests
+                          
+                          If .Quest.UserQuest(LooPC) = 0 Then
+                              
+                              If LooPC = Quest Then
+                                  CompruebaIniciarQuest = 0
+                                  Exit Function
+                              ElseIf Quest > LooPC Then
+                                   CompruebaIniciarQuest = 1
+                                   Exit Function
+                              ElseIf Quest < LooPC Then
+                                   CompruebaIniciarQuest = 2
+                                   Exit Function
+                              End If
+                              
+                          End If
+                          
+                  Next LooPC
+                  
+             End If
+
+    End With
+        
 End Function

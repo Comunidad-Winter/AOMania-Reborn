@@ -87,6 +87,12 @@ Private Sub cmdIniciar_Click()
      
      Call SendData("INIQUEST" & Index)
      
+     Unload Me
+     
+End Sub
+
+Private Sub cmdSalir_Click()
+       Unload Me
 End Sub
 
 Private Sub Form_Load()
