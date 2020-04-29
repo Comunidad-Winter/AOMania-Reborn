@@ -298,6 +298,7 @@ Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
        Dim LoopC As Integer
        Dim n As Integer
        Dim c As Integer
+       Dim Datos As String
         
         With UserList(UserIndex)
         
@@ -419,35 +420,53 @@ Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
                       End If
                   End If
               End If
-             
+              
+              If QuestList(Quest).RangoFaccion > 0 Then
+                   If TieneFaccion(UserIndex) Then
+                        If RangoFaccion(UserIndex) < QuestList(Quest).RangoFaccion Then
+                            Call SendData(ToIndex, UserIndex, 0, "||Necesitas la " & QuestList(Quest).RangoFaccion & " rango de tu faccion para esta misión!" & FONTTYPE_INFO)
+                          
+                        End If
+                   Else
+                        Call SendData(ToIndex, UserIndex, 0, "||Solo se permiten usuarios con faccion en esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
+                        .Quest.UserQuest(Quest) = 1
+                        .Quest.Quest = Quest
+                        Exit Sub
+                   End If
+              End If
+              
+              Call SendData(ToIndex, UserIndex, 0, "||Has iniciado nueva misión: " & QuestList(Quest).nombre & FONTTYPE_QUEST)
+              '.Quest.Start = 1
+              '.Quest.Quest = Quest
+              
+              Datos = "Objetivo: "
+              
+              If QuestList(Quest).NumNpc > 0 Then
+                  
+                  For LoopC = 1 To QuestList(Quest).NumNpc
+                         Datos = Datos & "Mata " & QuestList(Quest).MataNpc(LoopC).Cantidad & " " & Npclist(BuscoNpcQuest(QuestList(Quest).MataNpc(LoopC).NpcIndex)).Name & "||"
+                  Next LoopC
+                  
+              End If
+              
+              Datos = Left$(Datos, Len(Datos) - 2)
+              
+              Call SendData(ToIndex, UserIndex, 0, "||" & Datos & FONTTYPE_GUILD)
+              
         End With
         
 End Sub
 
-Function TieneFaccion(ByVal UserIndex As Integer) As Boolean
-     
-     With UserList(UserIndex)
-         
-         If .Faccion.ArmadaReal = 1 Then
-             TieneFaccion = True
-             Exit Function
-         End If
-         
-         If .Faccion.Nemesis = 1 Then
-             TieneFaccion = True
-             Exit Function
-         End If
-         
-         If .Faccion.Templario = 1 Then
-             TieneFaccion = True
-             Exit Function
-         End If
-         
-         If .Faccion.FuerzasCaos = 1 Then
-             TieneFaccion = True
-             Exit Function
-         End If
-       
-     End With
-     
+Function BuscoNpcQuest(ByVal IDNpc As Integer) As Integer
+      
+      Dim LoopC As Integer
+      
+      For LoopC = 1 To MAXNPCS
+          
+          If IDNpc = Npclist(LoopC).Numero Then
+              BuscoNpcQuest = LoopC
+              Exit Function
+          End If
+          
+     Next LoopC
 End Function

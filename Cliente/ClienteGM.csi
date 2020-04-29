@@ -1,9 +1,9 @@
 [History]
-1=#P0#=mb	#P1#=cmdIniciar_Click	#P2#=AoManiaClienteGM/frmQuest/cmdIniciar_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428203544	#P7#=0	#P8#=7	.
-2=#P0#=mb	#P1#=ListQuest_Click	#P2#=AoManiaClienteGM/frmQuest/ListQuest_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428144945	#P7#=0	#P8#=45	.
-3=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaClienteGM/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428142520	#P7#=0	#P8#=8	.
-4=#P0#=mb	#P1#=LoadInterfaces	#P2#=AoManiaClienteGM/Mod_General/LoadInterfaces	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428142124	#P7#=0	#P8#=303	.
-5=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaClienteGM/frmQuest/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428211117	#P7#=0	#P8#=-1	.
+1=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaClienteGM/frmQuest/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428211117	#P7#=0	#P8#=-1	.
+2=#P0#=mb	#P1#=cmdIniciar_Click	#P2#=AoManiaClienteGM/frmQuest/cmdIniciar_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428203544	#P7#=0	#P8#=7	.
+3=#P0#=mb	#P1#=ListQuest_Click	#P2#=AoManiaClienteGM/frmQuest/ListQuest_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428144945	#P7#=0	#P8#=45	.
+4=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaClienteGM/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428142520	#P7#=0	#P8#=8	.
+5=#P0#=mb	#P1#=LoadInterfaces	#P2#=AoManiaClienteGM/Mod_General/LoadInterfaces	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428142124	#P7#=0	#P8#=303	.
 6=#P0#=mb	#P1#=HandleData2	#P2#=AoManiaClienteGM/Mod_TCP2/HandleData2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428023147	#P7#=0	#P8#=25	.
 7=#P0#=mb	#P1#=Load_Quest	#P2#=AoManiaClienteGM/Mod_Quest/Load_Quest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428022830	#P7#=0	#P8#=35	.
 8=#P0#=mb	#P1#=LoadInitialConfig	#P2#=AoManiaClienteGM/Mod_General/LoadInitialConfig	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428022812	#P7#=0	#P8#=42	.

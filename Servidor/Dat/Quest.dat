@@ -79,4 +79,5 @@ Rehacer=0
 RecompensaOro=20000
 RecompensaExp=0
 RecompensaItem=0
-Faccion=1
+MataNPC=1
+MataNPC1=501-5

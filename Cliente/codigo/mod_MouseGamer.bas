@@ -1,23 +1,4 @@
 Attribute VB_Name = "mod_MouseGamer"
-Option Explicit
-'Autor: El_Santo43
-'Para: AOMania
-'Este modulo analiza padrones de intervalos entre clicks y lugares especificos donde se clickea (X e Y)
-'para detectar distintos tipos de macros, mouse gamers, y otros automatizadores de eventos de click
-'Tiene llamadas en los respectivos subs del frmMain, en botones y inventario. Hasta la vista macreros :)
-'Aunque esta seguridad no es infalible, es dificil de saltar ya que raramente encontramos alguien que
-'sepa usar un editor de memorias
-'Lo mas importante es no mostrarselo a nadie nunca, sino es probable que encuentren la forma de sobrepasar
-'los analisis de padrones de clicks.
-'Buen y sano agite :)
-'Cuando se sobrepasan cierta cantidad de similaridades en los padrones de comportamiento, se manda un paquete
-'al servidor para guardar en la carpeta logs/CHEATERS.log
-'El paquete no tiene ningun nombre que lo delate como para alguien q se ponga a analizar los paquetes
-
-
-'Comprobar la velocidad de los clicks, para ver si existen padrones, lo que va a mostrar si los clicks son hechos
-'por un humano o por un software. Primer capa de seguridad antimacros
-
 Private Type tClicks
     LCLista As Long
     intClick(4) As Long
@@ -49,7 +30,7 @@ Private Const LIMITE_INTERVALO As Byte = 50 'Es el limite de diferencia entre in
 ' y luego de 5 intervalos, se comparan
 
 Public Sub ClickCambioInv() 'cambio al menu inventario
-    GameClick(2).LCLista = GetTickCount
+    GameClick(2).LCLista = timeGetTime
     GameClick(2).Pend = True
 End Sub
 
@@ -57,7 +38,7 @@ Public Sub ClickEnInv() 'Click en algun objeto del inventario
     With GameClick(2)
         If .Pend = True Then
             
-            .intClick(.aInt) = GetTickCount - .LCLista
+            .intClick(.aInt) = timeGetTime - .LCLista
             .Pend = False
             If .aInt = 4 Then
                 .aInt = 0
@@ -66,7 +47,7 @@ Public Sub ClickEnInv() 'Click en algun objeto del inventario
             .aInt = .aInt + 1
         End If
     End With
-    GameClick(3).LCLista = GetTickCount
+    GameClick(3).LCLista = timeGetTime
     GameClick(3).Pend = True
 End Sub
 
@@ -74,7 +55,7 @@ Public Sub ClickCambioHech() ' cambio al menu de hechizos
     With GameClick(3)
         If .Pend = True Then
             
-            .intClick(.aInt) = GetTickCount - .LCLista
+            .intClick(.aInt) = timeGetTime - .LCLista
             .Pend = False
             If .aInt = 4 Then
                 .aInt = 0
@@ -86,7 +67,7 @@ Public Sub ClickCambioHech() ' cambio al menu de hechizos
 End Sub
 
 Public Sub ClickLista()
-    GameClick(1).LCLista = GetTickCount
+    GameClick(1).LCLista = timeGetTime
     GameClick(1).Pend = True
 End Sub
 
@@ -95,7 +76,7 @@ Public Sub ClickLanzar()
     With GameClick(1)
         If .Pend = True Then
             
-            .intClick(.aInt) = GetTickCount - .LCLista
+            .intClick(.aInt) = timeGetTime - .LCLista
             .Pend = False
             If .aInt = 4 Then
                 .aInt = 0
@@ -139,7 +120,7 @@ Private Function CompararPosiciones(ByRef ints() As Single) As Byte 'Devuelve la
     Dim advs As Byte
     Dim nDif As Byte
     Dim Advertencias As Byte
-    ReDim Preserve dif(0 To 1) As Singlew
+    ReDim Preserve dif(0 To 1) As Single
     For xx = 0 To 4
         For yy = 0 To 4
             If yy <> xx Then
@@ -189,9 +170,5 @@ Public Sub ClickEnObjetoPos(ByVal TIPO As eTipo, ByVal X As Single, ByVal Y As S
         End If
     End With
 End Sub
-
-
-
-
 
 

@@ -672,7 +672,7 @@ Public Const FONTTYPE_AZULN As String = "~0~0~255~1~0"
 Public Const FONTTYPE_VIOLETAN As String = "~128~0~128~1~0"
 Public Const FONTTYPE_CELESTEN As String = "~128~255~255~1~0"
 Public Const FONTTYPE_GRISN As String = "~130~130~130~1~0"
-
+Public Const FONTTYPE_QUEST As String = "~128~255~0~1~0"
 
 
 'Estadisticas
@@ -1485,6 +1485,7 @@ Public Type UserQuest
       UserQuest(1 To 1000) As Integer
       Quest As Integer
       Start As Byte
+      MataNpc(1 To 10)
 End Type
 
 'Tipo de los Usuarios
