@@ -1485,6 +1485,7 @@ Public Type UserQuest
       UserQuest(1 To 1000) As Integer
       Quest As Integer
       Start As Byte
+      NumNpc As Integer
       MataNpc(1 To 10)
 End Type
 

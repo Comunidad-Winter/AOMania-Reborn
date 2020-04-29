@@ -1431,6 +1431,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
         
         UserList(UserIndex).Quest.Start = val(UserFile.GetValue("QUEST", "Start"))
         UserList(UserIndex).Quest.Quest = val(UserFile.GetValue("QUEST", "Quest"))
+        UserList(UserIndex).Quest.NumNpc = val(UserFile.GetValue("QUEST", "NumNpcs"))
         
         For LoopC = 1 To 10
             UserList(UserIndex).Quest.MataNpc(LoopC) = val(UserFile.GetValue("QUEST", "MataNPC" & LoopC))
@@ -2224,6 +2225,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
             
             Call Manager.ChangeValue("QUEST", "Start", .Quest.Start)
             Call Manager.ChangeValue("QUEST", "Quest", .Quest.Quest)
+            Call Manager.ChangeValue("QUEST", "NumNpcs", .Quest.NumNpc)
             
             For LoopC = 1 To 10
                   Call Manager.ChangeValue("QUEST", "MataNPC" & LoopC, .Quest.MataNpc(LoopC))
