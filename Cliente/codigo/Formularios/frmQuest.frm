@@ -37,7 +37,7 @@ Begin VB.Form frmQuest
       Width           =   4590
    End
    Begin VB.CommandButton cmdIniciar 
-      Caption         =   "Iniciar"
+      Caption         =   "Iniciar misión"
       Height          =   480
       Left            =   3825
       TabIndex        =   3

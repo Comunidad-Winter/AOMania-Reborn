@@ -5,10 +5,10 @@
 4=#P0#=mb	#P1#=cmdIniciar_Click	#P2#=AoManiaClienteGM/frmQuest/cmdIniciar_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200429172451	#P7#=0	#P8#=5	.
 5=#P0#=mb	#P1#=HandleData2	#P2#=AoManiaClienteGM/Mod_TCP2/HandleData2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200429141748	#P7#=0	#P8#=35	.
 6=#P0#=mb	#P1#=CharRender	#P2#=AoManiaClienteGM/Mod_TileEngine/CharRender	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200429141719	#P7#=0	#P8#=8	.
-7=#P0#=mb	#P1#=ListQuest_Click	#P2#=AoManiaClienteGM/frmQuest/ListQuest_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428144945	#P7#=0	#P8#=44	.
+7=#P0#=mb	#P1#=ListQuest_Click	#P2#=AoManiaClienteGM/frmQuest/ListQuest_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200429202439	#P7#=0	#P8#=44	.
 8=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaClienteGM/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200428142520	#P7#=0	#P8#=8	.
 9=#P0#=mb	#P1#=LoadInterfaces	#P2#=AoManiaClienteGM/Mod_General/LoadInterfaces	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428142124	#P7#=0	#P8#=303	.
-10=#P0#=mb	#P1#=Load_Quest	#P2#=AoManiaClienteGM/Mod_Quest/Load_Quest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200429201610	#P7#=0	#P8#=4	.
+10=#P0#=mb	#P1#=Load_Quest	#P2#=AoManiaClienteGM/Mod_Quest/Load_Quest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200429222451	#P7#=0	#P8#=42	.
 11=#P0#=mb	#P1#=LoadInitialConfig	#P2#=AoManiaClienteGM/Mod_General/LoadInitialConfig	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428022812	#P7#=0	#P8#=42	.
 12=#P0#=mb	#P1#=CargarAnimArmas	#P2#=AoManiaClienteGM/Mod_General/CargarAnimArmas	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428022539	#P7#=0	#P8#=12	.
 13=#P0#=mb	#P1#=crearsangrepos	#P2#=AoManiaClienteGM/Mod_TileEngine/crearsangrepos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200427021819	#P7#=0	#P8#=-2	.

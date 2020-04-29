@@ -14,7 +14,7 @@ Public Type tQuestList
     RecompensaOro As Long
     RecompensaExp As Long
     RecompensaItem As Byte
-    RecompensaObjeto() As tRecompensaObjeto
+    RecompensaObjeto(1 To 10) As tRecompensaObjeto
 End Type
 
 Public QuestList() As tQuestList
@@ -71,7 +71,7 @@ Public Sub Load_Quest()
        
         If QuestList(Quest).RecompensaItem > 0 Then
 
-            For LooPC = 1 To MAX_INVENTORY_SLOTS
+            For LooPC = 1 To QuestList(Quest).RecompensaItem
              
                 Datos = Leer.GetValue("Quest" & Quest, "RecompensaItem" & LooPC)
              

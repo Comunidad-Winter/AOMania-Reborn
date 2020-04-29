@@ -1487,6 +1487,8 @@ Public Type UserQuest
       Start As Byte
       NumNpc As Integer
       MataNpc(1 To 10)
+      NumObj As Integer
+      BuscaObj(1 To 10)
 End Type
 
 'Tipo de los Usuarios

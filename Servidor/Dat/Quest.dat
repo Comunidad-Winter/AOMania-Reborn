@@ -83,6 +83,9 @@ RecompensaItem1=5-2
 RecompensaItem2=55-1
 MataNPC=1
 MataNPC1=501-5
+BuscaObjetos=2
+BuscaObjetos1=26-5
+BuscaObjetos2=64-5
 
 [QUEST2]
 Nombre=Don Serpiente
