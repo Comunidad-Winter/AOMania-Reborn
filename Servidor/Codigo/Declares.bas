@@ -1494,6 +1494,7 @@ Public Type UserQuest
       Mapa(1 To 10) As Integer
       ValidNpcDD As Byte
       MapaNpcDD As Integer
+      Icono As Integer
 End Type
 
 'Tipo de los Usuarios
