@@ -37,7 +37,8 @@ Public Type tObjsNpc
 End Type
 
 Public Type tDescubrePalabra
-     NpcIndex As Integer
+     Mapa As Integer
+     Pregunta As Integer
      Frase As String
 End Type
 
@@ -73,10 +74,17 @@ Public Type tQuestList
     NumMapas As Integer
     Mapas(1 To 10) As Integer
     NumDescubre As Integer
-    DescubrePalabra(1 To 10) As tDescubrePalabra
+    DescubrePalabra As tDescubrePalabra
+End Type
+
+Public Type tQuestDesc
+       
+       DobleClick As String
+       
 End Type
 
 Public QuestList() As tQuestList
+Public QuestDesc As tQuestDesc
 
 Public Sub Load_Quest()
 
@@ -255,15 +263,14 @@ Public Sub Load_Quest()
         QuestList(Quest).NumDescubre = val(Leer.GetValue("Quest" & Quest, "DescubrePalabra"))
         
         If QuestList(Quest).NumDescubre > 0 Then
-              
-              For LoopC = 1 To QuestList(Quest).NumDescubre
-                     
-                     Datos = Leer.GetValue("Quest" & Quest, "DescubrePalabra" & LoopC)
-                     
-                     QuestList(Quest).DescubrePalabra(LoopC).NpcIndex = val(ReadField(1, Datos, 45))
-                     QuestList(Quest).DescubrePalabra(LoopC).Frase = val(ReadField(2, Datos, 45))
-                     
-              Next LoopC
+                                   
+                      LoopC = QuestList(Quest).NumDescubre
+                      
+                      Datos = Leer.GetValue("Quest" & Quest, "DescubrePalabra" & LoopC)
+                                   
+                     QuestList(Quest).DescubrePalabra.Mapa = val(ReadField(1, Datos, 45))
+                     QuestList(Quest).DescubrePalabra.Pregunta = val(ReadField(2, Datos, 45))
+                     QuestList(Quest).DescubrePalabra.Frase = val(ReadField(3, Datos, 45))
               
         End If
         
@@ -828,8 +835,12 @@ Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                        If Npclist(LoopC).pos.Map = Map Then
                            
                            If .Quest.Icono = 0 Then
+                                Npclist(LoopC).Desc = QuestDesc.DobleClick
+                                QuestDesc.DobleClick = ""
                                 Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 0)
                            ElseIf .Quest.Icono = 1 Then
+                                QuestDesc.DobleClick = Npclist(LoopC).Desc
+                                Npclist(LoopC).Desc = "¡Me has encontrado! ¡Hazme doble click para realizar tu mision"
                                 Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 1)
                            End If
                        
