@@ -67,7 +67,7 @@
 'DescubrePalabra2=IDNpc-Frase
 
 [INIT]
-NumQuests=3
+NumQuests=4
 
 [QUEST1]
 Nombre=El poteador
@@ -89,7 +89,7 @@ Nombre=El viajero
 Descripcion=Encuentra el mapa 34 y 35.
 Rehacer=1
 RecompensaOro=50000
-EncontrarMapa=1
+EncontrarMapa=2
 EncontrarMapa1=34
 EncontrarMapa2=35
 
@@ -100,3 +100,11 @@ Rehacer=1
 RecompensaOro=50000
 NpcDD=1
 NpcDD1=34
+
+[QUEST4]
+Nombre=La entrega
+Descripcion=Necesito que busques 5 Pollos para alimentar a mis seres queridos.
+Rehacer=0
+RecompesaOro=1000
+BuscaObjetos=1
+BuscaObjetos1=26-5
