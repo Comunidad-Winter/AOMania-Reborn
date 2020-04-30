@@ -1495,6 +1495,9 @@ Public Type UserQuest
       ValidNpcDD As Byte
       MapaNpcDD As Integer
       Icono As Integer
+      ValidNpcDescubre As Byte
+     ' MapaDescubre As String
+      PreguntaDescubre As Integer
 End Type
 
 'Tipo de los Usuarios

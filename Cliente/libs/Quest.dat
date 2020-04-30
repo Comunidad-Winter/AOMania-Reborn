@@ -61,13 +61,12 @@
 '(Como configurar encontrar mapas)
 'EncontrarMapa1=34
 'EncontrarMapa2=1
-'DescrubePalabra=Numero de npcs para descubrir palabras. (/frase)
+'DescrubePalabra=0 Desactivado, 1 Activado
 '(Como configurar Descubre Palabra)
-'DescubrePalabra1=IDNpc-Frase
-'DescubrePalabra2=IDNpc-Frase
+'DescubrePalabra1=Mapa-Pregunta-Frase
 
 [INIT]
-NumQuests=4
+NumQuests=5
 
 [QUEST1]
 Nombre=El poteador
@@ -108,3 +107,11 @@ Rehacer=0
 RecompesaOro=1000
 BuscaObjetos=1
 BuscaObjetos1=26-5
+
+[QUEST5]
+Nombre=El descubridor
+Descripcion=Encuentra al NPC, y responde a su pregunta.
+Rehacer=0
+RecompensaOro=1000
+DescubrePalabra=1
+DescubrePalabra1=34-Quien es el mejor GM?-Bassinger
