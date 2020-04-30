@@ -12,10 +12,12 @@
 ' (Como se configura las recompensas item)
 ' RecompensaItem1=Objeto-Cantidad 
 ' RecompensaItem2=Objeto-Cantidad	 
-'HablarNPC=Numero de NPC con los que tiene que hablar.
+'HablarNPC=0 Desactivado 1 Activado
 '(Como se configura para hablar los NPC's)
-'HablarNPC1=ID del NPC
-'HablarNPC2=ID del NPC
+'MapaHablarNPC=Mapa
+'NumMsjHablar= 1 a 10 (Mensajes)
+'MsjHablar1=Mensaje
+'MsjHablar2=Mensaje
 'Clases=Si es para clases especificas añade numeración, si no hay clases especificas por defecto es 0.
 '(Como se configura clases especificas)
 'Clases1=Mago
@@ -66,7 +68,7 @@
 'DescubrePalabra1=Mapa-Pregunta-Frase
 
 [INIT]
-NumQuests=6
+NumQuests=7
 
 [QUEST1]
 Nombre=El poteador
@@ -122,3 +124,17 @@ Rehacer=0
 RecompensaOro=1000
 ObjetoNpc=1
 ObjetoNpc1=34-26-5
+
+[QUEST7]
+Nombre=Alguien para hablar
+Descripcion=El NPC del mapa 34, necesita hablar, hazle ese favor.
+Rehacer=0
+RecompensaOro=1000
+HablarNPC=1
+MapaHablarNPC=34
+NumMsjHablar=4
+MsjHablar1=Hola aventurero, bienvenido al npc de misiones.
+MsjHablar2=Te gusta aventurear por el mundo de aomania.
+MsjHablar3=Y realizar misiones de alto riesgo.
+MsjHablar4=Me canse de hablarte chao.
+

@@ -51,8 +51,10 @@ Public Type tQuestList
     RecompensaExp As Long
     RecompensaItem As Byte
     RecompensaObjeto(1 To 10) As tRecompensaObjeto
-    HablarNpc As Byte
-    HablaNpc(1 To 10) As Integer
+    NumHablarNpc As Byte
+    MapaHablaNpc As Integer
+    NumMsjHablar As Integer
+    MsjHablar(1 To 10) As String
     NUMCLASES As Byte
     Clases(1 To NUMCLASES) As String
     NUMRAZAS As Byte
@@ -133,14 +135,20 @@ Public Sub Load_Quest()
 
         End If
         
-        QuestList(Quest).HablarNpc = val(Leer.GetValue("Quest" & Quest, "HablarNPC"))
+        QuestList(Quest).NumHablarNpc = val(Leer.GetValue("Quest" & Quest, "HablarNPC"))
         
-        If QuestList(Quest).HablarNpc > 0 Then
-            
-            For LooPC = 1 To QuestList(Quest).HablarNpc
-                   QuestList(Quest).HablaNpc(LooPC) = val(Leer.GetValue("Quest" & Quest, "HablarNPC" & LooPC))
-            Next LooPC
-            
+        If QuestList(Quest).NumHablarNpc > 0 Then
+                                   
+               QuestList(Quest).MapaHablaNpc = val(Leer.GetValue("Quest" & Quest, "MapaHablarNPC"))
+               QuestList(Quest).NumMsjHablar = val(Leer.GetValue("Quest" & Quest, "NumMsjHablar"))
+               
+               For LooPC = 1 To QuestList(Quest).NumMsjHablar
+                      
+                      QuestList(Quest).MsjHablar(LooPC) = Leer.GetValue("Quest" & Quest, "MsjHablar" & LooPC)
+                      
+               Next LooPC
+               
+               
         End If
         
         QuestList(Quest).NUMCLASES = val(Leer.GetValue("Quest" & Quest, "Clases"))
@@ -538,6 +546,13 @@ Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
                   Call IconoNpcQuest(UserIndex, Quest)
               End If
               
+              If QuestList(Quest).NumHablarNpc > 0 Then
+                  Datos = Datos & "Busca y habla con el npc de misiones del mapa " & QuestList(Quest).MapaHablaNpc & " || "
+                  .Quest.ValidHablarNpc = QuestList(Quest).NumHablarNpc
+                  .Quest.Icono = 1
+                  Call IconoNpcQuest(UserIndex, Quest)
+              End If
+              
               Datos = Left$(Datos, Len(Datos) - 4)
               
               Call SendData(Toindex, UserIndex, 0, "||" & Datos & FONTTYPE_GUILD)
@@ -621,6 +636,13 @@ Public Sub EntregarMisionQuest(ByVal UserIndex As Integer)
                   End If
              End If
              
+             If QuestList(Quest).NumHablarNpc > 0 Then
+                  If .Quest.UserHablaNpc = 0 Then
+                      Call SendData(Toindex, UserIndex, 0, "||No has hablado con el npc de mision!!" & FONTTYPE_INFO)
+                      Exit Sub
+                  End If
+             End If
+             
              Call SendData(Toindex, UserIndex, 0, "||Has entregado la misión: " & QuestList(Quest).nombre & FONTTYPE_QUEST)
               
               Call RecompensaQuest(UserIndex, Quest)
@@ -695,6 +717,14 @@ Public Sub ActualizaQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                   
                   If .Quest.DarObjNpcEntrega = 0 Then
                        Exit Sub
+                  End If
+                  
+            End If
+            
+            If QuestList(Quest).NumHablarNpc > 0 Then
+                  
+                  If .Quest.UserHablaNpc = 0 Then
+                      Exit Sub
                   End If
                   
             End If
@@ -865,6 +895,10 @@ Public Sub ClickMisionesQuest(ByVal UserIndex As Integer)
                  Call DescubreNpcQuest(UserIndex, Quest)
             End If
             
+            If QuestList(Quest).NumHablarNpc > 0 Then
+                  Call EnviaVentanaHablarQuest(UserIndex, Quest)
+            End If
+            
       End With
 End Sub
 
@@ -1013,84 +1047,113 @@ End Sub
 
 Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
         
-        Dim Map As Integer
-        Dim LooPC As Integer
+    Dim Map   As Integer
+
+    Dim LooPC As Integer
          
-         With UserList(UserIndex)
+    With UserList(UserIndex)
                
-               If QuestList(Quest).NumNpcDD > 0 Then
+        If QuestList(Quest).NumNpcDD > 0 Then
                    
-                   Map = QuestList(Quest).NpcDD
+            Map = QuestList(Quest).NpcDD
                    
-                   For LooPC = 1 To NumNPCs
+            For LooPC = 1 To NumNPCs
                    
-                   If Npclist(LooPC).NPCtype = eNPCType.Misiones Then
+                If Npclist(LooPC).NPCtype = eNPCType.Misiones Then
                        
-                       If Npclist(LooPC).pos.Map = Map Then
+                    If Npclist(LooPC).pos.Map = Map Then
                            
-                           If .Quest.Icono = 0 Then
-                                Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 0)
-                           ElseIf .Quest.Icono = 1 Then
-                                Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 1)
-                           End If
+                        If .Quest.Icono = 0 Then
+                            Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 0)
+                        ElseIf .Quest.Icono = 1 Then
+                            Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 1)
+
+                        End If
                        
-                       End If
-                       
-                       End If
-                    
-                    Next LooPC
+                    End If
                        
                 End If
+                    
+            Next LooPC
+                       
+        End If
                    
-                   If QuestList(Quest).NumDescubre > 0 Then
+        If QuestList(Quest).NumDescubre > 0 Then
                        
-                       Map = QuestList(Quest).DescubrePalabra.Mapa
+            Map = QuestList(Quest).DescubrePalabra.Mapa
                        
-                       For LooPC = 1 To NumNPCs
+            For LooPC = 1 To NumNPCs
                        
-                          If Npclist(LooPC).NPCtype = eNPCType.Misiones Then
+                If Npclist(LooPC).NPCtype = eNPCType.Misiones Then
                               
-                              If Npclist(LooPC).pos.Map = Map Then
+                    If Npclist(LooPC).pos.Map = Map Then
                               
-                                  If .Quest.Icono = 0 Then
-                                     Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 0)
-                                  ElseIf .Quest.Icono = 1 Then
-                                    Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 1)
-                                  End If
+                        If .Quest.Icono = 0 Then
+                            Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 0)
+                        ElseIf .Quest.Icono = 1 Then
+                            Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 1)
+
+                        End If
                               
-                              End If
+                    End If
                               
-                          End If
+                End If
                        
-                       Next LooPC
+            Next LooPC
                    
-                   End If
+        End If
                    
-                   If QuestList(Quest).NumObjsNpc > 0 Then
+        If QuestList(Quest).NumObjsNpc > 0 Then
                        
-                       Map = QuestList(Quest).MapaObjsNpc
+            Map = QuestList(Quest).MapaObjsNpc
                        
-                       For LooPC = 1 To NumNPCs
+            For LooPC = 1 To NumNPCs
                            
-                           If Npclist(LooPC).NPCtype = eNPCType.Misiones Then
+                If Npclist(LooPC).NPCtype = eNPCType.Misiones Then
                                
-                               If Npclist(LooPC).pos.Map = Map Then
+                    If Npclist(LooPC).pos.Map = Map Then
                                    
-                                   If .Quest.Icono = 0 Then
-                                     Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 0)
-                                  ElseIf .Quest.Icono = 1 Then
-                                    Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 1)
-                                  End If
+                        If .Quest.Icono = 0 Then
+                            Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 0)
+                        ElseIf .Quest.Icono = 1 Then
+                            Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 1)
+
+                        End If
                                    
-                               End If
+                    End If
                                
-                           End If
+                End If
                        
-                       Next LooPC
+            Next LooPC
                        
-                   End If
+        End If
+                   
+        If QuestList(Quest).NumHablarNpc > 0 Then
+                      
+            Map = QuestList(Quest).MapaHablaNpc
+                       
+            For LooPC = 1 To NumNPCs
+                              
+                If Npclist(LooPC).NPCtype = eNPCType.Misiones Then
+                                  
+                    If Npclist(LooPC).pos.Map = Map Then
+                                      
+                        If .Quest.Icono = 0 Then
+                            Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 0)
+                        ElseIf .Quest.Icono = 1 Then
+                            Call SendData(Toindex, UserIndex, 0, "XI" & Npclist(LooPC).char.CharIndex & "," & 1)
+
+                        End If
+                                      
+                    End If
+                                  
+                End If
+                              
+            Next LooPC
+
+        End If
                
-         End With
+    End With
          
 End Sub
 
@@ -1152,7 +1215,23 @@ Public Sub CambiaDescQuest(ByVal UserIndex As Integer, ByVal Quest As Integer, B
                                                                   & FONTTYPE_INFO)
                   End If
               End If
+              
+             ElseIf .Quest.ValidHablarNpc > 0 Then
+                If Npclist(TempCharIndex).NPCtype <> eNPCType.Misiones Then
+                   Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & Npclist(TempCharIndex).char.CharIndex _
+                                                                  & FONTTYPE_INFO)
+                    Exit Sub
+              End If
                  
+              If Npclist(TempCharIndex).NPCtype = eNPCType.Misiones Then
+                  If Npclist(TempCharIndex).pos.Map = QuestList(Quest).MapaHablaNpc Then
+                     Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbWhite & "°" & QuestDesc.Hablador & "°" & Npclist(TempCharIndex).char.CharIndex _
+                                                                  & FONTTYPE_INFO)
+                  Else
+                     Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & Npclist(TempCharIndex).char.CharIndex _
+                                                                  & FONTTYPE_INFO)
+                  End If
+              End If
                  
             Else
                
@@ -1208,6 +1287,50 @@ Public Sub EntregaObjNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
              
        End With
        
+End Sub
+
+Public Sub FinalizaHablarQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
+     
+     Dim c As Byte
+      
+      With UserList(UserIndex)
+           
+           If QuestList(Quest).NumHablarNpc > 0 Then
+                .Quest.UserHablaNpc = 1
+                c = c + 1
+           End If
+           
+           If c > 0 Then
+            Call ActualizaQuest(UserIndex, Quest)
+         End If
+           
+      End With
+      
+End Sub
+
+Public Sub EnviaVentanaHablarQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
+    
+    Dim LooPC As Integer
+    Dim Datos As String
+                 
+       With UserList(UserIndex)
+       
+        If QuestList(Quest).NumHablarNpc > 0 Then
+            
+            Datos = QuestList(Quest).NumMsjHablar & ", "
+            
+            For LooPC = 1 To QuestList(Quest).NumMsjHablar
+                   Datos = Datos & QuestList(Quest).MsjHablar(LooPC) & ", "
+            Next LooPC
+            
+            Datos = Left$(Datos, Len(Datos) - 2)
+            
+            Call SendData(Toindex, UserIndex, 0, "XV" & Datos)
+            
+        End If
+       
+       End With
+                 
 End Sub
 
 Public Sub ResetQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
@@ -1271,6 +1394,13 @@ Public Sub ResetQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                  .Quest.DarObjNpc(LooPC) = 0
             Next LooPC
             .Quest.DarObjNpcEntrega = 0
+            .Quest.Icono = 0
+            Call IconoNpcQuest(UserIndex, Quest)
+        End If
+        
+        If QuestList(Quest).NumHablarNpc Then
+            .Quest.ValidHablarNpc = 0
+            .Quest.UserHablaNpc = 0
             .Quest.Icono = 0
             Call IconoNpcQuest(UserIndex, Quest)
         End If

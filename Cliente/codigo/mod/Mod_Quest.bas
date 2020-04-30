@@ -30,6 +30,14 @@ End Type
 
 Public Quest As tQuest
 
+Public Type tHablarQuest
+     NumMsj As Byte
+     Mensaje(1 To 10) As String
+     Proceso As Byte
+End Type
+
+Public HablarQuest As tHablarQuest
+
 Public Sub Load_Quest()
     
     Dim Quest As Integer

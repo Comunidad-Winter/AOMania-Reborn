@@ -1500,6 +1500,8 @@ Public Type UserQuest
       NumObjNpc As Byte
       DarObjNpc(1 To 10) As Integer
       DarObjNpcEntrega As Byte
+      ValidHablarNpc As Byte
+      UserHablaNpc As Byte
 End Type
 
 'Tipo de los Usuarios

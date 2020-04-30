@@ -1440,6 +1440,8 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
         UserList(UserIndex).Quest.ValidNpcDescubre = val(UserFile.GetValue("QUEST", "ValidDescubre"))
         UserList(UserIndex).Quest.NumObjNpc = val(UserFile.GetValue("QUEST", "NumObjNpc"))
         UserList(UserIndex).Quest.DarObjNpcEntrega = val(UserFile.GetValue("QUEST", "DarObjNpcEntrega"))
+        UserList(UserIndex).Quest.ValidHablarNpc = val(UserFile.GetValue("QUEST", "ValidHablarNpc"))
+        UserList(UserIndex).Quest.UserHablaNpc = val(UserFile.GetValue("QUEST", "UserHablaNpc"))
         
         For LooPC = 1 To 10
             UserList(UserIndex).Quest.MataNpc(LooPC) = val(UserFile.GetValue("QUEST", "MataNPC" & LooPC))
@@ -2245,7 +2247,8 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
             Call Manager.ChangeValue("QUEST", "ValidDescubre", .Quest.ValidNpcDescubre)
             Call Manager.ChangeValue("QUEST", "NumObjNpc", .Quest.NumObjNpc)
             Call Manager.ChangeValue("QUEST", "DarObjNpcEntrega", .Quest.DarObjNpcEntrega)
-                
+            Call Manager.ChangeValue("QUEST", "ValidHablarNpc", .Quest.ValidHablarNpc)
+            Call Manager.ChangeValue("QUEST", "UserHablaNpc", .Quest.UserHablaNpc)
                 
             For LooPC = 1 To 10
                   Call Manager.ChangeValue("QUEST", "MataNPC" & LooPC, .Quest.MataNpc(LooPC))
