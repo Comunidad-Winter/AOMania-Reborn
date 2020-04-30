@@ -52,8 +52,8 @@
 'BuscaObjetos2=IDObj-Cantidad
 'ObjetoNpc=Cantidad de objeto para entregar a NPC
 '(Como configurar Objeto Npc)
-'ObjetoNpc1=IDNpc-IDObj-Cantidad
-'ObjetoNpc2=IDNpc-IDObj-Cantidad 
+'ObjetoNpc1=Mapa-IDObj-Cantidad
+'ObjetoNpc2=Mapa-IDObj-Cantidad 
 'NpcDD=0 desactivado 1 activado
 '(Como configurar Npc Doble Click)
 'NpcDD1=Mapa
@@ -66,7 +66,7 @@
 'DescubrePalabra1=Mapa-Pregunta-Frase
 
 [INIT]
-NumQuests=5
+NumQuests=6
 
 [QUEST1]
 Nombre=El poteador
@@ -81,7 +81,6 @@ RecompensaItem1=5-2
 RecompensaItem2=55-1
 MataNPC=1
 MataNPC1=501-5
-
 
 [QUEST2]
 Nombre=El viajero
@@ -115,3 +114,11 @@ Rehacer=0
 RecompensaOro=1000
 DescubrePalabra=1
 DescubrePalabra1=34-Quien es el mejor GM?-Bassinger
+
+[QUEST6]
+Nombre=Lleno de favores.
+Descripcion=Necesitamos que nos hagas un favor, busca 5 pollos y llevaselo al Npc de misiones.
+Rehacer=0
+RecompensaOro=1000
+ObjetoNpc=1
+ObjetoNpc1=34-26-5

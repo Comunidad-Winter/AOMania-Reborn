@@ -1008,6 +1008,8 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                             Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
                         ElseIf .Quest.ValidNpcDescubre = 1 Then
                             Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
+                        ElseIf .Quest.NumObjNpc > 0 Then
+                            Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
                           Else
                           Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
                                                                   & FONTTYPE_INFO)

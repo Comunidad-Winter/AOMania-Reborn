@@ -1496,8 +1496,10 @@ Public Type UserQuest
       MapaNpcDD As Integer
       Icono As Integer
       ValidNpcDescubre As Byte
-     ' MapaDescubre As String
       PreguntaDescubre As Integer
+      NumObjNpc As Byte
+      DarObjNpc(1 To 10) As Integer
+      DarObjNpcEntrega As Byte
 End Type
 
 'Tipo de los Usuarios

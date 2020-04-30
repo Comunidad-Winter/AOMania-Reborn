@@ -4,4 +4,5 @@ Sistema de Hablar con NPC
 Sistema de Doble Click a NPC [Hecho]
 Sistema de Matar User
 Sistema de Encontrar mapa [Hecho]
-Sistema de Descubrir palabra /Frase
+Sistema de Descubrir palabra /Frase [Hecho]
+Sistema de Entregar items a un NPC [Hecho]
