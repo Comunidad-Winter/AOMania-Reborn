@@ -246,6 +246,10 @@ Sub Accion(ByVal UserIndex As Integer, _
 
             End If
             
+            If Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Misiones Then
+                Call ClickMisionesQuest(UserIndex)
+            End If
+            
             If Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.nQuest Then
                 Call IniciarVentanaQuest(UserIndex)
            End If

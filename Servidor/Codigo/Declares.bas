@@ -388,6 +388,7 @@ Public Enum eNPCType
     Banda = 33
     Medusa = 38
     OlvidarHechizo = 54
+    Misiones = 96
     nQuest = 97
     Canjes = 98
     Creditos = 99
@@ -1485,12 +1486,14 @@ Public Type UserQuest
       UserQuest(1 To 1000) As Integer
       Quest As Integer
       Start As Byte
-      NumNpc As Integer
+      NumNpc As Byte
       MataNpc(1 To 10) As Integer
-      NumObj As Integer
+      NumObj As Byte
       BuscaObj(1 To 10) As Integer
-      NumMap As Integer
+      NumMap As Byte
       Mapa(1 To 10) As Integer
+      ValidNpcDD As Byte
+      MapaNpcDD As Integer
 End Type
 
 'Tipo de los Usuarios

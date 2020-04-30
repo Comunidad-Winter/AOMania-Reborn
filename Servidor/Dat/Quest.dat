@@ -54,10 +54,9 @@
 '(Como configurar Objeto Npc)
 'ObjetoNpc1=IDNpc-IDObj-Cantidad
 'ObjetoNpc2=IDNpc-IDObj-Cantidad 
-'NpcDD=Numeros de npcs para darle doble clicks.
+'NpcDD=0 desactivado 1 activado
 '(Como configurar Npc Doble Click)
-'NpcDD1=IDNpc
-'NpcDD2=IDNpc
+'NpcDD1=Mapa
 'EncontrarMapa=Numero de mapas a encontrar en la quest.
 '(Como configurar encontrar mapas)
 'EncontrarMapa1=34
@@ -95,9 +94,9 @@ EncontrarMapa1=34
 EncontrarMapa2=35
 
 [QUEST3]
-Nombre=The Walking Dead
-Descripcion=Hay una plaga de zombies por los bosques, encuentra a 5 y acaba con ellos.
+Nombre=El Clickeador
+Descripcion=Encuentra al Npc y hazle doble click.
 Rehacer=1
 RecompensaOro=50000
-MataNPC=1
-MataNPC1=502-1
+NpcDD=1
+NpcDD1=34

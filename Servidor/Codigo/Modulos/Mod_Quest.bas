@@ -69,7 +69,7 @@ Public Type tQuestList
     NumObjsNpc As Byte
     ObjsNpc(1 To 10) As tObjsNpc
     NumNpcDD As Byte
-    NpcDD(1 To 10) As Integer
+    NpcDD As Integer
     NumMapas As Integer
     Mapas(1 To 10) As Integer
     NumDescubre As Integer
@@ -235,10 +235,10 @@ Public Sub Load_Quest()
         QuestList(Quest).NumNpcDD = val(Leer.GetValue("Quest" & Quest, "NpcDD"))
         
         If QuestList(Quest).NumNpcDD > 0 Then
-            
-            For LooPC = 1 To QuestList(Quest).NumNpcDD
-                   QuestList(Quest).NpcDD(LooPC) = val(Leer.GetValue("Quest" & Quest, "NpcDD" & LooPC))
-            Next LooPC
+                   
+                   LooPC = QuestList(Quest).NumNpcDD
+        
+                   QuestList(Quest).NpcDD = val(Leer.GetValue("Quest" & Quest, "NpcDD" & LooPC))
             
         End If
         
@@ -491,6 +491,11 @@ Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
                 
               End If
               
+              If QuestList(Quest).NumNpcDD > 0 Then
+                     Datos = Datos & "Busca/encuentra al npc y dale doble click. || "
+                  .Quest.ValidNpcDD = QuestList(Quest).NumNpcDD
+              End If
+              
               Datos = Left$(Datos, Len(Datos) - 4)
               
               Call SendData(ToIndex, UserIndex, 0, "||" & Datos & FONTTYPE_GUILD)
@@ -553,6 +558,13 @@ Public Sub EntregarMisionQuest(ByVal UserIndex As Integer)
                  Next LooPC
              End If
              
+             If QuestList(Quest).NumNpcDD > 0 Then
+                 If .Quest.MapaNpcDD = 0 Then
+                      Call SendData(ToIndex, UserIndex, 0, "||Aun no le diste doble click al npc!!" & FONTTYPE_INFO)
+                      Exit Sub
+                 End If
+             End If
+             
              Call SendData(ToIndex, UserIndex, 0, "||Has entregado la misión: " & QuestList(Quest).nombre & FONTTYPE_QUEST)
               
               Call RecompensaQuest(UserIndex, Quest)
@@ -605,6 +617,14 @@ Public Sub ActualizaQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                        
                 Next LooPC
             
+            End If
+            
+            If QuestList(Quest).NpcDD > 0 Then
+                    
+                    If .Quest.MapaNpcDD = 0 Then
+                       Exit Sub
+                    End If
+                    
             End If
             
             Call SendData(ToIndex, UserIndex, 0, "||Tu quest ha finalizado, puedes ir a entregarla para recibir tu recompensa." & FONTTYPE_QUEST)
@@ -690,6 +710,46 @@ Public Sub EncuentraMapaQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
      
 End Sub
 
+Public Sub ClickMisionesQuest(ByVal UserIndex As Integer)
+      Dim Quest As Integer
+      
+      With UserList(UserIndex)
+            
+            Quest = .Quest.Quest
+            
+            If .Quest.Start <> 1 Then Exit Sub
+            
+            If QuestList(Quest).NumNpcDD > 0 Then
+                 Call DobleClickNpcQuest(UserIndex, Quest)
+            End If
+            
+      End With
+End Sub
+
+Public Sub DobleClickNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
+      
+       Dim Map As Integer
+       Dim c As Byte
+       
+       With UserList(UserIndex)
+         
+         Map = .pos.Map
+         
+         If QuestList(Quest).NumNpcDD > 0 Then
+             If QuestList(Quest).NpcDD = Map Then
+                 .Quest.MapaNpcDD = 1
+                 c = c + 1
+             End If
+         End If
+         
+         If c > 0 Then
+            Call ActualizaQuest(UserIndex, Quest)
+         End If
+         
+       End With
+       
+End Sub
+
 Public Sub RecompensaQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
       Dim LooPC As Integer
       Dim Obj As Obj
@@ -762,6 +822,11 @@ Public Sub ResetQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                 
                 .Quest.NumMap = 0
                 
+            End If
+            
+            If QuestList(Quest).NumNpcDD > 0 Then
+                 .Quest.ValidNpcDD = 0
+                 .Quest.MapaNpcDD = 0
             End If
             
        End With
