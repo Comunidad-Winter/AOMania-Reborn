@@ -335,7 +335,7 @@ Sub ClosestLegalPos(pos As WorldPos, ByRef nPos As WorldPos)
 '*****************************************************************
 
     Dim Notfound As Boolean
-    Dim LoopC As Integer
+    Dim LooPC As Integer
     Dim Tx As Long
     Dim Ty As Long
 
@@ -343,29 +343,29 @@ Sub ClosestLegalPos(pos As WorldPos, ByRef nPos As WorldPos)
 
     Do While Not LegalPos(pos.Map, nPos.X, nPos.Y)
 
-        If LoopC > 12 Then
+        If LooPC > 12 Then
             Notfound = True
             Exit Do
 
         End If
 
-        For Ty = pos.Y - LoopC To pos.Y + LoopC
-            For Tx = pos.X - LoopC To pos.X + LoopC
+        For Ty = pos.Y - LooPC To pos.Y + LooPC
+            For Tx = pos.X - LooPC To pos.X + LooPC
 
                 If LegalPos(nPos.Map, Tx, Ty) Then
                     nPos.X = Tx
                     nPos.Y = Ty
                     '¿Hay objeto?
 
-                    Tx = pos.X + LoopC
-                    Ty = pos.Y + LoopC
+                    Tx = pos.X + LooPC
+                    Ty = pos.Y + LooPC
 
                 End If
 
             Next Tx
         Next Ty
 
-        LoopC = LoopC + 1
+        LooPC = LooPC + 1
 
     Loop
 
@@ -383,7 +383,7 @@ Sub ClosestStablePos(pos As WorldPos, ByRef nPos As WorldPos)
 '*****************************************************************
 
     Dim Notfound As Boolean
-    Dim LoopC As Integer
+    Dim LooPC As Integer
     Dim Tx As Long
     Dim Ty As Long
 
@@ -391,29 +391,29 @@ Sub ClosestStablePos(pos As WorldPos, ByRef nPos As WorldPos)
 
     Do While Not LegalPos(pos.Map, nPos.X, nPos.Y)
 
-        If LoopC > 12 Then
+        If LooPC > 12 Then
             Notfound = True
             Exit Do
 
         End If
 
-        For Ty = pos.Y - LoopC To pos.Y + LoopC
-            For Tx = pos.X - LoopC To pos.X + LoopC
+        For Ty = pos.Y - LooPC To pos.Y + LooPC
+            For Tx = pos.X - LooPC To pos.X + LooPC
 
                 If LegalPos(nPos.Map, Tx, Ty) And MapData(nPos.Map, Tx, Ty).TileExit.Map = 0 Then
                     nPos.X = Tx
                     nPos.Y = Ty
                     '¿Hay objeto?
 
-                    Tx = pos.X + LoopC
-                    Ty = pos.Y + LoopC
+                    Tx = pos.X + LooPC
+                    Ty = pos.Y + LooPC
 
                 End If
 
             Next Tx
         Next Ty
 
-        LoopC = LoopC + 1
+        LooPC = LooPC + 1
 
     Loop
 
@@ -487,12 +487,12 @@ Function IP_Index(ByVal inIP As String) As Integer
 End Function
 
 Function CheckForSameIP(ByVal UserIndex As Integer, ByVal UserIP As String) As Boolean
-    Dim LoopC As Integer
+    Dim LooPC As Integer
 
-    For LoopC = 1 To MaxUsers
+    For LooPC = 1 To MaxUsers
 
-        If UserList(LoopC).flags.UserLogged = True Then
-            If UserList(LoopC).ip = UserIP And UserIndex <> LoopC Then
+        If UserList(LooPC).flags.UserLogged = True Then
+            If UserList(LooPC).ip = UserIP And UserIndex <> LooPC Then
                 CheckForSameIP = True
                 Exit Function
 
@@ -500,7 +500,7 @@ Function CheckForSameIP(ByVal UserIndex As Integer, ByVal UserIP As String) As B
 
         End If
 
-    Next LoopC
+    Next LooPC
 
     CheckForSameIP = False
 
@@ -508,11 +508,11 @@ End Function
 
 Function CheckForSameName(ByVal UserIndex As Integer, ByVal Name As String) As Boolean
 'Controlo que no existan usuarios con el mismo nombre
-    Dim LoopC As Long
+    Dim LooPC As Long
 
-    For LoopC = 1 To MaxUsers
+    For LooPC = 1 To MaxUsers
 
-        If UserList(LoopC).flags.UserLogged Then
+        If UserList(LooPC).flags.UserLogged Then
 
             'If UCase$(UserList(LoopC).Name) = UCase$(Name) And UserList(LoopC).ConnID <> -1 Then
             'OJO PREGUNTAR POR EL CONNID <> -1 PRODUCE QUE UN PJ EN DETERMINADO
@@ -520,7 +520,7 @@ Function CheckForSameName(ByVal UserIndex As Integer, ByVal Name As String) As B
             'ESE EVENTO NO DISPARA UN SAVE USER, LO QUE PUEDE SER UTILIZADO PARA DUPLICAR ITEMS
             'ESTE BUG EN ALKON PRODUJO QUE EL SERVIDOR ESTE CAIDO DURANTE 3 DIAS. ATENTOS.
 
-            If UCase$(UserList(LoopC).Name) = UCase$(Name) Then
+            If UCase$(UserList(LooPC).Name) = UCase$(Name) Then
                 CheckForSameName = True
                 Exit Function
 
@@ -528,7 +528,7 @@ Function CheckForSameName(ByVal UserIndex As Integer, ByVal Name As String) As B
 
         End If
 
-    Next LoopC
+    Next LooPC
 
     CheckForSameName = False
 
@@ -694,13 +694,13 @@ End Function
 
 Sub SendHelp(ByVal Index As Integer)
     Dim NumHelpLines As Integer
-    Dim LoopC As Integer
+    Dim LooPC As Integer
 
     NumHelpLines = val(GetVar(DatPath & "Help.dat", "INIT", "NumLines"))
 
-    For LoopC = 1 To NumHelpLines
-        Call SendData(SendTarget.ToIndex, Index, 0, "||" & GetVar(DatPath & "Help.dat", "Help", "Line" & LoopC) & FONTTYPE_INFO)
-    Next LoopC
+    For LooPC = 1 To NumHelpLines
+        Call SendData(SendTarget.ToIndex, Index, 0, "||" & GetVar(DatPath & "Help.dat", "Help", "Line" & LooPC) & FONTTYPE_INFO)
+    Next LooPC
 
 End Sub
 
@@ -1001,8 +1001,25 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                 End If
 
                 If Len(tNpc.Desc) > 1 And UserIndex <> Centinela.RevisandoUserIndex Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
+                
+                    If .Quest.Start = 1 Then
+                        
+                        If .Quest.ValidNpcDD = 1 Then
+                            Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
+                        ElseIf .Quest.ValidNpcDescubre = 1 Then
+                            Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
+                          Else
+                          Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
                                                                   & FONTTYPE_INFO)
+                         End If
+                    
+                    Else
+                    
+                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
+                                                                  & FONTTYPE_INFO)
+                                                                  
+                     End If
+                                                                  
                 ElseIf Len(tNpc.Desc) > 1 And UserIndex = Centinela.RevisandoUserIndex Then
                     'Enviamos nuevamente el texto del centinela según quien pregunta
                     Call modCentinela.CentinelaSendClave(UserIndex)
