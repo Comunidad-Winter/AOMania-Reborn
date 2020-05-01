@@ -33,8 +33,9 @@
 '(Como se configura mata npc)
 'MataNPC1=IDNPC-CANTIDAD
 'MataNPC2=IDNPC-CANTIDAD
-'MataUSER=Cantidad de Usuarios a matar en la quest.
+'NumMataUser=0 Desactivado 1 Activado
 'Como se configura matauser
+'CantidadMataUser=Cantidad de usuarios que debe matar.
 'MUMinNivel=Minimo nivel para matar a un usuario de quest.
 'MUMaxNivel=Maximo nivel para matar a un usuario de quest.
 'MUClases=Clases especificas para matar a un usuario de quest.
