@@ -42,6 +42,15 @@ Sub ActStats(ByVal VictimIndex As Integer, ByVal AttackerIndex As Integer)
 
     If UserList(VictimIndex).GranPoder = 1 Then
         Call mod_GranPoder.UserMataPoder(VictimIndex, AttackerIndex)
+
+    End If
+    
+    If UserList(AttackerIndex).Quest.ValidMatarUser > 0 Then
+    
+        If UserList(AttackerIndex).Quest.ValidMatarUser > 0 Then
+            Call UserMataQuest(AttackerIndex, VictimIndex, UserList(AttackerIndex).Quest.Quest)
+        End If
+    
     End If
 
     Call UserDie(VictimIndex)
@@ -56,10 +65,10 @@ Sub ActStats(ByVal VictimIndex As Integer, ByVal AttackerIndex As Integer)
         UserList(AttackerIndex).Stats.TinieblaMatados = UserList(AttackerIndex).Stats.TinieblaMatados + 1
     ElseIf UserList(VictimIndex).Faccion.Templario = 1 Then
         UserList(AttackerIndex).Stats.TemplarioMatados = UserList(AttackerIndex).Stats.TemplarioMatados + 1
+
     End If
 
-    If UserList(AttackerIndex).Stats.UsuariosMatados < 32000 Then UserList(AttackerIndex).Stats.UsuariosMatados = UserList( _
-       AttackerIndex).Stats.UsuariosMatados + 1
+    If UserList(AttackerIndex).Stats.UsuariosMatados < 32000 Then UserList(AttackerIndex).Stats.UsuariosMatados = UserList(AttackerIndex).Stats.UsuariosMatados + 1
     'Log
     Call LogAsesinato(UserList(AttackerIndex).Name & " asesino a " & UserList(VictimIndex).Name)
 

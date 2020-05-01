@@ -1502,6 +1502,8 @@ Public Type UserQuest
       DarObjNpcEntrega As Byte
       ValidHablarNpc As Byte
       UserHablaNpc As Byte
+      ValidMatarUser As Byte
+      UserMatados As Integer
 End Type
 
 'Tipo de los Usuarios

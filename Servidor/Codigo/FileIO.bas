@@ -245,14 +245,14 @@ End Sub
 
 Public Sub CargarSpawnList()
 
-    Dim n As Integer, LooPC As Integer
+    Dim n As Integer, LoopC As Integer
     n = val(GetVar(App.Path & "\Dat\Invokar.dat", "INIT", "NumNPCs"))
     ReDim SpawnList(n) As tCriaturasEntrenador
 
-    For LooPC = 1 To n
-        SpawnList(LooPC).NpcIndex = val(GetVar(App.Path & "\Dat\Invokar.dat", "LIST", "NI" & LooPC))
-        SpawnList(LooPC).NpcName = GetVar(App.Path & "\Dat\Invokar.dat", "LIST", "NN" & LooPC)
-    Next LooPC
+    For LoopC = 1 To n
+        SpawnList(LoopC).NpcIndex = val(GetVar(App.Path & "\Dat\Invokar.dat", "LIST", "NI" & LoopC))
+        SpawnList(LoopC).NpcName = GetVar(App.Path & "\Dat\Invokar.dat", "LIST", "NN" & LoopC)
+    Next LoopC
 
 End Sub
 
@@ -501,7 +501,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
     Dim Y As Long
     Dim X As Long
     Dim ByFlags As Byte
-    Dim LooPC As Long
+    Dim LoopC As Long
 
     Dim MapWriter As clsByteBuffer
     Dim InfWriter As clsByteBuffer
@@ -563,10 +563,10 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
 
                 Call MapWriter.putLong(.Graphic(1))
 
-                For LooPC = 2 To 4
+                For LoopC = 2 To 4
 
-                    If .Graphic(LooPC) Then Call MapWriter.putLong(.Graphic(LooPC))
-                Next LooPC
+                    If .Graphic(LoopC) Then Call MapWriter.putLong(.Graphic(LoopC))
+                Next LoopC
 
                 If .Trigger Then Call MapWriter.putInteger(CInt(.Trigger))
 
@@ -1087,20 +1087,20 @@ Sub LoadUserStats(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
 
     On Error Resume Next
 
-    Dim LooPC As Integer
+    Dim LoopC As Integer
 
-    For LooPC = 1 To NUMATRIBUTOS
-        UserList(UserIndex).Stats.UserAtributos(LooPC) = CInt(UserFile.GetValue("ATRIBUTOS", "AT" & LooPC))
-        UserList(UserIndex).Stats.UserAtributosBackUP(LooPC) = UserList(UserIndex).Stats.UserAtributos(LooPC)
-    Next LooPC
+    For LoopC = 1 To NUMATRIBUTOS
+        UserList(UserIndex).Stats.UserAtributos(LoopC) = CInt(UserFile.GetValue("ATRIBUTOS", "AT" & LoopC))
+        UserList(UserIndex).Stats.UserAtributosBackUP(LoopC) = UserList(UserIndex).Stats.UserAtributos(LoopC)
+    Next LoopC
 
-    For LooPC = 1 To NUMSKILLS
-        UserList(UserIndex).Stats.UserSkills(LooPC) = CInt(UserFile.GetValue("SKILLS", "SK" & LooPC))
-    Next LooPC
+    For LoopC = 1 To NUMSKILLS
+        UserList(UserIndex).Stats.UserSkills(LoopC) = CInt(UserFile.GetValue("SKILLS", "SK" & LoopC))
+    Next LoopC
 
-    For LooPC = 1 To MAXUSERHECHIZOS
-        UserList(UserIndex).Stats.UserHechizos(LooPC) = CInt(UserFile.GetValue("Hechizos", "H" & LooPC))
-    Next LooPC
+    For LoopC = 1 To MAXUSERHECHIZOS
+        UserList(UserIndex).Stats.UserHechizos(LoopC) = CInt(UserFile.GetValue("Hechizos", "H" & LoopC))
+    Next LoopC
 
     UserList(UserIndex).Stats.GLD = CLng(UserFile.GetValue("STATS", "GLD"))
     UserList(UserIndex).Stats.Banco = CLng(UserFile.GetValue("STATS", "BANCO"))
@@ -1167,7 +1167,7 @@ End Sub
 
 Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
 
-    Dim LooPC As Long
+    Dim LoopC As Long
     Dim ln As String
     Dim Obj As Long
 
@@ -1281,22 +1281,22 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).BancoInvent.NroItems = CInt(UserFile.GetValue("BancoInventory", "CantidadItems"))
 
     'Lista de objetos del banco
-    For LooPC = 1 To MAX_BANCOINVENTORY_SLOTS
-        ln = UserFile.GetValue("BancoInventory", "Obj" & LooPC)
-        UserList(UserIndex).BancoInvent.Object(LooPC).ObjIndex = CInt(ReadField(1, ln, 45))
-        UserList(UserIndex).BancoInvent.Object(LooPC).Amount = CInt(ReadField(2, ln, 45))
-    Next LooPC
+    For LoopC = 1 To MAX_BANCOINVENTORY_SLOTS
+        ln = UserFile.GetValue("BancoInventory", "Obj" & LoopC)
+        UserList(UserIndex).BancoInvent.Object(LoopC).ObjIndex = CInt(ReadField(1, ln, 45))
+        UserList(UserIndex).BancoInvent.Object(LoopC).Amount = CInt(ReadField(2, ln, 45))
+    Next LoopC
 
     '------------------------------------------------------------------------------------
     '[/KEVIN]*****************************************************************************
 
     'Lista de objetos
-    For LooPC = 1 To MAX_INVENTORY_SLOTS
-        ln = UserFile.GetValue("Inventory", "Obj" & LooPC)
-        UserList(UserIndex).Invent.Object(LooPC).ObjIndex = CInt(ReadField(1, ln, 45))
-        UserList(UserIndex).Invent.Object(LooPC).Amount = CInt(ReadField(2, ln, 45))
-        UserList(UserIndex).Invent.Object(LooPC).Equipped = CByte(ReadField(3, ln, 45))
-    Next LooPC
+    For LoopC = 1 To MAX_INVENTORY_SLOTS
+        ln = UserFile.GetValue("Inventory", "Obj" & LoopC)
+        UserList(UserIndex).Invent.Object(LoopC).ObjIndex = CInt(ReadField(1, ln, 45))
+        UserList(UserIndex).Invent.Object(LoopC).Amount = CInt(ReadField(2, ln, 45))
+        UserList(UserIndex).Invent.Object(LoopC).Equipped = CByte(ReadField(3, ln, 45))
+    Next LoopC
 
     UserList(UserIndex).Stats.ELV = CLng(UserFile.GetValue("STATS", "ELV"))
 
@@ -1425,9 +1425,9 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     
     If NumQuests > 0 Then
         
-        For LooPC = 1 To NumQuests
-               UserList(UserIndex).Quest.UserQuest(LooPC) = val(UserFile.GetValue("QUEST", "Q" & LooPC))
-        Next LooPC
+        For LoopC = 1 To NumQuests
+               UserList(UserIndex).Quest.UserQuest(LoopC) = val(UserFile.GetValue("QUEST", "Q" & LoopC))
+        Next LoopC
         
         UserList(UserIndex).Quest.Start = val(UserFile.GetValue("QUEST", "Start"))
         UserList(UserIndex).Quest.Quest = val(UserFile.GetValue("QUEST", "Quest"))
@@ -1442,13 +1442,15 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
         UserList(UserIndex).Quest.DarObjNpcEntrega = val(UserFile.GetValue("QUEST", "DarObjNpcEntrega"))
         UserList(UserIndex).Quest.ValidHablarNpc = val(UserFile.GetValue("QUEST", "ValidHablarNpc"))
         UserList(UserIndex).Quest.UserHablaNpc = val(UserFile.GetValue("QUEST", "UserHablaNpc"))
+        UserList(UserIndex).Quest.ValidMatarUser = val(UserFile.GetValue("QUEST", "ValidMatarUser"))
+        UserList(UserIndex).Quest.UserMatados = val(UserFile.GetValue("QUEST", "UserMatados"))
         
-        For LooPC = 1 To 10
-            UserList(UserIndex).Quest.MataNpc(LooPC) = val(UserFile.GetValue("QUEST", "MataNPC" & LooPC))
-            UserList(UserIndex).Quest.BuscaObj(LooPC) = val(UserFile.GetValue("QUEST", "BuscaOBJ" & LooPC))
-            UserList(UserIndex).Quest.Mapa(LooPC) = val(UserFile.GetValue("QUEST", "Mapa" & LooPC))
-            UserList(UserIndex).Quest.DarObjNpc(LooPC) = val(UserFile.GetValue("QUEST", "DarObjNpc" & LooPC))
-        Next LooPC
+        For LoopC = 1 To 10
+            UserList(UserIndex).Quest.MataNpc(LoopC) = val(UserFile.GetValue("QUEST", "MataNPC" & LoopC))
+            UserList(UserIndex).Quest.BuscaObj(LoopC) = val(UserFile.GetValue("QUEST", "BuscaOBJ" & LoopC))
+            UserList(UserIndex).Quest.Mapa(LoopC) = val(UserFile.GetValue("QUEST", "Mapa" & LoopC))
+            UserList(UserIndex).Quest.DarObjNpc(LoopC) = val(UserFile.GetValue("QUEST", "DarObjNpc" & LoopC))
+        Next LoopC
         
     End If
 
@@ -1949,7 +1951,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
 
     Dim Manager As clsIniManager
     Dim Existe As Boolean
-    Dim LooPC As Long
+    Dim LoopC As Long
 
     With UserList(UserIndex)
 
@@ -2047,22 +2049,22 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         '¿Fueron modificados los atributos del usuario?
         If Not .flags.TomoPocionAmarilla And Not .flags.TomoPocionVerde Then
 
-            For LooPC = 1 To UBound(.Stats.UserAtributos)
-                Call Manager.ChangeValue("ATRIBUTOS", "AT" & LooPC, CStr(.Stats.UserAtributos(LooPC)))
-            Next LooPC
+            For LoopC = 1 To UBound(.Stats.UserAtributos)
+                Call Manager.ChangeValue("ATRIBUTOS", "AT" & LoopC, CStr(.Stats.UserAtributos(LoopC)))
+            Next LoopC
 
         Else
 
-            For LooPC = 1 To UBound(.Stats.UserAtributos)
+            For LoopC = 1 To UBound(.Stats.UserAtributos)
                 '.Stats.UserAtributos(LoopC) = .Stats.UserAtributosBackUP(LoopC)
-                Call Manager.ChangeValue("ATRIBUTOS", "AT" & LooPC, CStr(.Stats.UserAtributosBackUP(LooPC)))
+                Call Manager.ChangeValue("ATRIBUTOS", "AT" & LoopC, CStr(.Stats.UserAtributosBackUP(LoopC)))
             Next
 
         End If
 
-        For LooPC = 1 To UBound(.Stats.UserSkills)
-            Call Manager.ChangeValue("SKILLS", "SK" & LooPC, CStr(.Stats.UserSkills(LooPC)))
-        Next LooPC
+        For LoopC = 1 To UBound(.Stats.UserSkills)
+            Call Manager.ChangeValue("SKILLS", "SK" & LoopC, CStr(.Stats.UserSkills(LoopC)))
+        Next LoopC
 
         Call Manager.ChangeValue("CONTACTO", "Email", .Email)
 
@@ -2147,9 +2149,9 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         '*******************************************************************************************
         Call Manager.ChangeValue("BancoInventory", "CantidadItems", val(.BancoInvent.NroItems))
 
-        For LooPC = 1 To MAX_BANCOINVENTORY_SLOTS
-            Call Manager.ChangeValue("BancoInventory", "Obj" & LooPC, .BancoInvent.Object(LooPC).ObjIndex & "-" & .BancoInvent.Object(LooPC).Amount)
-        Next LooPC
+        For LoopC = 1 To MAX_BANCOINVENTORY_SLOTS
+            Call Manager.ChangeValue("BancoInventory", "Obj" & LoopC, .BancoInvent.Object(LoopC).ObjIndex & "-" & .BancoInvent.Object(LoopC).Amount)
+        Next LoopC
 
         '*******************************************************************************************
         '[/KEVIN]-----------
@@ -2157,9 +2159,9 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         'Save Inv
         Call Manager.ChangeValue("Inventory", "CantidadItems", val(.Invent.NroItems))
 
-        For LooPC = 1 To MAX_INVENTORY_SLOTS
-            Call Manager.ChangeValue("Inventory", "Obj" & LooPC, .Invent.Object(LooPC).ObjIndex & "-" & .Invent.Object(LooPC).Amount & "-" & _
-                                                                 .Invent.Object(LooPC).Equipped)
+        For LoopC = 1 To MAX_INVENTORY_SLOTS
+            Call Manager.ChangeValue("Inventory", "Obj" & LoopC, .Invent.Object(LoopC).ObjIndex & "-" & .Invent.Object(LoopC).Amount & "-" & _
+                                                                 .Invent.Object(LoopC).Equipped)
         Next
 
         Call Manager.ChangeValue("Inventory", "WeaponEqpSlot", CStr(.Invent.WeaponEqpSlot))
@@ -2188,29 +2190,29 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
 
         Dim cad As String
 
-        For LooPC = 1 To MAXUSERHECHIZOS
-            cad = .Stats.UserHechizos(LooPC)
-            Call Manager.ChangeValue("HECHIZOS", "H" & LooPC, cad)
+        For LoopC = 1 To MAXUSERHECHIZOS
+            cad = .Stats.UserHechizos(LoopC)
+            Call Manager.ChangeValue("HECHIZOS", "H" & LoopC, cad)
         Next
 
         Dim NroMascotas As Long
         NroMascotas = .NroMacotas
 
-        For LooPC = 1 To MAXMASCOTAS
+        For LoopC = 1 To MAXMASCOTAS
 
             ' Mascota valida?
-            If .MascotasIndex(LooPC) > 0 Then
+            If .MascotasIndex(LoopC) > 0 Then
 
                 ' Nos aseguramos que la criatura no fue invocada
-                If Npclist(.MascotasIndex(LooPC)).Contadores.TiempoExistencia = 0 Then
-                    cad = .MascotasType(LooPC)
+                If Npclist(.MascotasIndex(LoopC)).Contadores.TiempoExistencia = 0 Then
+                    cad = .MascotasType(LoopC)
                 Else    'Si fue invocada no la guardamos
                     cad = "0"
                     NroMascotas = NroMascotas - 1
 
                 End If
 
-                Call Manager.ChangeValue("MASCOTAS", "MAS" & LooPC, cad)
+                Call Manager.ChangeValue("MASCOTAS", "MAS" & LoopC, cad)
 
             End If
 
@@ -2230,11 +2232,11 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         
         If NumQuests > 0 Then
             
-            For LooPC = 1 To NumQuests
+            For LoopC = 1 To NumQuests
                     
-                    Call Manager.ChangeValue("QUEST", "Q" & LooPC, .Quest.UserQuest(LooPC))
+                    Call Manager.ChangeValue("QUEST", "Q" & LoopC, .Quest.UserQuest(LoopC))
                     
-            Next LooPC
+            Next LoopC
             
             Call Manager.ChangeValue("QUEST", "Start", .Quest.Start)
             Call Manager.ChangeValue("QUEST", "Quest", .Quest.Quest)
@@ -2249,13 +2251,15 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
             Call Manager.ChangeValue("QUEST", "DarObjNpcEntrega", .Quest.DarObjNpcEntrega)
             Call Manager.ChangeValue("QUEST", "ValidHablarNpc", .Quest.ValidHablarNpc)
             Call Manager.ChangeValue("QUEST", "UserHablaNpc", .Quest.UserHablaNpc)
+            Call Manager.ChangeValue("QUEST", "ValidMatarUser", .Quest.ValidMatarUser)
+            Call Manager.ChangeValue("QUEST", "UserMatados", .Quest.UserMatados)
                 
-            For LooPC = 1 To 10
-                  Call Manager.ChangeValue("QUEST", "MataNPC" & LooPC, .Quest.MataNpc(LooPC))
-                  Call Manager.ChangeValue("QUEST", "BuscaOBJ" & LooPC, .Quest.BuscaObj(LooPC))
-                  Call Manager.ChangeValue("QUEST", "Mapa" & LooPC, .Quest.Mapa(LooPC))
-                  Call Manager.ChangeValue("QUEST", "DarObjNpc" & LooPC, .Quest.DarObjNpc(LooPC))
-            Next LooPC
+            For LoopC = 1 To 10
+                  Call Manager.ChangeValue("QUEST", "MataNPC" & LoopC, .Quest.MataNpc(LoopC))
+                  Call Manager.ChangeValue("QUEST", "BuscaOBJ" & LoopC, .Quest.BuscaObj(LoopC))
+                  Call Manager.ChangeValue("QUEST", "Mapa" & LoopC, .Quest.Mapa(LoopC))
+                  Call Manager.ChangeValue("QUEST", "DarObjNpc" & LoopC, .Quest.DarObjNpc(LoopC))
+            Next LoopC
             
         End If
 
@@ -2309,7 +2313,7 @@ Sub BackUPnPc(ByVal NpcIndex As Integer, ByVal hFile As Integer)
 '10/09/2010 - Pato: Optimice el BackUp de NPCs
 '***************************************************
 
-    Dim LooPC As Long
+    Dim LoopC As Long
 
     Print #hFile, "[NPC" & Npclist(NpcIndex).Numero & "]"
 
@@ -2349,9 +2353,9 @@ Sub BackUPnPc(ByVal NpcIndex As Integer, ByVal hFile As Integer)
 
         If .Invent.NroItems > 0 Then
 
-            For LooPC = 1 To .Invent.NroItems
-                Print #hFile, "Obj" & LooPC & "=" & .Invent.Object(LooPC).ObjIndex & "-" & .Invent.Object(LooPC).Amount
-            Next LooPC
+            For LoopC = 1 To .Invent.NroItems
+                Print #hFile, "Obj" & LoopC & "=" & .Invent.Object(LoopC).ObjIndex & "-" & .Invent.Object(LoopC).Amount
+            Next LoopC
 
         End If
 
@@ -2438,25 +2442,25 @@ Sub CargarNpcBackUp(NpcIndex As Integer, ByVal NPCNumber As Integer)
         .Stats.def = val(Leer.GetValue("NPC" & NPCNumber, "DEF"))
         .Stats.Alineacion = val(Leer.GetValue("NPC" & NPCNumber, "Alineacion"))
 
-        Dim LooPC As Long
+        Dim LoopC As Long
         Dim ln As String
         .Invent.NroItems = val(Leer.GetValue("NPC" & NPCNumber, "NROITEMS"))
 
         If .Invent.NroItems > 0 Then
 
-            For LooPC = 1 To MAX_INVENTORY_SLOTS
-                ln = Leer.GetValue("NPC" & NPCNumber, "Obj" & LooPC)
-                .Invent.Object(LooPC).ObjIndex = val(ReadField(1, ln, 45))
-                .Invent.Object(LooPC).Amount = val(ReadField(2, ln, 45))
+            For LoopC = 1 To MAX_INVENTORY_SLOTS
+                ln = Leer.GetValue("NPC" & NPCNumber, "Obj" & LoopC)
+                .Invent.Object(LoopC).ObjIndex = val(ReadField(1, ln, 45))
+                .Invent.Object(LoopC).Amount = val(ReadField(2, ln, 45))
 
-            Next LooPC
+            Next LoopC
 
         Else
 
-            For LooPC = 1 To MAX_INVENTORY_SLOTS
-                .Invent.Object(LooPC).ObjIndex = 0
-                .Invent.Object(LooPC).Amount = 0
-            Next LooPC
+            For LoopC = 1 To MAX_INVENTORY_SLOTS
+                .Invent.Object(LoopC).ObjIndex = 0
+                .Invent.Object(LoopC).Amount = 0
+            Next LoopC
 
         End If
 
