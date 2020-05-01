@@ -3,10 +3,10 @@
 2=#P0#=mb	#P1#=FinalizaHablarQuest	#P2#=AoManiaServer/Mod_Quest/FinalizaHablarQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501121530	#P7#=0	#P8#=1	.
 3=#P0#=mb	#P1#=EncuentraMapaQuest	#P2#=AoManiaServer/Mod_Quest/EncuentraMapaQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501121340	#P7#=0	#P8#=14	.
 4=#P0#=mb	#P1#=BuscaObjNpcQuest	#P2#=AoManiaServer/Mod_Quest/BuscaObjNpcQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501121324	#P7#=0	#P8#=16	.
-5=#P0#=mb	#P1#=UserMataQuest	#P2#=AoManiaServer/Mod_Quest/UserMataQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501020631	#P7#=0	#P8#=109	.
+5=#P0#=mb	#P1#=UserMataQuest	#P2#=AoManiaServer/Mod_Quest/UserMataQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501133537	#P7#=0	#P8#=110	.
 6=#P0#=mb	#P1#=ResetQuest	#P2#=AoManiaServer/Mod_Quest/ResetQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501020349	#P7#=0	#P8#=0	.
 7=#P0#=mb	#P1#=EntregarMisionQuest	#P2#=AoManiaServer/Mod_Quest/EntregarMisionQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501020305	#P7#=0	#P8#=90	.
-8=#P0#=mb	#P1#=IniciarMisionQuest	#P2#=AoManiaServer/Mod_Quest/IniciarMisionQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501020052	#P7#=0	#P8#=216	.
+8=#P0#=mb	#P1#=IniciarMisionQuest	#P2#=AoManiaServer/Mod_Quest/IniciarMisionQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501020052	#P7#=0	#P8#=0	.
 9=#P0#=mb	#P1#=ActualizaQuest	#P2#=AoManiaServer/Mod_Quest/ActualizaQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501015842	#P7#=0	#P8#=77	.
 10=#P0#=mb	#P1#=Load_Quest	#P2#=AoManiaServer/Mod_Quest/Load_Quest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501015403	#P7#=0	#P8#=203	.
 11=#P0#=mb	#P1#=ActStats	#P2#=AoManiaServer/UsUaRiOs/ActStats	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501013712	#P7#=0	#P8#=42	.
@@ -49,7 +49,7 @@
 48=#P0#=mb	#P1#=EnviarMiniEstadisticasGM	#P2#=AoManiaServer/UsUaRiOs/EnviarMiniEstadisticasGM	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428221734	#P7#=0	#P8#=1	.
 49=#P0#=mb	#P1#=CommandGm	#P2#=AoManiaServer/ModGM/CommandGm	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428221720	#P7#=0	#P8#=578	.
 50=#P0#=mb	#P1#=LoadSini	#P2#=AoManiaServer/ES/LoadSini	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428200652	#P7#=0	#P8#=143	.
-51=#P0#=mb	#P1#=IniciarVentanaQuest	#P2#=AoManiaServer/Mod_Quest/IniciarVentanaQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428182237	#P7#=0	#P8#=13	.
+51=#P0#=mb	#P1#=IniciarVentanaQuest	#P2#=AoManiaServer/Mod_Quest/IniciarVentanaQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428182237	#P7#=0	#P8#=9	.
 52=#P0#=mb	#P1#=CargarNpcBackUp	#P2#=AoManiaServer/ES/CargarNpcBackUp	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200427015328	#P7#=0	#P8#=1	.
 53=#P0#=mb	#P1#=CargarBackUp	#P2#=AoManiaServer/ES/CargarBackUp	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200427015304	#P7#=0	#P8#=28	.
 54=#P0#=mb	#P1#=LoadOBJData	#P2#=AoManiaServer/ES/LoadOBJData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200427012930	#P7#=0	#P8#=1	.

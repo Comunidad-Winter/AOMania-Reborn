@@ -449,7 +449,7 @@ Public Sub UserMataQuest(ByVal UserIndex As Integer, ByVal Victima As Integer, B
                    c = 0
                    
                    If .Quest.UserMatados <= QuestList(Quest).CantidadMataUser Then
-                       .Quest.UserMatados = .QuestMatados + 1
+                       .Quest.UserMatados = .Quest.UserMatados + 1
                        Call SendData(ToIndex, UserIndex, 0, "||Has matado a un usuario! (" & .Quest.UserMatados & "/" & QuestList(Quest).CantidadMataUser & ")" & FONTTYPE_GUILD)
                        c = c + 1
                    End If

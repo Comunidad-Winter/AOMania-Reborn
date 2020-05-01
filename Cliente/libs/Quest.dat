@@ -33,8 +33,9 @@
 '(Como se configura mata npc)
 'MataNPC1=IDNPC-CANTIDAD
 'MataNPC2=IDNPC-CANTIDAD
-'MataUSER=Cantidad de Usuarios a matar en la quest.
+'NumMataUser=0 Desactivado 1 Activado
 'Como se configura matauser
+'CantidadMataUser=Cantidad de usuarios que debe matar.
 'MUMinNivel=Minimo nivel para matar a un usuario de quest.
 'MUMaxNivel=Maximo nivel para matar a un usuario de quest.
 'MUClases=Clases especificas para matar a un usuario de quest.
@@ -68,7 +69,7 @@
 'DescubrePalabra1=Mapa-Pregunta-Frase
 
 [INIT]
-NumQuests=7
+NumQuests=8
 
 [QUEST1]
 Nombre=El poteador
@@ -138,3 +139,10 @@ MsjHablar2=Te gusta aventurear por el mundo de aomania.
 MsjHablar3=Y realizar misiones de alto riesgo.
 MsjHablar4=Me canse de hablarte chao.
 
+[QUEST8]
+Nombre=Asesina
+Descripcion=Necesito que vayas y asesines a 5 usuarios normales.
+Rehacer=1
+RecompensaOro=100000
+NumMataUser=1
+CantidadMataUser=5

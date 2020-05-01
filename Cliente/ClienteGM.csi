@@ -1,11 +1,11 @@
 [History]
 1=#P0#=mb	#P1#=cmdFinalizar_Click	#P2#=AoManiaClienteGM/FrmHablarNpc/cmdFinalizar_Click	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501005350	#P7#=0	#P8#=2	.
-2=#P0#=mb	#P1#=cmdSiguiente_Click	#P2#=AoManiaClienteGM/FrmHablarNpc/cmdSiguiente_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200501003651	#P7#=0	#P8#=1	.
-3=#P0#=mb	#P1#=cmdAnterior_Click	#P2#=AoManiaClienteGM/FrmHablarNpc/cmdAnterior_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200501003229	#P7#=0	#P8#=9	.
-4=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaClienteGM/FrmHablarNpc/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200501005208	#P7#=0	#P8#=8	.
-5=#P0#=mb	#P1#=Load_Quest	#P2#=AoManiaClienteGM/Mod_Quest/Load_Quest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501001404	#P7#=0	#P8#=-2	.
-6=#P0#=mb	#P1#=CharRender	#P2#=AoManiaClienteGM/Mod_TileEngine/CharRender	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200430041254	#P7#=0	#P8#=586	.
-7=#P0#=mb	#P1#=HandleData2	#P2#=AoManiaClienteGM/Mod_TCP2/HandleData2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501001912	#P7#=0	#P8#=55	.
+2=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaClienteGM/FrmHablarNpc/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200501005208	#P7#=0	#P8#=8	.
+3=#P0#=mb	#P1#=cmdSiguiente_Click	#P2#=AoManiaClienteGM/FrmHablarNpc/cmdSiguiente_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200501003651	#P7#=0	#P8#=1	.
+4=#P0#=mb	#P1#=cmdAnterior_Click	#P2#=AoManiaClienteGM/FrmHablarNpc/cmdAnterior_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200501003229	#P7#=0	#P8#=9	.
+5=#P0#=mb	#P1#=HandleData2	#P2#=AoManiaClienteGM/Mod_TCP2/HandleData2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501001912	#P7#=0	#P8#=55	.
+6=#P0#=mb	#P1#=Load_Quest	#P2#=AoManiaClienteGM/Mod_Quest/Load_Quest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501001404	#P7#=0	#P8#=-2	.
+7=#P0#=mb	#P1#=CharRender	#P2#=AoManiaClienteGM/Mod_TileEngine/CharRender	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200430041254	#P7#=0	#P8#=586	.
 8=#P0#=mb	#P1#=cmdIniciar_Click	#P2#=AoManiaClienteGM/frmQuest/cmdIniciar_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200430040811	#P7#=0	#P8#=8	.
 9=#P0#=mb	#P1#=ListQuest_Click	#P2#=AoManiaClienteGM/frmQuest/ListQuest_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200429202439	#P7#=0	#P8#=44	.
 10=#P0#=mb	#P1#=cmdEntregar_Click	#P2#=AoManiaClienteGM/frmQuest/cmdEntregar_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200429174330	#P7#=0	#P8#=8	.

@@ -69,7 +69,7 @@
 'DescubrePalabra1=Mapa-Pregunta-Frase
 
 [INIT]
-NumQuests=7
+NumQuests=8
 
 [QUEST1]
 Nombre=El poteador
@@ -139,3 +139,10 @@ MsjHablar2=Te gusta aventurear por el mundo de aomania.
 MsjHablar3=Y realizar misiones de alto riesgo.
 MsjHablar4=Me canse de hablarte chao.
 
+[QUEST8]
+Nombre=Asesina
+Descripcion=Necesito que vayas y asesines a 5 usuarios normales.
+Rehacer=1
+RecompensaOro=100000
+NumMataUser=1
+CantidadMataUser=5

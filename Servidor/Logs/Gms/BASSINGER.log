@@ -9289,3 +9289,39 @@
 30/04/2020 21:05:16 Se conecto con ip:127.0.0.1Hora: 30/04/2020 21:05:16
 30/04/2020 21:05:19 Agarro:1 Objeto:Pollo
 01/05/2020 0:52:32 Se conecto con ip:127.0.0.1Hora: 01/05/2020 0:52:32
+01/05/2020 13:37:01 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:37:01
+01/05/2020 13:38:52 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:38:52
+01/05/2020 13:39:37 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:39:37
+01/05/2020 13:40:47 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:40:47
+01/05/2020 13:46:48 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:46:48
+01/05/2020 13:47:31 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:47:31
+01/05/2020 13:47:32 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:47:32
+01/05/2020 13:47:34 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:47:34
+01/05/2020 13:49:45 Dijo: fdg
+01/05/2020 13:50:07 Comando: /TELEP YO 47 62 17
+01/05/2020 13:50:07 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+01/05/2020 13:50:15 Comando: /TELEP YO 34 27 45
+01/05/2020 13:50:15 Transporto a Bassinger hacia Mapa34 X:27 Y:45
+01/05/2020 13:50:59 Comando: /sum a
+01/05/2020 13:50:59 /SUM artharion Map:35 X:19 Y:88
+01/05/2020 13:53:28 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:53:28
+01/05/2020 13:53:32 Comando: /TELEP YO 47 62 17
+01/05/2020 13:53:32 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+01/05/2020 13:53:33 Comando: /TELEP YO 34 30 44
+01/05/2020 13:53:33 Transporto a Bassinger hacia Mapa34 X:30 Y:44
+01/05/2020 13:53:34 Comando: /TELEP YO 34 26 36
+01/05/2020 13:53:34 Transporto a Bassinger hacia Mapa34 X:26 Y:36
+01/05/2020 13:53:36 Comando: /TELEP YO 34 25 26
+01/05/2020 13:53:36 Transporto a Bassinger hacia Mapa34 X:25 Y:26
+01/05/2020 13:53:37 Comando: /TELEP YO 34 25 18
+01/05/2020 13:53:37 Transporto a Bassinger hacia Mapa34 X:25 Y:18
+01/05/2020 13:54:01 Comando: /revivir a
+01/05/2020 13:55:16 Se conecto con ip:127.0.0.1Hora: 01/05/2020 13:55:16
+01/05/2020 13:55:46 Comando: /ira artharion
+01/05/2020 13:55:46 /IRA artharion Mapa:35 X:19 Y:
+01/05/2020 13:55:49 Comando: /TELEP YO 35 19 88
+01/05/2020 13:55:49 Transporto a Bassinger hacia Mapa35 X:19 Y:88
+01/05/2020 13:55:52 Comando: /revivir a
+01/05/2020 13:56:03 Comando: /revivir a
+01/05/2020 13:56:11 Comando: /revivir a
+01/05/2020 13:56:21 Comando: /revivir a
