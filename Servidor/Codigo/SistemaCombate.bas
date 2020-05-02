@@ -832,7 +832,6 @@ Public Function NpcAtacaUser(ByVal NpcIndex As Integer, ByVal UserIndex As Integ
     '-----Tal vez suba los skills------
     Call SubirSkill(UserIndex, Tacticas)
 
-    'call scenduserstatsbox(UserIndex)
     'Controla el nivel del usuario
     Call CheckUserLevel(UserIndex)
     Call EnviarHP(UserIndex)
@@ -1130,7 +1129,6 @@ Public Sub UsuarioAtaca(ByVal UserIndex As Integer)
         'Look for user
         If Index > 0 Then
             Call UsuarioAtacaUsuario(UserIndex, MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).UserIndex)
-            'call scenduserstatsbox(MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).UserIndex)
             Call EnviarHP(MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).UserIndex)
             Exit Sub
 

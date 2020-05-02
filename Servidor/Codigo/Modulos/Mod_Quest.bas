@@ -1558,6 +1558,30 @@ Public Sub ResetQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
        
 End Sub
 
+Public Sub SuperaNivelMaximoQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
+     
+     With UserList(UserIndex)
+            
+            If .Quest.Start <> 1 Then Exit Sub
+            
+            If QuestList(Quest).MaxNivel > 0 Then
+                
+                If .Stats.ELV > QuestList(Quest).MaxNivel Then
+                    
+                    .Quest.UserQuest(Quest) = 1
+                    .Quest.Start = 0
+                    Call ResetQuest(UserIndex, Quest)
+                    
+                    Call SendData(ToIndex, UserIndex, 0, "||Has superado el maximo nivel de la quest!! Sera cancelada, puedes pasar al siguiente!!" & FONTTYPE_GUILD)
+                    
+                End If
+                
+            End If
+            
+     End With
+     
+End Sub
+
 Function BuscoNpcQuest(ByVal IDNpc As Integer) As Integer
       
       Dim LoopC As Integer

@@ -683,7 +683,12 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has subido de nivel!" & FONTTYPE_INFO)
             Else
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has subido " & AumentoLVL & " Niveles!." & FONTTYPE_INFO)
-
+            End If
+            
+            If .Quest.Start = 1 Then
+                If QuestList(.Quest.Quest).MaxNivel > 0 Then
+                    Call SuperaNivelMaximoQuest(UserIndex, .Quest.Quest)
+                End If
             End If
 
             'Notificamos al user
@@ -1029,20 +1034,20 @@ Function NextOpenCharIndex() As Integer
 
     On Local Error GoTo hayerror
 
-    Dim LooPC As Integer
+    Dim LoopC As Integer
 
-    LooPC = 1
+    LoopC = 1
 
-    While LooPC < MAXCHARS
+    While LoopC < MAXCHARS
 
-        If CharList(LooPC) = 0 And Not ((LooPC And &HFFC0&) = 64) Then
-            NextOpenCharIndex = LooPC
+        If CharList(LoopC) = 0 And Not ((LoopC And &HFFC0&) = 64) Then
+            NextOpenCharIndex = LoopC
             NumChars = NumChars + 1
 
-            If LooPC > LastChar Then LastChar = LooPC
+            If LoopC > LastChar Then LastChar = LoopC
             Exit Function
         Else
-            LooPC = LooPC + 1
+            LoopC = LoopC + 1
 
         End If
 
@@ -1055,15 +1060,15 @@ hayerror:
 End Function
 
 Function NextOpenUser() As Integer
-    Dim LooPC As Long
+    Dim LoopC As Long
 
-    For LooPC = 1 To MaxUsers + 1
+    For LoopC = 1 To MaxUsers + 1
 
-        If LooPC > MaxUsers Then Exit For
-        If (UserList(LooPC).ConnID = -1 And UserList(LooPC).flags.UserLogged = False) Then Exit For
-    Next LooPC
+        If LoopC > MaxUsers Then Exit For
+        If (UserList(LoopC).ConnID = -1 And UserList(LoopC).flags.UserLogged = False) Then Exit For
+    Next LoopC
 
-    NextOpenUser = LooPC
+    NextOpenUser = LoopC
 
 End Function
 
@@ -2275,7 +2280,7 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos, ByRef Obj As Obj)
 'Call LogTarea("Sub Tilelibre")
 
     Dim Notfound As Boolean
-    Dim LooPC As Integer
+    Dim LoopC As Integer
     Dim Tx As Integer
     Dim Ty As Integer
     Dim hayobj As Boolean
@@ -2284,14 +2289,14 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos, ByRef Obj As Obj)
 
     Do While Not LegalPos(pos.Map, nPos.X, nPos.Y) Or hayobj
 
-        If LooPC > 15 Then
+        If LoopC > 15 Then
             Notfound = True
             Exit Do
 
         End If
 
-        For Ty = pos.Y - LooPC To pos.Y + LooPC
-            For Tx = pos.X - LooPC To pos.X + LooPC
+        For Ty = pos.Y - LoopC To pos.Y + LoopC
+            For Tx = pos.X - LoopC To pos.X + LoopC
 
                 If LegalPos(nPos.Map, Tx, Ty) Then
                     'We continue if: a - the item is different from 0 and the dropped item or b - the amount dropped + amount in map exceeds MAX_INVENTORY_OBJS
@@ -2302,8 +2307,8 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos, ByRef Obj As Obj)
                     If Not hayobj And MapData(nPos.Map, Tx, Ty).TileExit.Map = 0 Then
                         nPos.X = Tx
                         nPos.Y = Ty
-                        Tx = pos.X + LooPC
-                        Ty = pos.Y + LooPC
+                        Tx = pos.X + LoopC
+                        Ty = pos.Y + LoopC
 
                     End If
 
@@ -2312,7 +2317,7 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos, ByRef Obj As Obj)
             Next Tx
         Next Ty
 
-        LooPC = LooPC + 1
+        LoopC = LoopC + 1
 
     Loop
 
