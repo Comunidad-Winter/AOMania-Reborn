@@ -1624,10 +1624,10 @@ Function CompruebaIniciarQuest(ByVal UserIndex As Integer, _
                         If Quest = LoopC Then
                             
                             If QuestList(Quest).Rehacer = 0 Then
-                                CompruebaIniciarQuest = 0
+                                CompruebaIniciarQuest = 3
                                 Exit Function
                             ElseIf QuestList(Quest).Rehacer = 1 Then
-                                CompruebaIniciarQuest = 3
+                                CompruebaIniciarQuest = 0
                                 Exit Function
                             End If
                             
