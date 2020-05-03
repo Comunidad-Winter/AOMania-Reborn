@@ -15,18 +15,6 @@ Public Sub MostrarSop(ByVal UserIndex As Integer, ByVal marika As Integer, ByVal
 
 End Sub
 
-Public Sub EnviaRespuesta(ByVal elmarika As String)
-
-    xaoindex = NameIndex(elmarika)
-
-    If Not xaoindex <= 0 Then
-        SendData SendTarget.ToIndex, xaoindex, 0, "LLE"
-        Call SendData(SendTarget.ToIndex, xaoindex, 0, "TW126")
-
-    End If
-
-End Sub
-
 Public Sub EnviarResp(ByVal UserIndex As Integer)
 
     SendData SendTarget.ToIndex, UserIndex, 0, "RESP" & UserList(UserIndex).Respuesta

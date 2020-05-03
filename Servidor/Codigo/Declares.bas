@@ -388,6 +388,7 @@ Public Enum eNPCType
     Banda = 33
     Medusa = 38
     OlvidarHechizo = 54
+    Misiones = 96
     nQuest = 97
     Canjes = 98
     Creditos = 99
@@ -672,7 +673,7 @@ Public Const FONTTYPE_AZULN As String = "~0~0~255~1~0"
 Public Const FONTTYPE_VIOLETAN As String = "~128~0~128~1~0"
 Public Const FONTTYPE_CELESTEN As String = "~128~255~255~1~0"
 Public Const FONTTYPE_GRISN As String = "~130~130~130~1~0"
-
+Public Const FONTTYPE_QUEST As String = "~128~255~0~1~0"
 
 
 'Estadisticas
@@ -1483,6 +1484,26 @@ End Type
 
 Public Type UserQuest
       UserQuest(1 To 1000) As Integer
+      Quest As Integer
+      Start As Byte
+      NumNpc As Byte
+      MataNpc(1 To 10) As Integer
+      NumObj As Byte
+      BuscaObj(1 To 10) As Integer
+      NumMap As Byte
+      Mapa(1 To 10) As Integer
+      ValidNpcDD As Byte
+      MapaNpcDD As Integer
+      Icono As Integer
+      ValidNpcDescubre As Byte
+      PreguntaDescubre As Integer
+      NumObjNpc As Byte
+      DarObjNpc(1 To 10) As Integer
+      DarObjNpcEntrega As Byte
+      ValidHablarNpc As Byte
+      UserHablaNpc As Byte
+      ValidMatarUser As Byte
+      UserMatados As Integer
 End Type
 
 'Tipo de los Usuarios

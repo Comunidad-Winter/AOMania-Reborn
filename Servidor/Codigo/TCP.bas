@@ -210,18 +210,18 @@ End Function
 
 Function ValidateSkills(ByVal UserIndex As Integer) As Boolean
 
-    Dim LoopC As Integer
+    Dim Loopc As Integer
 
-    For LoopC = 1 To NUMSKILLS
+    For Loopc = 1 To NUMSKILLS
 
-        If UserList(UserIndex).Stats.UserSkills(LoopC) < 0 Then
+        If UserList(UserIndex).Stats.UserSkills(Loopc) < 0 Then
             Exit Function
 
-            If UserList(UserIndex).Stats.UserSkills(LoopC) > 100 Then UserList(UserIndex).Stats.UserSkills(LoopC) = 100
+            If UserList(UserIndex).Stats.UserSkills(Loopc) > 100 Then UserList(UserIndex).Stats.UserSkills(Loopc) = 100
 
         End If
 
-    Next LoopC
+    Next Loopc
 
     ValidateSkills = True
 
@@ -244,7 +244,7 @@ Sub ConnectNewUser(UserIndex As Integer, _
 
     End If
 
-    Dim LoopC As Integer
+    Dim Loopc As Integer
     Dim totalskpts As Long
 
     '¿Existe el personaje?
@@ -363,9 +363,9 @@ Sub ConnectNewUser(UserIndex As Integer, _
     totalskpts = 0
 
     'Abs PREVINENE EL HACKEO DE LOS SKILLS %%%%%%%%%%%%%
-    For LoopC = 1 To NUMSKILLS
-        totalskpts = totalskpts + Abs(UserList(UserIndex).Stats.UserSkills(LoopC))
-    Next LoopC
+    For Loopc = 1 To NUMSKILLS
+        totalskpts = totalskpts + Abs(UserList(UserIndex).Stats.UserSkills(Loopc))
+    Next Loopc
 
     If totalskpts > 10 Then
         Call LogHackAttemp(UserList(UserIndex).Name & " intento hackear los skills.")
@@ -488,7 +488,7 @@ Sub ConnectNewUser(UserIndex As Integer, _
 End Sub
 
 Sub CloseSocket(ByVal UserIndex As Integer)
-    Dim LoopC As Integer
+    Dim Loopc As Integer
     Dim i As Integer
     Dim Total As Integer
 
@@ -722,7 +722,7 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
     On Error Resume Next
 
-    Dim LoopC As Integer
+    Dim Loopc As Integer
     Dim X As Integer
     Dim Y As Integer
 
@@ -764,60 +764,60 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
     Case SendTarget.ToAdmins
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If UserList(LoopC).ConnID <> -1 Then
-                If UserList(LoopC).flags.Privilegios > 0 Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If UserList(Loopc).ConnID <> -1 Then
+                If UserList(Loopc).flags.Privilegios > 0 Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToAll
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If UserList(LoopC).ConnID <> -1 Then
-                If UserList(LoopC).flags.UserLogged Then    'Esta logeado como usuario?
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If UserList(Loopc).ConnID <> -1 Then
+                If UserList(Loopc).flags.UserLogged Then    'Esta logeado como usuario?
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToAllButIndex
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) And (LoopC <> sndIndex) Then
-                If UserList(LoopC).flags.UserLogged Then    'Esta logeado como usuario?
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) And (Loopc <> sndIndex) Then
+                If UserList(Loopc).flags.UserLogged Then    'Esta logeado como usuario?
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToMap
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If UserList(LoopC).flags.UserLogged Then
-                    If UserList(LoopC).pos.Map = sndMap Then
-                        Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If UserList(Loopc).flags.UserLogged Then
+                    If UserList(Loopc).pos.Map = sndMap Then
+                        Call EnviarDatosASlot(Loopc, sndData)
 
                     End If
 
@@ -825,38 +825,38 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToMapButIndex
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) And LoopC <> sndIndex Then
-                If UserList(LoopC).pos.Map = sndMap Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) And Loopc <> sndIndex Then
+                If UserList(Loopc).pos.Map = sndMap Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToGuildMembers
 
-        LoopC = modGuilds.m_Iterador_ProximoUserIndex(sndIndex)
+        Loopc = modGuilds.m_Iterador_ProximoUserIndex(sndIndex)
 
-        While LoopC > 0
+        While Loopc > 0
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                Call EnviarDatosASlot(Loopc, sndData)
 
             End If
 
-            LoopC = modGuilds.m_Iterador_ProximoUserIndex(sndIndex)
+            Loopc = modGuilds.m_Iterador_ProximoUserIndex(sndIndex)
         Wend
 
         Exit Sub
@@ -1012,205 +1012,205 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
         Exit Sub
 
     Case SendTarget.ToDiosesYclan
-        LoopC = modGuilds.m_Iterador_ProximoUserIndex(sndIndex)
+        Loopc = modGuilds.m_Iterador_ProximoUserIndex(sndIndex)
 
-        While LoopC > 0
+        While Loopc > 0
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                Call EnviarDatosASlot(Loopc, sndData)
 
             End If
 
-            LoopC = modGuilds.m_Iterador_ProximoUserIndex(sndIndex)
+            Loopc = modGuilds.m_Iterador_ProximoUserIndex(sndIndex)
         Wend
 
-        LoopC = modGuilds.Iterador_ProximoGM(sndIndex)
+        Loopc = modGuilds.Iterador_ProximoGM(sndIndex)
 
-        While LoopC > 0
+        While Loopc > 0
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                Call EnviarDatosASlot(Loopc, sndData)
 
             End If
 
-            LoopC = modGuilds.Iterador_ProximoGM(sndIndex)
+            Loopc = modGuilds.Iterador_ProximoGM(sndIndex)
         Wend
 
         Exit Sub
 
     Case SendTarget.ToConsejo
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If UserList(LoopC).flags.PertAlCons > 0 Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If UserList(Loopc).flags.PertAlCons > 0 Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToConsejoCaos
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If UserList(LoopC).flags.PertAlConsCaos > 0 Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If UserList(Loopc).flags.PertAlConsCaos > 0 Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToRolesMasters
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If UserList(LoopC).flags.EsRolesMaster Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If UserList(Loopc).flags.EsRolesMaster Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToCiudadanos
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If Not Criminal(LoopC) Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If Not Criminal(Loopc) Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToCriminales
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If Criminal(LoopC) Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If Criminal(Loopc) Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToReal
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If UserList(LoopC).Faccion.ArmadaReal = 1 Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If UserList(Loopc).Faccion.ArmadaReal = 1 Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case SendTarget.ToCaos
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If UserList(LoopC).Faccion.FuerzasCaos = 1 Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If UserList(Loopc).Faccion.FuerzasCaos = 1 Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case ToCiudadanosYRMs
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If Not Criminal(LoopC) Or UserList(LoopC).flags.EsRolesMaster Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If Not Criminal(Loopc) Or UserList(Loopc).flags.EsRolesMaster Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case ToCriminalesYRMs
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If Criminal(LoopC) Or UserList(LoopC).flags.EsRolesMaster Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If Criminal(Loopc) Or UserList(Loopc).flags.EsRolesMaster Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case ToRealYRMs
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If UserList(LoopC).Faccion.ArmadaReal = 1 Or UserList(LoopC).flags.EsRolesMaster Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If UserList(Loopc).Faccion.ArmadaReal = 1 Or UserList(Loopc).flags.EsRolesMaster Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
     Case ToCaosYRMs
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).ConnID <> -1) Then
-                If UserList(LoopC).Faccion.FuerzasCaos = 1 Or UserList(LoopC).flags.EsRolesMaster Then
-                    Call EnviarDatosASlot(LoopC, sndData)
+            If (UserList(Loopc).ConnID <> -1) Then
+                If UserList(Loopc).Faccion.FuerzasCaos = 1 Or UserList(Loopc).flags.EsRolesMaster Then
+                    Call EnviarDatosASlot(Loopc, sndData)
 
                 End If
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         Exit Sub
 
@@ -1807,6 +1807,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         Call CountCriCi(UserIndex)
         Call MaxOroRank(UserIndex)
         Call OroConnectRank(UserIndex)
+        Call ConnectQuest(UserIndex)
 
         #If MYSQL = 1 Then
             Call Add_DataBase(UserIndex, "Online")
@@ -2133,34 +2134,34 @@ Sub ResetUserFlags(ByVal UserIndex As Integer)
 End Sub
 
 Sub ResetUserSpells(ByVal UserIndex As Integer)
-    Dim LoopC As Long
+    Dim Loopc As Long
 
-    For LoopC = 1 To MAXUSERHECHIZOS
-        UserList(UserIndex).Stats.UserHechizos(LoopC) = 0
-    Next LoopC
+    For Loopc = 1 To MAXUSERHECHIZOS
+        UserList(UserIndex).Stats.UserHechizos(Loopc) = 0
+    Next Loopc
 
 End Sub
 
 Sub ResetUserPets(ByVal UserIndex As Integer)
-    Dim LoopC As Long
+    Dim Loopc As Long
 
     UserList(UserIndex).NroMacotas = 0
 
-    For LoopC = 1 To MAXMASCOTAS
-        UserList(UserIndex).MascotasIndex(LoopC) = 0
-        UserList(UserIndex).MascotasType(LoopC) = 0
-    Next LoopC
+    For Loopc = 1 To MAXMASCOTAS
+        UserList(UserIndex).MascotasIndex(Loopc) = 0
+        UserList(UserIndex).MascotasType(Loopc) = 0
+    Next Loopc
 
 End Sub
 
 Sub ResetUserBanco(ByVal UserIndex As Integer)
-    Dim LoopC As Long
+    Dim Loopc As Long
 
-    For LoopC = 1 To MAX_BANCOINVENTORY_SLOTS
-        UserList(UserIndex).BancoInvent.Object(LoopC).Amount = 0
-        UserList(UserIndex).BancoInvent.Object(LoopC).Equipped = 0
-        UserList(UserIndex).BancoInvent.Object(LoopC).ObjIndex = 0
-    Next LoopC
+    For Loopc = 1 To MAX_BANCOINVENTORY_SLOTS
+        UserList(UserIndex).BancoInvent.Object(Loopc).Amount = 0
+        UserList(UserIndex).BancoInvent.Object(Loopc).Equipped = 0
+        UserList(UserIndex).BancoInvent.Object(Loopc).ObjIndex = 0
+    Next Loopc
 
     UserList(UserIndex).BancoInvent.NroItems = 0
 
@@ -2221,7 +2222,7 @@ Sub CloseUser(ByVal UserIndex As Integer)
     Dim n As Integer
     Dim X As Integer
     Dim Y As Integer
-    Dim LoopC As Integer
+    Dim Loopc As Integer
     Dim Map As Integer
     Dim Name As String
     Dim Raza As String
@@ -2372,7 +2373,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
     Dim CadenaOriginal As String
 
-    Dim LoopC As Integer
+    Dim Loopc As Integer
     Dim nPos As WorldPos
     Dim tStr As String
     Dim tInt As Integer
@@ -2435,7 +2436,12 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
                 Call LogGM(.Name, "Dijo: " & MsgData)
             ElseIf .flags.Privilegios = PlayerType.User Then
                 Call LogUser(.Name, "Dijo: " & MsgData)
-
+            End If
+            
+            If .Quest.Start = 1 Then
+                If .Quest.ValidNpcDescubre = 1 Then
+                    Call RespuestaNpcQuest(UserIndex, .Quest.Quest, MsgData)
+                End If
             End If
 
         End With
@@ -2833,14 +2839,14 @@ ExitErr1:
         ' If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
         tStr = "LISTUSU"
 
-        For LoopC = 1 To LastUser
+        For Loopc = 1 To LastUser
 
-            If (UserList(LoopC).Name <> "") Then
-                tStr = tStr & UserList(LoopC).Name & ","
+            If (UserList(Loopc).Name <> "") Then
+                tStr = tStr & UserList(Loopc).Name & ","
 
             End If
 
-        Next LoopC
+        Next Loopc
 
         If Len(tStr) > 7 Then
             tStr = Left$(tStr, Len(tStr) - 1)
@@ -3021,20 +3027,20 @@ End Sub
 
 Public Sub EcharPjsNoPrivilegiados()
 
-    Dim LoopC As Long
+    Dim Loopc As Long
 
-    For LoopC = 1 To LastUser
+    For Loopc = 1 To LastUser
 
-        If UserList(LoopC).flags.UserLogged And UserList(LoopC).ConnID >= 0 And UserList(LoopC).ConnIDValida Then
+        If UserList(Loopc).flags.UserLogged And UserList(Loopc).ConnID >= 0 And UserList(Loopc).ConnIDValida Then
 
-            If UserList(LoopC).flags.Privilegios < PlayerType.Consejero Then
-                Call CloseSocket(LoopC)
+            If UserList(Loopc).flags.Privilegios < PlayerType.Consejero Then
+                Call CloseSocket(Loopc)
 
             End If
 
         End If
 
-    Next LoopC
+    Next Loopc
 
 End Sub
 

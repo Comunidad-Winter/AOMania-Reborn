@@ -1515,6 +1515,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     End Select
 
     Select Case UCase$(Left$(rData, 4))
+      
+      Case "HBNF"
+         rData = Right$(rData, Len(rData) - 4)
+         Call FinalizaHablarQuest(UserIndex, UserList(UserIndex).Quest.Quest)
+      Exit Sub
      
      Case "HPGM"
         rData = Right$(rData, Len(rData) - 4)
@@ -1570,7 +1575,6 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         UserList(TIndex).Respuesta = ReadField(2, rData, 2)
         Call WriteVar(App.Path & "\Charfile\" & UserList(TIndex).Name & ".chr", "INIT", "Respuesta", UserList(TIndex).Respuesta)
-        Call EnviaRespuesta(ReadField(1, rData, 2))
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Respuesta enviada a " & UserList(TIndex).Name & FONTTYPE_INFO)
         Exit Sub
 
@@ -2237,8 +2241,21 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     '[/Alejo]
 
     Select Case UCase$(Left$(rData, 8))
-
-        'clanesnuevo
+    
+    Case "INIQUEST"
+     rData = Right$(rData, Len(rData) - 8)
+     
+     Call IniciarMisionQuest(UserIndex, rData)
+    
+    Exit Sub
+    
+    Case "ENTQUEST"
+      rData = Right$(rData, Len(rData) - 8)
+      
+      Call EntregarMisionQuest(UserIndex)
+      
+    Exit Sub
+    
     Case "ACEPPEAT"    'aceptar paz
         rData = Right$(rData, Len(rData) - 8)
         tInt = modGuilds.r_AceptarPropuestaDePaz(UserIndex, rData, tStr)

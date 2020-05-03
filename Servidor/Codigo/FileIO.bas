@@ -1429,6 +1429,29 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
                UserList(UserIndex).Quest.UserQuest(LoopC) = val(UserFile.GetValue("QUEST", "Q" & LoopC))
         Next LoopC
         
+        UserList(UserIndex).Quest.Start = val(UserFile.GetValue("QUEST", "Start"))
+        UserList(UserIndex).Quest.Quest = val(UserFile.GetValue("QUEST", "Quest"))
+        UserList(UserIndex).Quest.NumNpc = val(UserFile.GetValue("QUEST", "NumNpcs"))
+        UserList(UserIndex).Quest.NumObj = val(UserFile.GetValue("QUEST", "NumObjs"))
+        UserList(UserIndex).Quest.NumMap = val(UserFile.GetValue("QUEST", "NumMap"))
+        UserList(UserIndex).Quest.ValidNpcDD = val(UserFile.GetValue("QUEST", "ValidNpcDD"))
+        UserList(UserIndex).Quest.MapaNpcDD = val(UserFile.GetValue("QUEST", "MapaNpcDD"))
+        UserList(UserIndex).Quest.Icono = val(UserFile.GetValue("QUEST", "Icono"))
+        UserList(UserIndex).Quest.ValidNpcDescubre = val(UserFile.GetValue("QUEST", "ValidDescubre"))
+        UserList(UserIndex).Quest.NumObjNpc = val(UserFile.GetValue("QUEST", "NumObjNpc"))
+        UserList(UserIndex).Quest.DarObjNpcEntrega = val(UserFile.GetValue("QUEST", "DarObjNpcEntrega"))
+        UserList(UserIndex).Quest.ValidHablarNpc = val(UserFile.GetValue("QUEST", "ValidHablarNpc"))
+        UserList(UserIndex).Quest.UserHablaNpc = val(UserFile.GetValue("QUEST", "UserHablaNpc"))
+        UserList(UserIndex).Quest.ValidMatarUser = val(UserFile.GetValue("QUEST", "ValidMatarUser"))
+        UserList(UserIndex).Quest.UserMatados = val(UserFile.GetValue("QUEST", "UserMatados"))
+        
+        For LoopC = 1 To 10
+            UserList(UserIndex).Quest.MataNpc(LoopC) = val(UserFile.GetValue("QUEST", "MataNPC" & LoopC))
+            UserList(UserIndex).Quest.BuscaObj(LoopC) = val(UserFile.GetValue("QUEST", "BuscaOBJ" & LoopC))
+            UserList(UserIndex).Quest.Mapa(LoopC) = val(UserFile.GetValue("QUEST", "Mapa" & LoopC))
+            UserList(UserIndex).Quest.DarObjNpc(LoopC) = val(UserFile.GetValue("QUEST", "DarObjNpc" & LoopC))
+        Next LoopC
+        
     End If
 
 End Sub
@@ -2213,6 +2236,29 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
                     
                     Call Manager.ChangeValue("QUEST", "Q" & LoopC, .Quest.UserQuest(LoopC))
                     
+            Next LoopC
+            
+            Call Manager.ChangeValue("QUEST", "Start", .Quest.Start)
+            Call Manager.ChangeValue("QUEST", "Quest", .Quest.Quest)
+            Call Manager.ChangeValue("QUEST", "NumNpcs", .Quest.NumNpc)
+            Call Manager.ChangeValue("QUEST", "NumObjs", .Quest.NumObj)
+            Call Manager.ChangeValue("QUEST", "NumMap", .Quest.NumMap)
+            Call Manager.ChangeValue("QUEST", "ValidNpcDD", .Quest.ValidNpcDD)
+            Call Manager.ChangeValue("QUEST", "MapaNpcDD", .Quest.MapaNpcDD)
+            Call Manager.ChangeValue("QUEST", "Icono", .Quest.Icono)
+            Call Manager.ChangeValue("QUEST", "ValidDescubre", .Quest.ValidNpcDescubre)
+            Call Manager.ChangeValue("QUEST", "NumObjNpc", .Quest.NumObjNpc)
+            Call Manager.ChangeValue("QUEST", "DarObjNpcEntrega", .Quest.DarObjNpcEntrega)
+            Call Manager.ChangeValue("QUEST", "ValidHablarNpc", .Quest.ValidHablarNpc)
+            Call Manager.ChangeValue("QUEST", "UserHablaNpc", .Quest.UserHablaNpc)
+            Call Manager.ChangeValue("QUEST", "ValidMatarUser", .Quest.ValidMatarUser)
+            Call Manager.ChangeValue("QUEST", "UserMatados", .Quest.UserMatados)
+                
+            For LoopC = 1 To 10
+                  Call Manager.ChangeValue("QUEST", "MataNPC" & LoopC, .Quest.MataNpc(LoopC))
+                  Call Manager.ChangeValue("QUEST", "BuscaOBJ" & LoopC, .Quest.BuscaObj(LoopC))
+                  Call Manager.ChangeValue("QUEST", "Mapa" & LoopC, .Quest.Mapa(LoopC))
+                  Call Manager.ChangeValue("QUEST", "DarObjNpc" & LoopC, .Quest.DarObjNpc(LoopC))
             Next LoopC
             
         End If

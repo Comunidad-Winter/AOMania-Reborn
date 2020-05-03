@@ -105,8 +105,6 @@ End Sub
 
 Private Sub Image2_Click()
 
-    SendData "CTMR" & frmSoporteGm.Label1.Caption & Chr$(2) & frmSoporteGm.Text2.Text
-
     SendData ("SOSDONE" & Label1.Caption)
     Unload frmSoporteGm
 

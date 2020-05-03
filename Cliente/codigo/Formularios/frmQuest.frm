@@ -20,143 +20,56 @@ Begin VB.Form frmQuest
    ScaleWidth      =   580
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
-   Begin AoManiaClienteGM.ChameleonBtn Salir 
-      Height          =   405
-      Left            =   3675
+   Begin VB.CommandButton cmdSalir 
+      Caption         =   "Salir"
+      Height          =   480
+      Left            =   3825
       TabIndex        =   5
-      Top             =   5445
-      Width           =   4800
-      _ExtentX        =   8467
-      _ExtentY        =   714
-      BTYPE           =   3
-      TX              =   "Salir"
-      ENAB            =   -1  'True
-      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      COLTYPE         =   1
-      FOCUSR          =   -1  'True
-      BCOL            =   15790320
-      BCOLO           =   15790320
-      FCOL            =   0
-      FCOLO           =   16576
-      MCOL            =   12632256
-      MPTR            =   1
-      MICON           =   "frmQuest.frx":0000
-      UMCOL           =   -1  'True
-      SOFT            =   0   'False
-      PICPOS          =   0
-      NGREY           =   0   'False
-      FX              =   0
-      HAND            =   0   'False
-      CHECK           =   0   'False
-      VALUE           =   0   'False
+      Top             =   5520
+      Width           =   4590
    End
-   Begin AoManiaClienteGM.ChameleonBtn cmdIniciar 
-      Height          =   405
-      Left            =   3675
-      TabIndex        =   3
-      Top             =   4245
-      Width           =   4800
-      _ExtentX        =   8467
-      _ExtentY        =   714
-      BTYPE           =   3
-      TX              =   "Iniciar misión"
-      ENAB            =   -1  'True
-      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      COLTYPE         =   1
-      FOCUSR          =   -1  'True
-      BCOL            =   15790320
-      BCOLO           =   15790320
-      FCOL            =   0
-      FCOLO           =   16576
-      MCOL            =   12632256
-      MPTR            =   1
-      MICON           =   "frmQuest.frx":001C
-      UMCOL           =   -1  'True
-      SOFT            =   0   'False
-      PICPOS          =   0
-      NGREY           =   0   'False
-      FX              =   0
-      HAND            =   0   'False
-      CHECK           =   0   'False
-      VALUE           =   0   'False
-   End
-   Begin AoManiaClienteGM.ChameleonBtn cmdEntregar 
-      Height          =   420
-      Left            =   3675
+   Begin VB.CommandButton cmdEntregar 
+      Caption         =   "Entregar misión"
+      Height          =   480
+      Left            =   3825
       TabIndex        =   4
-      Top             =   4845
-      Width           =   4800
-      _ExtentX        =   8467
-      _ExtentY        =   741
-      BTYPE           =   3
-      TX              =   "Entregar misión"
-      ENAB            =   -1  'True
-      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      COLTYPE         =   1
-      FOCUSR          =   -1  'True
-      BCOL            =   15790320
-      BCOLO           =   15790320
-      FCOL            =   0
-      FCOLO           =   16576
-      MCOL            =   12632256
-      MPTR            =   1
-      MICON           =   "frmQuest.frx":0038
-      UMCOL           =   -1  'True
-      SOFT            =   0   'False
-      PICPOS          =   0
-      NGREY           =   0   'False
-      FX              =   0
-      HAND            =   0   'False
-      CHECK           =   0   'False
-      VALUE           =   0   'False
+      Top             =   4890
+      Width           =   4590
    End
-   Begin VB.PictureBox Picture1 
-      Height          =   675
-      Left            =   5340
-      ScaleHeight     =   615
-      ScaleWidth      =   750
-      TabIndex        =   1
-      TabStop         =   0   'False
-      Top             =   225
-      Width           =   810
-   End
-   Begin VB.ListBox ListQuest 
-      Height          =   2595
-      Left            =   3630
-      TabIndex        =   2
-      Top             =   1215
-      Width           =   4800
+   Begin VB.CommandButton cmdIniciar 
+      Caption         =   "Iniciar misión"
+      Height          =   480
+      Left            =   3825
+      TabIndex        =   3
+      Top             =   4290
+      Width           =   4590
    End
    Begin VB.TextBox InfoQuest 
-      Height          =   5775
+      Height          =   2985
+      Left            =   3705
+      Locked          =   -1  'True
+      MultiLine       =   -1  'True
+      TabIndex        =   2
+      Top             =   1080
+      Width           =   4740
+   End
+   Begin VB.ListBox ListQuest 
+      Height          =   5910
       Left            =   135
+      TabIndex        =   1
+      Top             =   120
+      Width           =   3390
+   End
+   Begin VB.PictureBox PicQuest 
+      BackColor       =   &H00000000&
+      Height          =   960
+      Left            =   3705
+      ScaleHeight     =   900
+      ScaleWidth      =   900
       TabIndex        =   0
-      Top             =   180
-      Width           =   3270
+      TabStop         =   0   'False
+      Top             =   75
+      Width           =   960
    End
 End
 Attribute VB_Name = "frmQuest"
@@ -166,4 +79,89 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+Private Sub cmdEntregar_Click()
+    
+    Dim Index As Integer
+    
+    Index = ListQuest.ListIndex + 1
+    
+    Call SendData("ENTQUEST")
+    
+    Unload Me
+    
+End Sub
 
+Private Sub cmdIniciar_Click()
+     
+     Dim Index As Integer
+     
+     Index = ListQuest.ListIndex + 1
+     
+     Call SendData("INIQUEST" & Index)
+     
+     Unload Me
+     
+End Sub
+
+Private Sub cmdSalir_Click()
+       Unload Me
+End Sub
+
+Private Sub Form_Load()
+     
+     Dim LooPC As Integer
+     
+    ListQuest.Clear
+     
+     For LooPC = 1 To NumQuests
+            ListQuest.AddItem QuestList(LooPC).Nombre
+     Next LooPC
+     
+End Sub
+
+Private Sub ListQuest_Click()
+      
+      Dim Index As Integer
+      Dim Datos As String
+      Dim LooPC As Integer
+      
+      Index = ListQuest.ListIndex + 1
+      
+      Datos = "NOMBRE: " & vbCrLf _
+                     & QuestList(Index).Nombre & vbCrLf
+                     
+      Datos = Datos & vbCrLf _
+                     & "DESCRIPCION: " & vbCrLf _
+                     & QuestList(Index).Descripcion & vbCrLf
+                     
+      Datos = Datos & vbCrLf _
+                     & "RECOMPENSA: "
+                     
+      If QuestList(Index).RecompensaOro > 0 Then
+           Datos = Datos & vbCrLf _
+                     & "Oro: " & QuestList(Index).RecompensaOro
+      End If
+      
+      If QuestList(Index).RecompensaExp > 0 Then
+           Datos = Datos & vbCrLf _
+                    & "Experencia: " & QuestList(Index).RecompensaExp
+      End If
+      
+      If QuestList(Index).RecompensaItem > 0 Then
+          For LooPC = 1 To QuestList(Index).RecompensaItem
+                 
+          Datos = Datos & vbCrLf _
+                   & "Objeto: " & QuestList(Index).RecompensaObjeto(LooPC).ObjIndex & " x" & QuestList(Index).RecompensaObjeto(LooPC).Amount
+                 
+          Next LooPC
+      End If
+      
+      InfoQuest.Text = Datos
+      
+      If Quest.InfoUser.UserQuest(Index) = 0 Then
+           Set PicQuest.Picture = Interfaces.FrmQuest_SinHacer
+      ElseIf Quest.InfoUser.UserQuest(Index) = 1 Then
+           Set PicQuest.Picture = Interfaces.FrmQuest_Terminado
+      End If
+      
+End Sub

@@ -79,7 +79,6 @@ End Sub
 Private Sub Image1_Click()
 
     SendData "/RESETSOP"
-    frmMain.Label10.Visible = False
     Unload frmSoporteResp
 
 End Sub

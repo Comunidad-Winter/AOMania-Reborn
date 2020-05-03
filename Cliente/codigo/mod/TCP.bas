@@ -1006,13 +1006,13 @@ Sub HandleData(ByVal Rdata As String)
 
         SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
 
-        CharList(charindex).nombre = ReadField(12, Rdata, 44)
+        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
         CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
         CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
 
         If charindex = UserCharIndex Then
-            If InStr(CharList(charindex).nombre, "<") > 0 And InStr(CharList(charindex).nombre, ">") > 0 Then
-                UserClan = mid(CharList(charindex).nombre, InStr(CharList(charindex).nombre, "<"))
+            If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
+                UserClan = mid(CharList(charindex).Nombre, InStr(CharList(charindex).Nombre, "<"))
             Else
                 UserClan = Empty
 
@@ -1042,14 +1042,14 @@ Sub HandleData(ByVal Rdata As String)
         'charlist(CharIndex).FxLoopTimes = Val(ReadField(10, Rdata, 44))
         SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
 
-        CharList(charindex).nombre = ReadField(12, Rdata, 44)
+        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
         CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
         CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
         CharList(charindex).PartyIndex = Val(ReadField(16, Rdata, 44))
 
         If charindex = UserCharIndex Then
-            If InStr(CharList(charindex).nombre, "<") > 0 And InStr(CharList(charindex).nombre, ">") > 0 Then
-                UserClan = mid(CharList(charindex).nombre, InStr(CharList(charindex).nombre, "<"))
+            If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
+                UserClan = mid(CharList(charindex).Nombre, InStr(CharList(charindex).Nombre, "<"))
             Else
                 UserClan = Empty
 
@@ -1412,113 +1412,13 @@ Sub HandleData(ByVal Rdata As String)
     Case "ARG"
         Rdata = Right$(Rdata, Len(Rdata) - 3)
         Amarilla = Val(Rdata)
-        frmMain.lblAgi.Caption = Amarilla
         Exit Sub
 
     Case "VRG"
         Rdata = Right$(Rdata, Len(Rdata) - 3)
         Verde = Val(Rdata)
-        frmMain.lblFuerza.Caption = Verde
         Exit Sub
 
-    Case "ARM"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        ArmaMin = Val(ReadField(1, Rdata, 44))
-        ArmaMax = Val(ReadField(2, Rdata, 44))
-
-        ArmorMin = Val(ReadField(3, Rdata, 44))
-        ArmorMax = Val(ReadField(4, Rdata, 44))
-
-        EscuMin = Val(ReadField(5, Rdata, 44))
-        EscuMax = Val(ReadField(6, Rdata, 44))
-
-        CascMin = Val(ReadField(7, Rdata, 44))
-        CascMax = Val(ReadField(8, Rdata, 44))
-        'MagMin = Val(ReadField(9, Rdata, 44))
-        'MagMax = Val(ReadField(10, Rdata, 44))
-
-        frmMain.lblArmor.Caption = ArmorMin & "/" & ArmorMax
-        frmMain.lblArma.Caption = ArmaMin & "/" & ArmaMax
-        frmMain.lblEscudo.Caption = EscuMin & "/" & EscuMax
-        frmMain.LblCasc.Caption = CascMin & "/" & CascMax
-
-        Dim SR As RECT, DR As RECT
-
-        SR.Left = 0
-        SR.Top = 0
-        SR.Right = 32
-        SR.bottom = 32
-
-        DR.Left = 0
-        DR.Top = 0
-        DR.Right = 32
-        DR.bottom = 32
-
-        Dim j As Integer
-
-        For j = 1 To 20
-
-            If Inventario.Equipped(j) = True Then
-
-                ' espada
-                If Inventario.ObjType(j) = 2 Then
-                    Call DrawGrhtoHdc(frmMain.Picture2.hdc, Inventario.GrhIndex(j), DR)
-                    frmMain.Picture2.Refresh
-
-                End If
-
-                ' armadura
-                If Inventario.ObjType(j) = 3 Then
-                    Call DrawGrhtoHdc(frmMain.Picture1.hdc, Inventario.GrhIndex(j), DR)
-                    frmMain.Picture1.Refresh
-
-                End If
-
-                ' casco
-                If Inventario.ObjType(j) = 17 Then
-                    Call DrawGrhtoHdc(frmMain.Picture3.hdc, Inventario.GrhIndex(j), DR)
-                    frmMain.Picture3.Refresh
-
-                End If
-
-                ' escudo
-                If Inventario.ObjType(j) = 16 Then
-                    Call DrawGrhtoHdc(frmMain.Picture4.hdc, Inventario.GrhIndex(j), DR)
-                    frmMain.Picture4.Refresh
-
-                End If
-
-            End If
-
-        Next j
-
-        If frmMain.lblArmor.Caption = "0/0" Then
-            frmMain.Picture1.Picture = LoadPicture(vbNullString)
-            frmMain.Picture1.Refresh
-
-        End If
-
-        If frmMain.lblArma.Caption = "0/0" Then
-            frmMain.Picture2.Picture = LoadPicture(vbNullString)
-            frmMain.Picture2.Refresh
-
-        End If
-
-        If frmMain.lblEscudo.Caption = "0/0" Then
-            frmMain.Picture4.Picture = LoadPicture(vbNullString)
-            frmMain.Picture4.Refresh
-
-        End If
-
-        If frmMain.LblCasc.Caption = "0/0" Then
-            frmMain.Picture3.Picture = LoadPicture(vbNullString)
-            frmMain.Picture3.Refresh
-
-        End If
-
-        Exit Sub
-
-        'frmMain.lblMagica.Caption = MagMin & "/" & MagMax
     Case "EST"                  ' >>>>> Actualiza Estadisticas de Usuario :: EST
         Rdata = Right$(Rdata, Len(Rdata) - 3)
         UserMaxHP = Val(ReadField(1, Rdata, 44))
@@ -1808,16 +1708,6 @@ Sub HandleData(ByVal Rdata As String)
         UserDescansar = Not UserDescansar
         Exit Sub
 
-    Case "NIX"               ' >>>>> castillo nix
-
-        If frmMain.Tnix.Enabled = False Then
-            frmMain.Nix.Visible = True
-            frmMain.Tnix.Enabled = True
-
-        End If
-
-        Exit Sub
-
     Case "SPL"
         Rdata = Right$(Rdata, Len(Rdata) - 3)
 
@@ -1826,10 +1716,6 @@ Sub HandleData(ByVal Rdata As String)
         Next i
 
         frmSpawnList.Show , frmMain
-        Exit Sub
-
-    Case "LLE"
-        frmMain.Label10.Visible = True
         Exit Sub
 
     Case "ERR"
@@ -1904,30 +1790,6 @@ Sub HandleData(ByVal Rdata As String)
         '            Call frmProsesos.Show
         '            frmProsesos.List1.AddItem Proseso
         '            frmProsesos.Caption = "Procesos de " & Nonbre
-
-    Case "ULLA"    ' castillo ulla
-
-        If frmMain.Tulla.Enabled = False Then
-            frmMain.Ulla.Visible = True
-            frmMain.Tulla.Enabled = True
-
-        End If
-
-    Case "LEMU"    ' castillo lemuria
-
-        If frmMain.Tlemu.Enabled = False Then
-            frmMain.Lemu.Visible = True
-            frmMain.Tlemu.Enabled = True
-
-        End If
-
-    Case "TALE"  ' castillo tale
-
-        If frmMain.Ttale.Enabled = False Then
-            frmMain.Tale.Visible = True
-            frmMain.Ttale.Enabled = True
-
-        End If
 
         '        Case "PCCC" ' CHOTS | Poner Captions en frm
         '            Dim Caption As String

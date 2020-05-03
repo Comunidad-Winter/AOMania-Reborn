@@ -5574,6 +5574,15 @@ Body=189
 Heading=3
 Comercia=0
 
+[NPC305]
+Name=SrQuest
+Desc=¡Tienes una mision! ¡Quizás yo te pueda ayudar!
+NpcType=96
+Head=12
+Body=189
+Heading=3
+Comercia=0
+
 [NPC500]
 Name=Murcielago
 Head=0

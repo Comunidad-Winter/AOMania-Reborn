@@ -1,1 +1,8 @@
-soy un archivo de prueba
+Sistema de Matar NPC [Hecho]
+Sistema de Traer Objeto [Hecho]
+Sistema de Hablar con NPC [Hecho]
+Sistema de Doble Click a NPC [Hecho]
+Sistema de Matar User [Hecho]
+Sistema de Encontrar mapa [Hecho]
+Sistema de Descubrir palabra /Frase [Hecho]
+Sistema de Entregar items a un NPC [Hecho]

@@ -42,6 +42,15 @@ Sub ActStats(ByVal VictimIndex As Integer, ByVal AttackerIndex As Integer)
 
     If UserList(VictimIndex).GranPoder = 1 Then
         Call mod_GranPoder.UserMataPoder(VictimIndex, AttackerIndex)
+
+    End If
+    
+    If UserList(AttackerIndex).Quest.ValidMatarUser > 0 Then
+    
+        If UserList(AttackerIndex).Quest.ValidMatarUser > 0 Then
+            Call UserMataQuest(AttackerIndex, VictimIndex, UserList(AttackerIndex).Quest.Quest)
+        End If
+    
     End If
 
     Call UserDie(VictimIndex)
@@ -56,10 +65,10 @@ Sub ActStats(ByVal VictimIndex As Integer, ByVal AttackerIndex As Integer)
         UserList(AttackerIndex).Stats.TinieblaMatados = UserList(AttackerIndex).Stats.TinieblaMatados + 1
     ElseIf UserList(VictimIndex).Faccion.Templario = 1 Then
         UserList(AttackerIndex).Stats.TemplarioMatados = UserList(AttackerIndex).Stats.TemplarioMatados + 1
+
     End If
 
-    If UserList(AttackerIndex).Stats.UsuariosMatados < 32000 Then UserList(AttackerIndex).Stats.UsuariosMatados = UserList( _
-       AttackerIndex).Stats.UsuariosMatados + 1
+    If UserList(AttackerIndex).Stats.UsuariosMatados < 32000 Then UserList(AttackerIndex).Stats.UsuariosMatados = UserList(AttackerIndex).Stats.UsuariosMatados + 1
     'Log
     Call LogAsesinato(UserList(AttackerIndex).Name & " asesino a " & UserList(VictimIndex).Name)
 
@@ -303,7 +312,10 @@ Public Sub EnviarMiniEstadisticasGM(ByVal UserIndex As Integer, ByVal rData As I
                                                         .Stats.Banco & "," & .pos.Map & "," & .pos.X & "," & .pos.Y & "," & .Stats.SkillPts & "," & .Clan.ParticipoClan & "," & .Stats.AbbadonMatados & "," & .Stats.CleroMatados & "," & _
                                                         .Stats.TinieblaMatados & "," & .Stats.TemplarioMatados & "," & UserArmada & "," & .Faccion.Reenlistadas & "," & UserRecompensas & "," & _
                                                         .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & .Faccion.FEnlistado)
+    Debug.Print .Genero
     End With
+    
+    
 End Sub
 
 Public Sub EnviarMiniEstadisticas(ByVal UserIndex As Integer)
@@ -671,7 +683,12 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has subido de nivel!" & FONTTYPE_INFO)
             Else
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has subido " & AumentoLVL & " Niveles!." & FONTTYPE_INFO)
-
+            End If
+            
+            If .Quest.Start = 1 Then
+                If QuestList(.Quest.Quest).MaxNivel > 0 Then
+                    Call SuperaNivelMaximoQuest(UserIndex, .Quest.Quest)
+                End If
             End If
 
             'Notificamos al user
@@ -2413,7 +2430,16 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
         End If
 
         Call WarpMascotas(UserIndex)
-
+        
+        'Encontrar mapas.
+        
+        If .Quest.Start = 1 Then
+            If .Quest.NumMap > 0 Then
+                Call EncuentraMapaQuest(UserIndex, .Quest.Quest)
+            End If
+        End If
+        
+        
     End With
 
 End Sub
@@ -2605,32 +2631,32 @@ Public Sub Empollando(ByVal UserIndex As Integer)
 
 End Sub
 
-Sub SendUserStatsTxtOFF(ByVal sendIndex As Integer, ByVal Nombre As String)
+Sub SendUserStatsTxtOFF(ByVal sendIndex As Integer, ByVal nombre As String)
 
-    If FileExist(CharPath & Nombre & ".chr", vbArchive) = False Then
+    If FileExist(CharPath & nombre & ".chr", vbArchive) = False Then
         Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Pj Inexistente" & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Estadisticas de: " & Nombre & FONTTYPE_INFO)
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Nivel: " & GetVar(CharPath & Nombre & ".chr", "stats", "elv") & "  EXP: " & GetVar( _
-                                                        CharPath & Nombre & ".chr", "stats", "Exp") & "/" & GetVar(CharPath & Nombre & ".chr", "stats", "elu") & FONTTYPE_INFO)
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Vitalidad: " & GetVar(CharPath & Nombre & ".chr", "stats", "minsta") & "/" & GetVar( _
-                                                        CharPath & Nombre & ".chr", "stats", "maxSta") & FONTTYPE_INFO)
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Salud: " & GetVar(CharPath & Nombre & ".chr", "stats", "MinHP") & "/" & GetVar(CharPath _
-                                                                                                                                        & Nombre & ".chr", "Stats", "MaxHP") & "  Mana: " & GetVar(CharPath & Nombre & ".chr", "Stats", "MinMAN") & "/" & GetVar(CharPath & _
-                                                                                                                                                                                                                                                                   Nombre & ".chr", "Stats", "MaxMAN") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Estadisticas de: " & nombre & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Nivel: " & GetVar(CharPath & nombre & ".chr", "stats", "elv") & "  EXP: " & GetVar( _
+                                                        CharPath & nombre & ".chr", "stats", "Exp") & "/" & GetVar(CharPath & nombre & ".chr", "stats", "elu") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Vitalidad: " & GetVar(CharPath & nombre & ".chr", "stats", "minsta") & "/" & GetVar( _
+                                                        CharPath & nombre & ".chr", "stats", "maxSta") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Salud: " & GetVar(CharPath & nombre & ".chr", "stats", "MinHP") & "/" & GetVar(CharPath _
+                                                                                                                                        & nombre & ".chr", "Stats", "MaxHP") & "  Mana: " & GetVar(CharPath & nombre & ".chr", "Stats", "MinMAN") & "/" & GetVar(CharPath & _
+                                                                                                                                                                                                                                                                   nombre & ".chr", "Stats", "MaxMAN") & FONTTYPE_INFO)
 
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & GetVar(CharPath & Nombre & ".chr", "stats", "MaxHIT") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & GetVar(CharPath & nombre & ".chr", "stats", "MaxHIT") & _
                                                         FONTTYPE_INFO)
 
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Oro: " & GetVar(CharPath & Nombre & ".chr", "stats", "GLD") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "GLD") & FONTTYPE_INFO)
 
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Oro: " & GetVar(CharPath & Nombre & ".chr", "stats", "TrofOro") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofOro") & _
                                                         "~255~255~6~0~0~")
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Plata: " & GetVar(CharPath & Nombre & ".chr", "stats", "TrofPlata") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Plata: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofPlata") & _
                                                         "~255~255~251~0~0~")
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Bronce: " & GetVar(CharPath & Nombre & ".chr", "stats", "TrofBronce") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Bronce: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofBronce") & _
                                                         "~187~0~0~0~0~")
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Amuletos de Madera: " & GetVar(CharPath & Nombre & ".chr", "stats", "TrofMadera") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Amuletos de Madera: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofMadera") & _
                                                         "~237~207~139~0~0~")
 
     End If

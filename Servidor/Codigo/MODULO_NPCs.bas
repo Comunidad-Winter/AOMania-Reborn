@@ -49,6 +49,12 @@ End Sub
 
 Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
+     If UserList(UserIndex).Quest.Start = 1 Then
+         If UserList(UserIndex).Quest.NumNpc > 0 Then
+             Call MuereNpcQuest(UserIndex, NpcIndex, UserList(UserIndex).Quest.Quest)
+         End If
+     End If
+
     If Npclist(NpcIndex).Numero = ReyNPC And NpcIndex = ReyIndex Then
         Call modAsedio.MuereRey(UserIndex)
         Exit Sub

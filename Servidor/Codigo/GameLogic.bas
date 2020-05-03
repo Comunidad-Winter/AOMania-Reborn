@@ -52,7 +52,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
         PorcPajaro = RandomNumber(1, 1000)
 
         If PorcPajaro < 5 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PJ" & SoundPajaro)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "PJ" & SoundPajaro)
         End If
 
     End If
@@ -71,7 +71,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
         End If
 
         If PorcCasa < 2 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "TW" & SoundCasa)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "TW" & SoundCasa)
         End If
 
         PorcCasa = RandomNumber(1, 1000)
@@ -151,7 +151,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
 
             If MapData(Map, X, Y).TileExit.Map = 96 Then
                 If Not UCase(UserList(UserIndex).Stats.ELV) >= 30 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Necesitas ser lvl 30 para poder ingresar a la sala de invocaciones!." & _
+                    Call SendData(SendTarget.Toindex, UserIndex, 0, "||Necesitas ser lvl 30 para poder ingresar a la sala de invocaciones!." & _
                                                                     FONTTYPE_INFO)
                     Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1)
                     Exit Sub
@@ -160,7 +160,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
 
             If MapData(Map, X, Y).TileExit.Map = 98 Or MapData(Map, X, Y).TileExit.Map = 99 Or MapData(Map, X, Y).TileExit.Map = 100 Or MapData(Map, X, Y).TileExit.Map = 101 Or MapData(Map, X, Y).TileExit.Map = 102 Then
                 If UserList(UserIndex).NroMacotas > 0 Or UserList(UserIndex).flags.Montado = True Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No se permiten entrar al castillo con mascotas!!." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.Toindex, UserIndex, 0, "||No se permiten entrar al castillo con mascotas!!." & FONTTYPE_INFO)
                     Exit Sub
                 End If
             End If
@@ -168,7 +168,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
             If MapData(Map, X, Y).TileExit.Map = MapaCasaAbandonada1 Then
                 If (UserList(UserIndex).Stats.GLD < 30000 Or UserList(UserIndex).Invent.ArmourEqpObjIndex = 0 Or EsNewbie(UserIndex)) Or UserList( _
                    UserIndex).Stats.ELV < 30 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, _
+                    Call SendData(SendTarget.Toindex, UserIndex, 0, _
                                   "||Los espíritus no te dejan entrar si tienes menos de 30000 Monedas, eres Newbie, eres menor de level 30 o estás Desnudo." _
                                 & FONTTYPE_INFO)
                     Exit Sub
@@ -210,7 +210,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
                     End If
 
                 Else    'No es newbie
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Mapa exclusivo para newbies." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.Toindex, UserIndex, 0, "||Mapa exclusivo para newbies." & FONTTYPE_INFO)
                     Dim veces As Byte
                     veces = 0
                     Call ClosestStablePos(UserList(UserIndex).pos, nPos)
@@ -335,7 +335,7 @@ Sub ClosestLegalPos(pos As WorldPos, ByRef nPos As WorldPos)
 '*****************************************************************
 
     Dim Notfound As Boolean
-    Dim LoopC As Integer
+    Dim LooPC As Integer
     Dim Tx As Long
     Dim Ty As Long
 
@@ -343,29 +343,29 @@ Sub ClosestLegalPos(pos As WorldPos, ByRef nPos As WorldPos)
 
     Do While Not LegalPos(pos.Map, nPos.X, nPos.Y)
 
-        If LoopC > 12 Then
+        If LooPC > 12 Then
             Notfound = True
             Exit Do
 
         End If
 
-        For Ty = pos.Y - LoopC To pos.Y + LoopC
-            For Tx = pos.X - LoopC To pos.X + LoopC
+        For Ty = pos.Y - LooPC To pos.Y + LooPC
+            For Tx = pos.X - LooPC To pos.X + LooPC
 
                 If LegalPos(nPos.Map, Tx, Ty) Then
                     nPos.X = Tx
                     nPos.Y = Ty
                     '¿Hay objeto?
 
-                    Tx = pos.X + LoopC
-                    Ty = pos.Y + LoopC
+                    Tx = pos.X + LooPC
+                    Ty = pos.Y + LooPC
 
                 End If
 
             Next Tx
         Next Ty
 
-        LoopC = LoopC + 1
+        LooPC = LooPC + 1
 
     Loop
 
@@ -383,7 +383,7 @@ Sub ClosestStablePos(pos As WorldPos, ByRef nPos As WorldPos)
 '*****************************************************************
 
     Dim Notfound As Boolean
-    Dim LoopC As Integer
+    Dim LooPC As Integer
     Dim Tx As Long
     Dim Ty As Long
 
@@ -391,29 +391,29 @@ Sub ClosestStablePos(pos As WorldPos, ByRef nPos As WorldPos)
 
     Do While Not LegalPos(pos.Map, nPos.X, nPos.Y)
 
-        If LoopC > 12 Then
+        If LooPC > 12 Then
             Notfound = True
             Exit Do
 
         End If
 
-        For Ty = pos.Y - LoopC To pos.Y + LoopC
-            For Tx = pos.X - LoopC To pos.X + LoopC
+        For Ty = pos.Y - LooPC To pos.Y + LooPC
+            For Tx = pos.X - LooPC To pos.X + LooPC
 
                 If LegalPos(nPos.Map, Tx, Ty) And MapData(nPos.Map, Tx, Ty).TileExit.Map = 0 Then
                     nPos.X = Tx
                     nPos.Y = Ty
                     '¿Hay objeto?
 
-                    Tx = pos.X + LoopC
-                    Ty = pos.Y + LoopC
+                    Tx = pos.X + LooPC
+                    Ty = pos.Y + LooPC
 
                 End If
 
             Next Tx
         Next Ty
 
-        LoopC = LoopC + 1
+        LooPC = LooPC + 1
 
     Loop
 
@@ -487,12 +487,12 @@ Function IP_Index(ByVal inIP As String) As Integer
 End Function
 
 Function CheckForSameIP(ByVal UserIndex As Integer, ByVal UserIP As String) As Boolean
-    Dim LoopC As Integer
+    Dim LooPC As Integer
 
-    For LoopC = 1 To MaxUsers
+    For LooPC = 1 To MaxUsers
 
-        If UserList(LoopC).flags.UserLogged = True Then
-            If UserList(LoopC).ip = UserIP And UserIndex <> LoopC Then
+        If UserList(LooPC).flags.UserLogged = True Then
+            If UserList(LooPC).ip = UserIP And UserIndex <> LooPC Then
                 CheckForSameIP = True
                 Exit Function
 
@@ -500,7 +500,7 @@ Function CheckForSameIP(ByVal UserIndex As Integer, ByVal UserIP As String) As B
 
         End If
 
-    Next LoopC
+    Next LooPC
 
     CheckForSameIP = False
 
@@ -508,11 +508,11 @@ End Function
 
 Function CheckForSameName(ByVal UserIndex As Integer, ByVal Name As String) As Boolean
 'Controlo que no existan usuarios con el mismo nombre
-    Dim LoopC As Long
+    Dim LooPC As Long
 
-    For LoopC = 1 To MaxUsers
+    For LooPC = 1 To MaxUsers
 
-        If UserList(LoopC).flags.UserLogged Then
+        If UserList(LooPC).flags.UserLogged Then
 
             'If UCase$(UserList(LoopC).Name) = UCase$(Name) And UserList(LoopC).ConnID <> -1 Then
             'OJO PREGUNTAR POR EL CONNID <> -1 PRODUCE QUE UN PJ EN DETERMINADO
@@ -520,7 +520,7 @@ Function CheckForSameName(ByVal UserIndex As Integer, ByVal Name As String) As B
             'ESE EVENTO NO DISPARA UN SAVE USER, LO QUE PUEDE SER UTILIZADO PARA DUPLICAR ITEMS
             'ESTE BUG EN ALKON PRODUJO QUE EL SERVIDOR ESTE CAIDO DURANTE 3 DIAS. ATENTOS.
 
-            If UCase$(UserList(LoopC).Name) = UCase$(Name) Then
+            If UCase$(UserList(LooPC).Name) = UCase$(Name) Then
                 CheckForSameName = True
                 Exit Function
 
@@ -528,7 +528,7 @@ Function CheckForSameName(ByVal UserIndex As Integer, ByVal Name As String) As B
 
         End If
 
-    Next LoopC
+    Next LooPC
 
     CheckForSameName = False
 
@@ -694,13 +694,13 @@ End Function
 
 Sub SendHelp(ByVal Index As Integer)
     Dim NumHelpLines As Integer
-    Dim LoopC As Integer
+    Dim LooPC As Integer
 
     NumHelpLines = val(GetVar(DatPath & "Help.dat", "INIT", "NumLines"))
 
-    For LoopC = 1 To NumHelpLines
-        Call SendData(SendTarget.ToIndex, Index, 0, "||" & GetVar(DatPath & "Help.dat", "Help", "Line" & LoopC) & FONTTYPE_INFO)
-    Next LoopC
+    For LooPC = 1 To NumHelpLines
+        Call SendData(SendTarget.Toindex, Index, 0, "||" & GetVar(DatPath & "Help.dat", "Help", "Line" & LooPC) & FONTTYPE_INFO)
+    Next LooPC
 
 End Sub
 
@@ -809,10 +809,10 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                 .flags.TargetObj = MapData(Map, .flags.TargetObjX, .flags.TargetObjY).OBJInfo.ObjIndex
 
                 If MostrarCantidad(.flags.TargetObj) Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & ObjData(.flags.TargetObj).Name & " - " & MapData(.flags.TargetObjMap, _
+                    Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & ObjData(.flags.TargetObj).Name & " - " & MapData(.flags.TargetObjMap, _
                                                                                                                             .flags.TargetObjX, .flags.TargetObjY).OBJInfo.Amount & vbNullString & FONTTYPE_INFO)
                 Else
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & ObjData(.flags.TargetObj).Name & FONTTYPE_INFO)
+                    Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & ObjData(.flags.TargetObj).Name & FONTTYPE_INFO)
 
                 End If
 
@@ -969,7 +969,7 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
 
                     End If
 
-                    If Len(Stat) > 0 Then Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Stat)
+                    If Len(Stat) > 0 Then Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & Stat)
 
                     FoundSomething = 1
                     .flags.TargetUser = TempCharIndex
@@ -1001,18 +1001,39 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                 End If
 
                 If Len(tNpc.Desc) > 1 And UserIndex <> Centinela.RevisandoUserIndex Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
+                
+                    If .Quest.Start = 1 Then
+                        
+                        If .Quest.ValidNpcDD = 1 Then
+                            Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
+                        ElseIf .Quest.ValidNpcDescubre = 1 Then
+                            Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
+                        ElseIf .Quest.NumObjNpc > 0 Then
+                            Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
+                        ElseIf .Quest.ValidHablarNpc > 0 Then
+                             Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
+                          Else
+                          Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
                                                                   & FONTTYPE_INFO)
+                         End If
+                    
+                    Else
+                    
+                            Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
+                                                                  & FONTTYPE_INFO)
+                                                                  
+                     End If
+                                                                  
                 ElseIf Len(tNpc.Desc) > 1 And UserIndex = Centinela.RevisandoUserIndex Then
                     'Enviamos nuevamente el texto del centinela según quien pregunta
                     Call modCentinela.CentinelaSendClave(UserIndex)
                 Else
 
                     If tNpc.MaestroUser > 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & tNpc.Name & " es mascota de " & UserList(tNpc.MaestroUser).Name & _
+                        Call SendData(SendTarget.Toindex, UserIndex, 0, "|| " & tNpc.Name & " es mascota de " & UserList(tNpc.MaestroUser).Name & _
                                                                         estatus & "." & FONTTYPE_INFO)
                     Else
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & tNpc.Name & estatus & "." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.Toindex, UserIndex, 0, "|| " & tNpc.Name & estatus & "." & FONTTYPE_INFO)
 
                     End If
 

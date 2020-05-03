@@ -1403,3 +1403,59 @@ Public Sub CambiarBarcoTemplario(ByVal Tipo As Integer, ByVal UserIndex As Integ
     End Select
 
 End Sub
+
+Public Function TieneFaccion(ByVal UserIndex As Integer) As Boolean
+     
+     With UserList(UserIndex)
+         
+         If .Faccion.ArmadaReal = 1 Then
+             TieneFaccion = True
+             Exit Function
+         End If
+         
+         If .Faccion.Nemesis = 1 Then
+             TieneFaccion = True
+             Exit Function
+         End If
+         
+         If .Faccion.Templario = 1 Then
+             TieneFaccion = True
+             Exit Function
+         End If
+         
+         If .Faccion.FuerzasCaos = 1 Then
+             TieneFaccion = True
+             Exit Function
+         End If
+       
+     End With
+     
+End Function
+
+Public Function RangoFaccion(ByVal UserIndex As Integer) As Integer
+         
+         With UserList(UserIndex)
+         
+         If .Faccion.ArmadaReal = 1 Then
+             RangoFaccion = .Faccion.RecompensasReal
+             Exit Function
+         End If
+         
+         If .Faccion.Nemesis = 1 Then
+              RangoFaccion = .Faccion.RecompensasNemesis
+              Exit Function
+         End If
+         
+         If .Faccion.Templario = 1 Then
+               RangoFaccion = .Faccion.RecompensasTemplaria
+               Exit Function
+         End If
+         
+         If .Faccion.FuerzasCaos = 1 Then
+              RangoFaccion = .Faccion.RecompensasCaos
+              Exit Function
+         End If
+         
+         End With
+         
+End Function

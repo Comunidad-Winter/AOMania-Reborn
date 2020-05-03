@@ -355,7 +355,7 @@ Function MeterItemEnInventario(ByVal UserIndex As Integer, ByRef MiObj As Obj) A
     Dim X As Integer
     Dim Y As Integer
     Dim Slot As Byte
-
+    
     '¿el user ya tiene un objeto del mismo tipo?
     Slot = 1
 
@@ -402,7 +402,15 @@ Function MeterItemEnInventario(ByVal UserIndex As Integer, ByRef MiObj As Obj) A
     MeterItemEnInventario = True
 
     Call UpdateUserInv(False, UserIndex, Slot)
-
+    
+    If UserList(UserIndex).Quest.Start = 1 Then
+        If UserList(UserIndex).Quest.NumObj > 0 Then
+            Call BuscaObjQuest(UserIndex, MiObj.ObjIndex, MiObj.Amount, UserList(UserIndex).Quest.Quest)
+        ElseIf UserList(UserIndex).Quest.NumObjNpc > 0 Then
+             Call BuscaObjNpcQuest(UserIndex, MiObj.ObjIndex, MiObj.Amount, UserList(UserIndex).Quest.Quest)
+        End If
+    End If
+    
     Exit Function
 errhandler:
 
@@ -2157,8 +2165,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
     End Select
 
     'Actualiza
-    'call scenduserstatsbox(UserIndex)
-    'Call UpdateUserInv(False, UserIndex, Slot)
+    Call UpdateUserInv(False, UserIndex, Slot)
 
 End Sub
 
