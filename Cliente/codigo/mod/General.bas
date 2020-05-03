@@ -1133,6 +1133,9 @@ Function FileExist(ByVal File As String, ByVal FileType As VbFileAttribute) As B
 End Function
 
 Sub Main()
+
+    AoDefDetectName = App.exeName
+    
     Call InitializeCompression
     Call LoadInterfaces
     Call LoadClientSetup

@@ -34,11 +34,6 @@ Begin VB.Form frmMain
    ScaleWidth      =   999.953
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
-   Begin VB.Timer AntiEngine 
-      Interval        =   300
-      Left            =   2970
-      Top             =   240
-   End
    Begin SocketWrenchCtrl.Socket Socket1 
       Left            =   240
       Top             =   240
@@ -70,6 +65,16 @@ Begin VB.Form frmMain
       Timeout         =   9999999
       Type            =   1
       Urgent          =   0   'False
+   End
+   Begin VB.Timer AntiExternos 
+      Interval        =   15000
+      Left            =   3420
+      Top             =   240
+   End
+   Begin VB.Timer AntiEngine 
+      Interval        =   300
+      Left            =   2970
+      Top             =   240
    End
    Begin VB.PictureBox picScreen 
       Height          =   735
@@ -143,7 +148,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -327,7 +331,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -943,6 +946,13 @@ Private Sub AntiEngine_Timer()
          Call AoDefAntiShOn
          End
       End If
+End Sub
+
+Private Sub AntiExternos_Timer()
+     If AoDefDetect Then
+        Call AoDefCheat
+        End
+     End If
 End Sub
 
 Private Sub AntiFLOOD_Timer()
@@ -1795,6 +1805,8 @@ Private Sub Form_Load()
     'Me.Width = 12000
     
     If AntiEngine.Interval <> 300 Or AntiEngine.Enabled = False Then
+        Call CliEditado
+    ElseIf AntiExternos.Interval <> 15000 Or AntiExternos.Enabled = False Then
         Call CliEditado
     End If
     
