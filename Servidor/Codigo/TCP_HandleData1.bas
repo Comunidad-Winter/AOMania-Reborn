@@ -2102,7 +2102,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right$(rData, Len(rData) - 6)
         Call modGuilds.ActualizarCodexYDesc(rData, UserList(UserIndex).GuildIndex)
         Exit Sub
-
+    
+    Case "ANTISH"
+         Call SendData(ToAdmins, 0, 0, "||AntiSH> El usuario " & UserList(UserIndex).Name & " ha intentado usar SpeedHack." & FONTTYPE_Motd4)
+     Exit Sub
+    
     End Select
 
     '[Alejo]

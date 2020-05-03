@@ -487,6 +487,8 @@ Public UserMinAGU             As Integer
 Public UserMaxHAM             As Integer
 Public UserMinHAM             As Integer
 
+Public FramesPerSec As Integer
+
 Public FPS                    As Long
 Public FramesPerSecCounter    As Long
 Private FpsLastCheck          As Long
@@ -792,7 +794,7 @@ End Sub
                 
 Sub CargarParticulas()
     Dim StreamFile As String
-    Dim LoopC      As Long
+    Dim LooPC      As Long
     Dim i          As Long
     Dim GrhListing As String
     Dim TempSet    As String
@@ -816,55 +818,55 @@ Sub CargarParticulas()
     ReDim StreamData(1 To TotalStreams) As Stream
  
     'fill StreamData array with info from Particles.ini
-    For LoopC = 1 To TotalStreams
+    For LooPC = 1 To TotalStreams
 
-        With StreamData(LoopC)
-            .Name = GetVar(StreamFile, Val(LoopC), "Name")
-            .NumOfParticles = GetVar(StreamFile, Val(LoopC), "NumOfParticles")
-            .X1 = GetVar(StreamFile, Val(LoopC), "X1")
-            .Y1 = GetVar(StreamFile, Val(LoopC), "Y1")
-            .X2 = GetVar(StreamFile, Val(LoopC), "X2")
-            .Y2 = GetVar(StreamFile, Val(LoopC), "Y2")
-            .Angle = GetVar(StreamFile, Val(LoopC), "Angle")
-            .vecx1 = GetVar(StreamFile, Val(LoopC), "VecX1")
-            .vecx2 = GetVar(StreamFile, Val(LoopC), "VecX2")
-            .vecy1 = GetVar(StreamFile, Val(LoopC), "VecY1")
-            .vecy2 = GetVar(StreamFile, Val(LoopC), "VecY2")
-            .life1 = GetVar(StreamFile, Val(LoopC), "Life1")
-            .life2 = GetVar(StreamFile, Val(LoopC), "Life2")
-            .friction = GetVar(StreamFile, Val(LoopC), "Friction")
-            .spin = GetVar(StreamFile, Val(LoopC), "Spin")
-            .spin_speedL = GetVar(StreamFile, Val(LoopC), "Spin_SpeedL")
-            .spin_speedH = GetVar(StreamFile, Val(LoopC), "Spin_SpeedH")
-            .AlphaBlend = GetVar(StreamFile, Val(LoopC), "AlphaBlend")
-            .gravity = GetVar(StreamFile, Val(LoopC), "Gravity")
-            .grav_strength = GetVar(StreamFile, Val(LoopC), "Grav_Strength")
-            .bounce_strength = GetVar(StreamFile, Val(LoopC), "Bounce_Strength")
-            .XMove = GetVar(StreamFile, Val(LoopC), "XMove")
-            .YMove = GetVar(StreamFile, Val(LoopC), "YMove")
-            .move_x1 = GetVar(StreamFile, Val(LoopC), "move_x1")
-            .move_x2 = GetVar(StreamFile, Val(LoopC), "move_x2")
-            .move_y1 = GetVar(StreamFile, Val(LoopC), "move_y1")
-            .move_y2 = GetVar(StreamFile, Val(LoopC), "move_y2")
-            .life_counter = GetVar(StreamFile, Val(LoopC), "life_counter")
-            .Speed = Val(GetVar(StreamFile, Val(LoopC), "Speed"))
-            .NumGrhs = GetVar(StreamFile, Val(LoopC), "NumGrhs")
+        With StreamData(LooPC)
+            .Name = GetVar(StreamFile, Val(LooPC), "Name")
+            .NumOfParticles = GetVar(StreamFile, Val(LooPC), "NumOfParticles")
+            .X1 = GetVar(StreamFile, Val(LooPC), "X1")
+            .Y1 = GetVar(StreamFile, Val(LooPC), "Y1")
+            .X2 = GetVar(StreamFile, Val(LooPC), "X2")
+            .Y2 = GetVar(StreamFile, Val(LooPC), "Y2")
+            .Angle = GetVar(StreamFile, Val(LooPC), "Angle")
+            .vecx1 = GetVar(StreamFile, Val(LooPC), "VecX1")
+            .vecx2 = GetVar(StreamFile, Val(LooPC), "VecX2")
+            .vecy1 = GetVar(StreamFile, Val(LooPC), "VecY1")
+            .vecy2 = GetVar(StreamFile, Val(LooPC), "VecY2")
+            .life1 = GetVar(StreamFile, Val(LooPC), "Life1")
+            .life2 = GetVar(StreamFile, Val(LooPC), "Life2")
+            .friction = GetVar(StreamFile, Val(LooPC), "Friction")
+            .spin = GetVar(StreamFile, Val(LooPC), "Spin")
+            .spin_speedL = GetVar(StreamFile, Val(LooPC), "Spin_SpeedL")
+            .spin_speedH = GetVar(StreamFile, Val(LooPC), "Spin_SpeedH")
+            .AlphaBlend = GetVar(StreamFile, Val(LooPC), "AlphaBlend")
+            .gravity = GetVar(StreamFile, Val(LooPC), "Gravity")
+            .grav_strength = GetVar(StreamFile, Val(LooPC), "Grav_Strength")
+            .bounce_strength = GetVar(StreamFile, Val(LooPC), "Bounce_Strength")
+            .XMove = GetVar(StreamFile, Val(LooPC), "XMove")
+            .YMove = GetVar(StreamFile, Val(LooPC), "YMove")
+            .move_x1 = GetVar(StreamFile, Val(LooPC), "move_x1")
+            .move_x2 = GetVar(StreamFile, Val(LooPC), "move_x2")
+            .move_y1 = GetVar(StreamFile, Val(LooPC), "move_y1")
+            .move_y2 = GetVar(StreamFile, Val(LooPC), "move_y2")
+            .life_counter = GetVar(StreamFile, Val(LooPC), "life_counter")
+            .Speed = Val(GetVar(StreamFile, Val(LooPC), "Speed"))
+            .NumGrhs = GetVar(StreamFile, Val(LooPC), "NumGrhs")
         
             ReDim .Grh_List(1 To .NumGrhs) As Long
-            GrhListing = GetVar(StreamFile, Val(LoopC), "Grh_List")
+            GrhListing = GetVar(StreamFile, Val(LooPC), "Grh_List")
         
             For i = 1 To .NumGrhs
                 .Grh_List(i) = ReadField(str(i), GrhListing, 44)
             Next i
 
             For ColorSet = 1 To 4
-                TempSet = GetVar(StreamFile, Val(LoopC), "ColorSet" & ColorSet)
+                TempSet = GetVar(StreamFile, Val(LooPC), "ColorSet" & ColorSet)
                 .ColortInt(ColorSet - 1) = D3DColorXRGB(ReadField(1, TempSet, 44), ReadField(2, TempSet, 44), ReadField(3, TempSet, 44))
             Next ColorSet
 
         End With
 
-    Next LoopC
+    Next LooPC
     
     If FileExist(StreamFile, vbArchive) Then Call Kill(StreamFile)
  
@@ -3925,7 +3927,7 @@ Private Function Particle_Group_Next_Open() As Long
     '*****************************************************************
     On Error GoTo ErrorHandler:
 
-    Dim LoopC As Long
+    Dim LooPC As Long
    
     If Particle_Group_Last = 0 Then ' Parche, testear.
         Particle_Group_Next_Open = 1
@@ -3933,20 +3935,20 @@ Private Function Particle_Group_Next_Open() As Long
 
     End If
    
-    LoopC = 1
+    LooPC = 1
 
-    Do Until Particle_Group_List(LoopC).Active = False
+    Do Until Particle_Group_List(LooPC).Active = False
 
-        If LoopC = Particle_Group_Last Then
+        If LooPC = Particle_Group_Last Then
             Particle_Group_Next_Open = Particle_Group_Last + 1
             Exit Function
 
         End If
 
-        LoopC = LoopC + 1
+        LooPC = LooPC + 1
     Loop
    
-    Particle_Group_Next_Open = LoopC
+    Particle_Group_Next_Open = LooPC
     Exit Function
     
 ErrorHandler:
@@ -4047,22 +4049,22 @@ Public Function Particle_Group_Find(ByVal id As Long) As Long
     '*****************************************************************
     On Error GoTo ErrorHandler:
 
-    Dim LoopC As Long
+    Dim LooPC As Long
    
-    LoopC = 1
+    LooPC = 1
 
-    Do Until Particle_Group_List(LoopC).id = id
+    Do Until Particle_Group_List(LooPC).id = id
 
-        If LoopC = Particle_Group_Last Then
+        If LooPC = Particle_Group_Last Then
             Particle_Group_Find = 0
             Exit Function
 
         End If
 
-        LoopC = LoopC + 1
+        LooPC = LooPC + 1
     Loop
    
-    Particle_Group_Find = LoopC
+    Particle_Group_Find = LooPC
     Exit Function
     
 ErrorHandler:
@@ -4282,7 +4284,7 @@ Private Sub Particle_Group_Render(ByVal ParticleIndex As Long, ByVal Screen_X As
     'Last Modify Date: 12/15/2002
     'Renders a particle stream at a paticular screen point
     '*****************************************************************
-    Dim LoopC            As Long
+    Dim LooPC            As Long
     Dim temp_rgb(0 To 3) As Long
     Dim no_move          As Boolean
     
@@ -4316,15 +4318,15 @@ Private Sub Particle_Group_Render(ByVal ParticleIndex As Long, ByVal Screen_X As
             End If
    
             'If it's still alive render all the particles inside
-            For LoopC = 1 To .Particle_Count
+            For LooPC = 1 To .Particle_Count
        
                 'Render particle
-                Call Particle_Render(.Particle_Stream(LoopC), Screen_X, Screen_Y, .Grh_Index_List(Round(RandomNumber(1, .Grh_Index_Count), 0)), _
+                Call Particle_Render(.Particle_Stream(LooPC), Screen_X, Screen_Y, .Grh_Index_List(Round(RandomNumber(1, .Grh_Index_Count), 0)), _
                     temp_rgb(), .alpha_blend, no_move, .X1, .Y1, .Angle, .vecx1, .vecx2, .vecy1, .vecy2, .life1, .life2, .fric, .spin_speedL, _
                     .gravity, .grav_strength, .bounce_strength, .X2, .Y2, .XMove, .move_x1, .move_x2, .move_y1, .move_y2, .YMove, .spin_speedH, _
                     .spin)
                            
-            Next LoopC
+            Next LooPC
        
             If no_move = False Then
 
@@ -4651,13 +4653,13 @@ Private Function Char_Particle_Group_Next_Open(ByVal charindex As Integer) As In
     '*****************************************************************
     On Error GoTo ErrorHandler:
 
-    Dim LoopC As Long
+    Dim LooPC As Long
    
-    LoopC = 1
+    LooPC = 1
 
-    Do Until CharList(charindex).Particle_Group(LoopC) = 0
+    Do Until CharList(charindex).Particle_Group(LooPC) = 0
 
-        If LoopC = CharList(charindex).Particle_Count Then
+        If LooPC = CharList(charindex).Particle_Count Then
             Char_Particle_Group_Next_Open = CharList(charindex).Particle_Count + 1
             CharList(charindex).Particle_Count = Char_Particle_Group_Next_Open
             ReDim Preserve CharList(charindex).Particle_Group(1 To Char_Particle_Group_Next_Open) As Long
@@ -4665,10 +4667,10 @@ Private Function Char_Particle_Group_Next_Open(ByVal charindex As Integer) As In
 
         End If
 
-        LoopC = LoopC + 1
+        LooPC = LooPC + 1
     Loop
    
-    Char_Particle_Group_Next_Open = LoopC
+    Char_Particle_Group_Next_Open = LooPC
  
     Exit Function
  

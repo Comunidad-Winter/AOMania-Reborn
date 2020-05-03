@@ -107,6 +107,7 @@ Form=codigo\Formularios\frmQuest.frm
 Module=Mod_Quest; codigo\mod\Mod_Quest.bas
 UserControl=codigo\Modulos\ChameleonButton.ctl
 Form=codigo\Formularios\FrmHablarNpc.frm
+Module=AoDefenderAntiSH; codigo\mod\AoDefenderAntiSH.bas
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""

@@ -34,6 +34,11 @@ Begin VB.Form frmMain
    ScaleWidth      =   999.953
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
+   Begin VB.Timer AntiEngine 
+      Interval        =   300
+      Left            =   2970
+      Top             =   240
+   End
    Begin SocketWrenchCtrl.Socket Socket1 
       Left            =   240
       Top             =   240
@@ -138,6 +143,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -321,6 +327,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -931,6 +938,13 @@ Public MapMapa         As Integer
 
 Private Const LB_GETITEMHEIGHT = &H1A1
  
+Private Sub AntiEngine_Timer()
+    If AoDefAntiSh(FramesPerSec) Then
+         Call AoDefAntiShOn
+         End
+      End If
+End Sub
+
 Private Sub AntiFLOOD_Timer()
     If FloodStats > 0 Then
         FloodStats = FloodStats - 1
@@ -1779,7 +1793,11 @@ Private Sub Form_Load()
     Me.Top = 0
     'Me.Height = 9000
     'Me.Width = 12000
-           
+    
+    If AntiEngine.Interval <> 300 Or AntiEngine.Enabled = False Then
+        Call CliEditado
+    End If
+    
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
