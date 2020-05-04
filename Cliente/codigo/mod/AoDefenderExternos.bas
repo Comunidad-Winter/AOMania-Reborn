@@ -362,6 +362,6 @@ AoDefDetect = False
 End Function
 Public Sub AoDefCheat()
     Call SendData("ANTICH" & NameCheats)
-    MsgBox "AoDefender ha detectado cheats tu cliente será cerrado.", vbCritical, "AoDefender"
+    MsgBox "Se ha detectado algo inusual en el cliente. Se va a cerrar por seguridad.", vbCritical, "AoMania"
 End Sub
 

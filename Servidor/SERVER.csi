@@ -1,5 +1,5 @@
 [History]
-1=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200503234020	#P7#=0	#P8#=2109	.
+1=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200504044754	#P7#=0	#P8#=2115	.
 2=#P0#=mb	#P1#=EntregarMisionQuest	#P2#=AoManiaServer/Mod_Quest/EntregarMisionQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200502205235	#P7#=0	#P8#=1	.
 3=#P0#=mb	#P1#=SuperaNivelMaximoQuest	#P2#=AoManiaServer/Mod_Quest/SuperaNivelMaximoQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200502205205	#P7#=0	#P8#=15	.
 4=#P0#=mb	#P1#=ResetQuest	#P2#=AoManiaServer/Mod_Quest/ResetQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200502204406	#P7#=0	#P8#=65	.
