@@ -12,11 +12,13 @@ Sub TimeChange()
 
     If CountTC = 25 Then CountTC = 1
 
-    Call SendData(SendTarget.Toall, 0, 0, "HUCT" & CountTC)
+    Call SendData(SendTarget.ToAll, 0, 0, "HUCT" & CountTC)
 
     Call DayChange(CountTC)
     
     Call DayNameChange(CountTC)
+    
+    Call CambiaTimeHora(CountTC)
     
     If StatusTimeChange = True Then
         Call SystemTimeChange(CountTC)
@@ -61,21 +63,54 @@ Sub AdminCambiaDia(ByVal Hora As Byte)
       Call DayNameChange(Hora)
       Call LoadClima(Hora)
       Call SendMainAmbientAll
+      Call CambiaTimeHora(Hora)
       Call DayChange(Hora)
       
 End Sub
+
+Sub CambiaTimeHora(ByVal Hora As Byte)
+
+    Dim n As Integer
+    
+    CountTC = Hora
+    
+    'Noche
+    If Hora >= 1 And Hora <= 7 Then
+        Call SendData(SendTarget.ToAll, 0, 0, "TW53")
+    End If
+
+    'Amanecer
+    If Hora >= 8 And Hora <= 12 Then
+        Call SendData(SendTarget.ToAll, 0, 0, "TW55")
+    End If
+
+    'Día
+    If Hora >= 13 And Hora <= 18 Then
+        Call SendData(SendTarget.ToAll, 0, 0, "TW55")
+    End If
+
+    'Tarde
+    If Hora >= 19 And Hora <= 21 Then
+        Call SendData(SendTarget.ToAll, 0, 0, "TW55")
+    End If
+
+    'Noche
+    If Hora >= 22 And Hora <= 24 Then
+        Call SendData(SendTarget.ToAll, 0, 0, "TW53")
+    End If
+    
+    Call SendData(SendTarget.ToAll, 0, 0, "HUCT" & Hora)
+
+End Sub
+
 
 Sub DayChange(ByVal Hora As Byte)
 
     Dim n As Integer
     Dim UserIndex As Integer
 
-    CountTC = Hora
-
     'Noche
     If Hora >= 1 And Hora <= 7 Then
-
-        Call SendData(SendTarget.Toall, 0, 0, "TW53")
 
         If NocheLicantropo = False Then
             NocheLicantropo = True
@@ -95,7 +130,6 @@ Sub DayChange(ByVal Hora As Byte)
 
     'Amanecer
     If Hora >= 8 And Hora <= 12 Then
-        Call SendData(SendTarget.Toall, 0, 0, "TW55")
         If NocheLicantropo = True Then
             NocheLicantropo = False
             For n = 1 To LastUser
@@ -113,7 +147,6 @@ Sub DayChange(ByVal Hora As Byte)
 
     'Día
     If Hora >= 13 And Hora <= 18 Then
-        Call SendData(SendTarget.Toall, 0, 0, "TW55")
         If NocheLicantropo = True Then
             NocheLicantropo = False
             For n = 1 To LastUser
@@ -131,7 +164,6 @@ Sub DayChange(ByVal Hora As Byte)
 
     'Tarde
     If Hora >= 19 And Hora <= 21 Then
-        Call SendData(SendTarget.Toall, 0, 0, "TW55")
         If NocheLicantropo = True Then
             NocheLicantropo = False
             For n = 1 To LastUser
@@ -149,7 +181,6 @@ Sub DayChange(ByVal Hora As Byte)
 
     'Noche
     If Hora >= 22 And Hora <= 24 Then
-        Call SendData(SendTarget.Toall, 0, 0, "TW53")
         If NocheLicantropo = False Then
             NocheLicantropo = True
             For n = 1 To LastUser
