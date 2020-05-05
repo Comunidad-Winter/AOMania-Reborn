@@ -1169,14 +1169,14 @@ Public Sub LogDesarrollo(ByVal str As String)
 
 End Sub
 
-Public Sub LogGM(Nombre As String, texto As String)
+Public Sub LogGM(nombre As String, texto As String)
 
     On Error GoTo errhandler
 
     Dim nfile As Integer
     nfile = FreeFile    ' obtenemos un canal
 
-    Open App.Path & "\logs\Gms\" & Nombre & ".log" For Append Shared As #nfile
+    Open App.Path & "\logs\Gms\" & nombre & ".log" For Append Shared As #nfile
 
     Print #nfile, Date & " " & Time & " " & texto
     Close #nfile
@@ -1187,26 +1187,26 @@ errhandler:
 
 End Sub
 
-Public Sub LogCreditos(Nombre As String, Tiene As Long, Gasto As Long, Item As String)
+Public Sub LogCreditos(nombre As String, Tiene As Long, Gasto As Long, Item As String)
     On Error GoTo errhandler
     Dim nfile As Integer
     nfile = FreeFile
-    Open App.Path & "\logs\Donaciones\" & Nombre & ".log" For Append Shared As #nfile
-    Print #nfile, Date & "  " & Time; " " & Nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
+    Open App.Path & "\logs\Donaciones\" & nombre & ".log" For Append Shared As #nfile
+    Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
     Close #nfile
     Exit Sub
 errhandler:
 End Sub
 
-Public Sub LogCanjes(Opcion As Integer, Nombre As String, Tiene As Long, Gasto As Long, Item As String)
+Public Sub LogCanjes(Opcion As Integer, nombre As String, Tiene As Long, Gasto As Long, Item As String)
     On Error GoTo errhandler
     Dim nfile As Integer
     nfile = FreeFile
-    Open App.Path & "\logs\Canjeadores\" & Nombre & ".log" For Append Shared As #nfile
+    Open App.Path & "\logs\Canjeadores\" & nombre & ".log" For Append Shared As #nfile
     If Opcion = 1 Then
-        Print #nfile, Date & "  " & Time; " " & Nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
+        Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Gastó: " & Gasto & " Obtuvo: " & Item
     ElseIf Opcion = 2 Then
-        Print #nfile, Date & "  " & Time; " " & Nombre & ": Tenía: " & Tiene & " Ganó: " & Gasto & " Por el item: " & Item
+        Print #nfile, Date & "  " & Time; " " & nombre & ": Tenía: " & Tiene & " Ganó: " & Gasto & " Por el item: " & Item
     End If
     Close #nfile
     Exit Sub
@@ -1230,14 +1230,14 @@ errhandler:
 
 End Sub
 
-Public Sub LogUser(Nombre As String, texto As String)
+Public Sub LogUser(nombre As String, texto As String)
 
     On Error GoTo errhandler
 
     Dim nfile As Integer
     nfile = FreeFile    ' obtenemos un canal
 
-    Open App.Path & "\logs\Usuarios\" & Nombre & ".log" For Append Shared As #nfile
+    Open App.Path & "\logs\Usuarios\" & nombre & ".log" For Append Shared As #nfile
 
     Print #nfile, Date & " " & Time & " " & texto
     Close #nfile
@@ -2158,7 +2158,7 @@ Sub DayChange(ByVal Hora As Byte)
 
         If NocheLicantropo = False Then
             NocheLicantropo = True
-            For n = 1 To NumUsers
+            For n = 1 To LastUser
 
                 UserIndex = n
 
@@ -2177,7 +2177,7 @@ Sub DayChange(ByVal Hora As Byte)
         Call SendData(SendTarget.ToAll, 0, 0, "TW55")
         If NocheLicantropo = True Then
             NocheLicantropo = False
-            For n = 1 To NumUsers
+            For n = 1 To LastUser
 
                 UserIndex = n
 
@@ -2195,7 +2195,7 @@ Sub DayChange(ByVal Hora As Byte)
         Call SendData(SendTarget.ToAll, 0, 0, "TW55")
         If NocheLicantropo = True Then
             NocheLicantropo = False
-            For n = 1 To NumUsers
+            For n = 1 To LastUser
 
                 UserIndex = n
 
@@ -2213,7 +2213,7 @@ Sub DayChange(ByVal Hora As Byte)
         Call SendData(SendTarget.ToAll, 0, 0, "TW55")
         If NocheLicantropo = True Then
             NocheLicantropo = False
-            For n = 1 To NumUsers
+            For n = 1 To LastUser
 
                 UserIndex = n
 
@@ -2231,7 +2231,7 @@ Sub DayChange(ByVal Hora As Byte)
         Call SendData(SendTarget.ToAll, 0, 0, "TW53")
         If NocheLicantropo = False Then
             NocheLicantropo = True
-            For n = 1 To NumUsers
+            For n = 1 To LastUser
 
                 UserIndex = n
 
@@ -2247,23 +2247,31 @@ Sub DayChange(ByVal Hora As Byte)
 End Sub
 
 Sub DarPoderLicantropo(ByVal UserIndex As Integer)
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Es de noche, tu cuerpo empieza a transformarse y te sientes más poderoso." & FONTTYPE_INFO)
-    UserList(UserIndex).flags.Licantropo = "1"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) + "3"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) + "3"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) + "3"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) + "3"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) + "3"
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "BKW")
+    
+    If UserList(UserIndex).flags.Licantropo = 0 Then
+        UserList(UserIndex).flags.Licantropo = "1"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) + "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) + "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) + "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) + "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) + "3"
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "BKW")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Es de noche, tu cuerpo empieza a transformarse y te sientes más poderoso." & FONTTYPE_INFO)
+   End If
+   
 End Sub
 
 Sub QuitarPoderLicantropo(ByVal UserIndex As Integer)
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya es de día, vuelves a tu apariencia normal" & FONTTYPE_INFO)
-    UserList(UserIndex).flags.Licantropo = "0"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - "3"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) - "3"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) - "3"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) - "3"
-    UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) - "3"
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "BKW")
+    
+    If UserList(UserIndex).flags.Licantropo = 1 Then
+        UserList(UserIndex).flags.Licantropo = "0"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) - "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) - "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) - "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) - "3"
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "BKW")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya es de día, vuelves a tu apariencia normal" & FONTTYPE_INFO)
+    End If
+    
 End Sub
