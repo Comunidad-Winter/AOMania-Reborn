@@ -113,32 +113,51 @@ Public Sub InitTimeLife()
     LastRnd = 0
     SecondaryWeather = False
 
-    Weather.MainStatus.Current = MainStatus.Mañana
-    Weather.MainStatus.NextCurrent = MainStatus.Dia
-
     Weather.SecondaryStatus.Current = SecondaryStatus.Nada
 
 End Sub
 
-Public Sub SpendTime()
+Public Sub LoadClima(ByVal Hora As Byte)
+     
+     If NameDay = "Amanecer" Then
+         Weather.MainStatus.Current = MainStatus.Mañana
+         Weather.MainStatus.NextCurrent = MainStatus.Dia
+     End If
+     
+     If NameDay = "Día" Then
+         Weather.MainStatus.Current = MainStatus.Dia
+         Weather.MainStatus.NextCurrent = MainStatus.Tarde
+     End If
+     
+     If NameDay = "Tarde" Then
+         Weather.MainStatus.Current = MainStatus.Tarde
+         Weather.MainStatus.NextCurrent = MainStatus.Noche
+     End If
+     
+     If NameDay = "Noche" Then
+          Weather.MainStatus.Current = MainStatus.Noche
+          Weather.MainStatus.NextCurrent = MainStatus.Mañana
+     End If
+     
+End Sub
 
-    WeatherTime = WeatherTime + 1
-
-    If WeatherTime >= LifeTime(Weather.MainStatus.Current) Then
-
-        Weather.MainStatus.Current = Weather.MainStatus.NextCurrent
-
+Public Sub CambiaClima()
+       
+       Weather.MainStatus.Current = Weather.MainStatus.NextCurrent
+    
         Dim NextStatus As Byte
         NextStatus = Weather.MainStatus.Current + 1
 
         If NextStatus > MAX_MAINSTATUS Then NextStatus = MIN_MAINSTATUS
 
         Weather.MainStatus.NextCurrent = NextStatus
-        Call SendData(SendTarget.ToAll, 0, 0, "CLM" & Weather.MainStatus.Current)
-
+        Call SendData(SendTarget.Toall, 0, 0, "CLM" & Weather.MainStatus.Current)
+        
         WeatherTime = 0
+       
+End Sub
 
-    End If
+Public Sub SpendTime()
 
     If Weather.SecondaryStatus.Current = SecondaryStatus.Nada Then
 
@@ -154,7 +173,7 @@ Public Sub SpendTime()
                 If NewSecondaryStatus > SecondaryStatus.Nada Then
                     Weather.SecondaryStatus.Current = NewSecondaryStatus
                     SecondaryWeather = True
-                    Call SendData(SendTarget.ToAll, 0, 0, "CLA" & ParticleAmbient(NewSecondaryStatus))
+                    Call SendData(SendTarget.Toall, 0, 0, "CLA" & ParticleAmbient(NewSecondaryStatus))
 
                 End If
 
@@ -169,7 +188,7 @@ Public Sub SpendTime()
         WeatherSecondTime = WeatherSecondTime + 1
 
         If WeatherSecondTime >= LifeTime(Weather.SecondaryStatus.Current + MAX_MAINSTATUS) Then
-            Call SendData(SendTarget.ToAll, 0, 0, "CLO")
+            Call SendData(SendTarget.Toall, 0, 0, "CLO")
             Weather.SecondaryStatus.Current = SecondaryStatus.Nada
             WeatherSecondTime = 0
             SecondaryWeather = False
@@ -195,7 +214,7 @@ Public Sub SecondaryAmbient()
             WeatherSecondTime = 0
 
             SecondaryWeather = True
-            Call SendData(SendTarget.ToAll, 0, 0, "CLA" & ParticleAmbient(NewSecondaryStatus))
+            Call SendData(SendTarget.Toall, 0, 0, "CLA" & ParticleAmbient(NewSecondaryStatus))
 
         End If
 
@@ -204,7 +223,7 @@ Public Sub SecondaryAmbient()
         Weather.SecondaryStatus.Current = SecondaryStatus.Nada
         WeatherSecondTime = 0
         SecondaryWeather = False
-        Call SendData(SendTarget.ToAll, 0, 0, "CLO")
+        Call SendData(SendTarget.Toall, 0, 0, "CLO")
 
     End If
 
@@ -214,6 +233,12 @@ Public Sub SendMainAmbient(ByVal UserIndex As Integer)
 
     Call SendData(SendTarget.ToIndex, UserIndex, 0, "CLM" & Weather.MainStatus.Current)
 
+End Sub
+
+Public Sub SendMainAmbientAll()
+    
+    Call SendData(SendTarget.Toall, 0, 0, "CLM" & Weather.MainStatus.Current)
+    
 End Sub
 
 Public Sub SendSecondaryAmbient(ByVal UserIndex As Integer)

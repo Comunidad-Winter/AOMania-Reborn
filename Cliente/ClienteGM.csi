@@ -1,14 +1,14 @@
 [History]
 1=#P0#=mb	#P1#=Image1_Click	#P2#=AoManiaClienteGM/frmSoporteResp/Image1_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203720	#P7#=0	#P8#=2	.
 2=#P0#=mb	#P1#=HandleData	#P2#=AoManiaClienteGM/Mod_TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200502203716	#P7#=0	#P8#=1789	.
-3=#P0#=mb	#P1#=Ulla_Click	#P2#=AoManiaClienteGM/frmMain/Ulla_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203632	#P7#=0	#P8#=0	.
-4=#P0#=mb	#P1#=Timer2_Timer	#P2#=AoManiaClienteGM/frmMain/Timer2_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203632	#P7#=0	#P8#=16	.
+3=#P0#=mb	#P1#=Timer2_Timer	#P2#=AoManiaClienteGM/frmMain/Timer2_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203632	#P7#=0	#P8#=16	.
+4=#P0#=mb	#P1#=Ulla_Click	#P2#=AoManiaClienteGM/frmMain/Ulla_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203632	#P7#=0	#P8#=0	.
 5=#P0#=mb	#P1#=Image1_Click	#P2#=AoManiaClienteGM/frmMain/Image1_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203616	#P7#=0	#P8#=2	.
 6=#P0#=mb	#P1#=Form_MouseMove	#P2#=AoManiaClienteGM/frmMain/Form_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203612	#P7#=0	#P8#=3	.
 7=#P0#=mb	#P1#=Form_DblClick	#P2#=AoManiaClienteGM/frmMain/Form_DblClick	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203608	#P7#=0	#P8#=-2	.
 8=#P0#=mb	#P1#=picInv_MouseMove	#P2#=AoManiaClienteGM/frmMain/picInv_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203602	#P7#=0	#P8#=2	.
-9=#P0#=mb	#P1#=picInv_MouseDown	#P2#=AoManiaClienteGM/frmMain/picInv_MouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203554	#P7#=0	#P8#=-2	.
-10=#P0#=mb	#P1#=Particulas_Click	#P2#=AoManiaClienteGM/frmMain/Particulas_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203554	#P7#=0	#P8#=4	.
+9=#P0#=mb	#P1#=Particulas_Click	#P2#=AoManiaClienteGM/frmMain/Particulas_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203554	#P7#=0	#P8#=4	.
+10=#P0#=mb	#P1#=picInv_MouseDown	#P2#=AoManiaClienteGM/frmMain/picInv_MouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203554	#P7#=0	#P8#=-2	.
 11=#P0#=mb	#P1#=MainViewPic_DblClick	#P2#=AoManiaClienteGM/frmMain/MainViewPic_DblClick	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203550	#P7#=0	#P8#=-1	.
 12=#P0#=mb	#P1#=Label7_MouseUp	#P2#=AoManiaClienteGM/frmMain/Label7_MouseUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203546	#P7#=0	#P8#=1	.
 13=#P0#=mb	#P1#=imgSkillpts_Click	#P2#=AoManiaClienteGM/frmMain/imgSkillpts_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203451	#P7#=0	#P8#=16	.
@@ -68,7 +68,7 @@
 67=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaClienteGM/frmCustomKeys/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200421190833	#P7#=0	#P8#=1	.
 68=#P0#=mb	#P1#=Count	#P2#=AoManiaClienteGM/clsCustomKeys/Count [Get]	#P3#=	#P4#=	#P5#=MembProperty	#P6#=20200421185703	#P7#=0	#P8#=7	.
 69=#P0#=mb	#P1#=Command2_Click	#P2#=AoManiaClienteGM/frmCustomKeys/Command2_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200421185633	#P7#=0	#P8#=4	.
-70=#P0#=mb	#P1#=mnunochoodia_Click	#P2#=AoManiaClienteGM/frmPaneldeGM/mnunochoodia_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200421133916	#P7#=0	#P8#=3	.
+70=#P0#=mb	#P1#=mnunochoodia_Click	#P2#=AoManiaClienteGM/frmPaneldeGM/mnunochoodia_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200505195328	#P7#=0	#P8#=8	.
 71=#P0#=mb	#P1#=mnuround6user64_Click	#P2#=AoManiaClienteGM/frmPaneldeGM/mnuround6user64_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419154256	#P7#=0	#P8#=1	.
 72=#P0#=mb	#P1#=mnuround5user32_Click	#P2#=AoManiaClienteGM/frmPaneldeGM/mnuround5user32_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419154235	#P7#=0	#P8#=1	.
 73=#P0#=mb	#P1#=mnuround4user16_Click	#P2#=AoManiaClienteGM/frmPaneldeGM/mnuround4user16_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200419154215	#P7#=0	#P8#=1	.
@@ -78,7 +78,7 @@
 77=#P0#=mb	#P1#=Form_MouseUp	#P2#=AoManiaClienteGM/frmMain/Form_MouseUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200414123626	#P7#=0	#P8#=2	.
 78=#P0#=mb	#P1#=ReadField	#P2#=AoManiaClienteGM/Mod_General/ReadField	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200414092548	#P7#=0	#P8#=5	.
 79=#P0#=mb	#P1#=SwitchMap	#P2#=AoManiaClienteGM/Mod_General/SwitchMap	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200414092407	#P7#=0	#P8#=121	.
-80=#P0#=mb	#P1#=Main	#P2#=AoManiaClienteGM/Mod_General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200414092139	#P7#=0	#P8#=81	.
+80=#P0#=mb	#P1#=Main	#P2#=AoManiaClienteGM/Mod_General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200505195352	#P7#=0	#P8#=0	.
 81=#P0#=mb	#P1#=FONDO_MouseMove	#P2#=AoManiaClienteGM/frmConnect/FONDO_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200414085234	#P7#=0	#P8#=5	.
 82=#P0#=mb	#P1#=ListConsultas_MouseDown	#P2#=AoManiaClienteGM/frmPaneldeGM/ListConsultas_MouseDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200413143011	#P7#=0	#P8#=1	.
 83=#P0#=mb	#P1#=SetItem	#P2#=AoManiaClienteGM/clsGrapchicalInventory/SetItem	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200411195348	#P7#=0	#P8#=0	.

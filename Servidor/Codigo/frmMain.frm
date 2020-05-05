@@ -669,7 +669,7 @@ Private Sub AutoSave_Timer()
     End If
 
     If Minutos = MinutosWs - 1 Then
-        Call SendData(SendTarget.ToAll, 0, 0, "||Worldsave y Limpieza en 1 minuto ..." & FONTTYPE_VENENO)
+        Call SendData(SendTarget.Toall, 0, 0, "||Worldsave y Limpieza en 1 minuto ..." & FONTTYPE_VENENO)
 
     ElseIf Minutos >= MinutosWs Then
         Call aClon.VaciarColeccion
@@ -684,7 +684,7 @@ Private Sub AutoSave_Timer()
     End If
 
     If MinutosLatsClean = MinutosLimpia - 1 Then
-        Call SendData(SendTarget.ToAll, 0, 0, "||Limpieza del mundo en 1 minuto ..." & FONTTYPE_VENENO)
+        Call SendData(SendTarget.Toall, 0, 0, "||Limpieza del mundo en 1 minuto ..." & FONTTYPE_VENENO)
 
     ElseIf MinutosLatsClean >= MinutosLimpia Then
         MinutosLatsClean = 0
@@ -804,7 +804,7 @@ Private Sub CMDDUMP_Click()
 End Sub
 
 Private Sub Command1_Click()
-    Call SendData(SendTarget.ToAll, 0, 0, "||AoMania> " & BroadMsg.Text & FONTTYPE_SERVER)
+    Call SendData(SendTarget.Toall, 0, 0, "||AoMania> " & BroadMsg.Text & FONTTYPE_SERVER)
 
 End Sub
 
@@ -820,7 +820,7 @@ Public Sub InitMain(ByVal f As Byte)
 End Sub
 
 Private Sub Command2_Click()
-    Call SendData(SendTarget.ToAll, 0, 0, "!!" & BroadMsg.Text & ENDC)
+    Call SendData(SendTarget.Toall, 0, 0, "!!" & BroadMsg.Text & ENDC)
 
 End Sub
 
@@ -1191,14 +1191,14 @@ Private Sub Mascotas_Timer()
     Select Case mariano
 
     Case 475
-        Call SendData(SendTarget.ToAll, 0, 0, "||AoMania> En 5 minutos se invocara un Domador." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||AoMania> En 5 minutos se invocara un Domador." & FONTTYPE_GUILD)
 
     Case 479
-        Call SendData(SendTarget.ToAll, 0, 0, "||AoMania> En 1 minuto se invocara un Domador." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||AoMania> En 1 minuto se invocara un Domador." & FONTTYPE_GUILD)
 
     Case 480
-        Call SendData(SendTarget.ToAll, 0, 0, "||AoMania> Se ha invocado un domador en el mapa 30." & FONTTYPE_GUILD)
-        Call SendData(SendTarget.ToAll, 0, 0, "TW122")
+        Call SendData(SendTarget.Toall, 0, 0, "||AoMania> Se ha invocado un domador en el mapa 30." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "TW122")
         Call SpawnNpc(val(Npc1), Npc1Pos, True, False)
         mariano = 0
 
@@ -1436,13 +1436,13 @@ Private Sub TBarcos_Timer()
     Barcos.TiempoRest = Barcos.TiempoRest - 1
 
     If Barcos.TiempoRest < 11 And Barcos.TiempoRest > 0 Then
-        Call SendData(SendTarget.ToAll, 0, 0, "||Les anunciamos a todos los viajantes a " & Zonas(Barcos.Zona).nombre & " que queda " & _
+        Call SendData(SendTarget.Toall, 0, 0, "||Les anunciamos a todos los viajantes a " & Zonas(Barcos.Zona).nombre & " que queda " & _
                                               Barcos.TiempoRest & " minutos antes de sarpar." & FONTTYPE_INFO)
 
     End If
 
     If Barcos.TiempoRest = 0 Then
-        Call SendData(SendTarget.ToAll, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & " ya a partido." & FONTTYPE_INFO)
+        Call SendData(SendTarget.Toall, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & " ya a partido." & FONTTYPE_INFO)
 
     End If
 
@@ -1450,11 +1450,11 @@ Private Sub TBarcos_Timer()
         Barcos.TiempoRest = 60
 
         If NumZonas > 0 Then
-            Call SendData(SendTarget.ToAll, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & _
+            Call SendData(SendTarget.Toall, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & _
                                                 " ya a llegado. En 1 hora partira la proxima embarcacion a " & Zonas(Barcos.Zona + IIf((Barcos.Zona >= NumZonas), -(NumZonas), _
                                                                                                                                        1)).nombre & FONTTYPE_INFO)
         Else
-            Call SendData(SendTarget.ToAll, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & _
+            Call SendData(SendTarget.Toall, 0, 0, "||La embarcacion a " & Zonas(Barcos.Zona).nombre & _
                                                 " ya a llegado. En 1 hora partira la proxima embarcacion a " & Zonas(Barcos.Zona).nombre & FONTTYPE_INFO)
 
         End If
@@ -1494,7 +1494,7 @@ Private Sub tGranPoder_Timer()
             Call ActSlot
             Call mod_GranPoder.DarGranPoder(0)
         Else
-            Call SendData(SendTarget.ToAll, 0, 0, "||" & UserList(GranPoder.UserIndex).Name & " poseedor del Aura de los Heroes!!!. En el mapa " & UserList(GranPoder.UserIndex).pos.Map & "." & FONTTYPE_GUERRA)
+            Call SendData(SendTarget.Toall, 0, 0, "||" & UserList(GranPoder.UserIndex).Name & " poseedor del Aura de los Heroes!!!. En el mapa " & UserList(GranPoder.UserIndex).pos.Map & "." & FONTTYPE_GUERRA)
             Call SendData(SendTarget.ToPCArea, GranPoder.UserIndex, UserList(GranPoder.UserIndex).pos.Map, "CFX" & UserList(GranPoder.UserIndex).char.CharIndex & "," & FX_Poder & "," & 1)
             Call SendData(SendTarget.ToIndex, GranPoder.UserIndex, 0, "TW" & Sound_Poder)
         End If
@@ -1656,9 +1656,9 @@ Private Sub TNosfeSagrada_Timer()
 
     If MataNosfe = True Then
 
-        Call SendData(SendTarget.ToAll, 0, 0, "||El usuario " & UserList(NickMataNosfe).Name & " ha matado al Nosferatu." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||El usuario " & UserList(NickMataNosfe).Name & " ha matado al Nosferatu." & FONTTYPE_GUILD)
 
-        Call SendData(SendTarget.ToAll, NickMataNosfe, 0, "||Ha ganado " & ExpMataNosfe & " de experencia extra por matar a Nosferatu." & _
+        Call SendData(SendTarget.Toall, NickMataNosfe, 0, "||Ha ganado " & ExpMataNosfe & " de experencia extra por matar a Nosferatu." & _
                                                           FONTTYPE_FIGHT)
 
         UserList(NickMataNosfe).Stats.Exp = UserList(NickMataNosfe).Stats.Exp + ExpMataNosfe
@@ -1674,7 +1674,7 @@ Private Sub TNosfeSagrada_Timer()
 
     If StatusNosfe = True Then
         If Minutos > IntervaloMsjNosfe Then
-            Call SendData(SendTarget.ToAll, 0, 0, "||Nosferatu esta haciendo estragos en el mapa " & MapaNosfe & FONTTYPE_GUILD)
+            Call SendData(SendTarget.Toall, 0, 0, "||Nosferatu esta haciendo estragos en el mapa " & MapaNosfe & FONTTYPE_GUILD)
             Minutos = 0
 
         End If
@@ -1696,7 +1696,7 @@ Private Sub TNosfeSagrada_Timer()
         If AvisoNosfe = True Then
 
             If Minutos = TimeAvisoNosfe Then
-                Call SendData(SendTarget.ToAll, 0, 0, "||El Nosferatu saldra en 10 Minutos." & FONTTYPE_GUILD)
+                Call SendData(SendTarget.Toall, 0, 0, "||El Nosferatu saldra en 10 Minutos." & FONTTYPE_GUILD)
 
             End If
 
@@ -1719,7 +1719,7 @@ Private Sub TNosfeSagrada_Timer()
 
     If MataYetiOscura = True Then
 
-        Call SendData(SendTarget.ToAll, 0, 0, "||El Yeti Sagrado Oscuro Regreso al otro Mundo." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||El Yeti Sagrado Oscuro Regreso al otro Mundo." & FONTTYPE_GUILD)
 
         StatusYetiOscura = False
         SecYetiOscura = 0
@@ -1753,7 +1753,7 @@ Private Sub TNosfeSagrada_Timer()
 
     If MataYeti = True Then
 
-        Call SendData(SendTarget.ToAll, 0, 0, "||El Yeti Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||El Yeti Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
 
         StatusYeti = False
         SecYeti = 0
@@ -1787,7 +1787,7 @@ Private Sub TNosfeSagrada_Timer()
 
     If MataCleopatra = True Then
 
-        Call SendData(SendTarget.ToAll, 0, 0, "||Cleopatra Sagrada Regreso al otro Mundo." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||Cleopatra Sagrada Regreso al otro Mundo." & FONTTYPE_GUILD)
 
         StatusCleopatra = False
         SecCleopatra = 0
@@ -1821,7 +1821,7 @@ Private Sub TNosfeSagrada_Timer()
 
     If MataReyScorpion = True Then
 
-        Call SendData(SendTarget.ToAll, 0, 0, "||El Rey Scorpion Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||El Rey Scorpion Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
 
         StatusReyScorpion = False
         SecReyScorpion = 0
@@ -1855,7 +1855,7 @@ Private Sub TNosfeSagrada_Timer()
 
     If MataDarkSeth = True Then
 
-        Call SendData(SendTarget.ToAll, 0, 0, "||El Dark Seth Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||El Dark Seth Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
 
         StatusDarkSeth = False
         SecDarkSeth = 0
@@ -1889,7 +1889,7 @@ Private Sub TNosfeSagrada_Timer()
 
     If MataElfica = True Then
 
-        Call SendData(SendTarget.ToAll, 0, 0, "||La hada Elfica Sagrada Regreso al otro Mundo." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||La hada Elfica Sagrada Regreso al otro Mundo." & FONTTYPE_GUILD)
 
         StatusElfica = False
         SecElfica = 0
@@ -1923,7 +1923,7 @@ Private Sub TNosfeSagrada_Timer()
 
     If MataGranDragonRojo = True Then
 
-        Call SendData(SendTarget.ToAll, 0, 0, "||El Gran Dragon Rojo Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||El Gran Dragon Rojo Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
 
         StatusGranDragonRojo = False
         SecGranDragonRojo = 0
@@ -1957,7 +1957,7 @@ Private Sub TNosfeSagrada_Timer()
 
     If MataTiburonBlanco = True Then
 
-        Call SendData(SendTarget.ToAll, 0, 0, "||El Tiburon Blanco Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||El Tiburon Blanco Sagrado Regreso al otro Mundo." & FONTTYPE_GUILD)
 
         StatusTiburonBlanco = False
         SecTiburonBlanco = 0
@@ -2001,7 +2001,7 @@ Private Sub TNosfeSagrada_Timer()
 
         If ConfInvo = 1 Then
             If TimeInvo = 300 Then
-                Call SendData(SendTarget.ToAll, "0", "0", "||¡Ya se puede invocar en la sala de invocaciones.!" & FONTTYPE_GUILD)
+                Call SendData(SendTarget.Toall, "0", "0", "||¡Ya se puede invocar en la sala de invocaciones.!" & FONTTYPE_GUILD)
                 StatusInvo = True
 
             End If
@@ -2049,26 +2049,26 @@ Private Sub torneos_Timer()
         RondaTorneo = RandomNumber(1, 6)
 
     Case 20
-        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario)" & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario)" & FONTTYPE_GUILD)
         Call torneos_auto(RondaTorneo)
 
     Case 21
-        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 9 minutos." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 9 minutos." & FONTTYPE_GUILD)
 
     Case 22
-        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 8 minutos." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 8 minutos." & FONTTYPE_GUILD)
 
     Case 24
-        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 6 minutos." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 6 minutos." & FONTTYPE_GUILD)
 
     Case 25
-        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 5 minutos." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 5 minutos." & FONTTYPE_GUILD)
 
     Case 27
-        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 3 minutos." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 3 minutos." & FONTTYPE_GUILD)
 
     Case 28
-        Call SendData(SendTarget.ToAll, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 2 minutos." & FONTTYPE_GUILD)
+        Call SendData(SendTarget.Toall, 0, 0, "||Esta empezando un nuevo torneo 1v1 de " & val(2 ^ RondaTorneo) & " participantes!! para participar pon /PARTICIPAR - (No cae inventario). El torneo se cancelará en 2 minutos." & FONTTYPE_GUILD)
 
 
     Case 30

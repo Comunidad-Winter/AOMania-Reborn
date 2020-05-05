@@ -1524,8 +1524,8 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
      Case "HPGM"
         rData = Right$(rData, Len(rData) - 4)
         CountTC = rData
-        Call SendData(SendTarget.ToAll, 0, 0, "HUCT" & rData)
-        Call DayChange(rData)
+        Call SendData(SendTarget.Toall, 0, 0, "HUCT" & rData)
+        Call AdminCambiaDia(CountTC)
         Exit Sub
      
         'CHOTS | Paquetes de Procesos

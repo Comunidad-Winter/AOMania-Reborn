@@ -2225,7 +2225,4 @@ End Enum
 
 Public Const IntervaloAttack As Integer = 12
 
-Public CountTC As Byte
-Public NocheLicantropo As Boolean
-
 Public Const ObjCreacionAlas As Integer = 1695
