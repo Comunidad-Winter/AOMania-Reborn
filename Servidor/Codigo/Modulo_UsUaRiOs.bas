@@ -2334,6 +2334,7 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
     Dim OldMap As Integer
     Dim OldX As Integer
     Dim OldY As Integer
+    Dim NP As Byte
 
     With UserList(UserIndex)
 
@@ -2410,16 +2411,17 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
         'Seguis invisible al pasar de mapa
         If (.flags.Invisible = 1 Or .flags.Oculto = 1) And (Not .flags.AdminInvisible = 1) Then
             Call SendToUserArea(UserIndex, "NOVER" & .char.CharIndex & ",1," & .PartyIndex)
-
-            If .PartyIndex <> 0 Then
+        End If
+        
+        If .PartyIndex <> 0 Then
 
                 If .Stats.MinHP <> 0 And .Stats.MaxHP <> 0 Then
-
-                    Call SendData(SendTarget.ToPartyArea, UserIndex, UserList(UserIndex).pos.Map, "VPT" & UserList(UserIndex).char.CharIndex & "," & UserList(UserIndex).Stats.MinHP & "," & UserList(UserIndex).Stats.MaxHP & "," & UserList(UserIndex).PartyIndex)
+                
+                    NP = UserList(UserIndex).PartyIndex
+                          
+                      Call Parties(NP).EnviarBarra
 
                 End If
-
-            End If
 
         End If
 

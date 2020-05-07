@@ -126,6 +126,21 @@ Public Sub MandarMensajeAConsola(ByVal texto As String, ByVal Sender As String)
 
 End Sub
 
+Public Sub EnviarBarra()
+     
+     Dim i As Integer
+     
+     For i = 1 To PARTY_MAXMEMBERS
+          
+          If p_members(i).UserIndex > 0 Then
+             Call SendData(SendTarget.ToPartyArea, p_members(i).UserIndex, UserList(p_members(i).UserIndex).pos.Map, "VPT" & UserList(p_members(i).UserIndex).char.CharIndex & "," & UserList(p_members(i).UserIndex).Stats.MinHP & "," & UserList(p_members(i).UserIndex).Stats.MaxHP & "," & UserList(p_members(i).UserIndex).PartyIndex)
+                
+          End If
+          
+     Next i
+     
+End Sub
+
 Public Function EsPartyLeader(ByVal UserIndex As Integer) As Boolean
 
     EsPartyLeader = (UserIndex = p_Fundador)
