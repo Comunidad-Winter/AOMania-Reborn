@@ -13,6 +13,15 @@ Sub HandleData2(ByVal Rdata As String)
    
     Select Case UCase$(Left$(Rdata, 2))
         
+        Case "PL"
+             For X = 1 To 10
+                  
+                  frmMain.UserClanPos(X).Visible = False
+                  
+             Next X
+         Exit Sub
+        
+        
         Case "PO"
             Rdata = Right$(Rdata, Len(Rdata) - 2)
             X = Val(ReadField(3, Rdata, 44))

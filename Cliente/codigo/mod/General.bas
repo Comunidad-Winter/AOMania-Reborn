@@ -1236,7 +1236,7 @@ Private Sub LoadInitialConfig()
     frmCargando.Show
     frmCargando.Refresh
     
-    frmConnect.version = "v" & App.Major & "." & App.Minor & " Build: " & App.Revision
+    frmConnect.Version = "v" & App.Major & "." & App.Minor & " Build: " & App.Revision
     
     '###########
     ' CONSTANTES

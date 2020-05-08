@@ -285,6 +285,8 @@ Sub HandleData(ByVal Rdata As String)
         Next X
 
         Call Ambient_SetActual(0, 0, 0)
+        
+        AoDefResult = 0
 
         Exit Sub
 
@@ -453,6 +455,7 @@ Sub HandleData(ByVal Rdata As String)
                     "Envio de password")
         frmRecuperar.MousePointer = 0
         frmMain.Socket1.Disconnect
+        AoDefResult = 0
 
         Unload frmRecuperar
         Exit Sub
@@ -463,6 +466,7 @@ Sub HandleData(ByVal Rdata As String)
         frmRecuperar.MousePointer = 0
 
         frmMain.Socket1.Disconnect
+        AoDefResult = 0
 
         Unload frmRecuperar
         Exit Sub
@@ -472,6 +476,7 @@ Sub HandleData(ByVal Rdata As String)
         frmBorrar.MousePointer = 0
 
         frmMain.Socket1.Disconnect
+        AoDefResult = 0
 
         Unload frmBorrar
         Exit Sub
@@ -1711,7 +1716,8 @@ Sub HandleData(ByVal Rdata As String)
         If Not frmCrearPersonaje.Visible Then
 
             frmMain.Socket1.Disconnect
-
+            AoDefResult = 0
+           
         End If
 
 
@@ -1722,12 +1728,12 @@ Sub HandleData(ByVal Rdata As String)
             frmMain.Socket1.Cleanup
 
             frmMain.Socket1.Disconnect
-
+            AoDefResult = 0
         Else
             MsgBox (Rdata)
             frmMain.Socket1.Disconnect
             frmMain.Socket1.Cleanup
-
+        AoDefResult = 0
         End If
 
         frmConnect.MousePointer = 1

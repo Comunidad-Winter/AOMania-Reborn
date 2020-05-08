@@ -504,7 +504,7 @@ Begin VB.Form frmCrearPersonaje
       Left            =   8070
       MouseIcon       =   "frmCrearPersonaje.frx":8008
       MousePointer    =   99  'Custom
-      Top             =   8220
+      Top             =   8265
       Width           =   3705
    End
    Begin VB.Image imgHogar 
@@ -703,7 +703,7 @@ Private Sub boton_Click(Index As Integer)
             
             UserName = txtNombre.Text
             UserPassword = txtPasswd.Text
-            UserEmail = Txtcorreo.Text
+            UserEmail = txtCorreo.Text
         
             UserRaza = lstRaza.List(lstRaza.ListIndex)
             UserSexo = lstGenero.List(lstGenero.ListIndex)
@@ -770,6 +770,7 @@ Private Sub boton_Click(Index As Integer)
             Me.Visible = False
             
             frmMain.Socket1.Disconnect
+            AoDefResult = 0
             
         Case 2
            

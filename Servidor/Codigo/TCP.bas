@@ -1754,7 +1754,9 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         If .GuildIndex > 0 Then
             Call SendData(SendTarget.ToGuildMembers, .GuildIndex, 0, "||" & .Name & " se ha conectado." & FONTTYPE_GUILD)
-
+                 
+               Call EnviaPosClan(UserIndex)
+               
             If Not modGuilds.m_ConectarMiembroAClan(UserIndex, .GuildIndex) Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tu estado no te permite entrar al clan." & FONTTYPE_GUILD)
 

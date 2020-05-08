@@ -95,7 +95,7 @@ Begin VB.Form frmMain
    Begin VB.Timer Clickeado 
       Enabled         =   0   'False
       Interval        =   1000
-      Left            =   2520
+      Left            =   2565
       Top             =   240
    End
    Begin VB.Timer Timer2 
@@ -148,7 +148,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -183,30 +182,134 @@ Begin VB.Form frmMain
       Top             =   255
       Width           =   1500
       Begin VB.Shape UserClanPos 
-         BackColor       =   &H000000FF&
+         BackColor       =   &H00C00000&
          BackStyle       =   1  'Opaque
-         BorderColor     =   &H000000FF&
-         FillColor       =   &H000000FF&
-         Height          =   105
-         Index           =   2
-         Left            =   750
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   9
+         Left            =   1005
          Shape           =   3  'Circle
-         Top             =   750
+         Top             =   135
          Visible         =   0   'False
-         Width           =   105
+         Width           =   75
       End
       Begin VB.Shape UserClanPos 
-         BackColor       =   &H000000FF&
+         BackColor       =   &H00C00000&
          BackStyle       =   1  'Opaque
-         BorderColor     =   &H000000FF&
-         FillColor       =   &H000000FF&
-         Height          =   105
-         Index           =   1
-         Left            =   750
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   8
+         Left            =   900
          Shape           =   3  'Circle
-         Top             =   750
+         Top             =   135
          Visible         =   0   'False
-         Width           =   105
+         Width           =   75
+      End
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H00C00000&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   7
+         Left            =   795
+         Shape           =   3  'Circle
+         Top             =   135
+         Visible         =   0   'False
+         Width           =   75
+      End
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H00C00000&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   6
+         Left            =   690
+         Shape           =   3  'Circle
+         Top             =   135
+         Visible         =   0   'False
+         Width           =   75
+      End
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H00C00000&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   5
+         Left            =   570
+         Shape           =   3  'Circle
+         Top             =   135
+         Visible         =   0   'False
+         Width           =   75
+      End
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H00C00000&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   10
+         Left            =   1110
+         Shape           =   3  'Circle
+         Top             =   135
+         Visible         =   0   'False
+         Width           =   75
+      End
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H00C00000&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   3
+         Left            =   330
+         Shape           =   3  'Circle
+         Top             =   135
+         Visible         =   0   'False
+         Width           =   75
+      End
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H00C00000&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   4
+         Left            =   450
+         Shape           =   3  'Circle
+         Top             =   135
+         Visible         =   0   'False
+         Width           =   75
+      End
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H00C00000&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   2
+         Left            =   210
+         Shape           =   3  'Circle
+         Top             =   135
+         Visible         =   0   'False
+         Width           =   75
+      End
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H00C00000&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H00C00000&
+         FillColor       =   &H00C00000&
+         Height          =   75
+         Index           =   1
+         Left            =   90
+         Shape           =   3  'Circle
+         Top             =   135
+         Visible         =   0   'False
+         Width           =   75
       End
       Begin VB.Shape MiniUserPos 
          BackColor       =   &H000000FF&
@@ -215,9 +318,9 @@ Begin VB.Form frmMain
          FillColor       =   &H000000FF&
          FillStyle       =   0  'Solid
          Height          =   75
-         Left            =   750
+         Left            =   615
          Shape           =   3  'Circle
-         Top             =   750
+         Top             =   735
          Width           =   75
       End
    End
@@ -358,7 +461,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -2274,6 +2376,8 @@ Private Sub Socket1_Disconnect()
 
     Dialogos.RemoveAllDialogs
     Inventario.ClearAllSlots
+    
+    AoDefResult = 0
 
 End Sub
 
@@ -2301,6 +2405,7 @@ Private Sub Socket1_LastError(ErrorCode As Integer, ErrorString As String, Respo
      'Second.Enabled = False
 
     frmMain.Socket1.Disconnect
+    AoDefResult = 0
     
     If Not frmCrearPersonaje.Visible Then
         If Not frmBorrar.Visible And Not frmRecuperar.Visible Then

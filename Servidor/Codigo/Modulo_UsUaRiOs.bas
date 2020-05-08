@@ -955,26 +955,41 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte)
         If .Counters.Trabajando Then .Counters.Trabajando = UserList(UserIndex).Counters.Trabajando - 1
         
         If UserList(UserIndex).GuildIndex > 0 Then
-            If Guilds(UserIndex).GuildName <> "" Then
-                
-                For i = 1 To LastUser
-                    If UserList(i).Name <> UserList(UserIndex).Name Then
-                    If Guilds(UserList(i).GuildIndex).GuildName = Guilds(UserList(UserIndex).GuildIndex).GuildName Then
-                        If UserList(i).pos.Map = UserList(UserIndex).pos.Map Then
-                            Call SendData(ToIndex, UserIndex, 0, "PO" & UserList(i).pos.x & "," & UserList(i).pos.Y & "," & i)
-                            Call SendData(ToIndex, i, 0, "PO" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y & "," & i)
+                 
+               Call EnviaPosClan(UserIndex)
+            
+        End If
+        
+    End With
 
-                        End If
+End Sub
 
-                    End If
+Public Sub EnviaPosClan(ByVal UserIndex As Integer)
+
+    Dim IDUser As Integer
+
+    Dim i      As Integer
+          
+     If Guilds(UserIndex).GuildName <> "" Then
+          
+    For i = 1 To LastUser
+
+        If UserList(i).Name <> UserList(UserIndex).Name Then
+            If Guilds(UserList(i).GuildIndex).GuildName = Guilds(UserList(UserIndex).GuildIndex).GuildName Then
+                If UserList(i).pos.Map = UserList(UserIndex).pos.Map Then
+                    IDUser = IDUser + 1
+                    Call SendData(ToIndex, UserIndex, 0, "PO" & UserList(i).pos.x & "," & UserList(i).pos.Y & "," & IDUser)
+                    Call SendData(ToIndex, i, 0, "PO" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y & "," & IDUser)
+
                 End If
-                Next
 
             End If
 
         End If
-        
-    End With
+
+    Next i
+    
+    End If
 
 End Sub
 
@@ -2467,6 +2482,11 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal x As In
             If .Quest.NumMap > 0 Then
                 Call EncuentraMapaQuest(UserIndex, .Quest.Quest)
             End If
+        End If
+        
+        If .GuildIndex > 0 Then
+            Call SendData(ToGuildMembers, .GuildIndex, 0, "PL")
+            Call EnviaPosClan(UserIndex)
         End If
         
         
