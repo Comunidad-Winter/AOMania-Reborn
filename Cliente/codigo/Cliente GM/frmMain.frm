@@ -148,7 +148,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -473,7 +472,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -1595,6 +1593,16 @@ Private Sub picInv_MouseMove(Button As Integer, Shift As Integer, X As Single, Y
 
 End Sub
 
+Private Sub picMiniMap_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+      
+      If (Shift And 1) = 1 Then
+          If Shift = vbLeftButton Then
+             Call SendData("/TELEP YO " & UserMap & " " & X & " " & Y)
+          End If
+      End If
+      
+End Sub
+
 Private Sub Second_Timer()
 
     If Not DialogosClanes Is Nothing Then DialogosClanes.PassTimer
@@ -2501,7 +2509,6 @@ Private Sub Timer1_Timer()
 
                 If MouseShift = vbLeftButton Then
                     Call SendData("/TELEP YO " & UserMap & " " & TX & " " & TY)
-
                 End If
 
             End If
