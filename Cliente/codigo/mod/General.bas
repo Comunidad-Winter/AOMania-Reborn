@@ -1236,7 +1236,7 @@ Private Sub LoadInitialConfig()
     frmCargando.Show
     frmCargando.Refresh
     
-    frmConnect.Version = "v" & App.Major & "." & App.Minor & " Build: " & App.Revision
+    frmConnect.version = "v" & App.Major & "." & App.Minor & " Build: " & App.Revision
     
     '###########
     ' CONSTANTES
@@ -1613,7 +1613,7 @@ End Sub
 Public Sub ActualizarShpClanPos()
     Dim i As Integer
     
-    For i = 1 To 2
+    For i = 1 To 10
         If ClanPos(i).X > 0 And ClanPos(i).Y > 0 Then
             frmMain.UserClanPos(i).Left = ClanPos(i).X - 2
             frmMain.UserClanPos(i).Top = ClanPos(i).Y - 2

@@ -13,7 +13,7 @@
 12=#P0#=mb	#P1#=CmdLanzar_MouseUp	#P2#=AoManiaClienteGM/frmMain/CmdLanzar_MouseUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200508073327	#P7#=0	#P8#=3	.
 13=#P0#=mb	#P1#=AntiFLOOD_Timer	#P2#=AoManiaClienteGM/frmMain/AntiFLOOD_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200508073250	#P7#=0	#P8#=-2	.
 14=#P0#=mb	#P1#=boton_Click	#P2#=AoManiaClienteGM/frmCrearPersonaje/boton_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200508072851	#P7#=0	#P8#=9	.
-15=#P0#=mb	#P1#=ActualizarShpClanPos	#P2#=AoManiaClienteGM/Mod_General/ActualizarShpClanPos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508072811	#P7#=0	#P8#=5	.
+15=#P0#=mb	#P1#=ActualizarShpClanPos	#P2#=AoManiaClienteGM/Mod_General/ActualizarShpClanPos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509001106	#P7#=0	#P8#=3	.
 16=#P0#=mb	#P1#=Main	#P2#=AoManiaClienteGM/Mod_General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200505195352	#P7#=0	#P8#=0	.
 17=#P0#=mb	#P1#=mnunochoodia_Click	#P2#=AoManiaClienteGM/frmPaneldeGM/mnunochoodia_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200505195328	#P7#=0	#P8#=1	.
 18=#P0#=mb	#P1#=Image1_Click	#P2#=AoManiaClienteGM/frmSoporteResp/Image1_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203720	#P7#=0	#P8#=2	.
@@ -30,7 +30,7 @@
 29=#P0#=mb	#P1#=Form_Load	#P2#=AoManiaClienteGM/FrmHablarNpc/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200501005208	#P7#=0	#P8#=8	.
 30=#P0#=mb	#P1#=cmdSiguiente_Click	#P2#=AoManiaClienteGM/FrmHablarNpc/cmdSiguiente_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200501003651	#P7#=0	#P8#=1	.
 31=#P0#=mb	#P1#=cmdAnterior_Click	#P2#=AoManiaClienteGM/FrmHablarNpc/cmdAnterior_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200501003229	#P7#=0	#P8#=4	.
-32=#P0#=mb	#P1#=HandleData2	#P2#=AoManiaClienteGM/Mod_TCP2/HandleData2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501001912	#P7#=0	#P8#=55	.
+32=#P0#=mb	#P1#=HandleData2	#P2#=AoManiaClienteGM/Mod_TCP2/HandleData2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501001912	#P7#=0	#P8#=26	.
 33=#P0#=mb	#P1#=Load_Quest	#P2#=AoManiaClienteGM/Mod_Quest/Load_Quest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200501001404	#P7#=0	#P8#=-2	.
 34=#P0#=mb	#P1#=CharRender	#P2#=AoManiaClienteGM/Mod_TileEngine/CharRender	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200430041254	#P7#=0	#P8#=586	.
 35=#P0#=mb	#P1#=cmdIniciar_Click	#P2#=AoManiaClienteGM/frmQuest/cmdIniciar_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200430040811	#P7#=0	#P8#=8	.
