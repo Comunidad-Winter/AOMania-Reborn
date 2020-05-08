@@ -511,6 +511,10 @@ Sub CloseSocket(ByVal UserIndex As Integer)
             Call QuitarPoderLicantropo(UserIndex)
         End If
     End If
+    
+    If UserList(UserIndex).GuildIndex > 0 Then
+            Call SendData(ToGuildMembers, UserList(UserIndex).GuildIndex, 0, "PL")
+    End If
 
     DoEvents
 
@@ -658,7 +662,7 @@ Sub CloseSocket(ByVal UserIndex As Integer)
     UserList(UserIndex).flags.EstaDueleando = False
     UserList(UserIndex).ConnID = -1
     UserList(UserIndex).ConnIDValida = False
-
+    
     Call SaveConfig
 
     #If MYSQL = 1 Then

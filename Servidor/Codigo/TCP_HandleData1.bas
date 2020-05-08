@@ -81,7 +81,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             '&H80FF&
             If UserList(UserIndex).flags.Privilegios > PlayerType.User Then
                 If UCase$(UserList(UserIndex).Name) = "BASSINGER" Then
-                  Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbYellow & "°" & rData & "°" & CStr(ind))
+                
+                 Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbYellow & "°" & rData & "°" & CStr(ind))
+                
                 Else
                 Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & rData & "°" & CStr(ind))
                 End If

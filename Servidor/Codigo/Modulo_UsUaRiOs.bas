@@ -979,7 +979,7 @@ Public Sub EnviaPosClan(ByVal UserIndex As Integer)
                 If UserList(i).pos.Map = UserList(UserIndex).pos.Map Then
                     IDUser = IDUser + 1
                     Call SendData(ToIndex, UserIndex, 0, "PO" & UserList(i).pos.x & "," & UserList(i).pos.Y & "," & IDUser)
-                    Call SendData(ToIndex, i, 0, "PO" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y & "," & IDUser)
+                    'Call SendData(ToIndex, i, 0, "PO" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y & "," & IDUser)
 
                 End If
 
