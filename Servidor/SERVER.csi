@@ -1,15 +1,15 @@
 [History]
 1=#P0#=mb	#P1#=CloseUser	#P2#=AoManiaServer/TCP/CloseUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508085416	#P7#=0	#P8#=1	.
-2=#P0#=mb	#P1#=CloseSocket	#P2#=AoManiaServer/TCP/CloseSocket	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508085353	#P7#=0	#P8#=19	.
+2=#P0#=mb	#P1#=CloseSocket	#P2#=AoManiaServer/TCP/CloseSocket	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508085353	#P7#=0	#P8#=27	.
 3=#P0#=mb	#P1#=EcharPjsNoPrivilegiados	#P2#=AoManiaServer/TCP/EcharPjsNoPrivilegiados	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508085337	#P7#=0	#P8#=9	.
 4=#P0#=mb	#P1#=MoveUserChar	#P2#=AoManiaServer/UsUaRiOs/MoveUserChar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508083137	#P7#=0	#P8#=133	.
 5=#P0#=mb	#P1#=EnviaPosClan	#P2#=AoManiaServer/UsUaRiOs/EnviaPosClan	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508083125	#P7#=0	#P8#=-1	.
 6=#P0#=mb	#P1#=WarpUserChar	#P2#=AoManiaServer/UsUaRiOs/WarpUserChar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508083024	#P7#=0	#P8#=90	.
 7=#P0#=mb	#P1#=InvertHeading	#P2#=AoManiaServer/UsUaRiOs/InvertHeading	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508082825	#P7#=0	#P8#=0	.
 8=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508042212	#P7#=0	#P8#=1681	.
-9=#P0#=mb	#P1#=Main	#P2#=AoManiaServer/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508033734	#P7#=0	#P8#=0	.
+9=#P0#=mb	#P1#=Main	#P2#=AoManiaServer/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508033734	#P7#=0	#P8#=4	.
 10=#P0#=mb	#P1#=EventoSockAccept	#P2#=AoManiaServer/wskapiAO/EventoSockAccept	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508031936	#P7#=0	#P8#=130	.
-11=#P0#=mb	#P1#=HandleData	#P2#=AoManiaServer/TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508031904	#P7#=0	#P8#=76	.
+11=#P0#=mb	#P1#=HandleData	#P2#=AoManiaServer/TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508191038	#P7#=0	#P8#=76	.
 12=#P0#=mb	#P1#=ConvToHex	#P2#=AoManiaServer/AoDefenderEncryptServer/ConvToHex	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508031802	#P7#=0	#P8#=8	.
 13=#P0#=mb	#P1#=SendData	#P2#=AoManiaServer/TCP/SendData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508031528	#P7#=0	#P8#=9	.
 14=#P0#=mb	#P1#=DeCodificar	#P2#=AoManiaServer/AoDefenderEncrypt2/DeCodificar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508031441	#P7#=0	#P8#=1	.

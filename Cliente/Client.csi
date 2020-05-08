@@ -2,8 +2,8 @@
 1=#P0#=mb	#P1#=Socket1_Disconnect	#P2#=AoManiaCliente/frmMain/Socket1_Disconnect	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200508085459	#P7#=0	#P8#=52	.
 2=#P0#=mb	#P1#=Socket1_LastError	#P2#=AoManiaCliente/frmMain/Socket1_LastError	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200508085051	#P7#=0	#P8#=10	.
 3=#P0#=mb	#P1#=HandleData	#P2#=AoManiaCliente/Mod_TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508085020	#P7#=0	#P8#=1721	.
-4=#P0#=mb	#P1#=ActualizarShpClanPos	#P2#=AoManiaCliente/Mod_General/ActualizarShpClanPos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508051407	#P7#=0	#P8#=1	.
-5=#P0#=mb	#P1#=HandleData2	#P2#=AoManiaCliente/Mod_TCP2/HandleData2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508083732	#P7#=0	#P8#=18	.
+4=#P0#=mb	#P1#=HandleData2	#P2#=AoManiaCliente/Mod_TCP2/HandleData2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508083732	#P7#=0	#P8#=18	.
+5=#P0#=mb	#P1#=ActualizarShpClanPos	#P2#=AoManiaCliente/Mod_General/ActualizarShpClanPos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508051407	#P7#=0	#P8#=1	.
 6=#P0#=mb	#P1#=ActualizarShpUserPos	#P2#=AoManiaCliente/Mod_General/ActualizarShpUserPos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508043040	#P7#=0	#P8#=10	.
 7=#P0#=mb	#P1#=CargarMiniMapa	#P2#=AoManiaCliente/Mod_General/CargarMiniMapa	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508043018	#P7#=0	#P8#=-2	.
 8=#P0#=mb	#P1#=Semilla	#P2#=AoManiaCliente/AoDefenderEncrypt2/Semilla	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508040449	#P7#=0	#P8#=10	.
@@ -44,8 +44,8 @@
 43=#P0#=mb	#P1#=MainViewPic_DblClick	#P2#=AoManiaCliente/frmMain/MainViewPic_DblClick	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203159	#P7#=0	#P8#=-1	.
 44=#P0#=mb	#P1#=Lemu_Click	#P2#=AoManiaCliente/frmMain/Lemu_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203158	#P7#=0	#P8#=0	.
 45=#P0#=mb	#P1#=Label7_MouseUp	#P2#=AoManiaCliente/frmMain/Label7_MouseUp	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203154	#P7#=0	#P8#=1	.
-46=#P0#=mb	#P1#=Label10_Click	#P2#=AoManiaCliente/frmMain/Label10_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203150	#P7#=0	#P8#=0	.
-47=#P0#=mb	#P1#=imgSkillpts_Click	#P2#=AoManiaCliente/frmMain/imgSkillpts_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203150	#P7#=0	#P8#=14	.
+46=#P0#=mb	#P1#=imgSkillpts_Click	#P2#=AoManiaCliente/frmMain/imgSkillpts_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203150	#P7#=0	#P8#=14	.
+47=#P0#=mb	#P1#=Label10_Click	#P2#=AoManiaCliente/frmMain/Label10_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203150	#P7#=0	#P8#=0	.
 48=#P0#=mb	#P1#=Clickeado_Timer	#P2#=AoManiaCliente/frmMain/Clickeado_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502203003	#P7#=0	#P8#=1	.
 49=#P0#=mb	#P1#=Image2_Click	#P2#=AoManiaCliente/frmSoporteGm/Image2_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200502202618	#P7#=0	#P8#=3	.
 50=#P0#=mb	#P1#=CompararPosiciones	#P2#=AoManiaCliente/mod_MouseGamer/CompararPosiciones	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200429012031	#P7#=0	#P8#=10	.

@@ -1,0 +1,4 @@
+[History]
+1=#P0#=mb	#P1#=cmdBuscar_Click	#P2#=BuscaCharfiles/frmMain/cmdBuscar_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200508220437	#P7#=0	#P8#=22	.
+2=#P0#=mb	#P1#=DirChar	#P2#=BuscaCharfiles/ModGeneral/DirChar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508220419	#P7#=0	#P8#=4	.
+3=#P0#=mb	#P1#=ReadField	#P2#=BuscaCharfiles/ModGeneral/ReadField	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508213448	#P7#=0	#P8#=16	.
