@@ -148,6 +148,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -181,6 +182,32 @@ Begin VB.Form frmMain
       TabStop         =   0   'False
       Top             =   255
       Width           =   1500
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H000000FF&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H000000FF&
+         FillColor       =   &H000000FF&
+         Height          =   105
+         Index           =   2
+         Left            =   750
+         Shape           =   3  'Circle
+         Top             =   750
+         Visible         =   0   'False
+         Width           =   105
+      End
+      Begin VB.Shape UserClanPos 
+         BackColor       =   &H000000FF&
+         BackStyle       =   1  'Opaque
+         BorderColor     =   &H000000FF&
+         FillColor       =   &H000000FF&
+         Height          =   105
+         Index           =   1
+         Left            =   750
+         Shape           =   3  'Circle
+         Top             =   750
+         Visible         =   0   'False
+         Width           =   105
+      End
       Begin VB.Shape MiniUserPos 
          BackColor       =   &H000000FF&
          BackStyle       =   1  'Opaque
@@ -331,6 +358,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True

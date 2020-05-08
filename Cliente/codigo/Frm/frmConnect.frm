@@ -215,7 +215,7 @@ Private Sub Form_Activate()
     
     If i = 0 Then
         i = i + 1
-        Call Audio.PlayWave("173.wav")
+        'Call Audio.PlayWave("173.wav")
     End If
     Winsock1.Close
      Winsock1.RemoteHost = CurServerIp

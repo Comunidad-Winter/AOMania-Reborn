@@ -30,7 +30,7 @@ Private Declare Function CreateWindowEx Lib "user32" Alias "CreateWindowExA" (By
                                                                               ByVal lpClassName As String, _
                                                                               ByVal lpWindowName As String, _
                                                                               ByVal dwStyle As Long, _
-                                                                              ByVal X As Long, _
+                                                                              ByVal x As Long, _
                                                                               ByVal Y As Long, _
                                                                               ByVal nWidth As Long, _
                                                                               ByVal nHeight As Long, _
@@ -543,15 +543,15 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
         Next i
 
         ' anti bombardeo de ip
-        Dim k As Integer, X As Integer
-        X = 1
+        Dim k As Integer, x As Integer
+        x = 1
 
         For k = 1 To LastUser
 
-            If (UserList(k).ip = UserList(NewIndex).ip) Then X = X + 1
+            If (UserList(k).ip = UserList(NewIndex).ip) Then x = x + 1
         Next k
 
-        If (X > 10) Then
+        If (x > 10) Then
             Call WSApiCloseSocket(NuevoSock)
             UserList(NewIndex).ConnID = -1
             Exit Sub
@@ -567,6 +567,8 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
         UserList(NewIndex).ConnIDValida = True
         'Set UserList(NewIndex).CommandsBuffer = New CColaArray
         'Set UserList(NewIndex).ColaSalida = New Collection
+        UserList(NewIndex).clave = 0
+        UserList(NewIndex).clave2 = 0
 
         Call AgregaSlotSock(NuevoSock, NewIndex)
     Else

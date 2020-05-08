@@ -1133,7 +1133,9 @@ Function FileExist(ByVal File As String, ByVal FileType As VbFileAttribute) As B
 End Function
 
 Sub Main()
-    
+        
+    Set AodefConv = New AoDefenderConverter
+        
     Call InitializeCompression
     Call LoadInterfaces
     Call LoadClientSetup
@@ -1605,6 +1607,21 @@ Public Sub ActualizarShpUserPos()
     
     frmMain.MiniUserPos.Left = UserPos.X - 2
     frmMain.MiniUserPos.Top = UserPos.Y - 2
+
+End Sub
+
+Public Sub ActualizarShpClanPos()
+    Dim i As Integer
+    
+    For i = 1 To 2
+        If ClanPos(i).X > 0 And ClanPos(i).Y > 0 Then
+            frmMain.UserClanPos(i).Left = ClanPos(i).X - 2
+            frmMain.UserClanPos(i).Top = ClanPos(i).Y - 2
+            frmMain.UserClanPos(i).Visible = True
+            Else
+            frmMain.UserClanPos(i).Visible = False
+        End If
+    Next i
 
 End Sub
 

@@ -28,11 +28,10 @@ Sub HandleData(ByVal Rdata As String)
 
     Dim sData As String
     Dim LooPC As Integer
-    '[SEGURIDAD SATUROS]
-    ' Rdata = AoDefServDecrypt(AoDefDecode(Rdata))
+
+    Rdata = AoDefServDecrypt(AoDefDecode(Rdata))
     sData = UCase$(Rdata)
 
-    '[SEGURIDAD SATUROS]
     If Left$(sData, 4) = "INVI" Then CartelInvisibilidad = Right$(sData, Len(sData) - 4)
 
     Select Case sData
@@ -2520,6 +2519,17 @@ Sub SendData(ByVal sdData As String)
     AuxCmd = UCase$(Left$(sdData, 5))
     
     If AuxCmd = "/PING" Then TimerPing(1) = GetTickCount()
+
+    With AodefConv
+       SuperClave = .Numero2Letra(AoDefProtectDynamic, , 2, AoDefExt(90, 105, 80, 80, 121), AoDefExt(78, 111, 80, 80, 121), 1, 0)
+    End With
+
+    Do While InStr(1, SuperClave, " ")
+        SuperClave = mid$(SuperClave, 1, InStr(1, SuperClave, " ") - 1) & mid$(SuperClave, InStr(1, SuperClave, " ") + 1)
+    Loop
+    s = Semilla(SuperClave)
+
+    sdData = AoDefEncode(Codificar(sdData, s))
 
     sdData = sdData & ENDC
 

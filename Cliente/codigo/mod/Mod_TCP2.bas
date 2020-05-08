@@ -12,6 +12,14 @@ Sub HandleData2(ByVal Rdata As String)
     Dim X         As Integer
    
     Select Case UCase$(Left$(Rdata, 2))
+        
+        Case "PO"
+            Rdata = Right$(Rdata, Len(Rdata) - 2)
+            X = Val(ReadField(3, Rdata, 44))
+            ClanPos(X).X = Val(ReadField(1, Rdata, 44))
+            ClanPos(X).Y = Val(ReadField(2, Rdata, 44))
+            Call ActualizarShpClanPos
+        Exit Sub
 
         Case "XN"             '>>>>>> Coge información de quest NPC
             Rdata = Right$(Rdata, Len(Rdata) - 2)
@@ -31,36 +39,36 @@ Sub HandleData2(ByVal Rdata As String)
             Exit Sub
         
         Case "XP"       '>>>>>>> Actualiza el proceso de la quest
-           Rdata = Right$(Rdata, Len(Rdata) - 2)
+            Rdata = Right$(Rdata, Len(Rdata) - 2)
            
-           charindex = ReadField(1, Rdata, 44)
-           ProcesoQuest = Val(ReadField(2, Rdata, 44))
+            charindex = ReadField(1, Rdata, 44)
+            ProcesoQuest = Val(ReadField(2, Rdata, 44))
            
-           Exit Sub
+            Exit Sub
            
         Case "XI"    '>>>>>>> Actualiza icono npc misiones
-           Rdata = Right$(Rdata, Len(Rdata) - 2)
+            Rdata = Right$(Rdata, Len(Rdata) - 2)
            
-           charindex = ReadField(1, Rdata, 44)
-           CharList(charindex).Icono = ReadField(2, Rdata, 44)
-        Exit Sub
+            charindex = ReadField(1, Rdata, 44)
+            CharList(charindex).Icono = ReadField(2, Rdata, 44)
+            Exit Sub
         
         Case "XV" '>>>>>>> Ejecuta ventana hablar Npc
-           Rdata = Right$(Rdata, Len(Rdata) - 2)
+            Rdata = Right$(Rdata, Len(Rdata) - 2)
            
-           HablarQuest.NumMsj = Val(ReadField(1, Rdata, 44))
+            HablarQuest.NumMsj = Val(ReadField(1, Rdata, 44))
            
-           For LooPC = 1 To HablarQuest.NumMsj
+            For LooPC = 1 To HablarQuest.NumMsj
                   
-                  X = LooPC + 1
+                X = LooPC + 1
                   
-                  HablarQuest.Mensaje(LooPC) = ReadField(X, Rdata, 44)
+                HablarQuest.Mensaje(LooPC) = ReadField(X, Rdata, 44)
                   
-           Next LooPC
+            Next LooPC
            
-           FrmHablarNpc.Show , frmMain
+            FrmHablarNpc.Show , frmMain
            
-        Exit Sub
+            Exit Sub
 
     End Select
    

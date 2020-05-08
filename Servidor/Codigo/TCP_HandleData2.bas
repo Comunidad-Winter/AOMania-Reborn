@@ -26,7 +26,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Dim n As Integer
     Dim wpaux As WorldPos
     Dim mifile As Integer
-    Dim X As Integer
+    Dim x As Integer
     Dim Y As Integer
     Dim DummyInt As Integer
     Dim T() As String
@@ -731,7 +731,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
                             '''''''''''         'Si viene el clan n°1
                             modGuilds.UsuariosEnCvcClan1 = modGuilds.UsuariosEnCvcClan1 + 1
                             UserList(i).ViejaPos.Map = UserList(i).pos.Map
-                            UserList(i).ViejaPos.X = UserList(i).pos.X
+                            UserList(i).ViejaPos.x = UserList(i).pos.x
                             UserList(i).ViejaPos.Y = UserList(i).pos.Y
                             WarpUserChar i, 8, RandomNumber(47, 55), RandomNumber(15, 21), True
                             UserList(i).EnCvc = True
@@ -743,7 +743,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
                             '''''''''''''''           'Si tambien viene el 2°
                             modGuilds.UsuariosEnCvcClan2 = modGuilds.UsuariosEnCvcClan2 + 1
                             UserList(i).ViejaPos.Map = UserList(i).pos.Map
-                            UserList(i).ViejaPos.X = UserList(i).pos.X
+                            UserList(i).ViejaPos.x = UserList(i).pos.x
                             UserList(i).ViejaPos.Y = UserList(i).pos.Y
                             WarpUserChar i, 8, RandomNumber(47, 55), RandomNumber(77, 83), True
                             UserList(i).EnCvc = True
@@ -2169,7 +2169,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Call Guilds(UserList(UserIndex).GuildIndex).ExpulsarMiembro(UserList(UserIndex).Name)
         UserList(UserIndex).GuildIndex = 0
         'UserList(UserIndex).flags.YaCerroClan = 1
-        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y)
         Exit Sub
 
     Case "/FUNDARCLAN"

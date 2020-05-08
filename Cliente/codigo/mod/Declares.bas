@@ -759,3 +759,13 @@ Public NameDay As String
 Public Declare Function timeGetTime Lib "winmm.dll" () As Long
 
 Public ProcesoQuest As Byte
+
+Public AodefConv As AoDefenderConverter
+Public SuperClave As String
+
+Public Type tClanPos
+       X As Byte
+       Y As Byte
+End Type
+
+Public ClanPos(1 To 10) As tClanPos

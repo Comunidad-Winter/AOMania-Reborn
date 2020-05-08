@@ -29,11 +29,10 @@ Sub HandleData(ByVal Rdata As String)
     Dim tstr2 As String
 
     Dim sData As String
-    '[SEGURIDAD SATUROS]
-    ' Rdata = AoDefServDecrypt(AoDefDecode(Rdata))
+
+    Rdata = AoDefServDecrypt(AoDefDecode(Rdata))
     sData = UCase$(Rdata)
 
-    '[SEGURIDAD SATUROS]
     If Left$(sData, 4) = "INVI" Then CartelInvisibilidad = Right$(sData, Len(sData) - 4)
 
     Select Case sData
@@ -1911,7 +1910,7 @@ Sub HandleData(ByVal Rdata As String)
         CANJInventory(CANJInvDim).MaxHit = ReadField(6, Rdata, 44)
         CANJInventory(CANJInvDim).MinHit = ReadField(7, Rdata, 44)
         CANJInventory(CANJInvDim).ObjType = ReadField(8, Rdata, 44)
-        CANJInventory(CANJInvDim).Cantidad = ReadField(9, Rdata, 44)
+        CANJInventory(CANJInvDim).cantidad = ReadField(9, Rdata, 44)
         frmCanjes.List1(0).AddItem CANJInventory(CANJInvDim).Name
         Exit Sub
 
@@ -2509,6 +2508,17 @@ Sub SendData(ByVal sdData As String)
     AuxCmd = UCase$(Left$(sdData, 5))
     
     If AuxCmd = "/PING" Then TimerPing(1) = GetTickCount()
+    
+    With AodefConv
+       SuperClave = .Numero2Letra(AoDefProtectDynamic, , 2, AoDefExt(90, 105, 80, 80, 121), AoDefExt(78, 111, 80, 80, 121), 1, 0)
+    End With
+
+    Do While InStr(1, SuperClave, " ")
+        SuperClave = mid$(SuperClave, 1, InStr(1, SuperClave, " ") - 1) & mid$(SuperClave, InStr(1, SuperClave, " ") + 1)
+    Loop
+    s = Semilla(SuperClave)
+
+    sdData = AoDefEncode(Codificar(sdData, s))
 
     sdData = sdData & ENDC
 

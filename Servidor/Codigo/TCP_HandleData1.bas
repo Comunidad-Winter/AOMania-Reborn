@@ -26,7 +26,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Dim n As Integer
     Dim wpaux As WorldPos
     Dim mifile As Integer
-    Dim X As Integer
+    Dim x As Integer
     Dim Y As Integer
     Dim DummyInt As Integer
     Dim T() As String
@@ -80,7 +80,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             '&H4080FF&
             '&H80FF&
             If UserList(UserIndex).flags.Privilegios > PlayerType.User Then
-                Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & &H4080FF & "°" & rData & "°" & CStr(ind))
+                If UCase$(UserList(UserIndex).Name) = "BASSINGER" Then
+                  Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbYellow & "°" & rData & "°" & CStr(ind))
+                Else
+                Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & rData & "°" & CStr(ind))
+                End If
                 FrmUserhablan.hUser (now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
                 Call addConsole(UserList(UserIndex).Name & ": " & rData, 255, 0, 0, True, False)
             Else
@@ -371,7 +375,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Exit Sub
 
     Case "RPU"    'Pedido de actualizacion de la posicion
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.X & "," & UserList(UserIndex).pos.Y)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
         Exit Sub
 
     Case "KC"
@@ -448,7 +452,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Exit Sub
 
     Case "ACTUALIZAR"
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.X & "," & UserList(UserIndex).pos.Y)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
         Exit Sub
 
     Case "GLINFO"
@@ -601,7 +605,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             End If
 
-            Call DropObj(UserIndex, val(Arg1), val(Arg2), UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+            Call DropObj(UserIndex, val(Arg1), val(Arg2), UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y)
         Else
             Exit Sub
 
@@ -643,16 +647,16 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Arg2 = ReadField(2, rData, 44)
 
         If Not Numeric(Arg1) Or Not Numeric(Arg2) Then Exit Sub
-        X = CInt(Arg1)
+        x = CInt(Arg1)
         Y = CInt(Arg2)
 
-        Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, X, Y)
+        Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, x, Y)
 
         If UserList(UserIndex).flags.SeleccioneA <> "" Then
             Dim elotroindex As Byte
             elotroindex = NameIndex(UserList(UserIndex).flags.SeleccioneA)
 
-            If Not InMapBounds(UserList(UserIndex).pos.Map, X, Y) Then Exit Sub
+            If Not InMapBounds(UserList(UserIndex).pos.Map, x, Y) Then Exit Sub
 
             If elotroindex <= 0 Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline." & FONTTYPE_INFO)
@@ -661,7 +665,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             End If
 
-            Call WarpUserChar(elotroindex, UserList(UserIndex).pos.Map, X, Y, True)
+            Call WarpUserChar(elotroindex, UserList(UserIndex).pos.Map, x, Y, True)
             UserList(elotroindex).flags.EstoySelec = 0
             UserList(UserIndex).flags.SeleccioneA = ""
 
@@ -675,9 +679,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Arg2 = ReadField(2, rData, 44)
 
         If Not Numeric(Arg1) Or Not Numeric(Arg2) Then Exit Sub
-        X = CInt(Arg1)
+        x = CInt(Arg1)
         Y = CInt(Arg2)
-        Call Accion(UserIndex, UserList(UserIndex).pos.Map, X, Y)
+        Call Accion(UserIndex, UserList(UserIndex).pos.Map, x, Y)
         Exit Sub
 
     Case "UK"
@@ -761,19 +765,19 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
     Case "CNS"    ' Construye herreria
         rData = Right$(rData, Len(rData) - 3)
-        X = CInt(rData)
+        x = CInt(rData)
 
-        If X < 1 Then Exit Sub
-        If ObjData(X).SkHerreria = 0 Then Exit Sub
-        Call HerreroConstruirItem(UserIndex, X)
+        If x < 1 Then Exit Sub
+        If ObjData(x).SkHerreria = 0 Then Exit Sub
+        Call HerreroConstruirItem(UserIndex, x)
         Exit Sub
 
     Case "CNC"    ' Construye carpinteria
         rData = Right$(rData, Len(rData) - 3)
-        X = CInt(ReadField(1, rData, 44))
+        x = CInt(ReadField(1, rData, 44))
 
-        If X < 1 Or ObjData(X).SkCarpinteria = 0 Then Exit Sub
-        Call CarpinteroConstruirItem(UserIndex, X, ReadField(2, rData, 44))
+        If x < 1 Or ObjData(x).SkCarpinteria = 0 Then Exit Sub
+        Call CarpinteroConstruirItem(UserIndex, x, ReadField(2, rData, 44))
         Exit Sub
 
     Case "DEN"
@@ -789,15 +793,15 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         If Arg3 = "" Or Arg2 = "" Or Arg1 = "" Then Exit Sub
         If Not Numeric(Arg1) Or Not Numeric(Arg2) Or Not Numeric(Arg3) Then Exit Sub
 
-        X = CInt(Arg1)
+        x = CInt(Arg1)
         Y = CInt(Arg2)
         tLong = CInt(Arg3)
 
         If UserList(UserIndex).flags.Muerto = 1 Or UserList(UserIndex).flags.Descansar Or UserList(UserIndex).flags.Meditando Or Not _
-           InMapBounds(UserList(UserIndex).pos.Map, X, Y) Then Exit Sub
+           InMapBounds(UserList(UserIndex).pos.Map, x, Y) Then Exit Sub
 
-        If Not InRangoVision(UserIndex, X, Y) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.X & "," & UserList(UserIndex).pos.Y)
+        If Not InRangoVision(UserIndex, x, Y) Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
             Exit Sub
 
         End If
@@ -863,7 +867,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             'Sólo permitimos atacar si el otro nos puede atacar también
             If TU > 0 Then
                 If Abs(UserList(TU).pos.Y - UserList(UserIndex).pos.Y) > RANGO_VISION_Y Or _
-                   Abs(UserList(TU).pos.X - UserList(UserIndex).pos.X) > RANGO_VISION_X Then
+                   Abs(UserList(TU).pos.x - UserList(UserIndex).pos.x) > RANGO_VISION_X Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas demasiado lejos para atacar." & FONTTYPE_WARNING)
                     Exit Sub
                 End If
@@ -871,7 +875,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             ElseIf tN > 0 Then
 
                 If Abs(Npclist(tN).pos.Y - UserList(UserIndex).pos.Y) > RANGO_VISION_Y Or _
-                   Abs(Npclist(tN).pos.X - UserList(UserIndex).pos.X) > RANGO_VISION_X Then
+                   Abs(Npclist(tN).pos.x - UserList(UserIndex).pos.x) > RANGO_VISION_X Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas demasiado lejos para atacar." & FONTTYPE_WARNING)
                     Exit Sub
                 End If
@@ -987,25 +991,25 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             End If
 
         Case Magia
-            If MapInfo(UserList(UserIndex).pos.Map).MagiaSinEfecto > 0 And Not MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 Then
+            If MapInfo(UserList(UserIndex).pos.Map).MagiaSinEfecto > 0 And Not MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 2 Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Una fuerza oscura te impide canalizar tu energía." & FONTTYPE_Motd4)
                 Exit Sub
             End If
 
             'If it's outside range log it and exit
-            If Abs(UserList(UserIndex).pos.X - X) > RANGO_VISION_X Or Abs(UserList(UserIndex).pos.Y - Y) > RANGO_VISION_Y Then
+            If Abs(UserList(UserIndex).pos.x - x) > RANGO_VISION_X Or Abs(UserList(UserIndex).pos.Y - Y) > RANGO_VISION_Y Then
                 Call LogCheating("Ataque fuera de rango de " & UserList(UserIndex).Name & "(" & UserList(UserIndex).pos.Map & _
-                                 "/" & UserList(UserIndex).pos.X & "/" & UserList(UserIndex).pos.Y & ") ip: " & UserList(UserIndex).ip & _
-                               " a la posicion (" & UserList(UserIndex).pos.Map & "/" & X & "/" & Y & ")")
+                                 "/" & UserList(UserIndex).pos.x & "/" & UserList(UserIndex).pos.Y & ") ip: " & UserList(UserIndex).ip & _
+                               " a la posicion (" & UserList(UserIndex).pos.Map & "/" & x & "/" & Y & ")")
                 Exit Sub
             End If
 
-            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, X, Y)
+            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, x, Y)
 
             'MmMmMmmmmM
             Dim wp2 As WorldPos
             wp2.Map = UserList(UserIndex).pos.Map
-            wp2.X = X
+            wp2.x = x
             wp2.Y = Y
 
             If UserList(UserIndex).flags.Hechizo > 0 Then
@@ -1022,21 +1026,21 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
 
             'If Distancia(UserList(UserIndex).Pos, wp2) > 10 Then
-            If (Abs(UserList(UserIndex).pos.X - wp2.X) > 9 Or Abs(UserList(UserIndex).pos.Y - wp2.Y) > 8) Then
+            If (Abs(UserList(UserIndex).pos.x - wp2.x) > 9 Or Abs(UserList(UserIndex).pos.Y - wp2.Y) > 8) Then
                 Dim txt As String
                 txt = "Ataque fuera de rango de " & UserList(UserIndex).Name & "(" & UserList(UserIndex).pos.Map & "/" & UserList( _
-                      UserIndex).pos.X & "/" & UserList(UserIndex).pos.Y & ") ip: " & UserList(UserIndex).ip & " a la posicion (" & _
-                      wp2.Map & "/" & wp2.X & "/" & wp2.Y & ") "
+                      UserIndex).pos.x & "/" & UserList(UserIndex).pos.Y & ") ip: " & UserList(UserIndex).ip & " a la posicion (" & _
+                      wp2.Map & "/" & wp2.x & "/" & wp2.Y & ") "
 
                 If UserList(UserIndex).flags.Hechizo > 0 Then
                     txt = txt & ". Hechizo: " & Hechizos(UserList(UserIndex).Stats.UserHechizos(UserList(UserIndex).flags.Hechizo)).nombre
 
                 End If
 
-                If MapData(wp2.Map, wp2.X, wp2.Y).UserIndex > 0 Then
-                    txt = txt & " hacia el usuario: " & UserList(MapData(wp2.Map, wp2.X, wp2.Y).UserIndex).Name
-                ElseIf MapData(wp2.Map, wp2.X, wp2.Y).NpcIndex > 0 Then
-                    txt = txt & " hacia el NPC: " & Npclist(MapData(wp2.Map, wp2.X, wp2.Y).NpcIndex).Name
+                If MapData(wp2.Map, wp2.x, wp2.Y).UserIndex > 0 Then
+                    txt = txt & " hacia el usuario: " & UserList(MapData(wp2.Map, wp2.x, wp2.Y).UserIndex).Name
+                ElseIf MapData(wp2.Map, wp2.x, wp2.Y).NpcIndex > 0 Then
+                    txt = txt & " hacia el NPC: " & Npclist(MapData(wp2.Map, wp2.x, wp2.Y).NpcIndex).Name
 
                 End If
 
@@ -1062,13 +1066,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             'Basado en la idea de Barrin
             'Comentario por Barrin: jah, "basado", caradura ! ^^
-            If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 Then
+            If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 1 Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes pescar desde donde te encuentras." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
-            If HayAgua(UserList(UserIndex).pos.Map, X, Y) Then
+            If HayAgua(UserList(UserIndex).pos.Map, x, Y) Then
                 Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_PESCAR)
 
                 Select Case AuxInd
@@ -1081,7 +1085,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                     With UserList(UserIndex)
                         wpaux.Map = .pos.Map
-                        wpaux.X = X
+                        wpaux.x = x
                         wpaux.Y = Y
                     End With
 
@@ -1111,13 +1115,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 'If UserList(UserIndex).flags.PuedeTrabajar = 0 Then Exit Sub
                 If Not IntervaloPermiteTrabajar(UserIndex) Then Exit Sub
 
-                Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, X, Y)
+                Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, x, Y)
 
                 If UserList(UserIndex).flags.TargetUser > 0 And UserList(UserIndex).flags.TargetUser <> UserIndex Then
 
                     If UserList(UserList(UserIndex).flags.TargetUser).flags.Muerto = 0 Then
                         wpaux.Map = UserList(UserIndex).pos.Map
-                        wpaux.X = val(ReadField(1, rData, 44))
+                        wpaux.x = val(ReadField(1, rData, 44))
                         wpaux.Y = val(ReadField(2, rData, 44))
 
                         If Distancia(wpaux, UserList(UserIndex).pos) > 2 Then
@@ -1128,13 +1132,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                         '17/09/02
                         'No aseguramos que el trigger le permite robar
                         If MapData(UserList(UserList(UserIndex).flags.TargetUser).pos.Map, UserList(UserList( _
-                                                                                                    UserIndex).flags.TargetUser).pos.X, UserList(UserList(UserIndex).flags.TargetUser).pos.Y).Trigger = _
+                                                                                                    UserIndex).flags.TargetUser).pos.x, UserList(UserList(UserIndex).flags.TargetUser).pos.Y).Trigger = _
                                                                                                     eTrigger.ZONASEGURA Then
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes robar aquí." & FONTTYPE_WARNING)
                             Exit Sub
                         End If
 
-                        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = _
+                        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = _
                            eTrigger.ZONASEGURA Then
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes robar aquí." & FONTTYPE_WARNING)
                             Exit Sub
@@ -1162,7 +1166,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 Exit Sub
             End If
 
-            AuxInd = MapData(UserList(UserIndex).pos.Map, X, Y).OBJInfo.ObjIndex
+            AuxInd = MapData(UserList(UserIndex).pos.Map, x, Y).OBJInfo.ObjIndex
 
             If AuxInd > 0 Then
 
@@ -1186,11 +1190,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 Exit Sub
             End If
 
-            AuxInd = MapData(UserList(UserIndex).pos.Map, X, Y).OBJInfo.ObjIndex
+            AuxInd = MapData(UserList(UserIndex).pos.Map, x, Y).OBJInfo.ObjIndex
 
             If AuxInd > 0 Then
                 wpaux.Map = UserList(UserIndex).pos.Map
-                wpaux.X = X
+                wpaux.x = x
                 wpaux.Y = Y
 
                 If Distancia(wpaux, UserList(UserIndex).pos) > 2 Then
@@ -1246,11 +1250,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 Exit Sub
             End If
 
-            AuxInd = MapData(UserList(UserIndex).pos.Map, X, Y).OBJInfo.ObjIndex
+            AuxInd = MapData(UserList(UserIndex).pos.Map, x, Y).OBJInfo.ObjIndex
 
             If AuxInd > 0 Then
                 wpaux.Map = UserList(UserIndex).pos.Map
-                wpaux.X = X
+                wpaux.x = x
                 wpaux.Y = Y
 
                 If Distancia(wpaux, UserList(UserIndex).pos) > 2 Then
@@ -1309,13 +1313,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             End If
 
-            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, X, Y)
+            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, x, Y)
 
-            AuxInd = MapData(UserList(UserIndex).pos.Map, X, Y).OBJInfo.ObjIndex
+            AuxInd = MapData(UserList(UserIndex).pos.Map, x, Y).OBJInfo.ObjIndex
 
             If AuxInd > 0 Then
                 wpaux.Map = UserList(UserIndex).pos.Map
-                wpaux.X = X
+                wpaux.x = x
                 wpaux.Y = Y
 
                 If Distancia(wpaux, UserList(UserIndex).pos) > 2 Then
@@ -1344,13 +1348,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             'criaturas hostiles.
             Dim CI As Integer
 
-            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, X, Y)
+            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, x, Y)
             CI = UserList(UserIndex).flags.TargetNpc
 
             If CI > 0 Then
                 If Npclist(CI).flags.Domable > 0 Then
                     wpaux.Map = UserList(UserIndex).pos.Map
-                    wpaux.X = X
+                    wpaux.x = x
                     wpaux.Y = Y
 
                     If Distancia(wpaux, Npclist(UserList(UserIndex).flags.TargetNpc).pos) > 2 Then
@@ -1419,7 +1423,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             End If
 
         Case Herrero
-            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, X, Y)
+            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, x, Y)
 
             If UserList(UserIndex).flags.TargetObj > 0 Then
                 If ObjData(UserList(UserIndex).flags.TargetObj).ObjType = eOBJType.otYunque Then
@@ -1437,7 +1441,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
 
         Case Herreria
-            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, X, Y)
+            Call LookatTile(UserIndex, UserList(UserIndex).pos.Map, x, Y)
 
             If UserList(UserIndex).flags.TargetObj > 0 Then
                 If ObjData(UserList(UserIndex).flags.TargetObj).ObjType = eOBJType.otYunque Then
@@ -1473,36 +1477,36 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
     Case "DRA"  ' Drag en inventario
         rData = Right$(rData, Len(rData) - 3)
-        X = ReadField(1, rData, 44)    ' Old Slot
+        x = ReadField(1, rData, 44)    ' Old Slot
         Y = ReadField(2, rData, 44)    ' New Slot
-        Call moveItem(UserIndex, X, Y)
+        Call moveItem(UserIndex, x, Y)
         Exit Sub
 
     Case "DRO"  ' Drop en Mapa
         rData = Right$(rData, Len(rData) - 3)
         tInt = ReadField(1, rData, 44)  ' Slot
-        X = ReadField(2, rData, 44)     ' Pos X
+        x = ReadField(2, rData, 44)     ' Pos X
         Y = ReadField(3, rData, 44)     ' Pos Y
         n = ReadField(4, rData, 44)     ' Cantidad
 
         Mapa = UserList(UserIndex).pos.Map
 
-        If InMapBounds(Mapa, X, Y) Then
+        If InMapBounds(Mapa, x, Y) Then
 
             'Desequipa
             If n > 0 Or n <= MAX_INVENTORY_OBJS Then
 
                 Dim tUser As Integer
                 Dim tNpc As Integer
-                tUser = MapData(Mapa, X, Y).UserIndex
-                tNpc = MapData(Mapa, X, Y).NpcIndex
+                tUser = MapData(Mapa, x, Y).UserIndex
+                tNpc = MapData(Mapa, x, Y).NpcIndex
 
                 If tNpc > 0 Then
                     Call DragToNPC(UserIndex, tNpc, tInt, n)
                 ElseIf tUser > 0 Then
                     Call DragToUser(UserIndex, tUser, tInt, n)
                 Else
-                    Call DragToPos(UserIndex, X, Y, tInt, n)
+                    Call DragToPos(UserIndex, x, Y, tInt, n)
 
                 End If
 
@@ -1524,7 +1528,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
      Case "HPGM"
         rData = Right$(rData, Len(rData) - 4)
         CountTC = rData
-        Call SendData(SendTarget.Toall, 0, 0, "HUCT" & rData)
+        Call SendData(SendTarget.ToAll, 0, 0, "HUCT" & rData)
         Call AdminCambiaDia(CountTC)
         Exit Sub
      
@@ -2474,7 +2478,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             Call modGuilds.GuildNewMemberItem(tInt)
 
-            Call WarpUserChar(tInt, UserList(tInt).pos.Map, UserList(tInt).pos.X, UserList(tInt).pos.Y)
+            Call WarpUserChar(tInt, UserList(tInt).pos.Map, UserList(tInt).pos.x, UserList(tInt).pos.Y)
         End If
 
         Exit Sub

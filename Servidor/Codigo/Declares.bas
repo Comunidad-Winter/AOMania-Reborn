@@ -33,7 +33,7 @@ Public Type MZonas
 
     nombre As String
     Map As Integer
-    X As Integer
+    x As Integer
     Y As Integer
 
 End Type
@@ -853,7 +853,7 @@ End Type
 
 Public Type Position
 
-    X As Integer
+    x As Integer
     Y As Integer
 
 End Type
@@ -861,7 +861,7 @@ End Type
 Public Type WorldPos
 
     Map As Integer
-    X As Integer
+    x As Integer
     Y As Integer
 
 End Type
@@ -1614,6 +1614,9 @@ Public Type User
     Gm As tGm
     
     Quest As UserQuest
+    
+    clave2 As Long
+    clave As String
 
 End Type
 
@@ -2226,3 +2229,6 @@ End Enum
 Public Const IntervaloAttack As Integer = 12
 
 Public Const ObjCreacionAlas As Integer = 1695
+
+Public AodefConv As AoDefenderConverter
+Public SuperClave As String
