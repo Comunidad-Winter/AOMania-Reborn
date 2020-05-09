@@ -4264,16 +4264,49 @@ Public Function MismoClan(ByVal UserIndex As Integer, ByVal CIndex As Integer) A
     MismoClan = False
 
 End Function
+
 Sub LlevarUsuarios()
-Dim ijaji As Integer
-For ijaji = 1 To LastUser
-If UserList(ijaji).pos.Map = 8 And UserList(ijaji).EnCvc = True Then
-    Call WarpUserChar(ijaji, UserList(ijaji).ViejaPos.Map, UserList(ijaji).ViejaPos.x, UserList(ijaji).ViejaPos.Y, True)
-    UserList(ijaji).EnCvc = False
-    UserList(ijaji).flags.CvcBlue = 0
-    UserList(ijaji).flags.CvcRed = 0
-    Call SendData(SendTarget.ToMap, 0, UserList(ijaji).pos.Map, "CVB" & UserList(ijaji).char.CharIndex & "," & UserList(ijaji).flags.CvcBlue)
-    Call SendData(SendTarget.ToMap, 0, UserList(ijaji).pos.Map, "CVR" & UserList(ijaji).char.CharIndex & "," & UserList(ijaji).flags.CvcRed)
-End If
-Next ijaji
+
+    Dim ijaji As Integer
+
+    For ijaji = 1 To LastUser
+
+        If UserList(ijaji).pos.Map = 8 And UserList(ijaji).EnCvc = True Then
+            Call WarpUserChar(ijaji, UserList(ijaji).ViejaPos.Map, UserList(ijaji).ViejaPos.x, UserList(ijaji).ViejaPos.Y, True)
+            UserList(ijaji).EnCvc = False
+            UserList(ijaji).flags.CvcBlue = 0
+            UserList(ijaji).flags.CvcRed = 0
+            Call SendData(SendTarget.ToMap, 0, UserList(ijaji).pos.Map, "CVB" & UserList(ijaji).char.CharIndex & "," & UserList(ijaji).flags.CvcBlue)
+            Call SendData(SendTarget.ToMap, 0, UserList(ijaji).pos.Map, "CVR" & UserList(ijaji).char.CharIndex & "," & UserList(ijaji).flags.CvcRed)
+
+        End If
+
+    Next ijaji
+
 End Sub
+
+Public Function EsUserMute(ByVal IndexHabla As Integer, ByVal IndexRecibe) As Boolean
+        
+        Dim LoopC As Integer
+        
+        If IndexHabla = IndexRecibe Then
+            EsUserMute = False
+            Exit Function
+        End If
+        
+        If UserList(IndexRecibe).Ignore.NumIgnores > 0 Then
+             
+             For LoopC = 1 To UserList(IndexRecibe).Ignore.NumIgnores
+                  
+                  If UCase$(UserList(IndexRecibe).Ignore.Usuario(LoopC)) = UCase$(UserList(IndexHabla).Name) Then
+                      EsUserMute = True
+                      Exit Function
+                  End If
+                  
+             Next LoopC
+             
+        End If
+        
+        EsUserMute = False
+        
+End Function

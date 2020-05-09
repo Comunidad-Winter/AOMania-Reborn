@@ -1456,7 +1456,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     End If
     
     UserList(UserIndex).Ignore.NumIgnores = val(UserFile.GetValue("IGNORE", "NumIgnores"))
-    UserList(UsrIndex).Ignore.MaximoIgnores = val(UserFile.GetValue("IGNORE", "MaximoIgnores"))
+    UserList(UserIndex).Ignore.MaximoIgnores = val(UserFile.GetValue("IGNORE", "MaximoIgnores"))
     
     If UserList(UserIndex).Ignore.NumIgnores > 0 Then
         

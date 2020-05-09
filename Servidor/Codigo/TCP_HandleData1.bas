@@ -90,6 +90,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 FrmUserhablan.hUser (now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
                 Call addConsole(UserList(UserIndex).Name & ": " & rData, 255, 0, 0, True, False)
             Else
+                UserList(UserIndex).flags.HablanMute = 1
                 Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbWhite & "°" & rData & "°" & CStr(ind))
                 FrmUserhablan.hUser (now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
                 Call addConsole(UserList(UserIndex).Name & ": " & rData, 255, 0, 0, True, False)

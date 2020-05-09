@@ -1348,7 +1348,8 @@ Public Type UserFlags
     Licantropo As Byte
 
     UsoLibroHP As Byte
-
+    
+    HablanMute As Byte
 
 End Type
 
