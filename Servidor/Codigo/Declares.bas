@@ -2238,3 +2238,4 @@ Public AodefConv As AoDefenderConverter
 Public SuperClave As String
 
 Public IndexHablaGuild(1 To 100) As Integer
+Public IndexHablaParty(1 To 100) As Integer

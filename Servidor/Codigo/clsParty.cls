@@ -60,7 +60,7 @@ Public Function MiExperiencia(ByVal UserIndex As Integer) As Long
 
 End Function
 
-Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, X As Integer, Y As Integer)
+Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, x As Integer, Y As Integer)
 'Se produjo un evento que da experiencia en la wp referenciada
     Dim i As Integer
     Dim UI As Integer
@@ -71,7 +71,7 @@ Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, X As Int
         UI = p_members(i).UserIndex
         If UI > 0 Then
             If Mapa = UserList(UI).pos.Map And UserList(UI).flags.Muerto = 0 Then
-                If Distance(UserList(UI).pos.X, UserList(UI).pos.Y, X, Y) <= PARTY_MAXDISTANCIA Then
+                If Distance(UserList(UI).pos.x, UserList(UI).pos.Y, x, Y) <= PARTY_MAXDISTANCIA Then
                     CantidadDistancia = CantidadDistancia + 1
                 End If
             End If
@@ -84,7 +84,7 @@ Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, X As Int
         UI = p_members(i).UserIndex
         If UI > 0 Then
             If Mapa = UserList(UI).pos.Map And UserList(UI).flags.Muerto = 0 Then
-                If Distance(UserList(UI).pos.X, UserList(UI).pos.Y, X, Y) <= PARTY_MAXDISTANCIA Then
+                If Distance(UserList(UI).pos.x, UserList(UI).pos.Y, x, Y) <= PARTY_MAXDISTANCIA Then
                     UserList(p_members(i).UserIndex).Stats.Exp = UserList(p_members(i).UserIndex).Stats.Exp + expPerCapita
                     Call SendData(SendTarget.ToIndex, (UI), 0, "||¡Has ganado " & expPerCapita & " puntos de experiencia!" & FONTTYPE_Motd4)
                     ' p_members(i).Experiencia = p_members(i).Experiencia + expPerCapita
@@ -110,19 +110,43 @@ Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, X As Int
     Next i
 
 End Sub
+
 Public Sub MandarMensajeAConsola(ByVal texto As String, ByVal Sender As String)
 
-'feo feo, muy feo acceder a senddata desde aca, pero BUEEEEEEEEEEE...
-    Dim i As Integer
+    Dim i  As Integer
+
+    Dim PI As Integer
 
     For i = 1 To PARTY_MAXMEMBERS
 
         If p_members(i).UserIndex > 0 Then
-            Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "||" & texto & FONTTYPE_TALKMSG)
+            PI = UserList(p_members(i).UserIndex).PartyIndex
+             
+            If IndexHablaParty(PI) > 0 Then
+                If UserList(IndexHablaParty(PI)).flags.HablanMute = 1 Then
+                    If Not EsUserMute(IndexHablaParty(PI), p_members(i).UserIndex) Then
+                        Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "||" & texto & FONTTYPE_TALKMSG)
+            
+                    End If
+
+                End If
+                
+            Else
+             
+                Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "||" & texto & FONTTYPE_TALKMSG)
+             
+            End If
 
         End If
 
     Next i
+    
+    If IndexHablaParty(PI) > 0 Then
+        UserList(IndexHablaParty(PI)).flags.HablanMute = 0
+        IndexHablaParty(PI) = 0
+        PI = 0
+
+    End If
 
 End Sub
 

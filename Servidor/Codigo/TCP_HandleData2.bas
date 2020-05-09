@@ -1661,7 +1661,9 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡¡¡No estas en Party!!!!" & FONTTYPE_VENENO)
                 Exit Sub
             End If
-
+            
+            UserList(UserIndex).flags.HablanMute = 1
+            IndexHablaParty(UserList(UserIndex).PartyIndex) = UserIndex
             Call mdParty.BroadCastParty(UserIndex, "MiembroParty: " & UserList(UserIndex).Name & " dice: " & mid$(rData, 7) & FONTTYPE_PARTY)
             rData = Right$(rData, Len(rData) - 6)
             FrmUserhablan.hParty (now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
