@@ -1,8 +1,8 @@
 [History]
-1=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509144651	#P7#=0	#P8#=215	.
+1=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509144651	#P7#=0	#P8#=212	.
 2=#P0#=mb	#P1#=EsUserMute	#P2#=AoManiaServer/UsUaRiOs/EsUserMute	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509074807	#P7#=0	#P8#=0	.
-3=#P0#=mb	#P1#=SendData	#P2#=AoManiaServer/TCP/SendData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509072156	#P7#=0	#P8#=319	.
-4=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509072128	#P7#=0	#P8#=51	.
+3=#P0#=mb	#P1#=SendData	#P2#=AoManiaServer/TCP/SendData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509153242	#P7#=0	#P8#=339	.
+4=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509152929	#P7#=0	#P8#=1486	.
 5=#P0#=mb	#P1#=LoadUserInit	#P2#=AoManiaServer/ES/LoadUserInit	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509065657	#P7#=0	#P8#=291	.
 6=#P0#=mb	#P1#=LlevarUsuarios	#P2#=AoManiaServer/UsUaRiOs/LlevarUsuarios	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509064815	#P7#=0	#P8#=12	.
 7=#P0#=mb	#P1#=DuracionAngelyDemonio	#P2#=AoManiaServer/General/DuracionAngelyDemonio	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509064300	#P7#=0	#P8#=36	.
@@ -13,7 +13,7 @@
 12=#P0#=mb	#P1#=CommandAdmins	#P2#=AoManiaServer/ModGM/CommandAdmins	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509042229	#P7#=0	#P8#=83	.
 13=#P0#=mb	#P1#=LoadSini	#P2#=AoManiaServer/ES/LoadSini	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509035931	#P7#=0	#P8#=2	.
 14=#P0#=mb	#P1#=Load_Quest	#P2#=AoManiaServer/Mod_Quest/Load_Quest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508211828	#P7#=0	#P8#=11	.
-15=#P0#=mb	#P1#=HandleData	#P2#=AoManiaServer/TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508191038	#P7#=0	#P8#=661	.
+15=#P0#=mb	#P1#=HandleData	#P2#=AoManiaServer/TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508191038	#P7#=0	#P8#=436	.
 16=#P0#=mb	#P1#=CloseUser	#P2#=AoManiaServer/TCP/CloseUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508085416	#P7#=0	#P8#=1	.
 17=#P0#=mb	#P1#=CloseSocket	#P2#=AoManiaServer/TCP/CloseSocket	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508085353	#P7#=0	#P8#=27	.
 18=#P0#=mb	#P1#=EcharPjsNoPrivilegiados	#P2#=AoManiaServer/TCP/EcharPjsNoPrivilegiados	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508085337	#P7#=0	#P8#=9	.

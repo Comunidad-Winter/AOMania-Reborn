@@ -7,7 +7,7 @@ Option Explicit
 'RUTAS DE ENVIO DE DATOS
 Public Enum SendTarget
 
-    toindex = 0         ' Envia a un solo User
+    ToIndex = 0         ' Envia a un solo User
     ToAll = 1           ' A todos los Users
     ToMap = 2           ' Todos los Usuarios en el mapa
     ToPCArea = 3        ' Todos los Users en el area de un user determinado
@@ -239,7 +239,7 @@ Sub ConnectNewUser(UserIndex As Integer, _
                    UserPersonaje As String, UserEmail As String, ByVal HdSerial As String)
 
     If Not AsciiValidos(Name) Then
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ERRNombre invalido.")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRNombre invalido.")
         Exit Sub
 
     End If
@@ -249,14 +249,14 @@ Sub ConnectNewUser(UserIndex As Integer, _
 
     '¿Existe el personaje?
     If FileExist(CharPath & UCase$(Name) & ".chr", vbNormal) = True Then
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ERRYa existe el personaje.")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRYa existe el personaje.")
         Exit Sub
 
     End If
 
     'Tiró los dados antes de llegar acá??
     If UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = 0 Then
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ERRDebe tirar los dados antes de poder crear un personaje.")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRDebe tirar los dados antes de poder crear un personaje.")
         Exit Sub
 
     End If
@@ -627,7 +627,7 @@ Sub CloseSocket(ByVal UserIndex As Integer)
     If UserList(UserIndex).ComUsu.DestUsu > 0 Then
         If UserList(UserList(UserIndex).ComUsu.DestUsu).flags.UserLogged Then
             If UserList(UserList(UserIndex).ComUsu.DestUsu).ComUsu.DestUsu = UserIndex Then
-                Call SendData(SendTarget.toindex, UserList(UserIndex).ComUsu.DestUsu, 0, "||Comercio cancelado por el otro usuario" & FONTTYPE_TALK)
+                Call SendData(SendTarget.ToIndex, UserList(UserIndex).ComUsu.DestUsu, 0, "||Comercio cancelado por el otro usuario" & FONTTYPE_TALK)
                 Call FinComerciarUsu(UserList(UserIndex).ComUsu.DestUsu)
 
             End If
@@ -766,7 +766,7 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
        UserList(sndIndex).flags.HablanMute = 0
         Exit Sub
 
-    Case SendTarget.toindex
+    Case SendTarget.ToIndex
 
         If UserList(sndIndex).ConnID <> -1 Then
             Call EnviarDatosASlot(sndIndex, sndData)
@@ -1035,8 +1035,18 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
         While LoopC > 0
 
             If (UserList(LoopC).ConnID <> -1) Then
-
+              
+              If UserList(IndexHablaGuild(sndIndex)).flags.HablanMute = 1 Then
+                  
+                  If Not EsUserMute(IndexHablaGuild(sndIndex), LoopC) Then
+                      Call EnviarDatosASlot(LoopC, sndData)
+                  End If
+                  
+              Else
+              
                 Call EnviarDatosASlot(LoopC, sndData)
+             
+             End If
  
                 
 
@@ -1044,6 +1054,9 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
             LoopC = modGuilds.m_Iterador_ProximoUserIndex(sndIndex)
         Wend
+        
+        UserList(IndexHablaGuild(sndIndex)).flags.HablanMute = 0
+        IndexHablaGuild(sndIndex) = 0
 
         LoopC = modGuilds.Iterador_ProximoGM(sndIndex)
 
@@ -1326,90 +1339,90 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         .Counters.Invisibilidad = IntervaloInvisible
         .char.FX = 0
 
-        Call SendData(SendTarget.toindex, UserIndex, 0, "INVI0")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "INVI0")
 
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||       .oo .oPYo. o     o               o              .oPYo.    .oPYo.       .oo" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||       .oo .oPYo. o     o               o              .oPYo.    .oPYo.       .oo" & _
                                                         FONTTYPE_Motd1)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||       .P 8 8    8 8b   d8                              8  .o8    8  .o8      .P 8" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||       .P 8 8    8 8b   d8                              8  .o8    8  .o8      .P 8" & _
                                                         FONTTYPE_Motd1)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||      .P  8 8    8 8`b d'8 .oPYo. odYo. o8 .oPYo.       8 .P'8    8 .P'8     .P  8" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||      .P  8 8    8 8`b d'8 .oPYo. odYo. o8 .oPYo.       8 .P'8    8 .P'8     .P  8" & _
                                                         FONTTYPE_Motd1)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||     oPooo8 8    8 8 `o' 8 .oooo8 8' `8  8 .oooo8       8.d' 8    8.d' 8         8" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||     oPooo8 8    8 8 `o' 8 .oooo8 8' `8  8 .oooo8       8.d' 8    8.d' 8         8" & _
                                                         FONTTYPE_Motd1)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||    .P    8 8    8 8     8 8    8 8   8  8 8    8       8o'  8    8o'  8         8" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||    .P    8 8    8 8     8 8    8 8   8  8 8    8       8o'  8    8o'  8         8" & _
                                                         FONTTYPE_Motd1)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||   .P     8 `YooP' 8     8 `YooP8 8   8  8 `YooP8       `YooP' 88 `YooP'88       8" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||   .P     8 `YooP' 8     8 `YooP8 8   8  8 `YooP8       `YooP' 88 `YooP'88       8" & _
                                                         FONTTYPE_Motd1)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||                                                                  www.AoMania.Net" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                                                                  www.AoMania.Net" & _
                                                         FONTTYPE_Motd1)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||      X = Seguro Objetos   Q = Mapa   P = Mapa  S = Seguro   W = Seguro de clan" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||      X = Seguro Objetos   Q = Mapa   P = Mapa  S = Seguro   W = Seguro de clan" & _
                                                         FONTTYPE_Motd2)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||                         F1 = /Meditar   F12 = Macro Interno Para trabajadores." & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                         F1 = /Meditar   F12 = Macro Interno Para trabajadores." & _
                                                         FONTTYPE_Motd2)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||                     Si tienes alguna duda o necesitas ayuda, escribe /GM TEXTO" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                     Si tienes alguna duda o necesitas ayuda, escribe /GM TEXTO" & _
                                                         FONTTYPE_Motd2)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||                                                        Version 0.0.1 Año: 2019" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                                                        Version 0.0.1 Año: 2019" & _
                                                         FONTTYPE_Motd2)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||:- Argentumania -:" & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||> ¡¡¡Bienvenidos al Servidor Oficial AoManiA 2019!!!" & FONTTYPE_GUILD)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||> Versión Actual v1 de AOMania, Argentumania 2018. Mod Argentum Online" & FONTTYPE_Motd3)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||> Para cualquier duda, /gm consulta" & FONTTYPE_Motd3)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||> Web Oficial aomania.net argentumania.es" & FONTTYPE_Motd4)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||> Foro Oficial foro.argentumania.es" & FONTTYPE_Motd4)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||---------------" & FONTTYPE_SERVER)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||Para ver el Mapa de AOMania dejar pulsada la tecla Q ó P." & FONTTYPE_Motd5)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||:- Argentumania -:" & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> ¡¡¡Bienvenidos al Servidor Oficial AoManiA 2019!!!" & FONTTYPE_GUILD)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Versión Actual v1 de AOMania, Argentumania 2018. Mod Argentum Online" & FONTTYPE_Motd3)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Para cualquier duda, /gm consulta" & FONTTYPE_Motd3)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Web Oficial aomania.net argentumania.es" & FONTTYPE_Motd4)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Foro Oficial foro.argentumania.es" & FONTTYPE_Motd4)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||---------------" & FONTTYPE_SERVER)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Para ver el Mapa de AOMania dejar pulsada la tecla Q ó P." & FONTTYPE_Motd5)
 
         Call SendInfoCastillos(UserIndex)
 
         If MaxLevel > 0 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "|| " & FONTTYPE_INFO)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||El máximo nivel es " & MaxLevel & ", adquirido por " & UserMaxLevel & "." & _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El máximo nivel es " & MaxLevel & ", adquirido por " & UserMaxLevel & "." & _
                                                             FONTTYPE_SERVER)
 
         End If
 
-        Call SendData(SendTarget.toindex, UserIndex, 0, "|| " & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & FONTTYPE_INFO)
 
         If MultMsg = "" Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & "." & FONTTYPE_Motd5)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & "." & FONTTYPE_Motd5)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & "." & FONTTYPE_Motd5)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & "." & FONTTYPE_Motd5)
         Else
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & ". " & MultMsg & "." & _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & ". " & MultMsg & "." & _
                                                             FONTTYPE_Motd5)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & ". " & MultMsg & "." & _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & ". " & MultMsg & "." & _
                                                             FONTTYPE_Motd5)
 
         End If
 
         If StatusNosfe = True Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Nosferatu esta haciendo estragos en el mapa " & MapaNosfe & FONTTYPE_GUILD)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Nosferatu esta haciendo estragos en el mapa " & MapaNosfe & FONTTYPE_GUILD)
         End If
 
         If ExpCriatura = True Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Hoy es día de " & NombreCriatura & ", su experencia esta aumentada x" & _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Hoy es día de " & NombreCriatura & ", su experencia esta aumentada x" & _
                                                             LoteriaCriatura & "." & FONTTYPE_TALK)
 
         End If
 
         If OroCriatura = True Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Hoy es día de " & NombreCriatura & ", su oro esta aumentada x" & LoteriaCriatura & _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Hoy es día de " & NombreCriatura & ", su oro esta aumentada x" & LoteriaCriatura & _
                                                             "." & FONTTYPE_TALK)
 
         End If
 
         If DiaEspecialExp = True Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Estáis de suerte! Día especial, la experencia esta aumentada por x2" & FONTTYPE_TALK)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Estáis de suerte! Día especial, la experencia esta aumentada por x2" & FONTTYPE_TALK)
 
         End If
 
         If DiaEspecialOro = True Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Estáis de suerte! Día especial, el oro esta aumentada por x2" & FONTTYPE_TALK)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Estáis de suerte! Día especial, el oro esta aumentada por x2" & FONTTYPE_TALK)
 
         End If
 
         'Controlamos no pasar el maximo de usuarios
         If NumUsers >= MaxUsers Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, _
                           "ERREl servidor ha alcanzado el maximo de usuarios soportado, por favor vuelva a intertarlo mas tarde.")
             Call CloseSocket(UserIndex)
             Exit Sub
@@ -1419,7 +1432,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         '¿Este IP ya esta conectado?
         If AllowMultiLogins = 0 Then
             If CheckForSameIP(UserIndex, .ip) = True Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "ERRNo es posible usar mas de un personaje al mismo tiempo.")
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRNo es posible usar mas de un personaje al mismo tiempo.")
                 Call CloseSocket(UserIndex)
                 Exit Sub
 
@@ -1429,7 +1442,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         '¿Existe el personaje?
         If Not FileExist(CharPath & UCase$(Name) & ".chr", vbNormal) Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "ERREl personaje no existe.")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERREl personaje no existe.")
             Call CloseSocket(UserIndex)
             Exit Sub
 
@@ -1437,7 +1450,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         '¿Es el passwd valido?
         If UCase$(Password) <> UCase$(GetVar(CharPath & UCase$(Name) & ".chr", "INIT", "Password")) Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "ERRPassword incorrecto.")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRPassword incorrecto.")
 
             Call CloseSocket(UserIndex)
             Exit Sub
@@ -1447,9 +1460,9 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         '¿Ya esta conectado el personaje?
         If CheckForSameName(UserIndex, Name) Then
             If UserList(NameIndex(Name)).Counters.Saliendo Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "ERREl usuario está saliendo.")
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERREl usuario está saliendo.")
             Else
-                Call SendData(SendTarget.toindex, UserIndex, 0, "ERRPerdon, un usuario con el mismo nombre se há logoeado.")
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRPerdon, un usuario con el mismo nombre se há logoeado.")
 
             End If
 
@@ -1469,7 +1482,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         Call LoadUserStats(UserIndex, Leer)
 
         If Not ValidateChr(UserIndex) Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "ERRError en el personaje.")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRError en el personaje.")
             Call CloseSocket(UserIndex)
             Exit Sub
 
@@ -1499,12 +1512,12 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         End If
 
         If .flags.Paralizado Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "PARADOW")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
 
         End If
 
         'Feo, esto tiene que ser parche cliente
-        If .flags.Estupidez = 0 Then Call SendData(SendTarget.toindex, UserIndex, 0, "NESTUP")
+        If .flags.Estupidez = 0 Then Call SendData(SendTarget.ToIndex, UserIndex, 0, "NESTUP")
 
         'Posicion de comienzo
         If .pos.Map = 0 Then
@@ -1587,7 +1600,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         End If
 
         If Not MapaValido(.pos.Map) Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "ERREL PJ se encuenta en un mapa invalido.")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERREL PJ se encuenta en un mapa invalido.")
             Call CloseSocket(UserIndex)
             Exit Sub
 
@@ -1603,10 +1616,10 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         .showName = True    'Por default los nombres son visibles
 
         'Info
-        Call SendData(SendTarget.toindex, UserIndex, 0, "IU" & UserIndex)    'Enviamos el User index
-        Call SendData(SendTarget.toindex, UserIndex, 0, "CM" & .pos.Map & "," & MapInfo(.pos.Map).MapVersion)    'Carga el mapa
-        Call SendData(SendTarget.toindex, UserIndex, 0, "TM" & MapInfo(.pos.Map).Music)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "N~" & MapInfo(.pos.Map).Name)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "IU" & UserIndex)    'Enviamos el User index
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "CM" & .pos.Map & "," & MapInfo(.pos.Map).MapVersion)    'Carga el mapa
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "TM" & MapInfo(.pos.Map).Music)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "N~" & MapInfo(.pos.Map).Name)
 
         'Vemos que clase de user es (se lo usa para setear los privilegios alcrear el PJ)
         .flags.EsRolesMaster = EsRolesMaster(Name)
@@ -1633,7 +1646,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         'Crea  el personaje del usuario
         Call MakeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .pos.Map, .pos.x, .pos.Y)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "IP" & .char.CharIndex)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "IP" & .char.CharIndex)
         ''[/el oso]
 
         Call SendUserStatsBox(UserIndex)
@@ -1650,15 +1663,15 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         'End If
 
         If EnPausa Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "BKW")
-            Call SendData(SendTarget.toindex, UserIndex, 0, _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "BKW")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, _
                           "||AOMania> Lo sentimos mucho pero el servidor se encuentra actualmente detenido. Intenta ingresar más tarde." & _
                           FONTTYPE_SERVER)
 
         End If
 
         If EnTesting And .Stats.ELV >= 18 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, _
                           "ERRServidor en Testing por unos minutos, conectese con PJs de nivel menor a 18. No se conecte con Pjs que puedan resultar importantes por ahora pues pueden arruinarse.")
             Call CloseSocket(UserIndex)
             Exit Sub
@@ -1677,7 +1690,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         Next x
 
         Call SendData(ToAll, 0, 0, "³" & Total)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "HUCT" & CountTC)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "HUCT" & CountTC)
 
         If NocheLicantropo = True Then
             If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
@@ -1736,15 +1749,15 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         End If
 
-        If .flags.Navegando = 1 Then Call SendData(SendTarget.toindex, UserIndex, 0, "NAVEG")
+        If .flags.Navegando = 1 Then Call SendData(SendTarget.ToIndex, UserIndex, 0, "NAVEG")
 
         If Criminal(UserIndex) Then
             'Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Miembro de las fuerzas del caos > Seguro desactivado <" & FONTTYPE_FIGHT)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "OFFOFS")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "OFFOFS")
             .flags.Seguro = False
         Else
             .flags.Seguro = True
-            Call SendData(SendTarget.toindex, UserIndex, 0, "ONONS")
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ONONS")
 
         End If
 
@@ -1753,16 +1766,16 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         .flags.SeguroHechizos = True
         .flags.SeguroObjetos = False
 
-        Call SendData(SendTarget.toindex, UserIndex, 0, "SEGCO99")
-        Call SendData(SendTarget.toindex, UserIndex, 0, "SEG11")
-        Call SendData(SendTarget.toindex, UserIndex, 0, "SEG13")
-        Call SendData(SendTarget.toindex, UserIndex, 0, "SEG15")
-        Call SendData(SendTarget.toindex, UserIndex, 0, "SEGCVCON")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "SEGCO99")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "SEG11")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "SEG13")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "SEG15")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "SEGCVCON")
         UserList(UserIndex).flags.SeguroCVC = True
 
         If ServerSoloGMs > 0 Then
             If .flags.Privilegios < ServerSoloGMs Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "ERRServidor restringido a administradores de jerarquia mayor o igual a: " & _
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRServidor restringido a administradores de jerarquia mayor o igual a: " & _
                                                                 ServerSoloGMs & ". Por favor intente en unos momentos.")
                 Call CloseSocket(UserIndex)
                 Exit Sub
@@ -1777,7 +1790,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
                Call EnviaPosClan(UserIndex)
                
             If Not modGuilds.m_ConectarMiembroAClan(UserIndex, .GuildIndex) Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||Tu estado no te permite entrar al clan." & FONTTYPE_GUILD)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tu estado no te permite entrar al clan." & FONTTYPE_GUILD)
 
             End If
 
@@ -1785,7 +1798,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "CFX" & .char.CharIndex & "," & FXIDs.FXWARP & "," & 0)
 
-        Call SendData(SendTarget.toindex, UserIndex, 0, "LODXXD")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "LODXXD")
 
         Call modGuilds.SendGuildNews(UserIndex)
 
@@ -1795,7 +1808,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         tStr = modGuilds.a_ObtenerRechazoDeChar(.Name)
 
         If tStr <> vbNullString Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "!!Tu solicitud de ingreso al clan ha sido rechazada. El clan te explica que: " & tStr _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "!!Tu solicitud de ingreso al clan ha sido rechazada. El clan te explica que: " & tStr _
                                                           & ENDC)
 
         End If
@@ -1845,50 +1858,50 @@ End Sub
 Sub SendMOTD(ByVal UserIndex As Integer)
     Dim j As Long
 
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||       .oo .oPYo. o     o               o              .oPYo.    .oPYo.       .oo" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||       .oo .oPYo. o     o               o              .oPYo.    .oPYo.       .oo" & _
                                                     FONTTYPE_Motd1)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||       .P 8 8    8 8b   d8                              8  .o8    8  .o8      .P 8" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||       .P 8 8    8 8b   d8                              8  .o8    8  .o8      .P 8" & _
                                                     FONTTYPE_Motd1)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||      .P  8 8    8 8`b d'8 .oPYo. odYo. o8 .oPYo.       8 .P'8    8 .P'8     .P  8" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||      .P  8 8    8 8`b d'8 .oPYo. odYo. o8 .oPYo.       8 .P'8    8 .P'8     .P  8" & _
                                                     FONTTYPE_Motd1)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||     oPooo8 8    8 8 `o' 8 .oooo8 8' `8  8 .oooo8       8.d' 8    8.d' 8         8" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||     oPooo8 8    8 8 `o' 8 .oooo8 8' `8  8 .oooo8       8.d' 8    8.d' 8         8" & _
                                                     FONTTYPE_Motd1)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||    .P    8 8    8 8     8 8    8 8   8  8 8    8       8o'  8    8o'  8         8" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||    .P    8 8    8 8     8 8    8 8   8  8 8    8       8o'  8    8o'  8         8" & _
                                                     FONTTYPE_Motd1)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||   .P     8 `YooP' 8     8 `YooP8 8   8  8 `YooP8       `YooP' 88 `YooP'88       8" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||   .P     8 `YooP' 8     8 `YooP8 8   8  8 `YooP8       `YooP' 88 `YooP'88       8" & _
                                                     FONTTYPE_Motd1)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||                                                                  www.AoMania.Net" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                                                                  www.AoMania.Net" & _
                                                     FONTTYPE_Motd1)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||      X = Seguro Objetos   Q = Mapa   P = Mapa  S = Seguro   W = Seguro de clan" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||      X = Seguro Objetos   Q = Mapa   P = Mapa  S = Seguro   W = Seguro de clan" & _
                                                     FONTTYPE_Motd2)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||                         F1 = /Meditar   F12 = Macro Interno Para trabajadores." & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                         F1 = /Meditar   F12 = Macro Interno Para trabajadores." & _
                                                     FONTTYPE_Motd2)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||                     Si tienes alguna duda o necesitas ayuda, escribe /GM TEXTO" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                     Si tienes alguna duda o necesitas ayuda, escribe /GM TEXTO" & _
                                                     FONTTYPE_Motd2)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||                                                        Version 0.0.1 Año: 2019" & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                                                        Version 0.0.1 Año: 2019" & _
                                                     FONTTYPE_Motd2)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||:- Argentumania -:" & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||> ¡¡¡Bienvenidos al Servidor Oficial AoManiA 2019!!!" & FONTTYPE_GUILD)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||> Versión Actual v1 de AOMania, Argentumania 2018. Mod Argentum Online" & FONTTYPE_Motd3)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||> Para cualquier duda, /gm consulta" & FONTTYPE_Motd3)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||> Web Oficial aomania.net argentumania.es" & FONTTYPE_Motd4)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||> Foro Oficial foro.argentumania.es" & FONTTYPE_Motd4)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||---------------" & FONTTYPE_SERVER)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||Para ver el Mapa de AOMania dejar pulsada la tecla Q ó P." & FONTTYPE_Motd5)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||:- Argentumania -:" & FONTTYPE_INFO)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> ¡¡¡Bienvenidos al Servidor Oficial AoManiA 2019!!!" & FONTTYPE_GUILD)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Versión Actual v1 de AOMania, Argentumania 2018. Mod Argentum Online" & FONTTYPE_Motd3)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Para cualquier duda, /gm consulta" & FONTTYPE_Motd3)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Web Oficial aomania.net argentumania.es" & FONTTYPE_Motd4)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Foro Oficial foro.argentumania.es" & FONTTYPE_Motd4)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||---------------" & FONTTYPE_SERVER)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Para ver el Mapa de AOMania dejar pulsada la tecla Q ó P." & FONTTYPE_Motd5)
 
     Call SendInfoCastillos(UserIndex)
 
-    Call SendData(SendTarget.toindex, UserIndex, 0, "|| " & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "||El máximo nivel es " & MaxLevel & ", adquirido por " & UserMaxLevel & "." & FONTTYPE_SERVER)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "|| " & FONTTYPE_INFO)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & FONTTYPE_INFO)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El máximo nivel es " & MaxLevel & ", adquirido por " & UserMaxLevel & "." & FONTTYPE_SERVER)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & FONTTYPE_INFO)
 
     If MultMsg = "" Then
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & "." & FONTTYPE_Motd5)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & "." & FONTTYPE_Motd5)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & "." & FONTTYPE_Motd5)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & "." & FONTTYPE_Motd5)
     Else
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & ". " & MultMsg & "." & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & ". " & MultMsg & "." & _
                                                         FONTTYPE_Motd5)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & ". " & MultMsg & "." & FONTTYPE_Motd5)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & ". " & MultMsg & "." & FONTTYPE_Motd5)
 
     End If
 
@@ -2548,7 +2561,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
                 Dim SeguridadCliente As Long
 
                 If ServerSoloGMs <> 0 Then
-                    Call SendData(SendTarget.toindex, UserIndex, 0, "ERRServidor restringido a administradores. Consulte la página oficial o el foro oficial para mas información.")
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRServidor restringido a administradores. Consulte la página oficial o el foro oficial para mas información.")
                     Call CloseSocket(UserIndex)
                     Exit Sub
 
@@ -2562,7 +2575,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
                 If SeguridadCliente = 0 Then
                     If EsDios(tName) Or EsSemiDios(tName) Or EsConsejero(tName) Or EsRolesMaster(tName) Then
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "ERRPara usar un personaje GM se necesita el Cliente de ADMINS.")
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRPara usar un personaje GM se necesita el Cliente de ADMINS.")
                         Call CloseSocket(UserIndex)
                         Exit Sub
 
@@ -2574,14 +2587,14 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
                         If GmTrue(tName, HDD) Then
                         Else
-                            Call SendData(SendTarget.toindex, UserIndex, 0, "ERRNo eres el dueño de este GM, no puedes loguear.")
+                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRNo eres el dueño de este GM, no puedes loguear.")
                             Call CloseSocket(UserIndex)
                             Exit Sub
 
                         End If
 
                     Else
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "ERREntra con el cliente de usuarios no seas tan listo " & UCase(tName) & ".")
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERREntra con el cliente de usuarios no seas tan listo " & UCase(tName) & ".")
                         Call CloseSocket(UserIndex)
                         Exit Sub
 
@@ -2597,14 +2610,14 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
                     tName = ReadField(1, rData, 44)
 
                     If Not AsciiValidos(tName) Then
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "ERRNombre invalido.")
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRNombre invalido.")
                         Call CloseSocket(UserIndex)
                         Exit Sub
 
                     End If
 
                     If Not PersonajeExiste(tName) Then
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "ERREl personaje no existe.")
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERREl personaje no existe.")
                         Call CloseSocket(UserIndex)
                         Exit Sub
 
@@ -2621,7 +2634,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
                             If EsGmChar(tName) Then
 
                                 If Not EsHDD(tName, HDD_Serial) Then
-                                    Call SendData(SendTarget.toindex, UserIndex, 0, "ERRSe te ha prohibido la entrada a AOMania")
+                                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRSe te ha prohibido la entrada a AOMania")
                                     Exit Sub
 
                                 End If
@@ -2631,17 +2644,17 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
                             Call ConnectUser(UserIndex, tName, ReadField(2, rData, 44), HDD_Serial)
 
                         Else
-                            Call SendData(SendTarget.toindex, UserIndex, 0, "ERRSe te ha prohibido la entrada a AOMania")
+                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRSe te ha prohibido la entrada a AOMania")
 
                         End If
 
                     Else
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "ERRSe te ha prohibido la entrada a AOMania")
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRSe te ha prohibido la entrada a AOMania")
 
                     End If
 
                 Else
-                    Call SendData(SendTarget.toindex, UserIndex, 0, "ERRJuego desactualizado, cierra el juego y ejecuta AOMania.exe para Actualizarlo.")
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRJuego desactualizado, cierra el juego y ejecuta AOMania.exe para Actualizarlo.")
 
                 End If
 
@@ -2650,21 +2663,21 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
             Case "ZORRON"
 
                 If PuedeCrearPersonajes = 0 Then
-                    Call SendData(SendTarget.toindex, UserIndex, 0, "ERRLa creacion de personajes en este servidor se ha deshabilitado.")
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRLa creacion de personajes en este servidor se ha deshabilitado.")
                     Call CloseSocket(UserIndex)
                     Exit Sub
 
                 End If
 
                 If ServerSoloGMs <> 0 Then
-                    Call SendData(SendTarget.toindex, UserIndex, 0, "ERRServidor restringido a administradores. Consulte la página oficial o el foro oficial para mas información.")
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRServidor restringido a administradores. Consulte la página oficial o el foro oficial para mas información.")
                     Call CloseSocket(UserIndex)
                     Exit Sub
 
                 End If
 
                 If aClon.MaxPersonajes(UserList(UserIndex).ip) Then
-                    Call SendData(SendTarget.toindex, UserIndex, 0, "ERRHas creado demasiados personajes.")
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRHas creado demasiados personajes.")
                     Call CloseSocket(UserIndex)
                     Exit Sub
 
@@ -2681,12 +2694,12 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
                         Call ConnectNewUser(UserIndex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(4, rData, 44), ReadField(5, rData, 44), ReadField(6, rData, 44), ReadField(7, rData, 44), ReadField(8, rData, 44), ReadField(9, rData, 44), HDD_Serial)
                     Else
-                        Call SendData(SendTarget.toindex, UserIndex, 0, "ERR1")
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERR1")
 
                     End If
 
                 Else
-                    Call SendData(SendTarget.toindex, UserIndex, 0, "ERRJuego desactualizado, cierra el juego y ejecuta AOMania.exe para Actualizarlo.")
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRJuego desactualizado, cierra el juego y ejecuta AOMania.exe para Actualizarlo.")
 
                 End If
 
@@ -2738,7 +2751,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
                 If FileExist(rt, vbNormal) Then Kill rt
                 Name CharPath & UCase$(Arg1) & ".chr" As rt
-                Call SendData(SendTarget.toindex, UserIndex, 0, "BORROK")
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "BORROK")
                 Exit Sub
 ExitErr1:
                 Call LogError(Err.Description & " " & rData)
@@ -2790,7 +2803,7 @@ ExitErr1:
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
         If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ABPANEL")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ABPANEL")
         Exit Sub
 
     End If
@@ -2807,7 +2820,7 @@ ExitErr1:
         tStr = ReadField(2, rData, Asc("@"))
 
         If Name = "" Or tStr = "" Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Utilice /advertencia nick@motivo" & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Utilice /advertencia nick@motivo" & FONTTYPE_INFO)
             Exit Sub
 
         End If
@@ -2815,13 +2828,13 @@ ExitErr1:
         TIndex = NameIndex(Name)
 
         If TIndex <= 0 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||El usuario no esta online." & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El usuario no esta online." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If UserList(TIndex).flags.Privilegios > PlayerType.User Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes advertir a administradores." & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes advertir a administradores." & FONTTYPE_INFO)
             Exit Sub
 
         End If
@@ -2862,12 +2875,12 @@ ExitErr1:
         If UserList(TIndex).flags.Quest = 1 Then
             If Quest.Existe(UserList(TIndex).Name) Then Call Quest.Quitar(UserList(TIndex).Name)
             UserList(TIndex).flags.Quest = 0
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Has borrado el QUEST de: " & rData & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has borrado el QUEST de: " & rData & FONTTYPE_INFO)
             Exit Sub
         Else
 
             If Quest.Existe(UserList(TIndex).Name) Then Call Quest.Quitar(UserList(TIndex).Name)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Has borrado el QUEST de: " & rData & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has borrado el QUEST de: " & rData & FONTTYPE_INFO)
 
         End If
 
@@ -2927,7 +2940,7 @@ ExitErr1:
 
         End If
 
-        Call SendData(SendTarget.toindex, UserIndex, 0, tStr)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, tStr)
         Exit Sub
 
     End If
@@ -2940,7 +2953,7 @@ ExitErr1:
 
         For n = 1 To Quest.Longitud
             mm = Quest.VerElemento(n)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "LISTQST" & mm)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "LISTQST" & mm)
         Next n
 
         Exit Sub
@@ -2999,13 +3012,13 @@ ExitErr1:
 
             If rData = "" Then
                 Asi = Asi + 1
-                Call SendData(SendTarget.toindex, UserIndex, 0, "VCTS" & CID & "#" & CNameItem)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "VCTS" & CID & "#" & CNameItem)
             Else
 
                 If InStr(LCase(CNameItem), LCase(rData)) Then
 
                     Asi = Asi + 1
-                    Call SendData(SendTarget.toindex, UserIndex, 0, "VCTS" & CID & "#" & CNameItem)
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "VCTS" & CID & "#" & CNameItem)
 
                 End If
 
@@ -3014,9 +3027,9 @@ ExitErr1:
         Next xci
 
         If Asi = 0 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "VITS" & Asi)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "VITS" & Asi)
         Else
-            Call SendData(SendTarget.toindex, UserIndex, 0, "VITS" & Asi)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "VITS" & Asi)
 
         End If
 
@@ -3040,13 +3053,13 @@ ExitErr1:
         TIndex = NameIndex(rData)
 
         If TIndex <= 0 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Usuario offline!!." & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline!!." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         Call MostrarSop(UserIndex, TIndex, rData)
-        SendData SendTarget.toindex, UserIndex, 0, "INITSOP"
+        SendData SendTarget.ToIndex, UserIndex, 0, "INITSOP"
         Exit Sub
 
     End If
@@ -3097,9 +3110,9 @@ End Sub
 
 Public Sub EnviarNoche(ByVal UserIndex As Integer)
 
-    Call SendData(SendTarget.toindex, UserIndex, 0, "NOC" & IIf(DeNoche And (MapInfo(UserList(UserIndex).pos.Map).Zona = Campo Or MapInfo(UserList( _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "NOC" & IIf(DeNoche And (MapInfo(UserList(UserIndex).pos.Map).Zona = Campo Or MapInfo(UserList( _
                                                                                                                                           UserIndex).pos.Map).Zona = Ciudad), "1", "0"))
-    Call SendData(SendTarget.toindex, UserIndex, 0, "NOC" & IIf(DeNoche, "1", "0"))
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "NOC" & IIf(DeNoche, "1", "0"))
 
 End Sub
 
@@ -3126,5 +3139,5 @@ End Sub
 Public Sub getServerDelay(UserIndex As Integer)
     Dim tnow As Long
     tnow = GetTickCount() And &H7FFFFFFF
-    Call SendData(toindex, UserIndex, 0, "NA" & tnow)
+    Call SendData(ToIndex, UserIndex, 0, "NA" & tnow)
 End Sub

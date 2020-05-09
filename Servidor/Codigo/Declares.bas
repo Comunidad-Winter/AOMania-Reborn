@@ -2236,3 +2236,5 @@ Public Const ObjCreacionAlas As Integer = 1695
 
 Public AodefConv As AoDefenderConverter
 Public SuperClave As String
+
+Public IndexHablaGuild(1 To 100) As Integer
