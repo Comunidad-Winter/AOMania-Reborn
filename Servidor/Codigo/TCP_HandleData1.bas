@@ -54,7 +54,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         'piedra libre para todos los compas!
         If UserList(UserIndex).flags.Silenciado = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas Silenciado!" & FONTTYPE_WARNING)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Estas Silenciado!" & FONTTYPE_WARNING)
             Exit Sub
 
         End If
@@ -104,13 +104,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "-"    'Gritar
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
 
         End If
 
         If UserList(UserIndex).flags.Silenciado = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas Silenciado!" & FONTTYPE_WARNING)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Estas Silenciado!" & FONTTYPE_WARNING)
             Exit Sub
 
         End If
@@ -150,13 +150,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "\"    'Susurrar al oido
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
 
         End If
 
         If UserList(UserIndex).flags.Silenciado = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas Silenciado!" & FONTTYPE_WARNING)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Estas Silenciado!" & FONTTYPE_WARNING)
             Exit Sub
 
         End If
@@ -166,14 +166,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         'A los dioses y admins no vale susurrarles si no sos uno vos mismo (así no pueden ver si están conectados o no)
         If (EsDios(tName) Or EsAdmin(tName)) And UserList(UserIndex).flags.Privilegios < PlayerType.Dios Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes susurrarle a los Dioses y Admins." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes susurrarle a los Dioses y Admins." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         'A los Consejeros y SemiDioses no vale susurrarles si sos un PJ común.
         If UserList(UserIndex).flags.Privilegios = PlayerType.User And (EsSemiDios(tName) Or EsConsejero(tName)) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes susurrarle a los GMs" & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes susurrarle a los GMs" & FONTTYPE_INFO)
             Exit Sub
 
         End If
@@ -200,44 +200,30 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 tMessage = " "
 
             End If
+            
+            If UserList(TIndex).flags.Privilegios > PlayerType.User Then
+           Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes susurrarle a los GMs" & FONTTYPE_INFO)
+           Exit Sub
+        End If
 
-            If Not EstaPCarea(UserIndex, TIndex) Then
-                Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UserList(UserIndex).Name & ">" & tMessage & FONTTYPE_CONSEJO)
-                Call SendData(SendTarget.ToIndex, UserIndex, UserList(UserIndex).pos.Map, ">" & tMessage & FONTTYPE_CONSEJO)
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & UserList(UserIndex).Name & ">" & tMessage & FONTTYPE_WARNING)
-
-                Exit Sub
-
+            If EstaPCarea(UserIndex, TIndex) Then
+               If Not EsUserMute(UserIndex, TIndex) Then
+                Call SendData(SendTarget.toindex, TIndex, 0, "||" & UserList(UserIndex).Name & ">" & tMessage & FONTTYPE_CONSEJO)
+                'Call SendData(SendTarget.toindex, UserIndex, UserList(UserIndex).pos.Map, ">" & tMessage & FONTTYPE_CONSEJO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||" & UserList(UserIndex).Name & ">" & tMessage & FONTTYPE_WARNING)
+               Exit Sub
+               Else
+                 Call SendData(toindex, UserIndex, 0, "||El usuario tiene tiene en ignore." & FONTTYPE_INFO)
+                End If
             End If
+Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbYellow & "°" & rData & "°" & CStr(ind))
+                'borrar ese senddata y terminar
 
-            ind = UserList(UserIndex).char.CharIndex
-            Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UserList(UserIndex).Name & ">" & tMessage & FONTTYPE_CONSEJO)
-            Call SendData(SendTarget.ToIndex, UserIndex, UserList(UserIndex).pos.Map, ">" & tMessage & FONTTYPE_CONSEJO)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & UserList(UserIndex).Name & ">" & tMessage & FONTTYPE_WARNING)
-            Exit Sub
-
-            '[Consejeros]
-            If UserList(UserIndex).flags.Privilegios = PlayerType.Consejero Then
-                Call LogGM(UserList(UserIndex).Name, "Le dijo a '" & UserList(TIndex).Name & "' " & tMessage)
-
-            End If
-
-            Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UserList(UserIndex).Name & ">" & vbBlue & "°" & tMessage & "°" & str(ind))
-            Call SendData(SendTarget.ToIndex, UserIndex, UserList(UserIndex).pos.Map, "||" & vbBlue & "°" & tMessage & "°" & str(ind))
-
-            '[CDT 17-02-2004]
-            If UserList(UserIndex).flags.Privilegios < PlayerType.SemiDios Then
-                Call SendData(SendTarget.ToAdminsAreaButConsejeros, UserIndex, UserList(UserIndex).pos.Map, "||" & vbYellow & "°" & "a " & _
-                                                                                                            UserList(TIndex).Name & "> " & tMessage & "°" & str(ind))
-
-            End If
-
-            '[/CDT]
             Exit Sub
 
         End If
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z13")
+        Call SendData(SendTarget.toindex, UserIndex, 0, "Z13")
         Exit Sub
 
     Case "Ñ"    'Moverse
@@ -282,7 +268,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         'salida parche
         If UserList(UserIndex).Counters.Saliendo Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z15")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z15")
             UserList(UserIndex).Counters.Saliendo = False
             UserList(UserIndex).Counters.Salir = 0
 
@@ -325,13 +311,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 Call MoveUserChar(UserIndex, direction)
             ElseIf UserList(UserIndex).flags.Descansar Then
                 UserList(UserIndex).flags.Descansar = False
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "DOK")
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has dejado de descansar." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "DOK")
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Has dejado de descansar." & FONTTYPE_INFO)
                 Call MoveUserChar(UserIndex, direction)
             ElseIf UserList(UserIndex).flags.Meditando Then
                 UserList(UserIndex).flags.Meditando = False
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "MEDOK")
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z16")
+                Call SendData(SendTarget.toindex, UserIndex, 0, "MEDOK")
+                Call SendData(SendTarget.toindex, UserIndex, 0, "Z16")
                 UserList(UserIndex).char.FX = 0
                 UserList(UserIndex).char.loops = 0
                 Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 0 _
@@ -343,7 +329,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             '[CDT 17-02-2004] (<- emmmmm ?????)
             If Not UserList(UserIndex).flags.UltimoMensaje = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z17")
+                Call SendData(SendTarget.toindex, UserIndex, 0, "Z17")
                 UserList(UserIndex).flags.UltimoMensaje = 1
 
             End If
@@ -378,7 +364,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Exit Sub
 
     Case "RPU"    'Pedido de actualizacion de la posicion
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
         Exit Sub
 
     Case "KC"
@@ -386,14 +372,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         'If not in combat mode, can't attack
         If Not UserList(UserIndex).flags.SeguroCombate Then
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, _
+            Call SendData(SendTarget.toindex, UserIndex, 0, _
                           "||No estás en modo de combate, presiona la tecla ""C"" para pasar al modo combate." & FONTTYPE_Motd4)
             Exit Sub
 
         End If
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -401,7 +387,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         If UserList(UserIndex).Invent.WeaponEqpObjIndex > 0 Then
             If ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).Proyectil = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z19")
+                Call SendData(SendTarget.toindex, UserIndex, 0, "Z19")
                 Exit Sub
             End If
 
@@ -427,14 +413,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         End If
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
 
         End If
 
         '[Consejeros]
         If UserList(UserIndex).flags.Privilegios = PlayerType.Consejero And Not UserList(UserIndex).flags.EsRolesMaster Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes tomar ningun objeto. " & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes tomar ningun objeto. " & FONTTYPE_INFO)
             Exit Sub
 
         End If
@@ -445,9 +431,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "SEG"    'Activa / desactiva el seguro
 
         If UserList(UserIndex).flags.Seguro Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z21")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z21")
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ONONS")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "ONONS")
             UserList(UserIndex).flags.Seguro = Not UserList(UserIndex).flags.Seguro
 
         End If
@@ -455,16 +441,16 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Exit Sub
 
     Case "ACTUALIZAR"
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
         Exit Sub
 
     Case "GLINFO"
         tStr = SendGuildLeaderInfo(UserIndex)
 
         If tStr = vbNullString Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "GL" & SendGuildsList(UserIndex))
+            Call SendData(SendTarget.toindex, UserIndex, 0, "GL" & SendGuildsList(UserIndex))
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "LEADERI" & tStr)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "LEADERI" & tStr)
 
         End If
 
@@ -490,24 +476,24 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "FINCOM"
         'User sale del modo COMERCIO
         UserList(UserIndex).flags.Comerciando = False
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "FINCOMOK")
+        Call SendData(SendTarget.toindex, UserIndex, 0, "FINCOMOK")
         Exit Sub
 
     Case "FINCOA"
         UserList(UserIndex).flags.Comerciando = False
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "FINCOMOA")
+        Call SendData(SendTarget.toindex, UserIndex, 0, "FINCOMOA")
         Exit Sub
 
     Case "FINCOC"
         UserList(UserIndex).flags.Comerciando = False
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "FINCOMOC")
+        Call SendData(SendTarget.toindex, UserIndex, 0, "FINCOMOC")
         Exit Sub
 
     Case "FINCOMUSU"
 
         'Sale modo comercio Usuario
         If UserList(UserIndex).ComUsu.DestUsu > 0 And UserList(UserList(UserIndex).ComUsu.DestUsu).ComUsu.DestUsu = UserIndex Then
-            Call SendData(SendTarget.ToIndex, UserList(UserIndex).ComUsu.DestUsu, 0, "||" & UserList(UserIndex).Name & _
+            Call SendData(SendTarget.toindex, UserList(UserIndex).ComUsu.DestUsu, 0, "||" & UserList(UserIndex).Name & _
                                                                                    " ha dejado de comerciar con vos." & FONTTYPE_TALK)
             Call FinComerciarUsu(UserList(UserIndex).ComUsu.DestUsu)
 
@@ -521,7 +507,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "FINBAN"
         'User sale del modo BANCO
         UserList(UserIndex).flags.Comerciando = False
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "FINBANOK")
+        Call SendData(SendTarget.toindex, UserIndex, 0, "FINBANOK")
         Exit Sub
         '-------------------------------------------------------
 
@@ -537,7 +523,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         'Rechazar el cambio
         If UserList(UserIndex).ComUsu.DestUsu > 0 Then
             If UserList(UserList(UserIndex).ComUsu.DestUsu).flags.UserLogged Then
-                Call SendData(SendTarget.ToIndex, UserList(UserIndex).ComUsu.DestUsu, 0, "||" & UserList(UserIndex).Name & _
+                Call SendData(SendTarget.toindex, UserList(UserIndex).ComUsu.DestUsu, 0, "||" & UserList(UserIndex).Name & _
                                                                                        " ha rechazado tu oferta." & FONTTYPE_TALK)
                 Call FinComerciarUsu(UserList(UserIndex).ComUsu.DestUsu)
 
@@ -545,7 +531,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         End If
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has rechazado la oferta del otro usuario." & FONTTYPE_TALK)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "||Has rechazado la oferta del otro usuario." & FONTTYPE_TALK)
         Call FinComerciarUsu(UserIndex)
         Exit Sub
         '[/Alejo]
@@ -584,7 +570,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         'If not in combat mode, can't attack
         If Not UserList(UserIndex).flags.SeguroObjetos Then
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes tirar. Tienes el seguro de objetos activados!!!" & _
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes tirar. Tienes el seguro de objetos activados!!!" & _
                                                             FONTTYPE_FIGHT)
             Exit Sub
 
@@ -636,7 +622,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         'End If
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -662,7 +648,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             If Not InMapBounds(UserList(UserIndex).pos.Map, x, Y) Then Exit Sub
 
             If elotroindex <= 0 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Usuario offline." & FONTTYPE_INFO)
                 UserList(UserIndex).flags.SeleccioneA = ""
                 Exit Sub
 
@@ -690,7 +676,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "UK"
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -699,19 +685,19 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Select Case val(rData)
 
         Case Robar
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Robar)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "T01" & Robar)
 
         Case Magia
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Magia)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "T01" & Magia)
 
         Case Domar
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Domar)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "T01" & Domar)
 
         Case Ocultarse
 
             If UserList(UserIndex).flags.Navegando = 1 Then
                 If Not UserList(UserIndex).flags.UltimoMensaje = 3 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes ocultarte si estas navegando." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes ocultarte si estas navegando." & FONTTYPE_INFO)
                     UserList(UserIndex).flags.UltimoMensaje = 3
                 End If
                 Exit Sub
@@ -719,7 +705,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             If UserList(UserIndex).flags.Oculto = 1 Then
                 If Not UserList(UserIndex).flags.UltimoMensaje = 2 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z28")
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "Z28")
                     UserList(UserIndex).flags.UltimoMensaje = 2
                 End If
                 Exit Sub
@@ -744,7 +730,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "UMH"    ' Usa macro de hechizos
         Call SendData(SendTarget.ToAdmins, UserIndex, 0, "||" & UserList(UserIndex).Name & " fue expulsado por Anti-macro de hechizos " & _
                                                          FONTTYPE_VENENO)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, _
+        Call SendData(SendTarget.toindex, UserIndex, 0, _
                       "ERR Has sido expulsado por usar macro de hechizos. Recomendamos leer el reglamento sobre el tema macros" & FONTTYPE_INFO)
         Call CloseSocket(UserIndex)
         Exit Sub
@@ -804,7 +790,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
            InMapBounds(UserList(UserIndex).pos.Map, x, Y) Then Exit Sub
 
         If Not InRangoVision(UserIndex, x, Y) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
             Exit Sub
 
         End If
@@ -841,7 +827,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             If DummyInt <> 0 Then
                 If DummyInt = 1 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes municiones." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No tienes municiones." & FONTTYPE_INFO)
 
                 End If
 
@@ -857,7 +843,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             If UserList(UserIndex).Stats.MinSta >= 10 Then
                 Call QuitarSta(UserIndex, RandomNumber(1, 10))
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas muy cansado para luchar." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Estas muy cansado para luchar." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
@@ -871,7 +857,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             If TU > 0 Then
                 If Abs(UserList(TU).pos.Y - UserList(UserIndex).pos.Y) > RANGO_VISION_Y Or _
                    Abs(UserList(TU).pos.x - UserList(UserIndex).pos.x) > RANGO_VISION_X Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas demasiado lejos para atacar." & FONTTYPE_WARNING)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||Estas demasiado lejos para atacar." & FONTTYPE_WARNING)
                     Exit Sub
                 End If
 
@@ -879,7 +865,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                 If Abs(Npclist(tN).pos.Y - UserList(UserIndex).pos.Y) > RANGO_VISION_Y Or _
                    Abs(Npclist(tN).pos.x - UserList(UserIndex).pos.x) > RANGO_VISION_X Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas demasiado lejos para atacar." & FONTTYPE_WARNING)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||Estas demasiado lejos para atacar." & FONTTYPE_WARNING)
                     Exit Sub
                 End If
 
@@ -889,7 +875,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                 'Previene pegarse a uno mismo
                 If TU = UserIndex Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z22")
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "Z22")
                     DummyInt = 1
                     Exit Sub
 
@@ -982,7 +968,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                 If UserList(UserIndex).flags.Seguro Then
                     If Not Criminal(TU) Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Para atacar ciudadanos desactiva el seguro!" & FONTTYPE_FIGHT)
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Para atacar ciudadanos desactiva el seguro!" & FONTTYPE_FIGHT)
                         Exit Sub
 
                     End If
@@ -995,7 +981,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         Case Magia
             If MapInfo(UserList(UserIndex).pos.Map).MagiaSinEfecto > 0 And Not MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 2 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Una fuerza oscura te impide canalizar tu energía." & FONTTYPE_Motd4)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Una fuerza oscura te impide canalizar tu energía." & FONTTYPE_Motd4)
                 Exit Sub
             End If
 
@@ -1023,7 +1009,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 End If
 
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Primero selecciona el hechizo que queres lanzar y después lanzá!" & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Primero selecciona el hechizo que queres lanzar y después lanzá!" & FONTTYPE_INFO)
 
             End If
 
@@ -1070,7 +1056,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             'Basado en la idea de Barrin
             'Comentario por Barrin: jah, "basado", caradura ! ^^
             If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes pescar desde donde te encuentras." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes pescar desde donde te encuentras." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
@@ -1093,12 +1079,12 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                     End With
 
                     If UserList(UserIndex).flags.Navegando = 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Para utilizar la red de pesca es necesario estar navegando." & FONTTYPE_CYAN)
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||Para utilizar la red de pesca es necesario estar navegando." & FONTTYPE_CYAN)
                         Exit Sub
                     End If
 
                     If Distancia(UserList(UserIndex).pos, wpaux) > 6 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estás demasiado lejos para pescar." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||Estás demasiado lejos para pescar." & FONTTYPE_INFO)
                         Exit Sub
                     End If
 
@@ -1107,7 +1093,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 End Select
 
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay agua donde pescar busca un lago, rio o mar." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||No hay agua donde pescar busca un lago, rio o mar." & FONTTYPE_INFO)
 
             End If
 
@@ -1128,7 +1114,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                         wpaux.Y = val(ReadField(2, rData, 44))
 
                         If Distancia(wpaux, UserList(UserIndex).pos) > 2 Then
-                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
+                            Call SendData(SendTarget.toindex, UserIndex, 0, "Z27")
                             Exit Sub
                         End If
 
@@ -1137,13 +1123,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                         If MapData(UserList(UserList(UserIndex).flags.TargetUser).pos.Map, UserList(UserList( _
                                                                                                     UserIndex).flags.TargetUser).pos.x, UserList(UserList(UserIndex).flags.TargetUser).pos.Y).Trigger = _
                                                                                                     eTrigger.ZONASEGURA Then
-                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes robar aquí." & FONTTYPE_WARNING)
+                            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes robar aquí." & FONTTYPE_WARNING)
                             Exit Sub
                         End If
 
                         If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = _
                            eTrigger.ZONASEGURA Then
-                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes robar aquí." & FONTTYPE_WARNING)
+                            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes robar aquí." & FONTTYPE_WARNING)
                             Exit Sub
                         End If
 
@@ -1152,12 +1138,12 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                     End If
 
                 Else
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay nadie para robarle!." & FONTTYPE_WARNING)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No hay nadie para robarle!." & FONTTYPE_WARNING)
 
                 End If
 
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes robarle en zonas seguras!." & FONTTYPE_WARNING)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡No puedes robarle en zonas seguras!." & FONTTYPE_WARNING)
 
             End If
 
@@ -1165,7 +1151,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             If Not IntervaloPermiteTrabajar(UserIndex) Then Exit Sub
 
             If UserList(UserIndex).Invent.HerramientaEqpObjIndex = 0 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Deberías equiparte la tijera." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Deberías equiparte la tijera." & FONTTYPE_INFO)
                 Exit Sub
             End If
 
@@ -1176,11 +1162,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 If ObjData(AuxInd).ObjType = eOBJType.otOveja Then
                     Call DoOveja(UserIndex)
                 Else
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay ninguna oveja alli." & FONTTYPE_GUERRA)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No hay ninguna oveja alli." & FONTTYPE_GUERRA)
                 End If
 
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay ninguna oveja alli." & FONTTYPE_GUERRA)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||No hay ninguna oveja alli." & FONTTYPE_GUERRA)
             End If
 
 
@@ -1189,7 +1175,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             If Not IntervaloPermiteTrabajar(UserIndex) Then Exit Sub
 
             If UserList(UserIndex).Invent.HerramientaEqpObjIndex = 0 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Deberías equiparte el hoz de mano." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Deberías equiparte el hoz de mano." & FONTTYPE_INFO)
                 Exit Sub
             End If
 
@@ -1201,7 +1187,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 wpaux.Y = Y
 
                 If Distancia(wpaux, UserList(UserIndex).pos) > 2 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "Z27")
                     Exit Sub
                 End If
 
@@ -1210,17 +1196,17 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                     Select Case UserList(UserIndex).pos.Map
                     Case 1, 20, 34, 37, 59, 60, 61, 62, 63, 64, 84, 86, 95, 132, 149
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes coger hierbas en las ciudades." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes coger hierbas en las ciudades." & FONTTYPE_INFO)
                         Exit Sub
                     End Select
 
                     If MapInfo(UserList(UserIndex).pos.Map).Pk = False And Not UserList(UserIndex).pos.Map = 47 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes coger hierbas en zona seguras." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes coger hierbas en zona seguras." & FONTTYPE_INFO)
                         Exit Sub
                     End If
 
                     If Distancia(wpaux, UserList(UserIndex).pos) = 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay ningun arbol ahi." & FONTTYPE_GUERRA)
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||No hay ningun arbol ahi." & FONTTYPE_GUERRA)
                         Exit Sub
                     End If
 
@@ -1234,11 +1220,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                 Select Case UserList(UserIndex).pos.Map
                 Case 1, 20, 34, 37, 59, 60, 61, 62, 63, 64, 84, 86, 95, 132, 149
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes coger hierbas en las ciudades." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes coger hierbas en las ciudades." & FONTTYPE_INFO)
                     Exit Sub
                 End Select
 
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay ningun arbol ahi." & FONTTYPE_GUERRA)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||No hay ningun arbol ahi." & FONTTYPE_GUERRA)
 
             End If
 
@@ -1249,7 +1235,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             If Not IntervaloPermiteTrabajar(UserIndex) Then Exit Sub
 
             If UserList(UserIndex).Invent.HerramientaEqpObjIndex = 0 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Deberías equiparte el hacha." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Deberías equiparte el hacha." & FONTTYPE_INFO)
                 Exit Sub
             End If
 
@@ -1261,7 +1247,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 wpaux.Y = Y
 
                 If Distancia(wpaux, UserList(UserIndex).pos) > 2 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "Z27")
                     Exit Sub
                 End If
 
@@ -1270,17 +1256,17 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                     Select Case UserList(UserIndex).pos.Map
                     Case 1, 20, 34, 37, 59, 60, 61, 62, 63, 64, 84, 86, 95, 132, 149
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes talar en las ciudades." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes talar en las ciudades." & FONTTYPE_INFO)
                         Exit Sub
                     End Select
 
                     If MapInfo(UserList(UserIndex).pos.Map).Pk = False And Not UserList(UserIndex).pos.Map = 47 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes talar en zona seguras." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes talar en zona seguras." & FONTTYPE_INFO)
                         Exit Sub
                     End If
 
                     If Distancia(wpaux, UserList(UserIndex).pos) = 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay ningun arbol ahi." & FONTTYPE_GUERRA)
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||No hay ningun arbol ahi." & FONTTYPE_GUERRA)
                         Exit Sub
                     End If
 
@@ -1294,11 +1280,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                 Select Case UserList(UserIndex).pos.Map
                 Case 1, 20, 34, 37, 59, 60, 61, 62, 63, 64, 84, 86, 95, 132, 149
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes talar en las ciudades." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes talar en las ciudades." & FONTTYPE_INFO)
                     Exit Sub
                 End Select
 
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay ningun arbol ahi." & FONTTYPE_GUERRA)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||No hay ningun arbol ahi." & FONTTYPE_GUERRA)
 
             End If
 
@@ -1326,7 +1312,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 wpaux.Y = Y
 
                 If Distancia(wpaux, UserList(UserIndex).pos) > 2 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "Z27")
                     Exit Sub
 
                 End If
@@ -1336,12 +1322,12 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                     Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_MINERO)
                     Call DoMineria(UserIndex)
                 Else
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ahi no hay ningun yacimiento." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahi no hay ningun yacimiento." & FONTTYPE_INFO)
 
                 End If
 
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ahi no hay ningun yacimiento." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahi no hay ningun yacimiento." & FONTTYPE_INFO)
 
             End If
 
@@ -1361,13 +1347,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                     wpaux.Y = Y
 
                     If Distancia(wpaux, Npclist(UserList(UserIndex).flags.TargetNpc).pos) > 2 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "Z27")
                         Exit Sub
 
                     End If
 
                     If Npclist(CI).flags.AttackedBy <> "" Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes domar una criatura que está luchando con un jugador." & _
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes domar una criatura que está luchando con un jugador." & _
                                                                         FONTTYPE_INFO)
                         Exit Sub
 
@@ -1375,12 +1361,12 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                     Call DoDomar(UserIndex, CI)
                 Else
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes domar a esa criatura." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes domar a esa criatura." & FONTTYPE_INFO)
 
                 End If
 
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡ No hay ninguna criatura alli !" & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡ No hay ninguna criatura alli !" & FONTTYPE_INFO)
 
             End If
 
@@ -1398,7 +1384,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                         If UserList(UserIndex).Invent.Object(UserList(UserIndex).flags.TargetObjInvSlot).ObjIndex = 0 Or UserList( _
                            UserIndex).Invent.Object(UserList(UserIndex).flags.TargetObjInvSlot).Amount = 0 Then
-                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes mas minerales" & FONTTYPE_INFO)
+                            Call SendData(SendTarget.toindex, UserIndex, 0, "||No tienes mas minerales" & FONTTYPE_INFO)
                             Exit Sub
 
                         End If
@@ -1408,7 +1394,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                         'Call LogCheating(UserList(UserIndex).Name & " intento crear minerales a partir de otros: FlagSlot/usaba/usoconclick/cantidad/IP:" & UserList(UserIndex).flags.TargetObjInvSlot & "/" & UserList(UserIndex).flags.TargetObjInvIndex & "/" & UserList(UserIndex).Invent.Object(UserList(UserIndex).flags.TargetObjInvSlot).ObjIndex & "/" & UserList(UserIndex).Invent.Object(UserList(UserIndex).flags.TargetObjInvSlot).Amount & "/" & UserList(UserIndex).ip)
                         'UserList(UserIndex).flags.Ban = 1
                         'Call SendData(SendTarget.ToAll, 0, 0, "||>>>> El sistema anti-cheats baneó a " & UserList(UserIndex).Name & " (intento de duplicación). Ip Logged. " & FONTTYPE_FIGHT)
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRHas sido expulsado por el sistema anti cheats. Reconéctate.")
+                        Call SendData(SendTarget.toindex, UserIndex, 0, "ERRHas sido expulsado por el sistema anti cheats. Reconéctate.")
                         Call CloseSocket(UserIndex)
                         Exit Sub
 
@@ -1416,12 +1402,12 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                     Call FundirMineral(UserIndex)
                 Else
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ahi no hay ninguna fragua." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahi no hay ninguna fragua." & FONTTYPE_INFO)
 
                 End If
 
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ahi no hay ninguna fragua." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahi no hay ninguna fragua." & FONTTYPE_INFO)
 
             End If
 
@@ -1431,14 +1417,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             If UserList(UserIndex).flags.TargetObj > 0 Then
                 If ObjData(UserList(UserIndex).flags.TargetObj).ObjType = eOBJType.otYunque Then
                     Call EnviarArmasMagicasConstruibles(UserIndex)
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ABHM")
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "ABHM")
                 Else
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ahi no hay ningun yunque." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahi no hay ningun yunque." & FONTTYPE_INFO)
 
                 End If
 
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ahi no hay ningun yunque." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahi no hay ningun yunque." & FONTTYPE_INFO)
 
             End If
 
@@ -1450,14 +1436,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 If ObjData(UserList(UserIndex).flags.TargetObj).ObjType = eOBJType.otYunque Then
                     Call EnivarArmasConstruibles(UserIndex)
                     Call EnivarArmadurasConstruibles(UserIndex)
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "SFH")
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "SFH")
                 Else
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ahi no hay ningun yunque." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahi no hay ningun yunque." & FONTTYPE_INFO)
 
                 End If
 
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ahi no hay ningun yunque." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahi no hay ningun yunque." & FONTTYPE_INFO)
 
             End If
 
@@ -1472,7 +1458,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         If modGuilds.CrearNuevoClan(rData, UserIndex, tStr) Then
 
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
 
         End If
 
@@ -1541,7 +1527,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right$(rData, Len(rData) - 4)
         proceso = ReadField(1, rData, 44)
         TIndex = ReadField(2, rData, 44)
-        Call SendData(SendTarget.ToIndex, TIndex, 0, "PCGN" & proceso & "," & UserList(UserIndex).Name)
+        Call SendData(SendTarget.toindex, TIndex, 0, "PCGN" & proceso & "," & UserList(UserIndex).Name)
         Exit Sub
 
     Case "PCWC"
@@ -1549,7 +1535,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right$(rData, Len(rData) - 4)
         proseso = ReadField(1, rData, 44)
         TIndex = ReadField(2, rData, 44)
-        Call SendData(SendTarget.ToIndex, TIndex, 0, "PCSS" & proseso & "," & UserList(UserIndex).Name)
+        Call SendData(SendTarget.toindex, TIndex, 0, "PCSS" & proseso & "," & UserList(UserIndex).Name)
         Exit Sub
 
     Case "PCCC"
@@ -1557,7 +1543,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right$(rData, Len(rData) - 4)
         caption = ReadField(1, rData, 44)
         TIndex = ReadField(2, rData, 44)
-        Call SendData(SendTarget.ToIndex, TIndex, 0, "PCCC" & caption & "," & UserList(UserIndex).Name)
+        Call SendData(SendTarget.toindex, TIndex, 0, "PCCC" & caption & "," & UserList(UserIndex).Name)
         Exit Sub
         'CHOTS | Paquetes de Procesos
 
@@ -1565,7 +1551,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right$(rData, Len(rData) - 4)
         TIndex = ReadField(1, rData, 32)
         rData = ReadField(2, rData, 32)
-        Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UCase$(UserList(UserIndex).Name) & _
+        Call SendData(SendTarget.toindex, TIndex, 0, "||" & UCase$(UserList(UserIndex).Name) & _
                                                    " : Hola!, se supone que no tengo cliente externo, no? " & FONTTYPE_CONSEJO)
         '[Rodra]
         Exit Sub
@@ -1575,14 +1561,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         TIndex = NameIndex(ReadField(1, rData, 2))
 
         If TIndex <= 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El usuario se encuentra offline." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||El usuario se encuentra offline." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         UserList(TIndex).Respuesta = ReadField(2, rData, 2)
         Call WriteVar(App.Path & "\Charfile\" & UserList(TIndex).Name & ".chr", "INIT", "Respuesta", UserList(TIndex).Respuesta)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Respuesta enviada a " & UserList(TIndex).Name & FONTTYPE_INFO)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "||Respuesta enviada a " & UserList(TIndex).Name & FONTTYPE_INFO)
         Exit Sub
 
     Case "INFS"    'Informacion del hechizo
@@ -1593,17 +1579,17 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             h = UserList(UserIndex).Stats.UserHechizos(val(rData))
 
             If h > 0 And h < NumeroHechizos + 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||%%%%%%%%%%%% INFO DEL HECHIZO %%%%%%%%%%%%" & FONTTYPE_INFO)
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Nombre:" & Hechizos(h).nombre & FONTTYPE_INFO)
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Descripcion:" & Hechizos(h).Desc & FONTTYPE_INFO)
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Skill requerido: " & Hechizos(h).MinSkill & " de magia." & FONTTYPE_INFO)
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Mana necesario: " & Hechizos(h).ManaRequerido & FONTTYPE_INFO)
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Stamina necesaria: " & Hechizos(h).StaRequerido & FONTTYPE_INFO)
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||%%%%%%%%%%%% INFO DEL HECHIZO %%%%%%%%%%%%" & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Nombre:" & Hechizos(h).nombre & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Descripcion:" & Hechizos(h).Desc & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Skill requerido: " & Hechizos(h).MinSkill & " de magia." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Mana necesario: " & Hechizos(h).ManaRequerido & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||Stamina necesaria: " & Hechizos(h).StaRequerido & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" & FONTTYPE_INFO)
             End If
 
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Primero selecciona el hechizo.!" & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Primero selecciona el hechizo.!" & FONTTYPE_INFO)
 
         End If
 
@@ -1612,13 +1598,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "EQUI"
 
         If UserList(UserIndex).flags.Montado = True Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Debes Demontarte para poder equiparte!.!" & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Debes Demontarte para poder equiparte!.!" & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
 
         End If
@@ -1728,7 +1714,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         '¿Esta el user muerto? Si es asi no puede comerciar
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -1752,7 +1738,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         'User compra el item del slot rdata
         If UserList(UserIndex).flags.Comerciando = False Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estas comerciando " & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||No estas comerciando " & FONTTYPE_INFO)
             Exit Sub
         End If
 
@@ -1766,7 +1752,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "COAC"
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -1783,7 +1769,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right$(rData, Len(rData) - 5)
 
         If UserList(UserIndex).flags.Comerciando = False Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estas comerciando " & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||No estas comerciando " & FONTTYPE_INFO)
             Exit Sub
         End If
 
@@ -1794,7 +1780,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "COAJ"
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -1811,7 +1797,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right$(rData, Len(rData) - 5)
 
         If UserList(UserIndex).flags.Comerciando = False Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estas comerciando " & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||No estas comerciando " & FONTTYPE_INFO)
             Exit Sub
         End If
 
@@ -1823,7 +1809,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         '¿Esta el user muerto? Si es asi no puede comerciar
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
 
         End If
@@ -1852,7 +1838,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
     Case "VEAJ"
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -1879,7 +1865,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         '¿Esta el user muerto? Si es asi no puede comerciar
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -1913,7 +1899,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         '¿Esta el user muerto? Si es asi no puede comerciar
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
 
         End If
@@ -1978,16 +1964,16 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         TIndex = NameIndex(Amigo)
 
         If UserList(TIndex).flags.Privilegios > 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes agregar a administradores." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes agregar a administradores." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If TIndex <= 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Usuario offline." & FONTTYPE_INFO)
         Else
             Call WriteVar(PathAmigos, "AMIGOS", "Amigo" & Amiguito1, Amigo)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has agregado a " & Amigo & " a tu Lista." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Has agregado a " & Amigo & " a tu Lista." & FONTTYPE_INFO)
 
         End If
 
@@ -2001,7 +1987,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         PathAmigos = App.Path & "\ListadeAmigos\" & UserList(UserIndex).Name & ".log"
 
         Call WriteVar(PathAmigos, "AMIGOS", "Amigo" & Amiguito1, "(Slot Vacio)")
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has eliminado a " & Amigo & " de tu Lista." & FONTTYPE_INFO)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "||Has eliminado a " & Amigo & " de tu Lista." & FONTTYPE_INFO)
         Exit Sub
 
     Case "LISFF"    ' VER AMIGOS
@@ -2015,7 +2001,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         For FFAmigos = 0 To Amigos1
             FF1 = (GetVar(PathAmigos, "AMIGOS", "Amigo" & FFAmigos))
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "FFLI" & FF1)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "FFLI" & FF1)
         Next
         Exit Sub
 
@@ -2026,9 +2012,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         TIndex = NameIndex(rData)
 
         If TIndex <= 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ESOF")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "ESOF")
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ESON")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "ESON")
 
         End If
 
@@ -2096,7 +2082,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right(rData, Len(rData) - 6)
 
         If UserList(UserIndex).flags.SeguroHechizos Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Seguro hechizos activado, para desactivar apreta la tecla ''*''.!!" & _
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Seguro hechizos activado, para desactivar apreta la tecla ''*''.!!" & _
                                                             FONTTYPE_Motd4)
         Else
             Call MoverHechizo(UserIndex, CInt(ReadField(1, rData, 44)), CInt(ReadField(2, rData, 44)))
@@ -2193,7 +2179,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                 'oro
                 If val(Arg2) > UserList(UserIndex).Stats.GLD Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes esa cantidad." & FONTTYPE_TALK)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No tienes esa cantidad." & FONTTYPE_TALK)
                     Exit Sub
 
                 End If
@@ -2202,7 +2188,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
                 'inventario
                 If val(Arg2) > UserList(UserIndex).Invent.Object(val(Arg1)).Amount Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes esa cantidad." & FONTTYPE_TALK)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No tienes esa cantidad." & FONTTYPE_TALK)
                     Exit Sub
 
                 End If
@@ -2210,7 +2196,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             End If
 
             If UserList(UserIndex).ComUsu.Objeto > 0 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes cambiar tu oferta." & FONTTYPE_TALK)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes cambiar tu oferta." & FONTTYPE_TALK)
                 Exit Sub
 
             End If
@@ -2218,7 +2204,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
             'No permitimos vender barcos mientras están equipados (no podés desequiparlos y causa errores)
             If UserList(UserIndex).flags.Navegando = 1 Then
                 If UserList(UserIndex).Invent.BarcoSlot = val(Arg1) Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No podés vender tu barco mientras lo estés usando." & FONTTYPE_TALK)
+                    Call SendData(SendTarget.toindex, UserIndex, 0, "||No podés vender tu barco mientras lo estés usando." & FONTTYPE_TALK)
                     Exit Sub
 
                 End If
@@ -2237,7 +2223,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 If UserList(UserList(UserIndex).ComUsu.DestUsu).ComUsu.Acepto = True Then
                     'NO NO NO vos te estas pasando de listo...
                     UserList(UserList(UserIndex).ComUsu.DestUsu).ComUsu.Acepto = False
-                    Call SendData(SendTarget.ToIndex, UserList(UserIndex).ComUsu.DestUsu, 0, "||" & UserList(UserIndex).Name & _
+                    Call SendData(SendTarget.toindex, UserList(UserIndex).ComUsu.DestUsu, 0, "||" & UserList(UserIndex).Name & _
                                                                                            " ha cambiado su oferta." & FONTTYPE_TALK)
 
                 End If
@@ -2277,7 +2263,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tInt = modGuilds.r_AceptarPropuestaDePaz(UserIndex, rData, tStr)
 
         If tInt = 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
         Else
             Call SendData(SendTarget.ToGuildMembers, UserList(UserIndex).GuildIndex, 0, "||Tu clan ha firmado la paz con " & rData & _
                                                                                         FONTTYPE_GUILD)
@@ -2295,7 +2281,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tInt = modGuilds.r_RechazarPropuestaDeAlianza(UserIndex, rData, tStr)
 
         If tInt = 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
         Else
             Call SendData(SendTarget.ToGuildMembers, UserList(UserIndex).GuildIndex, 0, "||Tu clan rechazado la propuesta de alianza de " & _
                                                                                         rData & FONTTYPE_GUILD)
@@ -2311,7 +2297,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tInt = modGuilds.r_RechazarPropuestaDePaz(UserIndex, rData, tStr)
 
         If tInt = 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
         Else
             Call SendData(SendTarget.ToGuildMembers, UserList(UserIndex).GuildIndex, 0, "||Tu clan rechazado la propuesta de paz de " & rData & _
                                                                                         FONTTYPE_GUILD)
@@ -2327,7 +2313,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tInt = modGuilds.r_AceptarPropuestaDeAlianza(UserIndex, rData, tStr)
 
         If tInt = 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
         Else
             Call SendData(SendTarget.ToGuildMembers, UserList(UserIndex).GuildIndex, 0, "||Tu clan ha firmado la alianza con " & rData & _
                                                                                         FONTTYPE_GUILD)
@@ -2344,9 +2330,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Arg2 = ReadField(2, rData, Asc(","))
 
         If modGuilds.r_ClanGeneraPropuesta(UserIndex, Arg1, PAZ, Arg2, Arg3) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Propuesta de paz enviada" & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Propuesta de paz enviada" & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Arg3 & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & Arg3 & FONTTYPE_GUILD)
 
         End If
 
@@ -2358,9 +2344,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Arg2 = ReadField(2, rData, Asc(","))
 
         If modGuilds.r_ClanGeneraPropuesta(UserIndex, Arg1, ALIADOS, Arg2, Arg3) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Propuesta de alianza enviada" & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Propuesta de alianza enviada" & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Arg3 & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & Arg3 & FONTTYPE_GUILD)
 
         End If
 
@@ -2372,9 +2358,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tStr = modGuilds.r_VerPropuesta(UserIndex, rData, ALIADOS, Arg1)
 
         If tStr = vbNullString Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Arg1 & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & Arg1 & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ALLIEDE" & tStr)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "ALLIEDE" & tStr)
 
         End If
 
@@ -2386,9 +2372,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tStr = modGuilds.r_VerPropuesta(UserIndex, rData, PAZ, Arg1)
 
         If tStr = vbNullString Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Arg1 & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & Arg1 & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PEACEDE" & tStr)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "PEACEDE" & tStr)
 
         End If
 
@@ -2401,10 +2387,10 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tStr = modGuilds.a_DetallesAspirante(UserIndex, rData)
 
         If tStr = vbNullString Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| El personaje no ha mandado solicitud, o no estás habilitado para verla." & _
+            Call SendData(SendTarget.toindex, UserIndex, 0, "|| El personaje no ha mandado solicitud, o no estás habilitado para verla." & _
                                                             FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PETICIO" & tStr)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "PETICIO" & tStr)
 
         End If
 
@@ -2419,7 +2405,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         End If
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, tStr)
+        Call SendData(SendTarget.toindex, UserIndex, 0, tStr)
         Exit Sub
 
     Case "ENVPROPP"    'enviame la lista de propuestas de paz
@@ -2431,7 +2417,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         End If
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, tStr)
+        Call SendData(SendTarget.toindex, UserIndex, 0, tStr)
         Exit Sub
 
     Case "DECGUERR"    'declaro la guerra
@@ -2439,7 +2425,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tInt = modGuilds.r_DeclararGuerra(UserIndex, rData, tStr)
 
         If tInt = 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
         Else
 
             Call SendData(SendTarget.ToGuildMembers, UserList(UserIndex).GuildIndex, 0, "TW" & SONIDOS_GUILD.SND_DECLAREWAR)
@@ -2463,7 +2449,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right$(rData, Len(rData) - 8)
 
         If Not modGuilds.a_AceptarAspirante(UserIndex, rData, tStr) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
         Else
             tInt = NameIndex(rData)
 
@@ -2492,13 +2478,13 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Arg2 = ReadField(2, rData, Asc(","))
 
         If Not modGuilds.a_RechazarAspirante(UserIndex, Arg1, Arg2, Arg3) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & Arg3 & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "|| " & Arg3 & FONTTYPE_GUILD)
         Else
             tInt = NameIndex(Arg1)
             tStr = Arg3 & ": " & Arg2       'el mensaje de rechazo
 
             If tInt > 0 Then
-                Call SendData(SendTarget.ToIndex, tInt, 0, "|| " & tStr & FONTTYPE_GUILD)
+                Call SendData(SendTarget.toindex, tInt, 0, "|| " & tStr & FONTTYPE_GUILD)
             Else
                 'hay que grabar en el char su rechazo
                 Call modGuilds.a_RechazarAspiranteChar(Arg1, UserList(UserIndex).GuildIndex, Arg2)
@@ -2514,7 +2500,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Trim$(Right$(rData, Len(rData) - 8))
 
         If Not Guilds(UserList(UserIndex).GuildIndex).ViewPassword(UserIndex, ReadField(1, rData, 44)) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La Contraseña es incorrecta ó no eres el Lider del clan." & FONTTYPE_FIGHT)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||La Contraseña es incorrecta ó no eres el Lider del clan." & FONTTYPE_FIGHT)
             Exit Sub
         End If
 
@@ -2525,7 +2511,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         If tInt > 0 Then
             Call SendData(SendTarget.ToGuildMembers, tInt, 0, "||" & rData & " fue expulsado del clan." & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| No puedes expulsar ese personaje del clan." & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "|| No puedes expulsar ese personaje del clan." & FONTTYPE_GUILD)
 
         End If
 
@@ -2543,9 +2529,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tStr = modGuilds.a_DetallesPersonaje(UserIndex, rData, Arg1)
 
         If tStr = vbNullString Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Arg1 & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & Arg1 & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "CHRINFO" & tStr)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "CHRINFO" & tStr)
 
         End If
 
@@ -2554,7 +2540,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "ABREELEC"
 
         If Not modGuilds.v_AbrirElecciones(UserIndex, tStr) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
         Else
             Call SendData(SendTarget.ToGuildMembers, UserList(UserIndex).GuildIndex, 0, _
                           "||¡Han comenzado las elecciones del clan! Puedes votar escribiendo /VOTO seguido del nombre del personaje, por ejemplo: /VOTO " _
@@ -2574,9 +2560,9 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Arg2 = ReadField(2, rData, Asc(","))
 
         If Not modGuilds.a_NuevoAspirante(UserIndex, Arg1, Arg2, tStr) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & tStr & FONTTYPE_GUILD)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La solicitud fué recibida por el lider del clan, ahora debes esperar la respuesta." _
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||La solicitud fué recibida por el lider del clan, ahora debes esperar la respuesta." _
                                                           & FONTTYPE_GUILD)
 
         End If
@@ -2591,7 +2577,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = Right$(rData, Len(rData) - 11)
 
         If Trim$(rData) = vbNullString Then Exit Sub
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "CLKNDET" & modGuilds.SendGuildDetails(rData))
+        Call SendData(SendTarget.toindex, UserIndex, 0, "CLKNDET" & modGuilds.SendGuildDetails(rData))
         Exit Sub
 
     End Select
@@ -2610,13 +2596,13 @@ Public Sub HandleData_4(ByVal UserIndex As Integer, rData As String, ByRef Proce
         rData = UCase$(Right$(rData, Len(rData) - 9))
 
         If rData = "" Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tienes que poner La respuesta secreta." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Tienes que poner La respuesta secreta." & FONTTYPE_Motd4)
             Exit Sub
         ElseIf rData = UCase$(UserList(UserIndex).PalabraSecreta) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya puedes Abrir el Banco con normalidad, bienvenido/a " & UserList(UserIndex).Name & "." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Ya puedes Abrir el Banco con normalidad, bienvenido/a " & UserList(UserIndex).Name & "." & FONTTYPE_Motd4)
             UserList(UserIndex).flags.ValidBank = 1
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La Respuesta secreta que nos proporciono, no coincide con la del registro." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||La Respuesta secreta que nos proporciono, no coincide con la del registro." & FONTTYPE_Motd4)
             Exit Sub
         End If
 
@@ -2624,7 +2610,7 @@ Public Sub HandleData_4(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
     If UCase$(Left$(rData, 7)) = "BANKOBJ" Then
         If UserList(UserIndex).flags.Montado = True Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Bajate de la montura ó Quitatela de tu lado.." & FONTTYPE_TALK)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Bajate de la montura ó Quitatela de tu lado.." & FONTTYPE_TALK)
             Exit Sub
         End If
 
@@ -2632,18 +2618,18 @@ Public Sub HandleData_4(ByVal UserIndex As Integer, rData As String, ByRef Proce
     End If
 
     If UCase$(Left$(rData, 7)) = "BANKDEP" Then
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "BAND" & UserList(UserIndex).Stats.GLD)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "BAND" & UserList(UserIndex).Stats.GLD)
     End If
 
     If UCase$(Left$(rData, 7)) = "BANKRET" Then
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "BANR" & UserList(UserIndex).Stats.Banco)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "BANR" & UserList(UserIndex).Stats.Banco)
     End If
 
     If UCase$(Left$(rData, 7)) = "DEPBANK" Then
         rData = UCase$(Right$(rData, Len(rData) - 7))
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -2652,18 +2638,18 @@ Public Sub HandleData_4(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         Call EnviarOro(UserIndex)
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "BANF" & UserList(UserIndex).Stats.Banco & "," & UserList(UserIndex).Stats.GLD)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "BANF" & UserList(UserIndex).Stats.Banco & "," & UserList(UserIndex).Stats.GLD)
     End If
 
     If UCase$(Left$(rData, 7)) = "BANKVOL" Then
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "BANP" & UserList(UserIndex).Stats.Banco & "," & UserList(UserIndex).Stats.GLD & "," & UserList(UserIndex).BancoInvent.NroItems)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "BANP" & UserList(UserIndex).Stats.Banco & "," & UserList(UserIndex).Stats.GLD & "," & UserList(UserIndex).BancoInvent.NroItems)
     End If
 
     If UCase$(Left$(rData, 7)) = "RETBANK" Then
         rData = UCase$(Right$(rData, Len(rData) - 7))
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+            Call SendData(SendTarget.toindex, UserIndex, 0, "Z12")
             Exit Sub
         End If
 
@@ -2672,7 +2658,7 @@ Public Sub HandleData_4(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         Call EnviarOro(UserIndex)
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "BANF" & UserList(UserIndex).Stats.Banco & "," & UserList(UserIndex).Stats.GLD)
+        Call SendData(SendTarget.toindex, UserIndex, 0, "BANF" & UserList(UserIndex).Stats.Banco & "," & UserList(UserIndex).Stats.GLD)
     End If
 
     If UCase$(Left$(rData, 7)) = "ENVHECA" Then
@@ -2697,7 +2683,7 @@ Public Sub HandleData_4(ByVal UserIndex As Integer, rData As String, ByRef Proce
             If .flags.Muerto = 1 Then Exit Sub
 
             If OroCirujia > .Stats.GLD Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes suficientes monedas de oro para la cirugía." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toindex, UserIndex, 0, "||No tienes suficientes monedas de oro para la cirugía." & FONTTYPE_INFO)
                 Exit Sub
             End If
 
@@ -2710,7 +2696,7 @@ Public Sub HandleData_4(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             Call EnviarOro(UserIndex)
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tu cirugía se ha realizado correctamente." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toindex, UserIndex, 0, "||Tu cirugía se ha realizado correctamente." & FONTTYPE_INFO)
 
         End With
 
