@@ -1,15 +1,15 @@
 [History]
-1=#P0#=mb	#P1#=SendData	#P2#=AoManiaServer/TCP/SendData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509072156	#P7#=0	#P8#=319	.
-2=#P0#=mb	#P1#=LoadUserInit	#P2#=AoManiaServer/ES/LoadUserInit	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509065657	#P7#=0	#P8#=291	.
-3=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509080418	#P7#=0	#P8#=215	.
-4=#P0#=mb	#P1#=EsUserMute	#P2#=AoManiaServer/UsUaRiOs/EsUserMute	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509074807	#P7#=0	#P8#=0	.
-5=#P0#=mb	#P1#=LlevarUsuarios	#P2#=AoManiaServer/UsUaRiOs/LlevarUsuarios	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509064815	#P7#=0	#P8#=12	.
-6=#P0#=mb	#P1#=DuracionAngelyDemonio	#P2#=AoManiaServer/General/DuracionAngelyDemonio	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509064300	#P7#=0	#P8#=36	.
-7=#P0#=mb	#P1#=ResetUserFlags	#P2#=AoManiaServer/TCP/ResetUserFlags	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509064131	#P7#=0	#P8#=12	.
-8=#P0#=mb	#P1#=SaveUser	#P2#=AoManiaServer/ES/SaveUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509054313	#P7#=0	#P8#=323	.
-9=#P0#=mb	#P1#=ConnectNewUser	#P2#=AoManiaServer/TCP/ConnectNewUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509054153	#P7#=0	#P8#=54	.
-10=#P0#=mb	#P1#=HandleData_3	#P2#=AoManiaServer/TCP_HandleData3/HandleData_3	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509053924	#P7#=0	#P8#=138	.
-11=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509072128	#P7#=0	#P8#=51	.
+1=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509144651	#P7#=0	#P8#=215	.
+2=#P0#=mb	#P1#=EsUserMute	#P2#=AoManiaServer/UsUaRiOs/EsUserMute	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509074807	#P7#=0	#P8#=0	.
+3=#P0#=mb	#P1#=SendData	#P2#=AoManiaServer/TCP/SendData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509072156	#P7#=0	#P8#=319	.
+4=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509072128	#P7#=0	#P8#=51	.
+5=#P0#=mb	#P1#=LoadUserInit	#P2#=AoManiaServer/ES/LoadUserInit	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509065657	#P7#=0	#P8#=291	.
+6=#P0#=mb	#P1#=LlevarUsuarios	#P2#=AoManiaServer/UsUaRiOs/LlevarUsuarios	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509064815	#P7#=0	#P8#=12	.
+7=#P0#=mb	#P1#=DuracionAngelyDemonio	#P2#=AoManiaServer/General/DuracionAngelyDemonio	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509064300	#P7#=0	#P8#=36	.
+8=#P0#=mb	#P1#=ResetUserFlags	#P2#=AoManiaServer/TCP/ResetUserFlags	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509064131	#P7#=0	#P8#=12	.
+9=#P0#=mb	#P1#=SaveUser	#P2#=AoManiaServer/ES/SaveUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509054313	#P7#=0	#P8#=323	.
+10=#P0#=mb	#P1#=ConnectNewUser	#P2#=AoManiaServer/TCP/ConnectNewUser	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509054153	#P7#=0	#P8#=54	.
+11=#P0#=mb	#P1#=HandleData_3	#P2#=AoManiaServer/TCP_HandleData3/HandleData_3	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509053924	#P7#=0	#P8#=138	.
 12=#P0#=mb	#P1#=CommandAdmins	#P2#=AoManiaServer/ModGM/CommandAdmins	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509042229	#P7#=0	#P8#=83	.
 13=#P0#=mb	#P1#=LoadSini	#P2#=AoManiaServer/ES/LoadSini	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509035931	#P7#=0	#P8#=2	.
 14=#P0#=mb	#P1#=Load_Quest	#P2#=AoManiaServer/Mod_Quest/Load_Quest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200508211828	#P7#=0	#P8#=11	.
