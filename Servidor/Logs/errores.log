@@ -2762,3 +2762,11 @@
 08/05/2020 23:46:16 HandleData. CadOri:/TELEP YO 47 19 42 Nom:BassingerUI:1 N: 0 D: 
 08/05/2020 23:46:19 HandleData. CadOri:/TELEP YO 47 49 42 Nom:BassingerUI:1 N: 0 D: 
 08/05/2020 23:46:23 HandleData. CadOri:/TELEP YO 47 67 21 Nom:BassingerUI:1 N: 0 D: 
+09/05/2020 5:24:36 HandleData. CadOri:/mute puto Nom:cabronUI:1 N: 9 D: El subíndice está fuera del intervalo
+09/05/2020 5:24:42 HandleData. CadOri:/mute puto Nom:cabronUI:1 N: 9 D: El subíndice está fuera del intervalo
+09/05/2020 5:24:53 HandleData. CadOri:/mute cabron Nom:cabronUI:1 N: 9 D: El subíndice está fuera del intervalo
+09/05/2020 5:25:00 Error en SaveUser
+09/05/2020 5:26:23 HandleData. CadOri:/mute puto Nom:cabronUI:1 N: 9 D: El subíndice está fuera del intervalo
+09/05/2020 5:27:16 HandleData. CadOri:/mute puto Nom:cabronUI:1 N: 9 D: El subíndice está fuera del intervalo
+09/05/2020 5:27:22 Error en SaveUser
+09/05/2020 5:27:24 Error en SaveUser

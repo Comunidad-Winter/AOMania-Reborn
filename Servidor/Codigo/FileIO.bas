@@ -499,7 +499,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
     Dim FreeFileMap As Long
     Dim FreeFileInf As Long
     Dim Y As Long
-    Dim X As Long
+    Dim x As Long
     Dim ByFlags As Byte
     Dim LoopC As Long
 
@@ -548,9 +548,9 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
 
     'Write .map file
     For Y = YMinMapSize To YMaxMapSize
-        For X = XMinMapSize To XMaxMapSize
+        For x = XMinMapSize To XMaxMapSize
 
-            With MapData(Map, X, Y)
+            With MapData(Map, x, Y)
                 ByFlags = 0
 
                 If .Blocked Then ByFlags = ByFlags Or 1
@@ -590,7 +590,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
 
                 If .TileExit.Map Then
                     Call InfWriter.putInteger(.TileExit.Map)
-                    Call InfWriter.putInteger(.TileExit.X)
+                    Call InfWriter.putInteger(.TileExit.x)
                     Call InfWriter.putInteger(.TileExit.Y)
 
                 End If
@@ -605,7 +605,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
 
             End With
 
-        Next X
+        Next x
     Next Y
 
     Call MapWriter.saveBuffer
@@ -626,7 +626,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
         Call IniManager.ChangeValue("Mapa" & Map, "MusicNum", .Music)
         Call IniManager.ChangeValue("Mapa" & Map, "MagiaSinefecto", .MagiaSinEfecto)
         Call IniManager.ChangeValue("Mapa" & Map, "OcultarSinEfecto", .OcultarSinEfecto)
-        Call IniManager.ChangeValue("Mapa" & Map, "StartPos", .StartPos.Map & "-" & .StartPos.X & "-" & .StartPos.Y)
+        Call IniManager.ChangeValue("Mapa" & Map, "StartPos", .StartPos.Map & "-" & .StartPos.x & "-" & .StartPos.Y)
 
         Call IniManager.ChangeValue("Mapa" & Map, "Terreno", .Terreno)
         Call IniManager.ChangeValue("Mapa" & Map, "Zona", .Zona)
@@ -1170,6 +1170,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     Dim LoopC As Long
     Dim ln As String
     Dim Obj As Long
+    Dim Datos As String
 
     UserList(UserIndex).AoMCreditos = val(UserFile.GetValue("PUNTOS", "AoMCreditos"))
     UserList(UserIndex).AoMCanjes = val(UserFile.GetValue("PUNTOS", "AoMCanjes"))
@@ -1268,7 +1269,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).Respuesta = UserFile.GetValue("INIT", "Respuesta")
 
     UserList(UserIndex).pos.Map = CInt(ReadField(1, UserFile.GetValue("INIT", "Position"), 45))
-    UserList(UserIndex).pos.X = CInt(ReadField(2, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).pos.x = CInt(ReadField(2, UserFile.GetValue("INIT", "Position"), 45))
     UserList(UserIndex).pos.Y = CInt(ReadField(3, UserFile.GetValue("INIT", "Position"), 45))
 
     UserList(UserIndex).PalabraSecreta = UserFile.GetValue("INIT", "PalabraSecreta")
@@ -1453,6 +1454,19 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
         Next LoopC
         
     End If
+    
+    UserList(UserIndex).Ignore.NumIgnores = val(UserFile.GetValue("IGNORE", "NumIgnores"))
+    UserList(UsrIndex).Ignore.MaximoIgnores = val(UserFile.GetValue("IGNORE", "MaximoIgnores"))
+    
+    If UserList(UserIndex).Ignore.NumIgnores > 0 Then
+        
+        Datos = UserFile.GetValue("IGNORE", "Ignorados")
+        
+        For LoopC = 1 To UserList(UserIndex).Ignore.NumIgnores
+               UserList(UserIndex).Ignore.Usuario(LoopC) = ReadField(LoopC, Datos, 44)
+        Next LoopC
+        
+    End If
 
 End Sub
 
@@ -1576,7 +1590,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
     On Error GoTo errh
 
     Dim hFile As Integer
-    Dim X As Long
+    Dim x As Long
     Dim Y As Long
     Dim ByFlags As Byte
     Dim npcfile As String
@@ -1628,9 +1642,9 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
     Call InfReader.getInteger
 
     For Y = YMinMapSize To YMaxMapSize
-        For X = XMinMapSize To XMaxMapSize
+        For x = XMinMapSize To XMaxMapSize
 
-            With MapData(Map, X, Y)
+            With MapData(Map, x, Y)
                 '.map file
                 ByFlags = MapReader.getByte
 
@@ -1655,7 +1669,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
 
                 If ByFlags And 1 Then
                     .TileExit.Map = InfReader.getInteger
-                    .TileExit.X = InfReader.getInteger
+                    .TileExit.x = InfReader.getInteger
                     .TileExit.Y = InfReader.getInteger
 
                 End If
@@ -1672,20 +1686,20 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
                         If val(Leer.GetValue("NPC" & .NpcIndex, "PosOrig")) = 1 Then
                             .NpcIndex = OpenNPC(.NpcIndex)
                             Npclist(.NpcIndex).Orig.Map = Map
-                            Npclist(.NpcIndex).Orig.X = X
+                            Npclist(.NpcIndex).Orig.x = x
                             Npclist(.NpcIndex).Orig.Y = Y
                         Else
                             .NpcIndex = OpenNPC(.NpcIndex)
                         End If
 
                         Npclist(.NpcIndex).pos.Map = Map
-                        Npclist(.NpcIndex).pos.X = X
+                        Npclist(.NpcIndex).pos.x = x
                         Npclist(.NpcIndex).pos.Y = Y
 
                         If val(GetVar(App.Path & "\Dat\Npcs.Dat", "NPC" & Npclist(.NpcIndex).Numero, "PosOrig")) = 1 Then
 
                             Npclist(.NpcIndex).Orig.Map = Map
-                            Npclist(.NpcIndex).Orig.X = X
+                            Npclist(.NpcIndex).Orig.x = x
                             Npclist(.NpcIndex).Orig.Y = Y
 
                         End If
@@ -1707,7 +1721,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
 
             End With
 
-        Next X
+        Next x
     Next Y
 
     Call Leer.Initialize(MAPFl & ".dat")
@@ -1717,7 +1731,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
         .Music = Leer.GetValue("Mapa" & Map, "MusicNum")
 
         .StartPos.Map = val(ReadField(1, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
-        .StartPos.X = val(ReadField(2, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
+        .StartPos.x = val(ReadField(2, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
         .StartPos.Y = val(ReadField(3, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
 
         .MagiaSinEfecto = val(Leer.GetValue("Mapa" & Map, "MagiaSinEfecto"))
@@ -1745,7 +1759,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
     Exit Sub
 
 errh:
-    Call LogError("Error cargando mapa: " & Map & " - Pos: " & X & "," & Y & "." & Err.Description)
+    Call LogError("Error cargando mapa: " & Map & " - Pos: " & x & "," & Y & "." & Err.Description)
 
     Set MapReader = Nothing
     Set InfReader = Nothing
@@ -1795,7 +1809,7 @@ Sub LoadSini()
 
     'Start pos
     StartPos.Map = val(ReadField(1, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
-    StartPos.X = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
+    StartPos.x = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
     StartPos.Y = val(ReadField(3, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
 
     'Intervalos
@@ -1880,7 +1894,7 @@ Sub LoadSini()
 
     'Ressurect pos
     ResPos.Map = val(ReadField(1, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
-    ResPos.X = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
+    ResPos.x = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
     ResPos.Y = val(ReadField(3, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
 
     recordusuarios = val(GetVar(IniPath & "Server.ini", "INIT", "Record"))
@@ -1895,19 +1909,19 @@ Sub LoadSini()
     End If
 
     Nix.Map = GetVar(DatPath & "Ciudades.dat", "NIX", "Mapa")
-    Nix.X = GetVar(DatPath & "Ciudades.dat", "NIX", "X")
+    Nix.x = GetVar(DatPath & "Ciudades.dat", "NIX", "X")
     Nix.Y = GetVar(DatPath & "Ciudades.dat", "NIX", "Y")
 
     Ullathorpe.Map = GetVar(DatPath & "Ciudades.dat", "Ullathorpe", "Mapa")
-    Ullathorpe.X = GetVar(DatPath & "Ciudades.dat", "Ullathorpe", "X")
+    Ullathorpe.x = GetVar(DatPath & "Ciudades.dat", "Ullathorpe", "X")
     Ullathorpe.Y = GetVar(DatPath & "Ciudades.dat", "Ullathorpe", "Y")
 
     Banderbill.Map = GetVar(DatPath & "Ciudades.dat", "Banderbill", "Mapa")
-    Banderbill.X = GetVar(DatPath & "Ciudades.dat", "Banderbill", "X")
+    Banderbill.x = GetVar(DatPath & "Ciudades.dat", "Banderbill", "X")
     Banderbill.Y = GetVar(DatPath & "Ciudades.dat", "Banderbill", "Y")
 
     Lindos.Map = GetVar(DatPath & "Ciudades.dat", "Lindos", "Mapa")
-    Lindos.X = GetVar(DatPath & "Ciudades.dat", "Lindos", "X")
+    Lindos.x = GetVar(DatPath & "Ciudades.dat", "Lindos", "X")
     Lindos.Y = GetVar(DatPath & "Ciudades.dat", "Lindos", "Y")
 
     'OPCIONES
@@ -1930,7 +1944,7 @@ Sub LoadZonas()
     For i = 0 To NumZonas
         Zonas(i).nombre = (GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "Nombre"))
         Zonas(i).Map = val(GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "Map"))
-        Zonas(i).X = val(GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "X"))
+        Zonas(i).x = val(GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "X"))
         Zonas(i).Y = val(GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "Y"))
     Next i
 
@@ -1950,8 +1964,12 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
     On Error GoTo errhandler
 
     Dim Manager As clsIniManager
-    Dim Existe As Boolean
-    Dim LoopC As Long
+
+    Dim Existe  As Boolean
+
+    Dim LoopC   As Long
+
+    Dim Datos   As String
 
     With UserList(UserIndex)
 
@@ -1985,7 +2003,6 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
             .flags.Mimetizado = 0
 
         End If
-
 
         Call Manager.ChangeValue("PUNTOS", "AoMCreditos", val(.AoMCreditos))
         Call Manager.ChangeValue("PUNTOS", "AoMCanjes", val(.AoMCanjes))
@@ -2093,7 +2110,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("INIT", "Casco", CStr(.char.CascoAnim))
 
         Call Manager.ChangeValue("INIT", "LastIP", .ip)
-        Call Manager.ChangeValue("INIT", "Position", .pos.Map & "-" & .pos.X & "-" & .pos.Y)
+        Call Manager.ChangeValue("INIT", "Position", .pos.Map & "-" & .pos.x & "-" & .pos.Y)
         'soporte
         Call Manager.ChangeValue("INIT", "Pregunta", .Pregunta)
         Call Manager.ChangeValue("INIT", "Respuesta", .Respuesta)
@@ -2160,8 +2177,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("Inventory", "CantidadItems", val(.Invent.NroItems))
 
         For LoopC = 1 To MAX_INVENTORY_SLOTS
-            Call Manager.ChangeValue("Inventory", "Obj" & LoopC, .Invent.Object(LoopC).ObjIndex & "-" & .Invent.Object(LoopC).Amount & "-" & _
-                                                                 .Invent.Object(LoopC).Equipped)
+            Call Manager.ChangeValue("Inventory", "Obj" & LoopC, .Invent.Object(LoopC).ObjIndex & "-" & .Invent.Object(LoopC).Amount & "-" & .Invent.Object(LoopC).Equipped)
         Next
 
         Call Manager.ChangeValue("Inventory", "WeaponEqpSlot", CStr(.Invent.WeaponEqpSlot))
@@ -2183,8 +2199,8 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("REP", "Plebe", CStr(.Reputacion.PlebeRep))
 
         Dim L As Long
-        L = (-.Reputacion.AsesinoRep) + (-.Reputacion.BandidoRep) + UserList(UserIndex).Reputacion.BurguesRep + (-.Reputacion.LadronesRep) + _
-            UserList(UserIndex).Reputacion.NobleRep + .Reputacion.PlebeRep
+
+        L = (-.Reputacion.AsesinoRep) + (-.Reputacion.BandidoRep) + UserList(UserIndex).Reputacion.BurguesRep + (-.Reputacion.LadronesRep) + UserList(UserIndex).Reputacion.NobleRep + .Reputacion.PlebeRep
         L = L / 6
         Call Manager.ChangeValue("REP", "Promedio", CStr(L))
 
@@ -2196,6 +2212,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Next
 
         Dim NroMascotas As Long
+
         NroMascotas = .NroMacotas
 
         For LoopC = 1 To MAXMASCOTAS
@@ -2223,6 +2240,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         'Devuelve el head de muerto
         If .flags.Muerto = 1 Then
             .char.Head = iCabezaMuerto
+
         End If
 
         Call Manager.ChangeValue("GUILD", "FundoClan", .Clan.FundoClan)
@@ -2234,7 +2252,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
             
             For LoopC = 1 To NumQuests
                     
-                    Call Manager.ChangeValue("QUEST", "Q" & LoopC, .Quest.UserQuest(LoopC))
+                Call Manager.ChangeValue("QUEST", "Q" & LoopC, .Quest.UserQuest(LoopC))
                     
             Next LoopC
             
@@ -2255,12 +2273,27 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
             Call Manager.ChangeValue("QUEST", "UserMatados", .Quest.UserMatados)
                 
             For LoopC = 1 To 10
-                  Call Manager.ChangeValue("QUEST", "MataNPC" & LoopC, .Quest.MataNpc(LoopC))
-                  Call Manager.ChangeValue("QUEST", "BuscaOBJ" & LoopC, .Quest.BuscaObj(LoopC))
-                  Call Manager.ChangeValue("QUEST", "Mapa" & LoopC, .Quest.Mapa(LoopC))
-                  Call Manager.ChangeValue("QUEST", "DarObjNpc" & LoopC, .Quest.DarObjNpc(LoopC))
+                Call Manager.ChangeValue("QUEST", "MataNPC" & LoopC, .Quest.MataNpc(LoopC))
+                Call Manager.ChangeValue("QUEST", "BuscaOBJ" & LoopC, .Quest.BuscaObj(LoopC))
+                Call Manager.ChangeValue("QUEST", "Mapa" & LoopC, .Quest.Mapa(LoopC))
+                Call Manager.ChangeValue("QUEST", "DarObjNpc" & LoopC, .Quest.DarObjNpc(LoopC))
             Next LoopC
             
+        End If
+        
+        Call Manager.ChangeValue("IGNORE", "NumIgnores", .Ignore.NumIgnores)
+        Call Manager.ChangeValue("IGNORE", "MaximoIgnores", .Ignore.MaximoIgnores)
+           
+        If .Ignore.NumIgnores > 0 Then
+               
+            For LoopC = 1 To .Ignore.NumIgnores
+                Datos = Datos & .Ignore.Usuario(LoopC) & ", "
+            Next LoopC
+                    
+            Datos = Left(Datos, Len(Datos) - 2)
+                    
+            Call Manager.ChangeValue("IGNORE", "Ignorados", Datos)
+               
         End If
 
     End With
@@ -2276,11 +2309,14 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
     Call Save_Rank(UserIndex)
 
     #If MYSQL = 1 Then
+
         If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
             Call Add_DataBase(UserIndex, "SaveUser")
             DoEvents
             Call Add_DataBase(UserIndex, "Account")
+
         End If
+
     #End If
 
     Exit Sub

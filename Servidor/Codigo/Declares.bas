@@ -1506,7 +1506,12 @@ Public Type UserQuest
       UserMatados As Integer
 End Type
 
-'Tipo de los Usuarios
+Public Type tIgnore
+     NumIgnores As Integer
+     Usuario(1 To 100) As String
+     MaximoIgnores As Integer
+End Type
+
 Public Type User
 
     Pareja As String
@@ -1551,9 +1556,7 @@ Public Type User
     ConnID As Long    'ID
     RDBuffer As String    'Buffer roto
 
-    '[KEVIN]
     BancoInvent As BancoInventario
-    '[/KEVIN]
 
     Counters As UserCounters
 
@@ -1573,9 +1576,7 @@ Public Type User
 
     ip As String
 
-    '[Alejo]
     ComUsu As tCOmercioUsuario
-    '[/Alejo]
 
     Asedio As flagsAsedio
 
@@ -1617,6 +1618,8 @@ Public Type User
     
     clave2 As Long
     clave As String
+    
+    Ignore As tIgnore
 
 End Type
 
