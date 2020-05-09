@@ -23,7 +23,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Dim Mapa As Integer
     Dim Name As String
     Dim ind
-    Dim n As Integer
+    Dim N As Integer
     Dim wpaux As WorldPos
     Dim mifile As Integer
     Dim x As Integer
@@ -91,7 +91,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 Call addConsole(UserList(UserIndex).Name & ": " & rData, 255, 0, 0, True, False)
             Else
                 UserList(UserIndex).flags.HablanMute = 1
-                Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbWhite & "°" & rData & "°" & CStr(ind))
+                Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbWhite & "°" & MensajeCensura(rData) & "°" & CStr(ind))
                 FrmUserhablan.hUser (now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
                 Call addConsole(UserList(UserIndex).Name & ": " & rData, 255, 0, 0, True, False)
 
@@ -208,8 +208,8 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             If EstaPCarea(UserIndex, TIndex) Then
                If Not EsUserMute(UserIndex, TIndex) Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&HF54536" & "°" & UserList(UserIndex).Name & " " & tMessage & "°" & CStr(UserList(UserIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & "&HF54536" & "°" & UserList(UserIndex).Name & " " & tMessage & "°" & CStr(UserList(UserIndex).char.CharIndex))
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&HF54536" & "°" & UserList(UserIndex).Name & " " & MensajeCensura(tMessage) & "°" & CStr(UserList(UserIndex).char.CharIndex))
+                Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & "&HF54536" & "°" & UserList(UserIndex).Name & " " & MensajeCensura(tMessage) & "°" & CStr(UserList(UserIndex).char.CharIndex))
                Exit Sub
                Else
                  Call SendData(ToIndex, UserIndex, 0, "||El usuario tiene tiene en ignore." & FONTTYPE_INFO)
@@ -1473,14 +1473,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tInt = ReadField(1, rData, 44)  ' Slot
         x = ReadField(2, rData, 44)     ' Pos X
         Y = ReadField(3, rData, 44)     ' Pos Y
-        n = ReadField(4, rData, 44)     ' Cantidad
+        N = ReadField(4, rData, 44)     ' Cantidad
 
         Mapa = UserList(UserIndex).pos.Map
 
         If InMapBounds(Mapa, x, Y) Then
 
             'Desequipa
-            If n > 0 Or n <= MAX_INVENTORY_OBJS Then
+            If N > 0 Or N <= MAX_INVENTORY_OBJS Then
 
                 Dim tUser As Integer
                 Dim tNpc As Integer
@@ -1488,11 +1488,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 tNpc = MapData(Mapa, x, Y).NpcIndex
 
                 If tNpc > 0 Then
-                    Call DragToNPC(UserIndex, tNpc, tInt, n)
+                    Call DragToNPC(UserIndex, tNpc, tInt, N)
                 ElseIf tUser > 0 Then
-                    Call DragToUser(UserIndex, tUser, tInt, n)
+                    Call DragToUser(UserIndex, tUser, tInt, N)
                 Else
-                    Call DragToPos(UserIndex, x, Y, tInt, n)
+                    Call DragToPos(UserIndex, x, Y, tInt, N)
 
                 End If
 

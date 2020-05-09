@@ -245,11 +245,11 @@ End Sub
 
 Public Sub CargarSpawnList()
 
-    Dim n As Integer, LoopC As Integer
-    n = val(GetVar(App.Path & "\Dat\Invokar.dat", "INIT", "NumNPCs"))
-    ReDim SpawnList(n) As tCriaturasEntrenador
+    Dim N As Integer, LoopC As Integer
+    N = val(GetVar(App.Path & "\Dat\Invokar.dat", "INIT", "NumNPCs"))
+    ReDim SpawnList(N) As tCriaturasEntrenador
 
-    For LoopC = 1 To n
+    For LoopC = 1 To N
         SpawnList(LoopC).NpcIndex = val(GetVar(App.Path & "\Dat\Invokar.dat", "LIST", "NI" & LoopC))
         SpawnList(LoopC).NpcName = GetVar(App.Path & "\Dat\Invokar.dat", "LIST", "NN" & LoopC)
     Next LoopC
@@ -258,16 +258,16 @@ End Sub
 
 Public Function TxtDimension(ByVal Name As String) As Long
 
-    Dim n As Integer, cad As String, Tam As Long
-    n = FreeFile(1)
-    Open Name For Input As #n
+    Dim N As Integer, cad As String, Tam As Long
+    N = FreeFile(1)
+    Open Name For Input As #N
     Tam = 0
 
-    Do While Not EOF(n)
+    Do While Not EOF(N)
         Tam = Tam + 1
-        Line Input #n, cad
+        Line Input #N, cad
     Loop
-    Close n
+    Close N
     TxtDimension = Tam
 
 End Function
@@ -275,16 +275,33 @@ End Function
 Public Sub CargarForbidenWords()
 
     ReDim ForbidenNames(1 To TxtDimension(DatPath & "NombresInvalidos.txt"))
-    Dim n As Integer, i As Integer
-    n = FreeFile(1)
-    Open DatPath & "NombresInvalidos.txt" For Input As #n
+    Dim N As Integer, i As Integer
+    N = FreeFile(1)
+    Open DatPath & "NombresInvalidos.txt" For Input As #N
 
     For i = 1 To UBound(ForbidenNames)
-        Line Input #n, ForbidenNames(i)
+        Line Input #N, ForbidenNames(i)
     Next i
 
-    Close n
+    Close N
 
+End Sub
+
+Sub CargaPalabrasCensuradas()
+
+    ReDim PalabrasCensuradas(1 To TxtDimension(DatPath & "PalabrasCensuradas.txt"))
+
+    Dim N As Integer, i As Integer
+
+    N = FreeFile(1)
+    Open DatPath & "PalabrasCensuradas.txt" For Input As #N
+   
+    For i = 1 To UBound(PalabrasCensuradas)
+        Line Input #N, PalabrasCensuradas(i)
+    Next i
+   
+    Close #N
+   
 End Sub
 
 Public Sub CargarHechizos()
@@ -650,13 +667,13 @@ End Sub
 
 Sub LoadArmasHerreria()
 
-    Dim n As Integer, lc As Integer
+    Dim N As Integer, lc As Integer
 
-    n = val(GetVar(DatPath & "ArmasHerrero.dat", "INIT", "NumArmas"))
+    N = val(GetVar(DatPath & "ArmasHerrero.dat", "INIT", "NumArmas"))
 
-    ReDim Preserve ArmasHerrero(1 To n) As Integer
+    ReDim Preserve ArmasHerrero(1 To N) As Integer
 
-    For lc = 1 To n
+    For lc = 1 To N
         ArmasHerrero(lc) = val(GetVar(DatPath & "ArmasHerrero.dat", "Arma" & lc, "Index"))
     Next lc
 
@@ -664,13 +681,13 @@ End Sub
 
 Sub LoadArmadurasHerreria()
 
-    Dim n As Integer, lc As Integer
+    Dim N As Integer, lc As Integer
 
-    n = val(GetVar(DatPath & "ArmadurasHerrero.dat", "INIT", "NumArmaduras"))
+    N = val(GetVar(DatPath & "ArmadurasHerrero.dat", "INIT", "NumArmaduras"))
 
-    ReDim Preserve ArmadurasHerrero(1 To n) As Integer
+    ReDim Preserve ArmadurasHerrero(1 To N) As Integer
 
-    For lc = 1 To n
+    For lc = 1 To N
         ArmadurasHerrero(lc) = val(GetVar(DatPath & "ArmadurasHerrero.dat", "Armadura" & lc, "Index"))
     Next lc
 
@@ -678,13 +695,13 @@ End Sub
 
 Sub LoadObjArmaHerreroMagico()
 
-    Dim n As Integer, lc As Integer
+    Dim N As Integer, lc As Integer
 
-    n = val(GetVar(DatPath & "ArmasHerreroMagi.Dat", "INIT", "NumArmas"))
+    N = val(GetVar(DatPath & "ArmasHerreroMagi.Dat", "INIT", "NumArmas"))
 
-    ReDim Preserve ObjArmaHerreroMagico(1 To n) As Integer
+    ReDim Preserve ObjArmaHerreroMagico(1 To N) As Integer
 
-    For lc = 1 To n
+    For lc = 1 To N
         ObjArmaHerreroMagico(lc) = val(GetVar(DatPath & "ArmasHerreroMagi.Dat", "Arma" & lc, "Index"))
     Next lc
 
@@ -692,26 +709,26 @@ End Sub
 
 Sub LoadObjArmaduraHerreroMagico()
 
-    Dim n As Integer, lc As Integer
+    Dim N As Integer, lc As Integer
 
-    n = val(GetVar(DatPath & "ArmadurasHerreroMagi.Dat", "INIT", "NumArmaduras"))
+    N = val(GetVar(DatPath & "ArmadurasHerreroMagi.Dat", "INIT", "NumArmaduras"))
 
-    ReDim Preserve ObjArmaduraHerreroMagico(1 To n) As Integer
+    ReDim Preserve ObjArmaduraHerreroMagico(1 To N) As Integer
 
-    For lc = 1 To n
+    For lc = 1 To N
         ObjArmaduraHerreroMagico(lc) = val(GetVar(DatPath & "ArmadurasHerreroMagi.Dat", "Armadura" & lc, "Index"))
     Next lc
 End Sub
 
 Sub LoadObjCarpintero()
 
-    Dim n As Integer, lc As Integer
+    Dim N As Integer, lc As Integer
 
-    n = val(GetVar(DatPath & "ObjCarpintero.dat", "INIT", "NumObjs"))
+    N = val(GetVar(DatPath & "ObjCarpintero.dat", "INIT", "NumObjs"))
 
-    ReDim Preserve ObjCarpintero(1 To n) As Integer
+    ReDim Preserve ObjCarpintero(1 To N) As Integer
 
-    For lc = 1 To n
+    For lc = 1 To N
         ObjCarpintero(lc) = val(GetVar(DatPath & "ObjCarpintero.dat", "Obj" & lc, "Index"))
     Next lc
 
@@ -719,13 +736,13 @@ End Sub
 
 Sub LoadObjSastre()
 
-    Dim n As Integer, lc As Integer
+    Dim N As Integer, lc As Integer
 
-    n = val(GetVar(DatPath & "ObjSastreria.dat", "INIT", "NumObjs"))
+    N = val(GetVar(DatPath & "ObjSastreria.dat", "INIT", "NumObjs"))
 
-    ReDim Preserve ObjSastre(1 To n) As Integer
+    ReDim Preserve ObjSastre(1 To N) As Integer
 
-    For lc = 1 To n
+    For lc = 1 To N
         ObjSastre(lc) = val(GetVar(DatPath & "ObjSastreria.dat", "Obj" & lc, "Index"))
     Next lc
 
@@ -733,13 +750,13 @@ End Sub
 
 Sub LoadObjHechizeria()
 
-    Dim n As Integer, lc As Integer
+    Dim N As Integer, lc As Integer
 
-    n = val(GetVar(DatPath & "ObjHechizeria.dat", "INIT", "NumObjs"))
+    N = val(GetVar(DatPath & "ObjHechizeria.dat", "INIT", "NumObjs"))
 
-    ReDim Preserve ObjHechizeria(1 To n) As Integer
+    ReDim Preserve ObjHechizeria(1 To N) As Integer
 
-    For lc = 1 To n
+    For lc = 1 To N
         ObjHechizeria(lc) = val(GetVar(DatPath & "ObjHechizeria.dat", "Obj" & lc, "Index"))
     Next lc
 

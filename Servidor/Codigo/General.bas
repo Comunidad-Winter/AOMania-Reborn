@@ -834,6 +834,8 @@ Sub Main()
 
     Call CargarSpawnList
     Call CargarForbidenWords
+    Call CargaPalabrasCensuradas
+    
     '¿?¿?¿?¿?¿?¿?¿?¿ CARGAMOS DATOS DESDE ARCHIVOS ¿??¿?¿?¿?¿?¿?¿?¿
 
     frmCargando.Label1(2).caption = "Cargando configuraciones del Servidor."
@@ -929,11 +931,11 @@ Sub Main()
     Unload frmCargando
 
     'Log
-    Dim n As Integer
-    n = FreeFile
-    Open App.Path & "\logs\Main.log" For Append Shared As #n
-    Print #n, Date & " " & Time & " server iniciado " & App.Major & "."; App.Minor & "." & App.Revision
-    Close #n
+    Dim N As Integer
+    N = FreeFile
+    Open App.Path & "\logs\Main.log" For Append Shared As #N
+    Print #N, Date & " " & Time & " server iniciado " & App.Major & "."; App.Minor & "." & App.Revision
+    Close #N
 
     'Ocultar
     If HideMe = 1 Then
@@ -1413,11 +1415,11 @@ Sub Restart()
     If frmMain.Visible Then frmMain.txStatus.caption = "Escuchando conexiones entrantes ..."
 
     'Log it
-    Dim n As Integer
-    n = FreeFile
-    Open App.Path & "\logs\Main.log" For Append Shared As #n
-    Print #n, Date & " " & Time & " servidor reiniciado."
-    Close #n
+    Dim N As Integer
+    N = FreeFile
+    Open App.Path & "\logs\Main.log" For Append Shared As #N
+    Print #N, Date & " " & Time & " servidor reiniciado."
+    Close #N
 
     'Ocultar
 
@@ -2134,3 +2136,20 @@ Public Sub DuracionAngelyDemonio(ByVal UserIndex As Integer)
     End With
 
 End Sub
+
+Public Function MensajeCensura(ByVal Mensaje As String) As String
+     
+     Dim i As Integer
+     Dim Data As String
+     
+     For i = 1 To UBound(PalabrasCensuradas)
+           
+           If InStr(LCase(Mensaje), LCase(PalabrasCensuradas(i))) Then
+              Mensaje = Replace(LCase(Mensaje), LCase$(PalabrasCensuradas(i)), "#%$!#")
+           End If
+           
+     Next i
+     
+     MensajeCensura = Mensaje
+     
+End Function

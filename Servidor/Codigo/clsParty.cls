@@ -125,7 +125,7 @@ Public Sub MandarMensajeAConsola(ByVal texto As String, ByVal Sender As String)
             If IndexHablaParty(PI) > 0 Then
                 If UserList(IndexHablaParty(PI)).flags.HablanMute = 1 Then
                     If Not EsUserMute(IndexHablaParty(PI), p_members(i).UserIndex) Then
-                        Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "||" & texto & FONTTYPE_TALKMSG)
+                        Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "||" & MensajeCensura(texto) & FONTTYPE_TALKMSG)
             
                     End If
 
@@ -133,7 +133,7 @@ Public Sub MandarMensajeAConsola(ByVal texto As String, ByVal Sender As String)
                 
             Else
              
-                Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "||" & texto & FONTTYPE_TALKMSG)
+                Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "||" & MensajeCensura(texto) & FONTTYPE_TALKMSG)
              
             End If
 

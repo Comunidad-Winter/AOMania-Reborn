@@ -23,7 +23,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Dim Mapa As Integer
     Dim Name As String
     Dim ind
-    Dim n As Integer
+    Dim N As Integer
     Dim wpaux As WorldPos
     Dim mifile As Integer
     Dim x As Integer
@@ -79,9 +79,9 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             If UserList(UserIndex).Telepatia = 1 Then
                If Not EsUserMute(UserIndex, TIndex) Then
-                        Call SendData(SendTarget.ToIndex, TIndex, 0, "||< " & UserList(UserIndex).Name & " > te dice: " & tMessage & FONTTYPE_SERVER)
+                        Call SendData(SendTarget.ToIndex, TIndex, 0, "||< " & UserList(UserIndex).Name & " > te dice: " & MensajeCensura(tMessage) & FONTTYPE_SERVER)
 
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has mandado a " & tName & " : " & tMessage & FONTTYPE_SERVER)
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has mandado a " & tName & " : " & MensajeCensura(tMessage) & FONTTYPE_SERVER)
 
                         Call LogTelepatia(UserList(UserIndex).Name, tName, tMessage)
                     Else
@@ -103,23 +103,23 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Case "/ONLINE"
 
         'No se envia más la lista completa de usuarios
-        n = 0
+        N = 0
         tStr = vbNullString
 
         For LoopC = 1 To LastUser
 
             If Len(UserList(LoopC).Name) <> 0 And UserList(LoopC).flags.Privilegios <= PlayerType.Consejero Then
-                n = n + 1
+                N = N + 1
                 tStr = tStr & UserList(LoopC).Name & ", "
 
             End If
 
         Next LoopC
 
-        If n > 0 Then
+        If N > 0 Then
             tStr = Left$(tStr, Len(tStr) - 2)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & tStr & "." & FONTTYPE_INFO)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Número de usuarios: " & n & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Número de usuarios: " & N & FONTTYPE_INFO)
         Else
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay usuarios Online." & FONTTYPE_INFO)
 
@@ -399,20 +399,20 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             If UserList(UserIndex).flags.Privilegios > PlayerType.User Then
                 tLong = Apuestas.Ganancias - Apuestas.Perdidas
-                n = 0
+                N = 0
 
                 If tLong >= 0 And Apuestas.Ganancias <> 0 Then
-                    n = Int(tLong * 100 / Apuestas.Ganancias)
+                    N = Int(tLong * 100 / Apuestas.Ganancias)
 
                 End If
 
                 If tLong < 0 And Apuestas.Perdidas <> 0 Then
-                    n = Int(tLong * 100 / Apuestas.Perdidas)
+                    N = Int(tLong * 100 / Apuestas.Perdidas)
 
                 End If
 
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Entradas: " & Apuestas.Ganancias & " Salida: " & Apuestas.Perdidas & _
-                                                              " Ganancia Neta: " & tLong & " (" & n & "%) Jugadas: " & Apuestas.Jugadas & FONTTYPE_INFO)
+                                                              " Ganancia Neta: " & tLong & " (" & N & "%) Jugadas: " & Apuestas.Jugadas & FONTTYPE_INFO)
 
             End If
 
@@ -1490,7 +1490,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
             UserList(UserIndex).flags.HablanMute = 1
             IndexHablaGuild(UserList(UserIndex).GuildIndex) = UserIndex
             Call SendData(SendTarget.ToDiosesYclan, UserList(UserIndex).GuildIndex, 0, "|+MiembroClan: " & UserList(UserIndex).Name & " dice: " & _
-                                                                                       rData & FONTTYPE_GUILDMSG)
+                                                                                       MensajeCensura(rData) & FONTTYPE_GUILDMSG)
             FrmUserhablan.hClan (now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
             Call addConsolee(UserList(UserIndex).Name & ": " & rData, 255, 0, 0, True, False)
             Call LogUser(UserList(UserIndex).Name, "Dice en Clan: " & rData)
@@ -2083,7 +2083,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tLong = CLng(val(rData))
 
         If tLong > 32000 Then tLong = 32000
-        n = tLong
+        N = tLong
 
         If UserList(UserIndex).flags.Muerto = 1 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
@@ -2095,30 +2095,30 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         ElseIf Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype <> eNPCType.Timbero Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "No tengo ningun interes en apostar." & "°" & str(Npclist( _
                                                                                                                                      UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-        ElseIf n < 1 Then
+        ElseIf N < 1 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "El minimo de apuesta es 1 moneda." & "°" & str(Npclist( _
                                                                                                                                    UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-        ElseIf n > 5000 Then
+        ElseIf N > 5000 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "El maximo de apuesta es 5000 monedas." & "°" & str(Npclist( _
                                                                                                                                        UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-        ElseIf UserList(UserIndex).Stats.GLD < n Then
+        ElseIf UserList(UserIndex).Stats.GLD < N Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "No tienes esa cantidad." & "°" & str(Npclist(UserList( _
                                                                                                                                  UserIndex).flags.TargetNpc).char.CharIndex))
         Else
 
             If RandomNumber(1, 100) <= 47 Then
-                UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD + n
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Felicidades! Has ganado " & CStr(n) & _
+                UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD + N
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Felicidades! Has ganado " & CStr(N) & _
                                                               " monedas de oro!" & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
 
-                Apuestas.Perdidas = Apuestas.Perdidas + n
+                Apuestas.Perdidas = Apuestas.Perdidas + N
                 Call WriteVar(DatPath & "apuestas.dat", "Main", "Perdidas", CStr(Apuestas.Perdidas))
             Else
-                UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD - n
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Lo siento, has perdido " & CStr(n) & " monedas de oro." _
+                UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD - N
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Lo siento, has perdido " & CStr(N) & " monedas de oro." _
                                                               & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
 
-                Apuestas.Ganancias = Apuestas.Ganancias + n
+                Apuestas.Ganancias = Apuestas.Ganancias + N
                 Call WriteVar(DatPath & "apuestas.dat", "Main", "Ganancias", CStr(Apuestas.Ganancias))
 
             End If
