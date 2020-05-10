@@ -23,7 +23,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Dim Mapa As Integer
     Dim Name As String
     Dim ind
-    Dim N As Integer
+    Dim n As Integer
     Dim wpaux As WorldPos
     Dim mifile As Integer
     Dim x As Integer
@@ -54,9 +54,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         'piedra libre para todos los compas!
         If UserList(UserIndex).flags.Silenciado = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas Silenciado!" & FONTTYPE_WARNING)
             Exit Sub
-
         End If
 
         ' If UserList(UserIndex).flags.Oculto > 0 Then
@@ -110,9 +108,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         End If
 
         If UserList(UserIndex).flags.Silenciado = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas Silenciado!" & FONTTYPE_WARNING)
             Exit Sub
-
         End If
 
         rData = Right$(rData, Len(rData) - 1)
@@ -144,6 +140,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         '            End If
 
         ind = UserList(UserIndex).char.CharIndex
+        UserList(UserIndex).flags.HablanMute = 1
         Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbRed & "°" & rData & "°" & str(ind))
         Exit Sub
 
@@ -156,9 +153,7 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         End If
 
         If UserList(UserIndex).flags.Silenciado = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas Silenciado!" & FONTTYPE_WARNING)
             Exit Sub
-
         End If
 
         rData = Right$(rData, Len(rData) - 1)
@@ -1473,14 +1468,14 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
         tInt = ReadField(1, rData, 44)  ' Slot
         x = ReadField(2, rData, 44)     ' Pos X
         Y = ReadField(3, rData, 44)     ' Pos Y
-        N = ReadField(4, rData, 44)     ' Cantidad
+        n = ReadField(4, rData, 44)     ' Cantidad
 
         Mapa = UserList(UserIndex).pos.Map
 
         If InMapBounds(Mapa, x, Y) Then
 
             'Desequipa
-            If N > 0 Or N <= MAX_INVENTORY_OBJS Then
+            If n > 0 Or n <= MAX_INVENTORY_OBJS Then
 
                 Dim tUser As Integer
                 Dim tNpc As Integer
@@ -1488,11 +1483,11 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 tNpc = MapData(Mapa, x, Y).NpcIndex
 
                 If tNpc > 0 Then
-                    Call DragToNPC(UserIndex, tNpc, tInt, N)
+                    Call DragToNPC(UserIndex, tNpc, tInt, n)
                 ElseIf tUser > 0 Then
-                    Call DragToUser(UserIndex, tUser, tInt, N)
+                    Call DragToUser(UserIndex, tUser, tInt, n)
                 Else
-                    Call DragToPos(UserIndex, x, Y, tInt, N)
+                    Call DragToPos(UserIndex, x, Y, tInt, n)
 
                 End If
 

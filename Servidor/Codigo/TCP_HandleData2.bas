@@ -74,6 +74,10 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         ElseIf UserList(UserIndex).Telepatia = 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Aún no sabes usar la telepatia." & FONTTYPE_INFO)
         End If
+        
+        If UserList(UserIndex).flags.Silenciado = 1 Then
+            Exit Sub
+        End If
 
         If UserList(TIndex).flags.Privilegios = PlayerType.User Then
 
@@ -1485,6 +1489,10 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
     If UCase$(Left$(rData, 6)) = "/CLAN " Then
         'clanesnuevo
         rData = Right$(rData, Len(rData) - 6)
+        
+        If UserList(UserIndex).flags.Silenciado = 1 Then
+            Exit Sub
+        End If
 
         If UserList(UserIndex).GuildIndex > 0 Then
             UserList(UserIndex).flags.HablanMute = 1
@@ -1659,6 +1667,10 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             If UserList(UserIndex).PartyIndex = 0 Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡¡¡No estas en Party!!!!" & FONTTYPE_VENENO)
+                Exit Sub
+            End If
+            
+            If UserList(UserIndex).flags.Silenciado = 1 Then
                 Exit Sub
             End If
             
