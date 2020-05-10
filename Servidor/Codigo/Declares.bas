@@ -1545,7 +1545,6 @@ Public Type User
     Raza As String
     Genero As String
     Email As String
-    Hogar As String
 
     Invent As Inventario
 

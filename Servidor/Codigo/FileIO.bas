@@ -1259,7 +1259,6 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).Genero = UserFile.GetValue("INIT", "Genero")
     UserList(UserIndex).Clase = UserFile.GetValue("INIT", "Clase")
     UserList(UserIndex).Raza = UserFile.GetValue("INIT", "Raza")
-    UserList(UserIndex).Hogar = UserFile.GetValue("INIT", "Hogar")
     UserList(UserIndex).char.heading = CInt(UserFile.GetValue("INIT", "Heading"))
 
     UserList(UserIndex).OrigChar.Head = CInt(UserFile.GetValue("INIT", "Head"))
@@ -2106,7 +2105,6 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
 
         Call Manager.ChangeValue("INIT", "Genero", .Genero)
         Call Manager.ChangeValue("INIT", "Raza", .Raza)
-        Call Manager.ChangeValue("INIT", "Hogar", .Hogar)
         Call Manager.ChangeValue("INIT", "Clase", .Clase)
         Call Manager.ChangeValue("INIT", "Password", .Password)
         Call Manager.ChangeValue("INIT", "PalabraSecreta", .PalabraSecreta)
@@ -2536,10 +2534,10 @@ Sub CargarNpcBackUp(NpcIndex As Integer, ByVal NPCNumber As Integer)
 
 End Sub
 
-Sub LogBan(ByVal BannedIndex As Integer, ByVal UserIndex As Integer, ByVal Motivo As String)
+Sub LogBan(ByVal BannedIndex As Integer, ByVal UserIndex As Integer, ByVal motivo As String)
 
     Call WriteVar(App.Path & "\logs\" & "BanDetail.log", UserList(BannedIndex).Name, "BannedBy", UserList(UserIndex).Name)
-    Call WriteVar(App.Path & "\logs\" & "BanDetail.log", UserList(BannedIndex).Name, "Reason", Motivo)
+    Call WriteVar(App.Path & "\logs\" & "BanDetail.log", UserList(BannedIndex).Name, "Reason", motivo)
 
     'Log interno del servidor, lo usa para hacer un UNBAN general de toda la gente banned
     Dim mifile As Integer
@@ -2550,10 +2548,10 @@ Sub LogBan(ByVal BannedIndex As Integer, ByVal UserIndex As Integer, ByVal Motiv
 
 End Sub
 
-Sub LogBanFromName(ByVal BannedName As String, ByVal UserIndex As Integer, ByVal Motivo As String)
+Sub LogBanFromName(ByVal BannedName As String, ByVal UserIndex As Integer, ByVal motivo As String)
 
     Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "BannedBy", UserList(UserIndex).Name)
-    Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "Reason", Motivo)
+    Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "Reason", motivo)
 
     'Log interno del servidor, lo usa para hacer un UNBAN general de toda la gente banned
     Dim mifile As Integer
@@ -2564,10 +2562,10 @@ Sub LogBanFromName(ByVal BannedName As String, ByVal UserIndex As Integer, ByVal
 
 End Sub
 
-Sub Ban(ByVal BannedName As String, ByVal Baneador As String, ByVal Motivo As String)
+Sub Ban(ByVal BannedName As String, ByVal Baneador As String, ByVal motivo As String)
 
     Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "BannedBy", Baneador)
-    Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "Reason", Motivo)
+    Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "Reason", motivo)
 
     'Log interno del servidor, lo usa para hacer un UNBAN general de toda la gente banned
     Dim mifile As Integer

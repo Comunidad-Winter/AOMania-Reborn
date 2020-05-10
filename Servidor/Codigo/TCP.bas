@@ -2035,12 +2035,30 @@ Sub ResetBasicUserInfo(ByVal UserIndex As Integer)
         .Clase = vbNullString
         .Email = vbNullString
         .Genero = vbNullString
-        .Hogar = vbNullString
         .Raza = vbNullString
 
         .EmpoCont = 0
         .PartyIndex = 0
         .PartySolicitud = 0
+        
+        .EnCvc = False
+        .EscucheClan = 0
+        .AoMCanjes = 0
+        .AoMCreditos = 0
+        .AumentoVeneno = 0
+        .Telepatia = 0
+        .GranPoder = 0
+        .DañoVeneno = 0
+        .TipoVeneno = 0
+        .SnapShot = False
+        .SnapShotAdmin = 0
+        .clave2 = 0
+        .clave = ""
+        
+        .hd_String = ""
+        .PalabraSecreta = ""
+        .RecuperarPassword = ""
+        
 
         With .Stats
             .Banco = 0
@@ -2167,6 +2185,27 @@ Sub ResetUserFlags(ByVal UserIndex As Integer)
         .Casandose = False
         .Quien = 0
         .HablanMute = 0
+        .EnCvc = False
+        .CvcBlue = 0
+        .CvcRed = 0
+        .SeguroCVC = False
+        .medusas = False
+        .Corsarios = False
+        .Piratas = False
+        .Envenenado = 0
+        .TomoPocionAmarilla = False
+        .TomoPocionVerde = False
+        .DuracionEfectoAmarillas = 0
+        .DuracionEfectoVerdes = 0
+        .EspecialAgilidad = 0
+        .EspecialArco = 0
+        .EspecialFuerza = 0
+        .EspecialObjArco = 0
+        .RPasswd = ""
+        .HablanMute = 0
+        .UsoLibroHP = 0
+        .Licantropo = 0
+        .Metamorfosis = 0
     End With
 
     UserList(UserIndex).Counters.AntiSH = 0
@@ -2221,6 +2260,113 @@ Sub ResetUserClan(ByVal UserIndex As Integer)
      
 End Sub
 
+Sub ResetUserCastillos(ByVal UserIndex As Integer)
+
+     With UserList(UserIndex).Castillos
+            
+            .Este = 0
+            .Oeste = 0
+            .Sur = 0
+            .Norte = 0
+            .Fortaleza = 0
+            .tEste = 0
+            .tOeste = 0
+            .tSur = 0
+            .tNorte = 0
+            .tFortaleza = 0
+            
+     End With
+     
+End Sub
+
+Sub ResetUserSagrada(ByVal UserIndex As Integer)
+      
+      With UserList(UserIndex).Sagrada
+            
+            .Enabled = 0
+            .MaxHit = 0
+            .MinHit = 0
+            
+      End With
+End Sub
+
+Sub ResetUserIgnore(ByVal UserIndex As Integer)
+     
+     Dim i As Integer
+     
+     With UserList(UserIndex).Ignore
+             .MaximoIgnores = 0
+             .NumIgnores = 0
+             
+             For i = 1 To 100
+                   .Usuario(i) = ""
+             Next i
+             
+    End With
+     
+End Sub
+
+Sub ResetUserQuest(ByVal UserIndex As Integer)
+
+       Dim i As Integer
+
+       
+       With UserList(UserIndex).Quest
+           
+           For i = 1 To 1000
+                .UserQuest(i) = 0
+           Next i
+            
+            .Quest = 0
+            .Start = 0
+            .NumNpc = 0
+            
+            For i = 1 To 10
+               .MataNpc(i) = 0
+            Next i
+            
+            .NumObj = 0
+            
+            For i = 1 To 10
+                .BuscaObj(i) = 0
+            Next i
+      
+         .NumMap = 0
+         
+         For i = 1 To 10
+            .Mapa(i) = 0
+         Next i
+         
+         .ValidNpcDD = 0
+         .MapaNpcDD = 0
+         .Icono = 0
+         .ValidNpcDescubre = 0
+         .PreguntaDescubre = 0
+         .NumObjNpc = 0
+         
+         For i = 1 To 10
+              .DarObjNpc(i) = 0
+         Next i
+         
+         .DarObjNpcEntrega = 0
+         .ValidHablarNpc = 0
+         .UserHablaNpc = 0
+         .ValidMatarUser = 0
+         .UserMatados = 0
+       
+       End With
+End Sub
+
+Sub ResetUserAsedio(ByVal UserIndex As Integer)
+       
+       With UserList(UserIndex).Asedio
+            .Participando = False
+            .Slot = 0
+            .Team = 0
+       End With
+       
+End Sub
+
 Public Sub LimpiarComercioSeguro(ByVal UserIndex As Integer)
 
     With UserList(UserIndex).ComUsu
@@ -2255,6 +2401,11 @@ Sub ResetUserSlot(ByVal UserIndex As Integer)
     Call ResetUserPets(UserIndex)
     Call ResetUserBanco(UserIndex)
     Call ResetUserClan(UserIndex)
+    Call ResetUserCastillos(UserIndex)
+    Call ResetUserSagrada(UserIndex)
+    Call ResetUserIgnore(UserIndex)
+    Call ResetUserQuest(UserIndex)
+    Call ResetUserAsedio(UserIndex)
 
     With UserList(UserIndex).ComUsu
         .Acepto = False
@@ -2268,6 +2419,8 @@ Sub ResetUserSlot(ByVal UserIndex As Integer)
     UserList(UserIndex) = UsrTMP
 
 End Sub
+
+
 
 Sub CloseUser(ByVal UserIndex As Integer)
 'Call LogTarea("CloseUser " & UserIndex)
