@@ -22,14 +22,14 @@
 21=#P0#=mb	#P1#=Timer_Sistemas_Timer	#P2#=AoManiaServer/frmMain/Timer_Sistemas_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200510104626	#P7#=0	#P8#=67	.
 22=#P0#=mb	#P1#=CommandGm	#P2#=AoManiaServer/ModGM/CommandGm	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200510104118	#P7#=0	#P8#=892	.
 23=#P0#=mb	#P1#=ChangeNPCChar	#P2#=AoManiaServer/NPCs/ChangeNPCChar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200510093521	#P7#=0	#P8#=1	.
-24=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200510191542	#P7#=0	#P8#=105	.
+24=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200510191542	#P7#=0	#P8#=95	.
 25=#P0#=mb	#P1#=DuracionAngelyDemonio	#P2#=AoManiaServer/General/DuracionAngelyDemonio	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509194135	#P7#=0	#P8#=37	.
 26=#P0#=mb	#P1#=Main	#P2#=AoManiaServer/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509194126	#P7#=0	#P8#=165	.
 27=#P0#=mb	#P1#=CargarForbidenWords	#P2#=AoManiaServer/ES/CargarForbidenWords	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509193839	#P7#=0	#P8#=0	.
 28=#P0#=mb	#P1#=CargarHechizos	#P2#=AoManiaServer/ES/CargarHechizos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509193839	#P7#=0	#P8#=0	.
 29=#P0#=mb	#P1#=TxtDimension	#P2#=AoManiaServer/ES/TxtDimension	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509193837	#P7#=0	#P8#=0	.
 30=#P0#=mb	#P1#=MandarMensajeAConsola	#P2#=AoManiaServer/clsParty/MandarMensajeAConsola	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509160714	#P7#=0	#P8#=18	.
-31=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200510191804	#P7#=0	#P8#=75	.
+31=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200510191804	#P7#=0	#P8#=111	.
 32=#P0#=mb	#P1#=SendData	#P2#=AoManiaServer/TCP/SendData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509153242	#P7#=0	#P8#=339	.
 33=#P0#=mb	#P1#=EsUserMute	#P2#=AoManiaServer/UsUaRiOs/EsUserMute	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509074807	#P7#=0	#P8#=0	.
 34=#P0#=mb	#P1#=LlevarUsuarios	#P2#=AoManiaServer/UsUaRiOs/LlevarUsuarios	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509064815	#P7#=0	#P8#=12	.

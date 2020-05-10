@@ -99,51 +99,6 @@ Public Sub HandleData_1(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         Exit Sub
 
-    Case "-"    'Gritar
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-
-        End If
-
-        If UserList(UserIndex).flags.Silenciado = 1 Then
-            Exit Sub
-        End If
-
-        rData = Right$(rData, Len(rData) - 1)
-
-        If InStr(rData, "°") Then
-            Exit Sub
-
-        End If
-
-        '[Consejeros]
-        If UserList(UserIndex).flags.Privilegios = PlayerType.Consejero Then
-            Call LogGM(UserList(UserIndex).Name, "Grito: " & rData)
-
-        End If
-
-        'piedra libre para todos los compas!
-        'If UserList(UserIndex).flags.Oculto > 0 Then
-        '    UserList(UserIndex).flags.Oculto = 0
-        '    UserList(UserIndex).Counters.Ocultando = 0
-        '
-        '                If UserList(UserIndex).flags.Invisible = 0 Then
-        '                    Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",0," & UserList( _
-                             ''                            UserIndex).PartyIndex)
-        '
-        '                   Call SendData(SendTarget.toindex, UserIndex, 0, "Z11")
-
-        '                End If
-        '
-        '            End If
-
-        ind = UserList(UserIndex).char.CharIndex
-        UserList(UserIndex).flags.HablanMute = 1
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbRed & "°" & rData & "°" & str(ind))
-        Exit Sub
-
     Case "\"    'Susurrar al oido
 
         If UserList(UserIndex).flags.Muerto = 1 Then
