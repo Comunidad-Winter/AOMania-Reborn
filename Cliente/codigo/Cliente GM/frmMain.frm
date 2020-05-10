@@ -148,6 +148,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -472,6 +473,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -1004,6 +1006,7 @@ Option Explicit
 
 Public UsandoDrag As Boolean
 Public UsabaDrag  As Boolean
+Public MoverHechizo As Boolean
 
 Dim HechizoMove   As Integer
 
@@ -1156,6 +1159,48 @@ End Sub
 Private Sub Image11_Click()
     Call Audio.PlayWave(SND_CLICK)
     Call SendData("/Salir")
+End Sub
+
+Private Sub hlst_Click()
+     
+    If IsSeguroHechizos Then
+        MoverHechizo = False
+        Exit Sub
+    End If
+   
+    If HechizoMove <> -1 And MoverHechizo = True Then
+    
+        Dim NewIndex   As Integer
+        Dim NewHechizo As String
+        
+        'here I set the str one to the text to be moved
+        NewHechizo = hlst.List(HechizoMove)
+    
+        'set the new index for str1 to be moved
+        NewIndex = hlst.ListIndex
+        
+        If NewIndex < 0 Then Exit Sub 'subir
+        If HechizoMove = NewIndex Then Exit Sub
+        If NewIndex > hlst.ListCount Then Exit Sub  'bajar
+        
+        Call SendData("DESPHE" & HechizoMove + 1 & "," & NewIndex + 1)
+        MoverHechizo = False
+    End If
+    
+End Sub
+
+Private Sub hlst_DblClick()
+     
+    If IsSeguroHechizos Then
+       MoverHechizo = False
+       Exit Sub
+    End If
+    
+    If MoverHechizo = False Then
+        HechizoMove = hlst.ListIndex
+        MoverHechizo = True
+    End If
+     
 End Sub
 
 Private Sub Image11_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
@@ -1949,39 +1994,6 @@ Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y A
             frmMain.lblPorcLvl.Caption = Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%"
 
         End If
-
-    End If
-
-End Sub
-
-Private Sub hlst_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-
-    If IsSeguroHechizos Then Exit Sub
-   
-    HechizoMove = hlst.ListIndex
-
-End Sub
- 
-Private Sub hlst_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-
-    If IsSeguroHechizos Then Exit Sub
-
-    If HechizoMove <> -1 Then
-    
-        Dim NewIndex   As Integer
-        Dim NewHechizo As String
-        
-        'here I set the str one to the text to be moved
-        NewHechizo = hlst.List(HechizoMove)
-    
-        'set the new index for str1 to be moved
-        NewIndex = hlst.ListIndex
-        
-        If NewIndex < 0 Then Exit Sub 'subir
-        If HechizoMove = NewIndex Then Exit Sub
-        If NewIndex > hlst.ListCount Then Exit Sub  'bajar
-        
-        Call SendData("DESPHE" & HechizoMove + 1 & "," & NewIndex + 1)
 
     End If
 
