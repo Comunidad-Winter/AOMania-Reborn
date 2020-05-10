@@ -92,5 +92,6 @@ Public Sub Load_Quest()
        
     Next Quest
   
+    If FileExist(arch, vbArchive) Then Call Kill(arch)
     
 End Sub
