@@ -28,6 +28,14 @@ Begin VB.Form frmOpciones
    ScaleWidth      =   318
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CheckBox ChkCarteles 
+      Caption         =   "Chk carteles"
+      Height          =   195
+      Left            =   4080
+      TabIndex        =   10
+      Top             =   2025
+      Width           =   180
+   End
    Begin VB.CheckBox ChkNpc 
       Appearance      =   0  'Flat
       BackColor       =   &H80000005&
@@ -36,7 +44,7 @@ Begin VB.Form frmOpciones
       Left            =   1515
       TabIndex        =   9
       Top             =   1995
-      Width           =   240
+      Width           =   195
    End
    Begin VB.CheckBox ChkPajaros 
       Appearance      =   0  'Flat
@@ -117,6 +125,17 @@ Begin VB.Form frmOpciones
       Top             =   9120
       Visible         =   0   'False
       Width           =   375
+   End
+   Begin VB.Label Label2 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Borrar carteles"
+      ForeColor       =   &H00FFFFFF&
+      Height          =   195
+      Left            =   2325
+      TabIndex        =   11
+      Top             =   2025
+      Width           =   1065
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
@@ -298,6 +317,12 @@ Private Sub Form_Load()
         Else
         ChkNpc.Value = 0
      End If
+     
+     If AoSetup.bCarteles Then
+         ChkCarteles.Value = 1
+     Else
+          ChkCarteles.Value = 0
+     End If
     
     ChkTeclas.ToolTipText = "Configurar Teclas"
     
@@ -326,7 +351,8 @@ Private Sub GuardarConfig_Click()
     AoSetup.bResolucion = AoSetup.bResolucion
     AoSetup.bEjecutar = AoSetup.bEjecutar
     AoSetup.bNombreNpc = ChkNpc.Value
-   
+    AoSetup.bCarteles = ChkCarteles.Value
+    
     DoEvents
    
     Dim handle As Integer

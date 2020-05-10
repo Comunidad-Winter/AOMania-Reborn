@@ -708,6 +708,7 @@ Public Type tSetupMods
     bMover As Byte
     bPajaritos As Byte
     bNombreNpc As Byte
+    bCarteles As Byte
     
 End Type
 

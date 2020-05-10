@@ -66,6 +66,12 @@ Begin VB.Form frmMain
       Type            =   1
       Urgent          =   0   'False
    End
+   Begin VB.Timer TimerCarteles 
+      Enabled         =   0   'False
+      Interval        =   1200
+      Left            =   2970
+      Top             =   240
+   End
    Begin MSWinsockLib.Winsock Winsock1 
       Left            =   10680
       Top             =   1560
@@ -148,7 +154,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -473,7 +478,6 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -1501,7 +1505,13 @@ Private Sub MainViewPic_Click()
 
                     If UsingSkill = Magia Or UsingSkill = Proyectiles Then UserCanAttack = 0
                     UsingSkill = 0
-
+                    
+                    If AoSetup.bCarteles Then
+                        
+                        TimerCarteles.Enabled = True
+                        
+                    End If
+                    
                 End If
 
             End If
@@ -2249,7 +2259,7 @@ Private Sub SendCMSTXT_KeyUp(KeyCode As Integer, Shift As Integer)
         'Say
         If Len(stxtbuffercmsg) <> 0 Then
             Call SendData("/CMSG " & stxtbuffercmsg)
-
+            
         End If
 
         stxtbuffercmsg = vbNullString
@@ -2569,6 +2579,13 @@ Private Sub lstProc_wndProc(ByVal hwnd As Long, ByVal msg As Long, ByVal wParam 
    
     DefCall = True
     
+End Sub
+
+Private Sub TimerCarteles_Timer()
+      
+          Call SendData(";" & " ")
+          TimerCarteles = False
+      
 End Sub
 
 Private Sub wndProc_WndProc(ByVal hwnd As Long, ByVal msg As Long, ByVal wParam As Long, ByVal lParam As Long, ret As Long, DefCall As Boolean)
