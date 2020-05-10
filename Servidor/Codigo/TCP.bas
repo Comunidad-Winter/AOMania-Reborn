@@ -1977,6 +1977,10 @@ Sub ResetContadores(ByVal UserIndex As Integer)
         .TimerPuedeAtacar = 0
         .TimerPuedeTrabajar = 0
         .TimerUsar = 0
+        
+        .Silenciamiento = 0
+        .Metamorfosis = 0
+        .Cerdo = 0
 
     End With
 
@@ -2203,6 +2207,20 @@ Sub ResetUserBanco(ByVal UserIndex As Integer)
 
 End Sub
 
+Sub ResetUserClan(ByVal UserIndex As Integer)
+     
+     With UserList(UserIndex).Clan
+          
+          .FundoClan = 0
+          .ParticipoClan = 0
+          .PuntosClan = 0
+          .Timer = 0
+          .UMuerte = ""
+          
+     End With
+     
+End Sub
+
 Public Sub LimpiarComercioSeguro(ByVal UserIndex As Integer)
 
     With UserList(UserIndex).ComUsu
@@ -2236,6 +2254,7 @@ Sub ResetUserSlot(ByVal UserIndex As Integer)
     Call ResetUserSpells(UserIndex)
     Call ResetUserPets(UserIndex)
     Call ResetUserBanco(UserIndex)
+    Call ResetUserClan(UserIndex)
 
     With UserList(UserIndex).ComUsu
         .Acepto = False

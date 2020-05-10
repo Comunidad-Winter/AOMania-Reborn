@@ -245,11 +245,11 @@ End Sub
 
 Public Sub CargarSpawnList()
 
-    Dim N As Integer, LoopC As Integer
-    N = val(GetVar(App.Path & "\Dat\Invokar.dat", "INIT", "NumNPCs"))
-    ReDim SpawnList(N) As tCriaturasEntrenador
+    Dim n As Integer, LoopC As Integer
+    n = val(GetVar(App.Path & "\Dat\Invokar.dat", "INIT", "NumNPCs"))
+    ReDim SpawnList(n) As tCriaturasEntrenador
 
-    For LoopC = 1 To N
+    For LoopC = 1 To n
         SpawnList(LoopC).NpcIndex = val(GetVar(App.Path & "\Dat\Invokar.dat", "LIST", "NI" & LoopC))
         SpawnList(LoopC).NpcName = GetVar(App.Path & "\Dat\Invokar.dat", "LIST", "NN" & LoopC)
     Next LoopC
@@ -258,16 +258,16 @@ End Sub
 
 Public Function TxtDimension(ByVal Name As String) As Long
 
-    Dim N As Integer, cad As String, Tam As Long
-    N = FreeFile(1)
-    Open Name For Input As #N
+    Dim n As Integer, cad As String, Tam As Long
+    n = FreeFile(1)
+    Open Name For Input As #n
     Tam = 0
 
-    Do While Not EOF(N)
+    Do While Not EOF(n)
         Tam = Tam + 1
-        Line Input #N, cad
+        Line Input #n, cad
     Loop
-    Close N
+    Close n
     TxtDimension = Tam
 
 End Function
@@ -275,15 +275,15 @@ End Function
 Public Sub CargarForbidenWords()
 
     ReDim ForbidenNames(1 To TxtDimension(DatPath & "NombresInvalidos.txt"))
-    Dim N As Integer, i As Integer
-    N = FreeFile(1)
-    Open DatPath & "NombresInvalidos.txt" For Input As #N
+    Dim n As Integer, i As Integer
+    n = FreeFile(1)
+    Open DatPath & "NombresInvalidos.txt" For Input As #n
 
     For i = 1 To UBound(ForbidenNames)
-        Line Input #N, ForbidenNames(i)
+        Line Input #n, ForbidenNames(i)
     Next i
 
-    Close N
+    Close n
 
 End Sub
 
@@ -291,16 +291,16 @@ Sub CargaPalabrasCensuradas()
 
     ReDim PalabrasCensuradas(1 To TxtDimension(DatPath & "PalabrasCensuradas.txt"))
 
-    Dim N As Integer, i As Integer
+    Dim n As Integer, i As Integer
 
-    N = FreeFile(1)
-    Open DatPath & "PalabrasCensuradas.txt" For Input As #N
+    n = FreeFile(1)
+    Open DatPath & "PalabrasCensuradas.txt" For Input As #n
    
     For i = 1 To UBound(PalabrasCensuradas)
-        Line Input #N, PalabrasCensuradas(i)
+        Line Input #n, PalabrasCensuradas(i)
     Next i
    
-    Close #N
+    Close #n
    
 End Sub
 
@@ -667,13 +667,13 @@ End Sub
 
 Sub LoadArmasHerreria()
 
-    Dim N As Integer, lc As Integer
+    Dim n As Integer, lc As Integer
 
-    N = val(GetVar(DatPath & "ArmasHerrero.dat", "INIT", "NumArmas"))
+    n = val(GetVar(DatPath & "ArmasHerrero.dat", "INIT", "NumArmas"))
 
-    ReDim Preserve ArmasHerrero(1 To N) As Integer
+    ReDim Preserve ArmasHerrero(1 To n) As Integer
 
-    For lc = 1 To N
+    For lc = 1 To n
         ArmasHerrero(lc) = val(GetVar(DatPath & "ArmasHerrero.dat", "Arma" & lc, "Index"))
     Next lc
 
@@ -681,13 +681,13 @@ End Sub
 
 Sub LoadArmadurasHerreria()
 
-    Dim N As Integer, lc As Integer
+    Dim n As Integer, lc As Integer
 
-    N = val(GetVar(DatPath & "ArmadurasHerrero.dat", "INIT", "NumArmaduras"))
+    n = val(GetVar(DatPath & "ArmadurasHerrero.dat", "INIT", "NumArmaduras"))
 
-    ReDim Preserve ArmadurasHerrero(1 To N) As Integer
+    ReDim Preserve ArmadurasHerrero(1 To n) As Integer
 
-    For lc = 1 To N
+    For lc = 1 To n
         ArmadurasHerrero(lc) = val(GetVar(DatPath & "ArmadurasHerrero.dat", "Armadura" & lc, "Index"))
     Next lc
 
@@ -695,13 +695,13 @@ End Sub
 
 Sub LoadObjArmaHerreroMagico()
 
-    Dim N As Integer, lc As Integer
+    Dim n As Integer, lc As Integer
 
-    N = val(GetVar(DatPath & "ArmasHerreroMagi.Dat", "INIT", "NumArmas"))
+    n = val(GetVar(DatPath & "ArmasHerreroMagi.Dat", "INIT", "NumArmas"))
 
-    ReDim Preserve ObjArmaHerreroMagico(1 To N) As Integer
+    ReDim Preserve ObjArmaHerreroMagico(1 To n) As Integer
 
-    For lc = 1 To N
+    For lc = 1 To n
         ObjArmaHerreroMagico(lc) = val(GetVar(DatPath & "ArmasHerreroMagi.Dat", "Arma" & lc, "Index"))
     Next lc
 
@@ -709,26 +709,26 @@ End Sub
 
 Sub LoadObjArmaduraHerreroMagico()
 
-    Dim N As Integer, lc As Integer
+    Dim n As Integer, lc As Integer
 
-    N = val(GetVar(DatPath & "ArmadurasHerreroMagi.Dat", "INIT", "NumArmaduras"))
+    n = val(GetVar(DatPath & "ArmadurasHerreroMagi.Dat", "INIT", "NumArmaduras"))
 
-    ReDim Preserve ObjArmaduraHerreroMagico(1 To N) As Integer
+    ReDim Preserve ObjArmaduraHerreroMagico(1 To n) As Integer
 
-    For lc = 1 To N
+    For lc = 1 To n
         ObjArmaduraHerreroMagico(lc) = val(GetVar(DatPath & "ArmadurasHerreroMagi.Dat", "Armadura" & lc, "Index"))
     Next lc
 End Sub
 
 Sub LoadObjCarpintero()
 
-    Dim N As Integer, lc As Integer
+    Dim n As Integer, lc As Integer
 
-    N = val(GetVar(DatPath & "ObjCarpintero.dat", "INIT", "NumObjs"))
+    n = val(GetVar(DatPath & "ObjCarpintero.dat", "INIT", "NumObjs"))
 
-    ReDim Preserve ObjCarpintero(1 To N) As Integer
+    ReDim Preserve ObjCarpintero(1 To n) As Integer
 
-    For lc = 1 To N
+    For lc = 1 To n
         ObjCarpintero(lc) = val(GetVar(DatPath & "ObjCarpintero.dat", "Obj" & lc, "Index"))
     Next lc
 
@@ -736,13 +736,13 @@ End Sub
 
 Sub LoadObjSastre()
 
-    Dim N As Integer, lc As Integer
+    Dim n As Integer, lc As Integer
 
-    N = val(GetVar(DatPath & "ObjSastreria.dat", "INIT", "NumObjs"))
+    n = val(GetVar(DatPath & "ObjSastreria.dat", "INIT", "NumObjs"))
 
-    ReDim Preserve ObjSastre(1 To N) As Integer
+    ReDim Preserve ObjSastre(1 To n) As Integer
 
-    For lc = 1 To N
+    For lc = 1 To n
         ObjSastre(lc) = val(GetVar(DatPath & "ObjSastreria.dat", "Obj" & lc, "Index"))
     Next lc
 
@@ -750,13 +750,13 @@ End Sub
 
 Sub LoadObjHechizeria()
 
-    Dim N As Integer, lc As Integer
+    Dim n As Integer, lc As Integer
 
-    N = val(GetVar(DatPath & "ObjHechizeria.dat", "INIT", "NumObjs"))
+    n = val(GetVar(DatPath & "ObjHechizeria.dat", "INIT", "NumObjs"))
 
-    ReDim Preserve ObjHechizeria(1 To N) As Integer
+    ReDim Preserve ObjHechizeria(1 To n) As Integer
 
-    For lc = 1 To N
+    For lc = 1 To n
         ObjHechizeria(lc) = val(GetVar(DatPath & "ObjHechizeria.dat", "Obj" & lc, "Index"))
     Next lc
 
@@ -1249,6 +1249,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).flags.Embarcado = CByte(UserFile.GetValue("FLAGS", "Embarcado"))
 
     UserList(UserIndex).Counters.Pena = CLng(UserFile.GetValue("COUNTERS", "Pena"))
+    UserList(UserIndex).Counters.Silenciamiento = val(UserFile.GetValue("COUNTERS", "Silenciamiento"))
 
     UserList(UserIndex).Email = UserFile.GetValue("CONTACTO", "Email")
 
@@ -2046,6 +2047,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("CONSEJO", "PERTENECECAOS", CStr(.flags.PertAlConsCaos))
 
         Call Manager.ChangeValue("COUNTERS", "Pena", CStr(.Counters.Pena))
+        Call Manager.ChangeValue("COUNTERS", "Silenciamiento", val(.Counters.Silenciamiento))
 
         Call Manager.ChangeValue("FACCIONES", "EjercitoReal", CStr(.Faccion.ArmadaReal))
         Call Manager.ChangeValue("FACCIONES", "EjercitoCaos", CStr(.Faccion.FuerzasCaos))
@@ -2534,10 +2536,10 @@ Sub CargarNpcBackUp(NpcIndex As Integer, ByVal NPCNumber As Integer)
 
 End Sub
 
-Sub LogBan(ByVal BannedIndex As Integer, ByVal UserIndex As Integer, ByVal motivo As String)
+Sub LogBan(ByVal BannedIndex As Integer, ByVal UserIndex As Integer, ByVal Motivo As String)
 
     Call WriteVar(App.Path & "\logs\" & "BanDetail.log", UserList(BannedIndex).Name, "BannedBy", UserList(UserIndex).Name)
-    Call WriteVar(App.Path & "\logs\" & "BanDetail.log", UserList(BannedIndex).Name, "Reason", motivo)
+    Call WriteVar(App.Path & "\logs\" & "BanDetail.log", UserList(BannedIndex).Name, "Reason", Motivo)
 
     'Log interno del servidor, lo usa para hacer un UNBAN general de toda la gente banned
     Dim mifile As Integer
@@ -2548,10 +2550,10 @@ Sub LogBan(ByVal BannedIndex As Integer, ByVal UserIndex As Integer, ByVal motiv
 
 End Sub
 
-Sub LogBanFromName(ByVal BannedName As String, ByVal UserIndex As Integer, ByVal motivo As String)
+Sub LogBanFromName(ByVal BannedName As String, ByVal UserIndex As Integer, ByVal Motivo As String)
 
     Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "BannedBy", UserList(UserIndex).Name)
-    Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "Reason", motivo)
+    Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "Reason", Motivo)
 
     'Log interno del servidor, lo usa para hacer un UNBAN general de toda la gente banned
     Dim mifile As Integer
@@ -2562,10 +2564,10 @@ Sub LogBanFromName(ByVal BannedName As String, ByVal UserIndex As Integer, ByVal
 
 End Sub
 
-Sub Ban(ByVal BannedName As String, ByVal Baneador As String, ByVal motivo As String)
+Sub Ban(ByVal BannedName As String, ByVal Baneador As String, ByVal Motivo As String)
 
     Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "BannedBy", Baneador)
-    Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "Reason", motivo)
+    Call WriteVar(App.Path & "\logs\" & "BanDetail.dat", BannedName, "Reason", Motivo)
 
     'Log interno del servidor, lo usa para hacer un UNBAN general de toda la gente banned
     Dim mifile As Integer

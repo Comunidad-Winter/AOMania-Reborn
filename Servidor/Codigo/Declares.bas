@@ -1372,15 +1372,11 @@ Public Type UserCounters
     SendMapCounter As WorldPos
     Pasos As Integer
     AntiSH As Integer
-    '[Gonzalo]
     Saliendo As Boolean
     Salir As Integer
-    '[/Gonzalo]
-
-    'Barrin 3/10/03
+    
     tInicioMeditar As Long
     bPuedeMeditar As Boolean
-    'Barrin
 
     TimerLanzarSpell As Long
     TimerPuedeAtacar As Long
@@ -1397,6 +1393,8 @@ Public Type UserCounters
     Metamorfosis As Integer
 
     TimerAttack As Integer
+    
+    Silenciamiento As Integer
 
 End Type
 
