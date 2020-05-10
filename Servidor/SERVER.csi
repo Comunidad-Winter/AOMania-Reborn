@@ -1,9 +1,9 @@
 [History]
-1=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509194201	#P7#=0	#P8#=207	.
+1=#P0#=mb	#P1#=HandleData_1	#P2#=AoManiaServer/TCP_HandleData1/HandleData_1	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509194201	#P7#=0	#P8#=41	.
 2=#P0#=mb	#P1#=DuracionAngelyDemonio	#P2#=AoManiaServer/General/DuracionAngelyDemonio	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509194135	#P7#=0	#P8#=37	.
 3=#P0#=mb	#P1#=Main	#P2#=AoManiaServer/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509194126	#P7#=0	#P8#=165	.
-4=#P0#=mb	#P1#=CargarHechizos	#P2#=AoManiaServer/ES/CargarHechizos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509193839	#P7#=0	#P8#=0	.
-5=#P0#=mb	#P1#=CargarForbidenWords	#P2#=AoManiaServer/ES/CargarForbidenWords	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509193839	#P7#=0	#P8#=0	.
+4=#P0#=mb	#P1#=CargarForbidenWords	#P2#=AoManiaServer/ES/CargarForbidenWords	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509193839	#P7#=0	#P8#=0	.
+5=#P0#=mb	#P1#=CargarHechizos	#P2#=AoManiaServer/ES/CargarHechizos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509193839	#P7#=0	#P8#=0	.
 6=#P0#=mb	#P1#=TxtDimension	#P2#=AoManiaServer/ES/TxtDimension	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509193837	#P7#=0	#P8#=0	.
 7=#P0#=mb	#P1#=MandarMensajeAConsola	#P2#=AoManiaServer/clsParty/MandarMensajeAConsola	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509160714	#P7#=0	#P8#=18	.
 8=#P0#=mb	#P1#=HandleData_2	#P2#=AoManiaServer/TCP_HandleData2/HandleData_2	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200509154513	#P7#=0	#P8#=1660	.
@@ -91,10 +91,10 @@
 90=#P0#=mb	#P1#=EnviarMiniEstadisticasGM	#P2#=AoManiaServer/UsUaRiOs/EnviarMiniEstadisticasGM	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428221734	#P7#=0	#P8#=1	.
 91=#P0#=mb	#P1#=CommandGm	#P2#=AoManiaServer/ModGM/CommandGm	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428221720	#P7#=0	#P8#=578	.
 92=#P0#=mb	#P1#=IniciarVentanaQuest	#P2#=AoManiaServer/Mod_Quest/IniciarVentanaQuest	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200428182237	#P7#=0	#P8#=9	.
-93=#P0#=mb	#P1#=CargarNpcBackUp	#P2#=AoManiaServer/ES/CargarNpcBackUp	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200427015328	#P7#=0	#P8#=1	.
+93=#P0#=mb	#P1#=CargarNpcBackUp	#P2#=AoManiaServer/ES/CargarNpcBackUp	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200427015328	#P7#=0	#P8#=26	.
 94=#P0#=mb	#P1#=CargarBackUp	#P2#=AoManiaServer/ES/CargarBackUp	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200427015304	#P7#=0	#P8#=28	.
 95=#P0#=mb	#P1#=LoadOBJData	#P2#=AoManiaServer/ES/LoadOBJData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200427012930	#P7#=0	#P8#=1	.
-96=#P0#=mb	#P1#=MakeNPCChar	#P2#=AoManiaServer/NPCs/MakeNPCChar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426151005	#P7#=0	#P8#=26	.
+96=#P0#=mb	#P1#=MakeNPCChar	#P2#=AoManiaServer/NPCs/MakeNPCChar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200510060655	#P7#=0	#P8#=25	.
 97=#P0#=mb	#P1#=CargarMapa	#P2#=AoManiaServer/ES/CargarMapa	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426130216	#P7#=0	#P8#=127	.
 98=#P0#=mb	#P1#=OpenNPC	#P2#=AoManiaServer/NPCs/OpenNPC	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200426130114	#P7#=0	#P8#=1	.
 99=#P0#=mb	#P1#=AllCommands	#P2#=AoManiaServer/ModGM/AllCommands	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200424013926	#P7#=0	#P8#=3392	.
