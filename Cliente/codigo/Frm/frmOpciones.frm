@@ -28,12 +28,23 @@ Begin VB.Form frmOpciones
    ScaleWidth      =   318
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CheckBox ChkNpc 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      ForeColor       =   &H80000008&
+      Height          =   195
+      Left            =   1515
+      TabIndex        =   9
+      Top             =   1995
+      Width           =   240
+   End
    Begin VB.CheckBox ChkPajaros 
       Appearance      =   0  'Flat
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   195
       Left            =   1560
+      MaskColor       =   &H00000000&
       TabIndex        =   7
       Top             =   1515
       Width           =   180
@@ -106,6 +117,17 @@ Begin VB.Form frmOpciones
       Top             =   9120
       Visible         =   0   'False
       Width           =   375
+   End
+   Begin VB.Label Label1 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Nombre Npc's"
+      ForeColor       =   &H00FFFFFF&
+      Height          =   195
+      Left            =   375
+      TabIndex        =   8
+      Top             =   1965
+      Width           =   975
    End
    Begin VB.Image ChkTeclas 
       Height          =   255
@@ -271,6 +293,12 @@ Private Sub Form_Load()
 
     End If
     
+    If AoSetup.bNombreNpc Then
+        ChkNpc.Value = 1
+        Else
+        ChkNpc.Value = 0
+     End If
+    
     ChkTeclas.ToolTipText = "Configurar Teclas"
     
     If (VOLUMEN_FX < HScroll1.min) Or (VOLUMEN_FX > HScroll1.max) Then
@@ -297,6 +325,7 @@ Private Sub GuardarConfig_Click()
     AoSetup.bPajaritos = ChkPajaros.Value
     AoSetup.bResolucion = AoSetup.bResolucion
     AoSetup.bEjecutar = AoSetup.bEjecutar
+    AoSetup.bNombreNpc = ChkNpc.Value
    
     DoEvents
    

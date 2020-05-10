@@ -34,6 +34,8 @@ Sub HandleData2(ByVal Rdata As String)
             Rdata = Right$(Rdata, Len(Rdata) - 2)
             charindex = ReadField(1, Rdata, 44)
             CharList(charindex).NpcType = ReadField(2, Rdata, 44)
+            CharList(charindex).NombreNpc = ReadField(3, Rdata, 44)
+            CharList(charindex).Hostile = ReadField(4, Rdata, 44)
             Exit Sub
        
         Case "XU"          '>>>>>>> Coge datos de quest usuario y abre frmquest

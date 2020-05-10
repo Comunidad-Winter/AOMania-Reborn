@@ -2798,3 +2798,21 @@
 09/05/2020 16:15:11 Error en CloseUser. Número 9 Descripción: El subíndice está fuera del intervalo
 09/05/2020 16:16:06 Error en CloseUser. Número 9 Descripción: El subíndice está fuera del intervalo
 10/05/2020 1:41:00 Mas de 60 iteraciones en SpawnNpc Mapa:146 Index:640
+10/05/2020 6:40:32 HandleData. CadOri:/telep yo 125 50 50 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:40:40 HandleData. CadOri:/TELEP YO 125 54 47 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:41:11 HandleData. CadOri:/TELEP YO 125 56 53 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:41:15 HandleData. CadOri:/acc 658 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:41:17 HandleData. CadOri:/TELEP YO 125 53 48 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:45:43 HandleData. CadOri:/telep yo 125 50 50 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:04 HandleData. CadOri:/TELEP YO 125 58 46 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:05 HandleData. CadOri:/TELEP YO 125 66 43 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:06 HandleData. CadOri:/TELEP YO 125 69 36 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:07 HandleData. CadOri:/TELEP YO 125 68 32 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:08 HandleData. CadOri:/TELEP YO 125 63 32 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:09 HandleData. CadOri:/TELEP YO 125 68 31 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:10 HandleData. CadOri:/TELEP YO 125 74 31 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:11 HandleData. CadOri:/TELEP YO 125 71 33 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:12 HandleData. CadOri:/TELEP YO 125 68 34 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:14 HandleData. CadOri:/TELEP YO 125 64 34 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:16 HandleData. CadOri:/TELEP YO 125 68 30 Nom:BassingerUI:1 N: 0 D: 
+10/05/2020 6:47:18 HandleData. CadOri:/TELEP YO 125 63 32 Nom:BassingerUI:1 N: 0 D: 

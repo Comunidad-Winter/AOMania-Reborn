@@ -256,6 +256,7 @@ Public Type Char
     
     Criminal As Byte
     Nombre As String
+    NombreNpc As String
         
     scrollDirectionX As Integer
     scrollDirectionY As Integer
@@ -274,6 +275,7 @@ Public Type Char
     Stats As rStats
     
     NpcType As Byte
+    Hostile As Byte
     
     Icono As Byte
 
@@ -2182,7 +2184,15 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
              Call ColoresNick(charindex, PixelOffSetX, PixelOffSetY, PartyIndexTrue)
         
              If PartyIndexTrue Then Call BarraParty(charindex, PixelOffSetX, PixelOffSetY)
+             
+             
             
+        End If
+        
+        If AoSetup.bNombreNpc Then
+          If .Hostile = 1 Then
+              Call DarNickNpcs(charindex, PixelOffSetX, PixelOffSetY)
+          End If
         End If
         
         If .Icono = 1 Then
@@ -2461,6 +2471,46 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
        
 End Sub
 
+Public Sub DarNickNpcs(ByVal charindex As Integer, _
+                       ByVal PixelOffSetX As Integer, _
+                       ByVal PixelOffSetY As Integer)
+     
+    Dim ColorClan(0 To 3) As Long
+
+    Dim Color(0 To 3)     As Long
+
+    Dim pos               As Integer
+    
+    Dim X                 As Integer
+    
+    With CharList(charindex)
+          
+          If .Hostile = 0 Then Exit Sub
+          
+          If UCase$(.NombreNpc) = "MAGO INVISIBLE" Or UCase$(.NombreNpc) = "MAGO INVISIBLE DEL REY" Then Exit Sub
+          
+          If Nombres Then
+              If Len(.NombreNpc) <> 0 Then
+                  pos = getTagPosition(.NombreNpc)
+
+                  Dim lCenter     As Long
+                                        
+                   Dim Line        As String
+
+                Line = Left$(.NombreNpc, pos - 2)
+                 lCenter = (Len(Line) * 6 / 2) - 15
+                                        
+                 Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
+                 
+                               
+            End If
+         
+        End If
+          
+    
+    End With
+    
+End Sub
 
 Sub crearsangrepos(ByVal X As Byte, ByVal Y As Byte)
         With MapData(X, Y)
@@ -4299,7 +4349,7 @@ Private Sub Particle_Group_Destroy(ByVal ParticleIndex As Long)
     'Last Modify Date: 10/07/2002
     '
     '**************************************************************
-    Dim temp As Particle_Group
+    Dim Temp As Particle_Group
     Dim i    As Long
 
     With Particle_Group_List(ParticleIndex)
@@ -4326,7 +4376,7 @@ Private Sub Particle_Group_Destroy(ByVal ParticleIndex As Long)
 
     End With
 
-    Particle_Group_List(ParticleIndex) = temp
+    Particle_Group_List(ParticleIndex) = Temp
            
     'Update array size
     If ParticleIndex = Particle_Group_Last Then

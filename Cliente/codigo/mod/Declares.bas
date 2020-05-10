@@ -707,7 +707,8 @@ Public Type tSetupMods
     bEjecutar As Byte
     bMover As Byte
     bPajaritos As Byte
-
+    bNombreNpc As Byte
+    
 End Type
 
 Public AoSetup        As tSetupMods
