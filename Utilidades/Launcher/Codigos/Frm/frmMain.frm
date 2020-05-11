@@ -21,6 +21,7 @@ Begin VB.Form frmMain
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
+   MousePointer    =   99  'Custom
    ScaleHeight     =   399
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   676
@@ -37,8 +38,35 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+' LauncherAoM 1.0.0
+' By Bassinger [www.AoMania.Net]
+
 Option Explicit
 
 Private Sub cmdCerrar_Click()
-    Unload Me
+    UnloadAllForms
+End Sub
+
+Private Sub cmdCerrar_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    
+     With frmMain
+         .MouseIcon = Iconos.Ico_Mano
+     End With
+     
+End Sub
+
+Private Sub Form_Load()
+     
+     With frmMain
+         .MouseIcon = Iconos.Ico_Diablo
+     End With
+     
+End Sub
+
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+     
+     With frmMain
+         .MouseIcon = Iconos.Ico_Diablo
+     End With
+     
 End Sub

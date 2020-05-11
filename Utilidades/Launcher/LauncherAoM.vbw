@@ -1,0 +1,9 @@
+frmMain = 104, 104, 670, 473, C, 26, 26, 162, 310, C
+Declaraciones = 52, 52, 618, 421, C
+General = 156, 156, 722, 525, C
+ModCompression = 182, 182, 748, 551, C
+Logs = 0, 0, 566, 369, C
+ModLoadCompression = 104, 104, 670, 473, C
+Mod_TileEngine = 130, 130, 696, 499, C
+ES = 156, 156, 722, 525, Z
+ClsIniManager = 182, 182, 748, 551, C
