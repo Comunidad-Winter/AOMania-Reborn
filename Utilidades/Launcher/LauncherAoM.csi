@@ -1,12 +1,12 @@
 [History]
-1=#P0#=mb	#P1#=LoadConfig	#P2#=LauncherAoMania/ES/LoadConfig	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511032420	#P7#=0	#P8#=10	.
-2=#P0#=mb	#P1#=UnloadAllForms	#P2#=LauncherAoMania/General/UnloadAllForms	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511031241	#P7#=0	#P8#=8	.
-3=#P0#=mb	#P1#=DirLibs	#P2#=LauncherAoMania/General/DirLibs	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511030623	#P7#=0	#P8#=2	.
-4=#P0#=mb	#P1#=cmdCerrar_MouseMove	#P2#=LauncherAoMania/frmMain/cmdCerrar_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200511030546	#P7#=0	#P8#=5	.
-5=#P0#=mb	#P1#=Form_MouseMove	#P2#=LauncherAoMania/frmMain/Form_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200511030514	#P7#=0	#P8#=4	.
-6=#P0#=mb	#P1#=LoadIconos	#P2#=LauncherAoMania/ModLoadCompression/LoadIconos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511030351	#P7#=0	#P8#=3	.
-7=#P0#=mb	#P1#=Form_Load	#P2#=LauncherAoMania/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200511030024	#P7#=0	#P8#=7	.
-8=#P0#=mb	#P1#=Main	#P2#=LauncherAoMania/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511025726	#P7#=0	#P8#=4	.
+1=#P0#=mb	#P1#=Form_MouseMove	#P2#=LauncherAoMania/frmMain/Form_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200511041145	#P7#=0	#P8#=3	.
+2=#P0#=mb	#P1#=Main	#P2#=LauncherAoMania/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511040449	#P7#=0	#P8#=7	.
+3=#P0#=mb	#P1#=LoadConfig	#P2#=LauncherAoMania/ES/LoadConfig	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511032420	#P7#=0	#P8#=12	.
+4=#P0#=mb	#P1#=UnloadAllForms	#P2#=LauncherAoMania/General/UnloadAllForms	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511031241	#P7#=0	#P8#=5	.
+5=#P0#=mb	#P1#=DirLibs	#P2#=LauncherAoMania/General/DirLibs	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511030623	#P7#=0	#P8#=2	.
+6=#P0#=mb	#P1#=cmdCerrar_MouseMove	#P2#=LauncherAoMania/frmMain/cmdCerrar_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200511030546	#P7#=0	#P8#=5	.
+7=#P0#=mb	#P1#=LoadIconos	#P2#=LauncherAoMania/ModLoadCompression/LoadIconos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511030351	#P7#=0	#P8#=7	.
+8=#P0#=mb	#P1#=Form_Load	#P2#=LauncherAoMania/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200511030024	#P7#=0	#P8#=7	.
 9=#P0#=mb	#P1#=DirConf	#P2#=LauncherAoMania/General/DirConf	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511025245	#P7#=0	#P8#=2	.
 10=#P0#=mb	#P1#=Iconos	#P2#=LauncherAoMania/ModLoadCompression/Iconos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511024939	#P7#=0	#P8#=1	.
 11=#P0#=mb	#P1#=Compress_Files	#P2#=LauncherAoMania/ModCompression/Compress_Files	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511024127	#P7#=0	#P8#=5	.
@@ -20,7 +20,7 @@
 19=#P0#=mb	#P1#=BinarySearch	#P2#=LauncherAoMania/ModCompression/BinarySearch	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511023616	#P7#=0	#P8#=6	.
 20=#P0#=mb	#P1#=Sort_Info_Headers	#P2#=LauncherAoMania/ModCompression/Sort_Info_Headers	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511023601	#P7#=0	#P8#=1	.
 21=#P0#=mb	#P1#=General_Drive_Get_Free_Bytes	#P2#=LauncherAoMania/ModCompression/General_Drive_Get_Free_Bytes	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511023559	#P7#=0	#P8#=11	.
-22=#P0#=mb	#P1#=GetVersion	#P2#=LauncherAoMania/ModCompression/GetVersion	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511023509	#P7#=0	#P8#=1	.
+22=#P0#=mb	#P1#=GetVersion	#P2#=LauncherAoMania/ModCompression/GetVersion	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511023509	#P7#=0	#P8#=4	.
 23=#P0#=mb	#P1#=AlignScan	#P2#=LauncherAoMania/ModCompression/AlignScan	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511023502	#P7#=0	#P8#=1	.
 24=#P0#=mb	#P1#=Apply_Patch	#P2#=LauncherAoMania/ModCompression/Apply_Patch	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511023458	#P7#=0	#P8#=13	.
 25=#P0#=mb	#P1#=Make_Patch	#P2#=LauncherAoMania/ModCompression/Make_Patch	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200511023313	#P7#=0	#P8#=192	.

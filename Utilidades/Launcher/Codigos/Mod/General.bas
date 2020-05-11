@@ -7,7 +7,9 @@ Option Explicit
 Sub Main()
      
      Call InitializeCompression
+     
      Call LoadIconos
+     Call LoadConfig
      
      frmMain.Show
       
