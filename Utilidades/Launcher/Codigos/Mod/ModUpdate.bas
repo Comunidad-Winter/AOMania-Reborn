@@ -1,11 +1,18 @@
 Attribute VB_Name = "ModUpdate"
 Option Explicit
 
-Private Const GWL_EXSTYLE = -20
-Private Const WS_EX_LAYERED = &H80000
-Private Const WS_EX_TRANSPARENT As Long = &H20&
-Dim Directory As String, bDone As Boolean, dError As Boolean, F As Integer
-Rem Programado por Shedark
+Public Const GWL_EXSTYLE = -20
+Public Const WS_EX_LAYERED = &H80000
+Public Const WS_EX_TRANSPARENT As Long = &H20&
+Public Directory As String
+Public bDone As Boolean
+Public dError As Boolean
+Public F As Integer
+'Rem Programado por Shedark
+
+Public SetUpdateChange As Long
+Public SetUpdate As Long
+Public TimerOn As Byte
 
 Public Sub Analizar()
 
@@ -46,7 +53,7 @@ Public Sub Analizar()
             dError = False
             
             'lURL.Caption = Inet1.URL
-            'lName.Caption = "Parche" & dNum & ".zip"
+            'lName.Caption = "Parche" & dNum & ".rar"
             'lDirectorio.Caption = App.Path & "\"
                 
             frmMain.Inet1.Execute , "GET"
@@ -57,13 +64,13 @@ Public Sub Analizar()
             
             If dError Then Exit Sub
             
-            UnZip Directory, App.Path & "\"
+            UnZip Directory, App.Path & "\Descargado\"
             Kill Directory
         Next i
     End If
 
     Call GuardarInt(FileUpdate, iX)
-    SaveSetting "AoMania", "Updater", "Status", "1"
+'    SaveSetting "AoMania", "Updater", "Status", "1"
     
 
     frmMain.ProgressBar1.Value = 0
@@ -71,12 +78,12 @@ Public Sub Analizar()
    frmMain.ProgressBar1.Visible = False
    
    frmMain.txtUpdate.Visible = True
-   'TimerOn = 1
-   'SetUpdate = "1"
-   frmMain.txtUpdate.Left = 3480
-   'Ejecutador.Enabled = True
+   TimerOn = 1
+   SetUpdate = "1"
+'   frmMain.txtUpdate.Left = 3480
+   frmMain.Ejecutador.Enabled = True
    frmMain.txtUpdate.Caption = "Actualización OK"
-  ' SetUpdateChange = "1"
+   SetUpdateChange = "1"
 
 End Sub
 

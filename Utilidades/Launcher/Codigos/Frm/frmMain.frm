@@ -28,6 +28,16 @@ Begin VB.Form frmMain
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   676
    StartUpPosition =   3  'Windows Default
+   Begin VB.Timer Ejecutador 
+      Interval        =   1000
+      Left            =   1830
+      Top             =   585
+   End
+   Begin VB.Timer Timer1 
+      Interval        =   1
+      Left            =   1110
+      Top             =   495
+   End
    Begin vbalProgBarLib6.vbalProgressBar ProgressBar1 
       Height          =   870
       Left            =   1740
@@ -95,11 +105,6 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Const GWL_EXSTYLE = -20
-Private Const WS_EX_LAYERED = &H80000
-Private Const WS_EX_TRANSPARENT As Long = &H20&
-Dim Directory As String, bDone As Boolean, dError As Boolean, F As Integer
-
 Private Sub cmdCerrar_Click()
     UnloadAllForms
 End Sub
@@ -123,7 +128,8 @@ ProgressBar1.Value = 0
 'ProgressBar1.Height = 0
 LSize.Caption = ""
 ProgressBar1.Text = ""
-     Call Analizar
+ txtUpdate.Visible = True
+     'Call Analizar
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
@@ -140,7 +146,7 @@ Private Sub Inet1_StateChanged(ByVal State As Integer)
         
         Case icError
             ProgressBar1.Visible = False
-            'SetUpdate = "1"
+            SetUpdate = "1"
             txtUpdate.Left = 2320
             txtUpdate.Caption = "Error en la conexión, descarga abortada."
             bDone = True
@@ -177,7 +183,7 @@ Private Sub Inet1_StateChanged(ByVal State As Integer)
                 Loop
             Close #1
             
-            LSize.Caption = FileSize & "bytes"
+            LSize.Caption = FileSize & " bytes"
             ProgressBar1.Value = 0
             
             bDone = True
@@ -185,3 +191,55 @@ Private Sub Inet1_StateChanged(ByVal State As Integer)
     
 End Sub
 
+Private Sub Timer1_Timer()
+
+    Static TimerUpdater As Long
+
+    If TimerOn = 1 Then
+        TimerUpdater = 0
+
+    End If
+
+    TimerUpdater = TimerUpdater + "1"
+ 
+    If SetUpdateChange = 0 Then
+        If SetUpdate = 0 Then
+            If TimerUpdater = "80" Then
+                Call Analizar
+                SetUpdate = "1"
+                TimerUpdater = "0"
+                Timer1.Enabled = False
+
+            End If
+
+        End If
+
+    End If
+
+    If SetUpdateChange = "1" Then
+        TimerUpdater = "0"
+        SetUpdateChange = "0"
+
+        'Timer1.Enabled = False
+    End If
+
+    If SetUpdate = 1 Then
+        If TimerUpdater = "120" Then
+            Unload Me
+
+            'frmdeclaraciones.Visible = True
+            'frmdeclaraciones.StatusCondi = "1"
+        End If
+
+    End If
+
+End Sub
+
+Private Sub Ejecutador_Timer()
+     Static Timer As Long
+     Timer = Timer + 1
+     If Timer = 2 Then
+       'Unload frmUpdate
+      'Call ShellExecute(Me.hWnd, "Open", App.Path & "\AoMania.exe", 0, 0, 1)
+     End If
+End Sub

@@ -1,6 +1,6 @@
 Attribute VB_Name = "modUnzip"
 Public Declare Function SetWindowPos Lib "USER32" (ByVal hWnd As Long, _
-ByVal hWndInsertAfter As Long, ByVal X As Long, ByVal Y As Long, ByVal _
+ByVal hWndInsertAfter As Long, ByVal x As Long, ByVal y As Long, ByVal _
 cx As Long, ByVal cy As Long, ByVal wFlags As Long) As Long
 Public Const HWND_TOPMOST = -1
 Public Const SWP_NOSIZE = &H1
@@ -92,7 +92,7 @@ err_Unzip:
     Err.Clear
 End Sub
 
-Private Function UNFuncionParaProcesarMensajes(ByRef fname As CBChar, ByVal X As Long) As Long
+Private Function UNFuncionParaProcesarMensajes(ByRef fname As CBChar, ByVal x As Long) As Long
 On Error GoTo err_UNFuncionParaProcesarMensajes
 
     UNFuncionParaProcesarMensajes = 0
