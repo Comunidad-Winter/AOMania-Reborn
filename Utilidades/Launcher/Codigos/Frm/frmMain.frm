@@ -40,7 +40,7 @@ Begin VB.Form frmMain
    End
    Begin vbalProgBarLib6.vbalProgressBar ProgressBar1 
       Height          =   870
-      Left            =   1740
+      Left            =   1785
       TabIndex        =   1
       Top             =   2865
       Width           =   5145
@@ -48,6 +48,7 @@ Begin VB.Form frmMain
       _ExtentY        =   1535
       Picture         =   "frmMain.frx":08CA
       ForeColor       =   0
+      BarForeColor    =   8421504
       BarPicture      =   "frmMain.frx":08E6
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
@@ -65,6 +66,17 @@ Begin VB.Form frmMain
       _ExtentX        =   1005
       _ExtentY        =   1005
       _Version        =   393216
+   End
+   Begin VB.Label Velocidad 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Velocidad"
+      ForeColor       =   &H000000FF&
+      Height          =   195
+      Left            =   6420
+      TabIndex        =   3
+      Top             =   4755
+      Width           =   675
    End
    Begin VB.Label LSize 
       AutoSize        =   -1  'True
@@ -163,7 +175,7 @@ Private Sub Inet1_StateChanged(ByVal State As Integer)
             
             
             Open Directory For Binary Access Write As #1
-                vtData = Inet1.GetChunk(1024, icByteArray)
+                vtData = Inet1.GetChunk((1048576 / 2), icByteArray)
                 DoEvents
                 
                 
@@ -173,13 +185,14 @@ Private Sub Inet1_StateChanged(ByVal State As Integer)
                         
                 ProgressBar1.BarPicture = Interfaces.BLlena
             
-                vtData = Inet1.GetChunk(1024, icByteArray)
+                vtData = Inet1.GetChunk((1048576 / 2), icByteArray)
                     
                     ProgressBar1.Value = ProgressBar1.Value + Len(vtData) * 2
-                    LSize.Caption = (ProgressBar1.Value + Len(vtData) * 2) / 1000000 & "MBs de " & (FileSize / 1000000) & "MBs"
+                    LSize.Caption = CLng((ProgressBar1.Value + Len(vtData) * 2) / 1000000) & " MBs de " & CLng((FileSize / 1000000)) & " MBs"
                     ProgressBar1.Text = Round(CDbl(ProgressBar1.Value) * CDbl(100) / CDbl(ProgressBar1.max), 2) _
                             & "%"
-                    DoEvents
+   
+                  '  DoEvents
                 Loop
             Close #1
             

@@ -1,3 +1,4 @@
 [CONFIG]
-Play=0
-Update=0
+PLAY=1
+UPDATE=1
+

@@ -31,24 +31,24 @@ Public Sub Analizar()
     End If
     
     iX = frmMain.Inet1.OpenURL(Url_Path & "VEREXE.TXT") 'Host
-    tX = LeerInt(FileUpdate)
+    tX = Launcher.Update
     
     DifX = iX - tX
     
     If Not (DifX = 0) Then
-      frmMain.ProgressBar1.Visible = True
+       frmMain.ProgressBar1.Visible = True
 
        For i = 1 To DifX
             frmMain.Inet1.AccessType = icUseDefault
             dNum = i + tX
             
             #If BuscarLinks Then 'Buscamos el link en el host (1)
-                Inet1.Url = Inet1.OpenURL("http://argentumania.es/cosas/parches/Parche" & dNum & ".zip") 'Host
+                Inet1.Url = Inet1.OpenURL(Url_Path & "Parche" & dNum & ".zip") 'Host
             #Else                'Generamos Link por defecto (0)
-                frmMain.Inet1.Url = "http://argentumania.es/cosas/parches/Parche" & dNum & ".zip" 'Host
+                frmMain.Inet1.Url = Url_Path & "Parche" & dNum & ".zip" 'Host
             #End If
             
-            Directory = App.Path & "\Libs\Configuracion\Parche" & dNum & ".zip"
+            Directory = DirConf & "Parche" & dNum & ".zip"
             bDone = False
             dError = False
             
@@ -68,10 +68,11 @@ Public Sub Analizar()
             Kill Directory
         Next i
     End If
-
-    Call GuardarInt(FileUpdate, iX)
-'    SaveSetting "AoMania", "Updater", "Status", "1"
     
+    Launcher.Play = 1
+    Launcher.Update = iX
+    
+    Call SaveConfig
 
     frmMain.ProgressBar1.Value = 0
 
@@ -80,24 +81,9 @@ Public Sub Analizar()
    frmMain.txtUpdate.Visible = True
    TimerOn = 1
    SetUpdate = "1"
-'   frmMain.txtUpdate.Left = 3480
    frmMain.Ejecutador.Enabled = True
    frmMain.txtUpdate.Caption = "Actualización OK"
    SetUpdateChange = "1"
 
-End Sub
-
-Private Function LeerInt(ByVal Ruta As String) As Integer
-    F = FreeFile
-    Open Ruta For Input As F
-    LeerInt = Input$(LOF(F), #F)
-    Close #F
-End Function
-
-Private Sub GuardarInt(ByVal Ruta As String, ByVal Data As Integer)
-    F = FreeFile
-    Open Ruta For Output As F
-    Print #F, Data
-    Close #F
 End Sub
 

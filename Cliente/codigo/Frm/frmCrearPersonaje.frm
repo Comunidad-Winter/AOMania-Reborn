@@ -29,18 +29,44 @@ Begin VB.Form frmCrearPersonaje
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.TextBox txtPersonaje 
-      Height          =   360
-      Left            =   4815
-      TabIndex        =   22
-      Top             =   1980
-      Width           =   3885
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      BorderStyle     =   0  'None
+      BeginProperty Font 
+         Name            =   "Georgia"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   300
+      Left            =   390
+      TabIndex        =   20
+      Top             =   5355
+      Width           =   3570
    End
    Begin VB.TextBox txtBanco 
-      Height          =   375
-      Left            =   4740
-      TabIndex        =   21
-      Top             =   1350
-      Width           =   3870
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      BorderStyle     =   0  'None
+      BeginProperty Font 
+         Name            =   "Georgia"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00E0E0E0&
+      Height          =   300
+      Left            =   390
+      TabIndex        =   19
+      Top             =   4515
+      Width           =   3570
    End
    Begin VB.TextBox txtNombre 
       Alignment       =   2  'Center
@@ -87,7 +113,7 @@ Begin VB.Form frmCrearPersonaje
       MousePointer    =   99  'Custom
       PasswordChar    =   "*"
       TabIndex        =   3
-      Top             =   3300
+      Top             =   2970
       Width           =   3570
    End
    Begin VB.TextBox txtPasswd 
@@ -112,30 +138,7 @@ Begin VB.Form frmCrearPersonaje
       MousePointer    =   99  'Custom
       PasswordChar    =   "*"
       TabIndex        =   2
-      Top             =   2355
-      Width           =   3570
-   End
-   Begin VB.TextBox txtCorreoCheck 
-      Alignment       =   2  'Center
-      BackColor       =   &H00000000&
-      BorderStyle     =   0  'None
-      BeginProperty Font 
-         Name            =   "Georgia"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00E0E0E0&
-      Height          =   300
-      Left            =   390
-      MaxLength       =   50
-      MouseIcon       =   "frmCrearPersonaje.frx":3BF2
-      MousePointer    =   99  'Custom
-      TabIndex        =   5
-      Top             =   5160
+      Top             =   2145
       Width           =   3570
    End
    Begin VB.TextBox txtCorreo 
@@ -155,10 +158,10 @@ Begin VB.Form frmCrearPersonaje
       Height          =   300
       Left            =   390
       MaxLength       =   50
-      MouseIcon       =   "frmCrearPersonaje.frx":48BC
+      MouseIcon       =   "frmCrearPersonaje.frx":3BF2
       MousePointer    =   99  'Custom
       TabIndex        =   4
-      Top             =   4230
+      Top             =   3720
       Width           =   3570
    End
    Begin VB.ComboBox lstProfesion 
@@ -174,14 +177,14 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   360
-      ItemData        =   "frmCrearPersonaje.frx":5586
+      ItemData        =   "frmCrearPersonaje.frx":48BC
       Left            =   1680
-      List            =   "frmCrearPersonaje.frx":55BD
-      MouseIcon       =   "frmCrearPersonaje.frx":5657
+      List            =   "frmCrearPersonaje.frx":48F3
+      MouseIcon       =   "frmCrearPersonaje.frx":498D
       MousePointer    =   99  'Custom
       Style           =   2  'Dropdown List
-      TabIndex        =   6
-      Top             =   6075
+      TabIndex        =   5
+      Top             =   6345
       Width           =   1905
    End
    Begin VB.ComboBox lstGenero 
@@ -197,14 +200,14 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   360
-      ItemData        =   "frmCrearPersonaje.frx":6321
+      ItemData        =   "frmCrearPersonaje.frx":5657
       Left            =   1680
-      List            =   "frmCrearPersonaje.frx":632B
-      MouseIcon       =   "frmCrearPersonaje.frx":633E
+      List            =   "frmCrearPersonaje.frx":5661
+      MouseIcon       =   "frmCrearPersonaje.frx":5674
       MousePointer    =   99  'Custom
       Style           =   2  'Dropdown List
-      TabIndex        =   8
-      Top             =   7080
+      TabIndex        =   7
+      Top             =   7350
       Width           =   1905
    End
    Begin VB.ComboBox lstRaza 
@@ -220,39 +223,18 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   360
-      ItemData        =   "frmCrearPersonaje.frx":7008
+      ItemData        =   "frmCrearPersonaje.frx":633E
       Left            =   1680
-      List            =   "frmCrearPersonaje.frx":702A
-      MouseIcon       =   "frmCrearPersonaje.frx":7083
+      List            =   "frmCrearPersonaje.frx":6360
+      MouseIcon       =   "frmCrearPersonaje.frx":63B9
       MousePointer    =   99  'Custom
       Style           =   2  'Dropdown List
-      TabIndex        =   7
-      Top             =   6585
+      TabIndex        =   6
+      Top             =   6855
       Width           =   1905
    End
-   Begin VB.ComboBox lstHogar 
-      BackColor       =   &H00000000&
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H0000FFFF&
-      Height          =   315
-      ItemData        =   "frmCrearPersonaje.frx":7D4D
-      Left            =   1680
-      List            =   "frmCrearPersonaje.frx":7D54
-      Sorted          =   -1  'True
-      Style           =   2  'Dropdown List
-      TabIndex        =   14
-      Top             =   7560
-      Width           =   1890
-   End
    Begin VB.Label Lbltotalconstitucion 
+      Alignment       =   2  'Center
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
       Caption         =   "0"
@@ -267,12 +249,13 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H000000FF&
       Height          =   210
-      Left            =   11640
-      TabIndex        =   27
-      Top             =   3750
+      Left            =   11490
+      TabIndex        =   25
+      Top             =   3780
       Width           =   120
    End
    Begin VB.Label Lbltotalcarisma 
+      Alignment       =   2  'Center
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
       Caption         =   "0"
@@ -287,12 +270,13 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H000000FF&
       Height          =   210
-      Left            =   11610
-      TabIndex        =   26
-      Top             =   3255
+      Left            =   11490
+      TabIndex        =   24
+      Top             =   3270
       Width           =   120
    End
    Begin VB.Label Lbltotalinteligencia 
+      Alignment       =   2  'Center
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
       Caption         =   "0"
@@ -307,12 +291,13 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H000000FF&
       Height          =   210
-      Left            =   11610
-      TabIndex        =   25
-      Top             =   2760
+      Left            =   11490
+      TabIndex        =   23
+      Top             =   2775
       Width           =   120
    End
    Begin VB.Label Lbltotalagilidad 
+      Alignment       =   2  'Center
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
       Caption         =   "0"
@@ -327,12 +312,13 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H000000FF&
       Height          =   210
-      Left            =   11625
-      TabIndex        =   24
-      Top             =   2250
+      Left            =   11490
+      TabIndex        =   22
+      Top             =   2265
       Width           =   120
    End
    Begin VB.Label Lbltotalfuerza 
+      Alignment       =   2  'Center
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
       Caption         =   "0"
@@ -347,9 +333,9 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H000000FF&
       Height          =   210
-      Left            =   11595
-      TabIndex        =   23
-      Top             =   1770
+      Left            =   11490
+      TabIndex        =   21
+      Top             =   1785
       Width           =   120
    End
    Begin VB.Label lblPlusFuerza 
@@ -367,9 +353,9 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   225
-      Left            =   11190
-      TabIndex        =   20
-      Top             =   1770
+      Left            =   10905
+      TabIndex        =   18
+      Top             =   1785
       Width           =   285
    End
    Begin VB.Label lblPlusConstitucion 
@@ -387,9 +373,9 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   225
-      Left            =   11190
-      TabIndex        =   19
-      Top             =   3765
+      Left            =   10905
+      TabIndex        =   17
+      Top             =   3780
       Width           =   285
    End
    Begin VB.Label lblPlusCarisma 
@@ -407,9 +393,9 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   225
-      Left            =   11190
-      TabIndex        =   18
-      Top             =   3255
+      Left            =   10905
+      TabIndex        =   16
+      Top             =   3270
       Width           =   285
    End
    Begin VB.Label lblPlusInteligencia 
@@ -427,9 +413,9 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   225
-      Left            =   11190
-      TabIndex        =   17
-      Top             =   2760
+      Left            =   10905
+      TabIndex        =   15
+      Top             =   2775
       Width           =   285
    End
    Begin VB.Label lblPlusAgilidad 
@@ -447,9 +433,9 @@ Begin VB.Form frmCrearPersonaje
       EndProperty
       ForeColor       =   &H0000FFFF&
       Height          =   225
-      Left            =   11190
-      TabIndex        =   16
-      Top             =   2250
+      Left            =   10905
+      TabIndex        =   14
+      Top             =   2265
       Width           =   285
    End
    Begin VB.Label Label3 
@@ -467,7 +453,7 @@ Begin VB.Form frmCrearPersonaje
       ForeColor       =   &H00FFFF80&
       Height          =   195
       Left            =   5400
-      TabIndex        =   15
+      TabIndex        =   13
       Top             =   8640
       Visible         =   0   'False
       Width           =   195
@@ -484,7 +470,7 @@ Begin VB.Form frmCrearPersonaje
       Height          =   1785
       Index           =   2
       Left            =   9195
-      MouseIcon       =   "frmCrearPersonaje.frx":7D64
+      MouseIcon       =   "frmCrearPersonaje.frx":7083
       MousePointer    =   99  'Custom
       Top             =   5370
       Width           =   1785
@@ -493,24 +479,24 @@ Begin VB.Form frmCrearPersonaje
       Height          =   480
       Index           =   1
       Left            =   270
-      MouseIcon       =   "frmCrearPersonaje.frx":7EB6
+      MouseIcon       =   "frmCrearPersonaje.frx":71D5
       MousePointer    =   99  'Custom
       Top             =   8265
       Width           =   1605
    End
    Begin VB.Image boton 
-      Height          =   570
+      Height          =   525
       Index           =   0
       Left            =   8070
-      MouseIcon       =   "frmCrearPersonaje.frx":8008
+      MouseIcon       =   "frmCrearPersonaje.frx":7327
       MousePointer    =   99  'Custom
-      Top             =   8265
+      Top             =   8235
       Width           =   3705
    End
    Begin VB.Image imgHogar 
       Height          =   2850
       Left            =   6120
-      Picture         =   "frmCrearPersonaje.frx":815A
+      Picture         =   "frmCrearPersonaje.frx":7479
       Top             =   9000
       Visible         =   0   'False
       Width           =   2985
@@ -531,7 +517,7 @@ Begin VB.Form frmCrearPersonaje
       ForeColor       =   &H00FFFFFF&
       Height          =   225
       Left            =   10380
-      TabIndex        =   13
+      TabIndex        =   12
       Top             =   3255
       Width           =   285
    End
@@ -550,7 +536,7 @@ Begin VB.Form frmCrearPersonaje
       ForeColor       =   &H00FFFF00&
       Height          =   255
       Left            =   5160
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   8640
       Visible         =   0   'False
       Width           =   270
@@ -571,7 +557,7 @@ Begin VB.Form frmCrearPersonaje
       ForeColor       =   &H00FFFFFF&
       Height          =   225
       Left            =   10380
-      TabIndex        =   11
+      TabIndex        =   10
       Top             =   2760
       Width           =   285
    End
@@ -591,7 +577,7 @@ Begin VB.Form frmCrearPersonaje
       ForeColor       =   &H00FFFFFF&
       Height          =   225
       Left            =   10380
-      TabIndex        =   10
+      TabIndex        =   9
       Top             =   3765
       Width           =   285
    End
@@ -611,7 +597,7 @@ Begin VB.Form frmCrearPersonaje
       ForeColor       =   &H00FFFFFF&
       Height          =   225
       Left            =   10380
-      TabIndex        =   9
+      TabIndex        =   8
       Top             =   2250
       Width           =   285
    End
@@ -722,9 +708,7 @@ Private Sub boton_Click(Index As Integer)
             UserAtributos(3) = Val(lbAgilidad.Caption)
             UserAtributos(4) = Val(lbCarisma.Caption)
             UserAtributos(5) = Val(lbConstitucion.Caption)
-            
-            UserHogar = lstHogar.List(lstHogar.ListIndex)
-            
+                        
         
             If CheckDatos() Then
     
@@ -846,7 +830,6 @@ Private Sub Form_Activate()
     Call Audio.StopWave
     Call Audio.PlayWave("174.wav")
                 
-    lstHogar.Visible = False
 
 End Sub
 
@@ -1035,15 +1018,6 @@ Function CheckDatos() As Boolean
                     Exit Function
                 End If
                 
-                If Not CheckMailString(txtCorreoCheck) Then
-                    MsgBox "Direccion de mail invalida."
-                    Exit Function
-                End If
-                
-                If UserEmail <> txtCorreoCheck Then
-                     MsgBox "La direccion de mail no coinciden."
-                     Exit Function
-                End If
                 
                 If lstProfesion = "" Then
                     MsgBox "Seleccione la clase del personaje."
