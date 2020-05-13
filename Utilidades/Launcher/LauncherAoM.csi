@@ -1,15 +1,15 @@
 [History]
-1=#P0#=mb	#P1#=FormatSize	#P2#=LauncherAoMania/General/FormatSize	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512221458	#P7#=0	#P8#=0	.
-2=#P0#=mb	#P1#=Inet1_StateChanged	#P2#=LauncherAoMania/frmMain/Inet1_StateChanged	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200512230639	#P7#=0	#P8#=40	.
-3=#P0#=mb	#P1#=Analizar	#P2#=LauncherAoMania/ModUpdate/Analizar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512185305	#P7#=0	#P8#=36	.
-4=#P0#=mb	#P1#=Comprobar_Conexión	#P2#=LauncherAoMania/General/Comprobar_Conexión	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512214513	#P7#=0	#P8#=3	.
+1=#P0#=mb	#P1#=Inet1_StateChanged	#P2#=LauncherAoMania/frmMain/Inet1_StateChanged	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200513021942	#P7#=0	#P8#=0	.
+2=#P0#=mb	#P1#=FormatSize	#P2#=LauncherAoMania/General/FormatSize	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512221458	#P7#=0	#P8#=0	.
+3=#P0#=mb	#P1#=Comprobar_Conexión	#P2#=LauncherAoMania/General/Comprobar_Conexión	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512214513	#P7#=0	#P8#=3	.
+4=#P0#=mb	#P1#=Analizar	#P2#=LauncherAoMania/ModUpdate/Analizar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513023459	#P7#=0	#P8#=74	.
 5=#P0#=mb	#P1#=LoadConfig	#P2#=LauncherAoMania/ES/LoadConfig	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512175829	#P7#=0	#P8#=12	.
 6=#P0#=mb	#P1#=SaveConfig	#P2#=LauncherAoMania/ES/SaveConfig	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512175627	#P7#=0	#P8#=-1	.
 7=#P0#=mb	#P1#=FileUpdate	#P2#=LauncherAoMania/General/FileUpdate	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512172954	#P7#=0	#P8#=1	.
 8=#P0#=mb	#P1#=UnZip	#P2#=LauncherAoMania/modUnzip/UnZip	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512090640	#P7#=0	#P8#=1	.
 9=#P0#=mb	#P1#=cmdCerrar_Click	#P2#=LauncherAoMania/frmMain/cmdCerrar_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200512084931	#P7#=0	#P8#=-2	.
-10=#P0#=mb	#P1#=Timer1_Timer	#P2#=LauncherAoMania/frmMain/Timer1_Timer	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512084121	#P7#=0	#P8#=38	.
-11=#P0#=mb	#P1#=Form_Load	#P2#=LauncherAoMania/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200512082112	#P7#=0	#P8#=12	.
+10=#P0#=mb	#P1#=Timer1_Timer	#P2#=LauncherAoMania/frmMain/Timer1_Timer	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513023050	#P7#=0	#P8#=7	.
+11=#P0#=mb	#P1#=Form_Load	#P2#=LauncherAoMania/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200513023929	#P7#=0	#P8#=14	.
 12=#P0#=mb	#P1#=LoadInterfaces	#P2#=LauncherAoMania/ModLoadCompression/LoadInterfaces	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512075504	#P7#=0	#P8#=12	.
 13=#P0#=mb	#P1#=Main	#P2#=LauncherAoMania/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512074554	#P7#=0	#P8#=5	.
 14=#P0#=mb	#P1#=LoadIconos	#P2#=LauncherAoMania/ModLoadCompression/LoadIconos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200512074539	#P7#=0	#P8#=12	.

@@ -18,15 +18,23 @@ Public Sub Analizar()
 
     Dim i As Integer, iX As Integer, tX As Integer, DifX As Integer, dNum As String
     
-    'lEstado.Caption = "Obteniendo datos..."
+    frmMain.txtUpdate.Visible = True
+    frmMain.txtUpdate.Caption = "Comprobando tu conexión..."
+    
     
   If Not Comprobar_Conexión(Url_Path & "VEREXE.TXT") Then
-     MsgBox "¡Error! Comprueba tu conexión de internet."
-     Exit Sub
+      frmMain.txtUpdate.Caption = "¡Error! Comprueba tu conexión de internet."
+      Exit Sub
+     Else
+      frmMain.txtUpdate.Caption = "Conexión establecida..."
+      
   End If
+    
+    frmMain.txtUpdate.Caption = "Comprobando actualizaciones.."
+    
   
     If InStr(frmMain.Inet1.OpenURL(Url_Path & "VEREXE.TXT"), "<title>404 Not Found</title>") Then
-        MsgBox "¡Error! No se ha podido ver archivo binario."
+        frmMain.txtUpdate.Caption = "¡Error! No se ha podido ver archivo binario."
         Exit Sub
     End If
     
@@ -36,6 +44,9 @@ Public Sub Analizar()
     DifX = iX - tX
     
     If Not (DifX = 0) Then
+       
+       frmMain.txtUpdate.Caption = "Se ha encontrado una nueva actualización..."
+       
        frmMain.ProgressBar1.Visible = True
 
        For i = 1 To DifX
@@ -74,16 +85,11 @@ Public Sub Analizar()
     
     Call SaveConfig
 
-    frmMain.ProgressBar1.Value = 0
+   frmMain.ProgressBar1.Value = 0
 
    frmMain.ProgressBar1.Visible = False
    
-   frmMain.txtUpdate.Visible = True
-   TimerOn = 1
-   SetUpdate = "1"
-   frmMain.Ejecutador.Enabled = True
-   frmMain.txtUpdate.Caption = "Actualización OK"
-   SetUpdateChange = "1"
+   frmMain.txtUpdate.Caption = "Listo. Cliente preparado."
 
 End Sub
 

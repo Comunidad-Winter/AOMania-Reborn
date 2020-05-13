@@ -28,33 +28,31 @@ Begin VB.Form frmMain
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   676
    StartUpPosition =   3  'Windows Default
-   Begin VB.Timer Ejecutador 
-      Interval        =   1000
-      Left            =   1830
-      Top             =   585
-   End
    Begin VB.Timer Timer1 
       Interval        =   1
-      Left            =   1110
-      Top             =   495
+      Left            =   720
+      Top             =   330
    End
    Begin vbalProgBarLib6.vbalProgressBar ProgressBar1 
-      Height          =   870
+      Height          =   195
       Left            =   1785
       TabIndex        =   1
-      Top             =   2865
+      Top             =   3540
+      Visible         =   0   'False
       Width           =   5145
       _ExtentX        =   9075
-      _ExtentY        =   1535
+      _ExtentY        =   344
       Picture         =   "frmMain.frx":08CA
-      ForeColor       =   0
+      ForeColor       =   8421504
       BarForeColor    =   8421504
       BarPicture      =   "frmMain.frx":08E6
+      ShowText        =   -1  'True
+      Text            =   "[0% Completado]"
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
+         Name            =   "Georgia"
          Size            =   8.25
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -67,38 +65,29 @@ Begin VB.Form frmMain
       _ExtentY        =   1005
       _Version        =   393216
    End
-   Begin VB.Label Velocidad 
-      AutoSize        =   -1  'True
-      BackStyle       =   0  'Transparent
-      Caption         =   "Velocidad"
-      ForeColor       =   &H000000FF&
-      Height          =   195
-      Left            =   6420
-      TabIndex        =   3
-      Top             =   4755
-      Width           =   675
-   End
    Begin VB.Label LSize 
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
       Caption         =   "L size"
       ForeColor       =   &H0000FFFF&
       Height          =   195
-      Left            =   4260
+      Left            =   3615
       TabIndex        =   2
-      Top             =   4635
+      Top             =   5220
+      Visible         =   0   'False
       Width           =   390
    End
    Begin VB.Label txtUpdate 
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   "Txt update"
+      Caption         =   "Info"
       ForeColor       =   &H00FFFFFF&
       Height          =   195
       Left            =   2490
       TabIndex        =   0
       Top             =   5220
-      Width           =   795
+      Visible         =   0   'False
+      Width           =   300
    End
    Begin VB.Image cmdCerrar 
       Height          =   555
@@ -130,18 +119,21 @@ Private Sub cmdCerrar_MouseMove(Button As Integer, Shift As Integer, x As Single
 End Sub
 
 Private Sub Form_Load()
-     
-     With frmMain
-         .MouseIcon = Iconos.Ico_Diablo
-     End With
-     
 
-ProgressBar1.Value = 0
-'ProgressBar1.Height = 0
-LSize.Caption = ""
-ProgressBar1.Text = ""
- txtUpdate.Visible = True
-     'Call Analizar
+   If Launcher.Play = 1 Then
+        Launcher.Play = 0
+   End If
+     
+    With frmMain
+        .MouseIcon = Iconos.Ico_Diablo
+
+    End With
+
+    ProgressBar1.Value = 0
+    LSize.Caption = ""
+    ProgressBar1.Text = ""
+    txtUpdate.Caption = ""
+   
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
@@ -184,6 +176,7 @@ Private Sub Inet1_StateChanged(ByVal State As Integer)
                     Put #1, , tempArray
                         
                 ProgressBar1.BarPicture = Interfaces.BLlena
+                txtUpdate.Caption = "Descargando: "
             
                 vtData = Inet1.GetChunk((1048576 / 2), icByteArray)
                     
@@ -196,7 +189,11 @@ Private Sub Inet1_StateChanged(ByVal State As Integer)
                 Loop
             Close #1
             
-            LSize.Caption = FileSize & " bytes"
+            'LSize.Caption = FileSize & " bytes"
+            LSize.Visible = False
+            
+            txtUpdate.Caption = "¡Ok! Actualización finalizada."
+            
             ProgressBar1.Value = 0
             
             bDone = True
@@ -208,51 +205,14 @@ Private Sub Timer1_Timer()
 
     Static TimerUpdater As Long
 
-    If TimerOn = 1 Then
-        TimerUpdater = 0
-
-    End If
-
     TimerUpdater = TimerUpdater + "1"
- 
-    If SetUpdateChange = 0 Then
-        If SetUpdate = 0 Then
-            If TimerUpdater = "80" Then
-                Call Analizar
-                SetUpdate = "1"
-                TimerUpdater = "0"
-                Timer1.Enabled = False
-
-            End If
-
-        End If
+   
+    If TimerUpdater = "80" Then
+        Call Analizar
+        'SetUpdate = "1"
+        'TimerUpdater = "0"
+        Timer1.Enabled = False
 
     End If
 
-    If SetUpdateChange = "1" Then
-        TimerUpdater = "0"
-        SetUpdateChange = "0"
-
-        'Timer1.Enabled = False
-    End If
-
-    If SetUpdate = 1 Then
-        If TimerUpdater = "120" Then
-            Unload Me
-
-            'frmdeclaraciones.Visible = True
-            'frmdeclaraciones.StatusCondi = "1"
-        End If
-
-    End If
-
-End Sub
-
-Private Sub Ejecutador_Timer()
-     Static Timer As Long
-     Timer = Timer + 1
-     If Timer = 2 Then
-       'Unload frmUpdate
-      'Call ShellExecute(Me.hWnd, "Open", App.Path & "\AoMania.exe", 0, 0, 1)
-     End If
 End Sub
