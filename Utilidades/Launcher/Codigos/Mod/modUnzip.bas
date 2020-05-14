@@ -54,7 +54,7 @@ End Type
 Private Type ZIPnames
     s(0 To 99) As String
 End Type
-Public Declare Function Wiz_SingleEntryUnzip Lib "unzip32.dll" (ByVal ifnc As Long, ByRef ifnv As ZIPnames, ByVal xfnc As Long, ByRef xfnv As ZIPnames, dcll As UNZIPOPTIONS, Userf As UNZIPUSERFUNCTION) As Long
+Public Declare Function Wiz_SingleEntryUnzip Lib "libs\unzip32.dll " (ByVal ifnc As Long, ByRef ifnv As ZIPnames, ByVal xfnc As Long, ByRef xfnv As ZIPnames, dcll As UNZIPOPTIONS, Userf As UNZIPUSERFUNCTION) As Long
 'end
 
 'subs zip

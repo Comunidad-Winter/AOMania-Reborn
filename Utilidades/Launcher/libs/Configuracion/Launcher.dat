@@ -1,4 +1,5 @@
 [CONFIG]
 PLAY=1
 UPDATE=1
+USE=1
 

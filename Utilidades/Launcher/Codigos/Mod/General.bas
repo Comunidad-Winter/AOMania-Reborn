@@ -12,6 +12,15 @@ Private Declare Function InternetCheckConnection Lib _
         ByVal lpszUrl As String, _
         ByVal dwFlags As Long, _
         ByVal dwReserved As Long) As Long
+        
+Private Declare Function LoadLibraryRegister Lib "kernel32" Alias "LoadLibraryA" (ByVal lpLibFileName As String) As Long
+Private Declare Function CreateThreadForRegister Lib "kernel32" Alias "CreateThread" (lpThreadAttributes As Any, ByVal dwStackSize As Long, ByVal lpStartAddress As Long, ByVal lParameter As Long, ByVal dwCreationFlags As Long, lpThreadID As Long) As Long
+Private Declare Function WaitForSingleObject Lib "kernel32" (ByVal hHandle As Long, ByVal dwMilliseconds As Long) As Long
+Private Declare Function GetProcAddressRegister Lib "kernel32" Alias "GetProcAddress" (ByVal hModule As Long, ByVal lpProcName As String) As Long
+Private Declare Function FreeLibraryRegister Lib "kernel32" Alias "FreeLibrary" (ByVal hLibModule As Long) As Long
+Private Declare Function CloseHandle Lib "kernel32" (ByVal hObject As Long) As Long
+Private Declare Function GetExitCodeThread Lib "kernel32" (ByVal hThread As Long, lpExitCode As Long) As Long
+Private Declare Sub ExitThread Lib "kernel32" (ByVal dwExitCode As Long)
 
 Sub Main()
      
@@ -42,16 +51,16 @@ Function FileExist(ByVal File As String, ByVal FileType As VbFileAttribute) As B
 End Function
 
 Function DirLibs()
-     DirLibs = App.Path & "\libs\"
+     DirLibs = App.path & "\libs\"
 End Function
 
 Function DirConf()
-      DirConf = App.Path & "\libs\Configuracion\"
+      DirConf = App.path & "\libs\Configuracion\"
 End Function
 
 Public Function FileUpdate()
       
-      FileUpdate = App.Path & "\Libs\Configuracion\Update.INI"
+      FileUpdate = App.path & "\Libs\Configuracion\Update.INI"
       
 End Function
 
@@ -74,29 +83,74 @@ Function Comprobar_Conexión(Url As String) As Boolean
       
 End Function
 
-Public Function FormatSize(ByVal size As Currency) As String
-    Const Kilobyte As Currency = 1024@
-    Const HundredK As Currency = 102400@
-    Const ThousandK As Currency = 1024000@
-    Const Megabyte As Currency = 1048576@
-    Const HundredMeg As Currency = 104857600@
-    Const ThousandMeg As Currency = 1048576000@
-    Const Gigabyte As Currency = 1073741824@
-    Const Terabyte As Currency = 1099511627776@
+Public Sub RevDlls()
     
-    If size < Kilobyte Then
-        FormatSize = Int(size) & " bytes"
-    ElseIf size < HundredK Then
-        FormatSize = Format(size / Kilobyte, "#.0") & " KB"
-    ElseIf size < ThousandK Then
-        FormatSize = Int(size / Kilobyte) & " KB"
-    ElseIf size < HundredMeg Then
-        FormatSize = Format(size / Megabyte, "#.0") & " MB"
-    ElseIf size < ThousandMeg Then
-        FormatSize = Int(size / Megabyte) & " MB"
-    ElseIf size < Terabyte Then
-        FormatSize = Format(size / Gigabyte, "#.00") & " GB"
-    Else
-        FormatSize = Format(size / Terabyte, "#.00") & " TB"
-    End If
+     Call MRRegisterLibrary(DirLibs & "Captura.ocx", "CAPTURA")
+     Call MRRegisterLibrary(DirLibs & "COMCTL32.OCX", "COMCTL32")
+     Call MRRegisterLibrary(DirLibs & "CSWSK32.OCX", "CSWSK32")
+     Call MRRegisterLibrary(DirLibs & "MSWINSCK.OCX", "MSWINSCK.OCK")
+     Call MRRegisterLibrary(DirLibs & "RICHTX32.OCX", "RICHTX32")
+     Call MRRegisterLibrary(DirLibs & "vbalProgBar6.ocx", "VBALPROGBAR6")
+     Call MRRegisterLibrary(DirLibs & "MSINET.OCX", "MSINET")
+     Call MRRegisterLibrary(DirLibs & "ieframe.dll", "IEFRAME")
+     Call MRRegisterLibrary(DirLibs & "TABCTL32.OCX", "TABCTLF32")
+     Call MRRegisterLibrary(DirLibs & "hook-menu-2.ocx", "HOOK-MENU-2")
+     Call MRRegisterLibrary(DirLibs & "dx8vb.dll", "DX8VB")
+     
+     Launcher.Use = 1
+      
+End Sub
+
+Public Sub MRRegisterLibrary(path$, ByVal Name As String)
+       
+      Shell "Regsvr32 /s" & path$, vbNormalFocus
+       
+      If RegSvr32(path$, False) Then
+          frmMain.txtUpdate.Caption = "Se registro componente: " & Name
+          Else
+          frmMain.txtUpdate.Caption = "Imposible registrar componente: " & Name
+      End If
+
+End Sub
+
+Private Function RegSvr32(ByVal FileName As String, bUnReg As Boolean) As Boolean
+
+Dim lLib As Long
+Dim lProcAddress As Long
+Dim lThreadID As Long
+Dim lSuccess As Long
+Dim lExitCode As Long
+Dim lThread As Long
+Dim bAns As Boolean
+Dim sPurpose As String
+
+sPurpose = IIf(bUnReg, "DllUnregisterServer", "DllRegisterServer")
+
+If Dir(FileName) = "" Then Exit Function
+
+lLib = LoadLibraryRegister(FileName)
+If lLib = 0 Then Exit Function
+
+lProcAddress = GetProcAddressRegister(lLib, sPurpose)
+
+If lProcAddress = 0 Then
+   FreeLibraryRegister lLib
+   Exit Function
+Else
+   lThread = CreateThreadForRegister(ByVal 0&, 0&, ByVal lProcAddress, ByVal 0&, 0&, lThread)
+   If lThread Then
+        lSuccess = (WaitForSingleObject(lThread, 10000) = 0)
+        If Not lSuccess Then
+           Call GetExitCodeThread(lThread, lExitCode)
+           Call ExitThread(lExitCode)
+           bAns = False
+           Exit Function
+        Else
+           bAns = True
+        End If
+        CloseHandle lThread
+        FreeLibraryRegister lLib
+   End If
+End If
+    RegSvr32 = bAns
 End Function

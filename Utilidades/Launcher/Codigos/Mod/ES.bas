@@ -10,6 +10,7 @@ Public Sub LoadConfig()
      With Launcher
           .Play = Val(Leer.GetValue("CONFIG", "Play"))
           .Update = Val(Leer.GetValue("CONFIG", "Update"))
+          .Use = Val(Leer.GetValue("CONFIG", "Use"))
      End With
      
      Set Leer = Nothing
@@ -25,6 +26,7 @@ Public Sub SaveConfig()
       With Launcher
          Call Leer.ChangeValue("CONFIG", "Play", .Play)
          Call Leer.ChangeValue("CONFIG", "Update", .Update)
+         Call Leer.ChangeValue("CONFIG", "Use", .Use)
       End With
          
       Call Leer.DumpFile(DirConf & "Launcher.dat")

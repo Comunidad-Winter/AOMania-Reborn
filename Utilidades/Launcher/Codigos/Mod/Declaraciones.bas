@@ -16,6 +16,7 @@ Public Declare Function ShellExecute _
 Public Type tLauncher
        Play As Byte
        Update As Byte
+       Use As Byte
 End Type
 
 Public Launcher As tLauncher

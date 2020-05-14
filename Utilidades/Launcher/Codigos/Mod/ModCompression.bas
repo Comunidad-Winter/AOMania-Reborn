@@ -47,8 +47,8 @@ Private Enum PatchInstruction
 
 End Enum
  
-Private Declare Function compress Lib "zlib.dll" (dest As Any, destlen As Any, Src As Any, ByVal srclen As Long) As Long
-Private Declare Function uncompress Lib "zlib.dll" (dest As Any, destlen As Any, Src As Any, ByVal srclen As Long) As Long
+Private Declare Function compress Lib "libs\zlib.dll" (dest As Any, destlen As Any, Src As Any, ByVal srclen As Long) As Long
+Private Declare Function uncompress Lib "libs\zlib.dll" (dest As Any, destlen As Any, Src As Any, ByVal srclen As Long) As Long
  
 Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (ByRef dest As Any, ByRef source As Any, ByVal byteCount As Long)
  
@@ -116,7 +116,7 @@ Public Sub InitializeCompression()
     ReDim Password(0 To PasswordLen) As Byte
 
     For LooPC = 0 To PasswordLen
-        Password(LooPC) = Asc(Mid$(PASSWORD_RESOURCE_FILE, LooPC + 1, 1))
+        Password(LooPC) = Asc(mid$(PASSWORD_RESOURCE_FILE, LooPC + 1, 1))
     Next LooPC
             
 End Sub
@@ -134,24 +134,24 @@ Private Function General_Drive_Get_Free_Bytes(ByVal DriveName As String) As Curr
 
 End Function
  
-Private Sub Sort_Info_Headers(ByRef InfoHead() As INFOHEADER, ByVal first As Long, ByVal last As Long)
+Private Sub Sort_Info_Headers(ByRef InfoHead() As INFOHEADER, ByVal First As Long, ByVal Last As Long)
 
     Dim aux  As INFOHEADER
     Dim min  As Long
     Dim max  As Long
     Dim comp As String
     
-    min = first
-    max = last
+    min = First
+    max = Last
     
     comp = InfoHead((min + max) \ 2).strFileName
     
     Do While min <= max
-        Do While InfoHead(min).strFileName < comp And min < last
+        Do While InfoHead(min).strFileName < comp And min < Last
             min = min + 1
         Loop
 
-        Do While InfoHead(max).strFileName > comp And max > first
+        Do While InfoHead(max).strFileName > comp And max > First
             max = max - 1
         Loop
 
@@ -166,8 +166,8 @@ Private Sub Sort_Info_Headers(ByRef InfoHead() As INFOHEADER, ByVal first As Lon
 
     Loop
     
-    If first < max Then Call Sort_Info_Headers(InfoHead, first, max)
-    If min < last Then Call Sort_Info_Headers(InfoHead, min, last)
+    If First < max Then Call Sort_Info_Headers(InfoHead, First, max)
+    If min < Last Then Call Sort_Info_Headers(InfoHead, min, Last)
 
 End Sub
   
@@ -535,7 +535,7 @@ Public Function Extract_Files(ByRef ResourcePath As String, _
         RequiredSpace = RequiredSpace + InfoHead(LooPC).lngFileSizeUncompressed
     Next LooPC
         
-    If RequiredSpace >= General_Drive_Get_Free_Bytes(Left$(App.Path, 3)) Then
+    If RequiredSpace >= General_Drive_Get_Free_Bytes(Left$(App.path, 3)) Then
         Erase InfoHead
         Close ResourceFile
         Call MsgBox("No hay suficiente espacio en el disco para extraer los archivos.", , "Error")

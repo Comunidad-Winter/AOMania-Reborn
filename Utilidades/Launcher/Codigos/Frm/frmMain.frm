@@ -6,10 +6,10 @@ Begin VB.Form frmMain
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
    Caption         =   "Launcher AoMania Reborn"
-   ClientHeight    =   5985
+   ClientHeight    =   9000
    ClientLeft      =   0
    ClientTop       =   0
-   ClientWidth     =   10140
+   ClientWidth     =   12000
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -24,11 +24,14 @@ Begin VB.Form frmMain
    MaxButton       =   0   'False
    MinButton       =   0   'False
    MousePointer    =   99  'Custom
-   ScaleHeight     =   399
+   Moveable        =   0   'False
+   Picture         =   "frmMain.frx":08CA
+   ScaleHeight     =   600
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   676
-   StartUpPosition =   3  'Windows Default
+   ScaleWidth      =   800
+   StartUpPosition =   2  'CenterScreen
    Begin VB.Timer Timer1 
+      Enabled         =   0   'False
       Interval        =   1
       Left            =   720
       Top             =   330
@@ -42,10 +45,10 @@ Begin VB.Form frmMain
       Width           =   5145
       _ExtentX        =   9075
       _ExtentY        =   344
-      Picture         =   "frmMain.frx":08CA
+      Picture         =   "frmMain.frx":2F6A3
       ForeColor       =   8421504
       BarForeColor    =   8421504
-      BarPicture      =   "frmMain.frx":08E6
+      BarPicture      =   "frmMain.frx":2F6BF
       ShowText        =   -1  'True
       Text            =   "[0% Completado]"
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -65,17 +68,12 @@ Begin VB.Form frmMain
       _ExtentY        =   1005
       _Version        =   393216
    End
-   Begin VB.Label LSize 
-      AutoSize        =   -1  'True
-      BackStyle       =   0  'Transparent
-      Caption         =   "L size"
-      ForeColor       =   &H0000FFFF&
+   Begin VB.Image cmdMinimizar 
       Height          =   195
-      Left            =   3615
-      TabIndex        =   2
-      Top             =   5220
-      Visible         =   0   'False
-      Width           =   390
+      Left            =   11520
+      MousePointer    =   99  'Custom
+      Top             =   45
+      Width           =   225
    End
    Begin VB.Label txtUpdate 
       AutoSize        =   -1  'True
@@ -90,10 +88,10 @@ Begin VB.Form frmMain
       Width           =   300
    End
    Begin VB.Image cmdCerrar 
-      Height          =   555
-      Left            =   9345
-      Top             =   270
-      Width           =   555
+      Height          =   195
+      Left            =   11760
+      Top             =   45
+      Width           =   195
    End
 End
 Attribute VB_Name = "frmMain"
@@ -118,8 +116,24 @@ Private Sub cmdCerrar_MouseMove(Button As Integer, Shift As Integer, x As Single
      
 End Sub
 
-Private Sub Form_Load()
+Private Sub cmdMinimizar_Click()
+    If WindowState <> vbMinimized Then WindowState = vbMinimized
+    Visible = True
+End Sub
 
+Private Sub cmdMinimizar_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+    With frmMain
+         .MouseIcon = Iconos.Ico_Mano
+     End With
+End Sub
+
+Private Sub Form_Load()
+   
+   If Launcher.Use = 0 Then
+       txtUpdate.Caption = "Comprobando y registrando (dll/ocx)"
+       Call RevDlls
+   End If
+   
    If Launcher.Play = 1 Then
         Launcher.Play = 0
    End If
@@ -130,9 +144,9 @@ Private Sub Form_Load()
     End With
 
     ProgressBar1.Value = 0
-    LSize.Caption = ""
     ProgressBar1.Text = ""
     txtUpdate.Caption = ""
+    Timer1.Enabled = True
    
 End Sub
 
@@ -164,33 +178,28 @@ Private Sub Inet1_StateChanged(ByVal State As Integer)
             
             FileSize = Inet1.GetHeader("Content-length")
             ProgressBar1.max = FileSize
-            
+            ProgressBar1.BarPicture = Interfaces.BLlena
             
             Open Directory For Binary Access Write As #1
-                vtData = Inet1.GetChunk((1048576 / 2), icByteArray)
+                vtData = Inet1.GetChunk(1024, icByteArray)
                 DoEvents
                 
                 
                 Do While Not Len(vtData) = 0
                     tempArray = vtData
                     Put #1, , tempArray
-                        
-                ProgressBar1.BarPicture = Interfaces.BLlena
-                txtUpdate.Caption = "Descargando: "
             
-                vtData = Inet1.GetChunk((1048576 / 2), icByteArray)
+                vtData = Inet1.GetChunk(1024, icByteArray)
                     
                     ProgressBar1.Value = ProgressBar1.Value + Len(vtData) * 2
-                    LSize.Caption = CLng((ProgressBar1.Value + Len(vtData) * 2) / 1000000) & " MBs de " & CLng((FileSize / 1000000)) & " MBs"
+                    txtUpdate.Caption = "Descargando: " & CLng((ProgressBar1.Value + Len(vtData) * 2) / 1000000) & " MBs de " & CLng((FileSize / 1000000)) & " MBs"
                     ProgressBar1.Text = Round(CDbl(ProgressBar1.Value) * CDbl(100) / CDbl(ProgressBar1.max), 2) _
                             & "%"
-   
-                  '  DoEvents
+                    
+                    DoEvents
+                    
                 Loop
             Close #1
-            
-            'LSize.Caption = FileSize & " bytes"
-            LSize.Visible = False
             
             txtUpdate.Caption = "¡Ok! Actualización finalizada."
             
