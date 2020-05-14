@@ -21,5 +21,12 @@ End Type
 
 Public Launcher As tLauncher
 
+Public Const IpServidor As String = "192.171.19.138"
+Public Const Puerto As Integer = "7669"
 
-
+Public Enum eStatus
+       
+       Online = 1
+       Offline = 2
+       
+End Enum

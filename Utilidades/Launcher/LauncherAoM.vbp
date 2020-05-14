@@ -21,6 +21,7 @@ Class=cStringBuilder; Codigos\Clase\cStringBuilder.cls
 Module=JSON; Codigos\Mod\JSON.bas
 Module=modUnzip; Codigos\Mod\modUnzip.bas
 Module=ModUpdate; Codigos\Mod\ModUpdate.bas
+Object={248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0; MSWINSCK.OCX
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""

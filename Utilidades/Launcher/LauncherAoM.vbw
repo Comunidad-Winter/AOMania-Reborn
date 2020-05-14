@@ -1,11 +1,11 @@
-frmMain = 130, 130, 696, 499, , 52, 52, 188, 336, C
-Declaraciones = 0, 0, 0, 0, C
-General = 26, 26, 162, 310, Z
+frmMain = 130, 130, 696, 499, Z, 52, 52, 188, 336, C
+Declaraciones = 182, 182, 748, 551, 
+General = 26, 26, 162, 310, 
 ModCompression = 130, 130, 696, 499, 
 Logs = 0, 0, 0, 0, C
 ModLoadCompression = 0, 0, 0, 0, C
 Mod_TileEngine = 0, 0, 0, 0, C
-ES = 0, 0, 0, 0, C
+ES = 156, 156, 722, 525, 
 clsIniManager = 0, 0, 0, 0, C
 cJSONScript = 0, 0, 0, 0, C
 cStringBuilder = 0, 0, 0, 0, C

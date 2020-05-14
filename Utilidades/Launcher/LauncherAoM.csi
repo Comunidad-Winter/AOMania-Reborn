@@ -1,8 +1,13 @@
 [History]
-1=#P0#=mb	#P1#=Main	#P2#=LauncherAoMania/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513195406	#P7#=0	#P8#=-1	.
-2=#P0#=mb	#P1#=RegSvr32	#P2#=LauncherAoMania/General/RegSvr32	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513194506	#P7#=0	#P8#=40	.
-3=#P0#=mb	#P1#=Inet1_StateChanged	#P2#=LauncherAoMania/frmMain/Inet1_StateChanged	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200513193810	#P7#=0	#P8#=39	.
-4=#P0#=mb	#P1#=RevDlls	#P2#=LauncherAoMania/General/RevDlls	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513193113	#P7#=0	#P8#=-1	.
-5=#P0#=mb	#P1#=Comprobar_Conexión	#P2#=LauncherAoMania/General/Comprobar_Conexión	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513193112	#P7#=0	#P8#=15	.
-6=#P0#=mb	#P1#=MRRegisterLibrary	#P2#=LauncherAoMania/General/MRRegisterLibrary	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513192814	#P7#=0	#P8#=8	.
-7=#P0#=mb	#P1#=Form_Load	#P2#=LauncherAoMania/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200513192739	#P7#=0	#P8#=4	.
+1=#P0#=mb	#P1#=ChangeStatus	#P2#=LauncherAoMania/General/ChangeStatus	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200514043053	#P7#=0	#P8#=5	.
+2=#P0#=mb	#P1#=Winsock1_Connect	#P2#=LauncherAoMania/frmMain/Winsock1_Connect	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200514042940	#P7#=0	#P8#=2	.
+3=#P0#=mb	#P1#=Winsock1_Error	#P2#=LauncherAoMania/frmMain/Winsock1_Error	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200514043702	#P7#=0	#P8#=4	.
+4=#P0#=mb	#P1#=LoadServer	#P2#=LauncherAoMania/ES/LoadServer	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200514035553	#P7#=0	#P8#=2	.
+5=#P0#=mb	#P1#=SaveConfig	#P2#=LauncherAoMania/ES/SaveConfig	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200514034950	#P7#=0	#P8#=12	.
+6=#P0#=mb	#P1#=Main	#P2#=LauncherAoMania/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200514035612	#P7#=0	#P8#=6	.
+7=#P0#=mb	#P1#=RegSvr32	#P2#=LauncherAoMania/General/RegSvr32	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200514040014	#P7#=0	#P8#=36	.
+8=#P0#=mb	#P1#=Inet1_StateChanged	#P2#=LauncherAoMania/frmMain/Inet1_StateChanged	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200513193810	#P7#=0	#P8#=-1	.
+9=#P0#=mb	#P1#=RevDlls	#P2#=LauncherAoMania/General/RevDlls	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513193113	#P7#=0	#P8#=15	.
+10=#P0#=mb	#P1#=Comprobar_Conexión	#P2#=LauncherAoMania/General/Comprobar_Conexión	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513193112	#P7#=0	#P8#=15	.
+11=#P0#=mb	#P1#=MRRegisterLibrary	#P2#=LauncherAoMania/General/MRRegisterLibrary	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513192814	#P7#=0	#P8#=7	.
+12=#P0#=mb	#P1#=Form_Load	#P2#=LauncherAoMania/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200514035629	#P7#=0	#P8#=-1	.

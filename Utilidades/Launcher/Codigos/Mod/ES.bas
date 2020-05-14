@@ -34,3 +34,10 @@ Public Sub SaveConfig()
       Set Leer = Nothing
       
 End Sub
+
+Public Sub LoadServer()
+       
+       frmMain.Winsock1.RemoteHost = IpServidor
+       frmMain.Winsock1.RemotePort = Puerto
+       
+End Sub

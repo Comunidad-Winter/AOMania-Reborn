@@ -1,6 +1,7 @@
 VERSION 5.00
 Object = "{55473EAC-7715-4257-B5EF-6E14EBD6A5DD}#1.0#0"; "vbalProgBar6.ocx"
 Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form frmMain 
    Appearance      =   0  'Flat
    BackColor       =   &H00000000&
@@ -30,10 +31,17 @@ Begin VB.Form frmMain
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   800
    StartUpPosition =   2  'CenterScreen
+   Begin MSWinsockLib.Winsock Winsock1 
+      Left            =   810
+      Top             =   330
+      _ExtentX        =   741
+      _ExtentY        =   741
+      _Version        =   393216
+   End
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
       Interval        =   1
-      Left            =   720
+      Left            =   1350
       Top             =   330
    End
    Begin vbalProgBarLib6.vbalProgressBar ProgressBar1 
@@ -67,6 +75,17 @@ Begin VB.Form frmMain
       _ExtentX        =   1005
       _ExtentY        =   1005
       _Version        =   393216
+   End
+   Begin VB.Label Label1 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Label1"
+      ForeColor       =   &H00FFFFFF&
+      Height          =   195
+      Left            =   840
+      TabIndex        =   2
+      Top             =   1260
+      Width           =   465
    End
    Begin VB.Image cmdMinimizar 
       Height          =   195
@@ -128,7 +147,10 @@ Private Sub cmdMinimizar_MouseMove(Button As Integer, Shift As Integer, x As Sin
 End Sub
 
 Private Sub Form_Load()
-   
+
+   Call LoadServer
+   Winsock1.Connect
+      
    If Launcher.Use = 0 Then
        txtUpdate.Caption = "Comprobando y registrando (dll/ocx)"
        Call RevDlls
@@ -224,4 +246,16 @@ Private Sub Timer1_Timer()
 
     End If
 
+End Sub
+
+Private Sub Winsock1_Connect()
+     Label1.Caption = "Online"
+     Call ChangeStatus(eStatus.Online)
+     Winsock1.Close
+End Sub
+
+Private Sub Winsock1_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+      Label1.Caption = "Offline"
+      Call ChangeStatus(eStatus.Offline)
+      Winsock1.Close
 End Sub

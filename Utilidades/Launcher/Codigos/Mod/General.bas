@@ -30,6 +30,8 @@ Sub Main()
      Call LoadInterfaces
      Call LoadConfig
      
+     DoEvents
+     
      frmMain.Show
       
 End Sub
@@ -154,3 +156,18 @@ Else
 End If
     RegSvr32 = bAns
 End Function
+
+Public Sub ChangeStatus(ByVal Status As Byte)
+
+        Select Case Status
+            
+            Case eStatus.Online
+                MsgBox "Online"
+            Exit Sub
+            
+            Case eStatus.Offline
+            Exit Sub
+            
+        End Select
+        
+End Sub
