@@ -1133,7 +1133,23 @@ Function FileExist(ByVal File As String, ByVal FileType As VbFileAttribute) As B
 End Function
 
 Sub Main()
-        
+            
+    #If Launcher = 1 Then
+          
+          Call LoadDataLauncher
+          
+          If PlayLauncher = 0 Then
+               MsgBox "¡Para ejecutar AoMania.exe, debes pasar primero por el Launcher!", vbInformation
+               End
+          
+          ElseIf PlayLauncher = 1 Then
+                PlayLauncher = 0
+                Call SaveDataLauncher
+                
+          End If
+          
+     #End If
+     
     Set AodefConv = New AoDefenderConverter
         
     Call InitializeCompression
@@ -1688,4 +1704,16 @@ Sub DayNameChange(ByVal Hora As Byte)
         If Hora >= 19 And Hora <= 21 Then NameDay = "Tarde"
         If Hora >= 22 And Hora <= 24 Then NameDay = "Noche"
        
+End Sub
+
+Sub LoadDataLauncher()
+       
+       PlayLauncher = Val(GetVar(DirConfiguracion & "Launcher.dat", "CONFIG", "Play"))
+       
+End Sub
+
+Sub SaveDataLauncher()
+      
+      Call WriteVar(DirConfiguracion & "Launcher.dat", "CONFIG", "Play", PlayLauncher)
+      
 End Sub

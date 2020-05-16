@@ -134,7 +134,7 @@ VersionCompanyName="AoMania"
 VersionFileDescription="AoMania"
 VersionLegalCopyright="AoMania"
 VersionLegalTrademarks="AoMania"
-CondComp="ClienteGM = 0"
+CondComp="ClienteGM = 0 : Launcher = 0"
 CompilationType=0
 OptimizationType=0
 FavorPentiumPro(tm)=0

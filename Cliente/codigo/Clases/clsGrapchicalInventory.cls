@@ -28,7 +28,7 @@ Private ImgContainer               As Boolean
 
 Private InventoryRect              As D3DRECT
 Private w                          As Long
-Private h                          As Long
+Private H                          As Long
 Private Inventory()                As Inventory    'User's inventory
 
 Private WithEvents InventoryWindow As PictureBox    'Placeholder where to render the inventory
@@ -58,9 +58,9 @@ Public Sub DeselectItem()
 
 End Sub
 
-Public Sub ChangeSlotItemAmount(ByVal slot As Byte, ByVal Amount As Long)
+Public Sub ChangeSlotItemAmount(ByVal Slot As Byte, ByVal Amount As Long)
     
-    Inventory(slot).Amount = Amount
+    Inventory(Slot).Amount = Amount
 
     RenderInv
 
@@ -72,73 +72,73 @@ Public Property Get SelectedItem() As Long
 
 End Property
 
-Public Property Get MaxHit(ByVal slot As Byte) As Integer
+Public Property Get MaxHit(ByVal Slot As Byte) As Integer
 
-    MaxHit = Inventory(slot).MaxHit
-
-End Property
-
-Public Property Get MinHit(ByVal slot As Byte) As Integer
-
-    MinHit = Inventory(slot).MinHit
+    MaxHit = Inventory(Slot).MaxHit
 
 End Property
 
-Public Property Get MaxDef(ByVal slot As Byte) As Integer
+Public Property Get MinHit(ByVal Slot As Byte) As Integer
 
-    MaxDef = Inventory(slot).MaxDef
-
-End Property
-
-Public Property Get MinDef(ByVal slot As Byte) As Integer
-
-    MinDef = Inventory(slot).MinDef
+    MinHit = Inventory(Slot).MinHit
 
 End Property
 
-Public Property Get GrhIndex(ByVal slot As Byte) As Long
+Public Property Get MaxDef(ByVal Slot As Byte) As Integer
 
-    GrhIndex = Inventory(slot).GrhIndex
-
-End Property
-
-Public Property Get Valor(ByVal slot As Byte) As Single
-
-    Valor = Inventory(slot).Valor
+    MaxDef = Inventory(Slot).MaxDef
 
 End Property
 
-Public Property Get Amount(ByVal slot As Byte) As Long
+Public Property Get MinDef(ByVal Slot As Byte) As Integer
 
-    If slot = FLAGORO Then
+    MinDef = Inventory(Slot).MinDef
+
+End Property
+
+Public Property Get GrhIndex(ByVal Slot As Byte) As Long
+
+    GrhIndex = Inventory(Slot).GrhIndex
+
+End Property
+
+Public Property Get Valor(ByVal Slot As Byte) As Single
+
+    Valor = Inventory(Slot).Valor
+
+End Property
+
+Public Property Get Amount(ByVal Slot As Byte) As Long
+
+    If Slot = FLAGORO Then
         Amount = UserGLD
-    ElseIf slot >= LBound(Inventory) And slot <= UBound(Inventory) Then
-        Amount = Inventory(slot).Amount
+    ElseIf Slot >= LBound(Inventory) And Slot <= UBound(Inventory) Then
+        Amount = Inventory(Slot).Amount
     End If
 
 End Property
 
-Public Property Get ObjIndex(ByVal slot As Byte) As Integer
+Public Property Get ObjIndex(ByVal Slot As Byte) As Integer
 
-    ObjIndex = Inventory(slot).ObjIndex
-
-End Property
-
-Public Property Get ObjType(ByVal slot As Byte) As Integer
-
-    ObjType = Inventory(slot).ObjType
+    ObjIndex = Inventory(Slot).ObjIndex
 
 End Property
 
-Public Property Get ItemName(ByVal slot As Byte) As String
+Public Property Get ObjType(ByVal Slot As Byte) As Integer
 
-    ItemName = Inventory(slot).Name
+    ObjType = Inventory(Slot).ObjType
 
 End Property
 
-Public Property Get Equipped(ByVal slot As Byte) As Boolean
+Public Property Get ItemName(ByVal Slot As Byte) As String
 
-    Equipped = Inventory(slot).Equipped
+    ItemName = Inventory(Slot).Name
+
+End Property
+
+Public Property Get Equipped(ByVal Slot As Byte) As Boolean
+
+    Equipped = Inventory(Slot).Equipped
 
 End Property
 
@@ -160,25 +160,25 @@ Public Sub ToggleShowValue(ByVal bShow As Boolean)
 
     ShowValue = bShow
     
-    Dim slot As Long
+    Dim Slot As Long
 
-    For slot = 1 To Me.MaxObjs
+    For Slot = 1 To Me.MaxObjs
         RenderInv
-    Next slot
+    Next Slot
 
 End Sub
 
 Public Sub ClearAllSlots()
 
-    Dim slot As Long
+    Dim Slot As Long
 
-    For slot = 1 To Me.MaxObjs
-        Call SetItem(slot, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, vbNullString)
-    Next slot
+    For Slot = 1 To Me.MaxObjs
+        Call SetItem(Slot, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, vbNullString)
+    Next Slot
 
 End Sub
 
-Public Sub SetItem(ByVal slot As Byte, _
+Public Sub SetItem(ByVal Slot As Byte, _
     ByVal eOBJIndex As Integer, _
     ByVal eAmount As Long, _
     ByVal eEquipped As Byte, _
@@ -191,9 +191,9 @@ Public Sub SetItem(ByVal slot As Byte, _
     ByVal eValor As Single, _
     ByVal eName As String)
 
-    If slot < 1 Or slot > UBound(Inventory) Then Exit Sub
+    If Slot < 1 Or Slot > UBound(Inventory) Then Exit Sub
     
-    With Inventory(slot)
+    With Inventory(Slot)
         .Amount = eAmount
         .MaxDef = eMaxDef
         .MinDef = eMinDef
@@ -212,14 +212,14 @@ Public Sub SetItem(ByVal slot As Byte, _
 
 End Sub
 
-Private Function ClickItem(ByVal x As Long, ByVal y As Long) As Long
+Private Function ClickItem(ByVal X As Long, ByVal Y As Long) As Long
 
     Dim TempItem As Long
     Dim Temp_X   As Long
     Dim Temp_Y   As Long
     
-    Temp_X = x \ ownTilePixelWidth
-    Temp_Y = y \ ownTilePixelHeight
+    Temp_X = X \ ownTilePixelWidth
+    Temp_Y = Y \ ownTilePixelHeight
     
     TempItem = Temp_X + Temp_Y * (InventoryWindow.ScaleWidth \ ownTilePixelWidth) + 1
     
@@ -232,18 +232,18 @@ End Function
 
 Public Sub RenderInv()
 
-    Dim LoopC As Long
+    Dim LooPC As Long
 
     DirectDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
     DirectDevice.BeginScene
     
-    For LoopC = 1 To UBound(Inventory)
-        startdX = ((LoopC - 1) Mod w) * ownTilePixelHeight
-        startdY = ((LoopC - 1) \ h) * ownTilePixelHeight
+    For LooPC = 1 To UBound(Inventory)
+        startdX = ((LooPC - 1) Mod w) * ownTilePixelHeight
+        startdY = ((LooPC - 1) \ H) * ownTilePixelHeight
 
-        If Inventory(LoopC).GrhIndex Then
+        If Inventory(LooPC).GrhIndex Then
        
-            If InvSelectedItem = LoopC Then
+            If InvSelectedItem = LooPC Then
                 If ImgContainer Then
                     Directx_Render_Texture CLng(2), startdX, startdY, 32, 32, 64, 0, White
 
@@ -251,10 +251,10 @@ Public Sub RenderInv()
 
             End If
             
-            Directx_Render_Texture CLng(GrhData(Inventory(LoopC).GrhIndex).FileNum), startdX, startdY, 32, 32, GrhData(Inventory( _
-                LoopC).GrhIndex).sX, GrhData(Inventory(LoopC).GrhIndex).sY, White
+            Directx_Render_Texture CLng(GrhData(Inventory(LooPC).GrhIndex).FileNum), startdX, startdY, 32, 32, GrhData(Inventory( _
+                LooPC).GrhIndex).sX, GrhData(Inventory(LooPC).GrhIndex).sY, White
 
-            If Inventory(LoopC).Equipped Then
+            If Inventory(LooPC).Equipped Then
                 Text_Draw startdX + 19, startdY + 21, "+", White
 
             End If
@@ -265,7 +265,7 @@ Public Sub RenderInv()
 
                'sValue = Replace$(Inventory(LoopC).Amount, "0000", "0K")
                
-               sValue = Inventory(LoopC).Amount
+               sValue = Inventory(LooPC).Amount
             
                 Text_Draw startdX, startdY, sValue, Yellow
 
@@ -273,9 +273,9 @@ Public Sub RenderInv()
     
         End If
         
-    Next LoopC
+    Next LooPC
             
-    Call Directx_EndScene(InventoryRect, InventoryWindow.HWnd)
+    Call Directx_EndScene(InventoryRect, InventoryWindow.hwnd)
 
 End Sub
 
@@ -315,19 +315,19 @@ Public Sub Initialize(ByRef InvPic As PictureBox, _
     End With
     
     w = InventoryWindow.ScaleWidth / ownTilePixelWidth
-    h = InventoryWindow.ScaleWidth / ownTilePixelHeight
+    H = InventoryWindow.ScaleWidth / ownTilePixelHeight
        
     If ImgContainer Then InvSelectedItem = ClickItem(1, 1)
 
 End Sub
     
-Private Sub InventoryWindow_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub InventoryWindow_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
     Dim TempItem As Integer
     
-    If x < 0 Or y < 0 Or x > InventoryWindow.Width Or y > InventoryWindow.Height Then Exit Sub
+    If X < 0 Or Y < 0 Or X > InventoryWindow.Width Or Y > InventoryWindow.Height Then Exit Sub
 
-    TempItem = ClickItem(x, y)
+    TempItem = ClickItem(X, Y)
     
     If TempItem <= UBound(Inventory) And TempItem > 0 Then
         Dim tStr As String
@@ -343,15 +343,15 @@ Private Sub InventoryWindow_MouseMove(Button As Integer, Shift As Integer, x As 
     
 End Sub
 
-Private Sub InventoryWindow_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub InventoryWindow_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
-    If x < 0 Or y < 0 Or x > InventoryWindow.Width Or y > InventoryWindow.Height Then Exit Sub
+    If X < 0 Or Y < 0 Or X > InventoryWindow.Width Or Y > InventoryWindow.Height Then Exit Sub
                 
     If (Button = vbRightButton) Then
 
         Dim TempItem As Long
 
-        TempItem = ClickItem(x, y)
+        TempItem = ClickItem(X, Y)
 
         If (Inventory(TempItem).GrhIndex > 0) Then
             MouseDownSelectedItem = TempItem
@@ -366,15 +366,15 @@ Private Sub InventoryWindow_MouseDown(Button As Integer, Shift As Integer, x As 
         
 End Sub
 
-Private Sub InventoryWindow_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub InventoryWindow_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
     Dim prevSelItem As Long
 
-    If x < 0 Or y < 0 Or x > InventoryWindow.Width Or y > InventoryWindow.Height Then Exit Sub
+    If X < 0 Or Y < 0 Or X > InventoryWindow.Width Or Y > InventoryWindow.Height Then Exit Sub
     
     prevSelItem = InvSelectedItem
 
-    InvSelectedItem = ClickItem(x, y)
+    InvSelectedItem = ClickItem(X, Y)
 
     If Button = vbRightButton Then
 

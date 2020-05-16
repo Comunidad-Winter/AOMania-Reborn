@@ -2311,12 +2311,12 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
                 Dim Line        As String
 
                 Line = Left$(.Nombre, pos - 2)
-                lCenter = (Len(Line) * 6 / 2) - 15
+                lCenter = (Len(Line) * 6 / 2) - 17
                                             
                 Dim sClan As String
 
                 sClan = mid$(.Nombre, pos)
-                lCenterClan = (Len(sClan) * 6 / 2) - 15
+                lCenterClan = (Len(sClan) * 6 / 2) - 17
 
                 If .Criminal = 1 Then
                     'ColorClan = RGB(255, 0, 0)
@@ -2498,7 +2498,7 @@ Public Sub DarNickNpcs(ByVal charindex As Integer, _
                    Dim Line        As String
 
                 Line = Left$(.NombreNpc, pos - 2)
-                 lCenter = (Len(Line) * 6 / 2) - 15
+                 lCenter = (Len(Line) * 6 / 2) - 19
                                         
                  Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
                  
@@ -3090,10 +3090,10 @@ Private Sub ShowNextFrame()
 
     Call Text_Draw(0, 0, NameMap & " (" & UserMap & " X: " & UserPos.X & " Y: " & UserPos.Y & ")", White)
 
-    Call Text_Draw(465, 0, "Hora: " & TimeChange & ":00", White)
-    Call Text_Draw(415, 0, "FPS: " & FPS, White)
-    Call Text_Draw(465, 16, NameDay, White)
-    Call Text_Draw(430, 32, "Hay " & NumUsers & " Usuarios Online.", Onlines)
+    Call Text_Draw(675, 0, "Hora: " & TimeChange & ":00", White)
+    Call Text_Draw(625, 0, "FPS: " & FPS, White)
+    Call Text_Draw(675, 16, NameDay, White)
+    Call Text_Draw(623, 32, "Hay " & NumUsers & " Usuarios Online.", Onlines)
     
     If Not SeguroCvc = True Then
         Call Text_Draw(0, 91, "P", ColorSD)

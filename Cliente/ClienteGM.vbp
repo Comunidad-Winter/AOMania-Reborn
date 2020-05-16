@@ -1,5 +1,5 @@
 Type=Exe
-Reference=*\G{E1211242-8E94-11D1-8808-00C04FC2C603}#1.0#0#C:\Windows\SysWow64\dx8vb.dll#DirectX 8 for Visual Basic Type Library
+Reference=*\G{E1211242-8E94-11D1-8808-00C04FC2C603}#1.0#0#..\..\SethNew\Launcher\libs\dx8vb.dll#DirectX 8 for Visual Basic Type Library
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\SysWOW64\stdole2.tlb#OLE Automation
 Reference=*\G{420B2830-E718-11CF-893D-00A0C9054228}#1.0#0#C:\Windows\SysWOW64\scrrun.dll#Microsoft Scripting Runtime
 Object={EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}#1.1#0; ieframe.dll
@@ -83,10 +83,10 @@ Form=Codigo\Cliente GM\frmPaneldeGM.frm
 Form=Codigo\Frm\frmBuscar.frm
 Form=Codigo\Frm\frmBaneos.frm
 Form=Codigo\Frm\FmSos.frm
-Object={3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0; richtx32.ocx
+Object={3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0; RICHTX32.OCX
 Object={B370EF78-425C-11D1-9A28-004033CA9316}#2.0#0; Captura.ocx
 Class=clsIniManager; Codigo\Clases\clsIniManager.cls
-Object={55473EAC-7715-4257-B5EF-6E14EBD6A5DD}#1.0#0; VBALPROGBAR6.ocx
+Object={55473EAC-7715-4257-B5EF-6E14EBD6A5DD}#1.0#0; vbalProgBar6.ocx
 Module=MD5; Codigo\Mod\MD5.bas
 Module=Mod_TCP; Codigo\Cliente GM\TCP.bas
 Form=Codigo\Cliente GM\frmMain.frm
@@ -96,7 +96,7 @@ Form=Codigo\Frm\frmListClanes.frm
 Form=Codigo\Frm\frmExpulsarClan.frm
 Form=Codigo\Frm\frmCreditos.frm
 Form=Codigo\Frm\frmCanjes.frm
-Object={6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0; comctl32.ocx
+Object={6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0; COMCTL32.OCX
 Module=Mod_TCP2; Codigo\Mod\Mod_TCP2.bas
 Form=Codigo\Frm\frmParty.frm
 Form=Codigo\Frm\frmBancoDepositar.frm
@@ -144,7 +144,7 @@ VersionFileDescription="AoManiaClienteGM"
 VersionLegalCopyright="AoManiaClienteGM"
 VersionLegalTrademarks="AoMania"
 VersionProductName="AoManiaClienteGM"
-CondComp="clientegm = 1"
+CondComp="clientegm = 1 : Launcher = 0"
 CompilationType=0
 OptimizationType=0
 FavorPentiumPro(tm)=0

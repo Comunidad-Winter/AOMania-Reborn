@@ -205,7 +205,7 @@ End Enum
 'Objetos
 Public Const MAX_INVENTORY_OBJS      As Integer = 10000
 Public Const MAX_INVENTORY_SLOTS     As Byte = 64
-Public Const MAX_NPC_INVENTORY_SLOTS As Byte = 50
+Public Const MAX_NPC_INVENTORY_SLOTS As Byte = 64
 Public Const MAXHECHI                As Byte = 35
 
 Public Const MAXSKILLPOINTS          As Byte = 100
@@ -771,3 +771,5 @@ Public Type tClanPos
 End Type
 
 Public ClanPos(1 To 10) As tClanPos
+
+Public PlayLauncher As Integer

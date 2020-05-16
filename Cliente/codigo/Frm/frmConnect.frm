@@ -228,7 +228,8 @@ Private Sub Form_Activate()
     
     If i = 0 Then
         i = i + 1
-        'Call Audio.PlayWave("173.wav")
+
+        Call Audio.PlayWave("173.wav")
     End If
  
 End Sub
@@ -240,9 +241,12 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
-   If KeyCode = 13 Then
-     Call Image2_Click
-   End If
+
+    If KeyCode = 13 Then
+        Call Image2_Click
+
+    End If
+
 End Sub
 
 Private Sub Form_Load()
@@ -250,7 +254,7 @@ Private Sub Form_Load()
     EngineRun = False
     '[END]
     
-    Version.Caption = "v" & App.Major & "." & App.Minor & " Build: " & App.Revision
+    version.Caption = "v" & App.Major & "." & App.Minor & " Build: " & App.Revision
     
     Set FONDO.Picture = Interfaces.FrmConnect_Principal
     Set Image2.Picture = Interfaces.FrmConnect_BtConectar
@@ -264,6 +268,21 @@ Private Sub Form_Load()
 
 End Sub
 
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+
+    If Check1.Value = 1 Then
+        SaveSetting App.exeName, "textos", "Pasword", PasswordTXT.Text
+        SaveSetting App.exeName, "textos", "Cuenta", NombreTXT.Text
+        SaveSetting App.exeName, "textos", "Check", Check1.Value
+    ElseIf Check1.Value = 0 Then
+        SaveSetting App.exeName, "textos", "Pasword", ""
+        SaveSetting App.exeName, "textos", "Cuenta", ""
+        SaveSetting App.exeName, "textos", "Check", Check1.Value
+
+    End If
+
+End Sub
+
 Private Sub Image1_Click()
     
     Call Audio.PlayWave(SND_CLICK)
@@ -272,7 +291,10 @@ Private Sub Image1_Click()
 
 End Sub
 
-Private Sub Image1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Image1_MouseMove(Button As Integer, _
+                             Shift As Integer, _
+                             X As Single, _
+                             Y As Single)
                              
     Set Image1.Picture = Interfaces.FrmConnect_BtCrearPjApretado
 
@@ -284,8 +306,8 @@ Private Sub Image2_Click()
   
     'If frmMain.Socket1.Connected Then frmMain.Socket1.Disconnect
 
-   'If frmConnect.MousePointer = 11 Then
-      '  Exit Sub
+    'If frmConnect.MousePointer = 11 Then
+    '  Exit Sub
     'End If
            
     UserName = NombreTXT.Text
@@ -304,18 +326,22 @@ Private Sub Image2_Click()
     End If
     
     If Check1.Value = 1 Then
-    SaveSetting App.exeName, "textos", "Pasword", PasswordTXT.Text
-    SaveSetting App.exeName, "textos", "Cuenta", NombreTXT.Text
-    SaveSetting App.exeName, "textos", "Check", Check1.Value
+        SaveSetting App.exeName, "textos", "Pasword", PasswordTXT.Text
+        SaveSetting App.exeName, "textos", "Cuenta", NombreTXT.Text
+        SaveSetting App.exeName, "textos", "Check", Check1.Value
     ElseIf Check1.Value = 0 Then
-    SaveSetting App.exeName, "textos", "Pasword", ""
-    SaveSetting App.exeName, "textos", "Cuenta", ""
-    SaveSetting App.exeName, "textos", "Check", Check1.Value
+        SaveSetting App.exeName, "textos", "Pasword", ""
+        SaveSetting App.exeName, "textos", "Cuenta", ""
+        SaveSetting App.exeName, "textos", "Check", Check1.Value
+
     End If
 
 End Sub
 
-Private Sub Image2_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Image2_MouseMove(Button As Integer, _
+                             Shift As Integer, _
+                             X As Single, _
+                             Y As Single)
                              
     Set Image2.Picture = Interfaces.FrmConnect_BtConectarApretado
 
@@ -327,7 +353,10 @@ Private Sub Image3_Click()
 
 End Sub
 
-Private Sub Image3_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Image3_MouseMove(Button As Integer, _
+                             Shift As Integer, _
+                             X As Single, _
+                             Y As Single)
 
     Set Image3.Picture = Interfaces.FrmConnect_BtRecuperarApretado
 
@@ -355,14 +384,4 @@ Private Sub PasswordTxt_KeyDown(KeyCode As Integer, Shift As Integer)
 
     If KeyCode = vbKeyReturn Then Call Image2_Click
 
-End Sub
-
-Private Sub Winsock1_Connect()
-       lblStatus = "Servidor online"
-       lblStatus.ForeColor = &H8000&
-End Sub
-
-Private Sub Winsock1_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
-      lblStatus = "Servidor cerrado"
-      lblStatus.ForeColor = &HC0&
 End Sub
