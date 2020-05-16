@@ -204,7 +204,7 @@ End Enum
 
 'Objetos
 Public Const MAX_INVENTORY_OBJS      As Integer = 10000
-Public Const MAX_INVENTORY_SLOTS     As Byte = 25
+Public Const MAX_INVENTORY_SLOTS     As Byte = 64
 Public Const MAX_NPC_INVENTORY_SLOTS As Byte = 50
 Public Const MAXHECHI                As Byte = 35
 

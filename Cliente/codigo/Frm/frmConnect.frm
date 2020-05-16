@@ -318,7 +318,7 @@ End Sub
 
 Private Sub Image4_Click()
     Call Audio.PlayWave(SND_CLICK)
-    Shell "explorer " & "http:\\www.AoMania.net", vbNormalFocus
+    Shell "explorer " & "https:\\www.AoMania.net", vbNormalFocus
 
 End Sub
 

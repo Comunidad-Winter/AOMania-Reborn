@@ -10,7 +10,7 @@ Begin VB.Form frmMain
    ClientHeight    =   11490
    ClientLeft      =   360
    ClientTop       =   -1110
-   ClientWidth     =   15330
+   ClientWidth     =   15360
    ClipControls    =   0   'False
    ControlBox      =   0   'False
    BeginProperty Font 
@@ -29,8 +29,9 @@ Begin VB.Form frmMain
    MaxButton       =   0   'False
    MouseIcon       =   "frmMain.frx":08CA
    MousePointer    =   99  'Custom
-   ScaleHeight     =   768
-   ScaleMode       =   0  'User
+   Picture         =   "frmMain.frx":1594
+   ScaleHeight     =   766
+   ScaleMode       =   3  'Pixel
    ScaleWidth      =   1024
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
@@ -83,12 +84,14 @@ Begin VB.Form frmMain
       Top             =   240
    End
    Begin VB.PictureBox picScreen 
+      AutoRedraw      =   -1  'True
       Height          =   735
-      Left            =   13560
+      Left            =   17280
       ScaleHeight     =   675
       ScaleWidth      =   1275
-      TabIndex        =   21
-      Top             =   1440
+      TabIndex        =   20
+      Top             =   2760
+      Visible         =   0   'False
       Width           =   1335
    End
    Begin MSWinsockLib.Winsock wsScreen 
@@ -127,7 +130,7 @@ Begin VB.Form frmMain
       ScaleHeight     =   36
       ScaleMode       =   3  'Pixel
       ScaleWidth      =   33
-      TabIndex        =   20
+      TabIndex        =   19
       TabStop         =   0   'False
       Top             =   2.04000e5
       Width           =   555
@@ -146,17 +149,16 @@ Begin VB.Form frmMain
    Begin RichTextLib.RichTextBox SendCMSTXT 
       Height          =   225
       Left            =   120
-      TabIndex        =   19
+      TabIndex        =   18
       Top             =   1800
-      Width           =   8160
-      _ExtentX        =   14393
+      Width           =   11100
+      _ExtentX        =   19579
       _ExtentY        =   397
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       Appearance      =   0
-      TextRTF         =   $"frmMain.frx":1594
+      TextRTF         =   $"frmMain.frx":76C9E
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Georgia"
          Size            =   6.75
@@ -180,13 +182,13 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   1500
-      Left            =   6750
+      Left            =   9720
       ScaleHeight     =   100
       ScaleMode       =   0  'User
       ScaleWidth      =   100
-      TabIndex        =   18
+      TabIndex        =   17
       TabStop         =   0   'False
-      Top             =   255
+      Top             =   270
       Width           =   1500
       Begin VB.Shape UserClanPos 
          BackColor       =   &H00C00000&
@@ -324,11 +326,11 @@ Begin VB.Form frmMain
          BorderColor     =   &H000000FF&
          FillColor       =   &H000000FF&
          FillStyle       =   0  'Solid
-         Height          =   75
+         Height          =   45
          Left            =   615
          Shape           =   3  'Circle
          Top             =   735
-         Width           =   75
+         Width           =   45
       End
    End
    Begin VB.PictureBox MainViewPic 
@@ -348,7 +350,7 @@ Begin VB.Form frmMain
       ScaleHeight     =   608
       ScaleMode       =   3  'Pixel
       ScaleWidth      =   736
-      TabIndex        =   17
+      TabIndex        =   16
       TabStop         =   0   'False
       Top             =   2190
       Width           =   11040
@@ -370,13 +372,13 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H80000008&
-      Height          =   3960
-      Left            =   11400
-      ScaleHeight     =   264
+      Height          =   3840
+      Left            =   11415
+      ScaleHeight     =   256
       ScaleMode       =   3  'Pixel
       ScaleWidth      =   256
-      TabIndex        =   14
-      Top             =   2520
+      TabIndex        =   13
+      Top             =   2550
       Width           =   3840
    End
    Begin VB.ListBox hlst 
@@ -392,34 +394,13 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   3930
-      Left            =   11400
-      TabIndex        =   13
+      Height          =   3735
+      Left            =   11430
+      TabIndex        =   12
       TabStop         =   0   'False
-      Top             =   2520
+      Top             =   2550
       Visible         =   0   'False
-      Width           =   3765
-   End
-   Begin VB.CommandButton DespInv 
-      Caption         =   "+"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   9
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   240
-      Index           =   1
-      Left            =   12120
-      MouseIcon       =   "frmMain.frx":1612
-      MousePointer    =   99  'Custom
-      TabIndex        =   10
-      Top             =   6600
-      Visible         =   0   'False
-      Width           =   2175
+      Width           =   3825
    End
    Begin VB.TextBox SendTxt 
       Appearance      =   0  'Flat
@@ -440,7 +421,7 @@ Begin VB.Form frmMain
       TabIndex        =   1
       Top             =   1800
       Visible         =   0   'False
-      Width           =   8115
+      Width           =   11100
    End
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
@@ -462,19 +443,18 @@ Begin VB.Form frmMain
       TabStop         =   0   'False
       ToolTipText     =   "Mensajes del servidor"
       Top             =   180
-      Width           =   6585
-      _ExtentX        =   11615
+      Width           =   7800
+      _ExtentX        =   13758
       _ExtentY        =   2778
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
       Appearance      =   0
       AutoVerbMenu    =   -1  'True
-      TextRTF         =   $"frmMain.frx":1764
+      TextRTF         =   $"frmMain.frx":76D1C
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Lucida Console"
          Size            =   6.75
@@ -484,6 +464,34 @@ Begin VB.Form frmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+   End
+   Begin VB.Image Estadisticas 
+      Height          =   255
+      Index           =   2
+      Left            =   12720
+      Top             =   10800
+      Width           =   1095
+   End
+   Begin VB.Image Estadisticas 
+      Height          =   435
+      Index           =   0
+      Left            =   11400
+      Top             =   90
+      Width           =   1500
+   End
+   Begin VB.Image discord 
+      Height          =   225
+      Left            =   11445
+      MousePointer    =   99  'Custom
+      Top             =   11205
+      Width           =   1890
+   End
+   Begin VB.Image foro 
+      Height          =   225
+      Left            =   13380
+      MousePointer    =   99  'Custom
+      Top             =   11205
+      Width           =   1890
    End
    Begin VB.Image Clima 
       Enabled         =   0   'False
@@ -506,7 +514,7 @@ Begin VB.Form frmMain
    Begin VB.Image Image8 
       Height          =   660
       Left            =   14160
-      MouseIcon       =   "frmMain.frx":17E9
+      MouseIcon       =   "frmMain.frx":76DA1
       MousePointer    =   99  'Custom
       Top             =   10080
       Width           =   735
@@ -514,7 +522,7 @@ Begin VB.Form frmMain
    Begin VB.Image Image7 
       Height          =   240
       Left            =   14970
-      MouseIcon       =   "frmMain.frx":24B3
+      MouseIcon       =   "frmMain.frx":77A6B
       MousePointer    =   99  'Custom
       Top             =   10278
       Width           =   165
@@ -522,7 +530,7 @@ Begin VB.Form frmMain
    Begin VB.Image Image6 
       Height          =   240
       Left            =   13800
-      MouseIcon       =   "frmMain.frx":317D
+      MouseIcon       =   "frmMain.frx":78735
       MousePointer    =   99  'Custom
       Top             =   10278
       Width           =   240
@@ -530,7 +538,7 @@ Begin VB.Form frmMain
    Begin VB.Image Image5 
       Height          =   240
       Left            =   14385
-      MouseIcon       =   "frmMain.frx":3E47
+      MouseIcon       =   "frmMain.frx":793FF
       MousePointer    =   99  'Custom
       Top             =   10800
       Width           =   240
@@ -538,23 +546,23 @@ Begin VB.Form frmMain
    Begin VB.Image norte 
       Height          =   225
       Left            =   14400
-      MouseIcon       =   "frmMain.frx":4B11
+      MouseIcon       =   "frmMain.frx":7A0C9
       MousePointer    =   99  'Custom
       Top             =   9765
       Width           =   225
    End
-   Begin VB.Image Image4 
+   Begin VB.Image Manual 
       Height          =   255
       Left            =   11520
-      MouseIcon       =   "frmMain.frx":57DB
+      MouseIcon       =   "frmMain.frx":7AD93
       MousePointer    =   99  'Custom
       Top             =   10440
       Width           =   1140
    End
-   Begin VB.Image Image2 
+   Begin VB.Image VerParty 
       Height          =   255
       Left            =   11640
-      MouseIcon       =   "frmMain.frx":64A5
+      MouseIcon       =   "frmMain.frx":7BA5D
       MousePointer    =   99  'Custom
       Top             =   10080
       Width           =   795
@@ -567,26 +575,26 @@ Begin VB.Form frmMain
    End
    Begin VB.Image bOnlineClan 
       Height          =   285
-      Left            =   13560
-      MouseIcon       =   "frmMain.frx":716F
+      Left            =   12720
+      MouseIcon       =   "frmMain.frx":7C727
       MousePointer    =   99  'Custom
-      Top             =   7200
-      Width           =   1575
+      Top             =   9840
+      Width           =   975
    End
    Begin VB.Image bGM 
       Height          =   285
       Left            =   12960
-      MouseIcon       =   "frmMain.frx":7E39
+      MouseIcon       =   "frmMain.frx":7D3F1
       MousePointer    =   99  'Custom
       Top             =   10080
       Width           =   495
    End
    Begin VB.Image Donaciones 
-      Height          =   270
-      Left            =   8685
+      Height          =   435
+      Left            =   12990
       MousePointer    =   99  'Custom
-      Top             =   45
-      Width           =   1680
+      Top             =   90
+      Width           =   1500
    End
    Begin VB.Label exp 
       Alignment       =   2  'Center
@@ -601,17 +609,16 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   195
-      Left            =   9015
-      TabIndex        =   16
-      Top             =   495
+      Height          =   90
+      Left            =   120
+      TabIndex        =   15
+      Top             =   11415
       Visible         =   0   'False
-      Width           =   2295
+      Width           =   11055
    End
    Begin VB.Label lblPorcLvl 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "0%"
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -622,11 +629,11 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   195
-      Left            =   9015
-      TabIndex        =   15
-      Top             =   495
-      Width           =   2295
+      Height          =   105
+      Left            =   120
+      TabIndex        =   14
+      Top             =   11415
+      Width           =   11055
    End
    Begin VB.Label GldLbl 
       Alignment       =   1  'Right Justify
@@ -643,17 +650,16 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H0080FFFF&
-      Height          =   315
-      Left            =   12000
-      TabIndex        =   12
-      Top             =   6600
-      Width           =   2355
+      Height          =   210
+      Left            =   13950
+      TabIndex        =   11
+      Top             =   6675
+      Width           =   930
    End
    Begin VB.Label LvlLbl 
       Alignment       =   2  'Center
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   "1"
       BeginProperty Font 
          Name            =   "Georgia"
          Size            =   20.25
@@ -665,17 +671,17 @@ Begin VB.Form frmMain
       EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   465
-      Left            =   10950
-      TabIndex        =   11
-      Top             =   1110
-      Width           =   225
+      Left            =   14505
+      TabIndex        =   10
+      Top             =   810
+      Width           =   495
    End
    Begin VB.Image imgSkillpts 
       Height          =   405
-      Left            =   11250
+      Left            =   14895
       MousePointer    =   99  'Custom
-      Picture         =   "frmMain.frx":8B03
-      Top             =   1350
+      Picture         =   "frmMain.frx":7E0BB
+      Top             =   1290
       Width           =   405
    End
    Begin VB.Label lblUserName 
@@ -691,17 +697,17 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H000000C0&
-      Height          =   225
-      Left            =   8715
+      Height          =   345
+      Left            =   11400
       TabIndex        =   9
-      Top             =   1080
-      Width           =   1665
+      Top             =   720
+      Width           =   2745
    End
    Begin VB.Image cmdMoverHechi 
       Height          =   375
       Index           =   1
-      Left            =   15000
-      MouseIcon       =   "frmMain.frx":BEE2
+      Left            =   14520
+      MouseIcon       =   "frmMain.frx":8061C
       MousePointer    =   99  'Custom
       Top             =   1800
       Visible         =   0   'False
@@ -711,38 +717,38 @@ Begin VB.Form frmMain
       Height          =   375
       Index           =   0
       Left            =   15000
-      MouseIcon       =   "frmMain.frx":CBAC
+      MouseIcon       =   "frmMain.frx":812E6
       MousePointer    =   99  'Custom
-      Top             =   1320
+      Top             =   1800
       Visible         =   0   'False
       Width           =   435
    End
    Begin VB.Image imgExp 
-      Height          =   225
-      Left            =   9015
-      Picture         =   "frmMain.frx":D876
-      Top             =   480
-      Width           =   2295
+      Height          =   105
+      Left            =   120
+      Picture         =   "frmMain.frx":81FB0
+      Top             =   11415
+      Width           =   11205
    End
    Begin VB.Label Label4 
       BackStyle       =   0  'Transparent
-      Height          =   570
-      Left            =   11520
-      MouseIcon       =   "frmMain.frx":10FEE
+      Height          =   345
+      Left            =   11415
+      MouseIcon       =   "frmMain.frx":87C12
       MousePointer    =   99  'Custom
       TabIndex        =   8
-      Top             =   1560
-      Width           =   990
+      Top             =   2190
+      Width           =   1815
    End
    Begin VB.Label Label7 
       BackStyle       =   0  'Transparent
-      Height          =   570
-      Left            =   13665
-      MouseIcon       =   "frmMain.frx":11CB8
+      Height          =   345
+      Left            =   13305
+      MouseIcon       =   "frmMain.frx":888DC
       MousePointer    =   99  'Custom
       TabIndex        =   7
-      Top             =   1905
-      Width           =   990
+      Top             =   2190
+      Width           =   1815
    End
    Begin VB.Label lblVidaBar 
       Alignment       =   2  'Center
@@ -781,7 +787,7 @@ Begin VB.Form frmMain
       Height          =   269
       Left            =   11610
       TabIndex        =   5
-      Top             =   8160
+      Top             =   8175
       Width           =   3420
    End
    Begin VB.Label lblStaBar 
@@ -801,7 +807,7 @@ Begin VB.Form frmMain
       Height          =   269
       Left            =   11610
       TabIndex        =   4
-      Top             =   8760
+      Top             =   8775
       Width           =   3420
    End
    Begin VB.Label lblHamBar 
@@ -821,7 +827,7 @@ Begin VB.Form frmMain
       Height          =   255
       Left            =   11640
       TabIndex        =   3
-      Top             =   9360
+      Top             =   9375
       Width           =   1590
    End
    Begin VB.Label lblSedBar 
@@ -841,133 +847,106 @@ Begin VB.Form frmMain
       Height          =   300
       Left            =   13440
       TabIndex        =   2
-      Top             =   9360
+      Top             =   9375
       Width           =   1590
    End
    Begin VB.Image imgSed 
-      Height          =   300
-      Left            =   13406
-      Picture         =   "frmMain.frx":12982
+      Height          =   255
+      Left            =   13395
+      Picture         =   "frmMain.frx":895A6
       Stretch         =   -1  'True
-      Top             =   9360
-      Width           =   1635
+      Top             =   9375
+      Width           =   1665
    End
    Begin VB.Image imgComida 
-      Height          =   300
-      Left            =   11610
-      Picture         =   "frmMain.frx":15319
+      Height          =   255
+      Left            =   11595
+      Picture         =   "frmMain.frx":8BF3D
       Stretch         =   -1  'True
-      Top             =   9360
-      Width           =   1635
+      Top             =   9375
+      Width           =   1665
    End
    Begin VB.Image imgEnergia 
-      Height          =   284
+      Height          =   269
       Left            =   11610
-      Picture         =   "frmMain.frx":195EA
+      Picture         =   "frmMain.frx":9020E
       Stretch         =   -1  'True
-      Top             =   8760
+      Top             =   8775
       Width           =   3420
    End
    Begin VB.Image imgMana 
       Height          =   269
       Left            =   11610
-      Picture         =   "frmMain.frx":1E14D
+      Picture         =   "frmMain.frx":94D71
       Stretch         =   -1  'True
-      Top             =   8175
+      Top             =   8160
       Width           =   3420
    End
    Begin VB.Image imgVida 
       Height          =   269
       Left            =   11610
       MousePointer    =   1  'Arrow
-      Picture         =   "frmMain.frx":22901
+      Picture         =   "frmMain.frx":99525
       Stretch         =   -1  'True
       Top             =   7545
       Width           =   3420
    End
    Begin VB.Image CmdLanzar 
-      Height          =   315
-      Left            =   11640
-      MouseIcon       =   "frmMain.frx":271E4
+      Height          =   465
+      Left            =   11490
+      MouseIcon       =   "frmMain.frx":9DE08
       MousePointer    =   99  'Custom
-      Picture         =   "frmMain.frx":27EAE
-      Top             =   6600
+      Picture         =   "frmMain.frx":9EAD2
+      Top             =   6555
       Visible         =   0   'False
-      Width           =   1260
+      Width           =   1785
    End
    Begin VB.Image CmdInfo 
-      Height          =   315
-      Left            =   14040
-      MouseIcon       =   "frmMain.frx":2C194
+      Height          =   465
+      Left            =   13320
+      MouseIcon       =   "frmMain.frx":A3884
       MousePointer    =   99  'Custom
-      Picture         =   "frmMain.frx":2CE5E
-      Top             =   6600
+      Picture         =   "frmMain.frx":A454E
+      Top             =   6555
       Visible         =   0   'False
-      Width           =   750
+      Width           =   1845
    End
    Begin VB.Image InvEqu 
       Height          =   345
       Left            =   11430
-      Picture         =   "frmMain.frx":3086E
+      Picture         =   "frmMain.frx":A9277
       Top             =   2175
       Width           =   3825
    End
-   Begin VB.Image Image1 
-      Height          =   255
-      Index           =   0
-      Left            =   12600
-      MouseIcon       =   "frmMain.frx":3576B
-      MousePointer    =   99  'Custom
-      Top             =   9840
-      Width           =   1290
-   End
-   Begin VB.Image Image1 
+   Begin VB.Image Estadisticas 
       Height          =   285
       Index           =   1
-      Left            =   12720
-      MouseIcon       =   "frmMain.frx":36435
-      MousePointer    =   99  'Custom
-      Top             =   10680
-      Width           =   1020
-   End
-   Begin VB.Image Image1 
-      Height          =   285
-      Index           =   2
       Left            =   11520
-      MouseIcon       =   "frmMain.frx":370FF
+      MouseIcon       =   "frmMain.frx":AE174
       MousePointer    =   99  'Custom
       Top             =   10680
       Width           =   945
    End
-   Begin VB.Image Image3 
-      Height          =   465
-      Index           =   0
-      Left            =   11490
-      MouseIcon       =   "frmMain.frx":37DC9
-      MousePointer    =   99  'Custom
-      Top             =   6540
-      Width           =   1770
-   End
-   Begin VB.Image Image13 
+   Begin VB.Image Mayor 
       Height          =   255
       Left            =   11520
-      MouseIcon       =   "frmMain.frx":38A93
+      MouseIcon       =   "frmMain.frx":AEE3E
       MousePointer    =   99  'Custom
       Top             =   9840
       Width           =   1155
    End
    Begin VB.Image Image11 
       Height          =   300
-      Left            =   11655
+      Left            =   15000
       MousePointer    =   99  'Custom
-      Top             =   15
+      Top             =   45
       Width           =   300
    End
    Begin VB.Image Image12 
       Height          =   300
-      Left            =   11310
+      Left            =   14655
       MousePointer    =   99  'Custom
-      Top             =   15
+      Top             =   45
       Width           =   300
    End
    Begin VB.Menu mnuObj 
@@ -1105,7 +1084,7 @@ End Sub
 
 Private Sub bGM_Click()
     Call Audio.PlayWave(SND_CLICK)
-    Call SendData("/GM")
+    Call SendData("/GM  ")
 End Sub
 
 Private Sub bOnline_Click()
@@ -1143,6 +1122,13 @@ Private Sub CmdLanzar_MouseUp(Button As Integer, Shift As Integer, X As Single, 
     End If
 End Sub
 
+Private Sub discord_Click()
+    Shell "explorer " & "https://discord.gg/BVJBfC5", vbNormalFocus
+End Sub
+Private Sub discord_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Set discord.MouseIcon = Iconos.Ico_Mano
+End Sub
+
 Private Sub Donaciones_Click()
     Call Audio.PlayWave(SND_CLICK)
     Shell "explorer " & "https://AoMania.net/Donaciones/", vbNormalFocus
@@ -1157,6 +1143,14 @@ Private Sub Form_Activate()
     Call Audio.StopWave
     Call Audio.StopMidi
 
+End Sub
+
+Private Sub foro_Click()
+      Shell "explorer " & "https://foro.argentumania.es/", vbNormalFocus
+End Sub
+
+Private Sub foro_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+        Set foro.MouseIcon = Iconos.Ico_Mano
 End Sub
 
 Private Sub GldLbl_Click()
@@ -1211,6 +1205,7 @@ Private Sub hlst_DblClick()
      
 End Sub
 
+
 Private Sub Image11_Click()
     Call Audio.PlayWave(SND_CLICK)
     Call SendData("/Salir")
@@ -1224,19 +1219,19 @@ Private Sub Image12_MouseMove(Button As Integer, Shift As Integer, X As Single, 
     Image12.MouseIcon = Iconos.Ico_Mano
 End Sub
 
-Private Sub Image13_Click()
+Private Sub Mayor_Click()
     Call Audio.PlayWave(SND_CLICK)
     Call SendData("/Mayor")
 End Sub
 
-Private Sub Image2_Click()
+Private Sub VerParty_Click()
     Call Audio.PlayWave(SND_CLICK)
     Call SendData("/VerParty")
 End Sub
 
-Private Sub Image4_Click()
+Private Sub Manual_Click()
     Call Audio.PlayWave(SND_CLICK)
-    Shell "explorer " & "https://AoMania.net/Manual/", vbNormalFocus
+    Shell "explorer " & "https://manual.argentumania.es", vbNormalFocus
 
 End Sub
 
@@ -1260,6 +1255,7 @@ Private Sub Image8_Click()
     Call SendData("/Fortaleza")
 End Sub
 
+
 Private Sub imgSkillpts_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     imgSkillpts.MouseIcon = Iconos.Ico_Mano
 End Sub
@@ -1271,10 +1267,11 @@ Private Sub Label4_MouseUp(Button As Integer, Shift As Integer, X As Single, Y A
 End Sub
 Private Sub lblPorcLvl_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
-    lblPorcLvl.Caption = UserExp & "/" & UserPasarNivel
-    
+    'lblPorcLvl.Caption = UserExp & "/" & UserPasarNivel
+    lblPorcLvl.ToolTipText = UserExp & "/" & UserPasarNivel & " (" & Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%" & ")"
+
     If UserPasarNivel = 0 Then
-        lblPorcLvl.Caption = "¡Nivel máximo!"
+        lblPorcLvl.ToolTipText = "¡Nivel máximo!"
 
     End If
 
@@ -1362,7 +1359,7 @@ Private Sub Label7_MouseUp(Button As Integer, Shift As Integer, X As Single, Y A
     'DespInv(1).Visible = False
     picInv.Visible = False
     GldLbl.Visible = False
-    Image3(0).Visible = False
+  
         
     hlst.Visible = True
     CmdInfo.Visible = True
@@ -1991,8 +1988,8 @@ Private Sub Form_Load()
        
     Me.Left = 0
     Me.Top = 0
-    'Me.Height = 9000
-    'Me.Width = 12000
+    Me.Height = 11520
+    Me.Width = 15360
     
     If AntiEngine.Interval <> 300 Or AntiEngine.Enabled = False Then
         Call CliEditado
@@ -2008,11 +2005,11 @@ Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y A
     MouseY = Y
     
     If UserPasarNivel = 0 Then
-        lblPorcLvl.Caption = "¡Nivel máximo!"
+        lblPorcLvl.ToolTipText = "¡Nivel máximo!"
     Else
 
         If UserExp <> 0 And UserPasarNivel <> 0 Then
-            frmMain.lblPorcLvl.Caption = Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%"
+            frmMain.lblPorcLvl.ToolTipText = UserExp & "/" & UserPasarNivel & " (" & Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%" & ")"
 
         End If
 
@@ -2038,7 +2035,7 @@ Private Sub hlst_KeyUp(KeyCode As Integer, Shift As Integer)
 
 End Sub
 
-Private Sub Image1_Click(Index As Integer)
+Private Sub Estadisticas_Click(Index As Integer)
    
     Call Audio.PlayWave(SND_CLICK)
 
@@ -2082,22 +2079,6 @@ Private Sub Image1_Click(Index As Integer)
 
 End Sub
 
-Private Sub Image3_Click(Index As Integer)
-
-    Select Case Index
-
-        Case 0
-            Inventario.SelectGold
-
-            If UserGLD > 0 Then
-                Call FrmTransferir.Show(vbModeless, frmMain)
-
-            End If
-
-    End Select
-
-End Sub
-
 Private Sub Label4_Click()
 
     Call Audio.PlayWave(SND_CLICK)
@@ -2108,7 +2089,7 @@ Private Sub Label4_Click()
     'DespInv(1).Visible = True
     picInv.Visible = True
     GldLbl.Visible = True
-    Image3(0).Visible = True
+    
     
     hlst.Visible = False
     CmdInfo.Visible = False

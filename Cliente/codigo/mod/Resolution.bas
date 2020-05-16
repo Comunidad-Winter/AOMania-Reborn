@@ -111,8 +111,10 @@ Public Sub SetResolution()
        
     lRes = EnumDisplaySettings(0, ENUM_CURRENT_SETTINGS, MidevM)
     
-    MainWidth = frmMain.ScaleWidth
-    MainHeight = frmMain.ScaleHeight
+    'MainWidth = frmain.ScaleWidth
+   ' MainHeight = frmMain.ScaleHeight
+    MainWidth = 1024
+    MainHeight = 768
        
     oldResWidth = Screen.Width \ Screen.TwipsPerPixelX
     oldResHeight = Screen.Height \ Screen.TwipsPerPixelY

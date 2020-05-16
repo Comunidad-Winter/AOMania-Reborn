@@ -18,10 +18,6 @@ echo Registrando Comctl32.ocx
 RegSvr32 COMCTL32.OCX
 echo Registrando Cswsk32.ocx
 RegSvr32 Cswsk32.ocx
-echo Registrando listadoservers.ocx
-RegSvr32 listadoservers.ocx
-echo Registrando Mscomctl.ocx
-RegSvr32 Mscomctl.ocx
 echo Registrando Msinet.ocx
 RegSvr32 MSINET.OCX
 echo Registrando Mswinsck.ocx
@@ -32,6 +28,12 @@ echo Registrando vbalprogbar6.ocx
 RegSvr32 vbalProgBar6.ocx
 echo Registrando dx8vb.dll
 RegSvr32 dx8vb.dll
+echo Registrando ieframe.dll
+RegSvr32 ieframe.dll
+echo Registrando tabctl32.ocx
+RegSvr32 tabctl32.ocx
+echo Registrando hook-menu-2.ocx
+RegSvr32 hook-menu-2.ocx
 Pause.
 echo.
 Echo Libreria registrada.

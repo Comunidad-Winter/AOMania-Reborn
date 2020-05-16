@@ -45,8 +45,8 @@ Private Enum PatchInstruction
 
 End Enum
  
-Private Declare Function compress Lib "zlib.dll" (dest As Any, destlen As Any, Src As Any, ByVal srclen As Long) As Long
-Private Declare Function uncompress Lib "zlib.dll" (dest As Any, destlen As Any, Src As Any, ByVal srclen As Long) As Long
+Private Declare Function compress Lib "libs\zlib.dll" (dest As Any, destlen As Any, Src As Any, ByVal srclen As Long) As Long
+Private Declare Function uncompress Lib "libs\zlib.dll" (dest As Any, destlen As Any, Src As Any, ByVal srclen As Long) As Long
  
 Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (ByRef dest As Any, ByRef source As Any, ByVal byteCount As Long)
  
@@ -389,7 +389,7 @@ End Sub
  
 Public Function Compress_Files(ByRef SourcePath As String, _
     ByRef OutputPath As String, _
-    ByVal Version As Long, _
+    ByVal version As Long, _
     ByRef prgBar As ProgressBar, _
     ByVal NameFile As String, _
     Optional ByRef Extension As String = ".bmp") As Boolean
@@ -431,7 +431,7 @@ Public Function Compress_Files(ByRef SourcePath As String, _
     
     If Not prgBar Is Nothing Then
         prgBar.max = FileHead.lngNumFiles
-        prgBar.Value = 0
+        prgBar.value = 0
 
     End If
     
@@ -442,7 +442,7 @@ Public Function Compress_Files(ByRef SourcePath As String, _
     End If
     
     'Finish setting the FileHeader data
-    FileHead.lngFileVersion = Version
+    FileHead.lngFileVersion = version
     FileHead.lngFileSize = Len(FileHead) + FileHead.lngNumFiles * Len(InfoHead(0))
     
     'Order the InfoHeads
@@ -488,7 +488,7 @@ Public Function Compress_Files(ByRef SourcePath As String, _
         Close SourceFile
         
         'Update progress bar
-        If Not prgBar Is Nothing Then prgBar.Value = prgBar.Value + 1
+        If Not prgBar Is Nothing Then prgBar.value = prgBar.value + 1
         DoEvents
     Next LooPC
         
@@ -668,7 +668,7 @@ Public Function Extract_Files(ByRef ResourcePath As String, _
     'Update progress bar
     If Not prgBar Is Nothing Then
         prgBar.max = FileHead.lngNumFiles
-        prgBar.Value = 0
+        prgBar.value = 0
 
     End If
     
@@ -701,7 +701,7 @@ Public Function Extract_Files(ByRef ResourcePath As String, _
         End If
             
         'Update progress bar
-        If Not prgBar Is Nothing Then prgBar.Value = prgBar.Value + 1
+        If Not prgBar Is Nothing Then prgBar.value = prgBar.value + 1
         DoEvents
     Next LooPC
     
@@ -818,7 +818,7 @@ End Function
 '
 ' @return   True if are equals.
  
-Private Function Compare_Datas(ByRef Data1() As Byte, ByRef Data2() As Byte) As Boolean
+Private Function Compare_Datas(ByRef data1() As Byte, ByRef data2() As Byte) As Boolean
     '*****************************************************************
     'Author: Nicolas Matias Gonzalez (NIGO)
     'Last Modify Date: 02/11/2007
@@ -827,13 +827,13 @@ Private Function Compare_Datas(ByRef Data1() As Byte, ByRef Data2() As Byte) As 
     Dim Length As Long
     Dim act    As Long
     
-    Length = UBound(Data1) + 1
+    Length = UBound(data1) + 1
     
-    If (UBound(Data2) + 1) = Length Then
+    If (UBound(data2) + 1) = Length Then
 
         While act < Length
 
-            If Data1(act) Xor Data2(act) Then Exit Function
+            If data1(act) Xor data2(act) Then Exit Function
             
             act = act + 1
         Wend
@@ -1016,7 +1016,7 @@ Public Function Make_Patch(ByRef NewResourcePath As String, _
                 
     If Not prgBar Is Nothing Then
         prgBar.max = OldFileHead.lngNumFiles + NewFileHead.lngNumFiles
-        prgBar.Value = 0
+        prgBar.value = 0
 
     End If
                 
@@ -1032,7 +1032,7 @@ Public Function Make_Patch(ByRef NewResourcePath As String, _
         NewReadFiles) Then
                     
         'Update
-        prgBar.Value = prgBar.Value + 2
+        prgBar.value = prgBar.value + 2
                     
         Do 'Main loop
 
@@ -1074,7 +1074,7 @@ Public Function Make_Patch(ByRef NewResourcePath As String, _
                 End If
                             
                 'Update
-                If Not prgBar Is Nothing Then prgBar.Value = prgBar.Value + 2
+                If Not prgBar Is Nothing Then prgBar.value = prgBar.value + 2
                         
             ElseIf OldInfoHead.strFileName < NewInfoHead.strFileName Then
                             
@@ -1092,7 +1092,7 @@ Public Function Make_Patch(ByRef NewResourcePath As String, _
                 End If
                             
                 'Update
-                If Not prgBar Is Nothing Then prgBar.Value = prgBar.Value + 1
+                If Not prgBar Is Nothing Then prgBar.value = prgBar.value + 1
                         
             Else
                             
@@ -1116,7 +1116,7 @@ Public Function Make_Patch(ByRef NewResourcePath As String, _
                 End If
                             
                 'Update
-                If Not prgBar Is Nothing Then prgBar.Value = prgBar.Value + 1
+                If Not prgBar Is Nothing Then prgBar.value = prgBar.value + 1
 
             End If
                         
@@ -1139,7 +1139,7 @@ Public Function Make_Patch(ByRef NewResourcePath As String, _
         Put OutputFile, , OldInfoHead
                     
         'Update
-        If Not prgBar Is Nothing Then prgBar.Value = prgBar.Value + 1
+        If Not prgBar Is Nothing Then prgBar.value = prgBar.value + 1
         DoEvents
     Wend
                 
@@ -1158,7 +1158,7 @@ Public Function Make_Patch(ByRef NewResourcePath As String, _
         Put OutputFile, , Data
                     
         'Update
-        If Not prgBar Is Nothing Then prgBar.Value = prgBar.Value + 1
+        If Not prgBar Is Nothing Then prgBar.value = prgBar.value + 1
         DoEvents
     Wend
             
@@ -1271,7 +1271,7 @@ Public Function Apply_Patch(ByRef ResourcePath As String, ByRef PatchPath As Str
                 
     If Not prgBar Is Nothing Then
         prgBar.max = PatchFileHead.lngNumFiles
-        prgBar.Value = 0
+        prgBar.value = 0
 
     End If
                 
@@ -1305,7 +1305,7 @@ Public Function Apply_Patch(ByRef ResourcePath As String, ByRef PatchPath As Str
                 DataOutputPos = DataOutputPos + UBound(Data) + 1
                 WrittenFiles = WrittenFiles + 1
 
-                If Not prgBar Is Nothing Then prgBar.Value = WrittenFiles
+                If Not prgBar Is Nothing Then prgBar.value = WrittenFiles
             Else
                 Exit Do
 
@@ -1345,7 +1345,7 @@ Public Function Apply_Patch(ByRef ResourcePath As String, ByRef PatchPath As Str
                     DataOutputPos = DataOutputPos + UBound(Data) + 1
                     WrittenFiles = WrittenFiles + 1
 
-                    If Not prgBar Is Nothing Then prgBar.Value = WrittenFiles
+                    If Not prgBar Is Nothing Then prgBar.value = WrittenFiles
                 Else
                     Err.Description = "Incongruencia en archivos de recurso"
                     GoTo ErrHandler
@@ -1369,7 +1369,7 @@ Public Function Apply_Patch(ByRef ResourcePath As String, ByRef PatchPath As Str
                     DataOutputPos = DataOutputPos + UBound(Data) + 1
                     WrittenFiles = WrittenFiles + 1
 
-                    If Not prgBar Is Nothing Then prgBar.Value = WrittenFiles
+                    If Not prgBar Is Nothing Then prgBar.value = WrittenFiles
                 Else
                     Err.Description = "Incongruencia en archivos de recurso"
                     GoTo ErrHandler
@@ -1396,7 +1396,7 @@ Public Function Apply_Patch(ByRef ResourcePath As String, ByRef PatchPath As Str
         DataOutputPos = DataOutputPos + UBound(Data) + 1
         WrittenFiles = WrittenFiles + 1
 
-        If Not prgBar Is Nothing Then prgBar.Value = WrittenFiles
+        If Not prgBar Is Nothing Then prgBar.value = WrittenFiles
         DoEvents
     Wend
             

@@ -750,30 +750,30 @@ Sub HandleData(ByVal Rdata As String)
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
-            frmMain.imgExp.Width = 153
+            frmMain.imgExp.Width = 737
         Else
 
             If UserExp <> 0 And UserPasarNivel <> 0 Then
-                frmMain.imgExp.Width = (((UserExp / 100) / (UserPasarNivel / 100)) * 153)
-                frmMain.lblPorcLvl.Caption = Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%"
+                frmMain.imgExp.Width = (((UserExp / 100) / (UserPasarNivel / 100)) * 737)
+                'frmMain.lblPorcLvl.Caption = Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%"
             Else
-                frmMain.imgExp.Width = 153
-                frmMain.lblPorcLvl.Caption = "0%"
+                frmMain.imgExp.Width = 737
+                'frmMain.lblPorcLvl.Caption = "0%"
 
             End If
 
         End If
 
-        frmMain.imgVida.Width = (((UserMinHP / 100) / (UserMaxHP / 100)) * 101)
+        frmMain.imgVida.Width = (((UserMinHP / 100) / (UserMaxHP / 100)) * 228)
 
         If UserMaxMAN > 0 Then
-            frmMain.imgMana.Width = (((UserMinMAN / 100) / (UserMaxMAN / 100)) * 101)
+            frmMain.imgMana.Width = (((UserMinMAN / 100) / (UserMaxMAN / 100)) * 228)
         Else
             frmMain.imgMana.Width = 0
 
         End If
 
-        frmMain.imgEnergia.Width = (((UserMinSTA / 100) / (UserMaxSTA / 100)) * 101)
+        frmMain.imgEnergia.Width = (((UserMinSTA / 100) / (UserMaxSTA / 100)) * 228)
 
         frmMain.lblVidaBar.Caption = UserMinHP & "/" & UserMaxHP
         frmMain.lblManaBar.Caption = UserMinMAN & "/" & UserMaxMAN
@@ -1287,7 +1287,7 @@ Sub HandleData(ByVal Rdata As String)
         frmMain.lblManaBar.Caption = UserMinMAN & "/" & UserMaxMAN
 
         If UserMaxMAN > 0 Then
-            frmMain.imgMana.Width = (((UserMinMAN + 1 / 100) / (UserMaxMAN + 1 / 100)) * 101)
+            frmMain.imgMana.Width = (((UserMinMAN + 1 / 100) / (UserMaxMAN + 1 / 100)) * 228)
         Else
             frmMain.imgMana.Width = 0
 
@@ -1446,32 +1446,32 @@ Sub HandleData(ByVal Rdata As String)
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
-            frmMain.imgExp.Width = 208
+            frmMain.imgExp.Width = 737
         Else
 
             If UserExp <> 0 And UserPasarNivel <> 0 Then
-                frmMain.imgExp.Width = (((UserExp / 100) / (UserPasarNivel / 100)) * 153)
-                frmMain.lblPorcLvl.Caption = Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%"
+                frmMain.imgExp.Width = (((UserExp / 100) / (UserPasarNivel / 100)) * 737)
+               ' frmMain.lblPorcLvl.Caption = Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%"
             Else
-                frmMain.imgExp.Width = 153
-                frmMain.lblPorcLvl.Caption = "0%"
+                frmMain.imgExp.Width = 737
+                'frmMain.lblPorcLvl.Caption = "0%"
 
             End If
 
         End If
 
-        frmMain.imgVida.Width = (((UserMinHP / 100) / (UserMaxHP / 100)) * 101)
+        frmMain.imgVida.Width = (((UserMinHP / 100) / (UserMaxHP / 100)) * 228)
         frmMain.lblUserName.Caption = UserName
         frmMain.LvlLbl.Caption = UserLvl
 
         If UserMaxMAN > 0 Then
-            frmMain.imgMana.Width = (((UserMinMAN + 1 / 100) / (UserMaxMAN + 1 / 100)) * 101)
+            frmMain.imgMana.Width = (((UserMinMAN + 1 / 100) / (UserMaxMAN + 1 / 100)) * 228)
         Else
             frmMain.imgMana.Width = 0
 
         End If
 
-        frmMain.imgEnergia.Width = (((UserMinSTA / 100) / (UserMaxSTA / 100)) * 101)
+        frmMain.imgEnergia.Width = (((UserMinSTA / 100) / (UserMaxSTA / 100)) * 228)
         frmMain.GldLbl.Caption = "Oro: " & UserGLD
         frmMain.LvlLbl.Caption = UserLvl
 
@@ -1489,7 +1489,7 @@ Sub HandleData(ByVal Rdata As String)
     Case "VID"
         Rdata = Right$(Rdata, Len(Rdata) - 3)
         UserMinHP = CInt(Rdata)
-        frmMain.imgVida.Width = (((UserMinHP / 100) / (UserMaxHP / 100)) * 101)
+        frmMain.imgVida.Width = (((UserMinHP / 100) / (UserMaxHP / 100)) * 228)
         frmMain.lblVidaBar.Caption = UserMinHP & "/" & UserMaxHP
 
         If UserMinHP = 0 Then
@@ -1530,15 +1530,15 @@ Sub HandleData(ByVal Rdata As String)
 
         If UserPasarNivel = 0 Then
             frmMain.lblPorcLvl.Caption = "¡Nivel máximo!"
-            frmMain.imgExp.Width = 153
+            frmMain.imgExp.Width = 737
         Else
 
             If UserExp <> 0 And UserPasarNivel <> 0 Then
-                frmMain.imgExp.Width = (((UserExp / 100) / (UserPasarNivel / 100)) * 153)
-                frmMain.lblPorcLvl.Caption = Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%"
+                frmMain.imgExp.Width = (((UserExp / 100) / (UserPasarNivel / 100)) * 737)
+                'frmMain.lblPorcLvl.Caption = Round(CDbl(UserExp) * CDbl(100) / CDbl(UserPasarNivel), 2) & "%"
             Else
-                frmMain.imgExp.Width = 153
-                frmMain.lblPorcLvl.Caption = "0%"
+                frmMain.imgExp.Width = 737
+                'frmMain.lblPorcLvl.Caption = "0%"
 
             End If
 
@@ -1936,8 +1936,8 @@ Sub HandleData(ByVal Rdata As String)
         UserMaxHAM = 100
         UserMinAGU = Val(ReadField(1, Rdata, 44))
         UserMinHAM = Val(ReadField(2, Rdata, 44))
-        frmMain.imgSed.Width = (((UserMinAGU / 100) / (UserMaxAGU / 100)) * 93)
-        frmMain.imgComida.Width = (((UserMinHAM / 100) / (UserMaxHAM / 100)) * 93)
+        frmMain.imgSed.Width = (((UserMinAGU / 100) / (UserMaxAGU / 100)) * 111)
+        frmMain.imgComida.Width = (((UserMinHAM / 100) / (UserMaxHAM / 100)) * 111)
         frmMain.lblSedBar.Caption = UserMinAGU & "/" & UserMaxAGU
         frmMain.lblHamBar.Caption = UserMinHAM & "/" & UserMaxHAM
         Exit Sub
@@ -2143,7 +2143,7 @@ Sub HandleData(ByVal Rdata As String)
         End If
 
         frmMain.lblVidaBar.Caption = UserMinHP & "/" & UserMaxHP
-        frmMain.imgVida.Width = (((UserMinHP / 100) / (UserMaxHP / 100)) * 101)
+        frmMain.imgVida.Width = (((UserMinHP / 100) / (UserMaxHP / 100)) * 228)
 
         Exit Sub
 
@@ -2157,7 +2157,7 @@ Sub HandleData(ByVal Rdata As String)
         End If
 
         frmMain.lblManaBar.Caption = UserMinMAN & "/" & UserMaxMAN
-        frmMain.imgMana.Width = (((UserMinMAN / 100) / (UserMaxMAN / 100)) * 101)
+        frmMain.imgMana.Width = (((UserMinMAN / 100) / (UserMaxMAN / 100)) * 228)
 
         Exit Sub
 

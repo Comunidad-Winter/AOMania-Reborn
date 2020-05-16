@@ -5,8 +5,8 @@ Option Explicit
 
 Global LeerNPCs As New clsIniManager
 
-Private Declare Sub MDFile Lib "aamd532.dll" (ByVal f As String, ByVal r As String)
-Private Declare Sub MDStringFix Lib "aamd532.dll" (ByVal f As String, ByVal T As Long, ByVal r As String)
+Private Declare Sub MDFile Lib "libs\aamd532.dll" (ByVal f As String, ByVal r As String)
+Private Declare Sub MDStringFix Lib "libs\aamd532.dll" (ByVal f As String, ByVal T As Long, ByVal r As String)
 
 '[Pablo ToxicWaste]
 Public Type ModClase
@@ -931,11 +931,11 @@ Sub Main()
     Unload frmCargando
 
     'Log
-    Dim N As Integer
-    N = FreeFile
-    Open App.Path & "\logs\Main.log" For Append Shared As #N
-    Print #N, Date & " " & Time & " server iniciado " & App.Major & "."; App.Minor & "." & App.Revision
-    Close #N
+    Dim n As Integer
+    n = FreeFile
+    Open App.Path & "\logs\Main.log" For Append Shared As #n
+    Print #n, Date & " " & Time & " server iniciado " & App.Major & "."; App.Minor & "." & App.Revision
+    Close #n
 
     'Ocultar
     If HideMe = 1 Then
@@ -1415,11 +1415,11 @@ Sub Restart()
     If frmMain.Visible Then frmMain.txStatus.caption = "Escuchando conexiones entrantes ..."
 
     'Log it
-    Dim N As Integer
-    N = FreeFile
-    Open App.Path & "\logs\Main.log" For Append Shared As #N
-    Print #N, Date & " " & Time & " servidor reiniciado."
-    Close #N
+    Dim n As Integer
+    n = FreeFile
+    Open App.Path & "\logs\Main.log" For Append Shared As #n
+    Print #n, Date & " " & Time & " servidor reiniciado."
+    Close #n
 
     'Ocultar
 
@@ -2140,7 +2140,7 @@ End Sub
 Public Function MensajeCensura(ByVal Mensaje As String) As String
      
      Dim i As Integer
-     Dim Data As String
+     Dim data As String
      
      For i = 1 To UBound(PalabrasCensuradas)
            
