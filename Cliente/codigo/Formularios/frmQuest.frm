@@ -1,9 +1,10 @@
 VERSION 5.00
 Begin VB.Form frmQuest 
+   BorderStyle     =   0  'None
    Caption         =   "Form1"
    ClientHeight    =   6210
-   ClientLeft      =   120
-   ClientTop       =   465
+   ClientLeft      =   0
+   ClientTop       =   0
    ClientWidth     =   8700
    BeginProperty Font 
       Name            =   "Tahoma"
@@ -15,6 +16,8 @@ Begin VB.Form frmQuest
       Strikethrough   =   0   'False
    EndProperty
    LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
    ScaleHeight     =   414
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   580

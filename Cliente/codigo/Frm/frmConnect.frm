@@ -4,10 +4,10 @@ Begin VB.Form frmConnect
    BackColor       =   &H00E0E0E0&
    BorderStyle     =   0  'None
    Caption         =   "AoMania"
-   ClientHeight    =   9000
+   ClientHeight    =   11520
    ClientLeft      =   0
    ClientTop       =   0
-   ClientWidth     =   12000
+   ClientWidth     =   15360
    ClipControls    =   0   'False
    FillColor       =   &H00000040&
    Icon            =   "frmConnect.frx":0000
@@ -17,11 +17,24 @@ Begin VB.Form frmConnect
    MinButton       =   0   'False
    MousePointer    =   99  'Custom
    Moveable        =   0   'False
-   ScaleHeight     =   600
+   Picture         =   "frmConnect.frx":08CA
+   ScaleHeight     =   768
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   800
+   ScaleWidth      =   1024
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
+   Begin VB.CheckBox Check1 
+      Appearance      =   0  'Flat
+      BackColor       =   &H00000000&
+      ForeColor       =   &H0000C000&
+      Height          =   240
+      Left            =   9585
+      MaskColor       =   &H00000000&
+      TabIndex        =   4
+      Top             =   5640
+      UseMaskColor    =   -1  'True
+      Width           =   240
+   End
    Begin MSWinsockLib.Winsock Winsock1 
       Left            =   1830
       Top             =   1305
@@ -46,15 +59,15 @@ Begin VB.Form frmConnect
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   255
+      Height          =   405
       IMEMode         =   3  'DISABLE
-      Left            =   4140
-      MouseIcon       =   "frmConnect.frx":08CA
+      Left            =   5295
+      MouseIcon       =   "frmConnect.frx":A827D
       MousePointer    =   99  'Custom
       PasswordChar    =   "*"
       TabIndex        =   2
-      Top             =   4755
-      Width           =   3705
+      Top             =   6045
+      Width           =   4755
    End
    Begin VB.TextBox NombreTXT 
       Alignment       =   2  'Center
@@ -71,13 +84,13 @@ Begin VB.Form frmConnect
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FFFFFF&
-      Height          =   255
-      Left            =   4140
-      MouseIcon       =   "frmConnect.frx":1594
+      Height          =   405
+      Left            =   5295
+      MouseIcon       =   "frmConnect.frx":A8F47
       MousePointer    =   99  'Custom
       TabIndex        =   1
-      Top             =   3690
-      Width           =   3705
+      Top             =   4680
+      Width           =   4755
    End
    Begin VB.Label lblStatus 
       AutoSize        =   -1  'True
@@ -99,44 +112,44 @@ Begin VB.Form frmConnect
       Width           =   75
    End
    Begin VB.Image Exit 
-      Height          =   420
-      Left            =   11505
-      MouseIcon       =   "frmConnect.frx":225E
+      Height          =   525
+      Left            =   14715
+      MouseIcon       =   "frmConnect.frx":A9C11
       MousePointer    =   99  'Custom
-      Top             =   75
-      Width           =   420
+      Top             =   105
+      Width           =   525
    End
    Begin VB.Image Image6 
-      Height          =   270
-      Left            =   6690
-      MouseIcon       =   "frmConnect.frx":2F28
+      Height          =   345
+      Left            =   8565
+      MouseIcon       =   "frmConnect.frx":AA8DB
       MousePointer    =   99  'Custom
-      Top             =   8250
-      Width           =   1290
+      Top             =   10560
+      Width           =   1650
    End
    Begin VB.Image Image5 
-      Height          =   270
-      Left            =   5340
-      MouseIcon       =   "frmConnect.frx":3BF2
+      Height          =   345
+      Left            =   6840
+      MouseIcon       =   "frmConnect.frx":AB5A5
       MousePointer    =   99  'Custom
-      Top             =   8250
-      Width           =   1290
+      Top             =   10560
+      Width           =   1650
    End
    Begin VB.Image Image4 
-      Height          =   270
-      Left            =   3990
-      MouseIcon       =   "frmConnect.frx":48BC
+      Height          =   345
+      Left            =   5130
+      MouseIcon       =   "frmConnect.frx":AC26F
       MousePointer    =   99  'Custom
-      Top             =   8250
-      Width           =   1290
+      Top             =   10560
+      Width           =   1635
    End
    Begin VB.Image Image3 
-      Height          =   615
-      Left            =   4545
-      MouseIcon       =   "frmConnect.frx":5586
+      Height          =   810
+      Left            =   5820
+      MouseIcon       =   "frmConnect.frx":ACF39
       MousePointer    =   99  'Custom
-      Top             =   6660
-      Width           =   2985
+      Top             =   8520
+      Width           =   3810
    End
    Begin VB.Label version 
       AutoSize        =   -1  'True
@@ -160,28 +173,28 @@ Begin VB.Form frmConnect
       Width           =   555
    End
    Begin VB.Image Image2 
-      Height          =   615
-      Left            =   4545
-      MouseIcon       =   "frmConnect.frx":6250
+      Height          =   810
+      Left            =   5820
+      MouseIcon       =   "frmConnect.frx":ADC03
       MousePointer    =   99  'Custom
-      Top             =   5280
-      Width           =   2985
+      Top             =   6750
+      Width           =   3780
    End
    Begin VB.Image Image1 
-      Height          =   615
-      Left            =   4545
-      MouseIcon       =   "frmConnect.frx":6F1A
+      Height          =   810
+      Left            =   5820
+      MouseIcon       =   "frmConnect.frx":AE8CD
       MousePointer    =   99  'Custom
-      Top             =   5955
-      Width           =   2985
+      Top             =   7620
+      Width           =   3780
    End
    Begin VB.Image FONDO 
-      Height          =   9000
+      Height          =   11520
       Left            =   0
-      MouseIcon       =   "frmConnect.frx":7BE4
+      MouseIcon       =   "frmConnect.frx":AF597
       MousePointer    =   99  'Custom
       Top             =   0
-      Width           =   12000
+      Width           =   15360
    End
 End
 Attribute VB_Name = "frmConnect"
@@ -217,10 +230,6 @@ Private Sub Form_Activate()
         i = i + 1
         'Call Audio.PlayWave("173.wav")
     End If
-    Winsock1.Close
-     Winsock1.RemoteHost = CurServerIp
-     Winsock1.RemotePort = 6000
-    'Winsock1.Connect
  
 End Sub
 
@@ -241,7 +250,7 @@ Private Sub Form_Load()
     EngineRun = False
     '[END]
     
-    version.Caption = "v" & App.Major & "." & App.Minor & " Build: " & App.Revision
+    Version.Caption = "v" & App.Major & "." & App.Minor & " Build: " & App.Revision
     
     Set FONDO.Picture = Interfaces.FrmConnect_Principal
     Set Image2.Picture = Interfaces.FrmConnect_BtConectar
@@ -251,6 +260,7 @@ Private Sub Form_Load()
 
     PasswordTXT.Text = GetSetting(App.exeName, "textos", "Pasword", vbNullString)
     NombreTXT.Text = GetSetting(App.exeName, "textos", "Cuenta", vbNullString)
+    Check1.Value = Val(GetSetting(App.exeName, "textos", "Check", vbNullString))
 
 End Sub
 
@@ -293,8 +303,15 @@ Private Sub Image2_Click()
 
     End If
     
+    If Check1.Value = 1 Then
     SaveSetting App.exeName, "textos", "Pasword", PasswordTXT.Text
     SaveSetting App.exeName, "textos", "Cuenta", NombreTXT.Text
+    SaveSetting App.exeName, "textos", "Check", Check1.Value
+    ElseIf Check1.Value = 0 Then
+    SaveSetting App.exeName, "textos", "Pasword", ""
+    SaveSetting App.exeName, "textos", "Cuenta", ""
+    SaveSetting App.exeName, "textos", "Check", Check1.Value
+    End If
 
 End Sub
 
