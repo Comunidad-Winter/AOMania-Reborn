@@ -47,6 +47,7 @@ Public Sub Analizar()
        
        frmMain.txtUpdate.Caption = "Se ha encontrado una nueva actualización..."
        
+       frmMain.PicMarcosUpdate.Visible = True
        frmMain.ProgressBar1.Visible = True
 
        For i = 1 To DifX
@@ -75,7 +76,7 @@ Public Sub Analizar()
             
             If dError Then Exit Sub
             
-            UnZip Directory, App.Path & "\Descargado\"
+            UnZip Directory, App.path & "\"
             Kill Directory
         Next i
     End If
@@ -86,8 +87,10 @@ Public Sub Analizar()
     Call SaveConfig
 
    frmMain.ProgressBar1.Value = 0
-
+   
+   frmMain.PicMarcosUpdate.Visible = False
    frmMain.ProgressBar1.Visible = False
+   frmMain.cmdPlay.Picture = Interfaces.Play
    
    frmMain.txtUpdate.Caption = "Listo. Cliente preparado."
 

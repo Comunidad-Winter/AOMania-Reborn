@@ -30,3 +30,5 @@ Public Enum eStatus
        Offline = 2
        
 End Enum
+
+Public ProximaIMG  As Byte

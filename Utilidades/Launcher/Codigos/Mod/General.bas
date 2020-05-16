@@ -162,10 +162,14 @@ Public Sub ChangeStatus(ByVal Status As Byte)
         Select Case Status
             
             Case eStatus.Online
-                MsgBox "Online"
+                frmMain.PicStatus.Picture = Interfaces.Online
             Exit Sub
             
             Case eStatus.Offline
+               frmMain.PicStatus.Picture = Interfaces.Offline
+               frmMain.LblExp.Caption = 0
+               frmMain.lblOro.Caption = 0
+               frmMain.lblUser.Caption = 0
             Exit Sub
             
         End Select
