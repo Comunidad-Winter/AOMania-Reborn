@@ -1,9 +1,9 @@
 VERSION 5.00
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
-Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "Cswsk32.ocx"
+Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "CSWSK32.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
 Object = "{B370EF78-425C-11D1-9A28-004033CA9316}#2.0#0"; "Captura.ocx"
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "COMCTL32.OCX"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
 Begin VB.Form frmMain 
    BackColor       =   &H00000000&
    BorderStyle     =   0  'None
@@ -154,6 +154,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -478,6 +479,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -1320,7 +1322,7 @@ Private Sub imgSkillpts_Click()
     Next i
 
     Alocados = SkillPoints
-    frmSkills3.puntos.Caption = SkillPoints
+    frmSkills3.Puntos.Caption = SkillPoints
     frmSkills3.Show , frmMain
 
 End Sub
@@ -1649,13 +1651,12 @@ Private Sub picInv_MouseMove(Button As Integer, Shift As Integer, X As Single, Y
 End Sub
 
 Private Sub picMiniMap_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-      
-      If (Shift And 1) = 1 Then
-          If Shift = vbLeftButton Then
+
+          If Button = 2 Then
              Call SendData("/TELEP YO " & UserMap & " " & X & " " & Y)
           End If
-      End If
-      
+
+
 End Sub
 
 Private Sub Second_Timer()
