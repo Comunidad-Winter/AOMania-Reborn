@@ -1,1 +1,38 @@
-16/05/2020 19:10:04 Se conecto con ip:127.0.0.1Hora: 16/05/2020 19:10:04
+16/05/2020 23:52:51 Se conecto con ip:127.0.0.1Hora: 16/05/2020 23:52:51
+16/05/2020 23:53:17 Comando: /TELEP YO 47 62 17
+16/05/2020 23:53:17 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+16/05/2020 23:53:18 Comando: /TELEP YO 34 31 47
+16/05/2020 23:53:18 Transporto a Bassinger hacia Mapa34 X:31 Y:47
+16/05/2020 23:53:19 Comando: /TELEP YO 34 27 40
+16/05/2020 23:53:19 Transporto a Bassinger hacia Mapa34 X:27 Y:40
+16/05/2020 23:53:19 Comando: /TELEP YO 34 23 33
+16/05/2020 23:53:19 Transporto a Bassinger hacia Mapa34 X:23 Y:33
+16/05/2020 23:53:20 Comando: /TELEP YO 34 22 26
+16/05/2020 23:53:20 Transporto a Bassinger hacia Mapa34 X:22 Y:26
+16/05/2020 23:53:20 Comando: /TELEP YO 34 23 19
+16/05/2020 23:53:20 Transporto a Bassinger hacia Mapa34 X:23 Y:19
+16/05/2020 23:53:21 Comando: /TELEP YO 34 24 12
+16/05/2020 23:53:21 Transporto a Bassinger hacia Mapa34 X:24 Y:12
+16/05/2020 23:53:35 Comando: /telep yo 48 50 50
+16/05/2020 23:53:35 Transporto a Bassinger hacia Mapa48 X:50 Y:50
+16/05/2020 23:53:46 Comando: /telep yo 84 40 40
+16/05/2020 23:53:46 Transporto a Bassinger hacia Mapa84 X:40 Y:40
+17/05/2020 0:01:25 Se conecto con ip:127.0.0.1Hora: 17/05/2020 0:01:25
+17/05/2020 0:01:38 Comando: /telep yo 1 50 50
+17/05/2020 0:01:38 Transporto a Bassinger hacia Mapa1 X:50 Y:50
+17/05/2020 0:02:57 Se conecto con ip:127.0.0.1Hora: 17/05/2020 0:02:57
+17/05/2020 0:02:59 Se conecto con ip:127.0.0.1Hora: 17/05/2020 0:02:59
+17/05/2020 0:03:06 Comando: /telep yo 1 50 50
+17/05/2020 0:03:06 Transporto a bassinger hacia Mapa1 X:50 Y:50
+17/05/2020 3:07:03 Se conecto con ip:127.0.0.1Hora: 17/05/2020 3:07:03
+17/05/2020 3:07:11 Comando: /telep yo 50 50 50
+17/05/2020 3:07:11 Transporto a Bassinger hacia Mapa50 X:50 Y:50
+17/05/2020 3:07:14 Comando: /TELEP YO 50 46 48
+17/05/2020 3:07:14 Transporto a Bassinger hacia Mapa50 X:46 Y:48
+17/05/2020 3:07:34 Comando: /sum keoh
+17/05/2020 3:07:34 /SUM KeoH Map:50 X:46 Y:48
+17/05/2020 3:07:42 Comando: /panelgm
+17/05/2020 3:07:53 Comando: /SEARCHITEMS nosf
+17/05/2020 3:07:59 Comando: /SEARCHNPCSH nos
+17/05/2020 3:08:01 Comando: /ACC 662
+17/05/2020 3:08:01  Sumoneo un Nosferatu en mapa 50

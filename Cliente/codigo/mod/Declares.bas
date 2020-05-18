@@ -33,8 +33,8 @@ Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (By
 Public DragPantalla        As Boolean
 Public ChangeFont          As Boolean
 Public CustomKeys          As New clsCustomKeys
-'"51.38.175.174"
-'"213.239.214.69"
+
+'"192.171.19.138"
 '"127.0.0.1"
 Public Const CurServerIp   As String = "127.0.0.1"
 Public Const CurServerPort As Integer = 9879

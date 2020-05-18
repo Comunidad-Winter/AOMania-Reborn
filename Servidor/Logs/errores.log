@@ -1,4 +1,25 @@
-16/05/2020 18:58:13 Mas de 60 iteraciones en SpawnNpc Mapa:146 Index:640
-16/05/2020 19:10:14 HandleData. CadOri:/MOV Nom:BASSINGERUI:1 N: 0 D: 
-16/05/2020 19:10:14 HandleData. CadOri:/MOV Nom:BASSINGERUI:1 N: 0 D: 
-16/05/2020 20:07:54 Mas de 60 iteraciones en SpawnNpc Mapa:146 Index:640
+16/05/2020 23:53:17 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:1 N: 0 D: 
+16/05/2020 23:53:18 HandleData. CadOri:/TELEP YO 34 31 47 Nom:BassingerUI:1 N: 0 D: 
+16/05/2020 23:53:19 HandleData. CadOri:/TELEP YO 34 27 40 Nom:BassingerUI:1 N: 0 D: 
+16/05/2020 23:53:19 HandleData. CadOri:/TELEP YO 34 23 33 Nom:BassingerUI:1 N: 0 D: 
+16/05/2020 23:53:20 HandleData. CadOri:/TELEP YO 34 22 26 Nom:BassingerUI:1 N: 0 D: 
+16/05/2020 23:53:20 HandleData. CadOri:/TELEP YO 34 23 19 Nom:BassingerUI:1 N: 0 D: 
+16/05/2020 23:53:21 HandleData. CadOri:/TELEP YO 34 24 12 Nom:BassingerUI:1 N: 0 D: 
+16/05/2020 23:53:35 HandleData. CadOri:/telep yo 48 50 50 Nom:BassingerUI:1 N: 0 D: 
+16/05/2020 23:53:46 HandleData. CadOri:/telep yo 84 40 40 Nom:BassingerUI:1 N: 0 D: 
+17/05/2020 0:01:38 HandleData. CadOri:/telep yo 1 50 50 Nom:BassingerUI:1 N: 0 D: 
+17/05/2020 0:03:06 HandleData. CadOri:/telep yo 1 50 50 Nom:bassingerUI:1 N: 0 D: 
+17/05/2020 3:07:11 HandleData. CadOri:/telep yo 50 50 50 Nom:BassingerUI:1 N: 0 D: 
+17/05/2020 3:07:14 HandleData. CadOri:/TELEP YO 50 46 48 Nom:BassingerUI:1 N: 0 D: 
+17/05/2020 3:07:34 HandleData. CadOri:/sum keoh Nom:BassingerUI:1 N: 0 D: 
+17/05/2020 3:07:59 HandleData. CadOri:/SEARCHNPCSH nos Nom:BassingerUI:1 N: 0 D: 
+17/05/2020 3:08:01 HandleData. CadOri:/ACC 662 Nom:BassingerUI:1 N: 0 D: 
+17/05/2020 3:08:08 ERROR en hostilmalvadoai :  
+17/05/2020 3:08:08  9  Nosferatu
+17/05/2020 3:08:17 ERROR en hostilmalvadoai :  
+17/05/2020 3:08:17  9  Nosferatu
+17/05/2020 3:08:17 ERROR en hostilmalvadoai :  
+17/05/2020 3:08:17  9  Nosferatu
+17/05/2020 3:08:18 ERROR en hostilmalvadoai :  
+17/05/2020 3:08:18  9  Nosferatu
+17/05/2020 22:10:20 Error en CloseUser. Número 9 Descripción: El subíndice está fuera del intervalo

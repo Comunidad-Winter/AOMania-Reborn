@@ -1,5 +1,5 @@
 Type=Exe
-Reference=*\G{E1211242-8E94-11D1-8808-00C04FC2C603}#1.0#0#..\..\SethNew\Launcher\libs\dx8vb.dll#DirectX 8 for Visual Basic Type Library
+Reference=*\G{E1211242-8E94-11D1-8808-00C04FC2C603}#1.0#0#..\..\SethNew\AoMania\libs\dx8vb.dll#DirectX 8 for Visual Basic Type Library
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\Windows\SysWOW64\stdole2.tlb#OLE Automation
 Reference=*\G{420B2830-E718-11CF-893D-00A0C9054228}#1.0#0#C:\Windows\SysWOW64\scrrun.dll#Microsoft Scripting Runtime
 Object={EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}#1.1#0; ieframe.dll
@@ -119,7 +119,7 @@ IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""
 Title="AoMania"
-ExeName32="AoManiaLocal.exe"
+ExeName32="AoMania.exe"
 Command32=""
 Name="AoManiaCliente"
 HelpContextID="0"
