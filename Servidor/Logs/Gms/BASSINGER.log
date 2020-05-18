@@ -36,3 +36,50 @@
 17/05/2020 3:07:59 Comando: /SEARCHNPCSH nos
 17/05/2020 3:08:01 Comando: /ACC 662
 17/05/2020 3:08:01  Sumoneo un Nosferatu en mapa 50
+18/05/2020 7:59:53 Se conecto con ip:127.0.0.1Hora: 18/05/2020 7:59:53
+18/05/2020 7:59:59 Comando: /seguir
+18/05/2020 8:00:15 Comando: /seguir
+18/05/2020 8:00:27 Comando: /Acc 10
+18/05/2020 8:00:27  Sumoneo un Guardia Del Caos en mapa 34
+18/05/2020 8:00:36 Comando: /mata
+18/05/2020 8:00:45 Comando: /acc 11
+18/05/2020 8:00:45  Sumoneo un Organizar duelos en mapa 34
+18/05/2020 8:00:52 Comando: /mata
+18/05/2020 8:00:54 Comando: /acc 12
+18/05/2020 8:00:54  Sumoneo un Banquero en mapa 34
+18/05/2020 8:00:58 Comando: /acc 13
+18/05/2020 8:00:58  Sumoneo un Sacerdote en mapa 34
+18/05/2020 8:01:02 Comando: /mata
+18/05/2020 8:01:07 Comando: /mata
+18/05/2020 8:01:14 Comando: /panelgm
+18/05/2020 8:01:24 Comando: /SEARCHITEMS 
+18/05/2020 8:01:32 Comando: /SEARCHITEMS inmo
+18/05/2020 8:01:36 Comando: /CI 530 1
+18/05/2020 8:01:36 Creo: 1 Inmovilizar
+18/05/2020 8:01:40 Comando: /SEARCHITEMS remo
+18/05/2020 8:01:43 Comando: /CI 207 1
+18/05/2020 8:01:43 Creo: 1 Remover paralisis
+18/05/2020 8:01:47 Comando: /SEARCHITEMS inv
+18/05/2020 8:01:51 Comando: /CI 318 1
+18/05/2020 8:01:51 Creo: 1 Invisibilidad
+18/05/2020 8:01:59 Comando: /SEARCHNPCS rey
+18/05/2020 8:02:06 Comando: /ACC 22
+18/05/2020 8:02:06  Sumoneo un Rey de Banderbill en mapa 34
+18/05/2020 8:02:24 Comando: /panelgm
+18/05/2020 8:02:32 Comando: /SEARCHITEMS frag
+18/05/2020 8:02:36 Comando: /CI 1983 1
+18/05/2020 8:02:36 Creo: 1 Fragata
+18/05/2020 8:02:38 Comando: /SEARCHITEMS exp
+18/05/2020 8:02:41 Comando: /CI 1702 33
+18/05/2020 8:02:41 Creo: 33 Vale por 500k de experiencia
+18/05/2020 8:02:48 Comando: /CI 1702 33
+18/05/2020 8:02:48 Creo: 33 Vale por 500k de experiencia
+18/05/2020 8:02:59 Comando: /SEARCHITEMS ele
+18/05/2020 8:03:07 Comando: /CI 537 1
+18/05/2020 8:03:07 Creo: 1 Invocar elemental de agua
+18/05/2020 8:03:12  tiró 1 Invisibilidad
+18/05/2020 8:03:14  tiró 1 Fragata
+18/05/2020 8:03:17  tiró 1 Inmovilizar
+18/05/2020 8:03:20  tiró 1 Invocar elemental de agua
+18/05/2020 8:03:23  tiró 66 Vale por 500k de experiencia
+18/05/2020 8:03:26  tiró 1 Remover paralisis
