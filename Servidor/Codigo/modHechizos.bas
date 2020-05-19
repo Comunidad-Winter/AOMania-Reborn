@@ -131,7 +131,7 @@ Sub NpcLanzaSpellSobreUser(ByVal NpcIndex As Integer, ByVal UserIndex As Integer
             UserList(UserIndex).flags.Paralizado = 1
             UserList(UserIndex).Counters.Paralisis = IntervaloParalizado
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.X & "," & UserList(UserIndex).pos.Y)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y)
 
         End If
 
@@ -293,7 +293,7 @@ Function ClasePuedeLanzarHechizo(ByVal UserIndex As Integer, ByVal HechizoIndex 
 
     For i = 1 To NUMCLASES
 
-        If Hechizos(HechizoIndex).ClaseProhibida(i) = UCase$(UserList(UserIndex).Clase) Then
+        If Hechizos(HechizoIndex).ClaseProhibida(i) = Chr(34) & UCase$(UserList(UserIndex).Clase) & Chr(34) Then
             ClasePuedeLanzarHechizo = False
             Exit Function
         End If
@@ -369,7 +369,7 @@ Function PuedeLanzar(ByVal UserIndex As Integer, ByVal HechizoIndex As Integer) 
     If UserList(UserIndex).flags.Muerto = 0 Then
         Dim wp2 As WorldPos
         wp2.Map = UserList(UserIndex).flags.TargetMap
-        wp2.X = UserList(UserIndex).flags.TargetX
+        wp2.x = UserList(UserIndex).flags.TargetX
         wp2.Y = UserList(UserIndex).flags.TargetY
 
         If Hechizos(HechizoIndex).NeedStaff > 0 Then
@@ -522,7 +522,7 @@ Sub HechizoInvocacion(ByVal UserIndex As Integer, ByRef b As Boolean)
     If UserList(UserIndex).NroMacotas >= MAXMASCOTAS Then Exit Sub
 
     'No permitimos se invoquen criaturas en zonas seguras
-    If MapInfo(UserList(UserIndex).pos.Map).Pk = False Or MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList( _
+    If MapInfo(UserList(UserIndex).pos.Map).Pk = False Or MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList( _
                                                                                                                           UserIndex).pos.Y).Trigger = eTrigger.ZONASEGURA Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z5")
         Exit Sub
@@ -573,7 +573,7 @@ Sub HechizoInvocacion(ByVal UserIndex As Integer, ByRef b As Boolean)
     Dim TargetPos As WorldPos
 
     TargetPos.Map = UserList(UserIndex).flags.TargetMap
-    TargetPos.X = UserList(UserIndex).flags.TargetX
+    TargetPos.x = UserList(UserIndex).flags.TargetX
     TargetPos.Y = UserList(UserIndex).flags.TargetY
 
     h = UserList(UserIndex).Stats.UserHechizos(UserList(UserIndex).flags.Hechizo)
@@ -758,7 +758,7 @@ Sub LanzarHechizo(Index As Integer, UserIndex As Integer)
     uh = UserList(UserIndex).Stats.UserHechizos(Index)
 
     If UserList(UserIndex).pos.Map = MapaMedusa Then
-        If UserList(UserIndex).pos.X >= 45 And UserList(UserIndex).pos.X <= 56 _
+        If UserList(UserIndex).pos.x >= 45 And UserList(UserIndex).pos.x <= 56 _
            And UserList(UserIndex).pos.Y >= 37 And UserList(UserIndex).pos.Y <= 42 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar en la zona de reclutamiento!!" & FONTTYPE_INFO)
             Exit Sub
@@ -1148,7 +1148,7 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
             UserList(TU).flags.Paralizado = 1
             UserList(TU).Counters.Paralisis = IntervaloParalizado
             Call SendData(SendTarget.ToIndex, TU, 0, "PARADOW")
-            Call SendData(SendTarget.ToIndex, TU, 0, "PU" & UserList(TU).pos.X & "," & UserList(TU).pos.Y)
+            Call SendData(SendTarget.ToIndex, TU, 0, "PU" & UserList(TU).pos.x & "," & UserList(TU).pos.Y)
 
         End If
 
@@ -1353,16 +1353,16 @@ Sub HechizoEstadoNPC(ByVal NpcIndex As Integer, ByVal hIndex As Integer, ByRef b
         Call InfoHechizo(UserIndex)
 
         Dim Map As Integer
-        Dim X As Integer
+        Dim x As Integer
         Dim Y As Integer
         Dim TempX As Integer
         Dim TempY As Integer
 
         Map = UserList(UserIndex).pos.Map
-        X = UserList(UserIndex).pos.X
+        x = UserList(UserIndex).pos.x
         Y = UserList(UserIndex).pos.Y
 
-        For TempX = X - 8 To X + 8
+        For TempX = x - 8 To x + 8
             For TempY = Y - 8 To Y + 8
 
                 If InMapBounds(Map, TempX, TempY) Then
@@ -1817,7 +1817,7 @@ Sub HechizoAreaUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
     With UserList(UserIndex)
 
-        For TempX = .pos.X - 8 To .pos.X + 8
+        For TempX = .pos.x - 8 To .pos.x + 8
             For TempY = .pos.Y - 8 To .pos.Y + 8
 
 
@@ -2272,16 +2272,16 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
     ElseIf Hechizos(h).SubeHP = 4 And Not MismaParty(UserIndex, tempChr) And Not MismoClan(UserIndex, tempChr) And UserIndex <> tempChr Then
         Dim Map As Integer
-        Dim X As Integer
+        Dim x As Integer
         Dim Y As Integer
         Dim TempX As Integer
         Dim TempY As Integer
 
         Map = UserList(UserIndex).pos.Map
-        X = UserList(UserIndex).pos.X
+        x = UserList(UserIndex).pos.x
         Y = UserList(UserIndex).pos.Y
 
-        For TempX = X - 8 To X + 8
+        For TempX = x - 8 To x + 8
             For TempY = Y - 8 To Y + 8
 
                 If InMapBounds(Map, TempX, TempY) Then
@@ -2581,7 +2581,7 @@ Public Sub DisNobAuBan(ByVal UserIndex As Integer, NoblePts As Long, BandidoPts 
 'disminuye la nobleza NoblePts puntos y aumenta el bandido BandidoPts puntos
 
 'Si estamos en la arena no hacemos nada
-    If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 6 Then Exit Sub
+    If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 6 Then Exit Sub
 
     'pierdo nobleza...
     UserList(UserIndex).Reputacion.NobleRep = UserList(UserIndex).Reputacion.NobleRep - NoblePts

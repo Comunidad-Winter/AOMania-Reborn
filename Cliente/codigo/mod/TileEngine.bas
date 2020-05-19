@@ -570,8 +570,8 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, _
     ByVal nWidth As Long, _
     ByVal nHeight As Long, _
     ByVal hSrcDC As Long, _
-    ByVal xSrc As Long, _
-    ByVal ySrc As Long, _
+    ByVal XSrc As Long, _
+    ByVal YSrc As Long, _
     ByVal dwRop As Long) As Long
 
 Public ColorAmbiente()   As D3DCOLORVALUE
@@ -596,7 +596,7 @@ Private Declare Function OleLoadPicture Lib "olepro32" (pStream As Any, _
     riid As Any, _
     ppvObj As Any) As Long
 
-Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) As IPicture
+Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) As IPicture
     Dim o_hMem        As Long
     Dim o_lpMem       As Long
     Dim aGUID(0 To 3) As Long
@@ -613,7 +613,7 @@ Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) 
         o_lpMem = GlobalLock(o_hMem)
 
         If Not o_lpMem = 0& Then
-            Call CopyMemory(ByVal o_lpMem, inArray(offset), Size)
+            Call CopyMemory(ByVal o_lpMem, inArray(Offset), Size)
             Call GlobalUnlock(o_hMem)
 
             If CreateStreamOnHGlobal(o_hMem, 1&, IIStream) = 0& Then
@@ -3038,21 +3038,21 @@ Private Sub ShowNextFrame()
     End If
     
     If VidaAmarilla > 0 And StatusAmarilla = True Then
-        Call Text_Draw(470, 78, "Agilidad:", Gris)
+        Call Text_Draw(670, 78, "Agilidad:", Gris)
 
         If Amarilla <= 20 Then
-            Call Text_Draw(520, 78, Amarilla, Red)
+            Call Text_Draw(720, 78, Amarilla, Red)
         ElseIf Amarilla >= 21 And Amarilla <= 34 Then
-            Call Text_Draw(520, 78, Amarilla, Orange)
+            Call Text_Draw(720, 78, Amarilla, Orange)
         ElseIf Amarilla >= 35 Then
-            Call Text_Draw(520, 78, Amarilla, Green)
+            Call Text_Draw(720, 78, Amarilla, Green)
 
             If VidaAmarilla > 20 Then
-                Call Text_Draw(520, 78, Amarilla, Green)
+                Call Text_Draw(720, 78, Amarilla, Green)
             ElseIf VidaAmarilla <= 20 And VidaAmarilla > 10 Then
-                Call Text_Draw(520, 78, Amarilla, Orange)
+                Call Text_Draw(720, 78, Amarilla, Orange)
             ElseIf VidaAmarilla <= 10 Then
-                Call Text_Draw(520, 78, Amarilla, Red)
+                Call Text_Draw(720, 78, Amarilla, Red)
 
             End If
 
@@ -3392,7 +3392,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
 118           .BackBufferWidth = ScreenWidth
 120           .BackBufferHeight = ScreenHeight
 122           .BackBufferFormat = DirectD3Ddm.Format 'current display depth
-              .hDeviceWindow = frmMain.MainViewPic.hwnd
+              .hDeviceWindow = frmMain.MainViewPic.HWnd
 
           End With
 
@@ -3402,7 +3402,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
           End If
 
           'create device
-128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.hwnd, Flags, DirectD3Dpp)
+128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.HWnd, Flags, DirectD3Dpp)
 
 130       Call D3DXMatrixOrthoOffCenterLH(Projection, 0, ScreenWidth, ScreenHeight, 0, -1#, 1#)
 132       Call D3DXMatrixIdentity(View)
@@ -3496,12 +3496,12 @@ Private Sub Directx_RenderStates()
     
 End Sub
 
-Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal hwnd As Long)
+Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal HWnd As Long)
     
     Call SpriteBatch.Flush
     
     Call DirectDevice.EndScene
-    Call DirectDevice.Present(RECT, ByVal 0, hwnd, ByVal 0)
+    Call DirectDevice.Present(RECT, ByVal 0, HWnd, ByVal 0)
 
 End Sub
 

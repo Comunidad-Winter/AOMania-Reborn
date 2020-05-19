@@ -732,7 +732,7 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
     Dim Y As Integer
     
     
-    sndData = AoDefEncode(AoDefServEncrypt(sndData))
+    'sndData = AoDefEncode(AoDefServEncrypt(sndData))
     sndData = sndData & ENDC
 
     Select Case sndRoute
@@ -2591,7 +2591,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
     Dim tLong          As Long
 
-    Dim TIndex         As Integer
+    Dim tIndex         As Integer
 
     Dim tName          As String
 
@@ -2651,25 +2651,25 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
     Dim tPath              As String
     
-    UserList(UserIndex).clave2 = UserList(UserIndex).clave2 + 1
+    'UserList(UserIndex).clave2 = UserList(UserIndex).clave2 + 1
 
-    With AodefConv
-        SuperClave = .Numero2Letra(UserList(UserIndex).clave2, , 2, "ZiPPy", "NoPPy", 1, 0)
+    'With AodefConv
+    '    SuperClave = .Numero2Letra(UserList(UserIndex).clave2, , 2, "ZiPPy", "NoPPy", 1, 0)
+'
+'    End With
 
-    End With
-
-    Do While InStr(1, SuperClave, " ")
-        SuperClave = mid$(SuperClave, 1, InStr(1, SuperClave, " ") - 1) & mid$(SuperClave, InStr(1, SuperClave, " ") + 1)
-    Loop
-    SuperClave = Semilla(SuperClave)
-    UserList(UserIndex).clave = SuperClave
+'    Do While InStr(1, SuperClave, " ")
+'        SuperClave = mid$(SuperClave, 1, InStr(1, SuperClave, " ") - 1) & mid$(SuperClave, InStr(1, SuperClave, " ") + 1)
+'    Loop
+'    SuperClave = Semilla(SuperClave)
+'    UserList(UserIndex).clave = SuperClave
           
-    If UserList(UserIndex).clave2 = 999998 Then
-        UserList(UserIndex).clave2 = 0
+'    If UserList(UserIndex).clave2 = 999998 Then
+'        UserList(UserIndex).clave2 = 0
 
-    End If
+'    End If
 
-    rData = DeCodificar(AoDefDecode(rData), UserList(UserIndex).clave)
+'    rData = DeCodificar(AoDefDecode(rData), UserList(UserIndex).clave)
 
     CadenaOriginal = rData
 
@@ -2997,15 +2997,15 @@ ExitErr1:
 
         End If
 
-        TIndex = NameIndex(Name)
+        tIndex = NameIndex(Name)
 
-        If TIndex <= 0 Then
+        If tIndex <= 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El usuario no esta online." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
-        If UserList(TIndex).flags.Privilegios > PlayerType.User Then
+        If UserList(tIndex).flags.Privilegios > PlayerType.User Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes advertir a administradores." & FONTTYPE_INFO)
             Exit Sub
 
@@ -3036,22 +3036,22 @@ ExitErr1:
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 11)
 
-        TIndex = NameIndex(rData)
+        tIndex = NameIndex(rData)
 
-        If TIndex <= 0 Then
+        If tIndex <= 0 Then
             If Quest.Existe(rData) Then Call Quest.Quitar(rData)
             Exit Sub
 
         End If
 
-        If UserList(TIndex).flags.Quest = 1 Then
-            If Quest.Existe(UserList(TIndex).Name) Then Call Quest.Quitar(UserList(TIndex).Name)
-            UserList(TIndex).flags.Quest = 0
+        If UserList(tIndex).flags.Quest = 1 Then
+            If Quest.Existe(UserList(tIndex).Name) Then Call Quest.Quitar(UserList(tIndex).Name)
+            UserList(tIndex).flags.Quest = 0
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has borrado el QUEST de: " & rData & FONTTYPE_INFO)
             Exit Sub
         Else
 
-            If Quest.Existe(UserList(TIndex).Name) Then Call Quest.Quitar(UserList(TIndex).Name)
+            If Quest.Existe(UserList(tIndex).Name) Then Call Quest.Quitar(UserList(tIndex).Name)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has borrado el QUEST de: " & rData & FONTTYPE_INFO)
 
         End If
@@ -3222,15 +3222,15 @@ ExitErr1:
     If UCase$(Left$(rData, 9)) = "/RESPUES " Then
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 9)
-        TIndex = NameIndex(rData)
+        tIndex = NameIndex(rData)
 
-        If TIndex <= 0 Then
+        If tIndex <= 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline!!." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
-        Call MostrarSop(UserIndex, TIndex, rData)
+        Call MostrarSop(UserIndex, tIndex, rData)
         SendData SendTarget.ToIndex, UserIndex, 0, "INITSOP"
         Exit Sub
 

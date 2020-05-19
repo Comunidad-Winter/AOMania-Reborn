@@ -1,2 +1,12 @@
 [History]
-1=#P0#=mb	#P1#=ShowNextFrame	#P2#=AoManiaCliente/Mod_TileEngine/ShowNextFrame	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200518081513	#P7#=0	#P8#=147	.
+1=#P0#=mb	#P1#=ShowNextFrame	#P2#=AoManiaCliente/Mod_TileEngine/ShowNextFrame	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200519140053	#P7#=0	#P8#=101	.
+2=#P0#=mb	#P1#=Image1_MouseMove	#P2#=AoManiaCliente/frmConnect/Image1_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200519120040	#P7#=0	#P8#=6	.
+3=#P0#=mb	#P1#=Image2_Click	#P2#=AoManiaCliente/frmConnect/Image2_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200519120013	#P7#=0	#P8#=1	.
+4=#P0#=mb	#P1#=OverTimer_Timer	#P2#=AoManiaCliente/ChameleonBtn/OverTimer_Timer	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200519112334	#P7#=0	#P8#=1	.
+5=#P0#=mb	#P1#=Socket1_Connect	#P2#=AoManiaCliente/frmMain/Socket1_Connect	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200519111733	#P7#=0	#P8#=2	.
+6=#P0#=mb	#P1#=CheckUserData	#P2#=AoManiaCliente/Mod_General/CheckUserData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200519111127	#P7#=0	#P8#=17	.
+7=#P0#=mb	#P1#=HandleData	#P2#=AoManiaCliente/Mod_TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200519104928	#P7#=0	#P8#=1217	.
+8=#P0#=mb	#P1#=CleanerPlus	#P2#=AoManiaCliente/Mod_General/CleanerPlus	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200519104619	#P7#=0	#P8#=15	.
+9=#P0#=mb	#P1#=SwitchMap	#P2#=AoManiaCliente/Mod_General/SwitchMap	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200519093900	#P7#=0	#P8#=-1	.
+10=#P0#=mb	#P1#=Main	#P2#=AoManiaCliente/Mod_General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200519093142	#P7#=0	#P8#=22	.
+11=#P0#=mb	#P1#=SendData	#P2#=AoManiaCliente/Mod_TCP/SendData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200518212444	#P7#=0	#P8#=19	.

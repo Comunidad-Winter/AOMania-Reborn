@@ -5,8 +5,8 @@ Option Explicit
 
 Global LeerNPCs As New clsIniManager
 
-Private Declare Sub MDFile Lib "libs\aamd532.dll" (ByVal f As String, ByVal r As String)
-Private Declare Sub MDStringFix Lib "libs\aamd532.dll" (ByVal f As String, ByVal T As Long, ByVal r As String)
+Private Declare Sub MDFile Lib "aamd532.dll" (ByVal f As String, ByVal r As String)
+Private Declare Sub MDStringFix Lib "aamd532.dll" (ByVal f As String, ByVal T As Long, ByVal r As String)
 
 '[Pablo ToxicWaste]
 Public Type ModClase
@@ -1478,11 +1478,20 @@ Public Sub TiempoInvocacion(ByVal UserIndex As Integer)
 
         If UserList(UserIndex).MascotasIndex(i) > 0 Then
             If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia > 0 Then
-                Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = Npclist(UserList(UserIndex).MascotasIndex( _
-                                                                                                    i)).Contadores.TiempoExistencia - 1
+                Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia - 1
+                'Call MuereNpc(UserList(UserIndex).MascotasIndex(i), UserIndex)
 
-                If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = 0 Then Call MuereNpc(UserList( _
-                                                                                                                    UserIndex).MascotasIndex(i), 0)
+                'If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = 0 Then Call MuereNpc(UserList(UserIndex).MascotasIndex(i), 0)
+
+            End If
+            
+            If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = 0 Then
+                Call MuereNpc(UserList(UserIndex).MascotasIndex(i), UserIndex)
+                Npclist(UserList(UserIndex).MascotasIndex(i)).MaestroUser = 0
+                Npclist(UserList(UserIndex).MascotasIndex(i)).Movement = Npclist(UserList(UserIndex).MascotasIndex(i)).flags.OldMovement
+                Npclist(UserList(UserIndex).MascotasIndex(i)).Hostile = Npclist(UserList(UserIndex).MascotasIndex(i)).flags.OldHostil
+                UserList(UserIndex).MascotasIndex(i) = 0
+                UserList(UserIndex).MascotasType(i) = 0
 
             End If
 

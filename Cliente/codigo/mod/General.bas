@@ -956,6 +956,28 @@ Sub CheckKeys()
 
 End Sub
 
+Sub CleanerPlus()
+   Dim X As Long
+   Dim Y As Long
+
+'edit cambio el rango de valores en x y para solucionar otro bug con respecto al cambio de mapas
+
+  For X = XMinMapSize To XMaxMapSize
+       For Y = YMinMapSize To YMaxMapSize
+
+       If (MapData(X, Y).charindex) Then
+         Call EraseChar(MapData(X, Y).charindex)
+       End If
+
+      'If (MapData(x, y).ObjGrh.GrhIndex) Then
+       ' Call Map_DestroyObject(x, y)
+      'End If
+
+   Next Y
+ Next X
+ 
+End Sub
+
 Sub SwitchMap(ByVal Map As Integer)
     '**************************************************************
     'Formato de mapas optimizado para reducir el espacio que ocupan.
@@ -963,6 +985,7 @@ Sub SwitchMap(ByVal Map As Integer)
     '**************************************************************
 
     Call Particle_Group_Remove_All
+    Call CleanerPlus
 
     Dim Y        As Long
     Dim X        As Long
@@ -1151,6 +1174,11 @@ Sub Main()
      #End If
      
     Set AodefConv = New AoDefenderConverter
+    
+    'If AoDefDebugger Then
+    '   Call AoDefAntiDebugger
+    '   End
+   'End If
         
     Call InitializeCompression
     Call LoadInterfaces

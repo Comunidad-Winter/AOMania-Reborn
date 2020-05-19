@@ -945,7 +945,7 @@ Public Sub UsuarioAtacaNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer
 
     If UserList(UserIndex).flags.Privilegios = PlayerType.Consejero Then Exit Sub
 
-    If Abs(Npclist(NpcIndex).pos.X - UserList(UserIndex).pos.X) > RANGO_VISION_X Or Abs(Npclist(NpcIndex).pos.Y - UserList(UserIndex).pos.Y) > RANGO_VISION_Y Then
+    If Abs(Npclist(NpcIndex).pos.x - UserList(UserIndex).pos.x) > RANGO_VISION_X Or Abs(Npclist(NpcIndex).pos.Y - UserList(UserIndex).pos.Y) > RANGO_VISION_Y Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estás muy lejos para disparar." & FONTTYPE_INFO)
         Exit Sub
 
@@ -1116,7 +1116,7 @@ Public Sub UsuarioAtaca(ByVal UserIndex As Integer)
         Call HeadtoPos(UserList(UserIndex).char.heading, AttackPos)
 
         'Exit if not legal
-        If AttackPos.X < XMinMapSize Or AttackPos.X > XMaxMapSize Or AttackPos.Y <= YMinMapSize Or AttackPos.Y > YMaxMapSize Then
+        If AttackPos.x < XMinMapSize Or AttackPos.x > XMaxMapSize Or AttackPos.Y <= YMinMapSize Or AttackPos.Y > YMaxMapSize Then
             Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_SWING)
             Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
             Exit Sub
@@ -1124,29 +1124,29 @@ Public Sub UsuarioAtaca(ByVal UserIndex As Integer)
         End If
 
         Dim Index As Integer
-        Index = MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).UserIndex
+        Index = MapData(AttackPos.Map, AttackPos.x, AttackPos.Y).UserIndex
 
         'Look for user
         If Index > 0 Then
-            Call UsuarioAtacaUsuario(UserIndex, MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).UserIndex)
-            Call EnviarHP(MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).UserIndex)
+            Call UsuarioAtacaUsuario(UserIndex, MapData(AttackPos.Map, AttackPos.x, AttackPos.Y).UserIndex)
+            Call EnviarHP(MapData(AttackPos.Map, AttackPos.x, AttackPos.Y).UserIndex)
             Exit Sub
 
         End If
 
         'Look for NPC
-        If MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).NpcIndex > 0 Then
+        If MapData(AttackPos.Map, AttackPos.x, AttackPos.Y).NpcIndex > 0 Then
 
-            If Npclist(MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).NpcIndex).Attackable Then
+            If Npclist(MapData(AttackPos.Map, AttackPos.x, AttackPos.Y).NpcIndex).Attackable Then
 
-                If Npclist(MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).NpcIndex).MaestroUser > 0 And MapInfo(Npclist(MapData(AttackPos.Map, _
-                                                                                                                                  AttackPos.X, AttackPos.Y).NpcIndex).pos.Map).Pk = False Then
+                If Npclist(MapData(AttackPos.Map, AttackPos.x, AttackPos.Y).NpcIndex).MaestroUser > 0 And MapInfo(Npclist(MapData(AttackPos.Map, _
+                                                                                                                                  AttackPos.x, AttackPos.Y).NpcIndex).pos.Map).Pk = False Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar mascotas en zonas seguras" & FONTTYPE_INFO)
                     Exit Sub
 
                 End If
 
-                Call UsuarioAtacaNpc(UserIndex, MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).NpcIndex)
+                Call UsuarioAtacaNpc(UserIndex, MapData(AttackPos.Map, AttackPos.x, AttackPos.Y).NpcIndex)
 
             Else
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar a este NPC" & FONTTYPE_INFO)
@@ -1278,7 +1278,7 @@ Public Sub UsuarioAtacaUsuario(ByVal AtacanteIndex As Integer, ByVal VictimaInde
 
     If Not PuedeAtacar(AtacanteIndex, VictimaIndex) Then Exit Sub
 
-    If Abs(UserList(AtacanteIndex).pos.X - UserList(VictimaIndex).pos.X) > RANGO_VISION_X Or Abs(UserList(AtacanteIndex).pos.Y - UserList(VictimaIndex).pos.Y) > RANGO_VISION_Y Then
+    If Abs(UserList(AtacanteIndex).pos.x - UserList(VictimaIndex).pos.x) > RANGO_VISION_X Or Abs(UserList(AtacanteIndex).pos.Y - UserList(VictimaIndex).pos.Y) > RANGO_VISION_Y Then
         Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "||Estás muy lejos para disparar." & FONTTYPE_INFO)
         Exit Sub
 
@@ -1750,60 +1750,60 @@ Sub AllMascotasAtacanUser(ByVal Victim As Integer, ByVal Maestro As Integer)
 
 End Sub
 
-Public Function ZonaDuelos(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer) As Boolean
+Public Function ZonaDuelos(ByVal Map As Integer, ByVal x As Integer, ByVal Y As Integer) As Boolean
 
     If Map = 35 Then
-        If X >= 40 And X <= 61 And Y >= 76 And Y <= 89 Then
+        If x >= 40 And x <= 61 And Y >= 76 And Y <= 89 Then
             ZonaDuelos = True
             Exit Function
         End If
     End If
 
     If Map = 150 Then
-        If X >= 21 And X <= 46 And Y >= 21 And Y <= 38 Then
+        If x >= 21 And x <= 46 And Y >= 21 And Y <= 38 Then
             ZonaDuelos = True
             Exit Function
         End If
 
-        If X >= 16 And X <= 47 And Y >= 57 And Y <= 79 Then
+        If x >= 16 And x <= 47 And Y >= 57 And Y <= 79 Then
             ZonaDuelos = True
             Exit Function
         End If
 
-        If X >= 62 And X <= 87 And Y >= 20 And Y <= 38 Then
+        If x >= 62 And x <= 87 And Y >= 20 And Y <= 38 Then
             ZonaDuelos = True
             Exit Function
         End If
 
-        If X >= 59 And X <= 90 And Y >= 57 And Y <= 84 Then
+        If x >= 59 And x <= 90 And Y >= 57 And Y <= 84 Then
             ZonaDuelos = True
             Exit Function
         End If
     End If
 
     If Map = 154 Then
-        If X >= 38 And X <= 63 And Y >= 41 And Y <= 60 Then
+        If x >= 38 And x <= 63 And Y >= 41 And Y <= 60 Then
             ZonaDuelos = True
             Exit Function
         End If
     End If
 
     If Map = 160 Then
-        If X >= 35 And X <= 67 And Y >= 40 And Y <= 62 Then
+        If x >= 35 And x <= 67 And Y >= 40 And Y <= 62 Then
             ZonaDuelos = True
             Exit Function
         End If
     End If
 
     If Map = 161 Then
-        If X >= 34 And X <= 67 And Y >= 37 And Y <= 63 Then
+        If x >= 34 And x <= 67 And Y >= 37 And Y <= 63 Then
             ZonaDuelos = True
             Exit Function
         End If
     End If
 
     If Map = 190 Then
-        If X >= 16 And X <= 47 And Y >= 57 And Y <= 79 Then
+        If x >= 16 And x <= 47 And Y >= 57 And Y <= 79 Then
             ZonaDuelos = True
             Exit Function
         End If
@@ -1813,36 +1813,36 @@ Public Function ZonaDuelos(ByVal Map As Integer, ByVal X As Integer, ByVal Y As 
 
 End Function
 
-Public Function ProhibidoAtacar(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer) As Boolean
+Public Function ProhibidoAtacar(ByVal Map As Integer, ByVal x As Integer, ByVal Y As Integer) As Boolean
 
     If Map = "35" Then
 
-        If X >= "40" And X <= "61" And Y >= 76 And Y <= 78 Then
+        If x >= "40" And x <= "61" And Y >= 76 And Y <= 78 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= "40" And X <= "41" And Y >= 79 And Y <= 81 Then
+        If x >= "40" And x <= "41" And Y >= 79 And Y <= 81 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X = "40" And Y >= 82 And Y <= 84 Then
+        If x = "40" And Y >= 82 And Y <= 84 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= "40" And X <= "41" And Y >= 85 And Y <= 87 Then
+        If x >= "40" And x <= "41" And Y >= 85 And Y <= 87 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= "40" And X <= "61" And Y >= 88 And Y <= 89 Then
+        If x >= "40" And x <= "61" And Y >= 88 And Y <= 89 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= "60" And X <= "61" And Y >= 79 And Y <= 87 Then
+        If x >= "60" And x <= "61" And Y >= 79 And Y <= 87 Then
             ProhibidoAtacar = True
             Exit Function
         End If
@@ -1851,142 +1851,142 @@ Public Function ProhibidoAtacar(ByVal Map As Integer, ByVal X As Integer, ByVal 
 
     If Map = 150 Then
 
-        If X >= 21 And X <= 46 And Y >= 21 And Y <= 24 Then
+        If x >= 21 And x <= 46 And Y >= 21 And Y <= 24 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 21 And X <= 46 And Y >= 36 And Y <= 38 Then
+        If x >= 21 And x <= 46 And Y >= 36 And Y <= 38 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 21 And X <= 24 And Y >= 25 And Y <= 28 Then
+        If x >= 21 And x <= 24 And Y >= 25 And Y <= 28 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 21 And X <= 24 And Y >= 32 And Y <= 35 Then
+        If x >= 21 And x <= 24 And Y >= 32 And Y <= 35 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 21 And X <= 22 And Y >= 29 And Y <= 31 Then
+        If x >= 21 And x <= 22 And Y >= 29 And Y <= 31 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 43 And X <= 46 And Y >= 25 And Y <= 28 Then
+        If x >= 43 And x <= 46 And Y >= 25 And Y <= 28 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 43 And X <= 46 And Y >= 32 And Y <= 35 Then
+        If x >= 43 And x <= 46 And Y >= 32 And Y <= 35 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 45 And X <= 45 And Y >= 29 And Y <= 31 Then
+        If x >= 45 And x <= 45 And Y >= 29 And Y <= 31 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 16 And X <= 47 And Y >= 57 And Y <= 60 Then
+        If x >= 16 And x <= 47 And Y >= 57 And Y <= 60 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 16 And X <= 18 And Y >= 61 And Y <= 75 Then
+        If x >= 16 And x <= 18 And Y >= 61 And Y <= 75 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X = 19 And Y >= 64 And Y <= 72 Then
+        If x = 19 And Y >= 64 And Y <= 72 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 16 And X <= 47 And Y >= 76 And Y <= 79 Then
+        If x >= 16 And x <= 47 And Y >= 76 And Y <= 79 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 45 And X <= 47 And Y >= 61 And Y <= 75 Then
+        If x >= 45 And x <= 47 And Y >= 61 And Y <= 75 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X = 44 And Y >= 64 And Y <= 72 Then
+        If x = 44 And Y >= 64 And Y <= 72 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 62 And X <= 87 And Y >= 20 And Y <= 24 Then
+        If x >= 62 And x <= 87 And Y >= 20 And Y <= 24 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 62 And X <= 65 And Y >= 25 And Y <= 28 Then
+        If x >= 62 And x <= 65 And Y >= 25 And Y <= 28 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 62 And X <= 65 And Y >= 32 And Y <= 35 Then
+        If x >= 62 And x <= 65 And Y >= 32 And Y <= 35 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 62 And X <= 63 And Y >= 29 And Y <= 31 Then
+        If x >= 62 And x <= 63 And Y >= 29 And Y <= 31 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 62 And X <= 87 And Y >= 36 And Y <= 38 Then
+        If x >= 62 And x <= 87 And Y >= 36 And Y <= 38 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 84 And X <= 87 And Y >= 25 And Y <= 28 Then
+        If x >= 84 And x <= 87 And Y >= 25 And Y <= 28 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 84 And X <= 87 And Y >= 32 And Y <= 35 Then
+        If x >= 84 And x <= 87 And Y >= 32 And Y <= 35 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 86 And X <= 87 And Y >= 29 And Y <= 31 Then
+        If x >= 86 And x <= 87 And Y >= 29 And Y <= 31 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 59 And X <= 90 And Y >= 57 And Y <= 62 Then
+        If x >= 59 And x <= 90 And Y >= 57 And Y <= 62 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 59 And X <= 90 And Y >= 78 And Y <= 84 Then
+        If x >= 59 And x <= 90 And Y >= 78 And Y <= 84 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 59 And X <= 61 And Y >= 63 And Y <= 77 Then
+        If x >= 59 And x <= 61 And Y >= 63 And Y <= 77 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X = 62 And Y >= 66 And Y <= 74 Then
+        If x = 62 And Y >= 66 And Y <= 74 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 89 And X <= 90 And Y >= 63 And Y <= 77 Then
+        If x >= 89 And x <= 90 And Y >= 63 And Y <= 77 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X = 88 And Y >= 66 And Y <= 74 Then
+        If x = 88 And Y >= 66 And Y <= 74 Then
             ProhibidoAtacar = True
             Exit Function
         End If
@@ -1995,42 +1995,42 @@ Public Function ProhibidoAtacar(ByVal Map As Integer, ByVal X As Integer, ByVal 
 
     If Map = 160 Then
 
-        If X >= 38 And X <= 64 And Y >= 43 And Y <= 44 Then
+        If x >= 38 And x <= 64 And Y >= 43 And Y <= 44 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 38 And X <= 64 And Y >= 58 And Y <= 59 Then
+        If x >= 38 And x <= 64 And Y >= 58 And Y <= 59 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 38 And X <= 41 And Y >= 45 And Y <= 49 Then
+        If x >= 38 And x <= 41 And Y >= 45 And Y <= 49 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 38 And X <= 41 And Y >= 53 And Y <= 57 Then
+        If x >= 38 And x <= 41 And Y >= 53 And Y <= 57 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 38 And X <= 40 And Y >= 50 And Y <= 52 Then
+        If x >= 38 And x <= 40 And Y >= 50 And Y <= 52 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 60 And X <= 64 And Y >= 45 And Y <= 49 Then
+        If x >= 60 And x <= 64 And Y >= 45 And Y <= 49 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 60 And X <= 64 And Y >= 53 And Y <= 57 Then
+        If x >= 60 And x <= 64 And Y >= 53 And Y <= 57 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 61 And X <= 64 And Y >= 50 And Y <= 52 Then
+        If x >= 61 And x <= 64 And Y >= 50 And Y <= 52 Then
             ProhibidoAtacar = True
             Exit Function
         End If
@@ -2038,22 +2038,22 @@ Public Function ProhibidoAtacar(ByVal Map As Integer, ByVal X As Integer, ByVal 
 
     If Map = 161 Then
 
-        If X >= 34 And X <= 67 And Y >= 37 And Y <= 44 Then
+        If x >= 34 And x <= 67 And Y >= 37 And Y <= 44 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 34 And X <= 67 And Y >= 57 And Y <= 63 Then
+        If x >= 34 And x <= 67 And Y >= 57 And Y <= 63 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 34 And X <= 40 And Y >= 45 And Y <= 56 Then
+        If x >= 34 And x <= 40 And Y >= 45 And Y <= 56 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 61 And X <= 67 And Y >= 45 And Y <= 56 Then
+        If x >= 61 And x <= 67 And Y >= 45 And Y <= 56 Then
             ProhibidoAtacar = True
             Exit Function
         End If
@@ -2062,32 +2062,32 @@ Public Function ProhibidoAtacar(ByVal Map As Integer, ByVal X As Integer, ByVal 
 
     If Map = 190 Then
 
-        If X >= 16 And X <= 47 And Y >= 57 And Y <= 60 Then
+        If x >= 16 And x <= 47 And Y >= 57 And Y <= 60 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 16 And X <= 18 And Y >= 61 And Y <= 75 Then
+        If x >= 16 And x <= 18 And Y >= 61 And Y <= 75 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X = 19 And Y >= 64 And Y <= 72 Then
+        If x = 19 And Y >= 64 And Y <= 72 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 16 And X <= 47 And Y >= 76 And Y <= 79 Then
+        If x >= 16 And x <= 47 And Y >= 76 And Y <= 79 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X >= 45 And X <= 47 And Y >= 61 And Y <= 75 Then
+        If x >= 45 And x <= 47 And Y >= 61 And Y <= 75 Then
             ProhibidoAtacar = True
             Exit Function
         End If
 
-        If X = 44 And Y >= 64 And Y <= 72 Then
+        If x = 44 And Y >= 64 And Y <= 72 Then
             ProhibidoAtacar = True
             Exit Function
         End If
@@ -2121,11 +2121,11 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
         Exit Function
     End If
 
-    If ProhibidoAtacar(UserList(AttackerIndex).pos.Map, UserList(AttackerIndex).pos.X, UserList(AttackerIndex).pos.Y) Then
+    If ProhibidoAtacar(UserList(AttackerIndex).pos.Map, UserList(AttackerIndex).pos.x, UserList(AttackerIndex).pos.Y) Then
         Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||Atacar en esta zona está prohibido." & FONTTYPE_WARNING)
         PuedeAtacar = False
         Exit Function
-    ElseIf ProhibidoAtacar(UserList(VictimIndex).pos.Map, UserList(VictimIndex).pos.X, UserList(VictimIndex).pos.Y) Then
+    ElseIf ProhibidoAtacar(UserList(VictimIndex).pos.Map, UserList(VictimIndex).pos.x, UserList(VictimIndex).pos.Y) Then
         Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||Atacar en esta zona está prohibido." & FONTTYPE_WARNING)
         PuedeAtacar = False
         Exit Function
@@ -2182,7 +2182,7 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
 
     End If
 
-    If MapInfo(UserList(VictimIndex).pos.Map).Pk = False And Not MapData(UserList(AttackerIndex).pos.Map, UserList(AttackerIndex).pos.X, UserList(AttackerIndex).pos.Y).Trigger = 2 Then
+    If MapInfo(UserList(VictimIndex).pos.Map).Pk = False And Not MapData(UserList(AttackerIndex).pos.Map, UserList(AttackerIndex).pos.x, UserList(AttackerIndex).pos.Y).Trigger = 2 Then
 
         If esTemplario(AttackerIndex) Then
             Select Case UserList(VictimIndex).pos.Map
@@ -2251,8 +2251,8 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
         Exit Function
     End If
 
-    If MapData(UserList(VictimIndex).pos.Map, UserList(VictimIndex).pos.X, UserList(VictimIndex).pos.Y).Trigger = eTrigger.ZONASEGURA Or MapData( _
-       UserList(AttackerIndex).pos.Map, UserList(AttackerIndex).pos.X, UserList(AttackerIndex).pos.Y).Trigger = eTrigger.ZONASEGURA Then
+    If MapData(UserList(VictimIndex).pos.Map, UserList(VictimIndex).pos.x, UserList(VictimIndex).pos.Y).Trigger = eTrigger.ZONASEGURA Or MapData( _
+       UserList(AttackerIndex).pos.Map, UserList(AttackerIndex).pos.x, UserList(AttackerIndex).pos.Y).Trigger = eTrigger.ZONASEGURA Then
         Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||No puedes pelear aqui." & FONTTYPE_WARNING)
         PuedeAtacar = False
         Exit Function
@@ -2416,7 +2416,7 @@ Sub CalcularDarExp(ByVal UserIndex As Integer, ByVal NpcIndex As Integer, ByVal 
         If ExpaDar <> 0 Then
 
             If UserList(UserIndex).PartyIndex > 0 Then
-                Call mdParty.ObtenerExito(UserIndex, ExpaDar, .pos.Map, .pos.X, .pos.Y)
+                Call mdParty.ObtenerExito(UserIndex, ExpaDar, .pos.Map, .pos.x, .pos.Y)
             Else
                 UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + ExpaDar
 
@@ -2438,11 +2438,11 @@ End Sub
 Public Function TriggerZonaPelea(ByVal Origen As Integer, ByVal Destino As Integer) As eTrigger6
 
     If Origen > 0 And Destino > 0 And Origen <= UBound(UserList) And Destino <= UBound(UserList) Then
-        If MapData(UserList(Origen).pos.Map, UserList(Origen).pos.X, UserList(Origen).pos.Y).Trigger = eTrigger.ZONAPELEA Or MapData(UserList( _
-                                                                                                                                     Destino).pos.Map, UserList(Destino).pos.X, UserList(Destino).pos.Y).Trigger = eTrigger.ZONAPELEA Then
+        If MapData(UserList(Origen).pos.Map, UserList(Origen).pos.x, UserList(Origen).pos.Y).Trigger = eTrigger.ZONAPELEA Or MapData(UserList( _
+                                                                                                                                     Destino).pos.Map, UserList(Destino).pos.x, UserList(Destino).pos.Y).Trigger = eTrigger.ZONAPELEA Then
 
-            If (MapData(UserList(Origen).pos.Map, UserList(Origen).pos.X, UserList(Origen).pos.Y).Trigger = MapData(UserList(Destino).pos.Map, _
-                                                                                                                    UserList(Destino).pos.X, UserList(Destino).pos.Y).Trigger) Then
+            If (MapData(UserList(Origen).pos.Map, UserList(Origen).pos.x, UserList(Origen).pos.Y).Trigger = MapData(UserList(Destino).pos.Map, _
+                                                                                                                    UserList(Destino).pos.x, UserList(Destino).pos.Y).Trigger) Then
                 TriggerZonaPelea = TRIGGER6_PERMITE
             Else
                 TriggerZonaPelea = TRIGGER6_PROHIBE

@@ -1,5 +1,5 @@
 [History]
-1=#P0#=mb	#P1#=Analizar	#P2#=LauncherAoMania/ModUpdate/Analizar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200518041854	#P7#=0	#P8#=-1	.
+1=#P0#=mb	#P1#=Analizar	#P2#=LauncherAoMania/ModUpdate/Analizar	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200518183645	#P7#=0	#P8#=47	.
 2=#P0#=mb	#P1#=cmdDiscord_Click	#P2#=LauncherAoMania/frmMain/cmdDiscord_Click	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200516034837	#P7#=0	#P8#=1	.
 3=#P0#=mb	#P1#=cmdPlay_Click	#P2#=LauncherAoMania/frmMain/cmdPlay_Click	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200516001717	#P7#=0	#P8#=8	.
 4=#P0#=mb	#P1#=cmdConf_MouseMove	#P2#=LauncherAoMania/frmMain/cmdConf_MouseMove	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200516001701	#P7#=0	#P8#=2	.
