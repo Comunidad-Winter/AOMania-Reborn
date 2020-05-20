@@ -13,7 +13,7 @@ Option Explicit
 '?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
 '?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
 '?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
-Public Function TirarItemAlPiso(pos As WorldPos, Obj As Obj) As WorldPos
+Public Function TirarItemAlPiso(Pos As WorldPos, Obj As Obj) As WorldPos
 
     On Error GoTo errhandler
 
@@ -21,10 +21,10 @@ Public Function TirarItemAlPiso(pos As WorldPos, Obj As Obj) As WorldPos
     NuevaPos.X = 0
     NuevaPos.Y = 0
 
-    Call Tilelibre(pos, NuevaPos, Obj)
+    Call Tilelibre(Pos, NuevaPos)
 
     If NuevaPos.X <> 0 And NuevaPos.Y <> 0 Then
-        Call MakeObj(SendTarget.ToMap, 0, pos.Map, Obj, pos.Map, NuevaPos.X, NuevaPos.Y)
+        Call MakeObj(SendTarget.ToMap, 0, Pos.Map, Obj, Pos.Map, NuevaPos.X, NuevaPos.Y)
         TirarItemAlPiso = NuevaPos
 
     End If
@@ -85,13 +85,13 @@ Public Sub NPC_TIRAR_ITEMS(ByRef npc As npc, ByVal UserIndex As Integer)
 
                     MiObj.Amount = npc.Drops.Amount(LagaI)
                     MiObj.ObjIndex = npc.Drops.DropIndex(LagaI)
-                    Call TirarItemAlPiso(.pos, MiObj)
+                    Call TirarItemAlPiso(.Pos, MiObj)
 
                 ElseIf LagaRLDrop <= val(npc.Drops.Porcentaje(LagaI) + Porcentaje(npc.Drops.Porcentaje(LagaI), Suerte)) Then
 
                     MiObj.Amount = npc.Drops.Amount(LagaI)
                     MiObj.ObjIndex = npc.Drops.DropIndex(LagaI)
-                    Call TirarItemAlPiso(.pos, MiObj)
+                    Call TirarItemAlPiso(.Pos, MiObj)
 
                 End If
 

@@ -2310,13 +2310,13 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
                                         
                 Dim Line        As String
 
-                Line = Left$(.Nombre, pos - 2)
-                lCenter = (Len(Line) * 6 / 2) - 17
+                Line = Left$(.Nombre, pos - 1)
+                lCenter = (frmMain.TextWidth(Line) / 2) - 19
                                             
                 Dim sClan As String
 
                 sClan = mid$(.Nombre, pos)
-                lCenterClan = (Len(sClan) * 6 / 2) - 17
+                lCenterClan = (frmMain.TextWidth(sClan) / 2) - 19
 
                 If .Criminal = 1 Then
                     'ColorClan = RGB(255, 0, 0)

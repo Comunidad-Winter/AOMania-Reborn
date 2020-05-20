@@ -10971,3 +10971,299 @@
 20/05/2020 16:17:55 Error en seekpath: 9  El subíndice está fuera del intervalo SubProceso:AoManiaServer--->5
 20/05/2020 16:17:58 Error en seekpath: 9  El subíndice está fuera del intervalo SubProceso:AoManiaServer--->5
 20/05/2020 16:17:58 Error en seekpath: 9  El subíndice está fuera del intervalo SubProceso:AoManiaServer--->5
+20/05/2020 21:06:23 HandleData. CadOri:/telep yo 47 50 50 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 21:06:24 HandleData. CadOri:/TELEP YO 47 56 45 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 21:06:25 HandleData. CadOri:/TELEP YO 47 59 38 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 21:06:25 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 21:06:26 HandleData. CadOri:/TELEP YO 47 63 33 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 21:06:29 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 21:15:52 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 21:45:08 CloseSocket - Error = 28 - Descripción = Espacio de pila insuficiente - UserIndex = 1
+20/05/2020 21:52:54 CloseSocket - Error = 28 - Descripción = Espacio de pila insuficiente - UserIndex = 1
+20/05/2020 21:52:59 CloseSocket - Error = 28 - Descripción = Espacio de pila insuficiente - UserIndex = 2
+20/05/2020 21:53:35 HandleData. CadOri:MARAKAKeoH,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,0 Nom:KeoHUI:3 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+20/05/2020 21:55:27 CloseSocket - Error = 28 - Descripción = Espacio de pila insuficiente - UserIndex = 2
+20/05/2020 21:57:27 CloseSocket - Error = 28 - Descripción = Espacio de pila insuficiente - UserIndex = 1
+20/05/2020 21:57:27 ERROR en irusuariocercano: El subíndice está fuera del intervalo
+20/05/2020 21:57:27  8 Gran Dragón Blanco
+20/05/2020 21:57:27 HandleData. CadOri:MARAKAKeoH,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,0 Nom:KeoHUI:3 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+20/05/2020 21:57:34 CloseSocket - Error = 28 - Descripción = Espacio de pila insuficiente - UserIndex = 4
+20/05/2020 22:47:20 HandleData. CadOri:/telep yo 192 50 50 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:40 HandleData. CadOri:/TELEP YO 192 29 41 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:41 HandleData. CadOri:/TELEP YO 192 30 45 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:41 HandleData. CadOri:/TELEP YO 192 31 49 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:42 HandleData. CadOri:/TELEP YO 192 32 53 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:42 HandleData. CadOri:/TELEP YO 192 33 57 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:42 HandleData. CadOri:/TELEP YO 192 34 61 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:42 HandleData. CadOri:/TELEP YO 192 35 65 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:43 HandleData. CadOri:/TELEP YO 192 36 69 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:43 HandleData. CadOri:/TELEP YO 192 36 73 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:43 HandleData. CadOri:/TELEP YO 192 36 78 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:43 HandleData. CadOri:/TELEP YO 192 36 83 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:43 HandleData. CadOri:/TELEP YO 192 38 88 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:44 HandleData. CadOri:/TELEP YO 192 42 93 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:44 HandleData. CadOri:/TELEP YO 192 43 92 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:44 HandleData. CadOri:/TELEP YO 192 44 91 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:44 HandleData. CadOri:/TELEP YO 192 51 93 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:44 HandleData. CadOri:/TELEP YO 192 51 92 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:45 HandleData. CadOri:/TELEP YO 192 51 92 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:45 HandleData. CadOri:/TELEP YO 192 51 91 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:45 HandleData. CadOri:/TELEP YO 192 58 90 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:45 HandleData. CadOri:/TELEP YO 192 65 89 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:45 HandleData. CadOri:/TELEP YO 192 72 87 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:45 HandleData. CadOri:/TELEP YO 192 79 85 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:46 HandleData. CadOri:/TELEP YO 192 85 82 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:46 HandleData. CadOri:/TELEP YO 192 90 78 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:46 HandleData. CadOri:/TELEP YO 192 89 78 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:46 HandleData. CadOri:/TELEP YO 192 93 73 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:46 HandleData. CadOri:/TELEP YO 192 93 73 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:47 HandleData. CadOri:/TELEP YO 192 91 73 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:47 HandleData. CadOri:/TELEP YO 192 91 73 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:47 HandleData. CadOri:/TELEP YO 192 90 73 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:47 HandleData. CadOri:/TELEP YO 192 90 73 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:48 HandleData. CadOri:/TELEP YO 192 87 77 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:49 HandleData. CadOri:/TELEP YO 192 85 76 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:49 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:49 HandleData. CadOri:/TELEP YO 192 83 75 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:49 HandleData. CadOri:/TELEP YO 192 81 74 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:49 HandleData. CadOri:/TELEP YO 192 79 72 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:50 HandleData. CadOri:/TELEP YO 192 76 70 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:50 HandleData. CadOri:/TELEP YO 192 73 68 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:50 HandleData. CadOri:/TELEP YO 192 69 66 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:50 HandleData. CadOri:/TELEP YO 192 65 65 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:50 HandleData. CadOri:/TELEP YO 192 61 64 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:51 HandleData. CadOri:/TELEP YO 192 57 63 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:51 HandleData. CadOri:/TELEP YO 192 53 63 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:51 HandleData. CadOri:/TELEP YO 192 49 65 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:51 HandleData. CadOri:/TELEP YO 192 45 67 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:51 HandleData. CadOri:/TELEP YO 192 41 68 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:51 HandleData. CadOri:/TELEP YO 192 37 69 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:52 HandleData. CadOri:/TELEP YO 192 33 69 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:52 HandleData. CadOri:/TELEP YO 192 29 69 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:52 HandleData. CadOri:/TELEP YO 192 24 69 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:52 HandleData. CadOri:/TELEP YO 192 20 68 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:52 HandleData. CadOri:/TELEP YO 192 16 66 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:53 HandleData. CadOri:/TELEP YO 192 12 63 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:53 HandleData. CadOri:/TELEP YO 192 9 59 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:53 HandleData. CadOri:/TELEP YO 192 11 58 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:53 HandleData. CadOri:/TELEP YO 192 13 58 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:53 HandleData. CadOri:/TELEP YO 192 15 53 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:54 HandleData. CadOri:/TELEP YO 192 17 47 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:54 HandleData. CadOri:/TELEP YO 192 19 41 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:54 HandleData. CadOri:/TELEP YO 192 22 35 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:54 HandleData. CadOri:/TELEP YO 192 25 29 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:59 HandleData. CadOri:/TELEP YO 192 28 24 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:59 HandleData. CadOri:/TELEP YO 192 30 19 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:59 HandleData. CadOri:/TELEP YO 192 32 14 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:59 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:47:59 HandleData. CadOri:/TELEP YO 192 35 9 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:48:00 HandleData. CadOri:/TELEP YO 192 35 9 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:48:00 HandleData. CadOri:/TELEP YO 192 36 10 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:48:00 HandleData. CadOri:/TELEP YO 192 40 6 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:48:00 HandleData. CadOri:/TELEP YO 192 40 7 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:48:00 HandleData. CadOri:/TELEP YO 192 39 8 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:48:01 HandleData. CadOri:/TELEP YO 192 36 12 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:58:35 HandleData. CadOri:/sum newbie Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:59:03 HandleData. CadOri:/telep yo 34 30 50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:18 HandleData. CadOri:/sum new Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 22:59:19 HandleData. CadOri:Ñ32*30*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:19 HandleData. CadOri:Ñ32*30*51 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:20 HandleData. CadOri:Ñ32*30*52 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:20 HandleData. CadOri:Ñ32*30*53 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:36 HandleData. CadOri:Ñ32*30*54 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:37 HandleData. CadOri:Ñ32*30*55 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:37 HandleData. CadOri:Ñ32*30*56 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:37 HandleData. CadOri:Ñ32*30*57 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:37 HandleData. CadOri:Ñ32*30*58 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:38 HandleData. CadOri:Ñ32*30*59 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:38 HandleData. CadOri:Ñ32*30*60 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:38 HandleData. CadOri:Ñ32*30*61 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:38 HandleData. CadOri:Ñ32*30*62 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:39 HandleData. CadOri:Ñ32*30*63 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:39 HandleData. CadOri:Ñ32*30*64 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:39 HandleData. CadOri:Ñ32*30*65 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:39 HandleData. CadOri:Ñ32*30*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:40 HandleData. CadOri:Ñ32*30*67 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:51 HandleData. CadOri:Ñ42*30*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:51 HandleData. CadOri:Ñ42*29*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:53 HandleData. CadOri:Ñ42*28*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:53 HandleData. CadOri:Ñ42*27*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:53 HandleData. CadOri:Ñ42*26*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:54 HandleData. CadOri:Ñ22*25*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:54 HandleData. CadOri:Ñ22*26*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:55 HandleData. CadOri:Ñ22*27*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:55 HandleData. CadOri:Ñ22*28*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 22:59:56 HandleData. CadOri:Ñ42*29*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:00:01 HandleData. CadOri:/TELEP YO 34 29 69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:01:54 HandleData. CadOri:Ñ12*29*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:01:55 HandleData. CadOri:Ñ12*29*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:03:17 HandleData. CadOri:Ñ12*29*67 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:03:17 HandleData. CadOri:Ñ12*29*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:03:17 HandleData. CadOri:Ñ12*29*65 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:03:17 HandleData. CadOri:Ñ12*29*64 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:03:18 HandleData. CadOri:Ñ12*29*63 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:22 HandleData. CadOri:Ñ32*29*62 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:22 HandleData. CadOri:Ñ32*29*63 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:22 HandleData. CadOri:Ñ32*29*64 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:22 HandleData. CadOri:Ñ32*29*65 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:23 HandleData. CadOri:Ñ32*29*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:23 HandleData. CadOri:Ñ32*29*67 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:23 HandleData. CadOri:Ñ32*29*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:24 HandleData. CadOri:Ñ42*29*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:24 HandleData. CadOri:Ñ42*28*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:24 HandleData. CadOri:Ñ42*27*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:25 HandleData. CadOri:Ñ42*26*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:25 HandleData. CadOri:Ñ42*25*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:25 HandleData. CadOri:Ñ42*24*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:34 HandleData. CadOri:Ñ42*23*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:34 HandleData. CadOri:Ñ22*22*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:34 HandleData. CadOri:Ñ22*23*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:42 HandleData. CadOri:Ñ24*24*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:42 HandleData. CadOri:Ñ24*25*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:43 HandleData. CadOri:Ñ44*26*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:05:43 HandleData. CadOri:Ñ44*25*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:12 HandleData. CadOri:Ñ155*24*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:12 HandleData. CadOri:Ñ155*24*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:14 HandleData. CadOri:Ñ155*24*67 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:15 HandleData. CadOri:Ñ255*24*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:27 HandleData. CadOri:Ñ155*25*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:28 HandleData. CadOri:Ñ355*25*65 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:30 HandleData. CadOri:Ñ155*25*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:30 HandleData. CadOri:Ñ355*25*65 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:30 HandleData. CadOri:Ñ355*25*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:31 HandleData. CadOri:Ñ355*25*67 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:31 HandleData. CadOri:Ñ355*25*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:06:39 Mas de 60 iteraciones en SpawnNpc Mapa:146 Index:640
+20/05/2020 23:06:51 CloseSocket - Error = 9 - Descripción = El subíndice está fuera del intervalo - UserIndex = 1
+20/05/2020 23:27:16 HandleData. CadOri:Ñ30*29*62 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:27:16 HandleData. CadOri:Ñ30*29*63 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:27:16 HandleData. CadOri:Ñ30*29*64 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:27:16 HandleData. CadOri:Ñ30*29*65 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:27:17 HandleData. CadOri:Ñ30*29*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:27:17 HandleData. CadOri:Ñ30*29*67 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:27:17 HandleData. CadOri:Ñ30*29*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:15 HandleData. CadOri:/echar newbie Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 23:29:22 HandleData. CadOri:/telep yo 153 50 50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:25 HandleData. CadOri:Ñ41*50*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:25 HandleData. CadOri:Ñ41*49*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:25 HandleData. CadOri:Ñ41*48*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:25 HandleData. CadOri:Ñ41*47*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:26 HandleData. CadOri:Ñ41*46*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:26 HandleData. CadOri:Ñ41*45*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:26 HandleData. CadOri:Ñ41*44*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:26 HandleData. CadOri:Ñ41*43*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:27 HandleData. CadOri:Ñ41*42*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:29:27 HandleData. CadOri:Ñ41*41*50 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:30:35 HandleData. CadOri:/CI 1057 1 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 23:31:11 CloseSocket - Error = 9 - Descripción = El subíndice está fuera del intervalo - UserIndex = 1
+20/05/2020 23:43:33 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:43:37 CloseSocket - Error = 9 - Descripción = El subíndice está fuera del intervalo - UserIndex = 1
+20/05/2020 23:43:39 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:2 N: 9 D: El subíndice está fuera del intervalo
+20/05/2020 23:43:40 CloseSocket - Error = 9 - Descripción = El subíndice está fuera del intervalo - UserIndex = 2
+20/05/2020 23:43:46 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:3 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+20/05/2020 23:43:47 CloseSocket - Error = 91 - Descripción = Variable de tipo Object o la variable de bloque With no está establecida - UserIndex = 3
+20/05/2020 23:43:47 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:4 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+20/05/2020 23:43:48 CloseSocket - Error = 91 - Descripción = Variable de tipo Object o la variable de bloque With no está establecida - UserIndex = 4
+20/05/2020 23:43:59 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:5 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+20/05/2020 23:43:59 CloseSocket - Error = 91 - Descripción = Variable de tipo Object o la variable de bloque With no está establecida - UserIndex = 5
+20/05/2020 23:44:00 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:6 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+20/05/2020 23:44:00 CloseSocket - Error = 91 - Descripción = Variable de tipo Object o la variable de bloque With no está establecida - UserIndex = 6
+20/05/2020 23:44:01 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:7 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+20/05/2020 23:44:01 CloseSocket - Error = 91 - Descripción = Variable de tipo Object o la variable de bloque With no está establecida - UserIndex = 7
+20/05/2020 23:45:03 HandleData. CadOri:/telep yo 153 50 50 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 23:45:33 HandleData. CadOri:/CI 1057 1 Nom:BassingerUI:1 N: 0 D: 
+20/05/2020 23:48:02 HandleData. CadOri:/telep yo 34 30 50 Nom:BassingerUI:1 N: 0 D: 
+21/05/2020 0:42:27 HandleData. CadOri:Ñ30*66*18 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:44:18 HandleData. CadOri:Ñ20*66*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:44:19 HandleData. CadOri:Ñ20*67*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:44:19 HandleData. CadOri:Ñ20*68*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:44:19 HandleData. CadOri:Ñ20*69*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:44:20 HandleData. CadOri:Ñ20*70*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:44:20 HandleData. CadOri:Ñ20*71*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:44:20 HandleData. CadOri:Ñ20*72*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:44:34 Mas de 60 iteraciones en SpawnNpc Mapa:146 Index:640
+21/05/2020 0:46:28 HandleData. CadOri:Ñ30*73*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:46:29 HandleData. CadOri:Ñ10*73*20 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:46:29 HandleData. CadOri:Ñ40*73*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:46:29 HandleData. CadOri:Ñ40*72*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:46:30 HandleData. CadOri:Ñ40*71*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:46:30 HandleData. CadOri:Ñ40*70*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:46:30 HandleData. CadOri:Ñ40*69*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:46:31 HandleData. CadOri:Ñ40*68*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:46:32 HandleData. CadOri:Ñ20*67*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:35 HandleData. CadOri:Ñ10*68*19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:35 HandleData. CadOri:Ñ10*68*18 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:35 Error en DotileEvents
+21/05/2020 0:48:36 HandleData. CadOri:Ñ31*54*75 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:36 HandleData. CadOri:Ñ31*54*76 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:36 HandleData. CadOri:Ñ31*54*77 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:37 HandleData. CadOri:Ñ31*54*78 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:37 HandleData. CadOri:Ñ31*54*79 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:37 HandleData. CadOri:Ñ31*54*80 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:37 HandleData. CadOri:Ñ31*54*81 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:38 HandleData. CadOri:Ñ31*54*82 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:38 HandleData. CadOri:Ñ31*54*83 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:38 HandleData. CadOri:Ñ31*54*84 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:38 HandleData. CadOri:Ñ31*54*85 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:40 HandleData. CadOri:Ñ11*54*86 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:41 HandleData. CadOri:Ñ11*54*85 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:41 HandleData. CadOri:Ñ11*54*84 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:41 HandleData. CadOri:Ñ11*54*83 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:41 HandleData. CadOri:Ñ11*54*82 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:42 HandleData. CadOri:Ñ11*54*81 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:42 HandleData. CadOri:Ñ11*54*80 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:42 HandleData. CadOri:Ñ11*54*79 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:42 HandleData. CadOri:Ñ11*54*78 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:43 HandleData. CadOri:Ñ11*54*77 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:43 HandleData. CadOri:Ñ31*54*76 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:43 HandleData. CadOri:Ñ31*54*77 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:43 HandleData. CadOri:Ñ31*54*78 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:44 HandleData. CadOri:Ñ31*54*79 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:44 HandleData. CadOri:Ñ31*54*80 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:44 HandleData. CadOri:Ñ31*54*81 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:48:44 HandleData. CadOri:Ñ31*54*82 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:51:27 HandleData. CadOri:Ñ41*57*84 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 0:56:13 Error en tPiqueteC_Timer 9: El subíndice está fuera del intervalo
+21/05/2020 0:58:31 Error en TimerAutoSave 9: El subíndice está fuera del intervalo
+21/05/2020 1:09:39 HandleData. CadOri:Ñ14*75*64 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:40 HandleData. CadOri:Ñ34*75*63 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:40 HandleData. CadOri:Ñ34*75*64 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:41 HandleData. CadOri:Ñ34*75*65 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:41 HandleData. CadOri:Ñ34*75*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:41 HandleData. CadOri:Ñ34*75*67 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:41 HandleData. CadOri:Ñ34*75*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:42 HandleData. CadOri:Ñ34*75*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:42 HandleData. CadOri:Ñ34*75*70 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:43 HandleData. CadOri:Ñ44*75*71 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:09:44 HandleData. CadOri:Ñ34*74*71 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:02 HandleData. CadOri:Ñ14*74*72 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:02 HandleData. CadOri:Ñ14*74*71 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:02 HandleData. CadOri:Ñ14*74*70 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:03 HandleData. CadOri:Ñ14*74*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:03 HandleData. CadOri:Ñ14*74*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:03 HandleData. CadOri:Ñ14*74*67 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:03 HandleData. CadOri:Ñ14*74*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:04 HandleData. CadOri:Ñ14*74*65 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:04 HandleData. CadOri:Ñ14*74*64 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:04 HandleData. CadOri:Ñ34*74*63 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:05 HandleData. CadOri:Ñ34*74*64 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:05 HandleData. CadOri:Ñ34*74*65 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:05 HandleData. CadOri:Ñ34*74*66 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:05 HandleData. CadOri:Ñ34*74*67 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:06 HandleData. CadOri:Ñ34*74*68 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:06 HandleData. CadOri:Ñ34*74*69 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:06 HandleData. CadOri:Ñ34*74*70 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:10:06 HandleData. CadOri:Ñ34*74*71 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:11:07 HandleData. CadOri:Ñ14*74*72 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:11:08 HandleData. CadOri:Ñ14*74*71 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:13:13 CloseSocket - Error = 9 - Descripción = El subíndice está fuera del intervalo - UserIndex = 1
+21/05/2020 1:13:57 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:2 N: 9 D: El subíndice está fuera del intervalo
+21/05/2020 1:14:01 CloseSocket - Error = 9 - Descripción = El subíndice está fuera del intervalo - UserIndex = 2
+21/05/2020 1:14:01 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:3 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+21/05/2020 1:14:02 CloseSocket - Error = 91 - Descripción = Variable de tipo Object o la variable de bloque With no está establecida - UserIndex = 3
+21/05/2020 1:14:02 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:4 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+21/05/2020 1:14:03 CloseSocket - Error = 91 - Descripción = Variable de tipo Object o la variable de bloque With no está establecida - UserIndex = 4
+21/05/2020 1:14:03 HandleData. CadOri:MARAKABassinger,4124bc0a9335c27f086f24ba207a4912,1.1.9,1393232527,1 Nom:BassingerUI:5 N: 91 D: Variable de tipo Object o la variable de bloque With no está establecida
+21/05/2020 1:14:04 CloseSocket - Error = 91 - Descripción = Variable de tipo Object o la variable de bloque With no está establecida - UserIndex = 5

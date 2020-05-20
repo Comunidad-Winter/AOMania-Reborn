@@ -14,3 +14,10 @@
 · He puesto el comando /LLEVAME para transportarse a NIX, para cuando os atrapeis en un mapa.
 · Se soluciono el NPC Yeti.
 · Se puso el Auto L (Antiguo AoMania) => En estado de prueba.
+
+----------------->
+
+[Parche4]
+· Ahora cuando eres Newbies, los items que no son Newbies, no se caen al suelo.
+· Ahora se pueden tirar objetos, cualquier tile del mapa.
+· Se ha posicionado los nicks de otra manera. (Opiniones)
