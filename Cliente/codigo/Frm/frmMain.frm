@@ -2126,8 +2126,10 @@ Private Sub picInv_MouseUp(Button As Integer, Shift As Integer, X As Single, Y A
 End Sub
 
 Private Sub RecTxt_Change()
-        
+           
     On Error Resume Next  'el .SetFocus causaba errores al salir y volver a entrar
+    
+    If Cartel Then Cartel = False
 
     If SendTxt.Visible Then
         SendTxt.SetFocus
@@ -2148,16 +2150,16 @@ Private Sub RecTxt_Change()
 End Sub
 
 Private Sub RecTxt_KeyDown(KeyCode As Integer, Shift As Integer)
-
+    'Descomentado en prueba Bassinger
     ' Sin comentar lo que hace perder el foco del Rectxt, no funciona nada xd
-    '    If Not (KeyCode = vbKeyControl Or KeyCode = vbKeyC) Then  'KeyCode = 0  'copy (ctrl + c) Then
-    'If picInv.Visible Then
-    'picInv.SetFocus
-    'Else
-    'hlst.SetFocus
+      If Not (KeyCode = vbKeyControl Or KeyCode = vbKeyC) Then  'KeyCode = 0  'copy (ctrl + c) Then
+   If picInv.Visible Then
+    picInv.SetFocus
+    Else
+    hlst.SetFocus
 
-    'End If
-    '    End If
+    End If
+       End If
 
 End Sub
 
@@ -2326,7 +2328,7 @@ Private Sub Socket1_Connect()
   
     ElseIf EstadoLogin = E_MODO.RecuperarPass Then
         Dim cmd As String
-        cmd = "PASSRECO" & frmRecuperar.txtNombre.Text & "~" & frmRecuperar.Txtcorreo
+        cmd = "PASSRECO" & frmRecuperar.txtNombre.Text & "~" & frmRecuperar.txtCorreo
         frmMain.Socket1.Write cmd, Len(cmd)
 
     End If

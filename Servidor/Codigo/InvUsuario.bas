@@ -2518,6 +2518,9 @@ Private Sub QuitarObjetoEspecial(UserIndex As Integer, Objeto As Long)
 
         Case "8"
             .Stats.MaxMAN = .Stats.MaxMAN - 100
+            If .Stats.MinMAN > .Stats.MaxMAN Then
+            .Stats.MinMAN = .Stats.MinMAN - 100
+            End If
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "MM" & .Stats.MaxMAN)
             Call EnviarMn(UserIndex)
             Call SaveUser(UserIndex, CharPath & UCase$(UserList(UserIndex).Name) & ".chr")
@@ -2525,6 +2528,9 @@ Private Sub QuitarObjetoEspecial(UserIndex As Integer, Objeto As Long)
 
         Case "9"
             .Stats.MaxMAN = .Stats.MaxMAN - 200
+            If .Stats.MinMAN > .Stats.MaxMAN Then
+            .Stats.MinMAN = .Stats.MinMAN - 200
+            End If
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "MM" & .Stats.MaxMAN)
             Call EnviarMn(UserIndex)
             Call SaveUser(UserIndex, CharPath & UCase$(UserList(UserIndex).Name) & ".chr")
@@ -2532,6 +2538,9 @@ Private Sub QuitarObjetoEspecial(UserIndex As Integer, Objeto As Long)
 
         Case "10"
             .Stats.MaxMAN = .Stats.MaxMAN - 300
+            If .Stats.MinMAN > .Stats.MaxMAN Then
+            .Stats.MinMAN = .Stats.MinMAN - 300
+            End If
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "MM" & .Stats.MaxMAN)
             Call EnviarMn(UserIndex)
             Call SaveUser(UserIndex, CharPath & UCase$(UserList(UserIndex).Name) & ".chr")

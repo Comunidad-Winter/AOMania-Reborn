@@ -514,14 +514,8 @@ Public Function CrearNuevoClan(ByRef GuildInfo As String, _
         For i = 1 To CANTIDADDECLANES - 1
             Call Guilds(i).ProcesarFundacionDeOtroClan
         Next i
-
-    Else
-        refError = "No hay mas slots para fundar clanes. Consulte a un administrador."
-        Exit Function
-
-    End If
-
-    NumClan = NumClan + 1
+        
+        NumClan = NumClan + 1
 
     UserList(FundadorIndex).Clan.FundoClan = 1
 
@@ -539,6 +533,12 @@ Public Function CrearNuevoClan(ByRef GuildInfo As String, _
 
     Call SendUserStatsBox(FundadorIndex)
     CrearNuevoClan = True
+
+    Else
+        refError = "No hay mas slots para fundar clanes. Consulte a un administrador."
+        Exit Function
+
+    End If
 
 End Function
 
@@ -852,7 +852,7 @@ proximo:
     'Call SendData(SendTarget.toall, 0, 0, "||AOMania> Elecciones revisadas correctamente." & FONTTYPE_SERVER)
     Exit Sub
 errh:
-    Call LogError("modGuilds.v_RutinaElecciones():" & Err.Description)
+    Call LogError("modGuilds.v_RutinaElecciones():" & err.Description)
 
     Resume proximo
 

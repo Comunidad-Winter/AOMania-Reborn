@@ -570,8 +570,8 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, _
     ByVal nWidth As Long, _
     ByVal nHeight As Long, _
     ByVal hSrcDC As Long, _
-    ByVal XSrc As Long, _
-    ByVal YSrc As Long, _
+    ByVal xSrc As Long, _
+    ByVal ySrc As Long, _
     ByVal dwRop As Long) As Long
 
 Public ColorAmbiente()   As D3DCOLORVALUE
@@ -596,7 +596,7 @@ Private Declare Function OleLoadPicture Lib "olepro32" (pStream As Any, _
     riid As Any, _
     ppvObj As Any) As Long
 
-Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) As IPicture
+Public Function ArrayToPicture(inArray() As Byte, offset As Long, Size As Long) As IPicture
     Dim o_hMem        As Long
     Dim o_lpMem       As Long
     Dim aGUID(0 To 3) As Long
@@ -613,7 +613,7 @@ Public Function ArrayToPicture(inArray() As Byte, Offset As Long, Size As Long) 
         o_lpMem = GlobalLock(o_hMem)
 
         If Not o_lpMem = 0& Then
-            Call CopyMemory(ByVal o_lpMem, inArray(Offset), Size)
+            Call CopyMemory(ByVal o_lpMem, inArray(offset), Size)
             Call GlobalUnlock(o_hMem)
 
             If CreateStreamOnHGlobal(o_hMem, 1&, IIStream) = 0& Then
@@ -3088,7 +3088,7 @@ Private Sub ShowNextFrame()
 
     End If
 
-    Call Text_Draw(0, 0, NameMap & " (" & UserMap & " X: " & UserPos.X & " Y: " & UserPos.Y & ")", White)
+    Call Text_Draw(0, 0, NameMap & TextoMapa, White)
 
     Call Text_Draw(675, 0, "Hora: " & TimeChange & ":00", White)
     Call Text_Draw(625, 0, "FPS: " & FPS, White)
@@ -3392,7 +3392,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
 118           .BackBufferWidth = ScreenWidth
 120           .BackBufferHeight = ScreenHeight
 122           .BackBufferFormat = DirectD3Ddm.Format 'current display depth
-              .hDeviceWindow = frmMain.MainViewPic.HWnd
+              .hDeviceWindow = frmMain.MainViewPic.hwnd
 
           End With
 
@@ -3402,7 +3402,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
           End If
 
           'create device
-128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.HWnd, Flags, DirectD3Dpp)
+128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.hwnd, Flags, DirectD3Dpp)
 
 130       Call D3DXMatrixOrthoOffCenterLH(Projection, 0, ScreenWidth, ScreenHeight, 0, -1#, 1#)
 132       Call D3DXMatrixIdentity(View)
@@ -3496,12 +3496,12 @@ Private Sub Directx_RenderStates()
     
 End Sub
 
-Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal HWnd As Long)
+Public Sub Directx_EndScene(ByRef RECT As D3DRECT, ByVal hwnd As Long)
     
     Call SpriteBatch.Flush
     
     Call DirectDevice.EndScene
-    Call DirectDevice.Present(RECT, ByVal 0, HWnd, ByVal 0)
+    Call DirectDevice.Present(RECT, ByVal 0, hwnd, ByVal 0)
 
 End Sub
 
@@ -4672,3 +4672,69 @@ Private Function Char_Check(ByVal charindex As Integer) As Boolean
     End If
 
 End Function
+
+Public Sub ActualizaPosicion(ByRef rData As String)
+
+    On Error GoTo fin
+
+    Dim corrx As Integer
+
+    Dim corry As Integer
+
+    Debug.Print "POSICION"
+
+    cargandomapa = False
+
+    corrx = CInt(ReadField(2, rData, Asc("*")))
+    corry = CInt(ReadField(3, rData, Asc("*")))
+    'CodigoCorreccion = CByte(ReadFieldFast(1, StrPtr(rData), 42))
+    CodigoCorreccion = CByte(ReadField(1, rData, Asc("*")))
+    
+    With CharList(UserCharIndex)
+    
+        'Debug.Print CodigoCorreccion & " " & corrx & " " & corry & " " & .POS.X & " " & .POS.Y
+    
+        If .pos.X = 0 Or .pos.Y = 0 Then Exit Sub
+        ' If corrx > 50 Or corry > 50 Or corrx < -50 Or corry < -50 Then Exit Sub
+    
+        If MapData(.pos.X, .pos.Y).charindex = UserCharIndex Then
+            MapData(.pos.X, .pos.Y).charindex = 0
+
+        End If
+        
+        '        Dim j As Integer
+        '        Dim i As Integer
+        '        For j = 1 To 100
+        '            For i = 1 To 100
+        '                If i > 0 And i < 101 And j > 0 And j < 101 Then
+        '                If MapData(i, j).CharIndex = UserCharIndex Then
+        '                    MapData(i, j).CharIndex = 0
+        '                End If
+        '                End If
+        '            Next i
+        '        Next j
+        '
+        
+        .pos.X = .pos.X + corrx
+        .pos.Y = .pos.Y + corry
+        
+        If .pos.X < 4 Then .pos.X = 4
+        If .pos.Y < 4 Then .pos.Y = 4
+        If .pos.X > 96 Then .pos.X = 96
+        If .pos.Y > 96 Then .pos.Y = 96
+
+        ' Debug.Print " POS " & .POS.X & " " & .POS.Y
+        
+        If MapData(.pos.X, .pos.Y).charindex = 0 Then
+            MapData(.pos.X, .pos.Y).charindex = UserCharIndex
+
+        End If
+    
+    End With
+    
+    TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.X & " Y: " & CharList(UserCharIndex).pos.Y & ")"
+    Exit Sub
+fin:
+    Debug.Print "ERROR POSICION " & CharList(UserCharIndex).pos.X & " " & CharList(UserCharIndex).pos.Y
+
+End Sub

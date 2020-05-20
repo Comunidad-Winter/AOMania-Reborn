@@ -6913,6 +6913,7 @@ ObjType=11
 TipoPocion=6
 SkHechizeria=100
 ObjHierba=50000
+Valor=75000
  
 [OBJ609]
 Name=Pocion Anti Ceguera

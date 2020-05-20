@@ -30,7 +30,7 @@ Private Declare Function CreateWindowEx Lib "user32" Alias "CreateWindowExA" (By
                                                                               ByVal lpClassName As String, _
                                                                               ByVal lpWindowName As String, _
                                                                               ByVal dwStyle As Long, _
-                                                                              ByVal x As Long, _
+                                                                              ByVal X As Long, _
                                                                               ByVal Y As Long, _
                                                                               ByVal nWidth As Long, _
                                                                               ByVal nHeight As Long, _
@@ -296,7 +296,7 @@ Public Function WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As L
             ' Comparo por = 0 ya que esto es cuando se cierra
             ' "gracefully". (mas abajo)
             If Ret < 0 Then
-                UltError = Err.LastDllError
+                UltError = err.LastDllError
 
                 If UltError = WSAEMSGSIZE Then
                     Debug.Print "WSAEMSGSIZE"
@@ -381,7 +381,7 @@ Public Function WsApiEnviar(ByVal Slot As Integer, ByVal str As String) As Long
         Ret = send(ByVal UserList(Slot).ConnID, ByVal str, ByVal Len(str), ByVal 0)
 
         If Ret < 0 Then
-            UltError = Err.LastDllError
+            UltError = err.LastDllError
 
             'If UltError = WSAEWOULDBLOCK Then
 
@@ -461,7 +461,7 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
     Ret = accept(SockID, sa, Tam)
 
     If Ret = INVALID_SOCKET Then
-        i = Err.LastDllError
+        i = err.LastDllError
         Call LogCriticEvent("Error en Accept() API " & i & ": " & GetWSAErrorString(i))
         Exit Sub
 
@@ -493,14 +493,14 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
 
     'Seteamos el tamaño del buffer de entrada a 512 bytes
     If setsockopt(NuevoSock, SOL_SOCKET, SO_RCVBUFFER, SIZE_RCVBUF, 4) <> 0 Then
-        i = Err.LastDllError
+        i = err.LastDllError
         Call LogCriticEvent("Error al setear el tamaño del buffer de entrada " & i & ": " & GetWSAErrorString(i))
 
     End If
 
     'Seteamos el tamaño del buffer de salida a 1 Kb
     If setsockopt(NuevoSock, SOL_SOCKET, SO_SNDBUFFER, SIZE_SNDBUF, 4) <> 0 Then
-        i = Err.LastDllError
+        i = err.LastDllError
         Call LogCriticEvent("Error al setear el tamaño del buffer de salida " & i & ": " & GetWSAErrorString(i))
 
     End If
@@ -543,15 +543,15 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
         Next i
 
         ' anti bombardeo de ip
-        Dim k As Integer, x As Integer
-        x = 1
+        Dim k As Integer, X As Integer
+        X = 1
 
         For k = 1 To LastUser
 
-            If (UserList(k).ip = UserList(NewIndex).ip) Then x = x + 1
+            If (UserList(k).ip = UserList(NewIndex).ip) Then X = X + 1
         Next k
 
-        If (x > 10) Then
+        If (X > 10) Then
             Call WSApiCloseSocket(NuevoSock)
             UserList(NewIndex).ConnID = -1
             Exit Sub
@@ -567,8 +567,8 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
         UserList(NewIndex).ConnIDValida = True
         'Set UserList(NewIndex).CommandsBuffer = New CColaArray
         'Set UserList(NewIndex).ColaSalida = New Collection
-        UserList(NewIndex).clave = 0
-        UserList(NewIndex).clave2 = 0
+        'UserList(NewIndex).clave = 0
+        'UserList(NewIndex).clave2 = 0
 
         Call AgregaSlotSock(NuevoSock, NewIndex)
     Else

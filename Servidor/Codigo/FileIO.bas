@@ -442,7 +442,7 @@ Public Sub CargarHechizos()
     Exit Sub
 
 errhandler:
-    MsgBox "Error cargando hechizos.dat " & Err.Number & ": " & Err.Description
+    MsgBox "Error cargando hechizos.dat " & err.Number & ": " & err.Description
 
 End Sub
 
@@ -516,7 +516,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
     Dim FreeFileMap As Long
     Dim FreeFileInf As Long
     Dim Y As Long
-    Dim x As Long
+    Dim X As Long
     Dim ByFlags As Byte
     Dim LoopC As Long
 
@@ -565,9 +565,9 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
 
     'Write .map file
     For Y = YMinMapSize To YMaxMapSize
-        For x = XMinMapSize To XMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
 
-            With MapData(Map, x, Y)
+            With MapData(Map, X, Y)
                 ByFlags = 0
 
                 If .Blocked Then ByFlags = ByFlags Or 1
@@ -607,7 +607,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
 
                 If .TileExit.Map Then
                     Call InfWriter.putInteger(.TileExit.Map)
-                    Call InfWriter.putInteger(.TileExit.x)
+                    Call InfWriter.putInteger(.TileExit.X)
                     Call InfWriter.putInteger(.TileExit.Y)
 
                 End If
@@ -622,7 +622,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
 
             End With
 
-        Next x
+        Next X
     Next Y
 
     Call MapWriter.saveBuffer
@@ -643,7 +643,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
         Call IniManager.ChangeValue("Mapa" & Map, "MusicNum", .Music)
         Call IniManager.ChangeValue("Mapa" & Map, "MagiaSinefecto", .MagiaSinEfecto)
         Call IniManager.ChangeValue("Mapa" & Map, "OcultarSinEfecto", .OcultarSinEfecto)
-        Call IniManager.ChangeValue("Mapa" & Map, "StartPos", .StartPos.Map & "-" & .StartPos.x & "-" & .StartPos.Y)
+        Call IniManager.ChangeValue("Mapa" & Map, "StartPos", .StartPos.Map & "-" & .StartPos.X & "-" & .StartPos.Y)
 
         Call IniManager.ChangeValue("Mapa" & Map, "Terreno", .Terreno)
         Call IniManager.ChangeValue("Mapa" & Map, "Zona", .Zona)
@@ -1096,7 +1096,7 @@ Sub LoadOBJData()
     Exit Sub
 
 errhandler:
-    MsgBox "error cargando objetos " & Err.Number & ": " & Err.Description & ": " & Object
+    MsgBox "error cargando objetos " & err.Number & ": " & err.Description & ": " & Object
 
 End Sub
 
@@ -1286,7 +1286,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).Respuesta = UserFile.GetValue("INIT", "Respuesta")
 
     UserList(UserIndex).pos.Map = CInt(ReadField(1, UserFile.GetValue("INIT", "Position"), 45))
-    UserList(UserIndex).pos.x = CInt(ReadField(2, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).pos.X = CInt(ReadField(2, UserFile.GetValue("INIT", "Position"), 45))
     UserList(UserIndex).pos.Y = CInt(ReadField(3, UserFile.GetValue("INIT", "Position"), 45))
 
     UserList(UserIndex).PalabraSecreta = UserFile.GetValue("INIT", "PalabraSecreta")
@@ -1552,7 +1552,7 @@ Sub CargarBackUp()
 
 man:
     MsgBox ("Error durante la carga de mapas, el mapa " & Map & " contiene errores")
-    Call LogError(Date & " " & Err.Description & " " & Err.HelpContext & " " & Err.HelpFile & " " & Err.source)
+    Call LogError(Date & " " & err.Description & " " & err.HelpContext & " " & err.HelpFile & " " & err.source)
 
 End Sub
 
@@ -1592,7 +1592,7 @@ Sub LoadMapData()
 
 man:
     MsgBox ("Error durante la carga de mapas, el mapa " & Map & " contiene errores")
-    Call LogError(Date & " " & Err.Description & " " & Err.HelpContext & " " & Err.HelpFile & " " & Err.source)
+    Call LogError(Date & " " & err.Description & " " & err.HelpContext & " " & err.HelpFile & " " & err.source)
 
 End Sub
 
@@ -1607,7 +1607,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
     On Error GoTo errh
 
     Dim hFile As Integer
-    Dim x As Long
+    Dim X As Long
     Dim Y As Long
     Dim ByFlags As Byte
     Dim npcfile As String
@@ -1659,9 +1659,9 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
     Call InfReader.getInteger
 
     For Y = YMinMapSize To YMaxMapSize
-        For x = XMinMapSize To XMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
 
-            With MapData(Map, x, Y)
+            With MapData(Map, X, Y)
                 '.map file
                 ByFlags = MapReader.getByte
 
@@ -1686,7 +1686,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
 
                 If ByFlags And 1 Then
                     .TileExit.Map = InfReader.getInteger
-                    .TileExit.x = InfReader.getInteger
+                    .TileExit.X = InfReader.getInteger
                     .TileExit.Y = InfReader.getInteger
 
                 End If
@@ -1703,20 +1703,20 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
                         If val(Leer.GetValue("NPC" & .NpcIndex, "PosOrig")) = 1 Then
                             .NpcIndex = OpenNPC(.NpcIndex)
                             Npclist(.NpcIndex).Orig.Map = Map
-                            Npclist(.NpcIndex).Orig.x = x
+                            Npclist(.NpcIndex).Orig.X = X
                             Npclist(.NpcIndex).Orig.Y = Y
                         Else
                             .NpcIndex = OpenNPC(.NpcIndex)
                         End If
 
                         Npclist(.NpcIndex).pos.Map = Map
-                        Npclist(.NpcIndex).pos.x = x
+                        Npclist(.NpcIndex).pos.X = X
                         Npclist(.NpcIndex).pos.Y = Y
 
                         If val(GetVar(App.Path & "\Dat\Npcs.Dat", "NPC" & Npclist(.NpcIndex).Numero, "PosOrig")) = 1 Then
 
                             Npclist(.NpcIndex).Orig.Map = Map
-                            Npclist(.NpcIndex).Orig.x = x
+                            Npclist(.NpcIndex).Orig.X = X
                             Npclist(.NpcIndex).Orig.Y = Y
 
                         End If
@@ -1738,7 +1738,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
 
             End With
 
-        Next x
+        Next X
     Next Y
 
     Call Leer.Initialize(MAPFl & ".dat")
@@ -1748,7 +1748,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
         .Music = Leer.GetValue("Mapa" & Map, "MusicNum")
 
         .StartPos.Map = val(ReadField(1, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
-        .StartPos.x = val(ReadField(2, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
+        .StartPos.X = val(ReadField(2, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
         .StartPos.Y = val(ReadField(3, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
 
         .MagiaSinEfecto = val(Leer.GetValue("Mapa" & Map, "MagiaSinEfecto"))
@@ -1776,7 +1776,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
     Exit Sub
 
 errh:
-    Call LogError("Error cargando mapa: " & Map & " - Pos: " & x & "," & Y & "." & Err.Description)
+    Call LogError("Error cargando mapa: " & Map & " - Pos: " & X & "," & Y & "." & err.Description)
 
     Set MapReader = Nothing
     Set InfReader = Nothing
@@ -1826,7 +1826,7 @@ Sub LoadSini()
 
     'Start pos
     StartPos.Map = val(ReadField(1, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
-    StartPos.x = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
+    StartPos.X = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
     StartPos.Y = val(ReadField(3, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
 
     'Intervalos
@@ -1911,7 +1911,7 @@ Sub LoadSini()
 
     'Ressurect pos
     ResPos.Map = val(ReadField(1, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
-    ResPos.x = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
+    ResPos.X = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
     ResPos.Y = val(ReadField(3, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
 
     recordusuarios = val(GetVar(IniPath & "Server.ini", "INIT", "Record"))
@@ -1924,21 +1924,23 @@ Sub LoadSini()
         ReDim UserList(1 To MaxUsers) As User
 
     End If
+    
+    Call InitCorrecciones(MaxUsers)
 
     Nix.Map = GetVar(DatPath & "Ciudades.dat", "NIX", "Mapa")
-    Nix.x = GetVar(DatPath & "Ciudades.dat", "NIX", "X")
+    Nix.X = GetVar(DatPath & "Ciudades.dat", "NIX", "X")
     Nix.Y = GetVar(DatPath & "Ciudades.dat", "NIX", "Y")
 
     Ullathorpe.Map = GetVar(DatPath & "Ciudades.dat", "Ullathorpe", "Mapa")
-    Ullathorpe.x = GetVar(DatPath & "Ciudades.dat", "Ullathorpe", "X")
+    Ullathorpe.X = GetVar(DatPath & "Ciudades.dat", "Ullathorpe", "X")
     Ullathorpe.Y = GetVar(DatPath & "Ciudades.dat", "Ullathorpe", "Y")
 
     Banderbill.Map = GetVar(DatPath & "Ciudades.dat", "Banderbill", "Mapa")
-    Banderbill.x = GetVar(DatPath & "Ciudades.dat", "Banderbill", "X")
+    Banderbill.X = GetVar(DatPath & "Ciudades.dat", "Banderbill", "X")
     Banderbill.Y = GetVar(DatPath & "Ciudades.dat", "Banderbill", "Y")
 
     Lindos.Map = GetVar(DatPath & "Ciudades.dat", "Lindos", "Mapa")
-    Lindos.x = GetVar(DatPath & "Ciudades.dat", "Lindos", "X")
+    Lindos.X = GetVar(DatPath & "Ciudades.dat", "Lindos", "X")
     Lindos.Y = GetVar(DatPath & "Ciudades.dat", "Lindos", "Y")
 
     'OPCIONES
@@ -1961,7 +1963,7 @@ Sub LoadZonas()
     For i = 0 To NumZonas
         Zonas(i).nombre = (GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "Nombre"))
         Zonas(i).Map = val(GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "Map"))
-        Zonas(i).x = val(GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "X"))
+        Zonas(i).X = val(GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "X"))
         Zonas(i).Y = val(GetVar(DatPath & "Zonas.dat", "Zona" & i + 1, "Y"))
     Next i
 
@@ -2127,7 +2129,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("INIT", "Casco", CStr(.char.CascoAnim))
 
         Call Manager.ChangeValue("INIT", "LastIP", .ip)
-        Call Manager.ChangeValue("INIT", "Position", .pos.Map & "-" & .pos.x & "-" & .pos.Y)
+        Call Manager.ChangeValue("INIT", "Position", .pos.Map & "-" & .pos.X & "-" & .pos.Y)
         'soporte
         Call Manager.ChangeValue("INIT", "Pregunta", .Pregunta)
         Call Manager.ChangeValue("INIT", "Respuesta", .Respuesta)

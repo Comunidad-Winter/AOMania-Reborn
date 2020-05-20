@@ -1,7 +1,7 @@
 Attribute VB_Name = "Mod_TCP2"
 Option Explicit
 
-Sub HandleData2(ByVal Rdata As String)
+Sub HandleData2(ByVal rData As String)
    
     Dim Rs        As Integer
 
@@ -11,7 +11,7 @@ Sub HandleData2(ByVal Rdata As String)
 
     Dim X         As Integer
    
-    Select Case UCase$(Left$(Rdata, 2))
+    Select Case UCase$(Left$(rData, 2))
         
         Case "PL"
              For X = 1 To 10
@@ -23,57 +23,57 @@ Sub HandleData2(ByVal Rdata As String)
         
         
         Case "PO"
-            Rdata = Right$(Rdata, Len(Rdata) - 2)
-            X = Val(ReadField(3, Rdata, 44))
-            ClanPos(X).X = Val(ReadField(1, Rdata, 44))
-            ClanPos(X).Y = Val(ReadField(2, Rdata, 44))
+            rData = Right$(rData, Len(rData) - 2)
+            X = Val(ReadField(3, rData, 44))
+            ClanPos(X).X = Val(ReadField(1, rData, 44))
+            ClanPos(X).Y = Val(ReadField(2, rData, 44))
             Call ActualizarShpClanPos
         Exit Sub
 
         Case "XN"             '>>>>>> Coge información de quest NPC
-            Rdata = Right$(Rdata, Len(Rdata) - 2)
-            charindex = ReadField(1, Rdata, 44)
-            CharList(charindex).NpcType = ReadField(2, Rdata, 44)
-            CharList(charindex).NombreNpc = ReadField(3, Rdata, 44)
-            CharList(charindex).Hostile = ReadField(4, Rdata, 44)
+            rData = Right$(rData, Len(rData) - 2)
+            charindex = ReadField(1, rData, 44)
+            CharList(charindex).NpcType = ReadField(2, rData, 44)
+            CharList(charindex).NombreNpc = ReadField(3, rData, 44)
+            CharList(charindex).Hostile = ReadField(4, rData, 44)
             Exit Sub
        
         Case "XU"          '>>>>>>> Coge datos de quest usuario y abre frmquest
-            Rdata = Right$(Rdata, Len(Rdata) - 2)
-            Quest.NumQuests = ReadField(1, Rdata, 44)
+            rData = Right$(rData, Len(rData) - 2)
+            Quest.NumQuests = ReadField(1, rData, 44)
          
             For LooPC = 1 To NumQuests
-                Quest.InfoUser.UserQuest(LooPC) = ReadField(LooPC, Rdata, 44)
+                Quest.InfoUser.UserQuest(LooPC) = ReadField(LooPC, rData, 44)
             Next LooPC
             
             frmQuest.Show , frmMain
             Exit Sub
         
         Case "XP"       '>>>>>>> Actualiza el proceso de la quest
-            Rdata = Right$(Rdata, Len(Rdata) - 2)
+            rData = Right$(rData, Len(rData) - 2)
            
-            charindex = ReadField(1, Rdata, 44)
-            ProcesoQuest = Val(ReadField(2, Rdata, 44))
+            charindex = ReadField(1, rData, 44)
+            ProcesoQuest = Val(ReadField(2, rData, 44))
            
             Exit Sub
            
         Case "XI"    '>>>>>>> Actualiza icono npc misiones
-            Rdata = Right$(Rdata, Len(Rdata) - 2)
+            rData = Right$(rData, Len(rData) - 2)
            
-            charindex = ReadField(1, Rdata, 44)
-            CharList(charindex).Icono = ReadField(2, Rdata, 44)
+            charindex = ReadField(1, rData, 44)
+            CharList(charindex).Icono = ReadField(2, rData, 44)
             Exit Sub
         
         Case "XV" '>>>>>>> Ejecuta ventana hablar Npc
-            Rdata = Right$(Rdata, Len(Rdata) - 2)
+            rData = Right$(rData, Len(rData) - 2)
            
-            HablarQuest.NumMsj = Val(ReadField(1, Rdata, 44))
+            HablarQuest.NumMsj = Val(ReadField(1, rData, 44))
            
             For LooPC = 1 To HablarQuest.NumMsj
                   
                 X = LooPC + 1
                   
-                HablarQuest.Mensaje(LooPC) = ReadField(X, Rdata, 44)
+                HablarQuest.Mensaje(LooPC) = ReadField(X, rData, 44)
                   
             Next LooPC
            
@@ -83,12 +83,25 @@ Sub HandleData2(ByVal Rdata As String)
 
     End Select
    
-    Select Case UCase$(Left$(Rdata, 3))
+    Select Case UCase$(Left$(rData, 3))
+        
+        Case "ACT"    'binmode: correccion de posicion
+    
+        rData = Right$(rData, Len(rData) - 3)
+       Call ActualizaPosicion(rData)
+        
+       
+        Exit Sub
+        
+        Case "SMN"
+          MapInfo.Name = Right$(rData, Len(rData) - 3)
+          TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.X & " Y: " & CharList(UserCharIndex).pos.Y & ")"
+          Exit Sub
        
         Case "VPA"
            
-            Rdata = Right$(Rdata, Len(Rdata) - 3)
-            Rs = Val(ReadField(1, Rdata, 44))
+            rData = Right$(rData, Len(rData) - 3)
+            Rs = Val(ReadField(1, rData, 44))
            
             If Rs = 0 Then
                 frmParty.Label1.Visible = True
@@ -122,35 +135,35 @@ Sub HandleData2(ByVal Rdata As String)
        
         Case "IVP"
            
-            Rdata = Right$(Rdata, Len(Rdata) - 3)
-            Rs = Val(ReadField(1, Rdata, 44))
+            rData = Right$(rData, Len(rData) - 3)
+            Rs = Val(ReadField(1, rData, 44))
            
-            PartyData(Rs).Name = ReadField(2, Rdata, 44)
-            PartyData(Rs).MinHP = Val(ReadField(3, Rdata, 44))
-            PartyData(Rs).MaxHP = Val(ReadField(4, Rdata, 44))
+            PartyData(Rs).Name = ReadField(2, rData, 44)
+            PartyData(Rs).MinHP = Val(ReadField(3, rData, 44))
+            PartyData(Rs).MaxHP = Val(ReadField(4, rData, 44))
            
             MaxVerParty = Rs
            
             Exit Sub
        
         Case "VPT"
-            Rdata = Right$(Rdata, Len(Rdata) - 3)
+            rData = Right$(rData, Len(rData) - 3)
              
-            charindex = Val(ReadField(1, Rdata, 44))
+            charindex = Val(ReadField(1, rData, 44))
             
-            CharList(charindex).Stats.MinHP = Val(ReadField(2, Rdata, 44))
-            CharList(charindex).Stats.MaxHP = Val(ReadField(3, Rdata, 44))
-            CharList(charindex).PartyIndex = Val(ReadField(4, Rdata, 44))
+            CharList(charindex).Stats.MinHP = Val(ReadField(2, rData, 44))
+            CharList(charindex).Stats.MaxHP = Val(ReadField(3, rData, 44))
+            CharList(charindex).PartyIndex = Val(ReadField(4, rData, 44))
             Exit Sub
              
     End Select
    
-    Select Case UCase$(Left$(Rdata, 4))
+    Select Case UCase$(Left$(rData, 4))
    
         Case "HUCT"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
-            TimeChange = Rdata
-            Call DayNameChange(Rdata)
+            rData = Right$(rData, Len(rData) - 4)
+            TimeChange = rData
+            Call DayNameChange(rData)
             Exit Sub
    
         Case "VLDB"
@@ -158,36 +171,36 @@ Sub HandleData2(ByVal Rdata As String)
             Exit Sub
              
         Case "BANP"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
+            rData = Right$(rData, Len(rData) - 4)
             
-            frmBancoInfo.LblBanco = ReadField(1, Rdata, 44)
-            frmBancoInfo.LblOro = ReadField(2, Rdata, 44)
-            frmBancoInfo.LblObj = ReadField(3, Rdata, 44)
+            frmBancoInfo.LblBanco = ReadField(1, rData, 44)
+            frmBancoInfo.LblOro = ReadField(2, rData, 44)
+            frmBancoInfo.LblObj = ReadField(3, rData, 44)
             
             frmBancoInfo.Show , frmMain
             Exit Sub
        
         Case "BAND"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
+            rData = Right$(rData, Len(rData) - 4)
            
-            frmBancoDepositar.LblOro = Rdata
+            frmBancoDepositar.LblOro = rData
            
             frmBancoDepositar.Show , frmMain
             Exit Sub
         
         Case "BANF"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
+            rData = Right$(rData, Len(rData) - 4)
            
-            frmBancoFinal.LblBanco = ReadField(1, Rdata, 44)
-            frmBancoFinal.LblOro = ReadField(2, Rdata, 44)
+            frmBancoFinal.LblBanco = ReadField(1, rData, 44)
+            frmBancoFinal.LblOro = ReadField(2, rData, 44)
            
             frmBancoFinal.Show , frmMain
             Exit Sub
            
         Case "BANR"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
+            rData = Right$(rData, Len(rData) - 4)
            
-            frmBancoRetirar.LblBanco = Rdata
+            frmBancoRetirar.LblBanco = rData
            
             frmBancoRetirar.Show , frmMain
             Exit Sub
@@ -197,33 +210,33 @@ Sub HandleData2(ByVal Rdata As String)
             Exit Sub
         
         Case "LSTH"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
+            rData = Right$(rData, Len(rData) - 4)
            
-            frmOlvidarHechizo.List1.AddItem Rdata
+            frmOlvidarHechizo.List1.AddItem rData
             Exit Sub
         
         Case "ABRC"
           
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
-            Rs = ReadField(1, Rdata, 64)
-            Rdata = ReadField(2, Rdata, 64)
+            rData = Right$(rData, Len(rData) - 4)
+            Rs = ReadField(1, rData, 64)
+            rData = ReadField(2, rData, 64)
           
             ReDim Heads(1 To Rs)
             frmCabezas.List1.Clear
           
             For LooPC = 1 To Rs
                 frmCabezas.List1.AddItem "Cabeza" & LooPC
-                Heads(LooPC) = ReadField(LooPC, Rdata, 44)
+                Heads(LooPC) = ReadField(LooPC, rData, 44)
             Next LooPC
           
             frmCabezas.Show , frmMain
             Exit Sub
         
         Case "LSTS"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
+            rData = Right$(rData, Len(rData) - 4)
           
-            ObjSastre(NumSastre) = ReadField(1, Rdata, 64)
-            frmSastre.List1.AddItem ReadField(2, Rdata, 64)
+            ObjSastre(NumSastre) = ReadField(1, rData, 64)
+            frmSastre.List1.AddItem ReadField(2, rData, 64)
             NumSastre = NumSastre + 1
           
             Exit Sub
@@ -233,10 +246,10 @@ Sub HandleData2(ByVal Rdata As String)
             Exit Sub
         
         Case "OBJH"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
+            rData = Right$(rData, Len(rData) - 4)
           
-            ObjHechizeria(NumHechizeria) = ReadField(1, Rdata, 64)
-            frmHechiceria.List1.AddItem ReadField(2, Rdata, 64)
+            ObjHechizeria(NumHechizeria) = ReadField(1, rData, 64)
+            frmHechiceria.List1.AddItem ReadField(2, rData, 64)
             NumHechizeria = NumHechizeria + 1
             Exit Sub
         
@@ -245,10 +258,10 @@ Sub HandleData2(ByVal Rdata As String)
             Exit Sub
            
         Case "OBHM"
-            Rdata = Right$(Rdata, Len(Rdata) - 4)
+            rData = Right$(rData, Len(rData) - 4)
            
-            ObjHerreroMagico(NumHerrero) = ReadField(1, Rdata, 64)
-            frmHerreroMagico.List1.AddItem ReadField(2, Rdata, 64)
+            ObjHerreroMagico(NumHerrero) = ReadField(1, rData, 64)
+            frmHerreroMagico.List1.AddItem ReadField(2, rData, 64)
             NumHerrero = NumHerrero + 1
             Exit Sub
       

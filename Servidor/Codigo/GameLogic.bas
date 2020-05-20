@@ -67,7 +67,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
         PorcCasa = RandomNumber(1, 80)
 
         If UserList(UserIndex).pos.X = 51 And UserList(UserIndex).pos.Y = 75 Then
-            Call SendData(SendTarget.ToMap, 0, MapaCasaAbandonada1, "TW108")
+            Call SendData(SendTarget.tomap, 0, MapaCasaAbandonada1, "TW108")
         End If
 
         If PorcCasa < 2 Then
@@ -115,7 +115,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
            mapainvo).criatinv = 0 Then
 
             Call SendData(SendTarget.ToAll, 0, 0, "||Se ha invocado una criatura en la Sala de Invocaciones." & FONTTYPE_TALK)
-            Call SendData(SendTarget.ToMap, 0, "96", "TW160")
+            Call SendData(SendTarget.tomap, 0, "96", "TW160")
             MapInfo(mapainvo).criatinv = 1
             Dim criatura As Integer
             Dim invoca As Integer
@@ -534,73 +534,75 @@ Function CheckForSameName(ByVal UserIndex As Integer, ByVal Name As String) As B
 
 End Function
 
-Sub HeadtoPos(ByVal Head As eHeading, ByRef pos As WorldPos)
-'***************************************************
-'Author: Unknown
-'Last Modification: -
-'Toma una posicion y se mueve hacia donde esta perfilado
-'*****************************************************************
-
-    Select Case Head
-
-    Case eHeading.NORTH
-        pos.Y = pos.Y - 1
-
-    Case eHeading.SOUTH
-        pos.Y = pos.Y + 1
-
-    Case eHeading.EAST
-        pos.X = pos.X + 1
-
-    Case eHeading.WEST
-        pos.X = pos.X - 1
-
-    End Select
-
-End Sub
-
-'Sub HeadtoPos(ByVal Head As eHeading, ByRef pos As WorldPos)
-'    '*****************************************************************
-'    'Toma una posicion y se mueve hacia donde esta perfilado
-'    '*****************************************************************
-'    Dim x       As Integer
-'    Dim y       As Integer
-'    Dim tempVar As Single
-'    Dim nX      As Integer
-'    Dim nY      As Integer
+'Sub HeadtoPos(ByVal Head As eHeading, ByRef Pos As WorldPos)
+''***************************************************
+''Author: Unknown
+''Last Modification: -
+''Toma una posicion y se mueve hacia donde esta perfilado
+''*****************************************************************
+''
+'   Select Case Head
 '
-'    x = pos.x
-'    y = pos.y
+'    Case eHeading.NORTH
+'        Pos.Y = Pos.Y - 1
+''
+'   Case eHeading.SOUTH
+'       Pos.Y = Pos.Y + 1
 '
-'    If Head = eHeading.NORTH Then
-'        nX = x
-'        nY = y - 1
+'    Case eHeading.EAST
+'        Pos.X = Pos.X + 1
+''
+'   Case eHeading.WEST
+'       Pos.X = Pos.X - 1
 '
-'    End If
-'
-'    If Head = eHeading.SOUTH Then
-'        nX = x
-'        nY = y + 1
-'
-'    End If
-'
-'    If Head = eHeading.EAST Then
-'        nX = x + 1
-'        nY = y
-'
-'    End If
-'
-'    If Head = eHeading.WEST Then
-'        nX = x - 1
-'        nY = y
-'
-'    End If
-'
-'    'Devuelve valores
-'    pos.x = nX
-'    pos.y = nY
+'    End Select
 '
 'End Sub
+
+Sub HeadtoPos(ByVal Head As eHeading, ByRef pos As WorldPos)
+
+    Dim X       As Integer
+
+    Dim Y       As Integer
+
+    Dim tempVar As Single
+
+    Dim nX      As Integer
+
+    Dim nY      As Integer
+
+    X = pos.X
+    Y = pos.Y
+
+    If Head = NORTH Then
+        nX = X
+        nY = Y - 1
+
+    End If
+
+    If Head = SOUTH Then
+        nX = X
+        nY = Y + 1
+
+    End If
+
+    If Head = EAST Then
+        nX = X + 1
+        nY = Y
+
+    End If
+
+    If Head = WEST Then
+        nX = X - 1
+        nY = Y
+
+    End If
+
+    'Devuelve valores
+    pos.X = nX
+    pos.Y = nY
+
+End Sub
 
 Function LegalPos(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer, Optional ByVal PuedeAgua As Boolean = False, Optional ByVal Elemental As Boolean = False) As Boolean
 
@@ -736,24 +738,32 @@ Function MoveToLegalPos(ByVal Map As Integer, _
 
 End Function
 
-Function LegalPosNPC(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal AguaValida As Byte) As Boolean
+Function LegalPosNPC(ByVal Map As Integer, _
+                     ByVal X As Integer, _
+                     ByVal Y As Integer, _
+                     ByVal AguaValida As Byte) As Boolean
 
-    If (Map <= 0 Or Map > NumMaps) Or (X < MinXBorder Or X > MaxXBorder Or Y < MinYBorder Or Y > MaxYBorder) Then
-        LegalPosNPC = False
-    Else
+    If (Map <= 0 Or Map > NumMaps) Or _
+   (X < MinXBorder Or X > MaxXBorder Or Y < MinYBorder Or Y > MaxYBorder) Then
+    LegalPosNPC = False
+Else
 
-        If AguaValida = 0 Then
-            LegalPosNPC = (MapData(Map, X, Y).Blocked <> 1) And (MapData(Map, X, Y).UserIndex = 0) And (MapData(Map, X, Y).NpcIndex = 0) And ( _
-                          MapData(Map, X, Y).Trigger <> eTrigger.POSINVALIDA) And Not HayAgua(Map, X, Y)
-        Else
-            LegalPosNPC = (MapData(Map, X, Y).Blocked <> 1) And (MapData(Map, X, Y).UserIndex = 0) And (MapData(Map, X, Y).NpcIndex = 0) And ( _
-                          MapData(Map, X, Y).Trigger <> eTrigger.POSINVALIDA)
+ If AguaValida = 0 Then
+   LegalPosNPC = (MapData(Map, X, Y).Blocked <> 1) And _
+     (MapData(Map, X, Y).UserIndex = 0) And _
+     (MapData(Map, X, Y).NpcIndex = 0) And _
+     (MapData(Map, X, Y).Trigger <> POSINVALIDA) _
+     And Not HayAgua(Map, X, Y)
+ Else
+   LegalPosNPC = (MapData(Map, X, Y).Blocked <> 1) And _
+     (MapData(Map, X, Y).UserIndex = 0) And _
+     (MapData(Map, X, Y).NpcIndex = 0) And _
+     (MapData(Map, X, Y).Trigger <> POSINVALIDA)
+ End If
+ 
+End If
 
-        End If
-
-    End If
-
-End Function
+    End Function
 
 Sub SendHelp(ByVal Index As Integer)
     Dim NumHelpLines As Integer
@@ -1149,85 +1159,65 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
     Exit Sub
 
 LookatTile_Err:
-    LogError Err.Description & " in LookatTile " & "at line " & Erl
+    LogError err.Description & " in LookatTile " & "at line " & Erl
 
 End Sub
 
 '</EhFooter>
 
-Function FindDirection(pos As WorldPos, Target As WorldPos) As eHeading
-'*****************************************************************
-'Devuelve la direccion en la cual el target se encuentra
-'desde pos, 0 si la direc es igual
-'*****************************************************************
-    Dim X As Integer
-    Dim Y As Integer
+Function FindDirection(pos As WorldPos, Target As WorldPos) As Byte
 
-    X = pos.X - Target.X
-    Y = pos.Y - Target.Y
+Dim X As Integer
+Dim Y As Integer
 
-    'NE
-    If Sgn(X) = -1 And Sgn(Y) = 1 Then
-        FindDirection = eHeading.NORTH
-        Exit Function
+X = pos.X - Target.X
+Y = pos.Y - Target.Y
 
-    End If
+If Sgn(X) = -1 And Sgn(Y) = 1 Then
+    FindDirection = NORTH
+    Exit Function
+End If
 
-    'NW
-    If Sgn(X) = 1 And Sgn(Y) = 1 Then
-        FindDirection = eHeading.WEST
-        Exit Function
 
-    End If
+If Sgn(X) = 1 And Sgn(Y) = 1 Then
+    FindDirection = WEST
+    Exit Function
+End If
 
-    'SW
-    If Sgn(X) = 1 And Sgn(Y) = -1 Then
-        FindDirection = eHeading.WEST
-        Exit Function
+If Sgn(X) = 1 And Sgn(Y) = -1 Then
+    FindDirection = WEST
+    Exit Function
+End If
 
-    End If
+If Sgn(X) = -1 And Sgn(Y) = -1 Then
+    FindDirection = SOUTH
+    Exit Function
+End If
 
-    'SE
-    If Sgn(X) = -1 And Sgn(Y) = -1 Then
-        FindDirection = eHeading.SOUTH
-        Exit Function
+If Sgn(X) = 0 And Sgn(Y) = -1 Then
+    FindDirection = SOUTH
+    Exit Function
+End If
 
-    End If
+If Sgn(X) = 0 And Sgn(Y) = 1 Then
+    FindDirection = NORTH
+    Exit Function
+End If
 
-    'Sur
-    If Sgn(X) = 0 And Sgn(Y) = -1 Then
-        FindDirection = eHeading.SOUTH
-        Exit Function
+If Sgn(X) = 1 And Sgn(Y) = 0 Then
+    FindDirection = WEST
+    Exit Function
+End If
 
-    End If
+If Sgn(X) = -1 And Sgn(Y) = 0 Then
+    FindDirection = EAST
+    Exit Function
+End If
 
-    'norte
-    If Sgn(X) = 0 And Sgn(Y) = 1 Then
-        FindDirection = eHeading.NORTH
-        Exit Function
-
-    End If
-
-    'oeste
-    If Sgn(X) = 1 And Sgn(Y) = 0 Then
-        FindDirection = eHeading.WEST
-        Exit Function
-
-    End If
-
-    'este
-    If Sgn(X) = -1 And Sgn(Y) = 0 Then
-        FindDirection = eHeading.EAST
-        Exit Function
-
-    End If
-
-    'misma
-    If Sgn(X) = 0 And Sgn(Y) = 0 Then
-        FindDirection = 0
-        Exit Function
-
-    End If
+If Sgn(X) = 0 And Sgn(Y) = 0 Then
+    FindDirection = 0
+    Exit Function
+End If
 
 End Function
 

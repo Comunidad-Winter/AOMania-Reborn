@@ -632,7 +632,7 @@ Private Sub Auditoria_Timer()
     Exit Sub
 
 errhand:
-    Call LogError("Error en Timer Auditoria. Err: " & Err.Description & " - " & Err.Number)
+    Call LogError("Error en Timer Auditoria. Err: " & err.Description & " - " & err.Number)
 
 End Sub
 
@@ -689,7 +689,7 @@ Private Sub AutoSave_Timer()
     ElseIf MinutosLatsClean >= MinutosLimpia Then
         MinutosLatsClean = 0
         Call ReSpawnOrigPosNpcs    'respawn de los guardias en las pos originales
-        Call LimpiarMundo
+        Call LimpiarObjs
 
     End If
 
@@ -706,7 +706,7 @@ Private Sub AutoSave_Timer()
 
     Exit Sub
 errhandler:
-    Call LogError("Error en TimerAutoSave " & Err.Number & ": " & Err.Description)
+    Call LogError("Error en TimerAutoSave " & err.Number & ": " & err.Description)
 
 End Sub
 
@@ -855,13 +855,13 @@ Private Sub Command6_Click()
 
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
     On Error Resume Next
 
     If Not Visible Then
 
-        Select Case x \ Screen.TwipsPerPixelX
+        Select Case X \ Screen.TwipsPerPixelX
 
         Case WM_LBUTTONDBLCLK
             WindowState = vbNormal
@@ -978,7 +978,7 @@ Private Sub GameTimer_Timer()
                     bEnviarStats = False
                     bEnviarAyS = False
 
-                    Call DoTileEvents(iUserIndex, .pos.Map, .pos.x, .pos.Y)
+                    Call DoTileEvents(iUserIndex, .pos.Map, .pos.X, .pos.Y)
 
                     If .flags.Paralizado = 1 Then Call EfectoParalisisUser(iUserIndex)
                     If .flags.Ceguera = 1 Or .flags.Estupidez Then Call EfectoCegueEstu(iUserIndex)
@@ -1142,7 +1142,7 @@ Private Sub GameTimer_Timer()
     Exit Sub
 
 hayerror:
-    LogError ("Error en GameTimer: " & Err.Description & " UserIndex = " & iUserIndex)
+    LogError ("Error en GameTimer: " & err.Description & " UserIndex = " & iUserIndex)
 
 End Sub
 
@@ -1193,7 +1193,7 @@ Private Sub Mascotas_Timer()
     Dim Npc1Pos As WorldPos
     Npc1 = RandomNumber(924, 939)
     Npc1Pos.Map = 30
-    Npc1Pos.x = 61
+    Npc1Pos.X = 61
     Npc1Pos.Y = 38
 
     mariano = mariano + 1
@@ -1473,13 +1473,13 @@ Private Sub TBarcos_Timer()
         Dim PosNNN As WorldPos
         PosNNN.Map = Zonas(Barcos.Zona).Map
         PosNNN.Y = Zonas(Barcos.Zona).Y
-        PosNNN.x = Zonas(Barcos.Zona).x
+        PosNNN.X = Zonas(Barcos.Zona).X
         Barcos.Pasajeros = 0
 
         For LoopC = 1 To LastUser
 
             If UserList(LoopC).flags.Embarcado = 1 Then
-                Call WarpUserChar(LoopC, PosNNN.Map, PosNNN.x, PosNNN.Y, False)
+                Call WarpUserChar(LoopC, PosNNN.Map, PosNNN.X, PosNNN.Y, False)
                 UserList(LoopC).flags.Embarcado = 0
 
             End If
@@ -1519,7 +1519,7 @@ Private Sub TIMER_AI_Timer()
     On Error GoTo ErrorHandler
 
     Dim NpcIndex As Integer
-    Dim x As Integer
+    Dim X As Integer
     Dim Y As Integer
     Dim UseAI As Integer
     Dim Mapa As Integer
@@ -2112,7 +2112,7 @@ Private Sub tPiqueteC_Timer()
 
         If UserList(i).flags.UserLogged Then
 
-            If MapData(UserList(i).pos.Map, UserList(i).pos.x, UserList(i).pos.Y).Trigger = eTrigger.ANTIPIQUETE Then
+            If MapData(UserList(i).pos.Map, UserList(i).pos.X, UserList(i).pos.Y).Trigger = eTrigger.ANTIPIQUETE Then
                 UserList(i).Counters.PiqueteC = UserList(i).Counters.PiqueteC + 1
                 Call SendData(SendTarget.ToIndex, i, 0, "Z39")
 
@@ -2150,7 +2150,7 @@ Private Sub tPiqueteC_Timer()
     Exit Sub
 
 errhandler:
-    Call LogError("Error en tPiqueteC_Timer " & Err.Number & ": " & Err.Description)
+    Call LogError("Error en tPiqueteC_Timer " & err.Number & ": " & err.Description)
 
 End Sub
 Private Sub Winsock1_Close()

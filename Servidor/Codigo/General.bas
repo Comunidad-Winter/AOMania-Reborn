@@ -116,11 +116,11 @@ End Sub
 
 Sub CargarELU()
 
-    Dim x As Long
+    Dim X As Long
 
-    For x = 1 To STAT_MAXELV
-        levelELU(x) = GetVar(DatPath & "Niveles.dat", "INIT", "Nivel" & x)
-    Next x
+    For X = 1 To STAT_MAXELV
+        levelELU(X) = GetVar(DatPath & "Niveles.dat", "INIT", "Nivel" & X)
+    Next X
 
 End Sub
 
@@ -298,14 +298,14 @@ End Sub
 
 Function ZonaCura(ByVal UserIndex As Integer) As Boolean
 
-    Dim x As Integer, Y As Integer
+    Dim X As Integer, Y As Integer
 
     For Y = UserList(UserIndex).pos.Y - MinYBorder + 1 To UserList(UserIndex).pos.Y + MinYBorder - 1
-        For x = UserList(UserIndex).pos.x - MinXBorder + 1 To UserList(UserIndex).pos.x + MinXBorder - 1
+        For X = UserList(UserIndex).pos.X - MinXBorder + 1 To UserList(UserIndex).pos.X + MinXBorder - 1
 
-            If MapData(UserList(UserIndex).pos.Map, x, Y).NpcIndex > 0 Then
-                If Npclist(MapData(UserList(UserIndex).pos.Map, x, Y).NpcIndex).NPCtype = 1 Then
-                    If Distancia(UserList(UserIndex).pos, Npclist(MapData(UserList(UserIndex).pos.Map, x, Y).NpcIndex).pos) < 10 Then
+            If MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex > 0 Then
+                If Npclist(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex).NPCtype = 1 Then
+                    If Distancia(UserList(UserIndex).pos, Npclist(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex).pos) < 10 Then
                         ZonaCura = True
                         Exit Function
 
@@ -315,7 +315,7 @@ Function ZonaCura(ByVal UserIndex As Integer) As Boolean
 
             End If
 
-        Next x
+        Next X
     Next Y
 
     ZonaCura = False
@@ -576,20 +576,20 @@ Sub Bloquear(ByVal sndRoute As Byte, _
              ByVal sndIndex As Integer, _
              ByVal sndMap As Integer, _
              Map As Integer, _
-             ByVal x As Integer, _
+             ByVal X As Integer, _
              ByVal Y As Integer, _
            b As Byte)
 'b=1 bloquea el tile en (x,y)
 'b=0 desbloquea el tile indicado
 
-    Call SendData(sndRoute, sndIndex, sndMap, "BQ" & x & "," & Y & "," & b)
+    Call SendData(sndRoute, sndIndex, sndMap, "BQ" & X & "," & Y & "," & b)
 
 End Sub
 
-Function HayAgua(ByVal Map As Integer, ByVal x As Integer, ByVal Y As Integer) As Boolean
+Function HayAgua(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer) As Boolean
 
-    If Map > 0 And Map < NumMaps + 1 And x > 0 And x < 101 And Y > 0 And Y < 101 Then
-        If MapData(Map, x, Y).Graphic(1) >= 1505 And MapData(Map, x, Y).Graphic(1) <= 1520 And MapData(Map, x, Y).Graphic(2) = 0 Then
+    If Map > 0 And Map < NumMaps + 1 And X > 0 And X < 101 And Y > 0 And Y < 101 Then
+        If MapData(Map, X, Y).Graphic(1) >= 1505 And MapData(Map, X, Y).Graphic(1) <= 1520 And MapData(Map, X, Y).Graphic(2) = 0 Then
             HayAgua = True
         Else
             HayAgua = False
@@ -608,20 +608,20 @@ Sub LimpiarObjs()
     Call SendData(SendTarget.ToAllButIndex, 0, 0, "||Realizando Limpieza del Mundo" & FONTTYPE_Motd5)
     Dim i As Integer
     Dim Y As Integer
-    Dim x As Integer
+    Dim X As Integer
     Dim tInt As String
 
     For i = 1 To NumMaps
         For Y = YMinMapSize To YMaxMapSize
-            For x = XMinMapSize To XMaxMapSize
+            For X = XMinMapSize To XMaxMapSize
 
-                If x > 0 And Y > 0 And x < 101 And Y < 101 Then
-                    If MapData(i, x, Y).OBJInfo.ObjIndex > 0 Then
-                        tInt = ObjData(MapData(i, x, Y).OBJInfo.ObjIndex).ObjType
+                If X > 0 And Y > 0 And X < 101 And Y < 101 Then
+                    If MapData(i, X, Y).OBJInfo.ObjIndex > 0 Then
+                        tInt = ObjData(MapData(i, X, Y).OBJInfo.ObjIndex).ObjType
 
-                        If ObjetosBorrable(MapData(i, x, Y).OBJInfo.ObjIndex) Then
+                        If ObjetosBorrable(MapData(i, X, Y).OBJInfo.ObjIndex) Then
 
-                            Call EraseObj(ToMap, 0, i, MapData(i, x, Y).OBJInfo.Amount, i, x, Y)
+                            Call EraseObj(ToMap, 0, i, MapData(i, X, Y).OBJInfo.Amount, i, X, Y)
 
                         End If
 
@@ -629,7 +629,7 @@ Sub LimpiarObjs()
 
                 End If
 
-            Next x
+            Next X
         Next Y
     Next i
 
@@ -648,7 +648,7 @@ Sub LimpiarMundo()
     For i = 1 To TrashCollector.Count
         Dim d As cGarbage
         Set d = TrashCollector(1)
-        Call EraseObj(SendTarget.ToMap, 0, d.Map, 1, d.Map, d.x, d.Y)
+        Call EraseObj(SendTarget.ToMap, 0, d.Map, 1, d.Map, d.X, d.Y)
         Call TrashCollector.Remove(1)
         Set d = Nothing
     Next i
@@ -698,9 +698,9 @@ Sub Main()
     Prision.Map = 48
     Libertad.Map = 48
 
-    Prision.x = RandomNumber(67, 69)
+    Prision.X = RandomNumber(67, 69)
     Prision.Y = RandomNumber(47, 52)
-    Libertad.x = 75
+    Libertad.X = 75
     Libertad.Y = 65
 
     LastBackup = Format(now, "Short Time")
@@ -1437,7 +1437,7 @@ Public Function Intemperie(ByVal UserIndex As Integer) As Boolean
     With UserList(UserIndex)
 
         If MapInfo(.pos.Map).Zona <> "DUNGEON" Then
-            If MapData(.pos.Map, .pos.x, .pos.Y).Trigger <> 1 And MapData(.pos.Map, .pos.x, .pos.Y).Trigger <> 2 And MapData(.pos.Map, .pos.x, _
+            If MapData(.pos.Map, .pos.X, .pos.Y).Trigger <> 1 And MapData(.pos.Map, .pos.X, .pos.Y).Trigger <> 2 And MapData(.pos.Map, .pos.X, _
                                                                                                                              .pos.Y).Trigger <> 4 Then Intemperie = True
         Else
             Intemperie = False
@@ -1623,6 +1623,7 @@ Public Sub EfectoParalisisUser(ByVal UserIndex As Integer)
     Else
         UserList(UserIndex).flags.Paralizado = 0
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
+        Call Corr_ActualizarPosicion(UserIndex, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
     End If
 
 End Sub
@@ -1630,9 +1631,9 @@ End Sub
 Public Sub RecStamina(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal Intervalo As Integer)
     If UserList(UserIndex).flags.Desnudo = 0 Then
 
-        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
-                                                                                                                              UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
-                                                                                                                                                                                                                                                             UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
+        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
+                                                                                                                              UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
+                                                                                                                                                                                                                                                             UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
 
         Dim massta As Integer
 
@@ -1838,9 +1839,9 @@ End Sub
 
 Public Sub Sanar(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal Intervalo As Integer)
 
-    If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
-                                                                                                                          UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
-                                                                                                                                                                                                                                                         UserIndex).pos.x, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
+    If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
+                                                                                                                          UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
+                                                                                                                                                                                                                                                         UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
 
     Dim mashit As Integer
 

@@ -135,14 +135,14 @@ Public Sub DoNavega(ByVal UserIndex As Integer, ByRef Barco As ObjData, ByVal Sl
 
         End If
 
-        If ModNave > 0 Then
+        'If ModNave > 0 Then
             If .Stats.UserSkills(eSkill.Navegacion) / ModNave < Barco.MinSkill Then
                 'Call SendData(SendTarget.toindex, UserIndex, 0, "||No tienes suficientes conocimientos para usar este barco." & FONTTYPE_INFO)
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Para usar este barco necesitas " & Barco.MinSkill * ModNave & _
                                                               " puntos en navegacion." & FONTTYPE_INFO)
                 Exit Sub
             End If
-        End If
+        'End If
 
         .Invent.BarcoObjIndex = .Invent.Object(Slot).ObjIndex
         .Invent.BarcoSlot = Slot
@@ -909,13 +909,13 @@ Function ModNavegacion(ByVal Clase As String) As Integer
     Select Case UCase$(Clase)
 
     Case "PIRATA"
-        ModNavegacion = 0
-
-    Case "TRABAJADOR"
         ModNavegacion = 1
 
+    Case "TRABAJADOR"
+        ModNavegacion = 1.2
+
     Case Else
-        ModNavegacion = 2
+        ModNavegacion = 2.3
 
     End Select
 

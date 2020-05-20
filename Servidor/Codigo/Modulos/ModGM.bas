@@ -52,7 +52,7 @@ Function ComandosPermitidos(ByVal UserIndex As Integer) As Boolean
 
     Dim r    As String
 
-    Dim x    As Integer
+    Dim X    As Integer
 
     Dim g    As Integer
 
@@ -77,9 +77,9 @@ Function ComandosPermitidos(ByVal UserIndex As Integer) As Boolean
 
                     d = Trim$(GetVar(App.Path & "\gms.ini", "GM" & i, "ComandosPermitidos"))
                     r = Replace(d, " ", "")
-                    x = Len(r)
+                    X = Len(r)
 
-                    For n = 1 To x
+                    For n = 1 To X
                         info = ReadField(n, d, 32)
 
                         For g = 1 To NumGCP
@@ -176,7 +176,7 @@ Public Sub CommandAdmins(ByVal UserIndex As Integer, ByVal rData As String)
 
     Dim mifile   As Integer
 
-    Dim x        As Integer
+    Dim X        As Integer
 
     Dim Y        As Integer
 
@@ -195,7 +195,7 @@ Public Sub CommandAdmins(ByVal UserIndex As Integer, ByVal rData As String)
             UserList(UserIndex).showName = Not UserList(UserIndex).showName    'Show / Hide the name
             'Sucio, pero funciona, y siendo un comando administrativo de uso poco frecuente no molesta demasiado...
             Call UsUaRiOs.EraseUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex)
-            Call UsUaRiOs.MakeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y)
+            Call UsUaRiOs.MakeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
 
         End If
 
@@ -484,7 +484,7 @@ Public Sub CommandAdmins(ByVal UserIndex As Integer, ByVal rData As String)
                 tInt = CInt(Arg2)
             Else
                 tInt = UserList(UserIndex).pos.Map
-                Arg3 = CStr(UserList(UserIndex).pos.x)
+                Arg3 = CStr(UserList(UserIndex).pos.X)
                 Arg4 = CStr(UserList(UserIndex).pos.Y)
 
             End If
@@ -512,7 +512,7 @@ Public Sub CommandAdmins(ByVal UserIndex As Integer, ByVal rData As String)
         Else
             Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " Ha sido coronado como el nuevo Rey Imperial." & FONTTYPE_CONSEJO)
             UserList(TIndex).flags.PertAlCons = 1
-            Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.x, UserList(TIndex).pos.Y, False)
+            Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y, False)
 
         End If
 
@@ -532,7 +532,7 @@ Public Sub CommandAdmins(ByVal UserIndex As Integer, ByVal rData As String)
         Else
             Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " Ha sido coronado como el nuevo Rey del Caos." & FONTTYPE_CONSEJOCAOS)
             UserList(TIndex).flags.PertAlConsCaos = 1
-            Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.x, UserList(TIndex).pos.Y, False)
+            Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y, False)
 
         End If
 
@@ -547,16 +547,16 @@ Public Sub CommandAdmins(ByVal UserIndex As Integer, ByVal rData As String)
 
         rData = Trim(Right(rData, Len(rData) - 8))
         Mapa = UserList(UserIndex).pos.Map
-        x = UserList(UserIndex).pos.x
+        X = UserList(UserIndex).pos.X
         Y = UserList(UserIndex).pos.Y
 
         If rData <> "" Then
-            tInt = MapData(Mapa, x, Y).Trigger
-            MapData(Mapa, x, Y).Trigger = val(rData)
+            tInt = MapData(Mapa, X, Y).Trigger
+            MapData(Mapa, X, Y).Trigger = val(rData)
 
         End If
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Trigger " & MapData(Mapa, x, Y).Trigger & " en mapa " & Mapa & " " & x & ", " & Y & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Trigger " & MapData(Mapa, X, Y).Trigger & " en mapa " & Mapa & " " & X & ", " & Y & FONTTYPE_INFO)
         Exit Sub
 
     End If
@@ -699,7 +699,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
     Dim mifile   As Integer
 
-    Dim x        As Integer
+    Dim X        As Integer
 
     Dim Y        As Integer
 
@@ -988,10 +988,10 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 End If
 
-                Call WarpUserChar(UserIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.x, UserList(TIndex).pos.Y + 1, True)
+                Call WarpUserChar(UserIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y + 1, True)
 
                 If UserList(UserIndex).flags.AdminInvisible = 0 Then Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UserList(UserIndex).Name & " se ha trasportado hacia donde te encontras." & FONTTYPE_INFO)
-                Call LogGM(UserList(UserIndex).Name, "/IRA " & UserList(TIndex).Name & " Mapa:" & UserList(TIndex).pos.Map & " X:" & UserList(TIndex).pos.x & " Y:")
+                Call LogGM(UserList(UserIndex).Name, "/IRA " & UserList(TIndex).Name & " Mapa:" & UserList(TIndex).pos.Map & " X:" & UserList(TIndex).pos.X & " Y:")
                 Exit Sub
 
             End If
@@ -1000,6 +1000,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 Call WarpUserChar(UserIndex, UserList(UserIndex).flags.TargetMap, UserList(UserIndex).flags.TargetX, UserList(UserIndex).flags.TargetY, True)
                 Call LogGM(UserList(UserIndex).Name, "/TELEPLOC " & UserList(UserIndex).Name & " x:" & UserList(UserIndex).flags.TargetX & " y:" & UserList(UserIndex).flags.TargetY & " Map:" & UserList(UserIndex).flags.TargetMap)
+                Call Corr_ActualizarPosicion(UserIndex, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
                 Exit Sub
 
             End If
@@ -1022,10 +1023,10 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 End If
 
                 For tInt = 2 To 5    'esto for sirve ir cambiando la distancia destino
-                    For i = UserList(TIndex).pos.x - tInt To UserList(TIndex).pos.x + tInt
+                    For i = UserList(TIndex).pos.X - tInt To UserList(TIndex).pos.X + tInt
                         For DummyInt = UserList(TIndex).pos.Y - tInt To UserList(TIndex).pos.Y + tInt
 
-                            If (i >= UserList(TIndex).pos.x - tInt And i <= UserList(TIndex).pos.x + tInt) And (DummyInt = UserList(TIndex).pos.Y - tInt Or DummyInt = UserList(TIndex).pos.Y + tInt) Then
+                            If (i >= UserList(TIndex).pos.X - tInt And i <= UserList(TIndex).pos.X + tInt) And (DummyInt = UserList(TIndex).pos.Y - tInt Or DummyInt = UserList(TIndex).pos.Y + tInt) Then
 
                                 If MapData(UserList(TIndex).pos.Map, i, DummyInt).UserIndex = 0 And LegalPos(UserList(TIndex).pos.Map, i, DummyInt) Then
                                     Call WarpUserChar(UserIndex, UserList(TIndex).pos.Map, i, DummyInt, True)
@@ -1033,7 +1034,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                                 End If
 
-                            ElseIf (DummyInt >= UserList(TIndex).pos.Y - tInt And DummyInt <= UserList(TIndex).pos.Y + tInt) And (i = UserList(TIndex).pos.x - tInt Or i = UserList(TIndex).pos.x + tInt) Then
+                            ElseIf (DummyInt >= UserList(TIndex).pos.Y - tInt And DummyInt <= UserList(TIndex).pos.Y + tInt) And (i = UserList(TIndex).pos.X - tInt Or i = UserList(TIndex).pos.X + tInt) Then
 
                                 If MapData(UserList(TIndex).pos.Map, i, DummyInt).UserIndex = 0 And LegalPos(UserList(TIndex).pos.Map, i, DummyInt) Then
                                     Call WarpUserChar(UserIndex, UserList(TIndex).pos.Map, i, DummyInt, True)
@@ -1056,7 +1057,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
                 If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-                Call LimpiarMundo
+                Call LimpiarObjs
                 Exit Sub
 
             End If
@@ -1077,11 +1078,11 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 If Name = "PaneldeGM" Then
                     TIndex = UserIndex
 
-                    x = val(ReadField(3, rData, 32))
+                    X = val(ReadField(3, rData, 32))
                     Y = val(ReadField(4, rData, 32))
 
-                    If Not InMapBounds(Mapa, x, Y) Then Exit Sub
-                    Call WarpUserChar(TIndex, Mapa, x, Y, True)
+                    If Not InMapBounds(Mapa, X, Y) Then Exit Sub
+                    Call WarpUserChar(TIndex, Mapa, X, Y, True)
                     Call SendData(SendTarget.ToIndex, TIndex, 0, "||Has sido teletransportado." & FONTTYPE_GUILD)
                     Exit Sub
 
@@ -1101,22 +1102,22 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 End If
 
-                x = val(ReadField(3, rData, 32))
+                X = val(ReadField(3, rData, 32))
                 Y = val(ReadField(4, rData, 32))
 
-                If Not InMapBounds(Mapa, x, Y) Then Exit Sub
+                If Not InMapBounds(Mapa, X, Y) Then Exit Sub
                 If TIndex <= 0 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline." & FONTTYPE_INFO)
                     Exit Sub
 
                 End If
 
-                Call WarpUserChar(TIndex, Mapa, x, Y, True)
+                Call WarpUserChar(TIndex, Mapa, X, Y, True)
                 Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UserList(UserIndex).Name & " transportado." & FONTTYPE_INFO)
-                Call LogGM(UserList(UserIndex).Name, "Transporto a " & UserList(TIndex).Name & " hacia " & "Mapa" & Mapa & " X:" & x & " Y:" & Y)
+                Call LogGM(UserList(UserIndex).Name, "Transporto a " & UserList(TIndex).Name & " hacia " & "Mapa" & Mapa & " X:" & X & " Y:" & Y)
 
                 If UCase$(Name) <> "YO" Then
-                    Call LogGM(UserList(UserIndex).Name, "Transporto a " & UserList(TIndex).Name & " hacia " & "Mapa" & Mapa & " X:" & x & " Y:" & Y)
+                    Call LogGM(UserList(UserIndex).Name, "Transporto a " & UserList(TIndex).Name & " hacia " & "Mapa" & Mapa & " X:" & X & " Y:" & Y)
 
                 End If
 
@@ -1137,9 +1138,9 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 End If
 
                 Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UserList(UserIndex).Name & " há sido trasportado." & FONTTYPE_INFO)
-                Call WarpUserChar(TIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y + 1, True)
+                Call WarpUserChar(TIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1, True)
 
-                Call LogGM(UserList(UserIndex).Name, "/SUM " & UserList(TIndex).Name & " Map:" & UserList(UserIndex).pos.Map & " X:" & UserList(UserIndex).pos.x & " Y:" & UserList(UserIndex).pos.Y)
+                Call LogGM(UserList(UserIndex).Name, "/SUM " & UserList(TIndex).Name & " Map:" & UserList(UserIndex).pos.Map & " X:" & UserList(UserIndex).pos.X & " Y:" & UserList(UserIndex).pos.Y)
                 Exit Sub
 
             End If
@@ -1185,7 +1186,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 End If
 
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ubicacion " & UserList(rData).Name & ": " & UserList(rData).pos.Map & ", " & UserList(rData).pos.x & ", " & UserList(rData).pos.Y & FONTTYPE_INFO)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ubicacion " & UserList(rData).Name & ": " & UserList(rData).pos.Map & ", " & UserList(rData).pos.X & ", " & UserList(rData).pos.Y & FONTTYPE_INFO)
 
             End If
 
@@ -2960,25 +2961,25 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 '/ct mapa_dest x_dest y_dest
                 rData = Right(rData, Len(rData) - 4)
                 Mapa = ReadField(1, rData, 32)
-                x = ReadField(2, rData, 32)
+                X = ReadField(2, rData, 32)
                 Y = ReadField(3, rData, 32)
 
-                If MapaValido(Mapa) = False Or InMapBounds(Mapa, x, Y) = False Then
+                If MapaValido(Mapa) = False Or InMapBounds(Mapa, X, Y) = False Then
                     Exit Sub
 
                 End If
 
-                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).OBJInfo.ObjIndex > 0 Then
+                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).OBJInfo.ObjIndex > 0 Then
                     Exit Sub
 
                 End If
 
-                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.Map > 0 Then
+                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.Map > 0 Then
                     Exit Sub
 
                 End If
 
-                If MapData(Mapa, x, Y).OBJInfo.ObjIndex > 0 Then
+                If MapData(Mapa, X, Y).OBJInfo.ObjIndex > 0 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, Mapa, "||Hay un objeto en el piso en ese lugar" & FONTTYPE_INFO)
                     Exit Sub
 
@@ -2989,11 +2990,11 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 ET.Amount = 1
                 ET.ObjIndex = 378
 
-                Call MakeObj(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, ET, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1)
+                Call MakeObj(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, ET, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1)
 
-                MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.Map = Mapa
-                MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.x = x
-                MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.Y = Y
+                MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.Map = Mapa
+                MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.X = X
+                MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.Y = Y
 
                 Exit Sub
 
@@ -3007,15 +3008,15 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
                 Mapa = UserList(UserIndex).flags.TargetMap
-                x = UserList(UserIndex).flags.TargetX
+                X = UserList(UserIndex).flags.TargetX
                 Y = UserList(UserIndex).flags.TargetY
 
-                If ObjData(MapData(Mapa, x, Y).OBJInfo.ObjIndex).ObjType = eOBJType.otTELEPORT And MapData(Mapa, x, Y).TileExit.Map > 0 Then
-                    Call EraseObj(SendTarget.ToMap, 0, Mapa, MapData(Mapa, x, Y).OBJInfo.Amount, Mapa, x, Y)
-                    Call EraseObj(SendTarget.ToMap, 0, MapData(Mapa, x, Y).TileExit.Map, 1, MapData(Mapa, x, Y).TileExit.Map, MapData(Mapa, x, Y).TileExit.x, MapData(Mapa, x, Y).TileExit.Y)
-                    MapData(Mapa, x, Y).TileExit.Map = 0
-                    MapData(Mapa, x, Y).TileExit.x = 0
-                    MapData(Mapa, x, Y).TileExit.Y = 0
+                If ObjData(MapData(Mapa, X, Y).OBJInfo.ObjIndex).ObjType = eOBJType.otTELEPORT And MapData(Mapa, X, Y).TileExit.Map > 0 Then
+                    Call EraseObj(SendTarget.ToMap, 0, Mapa, MapData(Mapa, X, Y).OBJInfo.Amount, Mapa, X, Y)
+                    Call EraseObj(SendTarget.ToMap, 0, MapData(Mapa, X, Y).TileExit.Map, 1, MapData(Mapa, X, Y).TileExit.Map, MapData(Mapa, X, Y).TileExit.X, MapData(Mapa, X, Y).TileExit.Y)
+                    MapData(Mapa, X, Y).TileExit.Map = 0
+                    MapData(Mapa, X, Y).TileExit.X = 0
+                    MapData(Mapa, X, Y).TileExit.Y = 0
 
                 End If
 
@@ -3026,12 +3027,12 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
             If UCase(rData) = "/BLOQ" Then
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
-                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Blocked = 0 Then
-                    MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Blocked = 1
-                    Call Bloquear(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y, 1)
+                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Blocked = 0 Then
+                    MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Blocked = 1
+                    Call Bloquear(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y, 1)
                 Else
-                    MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Blocked = 0
-                    Call Bloquear(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y, 0)
+                    MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Blocked = 0
+                    Call Bloquear(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y, 0)
 
                 End If
 
@@ -3556,9 +3557,9 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
                 For Y = UserList(UserIndex).pos.Y - MinYBorder + 1 To UserList(UserIndex).pos.Y + MinYBorder - 1
-                    For x = UserList(UserIndex).pos.x - MinXBorder + 1 To UserList(UserIndex).pos.x + MinXBorder - 1
+                    For X = UserList(UserIndex).pos.X - MinXBorder + 1 To UserList(UserIndex).pos.X + MinXBorder - 1
 
-                        If x > 0 And Y > 0 And x < 101 And Y < 101 Then If MapData(UserList(UserIndex).pos.Map, x, Y).NpcIndex Then Call QuitarNPC(MapData(UserList(UserIndex).pos.Map, x, Y).NpcIndex)
+                        If X > 0 And Y > 0 And X < 101 And Y < 101 Then If MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex Then Call QuitarNPC(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex)
                     Next
                 Next
                 Exit Sub
@@ -3703,7 +3704,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 For LoopC = 1 To tInt
                     MiPos.Map = Mapa
-                    MiPos.x = RandomNumber(20, 80)
+                    MiPos.X = RandomNumber(20, 80)
                     MiPos.Y = RandomNumber(20, 80)
                     Call SpawnNpc(n, MiPos, True, 0)
                 Next LoopC
@@ -3761,12 +3762,12 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 IdItem = Cadena(1)
                 Cantidad = Cadena(2)
 
-                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).OBJInfo.ObjIndex > 0 Then
+                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).OBJInfo.ObjIndex > 0 Then
                     Exit Sub
 
                 End If
 
-                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.Map > 0 Then
+                If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.Map > 0 Then
                     Exit Sub
 
                 End If
@@ -3795,7 +3796,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
             If UCase$(Left$(rData, 5)) = "/DEST" Then
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 5)
-                Call EraseObj(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, 10000, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y)
+                Call EraseObj(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, 10000, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
                 Exit Sub
 
             End If
@@ -3806,11 +3807,11 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 With UserList(UserIndex)
 
                     For Y = UserList(UserIndex).pos.Y - MinYBorder + 1 To UserList(UserIndex).pos.Y + MinYBorder - 1
-                        For x = UserList(UserIndex).pos.x - MinXBorder + 1 To UserList(UserIndex).pos.x + MinXBorder - 1
+                        For X = UserList(UserIndex).pos.X - MinXBorder + 1 To UserList(UserIndex).pos.X + MinXBorder - 1
 
-                            If InMapBounds(.pos.Map, x, Y) Then
-                                If ObjetosBorrable(MapData(.pos.Map, x, Y).OBJInfo.ObjIndex) Then
-                                    Call EraseObj(SendTarget.ToMap, 0, .pos.Map, 10000, .pos.Map, x, Y)
+                            If InMapBounds(.pos.Map, X, Y) Then
+                                If ObjetosBorrable(MapData(.pos.Map, X, Y).OBJInfo.ObjIndex) Then
+                                    Call EraseObj(SendTarget.ToMap, 0, .pos.Map, 10000, .pos.Map, X, Y)
 
                                 End If
 
@@ -3832,17 +3833,17 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                     Call LogGM(.Name, "Comando: " & rData)
 
                     For Y = .pos.Y - MinYBorder + 1 To .pos.Y + MinYBorder - 1
-                        For x = .pos.x - MinXBorder + 1 To .pos.x + MinXBorder - 1
+                        For X = .pos.X - MinXBorder + 1 To .pos.X + MinXBorder - 1
 
-                            If InMapBounds(.pos.Map, x, Y) Then
-                                If MapData(.pos.Map, x, Y).OBJInfo.ObjIndex = iORO Then
-                                    Call EraseObj(SendTarget.ToMap, 0, .pos.Map, 10000, .pos.Map, x, Y)
+                            If InMapBounds(.pos.Map, X, Y) Then
+                                If MapData(.pos.Map, X, Y).OBJInfo.ObjIndex = iORO Then
+                                    Call EraseObj(SendTarget.ToMap, 0, .pos.Map, 10000, .pos.Map, X, Y)
 
                                 End If
 
                             End If
 
-                        Next x
+                        Next X
                     Next Y
 
                 End With
@@ -3905,7 +3906,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                     If UserList(TIndex).flags.PertAlCons > 0 Then
                         Call SendData(SendTarget.ToIndex, TIndex, 0, "||Has sido echado en el consejo de banderbill" & FONTTYPE_TALK & ENDC)
                         UserList(TIndex).flags.PertAlCons = 0
-                        Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.x, UserList(TIndex).pos.Y)
+                        Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y)
                         Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " fue expulsado del consejo de Banderbill" & FONTTYPE_CONSEJO)
 
                     End If
@@ -3913,7 +3914,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                     If UserList(TIndex).flags.PertAlConsCaos > 0 Then
                         Call SendData(SendTarget.ToIndex, TIndex, 0, "||Has sido echado en el consejo de la legión oscura" & FONTTYPE_TALK & ENDC)
                         UserList(TIndex).flags.PertAlConsCaos = 0
-                        Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.x, UserList(TIndex).pos.Y)
+                        Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y)
                         Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " fue expulsado del consejo de la Legión Oscura" & FONTTYPE_CONSEJOCAOS)
 
                     End If
@@ -3975,18 +3976,18 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 With UserList(UserIndex)
 
                     For Y = 0 To 100
-                        For x = 0 To 100
+                        For X = 0 To 100
 
-                            If InMapBounds(.pos.Map, x, Y) Then
-                                If MapData(.pos.Map, x, Y).OBJInfo.ObjIndex > 0 Then
+                            If InMapBounds(.pos.Map, X, Y) Then
+                                If MapData(.pos.Map, X, Y).OBJInfo.ObjIndex > 0 Then
 
-                                    Call SendData(ToIndex, UserIndex, 0, "||(" & x & ", " & Y & ") " & ObjData(MapData(.pos.Map, x, Y).OBJInfo.ObjIndex).Name & FONTTYPE_INFO)
+                                    Call SendData(ToIndex, UserIndex, 0, "||(" & X & ", " & Y & ") " & ObjData(MapData(.pos.Map, X, Y).OBJInfo.ObjIndex).Name & FONTTYPE_INFO)
 
                                 End If
 
                             End If
 
-                        Next x
+                        Next X
                     Next Y
 
                 End With
@@ -4070,7 +4071,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
     Dim mifile   As Integer
 
-    Dim x        As Integer
+    Dim X        As Integer
 
     Dim Y        As Integer
 
@@ -4132,10 +4133,10 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         End If
 
         For tInt = 2 To 5    'esto for sirve ir cambiando la distancia destino
-            For i = UserList(TIndex).pos.x - tInt To UserList(TIndex).pos.x + tInt
+            For i = UserList(TIndex).pos.X - tInt To UserList(TIndex).pos.X + tInt
                 For DummyInt = UserList(TIndex).pos.Y - tInt To UserList(TIndex).pos.Y + tInt
 
-                    If (i >= UserList(TIndex).pos.x - tInt And i <= UserList(TIndex).pos.x + tInt) And (DummyInt = UserList(TIndex).pos.Y - tInt Or DummyInt = UserList(TIndex).pos.Y + tInt) Then
+                    If (i >= UserList(TIndex).pos.X - tInt And i <= UserList(TIndex).pos.X + tInt) And (DummyInt = UserList(TIndex).pos.Y - tInt Or DummyInt = UserList(TIndex).pos.Y + tInt) Then
 
                         If MapData(UserList(TIndex).pos.Map, i, DummyInt).UserIndex = 0 And LegalPos(UserList(TIndex).pos.Map, i, DummyInt) Then
                             Call WarpUserChar(UserIndex, UserList(TIndex).pos.Map, i, DummyInt, True)
@@ -4143,7 +4144,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
                         End If
 
-                    ElseIf (DummyInt >= UserList(TIndex).pos.Y - tInt And DummyInt <= UserList(TIndex).pos.Y + tInt) And (i = UserList(TIndex).pos.x - tInt Or i = UserList(TIndex).pos.x + tInt) Then
+                    ElseIf (DummyInt >= UserList(TIndex).pos.Y - tInt And DummyInt <= UserList(TIndex).pos.Y + tInt) And (i = UserList(TIndex).pos.X - tInt Or i = UserList(TIndex).pos.X + tInt) Then
 
                         If MapData(UserList(TIndex).pos.Map, i, DummyInt).UserIndex = 0 And LegalPos(UserList(TIndex).pos.Map, i, DummyInt) Then
                             Call WarpUserChar(UserIndex, UserList(TIndex).pos.Map, i, DummyInt, True)
@@ -4295,11 +4296,11 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         If Name = "PaneldeGM" Then
             TIndex = UserIndex
 
-            x = val(ReadField(3, rData, 32))
+            X = val(ReadField(3, rData, 32))
             Y = val(ReadField(4, rData, 32))
 
-            If Not InMapBounds(Mapa, x, Y) Then Exit Sub
-            Call WarpUserChar(TIndex, Mapa, x, Y, True)
+            If Not InMapBounds(Mapa, X, Y) Then Exit Sub
+            Call WarpUserChar(TIndex, Mapa, X, Y, True)
             Call SendData(SendTarget.ToIndex, TIndex, 0, "||Has sido teletransportado." & FONTTYPE_GUILD)
             Exit Sub
 
@@ -4319,22 +4320,22 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         End If
 
-        x = val(ReadField(3, rData, 32))
+        X = val(ReadField(3, rData, 32))
         Y = val(ReadField(4, rData, 32))
 
-        If Not InMapBounds(Mapa, x, Y) Then Exit Sub
+        If Not InMapBounds(Mapa, X, Y) Then Exit Sub
         If TIndex <= 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
-        Call WarpUserChar(TIndex, Mapa, x, Y, True)
+        Call WarpUserChar(TIndex, Mapa, X, Y, True)
         Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UserList(UserIndex).Name & " transportado." & FONTTYPE_INFO)
-        Call LogGM(UserList(UserIndex).Name, "Transporto a " & UserList(TIndex).Name & " hacia " & "Mapa" & Mapa & " X:" & x & " Y:" & Y)
+        Call LogGM(UserList(UserIndex).Name, "Transporto a " & UserList(TIndex).Name & " hacia " & "Mapa" & Mapa & " X:" & X & " Y:" & Y)
 
         If UCase$(Name) <> "YO" Then
-            Call LogGM(UserList(UserIndex).Name, "Transporto a " & UserList(TIndex).Name & " hacia " & "Mapa" & Mapa & " X:" & x & " Y:" & Y)
+            Call LogGM(UserList(UserIndex).Name, "Transporto a " & UserList(TIndex).Name & " hacia " & "Mapa" & Mapa & " X:" & X & " Y:" & Y)
 
         End If
 
@@ -4396,9 +4397,9 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         End If
 
         Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UserList(UserIndex).Name & " há sido trasportado." & FONTTYPE_INFO)
-        Call WarpUserChar(TIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y + 1, True)
+        Call WarpUserChar(TIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1, True)
 
-        Call LogGM(UserList(UserIndex).Name, "/SUM " & UserList(TIndex).Name & " Map:" & UserList(UserIndex).pos.Map & " X:" & UserList(UserIndex).pos.x & " Y:" & UserList(UserIndex).pos.Y)
+        Call LogGM(UserList(UserIndex).Name, "/SUM " & UserList(TIndex).Name & " Map:" & UserList(UserIndex).pos.Map & " X:" & UserList(UserIndex).pos.X & " Y:" & UserList(UserIndex).pos.Y)
         Exit Sub
 
     End If
@@ -4563,9 +4564,9 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
         For Y = UserList(UserIndex).pos.Y - MinYBorder + 1 To UserList(UserIndex).pos.Y + MinYBorder - 1
-            For x = UserList(UserIndex).pos.x - MinXBorder + 1 To UserList(UserIndex).pos.x + MinXBorder - 1
+            For X = UserList(UserIndex).pos.X - MinXBorder + 1 To UserList(UserIndex).pos.X + MinXBorder - 1
 
-                If x > 0 And Y > 0 And x < 101 And Y < 101 Then If MapData(UserList(UserIndex).pos.Map, x, Y).NpcIndex Then Call QuitarNPC(MapData(UserList(UserIndex).pos.Map, x, Y).NpcIndex)
+                If X > 0 And Y > 0 And X < 101 And Y < 101 Then If MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex Then Call QuitarNPC(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex)
             Next
         Next
         Exit Sub
@@ -4576,7 +4577,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
     If UCase$(Left$(rData, 5)) = "/DEST" Then
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 5)
-        Call EraseObj(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, 10000, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y)
+        Call EraseObj(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, 10000, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
         Exit Sub
 
     End If
@@ -4587,11 +4588,11 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         With UserList(UserIndex)
 
             For Y = UserList(UserIndex).pos.Y - MinYBorder + 1 To UserList(UserIndex).pos.Y + MinYBorder - 1
-                For x = UserList(UserIndex).pos.x - MinXBorder + 1 To UserList(UserIndex).pos.x + MinXBorder - 1
+                For X = UserList(UserIndex).pos.X - MinXBorder + 1 To UserList(UserIndex).pos.X + MinXBorder - 1
 
-                    If InMapBounds(.pos.Map, x, Y) Then
-                        If ObjetosBorrable(MapData(.pos.Map, x, Y).OBJInfo.ObjIndex) Then
-                            Call EraseObj(SendTarget.ToMap, 0, .pos.Map, 10000, .pos.Map, x, Y)
+                    If InMapBounds(.pos.Map, X, Y) Then
+                        If ObjetosBorrable(MapData(.pos.Map, X, Y).OBJInfo.ObjIndex) Then
+                            Call EraseObj(SendTarget.ToMap, 0, .pos.Map, 10000, .pos.Map, X, Y)
 
                         End If
 
@@ -4656,10 +4657,10 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         End If
 
-        Call WarpUserChar(UserIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.x, UserList(TIndex).pos.Y + 1, True)
+        Call WarpUserChar(UserIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y + 1, True)
 
         If UserList(UserIndex).flags.AdminInvisible = 0 Then Call SendData(SendTarget.ToIndex, TIndex, 0, "||" & UserList(UserIndex).Name & " se ha trasportado hacia donde te encontras." & FONTTYPE_INFO)
-        Call LogGM(UserList(UserIndex).Name, "/IRA " & UserList(TIndex).Name & " Mapa:" & UserList(TIndex).pos.Map & " X:" & UserList(TIndex).pos.x & " Y:")
+        Call LogGM(UserList(UserIndex).Name, "/IRA " & UserList(TIndex).Name & " Mapa:" & UserList(TIndex).pos.Map & " X:" & UserList(TIndex).pos.X & " Y:")
         Exit Sub
 
     End If
@@ -4795,7 +4796,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         End If
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ubicacion " & UserList(rData).Name & ": " & UserList(rData).pos.Map & ", " & UserList(rData).pos.x & ", " & UserList(rData).pos.Y & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ubicacion " & UserList(rData).Name & ": " & UserList(rData).pos.Map & ", " & UserList(rData).pos.X & ", " & UserList(rData).pos.Y & FONTTYPE_INFO)
 
     End If
 
@@ -4902,7 +4903,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         For LoopC = 1 To tInt
             MiPos.Map = Mapa
-            MiPos.x = RandomNumber(20, 80)
+            MiPos.X = RandomNumber(20, 80)
             MiPos.Y = RandomNumber(20, 80)
             Call SpawnNpc(n, MiPos, True, 0)
         Next LoopC
@@ -6387,12 +6388,12 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
     If UCase(rData) = "/BLOQ" Then
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
-        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Blocked = 0 Then
-            MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Blocked = 1
-            Call Bloquear(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y, 1)
+        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Blocked = 0 Then
+            MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Blocked = 1
+            Call Bloquear(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y, 1)
         Else
-            MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y).Blocked = 0
-            Call Bloquear(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y, 0)
+            MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Blocked = 0
+            Call Bloquear(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y, 0)
 
         End If
 
@@ -6462,7 +6463,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
         If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-        Call LimpiarMundo
+        Call LimpiarObjs
         Exit Sub
 
     End If
@@ -6488,25 +6489,25 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         '/ct mapa_dest x_dest y_dest
         rData = Right(rData, Len(rData) - 4)
         Mapa = ReadField(1, rData, 32)
-        x = ReadField(2, rData, 32)
+        X = ReadField(2, rData, 32)
         Y = ReadField(3, rData, 32)
 
-        If MapaValido(Mapa) = False Or InMapBounds(Mapa, x, Y) = False Then
+        If MapaValido(Mapa) = False Or InMapBounds(Mapa, X, Y) = False Then
             Exit Sub
 
         End If
 
-        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).OBJInfo.ObjIndex > 0 Then
+        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).OBJInfo.ObjIndex > 0 Then
             Exit Sub
 
         End If
 
-        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.Map > 0 Then
+        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.Map > 0 Then
             Exit Sub
 
         End If
 
-        If MapData(Mapa, x, Y).OBJInfo.ObjIndex > 0 Then
+        If MapData(Mapa, X, Y).OBJInfo.ObjIndex > 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, Mapa, "||Hay un objeto en el piso en ese lugar" & FONTTYPE_INFO)
             Exit Sub
 
@@ -6517,11 +6518,11 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         ET.Amount = 1
         ET.ObjIndex = 378
 
-        Call MakeObj(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, ET, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1)
+        Call MakeObj(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, ET, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1)
 
-        MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.Map = Mapa
-        MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.x = x
-        MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.Y = Y
+        MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.Map = Mapa
+        MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.X = X
+        MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.Y = Y
 
         Exit Sub
 
@@ -6535,15 +6536,15 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
         Mapa = UserList(UserIndex).flags.TargetMap
-        x = UserList(UserIndex).flags.TargetX
+        X = UserList(UserIndex).flags.TargetX
         Y = UserList(UserIndex).flags.TargetY
 
-        If ObjData(MapData(Mapa, x, Y).OBJInfo.ObjIndex).ObjType = eOBJType.otTELEPORT And MapData(Mapa, x, Y).TileExit.Map > 0 Then
-            Call EraseObj(SendTarget.ToMap, 0, Mapa, MapData(Mapa, x, Y).OBJInfo.Amount, Mapa, x, Y)
-            Call EraseObj(SendTarget.ToMap, 0, MapData(Mapa, x, Y).TileExit.Map, 1, MapData(Mapa, x, Y).TileExit.Map, MapData(Mapa, x, Y).TileExit.x, MapData(Mapa, x, Y).TileExit.Y)
-            MapData(Mapa, x, Y).TileExit.Map = 0
-            MapData(Mapa, x, Y).TileExit.x = 0
-            MapData(Mapa, x, Y).TileExit.Y = 0
+        If ObjData(MapData(Mapa, X, Y).OBJInfo.ObjIndex).ObjType = eOBJType.otTELEPORT And MapData(Mapa, X, Y).TileExit.Map > 0 Then
+            Call EraseObj(SendTarget.ToMap, 0, Mapa, MapData(Mapa, X, Y).OBJInfo.Amount, Mapa, X, Y)
+            Call EraseObj(SendTarget.ToMap, 0, MapData(Mapa, X, Y).TileExit.Map, 1, MapData(Mapa, X, Y).TileExit.Map, MapData(Mapa, X, Y).TileExit.X, MapData(Mapa, X, Y).TileExit.Y)
+            MapData(Mapa, X, Y).TileExit.Map = 0
+            MapData(Mapa, X, Y).TileExit.X = 0
+            MapData(Mapa, X, Y).TileExit.Y = 0
 
         End If
 
@@ -6613,17 +6614,17 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             Call LogGM(.Name, "Comando: " & rData)
 
             For Y = .pos.Y - MinYBorder + 1 To .pos.Y + MinYBorder - 1
-                For x = .pos.x - MinXBorder + 1 To .pos.x + MinXBorder - 1
+                For X = .pos.X - MinXBorder + 1 To .pos.X + MinXBorder - 1
 
-                    If InMapBounds(.pos.Map, x, Y) Then
-                        If MapData(.pos.Map, x, Y).OBJInfo.ObjIndex = iORO Then
-                            Call EraseObj(SendTarget.ToMap, 0, .pos.Map, 10000, .pos.Map, x, Y)
+                    If InMapBounds(.pos.Map, X, Y) Then
+                        If MapData(.pos.Map, X, Y).OBJInfo.ObjIndex = iORO Then
+                            Call EraseObj(SendTarget.ToMap, 0, .pos.Map, 10000, .pos.Map, X, Y)
 
                         End If
 
                     End If
 
-                Next x
+                Next X
             Next Y
 
         End With
@@ -6667,7 +6668,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             If UserList(TIndex).flags.PertAlCons > 0 Then
                 Call SendData(SendTarget.ToIndex, TIndex, 0, "||Has sido echado en el consejo de banderbill" & FONTTYPE_TALK & ENDC)
                 UserList(TIndex).flags.PertAlCons = 0
-                Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.x, UserList(TIndex).pos.Y)
+                Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y)
                 Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " fue expulsado del consejo de Banderbill" & FONTTYPE_CONSEJO)
 
             End If
@@ -6675,7 +6676,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             If UserList(TIndex).flags.PertAlConsCaos > 0 Then
                 Call SendData(SendTarget.ToIndex, TIndex, 0, "||Has sido echado en el consejo de la legión oscura" & FONTTYPE_TALK & ENDC)
                 UserList(TIndex).flags.PertAlConsCaos = 0
-                Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.x, UserList(TIndex).pos.Y)
+                Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y)
                 Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " fue expulsado del consejo de la Legión Oscura" & FONTTYPE_CONSEJOCAOS)
 
             End If
@@ -6997,12 +6998,12 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         IdItem = Cadena(1)
         Cantidad = Cadena(2)
 
-        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).OBJInfo.ObjIndex > 0 Then
+        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).OBJInfo.ObjIndex > 0 Then
             Exit Sub
 
         End If
 
-        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y - 1).TileExit.Map > 0 Then
+        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1).TileExit.Map > 0 Then
             Exit Sub
 
         End If
@@ -7357,18 +7358,18 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         With UserList(UserIndex)
 
             For Y = 0 To 100
-                For x = 0 To 100
+                For X = 0 To 100
 
-                    If InMapBounds(.pos.Map, x, Y) Then
-                        If MapData(.pos.Map, x, Y).OBJInfo.ObjIndex > 0 Then
+                    If InMapBounds(.pos.Map, X, Y) Then
+                        If MapData(.pos.Map, X, Y).OBJInfo.ObjIndex > 0 Then
 
-                            Call SendData(ToIndex, UserIndex, 0, "||(" & x & ", " & Y & ") " & ObjData(MapData(.pos.Map, x, Y).OBJInfo.ObjIndex).Name & FONTTYPE_INFO)
+                            Call SendData(ToIndex, UserIndex, 0, "||(" & X & ", " & Y & ") " & ObjData(MapData(.pos.Map, X, Y).OBJInfo.ObjIndex).Name & FONTTYPE_INFO)
 
                         End If
 
                     End If
 
-                Next x
+                Next X
             Next Y
 
         End With

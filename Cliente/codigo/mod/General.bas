@@ -848,9 +848,10 @@ Sub MoveTo(ByVal Direccion As E_Heading)
     If LegalOk And UserMeditar Then Exit Sub
     
     If LegalOk And Not UserParalizado And Not UserMeditar Then
-    
-    
-        Call SendData("Ñ" & Direccion & "," & userTick)
+        Dim Heading As Byte
+        Heading = Direccion
+        Call EnviaM(Heading)
+        'Call SendData("Ñ" & Direccion & "," & userTick)
             
         If Not UserDescansar And Not UserMeditar Then
         
@@ -871,7 +872,12 @@ Sub MoveTo(ByVal Direccion As E_Heading)
     
     Call Audio.MoveListener(UserPos.X, UserPos.Y)
     
+        TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.X & " Y: " & CharList(UserCharIndex).pos.Y & ")"
+
+    
 End Sub
+
+
 
 Sub RandomMove()
     '***************************************************
@@ -899,11 +905,14 @@ Sub CheckKeys()
     'End If
     
     If GetKeyState(CustomKeys.BindedKey(eKeyType.mKeyToggleMAPA)) < 0 Then
-        If frmMapa.Visible = False Then frmMapa.Visible = True
+       If frmMain.SendTxt.Visible Then Exit Sub
+       
+       If frmMapa.Visible = False Then frmMapa.Visible = True
     ElseIf frmMapa.Visible Then
         frmMapa.Visible = False
 
     End If
+    
 
     'Don't allow any these keys during movement..
     If UserMoving = 0 Then
@@ -1744,4 +1753,8 @@ Sub SaveDataLauncher()
       
       Call WriteVar(DirConfiguracion & "Launcher.dat", "CONFIG", "Play", PlayLauncher)
       
+End Sub
+
+Sub EnviaM(sentido As Byte)
+    Call SendData("Ñ" & sentido & CodigoCorreccion & "*" & CharList(UserCharIndex).pos.X & "*" & CharList(UserCharIndex).pos.Y)
 End Sub

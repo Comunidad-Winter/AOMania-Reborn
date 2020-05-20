@@ -33,7 +33,7 @@ Public Type MZonas
 
     nombre As String
     Map As Integer
-    x As Integer
+    X As Integer
     Y As Integer
 
 End Type
@@ -853,7 +853,7 @@ End Type
 
 Public Type Position
 
-    x As Integer
+    X As Integer
     Y As Integer
 
 End Type
@@ -861,7 +861,7 @@ End Type
 Public Type WorldPos
 
     Map As Integer
-    x As Integer
+    X As Integer
     Y As Integer
 
 End Type
@@ -1700,6 +1700,8 @@ Public Type NPCFlags
     AtacaANPC As Integer
     AIAlineacion As e_Alineacion
     AIPersonalidad As e_Personalidad
+    
+    Magiainvisible As Byte
 
 End Type
 

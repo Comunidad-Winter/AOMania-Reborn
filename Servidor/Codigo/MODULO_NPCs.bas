@@ -520,7 +520,7 @@ Sub CrearNPC(NroNPC As Integer, Mapa As Integer, OrigPos As WorldPos)
                     Npclist(nIndex).pos.Map = Map
                     Npclist(nIndex).pos.X = X
                     Npclist(nIndex).pos.Y = Y
-                    Call MakeNPCChar(SendTarget.ToMap, 0, Map, nIndex, Map, X, Y)
+                    Call MakeNPCChar(SendTarget.tomap, 0, Map, nIndex, Map, X, Y)
                     Exit Sub
                 Else
                     altpos.X = 50
@@ -531,7 +531,7 @@ Sub CrearNPC(NroNPC As Integer, Mapa As Integer, OrigPos As WorldPos)
                         Npclist(nIndex).pos.Map = newpos.Map
                         Npclist(nIndex).pos.X = newpos.X
                         Npclist(nIndex).pos.Y = newpos.Y
-                        Call MakeNPCChar(SendTarget.ToMap, 0, newpos.Map, nIndex, newpos.Map, newpos.X, newpos.Y)
+                        Call MakeNPCChar(SendTarget.tomap, 0, newpos.Map, nIndex, newpos.Map, newpos.X, newpos.Y)
                         Exit Sub
                     Else
                         Call QuitarNPC(nIndex)
@@ -554,7 +554,7 @@ Sub CrearNPC(NroNPC As Integer, Mapa As Integer, OrigPos As WorldPos)
     End If
 
     'Crea el NPC
-    Call MakeNPCChar(SendTarget.ToMap, 0, Map, nIndex, Map, X, Y)
+    Call MakeNPCChar(SendTarget.tomap, 0, Map, nIndex, Map, X, Y)
 
 End Sub
 
@@ -577,7 +577,7 @@ Sub MakeNPCChar(sndRoute As Byte, _
 
     MapData(Map, X, Y).NpcIndex = NpcIndex
 
-    If sndRoute = SendTarget.ToMap Then
+    If sndRoute = SendTarget.tomap Then
         Call AgregarNpc(NpcIndex)
     Else
         Call SendData(sndRoute, sndIndex, sndMap, "BC" & Npclist(NpcIndex).char.Body & "," & Npclist(NpcIndex).char.Head & "," & Npclist( _
@@ -599,14 +599,7 @@ Sub ChangeNPCChar(ByVal sndRoute As Byte, _
         Npclist(NpcIndex).char.Body = Body
         Npclist(NpcIndex).char.Head = Head
         Npclist(NpcIndex).char.heading = heading
-
-        If sndRoute = SendTarget.ToMap Then
-            Call SendToNpcArea(NpcIndex, "CP" & Npclist(NpcIndex).char.CharIndex & "," & Body & "," & Head & "," & heading)
-        Else
-            Call SendData(sndRoute, sndIndex, sndMap, "CP" & Npclist(NpcIndex).char.CharIndex & "," & Body & "," & Head & "," & heading)
-
-        End If
-
+       Call SendData(sndRoute, sndIndex, sndMap, "CP" & Npclist(NpcIndex).char.CharIndex & "," & Body & "," & Head & "," & heading)
     End If
 
 End Sub
@@ -629,7 +622,7 @@ Sub EraseNPCChar(ByVal NpcIndex As Integer)
     MapData(Npclist(NpcIndex).pos.Map, Npclist(NpcIndex).pos.X, Npclist(NpcIndex).pos.Y).NpcIndex = 0
 
     'Actualizamos los clientes
-    Call SendData(SendTarget.ToMap, 0, Npclist(NpcIndex).pos.Map, "BP" & Npclist(NpcIndex).char.CharIndex)
+    Call SendData(SendTarget.tomap, 0, Npclist(NpcIndex).pos.Map, "BP" & Npclist(NpcIndex).char.CharIndex)
 
     'Update la lista npc
     Npclist(NpcIndex).char.CharIndex = 0
@@ -811,7 +804,7 @@ Function SpawnNpc(ByVal NpcIndex As Integer, pos As WorldPos, ByVal FX As Boolea
     Y = Npclist(nIndex).pos.Y
 
     'Crea el NPC
-    Call MakeNPCChar(SendTarget.ToMap, 0, Map, nIndex, Map, X, Y)
+    Call MakeNPCChar(SendTarget.tomap, 0, Map, nIndex, Map, X, Y)
 
     If FX Then
         Call SendData(SendTarget.ToNPCArea, nIndex, Map, "TW" & SND_WARP & "," & Npclist(nIndex).char.CharIndex)
@@ -1077,7 +1070,9 @@ Function OpenNPC(ByVal NPCNumber As Integer, Optional ByVal Respawn = True) As I
     Npclist(NpcIndex).flags.RespawnOrigPos = val(Leer.GetValue("NPC" & NPCNumber, "OrigPos"))
     Npclist(NpcIndex).flags.AfectaParalisis = val(Leer.GetValue("NPC" & NPCNumber, "AfectaParalisis"))
     Npclist(NpcIndex).flags.GolpeExacto = val(Leer.GetValue("NPC" & NPCNumber, "GolpeExacto"))
-
+    Npclist(NpcIndex).flags.Magiainvisible = val(Leer.GetValue("NPC" & NPCNumber, "Magiainvisible"))
+    
+    
     Npclist(NpcIndex).flags.Snd1 = val(Leer.GetValue("NPC" & NPCNumber, "Snd1"))
     Npclist(NpcIndex).flags.Snd2 = val(Leer.GetValue("NPC" & NPCNumber, "Snd2"))
     Npclist(NpcIndex).flags.Snd3 = val(Leer.GetValue("NPC" & NPCNumber, "Snd3"))
@@ -1115,12 +1110,12 @@ End Function
 
 Sub EnviarListaCriaturas(ByVal UserIndex As Integer, ByVal NpcIndex)
     Dim SD As String
-    Dim k As Integer
+    Dim K As Integer
     SD = SD & Npclist(NpcIndex).NroCriaturas & ","
 
-    For k = 1 To Npclist(NpcIndex).NroCriaturas
-        SD = SD & Npclist(NpcIndex).Criaturas(k).NpcName & ","
-    Next k
+    For K = 1 To Npclist(NpcIndex).NroCriaturas
+        SD = SD & Npclist(NpcIndex).Criaturas(K).NpcName & ","
+    Next K
 
     SD = "LSTCRI" & SD
     Call SendData(SendTarget.ToIndex, UserIndex, 0, SD)

@@ -101,6 +101,7 @@ Class=AoDefenderConverter; Codigo\Clases\AoDefenderConverter.cls
 Module=AoDefenderEncrypt2; Codigo\Modulos\AoDefenderEncrypt2.bas
 Module=AoDefenderEncryptClient; Codigo\Modulos\AoDefenderEncryptClient.bas
 Module=AoDefenderEncryptServer; Codigo\Modulos\AoDefenderEncryptServer.bas
+Module=ModSincronizaPosicion; Codigo\Modulos\ModSincronizaPosicion.bas
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""

@@ -1,0 +1,16 @@
+[Parche3]
+· Se arreglo que las viudas vean invis.
+· Los elementales ahora dicen la vida que le restan al npc, y el sonido por mapa.
+· Ahora los elementales desaparecen cuando mueres.
+· Ahora los npcs Guardias son inteligentes.
+· Ahora el Nosfe, lanza hechizos.
+· Ahora cuando estás escribiendo, si aprietas "Q" no aparece el mapa.
+· Al hacer click en la consola, ahora deja la opción de escribir.
+· Solucionado el bug de la energia, que bajaba barra sin perder energia.
+· Solucionado el limpiar mundo, ahora borra los objetos.
+· Cuando te desequipas un objeto de mana, si tu minimo mana, es superior al maximo, se reduce, si es menor, lo deja como estaba.
+· Se le ha dado valor a la Poción de Desparalizar en comercio.
+· Se ha corregido que al fundar clan anuncie la creación, y elimine los objetos.
+· He puesto el comando /LLEVAME para transportarse a NIX, para cuando os atrapeis en un mapa.
+· Se soluciono el NPC Yeti.
+· Se puso el Auto L (Antiguo AoMania) => En estado de prueba.
