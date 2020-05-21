@@ -14,7 +14,7 @@ Public Type tGranPoder
 End Type
 
 Public Enum hGranPoder
-    Daño = 1
+    daño = 1
     Vida = 2
     Mana = 3
     Agilidad = 4
@@ -79,7 +79,8 @@ Public Function PermiteMapaPoder(ByVal UserIndex As Integer) As Boolean
 
     Select Case UserList(UserIndex).pos.Map
 
-    Case 1, 20, 34, 37, 59, 60, 62, 64, 84, 86, 95, 132, 149, 164
+    Case 1, 20, 34, 37, 59, 60, 62, 64, 84, 86, 95, 98, 99, 100, 101, 102, 132, 149, 150, _
+             154, 159, 160, 161, 162, 163, 164, 192
         PermiteMapaPoder = False
         Exit Function
     End Select

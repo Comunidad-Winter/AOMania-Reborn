@@ -3084,7 +3084,7 @@ Private Sub ShowNextFrame()
     End If
 
     If CartelInvisibilidad > 0 Then
-        Call Text_Draw(300, 13, "TIEMPO INVISIBLE: " & Int(CartelInvisibilidad / 40) & " seg", Cyan)
+        Call Text_Draw(300, 13, "TIEMPO INVISIBLE: " & Int(CartelInvisibilidad / 26) & " seg", Cyan)
 
     End If
 

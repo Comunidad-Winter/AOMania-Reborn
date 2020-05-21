@@ -59,7 +59,7 @@ Public Sub Efecto_CaminoCasaEncantada(ByVal UserIndex As Integer)
 
         If UserList(UserIndex).flags.Muerto = 1 Then Exit Sub
 
-        Select Case RandomNumber(1, 3000)
+        Select Case RandomNumber(1, 30000)
 
         Case 140 To 149
 
@@ -113,7 +113,7 @@ Public Sub Efecto_AccionCasaEncantada(ByVal UserIndex As Integer, ByVal NpcIndex
         If NpcIndex = 0 Then Exit Sub
         If UserList(UserIndex).flags.Muerto = 1 Then Exit Sub
 
-        Select Case RandomNumber(1, 3000)
+        Select Case RandomNumber(1, 30000)
 
         Case 1 To 20
 

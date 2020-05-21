@@ -353,7 +353,7 @@ ElseIf FindWindow(vbNullString, UCase$("Cheats " & Chr(34) & "AO" & Chr(34))) Th
   AoDefDetect = True
   NameCheats = "Cheats " & Chr(34) & "AO" & Chr(34)
   Exit Function
-ElseIf FindWindow(vbNullString, UCase$("CCleaner")) Then
+ElseIf FindWindow(vbNullString, UCase$("CCleaner ")) Then
   AoDefDetect = True
   NameCheats = "CCleaner"
   Exit Function

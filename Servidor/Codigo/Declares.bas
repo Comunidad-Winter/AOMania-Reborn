@@ -372,7 +372,7 @@ Public Enum eNPCType
     Entrenador = 3
     Banquero = 4
     armada = 5
-    dragon = 6
+    DRAGON = 6
     Cirujia = 7
     Guardia = 9
     Duelos = 10
@@ -561,6 +561,11 @@ Public Const MAX_INVENTORY_SLOTS As Byte = 64
 Public Const FLAGORO As Integer = MAX_INVENTORY_SLOTS + 1
 
 ' CATEGORIAS PRINCIPALES
+
+Public Enum eSubtipo
+      otMatadragones = 1
+End Enum
+
 Public Enum eOBJType
 
     otUseOnce = 1
@@ -915,6 +920,7 @@ Public Type ObjData
     Name As String    'Nombre del obj
 
     ObjType As eOBJType    'Tipo enum que determina cuales son las caract del obj
+    Subtipo As eSubtipo
 
     GrhIndex As Long    ' Indice del grafico que representa el obj
     GrhSecundario As Long
@@ -940,7 +946,7 @@ Public Type ObjData
     Alas As Integer
     '[/MaTeO 9]
 
-    Proyectil As Integer
+    proyectil As Integer
     Municion As Integer
 
     Nivel As Byte    'nivel minimo usar item

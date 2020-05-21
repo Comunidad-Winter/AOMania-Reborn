@@ -44,8 +44,8 @@ Private Declare Function DestroyWindow Lib "user32" (ByVal hWnd As Long) As Long
 Private Const WS_CHILD = &H40000000
 Public Const GWL_WNDPROC = (-4)
 
-Private Const SIZE_RCVBUF As Long = 20000
-Private Const SIZE_SNDBUF As Long = 20000
+Private Const SIZE_RCVBUF As Long = 8192
+Private Const SIZE_SNDBUF As Long = 8192
 
 ''
 'Esto es para agilizar la busqueda del slot a partir de un socket dado,
@@ -145,17 +145,47 @@ End Function
 Public Sub AgregaSlotSock(ByVal Sock As Long, ByVal Slot As Long)
 
     Debug.Print "AgregaSockSlot"
-    
-    Dim i As Integer
-    
+ 
+    'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("AgregaSlotSock:: sock=" & Sock & " slot=" & Slot)
+
     If WSAPISock2Usr.Count > MaxUsers Then
-       
+        'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("Imposible agregarSlotSock (wsapi2usr.count>maxusers)")
         Call CloseSocket(Slot)
         Exit Sub
 
     End If
 
     WSAPISock2Usr.Add CStr(Slot), CStr(Sock)
+
+    'Dim Pri As Long, Ult As Long, Med As Long
+    'Dim LoopC As Long
+    '
+    'If WSAPISockChacheCant > 0 Then
+    '    Pri = 1
+    '    Ult = WSAPISockChacheCant
+    '    Med = Int((Pri + Ult) / 2)
+    '
+    '    Do While (Pri <= Ult) And (Ult > 1)
+    '        If Sock < WSAPISockChache(Med).Sock Then
+    '            Ult = Med - 1
+    '        Else
+    '            Pri = Med + 1
+    '        End If
+    '        Med = Int((Pri + Ult) / 2)
+    '    Loop
+    '
+    '    Pri = IIf(Sock < WSAPISockChache(Med).Sock, Med, Med + 1)
+    '    Ult = WSAPISockChacheCant
+    '    For LoopC = Ult To Pri Step -1
+    '        WSAPISockChache(LoopC + 1) = WSAPISockChache(LoopC)
+    '    Next LoopC
+    '    Med = Pri
+    'Else
+    '    Med = 1
+    'End If
+    'WSAPISockChache(Med).Slot = Slot
+    'WSAPISockChache(Med).Sock = Sock
+    'WSAPISockChacheCant = WSAPISockChacheCant + 1
 
 End Sub
 
@@ -168,7 +198,7 @@ Public Sub BorraSlotSock(ByVal Sock As Long, Optional ByVal CacheIndice As Long)
     On Error Resume Next
 
     WSAPISock2Usr.Remove CStr(Sock)
-    
+
     Debug.Print "BorraSockSlot " & Cant & " -> " & WSAPISock2Usr.Count
    
 End Sub
@@ -675,5 +705,4 @@ Public Function CondicionSocket(ByRef lpCallerId As WSABUF, _
     CondicionSocket = CF_ACCEPT 'En realdiad es al pedo, porque CondicionSocket se inicializa a 0, pero así es más claro....
     
 End Function
-
 

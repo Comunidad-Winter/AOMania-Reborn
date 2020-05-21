@@ -1,5 +1,4 @@
 Attribute VB_Name = "Queue"
-
 Option Explicit
 
 Public Type tVertice
@@ -40,6 +39,7 @@ End If
 End Function
 
 Public Function Pop() As tVertice
+
 If Not IsEmpty Then
     
     Pop = m_array(m_firstelem)
@@ -62,6 +62,3 @@ m_lastelem = 0
 m_firstelem = 0
 m_size = 0
 End Sub
-
-
-

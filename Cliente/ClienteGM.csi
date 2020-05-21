@@ -1,6 +1,2 @@
 [History]
-1=#P0#=mb	#P1#=ColoresNick	#P2#=AoManiaClienteGM/Mod_TileEngine/ColoresNick	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200521011350	#P7#=0	#P8#=28	.
-2=#P0#=mb	#P1#=RecTxt_KeyDown	#P2#=AoManiaClienteGM/frmMain/RecTxt_KeyDown	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20200520134938	#P7#=0	#P8#=10	.
-3=#P0#=mb	#P1#=SendData	#P2#=AoManiaClienteGM/Mod_TCP/SendData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200519122002	#P7#=0	#P8#=20	.
-4=#P0#=mb	#P1#=Main	#P2#=AoManiaClienteGM/Mod_General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200519121652	#P7#=0	#P8#=23	.
-5=#P0#=mb	#P1#=HandleData	#P2#=AoManiaClienteGM/Mod_TCP/HandleData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200518231515	#P7#=0	#P8#=23	.
+1=#P0#=mb	#P1#=ShowNextFrame	#P2#=AoManiaClienteGM/Mod_TileEngine/ShowNextFrame	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200521182323	#P7#=0	#P8#=147	.

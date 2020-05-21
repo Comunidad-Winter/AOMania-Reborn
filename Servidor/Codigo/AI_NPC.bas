@@ -400,7 +400,7 @@ For headingloop = NORTH To WEST
             If UserList(UI).flags.Muerto = 0 Then
             error = 8
             'pluto:2.4
- If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
+      If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
                 error = 9
                 '?ES del clan del castillo1?
                     'If Npclist(NpcIndex).pos.Map = CastilloNorte And Guilds(UserList(UI).GuildIndex).GuildName = Norte Then GoTo aqui2
@@ -412,9 +412,9 @@ For headingloop = NORTH To WEST
                     error = 10
                 If Npclist(NpcIndex).flags.LanzaSpells <> 0 Then
                     error = 11
-                    Dim K As Integer
+                    Dim k As Integer
                     error = 12
-                    K = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
+                    k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
                     error = 13
                     Call NpcLanzaUnSpell(NpcIndex, UI)
                     error = 14
@@ -470,9 +470,9 @@ Private Sub HostilBuenoAI(ByVal NpcIndex As Integer)
                         If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
                         If Npclist(NpcIndex).flags.LanzaSpells > 0 Then
 
-                            Dim K As Integer
+                            Dim k As Integer
 
-                            K = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
+                            k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
                             Call NpcLanzaUnSpell(NpcIndex, UI)
 
                         End If
@@ -578,6 +578,7 @@ Private Sub IrUsuarioCercano(ByVal NpcIndex As Integer)
                     error = 6
  
                     If UserList(UI).flags.Invisible = 1 And Npclist(NpcIndex).flags.Magiainvisible = 0 Then GoTo aqui
+                    If UserList(UI).flags.Oculto = 1 And Npclist(NpcIndex).flags.Magiainvisible = 0 Then GoTo aqui
                     error = 7
 
                     If UserList(UI).flags.AdminInvisible = 1 Then GoTo aqui
@@ -638,14 +639,14 @@ Private Sub SeguirAgresor(ByVal NpcIndex As Integer)
 
                 If UI > 0 Then
                     If UserList(UI).Name = Npclist(NpcIndex).flags.AttackedBy Then
-                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 Then
+                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 Then
 
                             ' If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
                             If Npclist(NpcIndex).flags.LanzaSpells > 0 Then
 
-                                Dim K As Integer
+                                Dim k As Integer
 
-                                K = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
+                                k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
                                 Call NpcLanzaUnSpell(NpcIndex, UI)
 
                             End If
@@ -706,13 +707,13 @@ Private Sub PersigueCiudadano(ByVal NpcIndex As Integer)
 
                 If UI > 0 Then
                     If Not Criminal(UI) Then
-                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 Then
+                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 Then
                             If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
                             If Npclist(NpcIndex).flags.LanzaSpells > 0 Then
 
-                                Dim K As Integer
+                                Dim k As Integer
 
-                                K = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
+                                k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
                                 Call NpcLanzaUnSpell(NpcIndex, UI)
 
                             End If
@@ -766,13 +767,13 @@ Private Sub PersigueCriminal(ByVal NpcIndex As Integer)
 
                 If UI > 0 Then
                     If Criminal(UI) Then
-                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 Then
+                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 Then
                             If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
                             If Npclist(NpcIndex).flags.LanzaSpells > 0 Then
 
-                                Dim K As Integer
+                                Dim k As Integer
 
-                                K = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
+                                k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
                                 Call NpcLanzaUnSpell(NpcIndex, UI)
 
                             End If
@@ -894,7 +895,7 @@ Private Sub SeguirAmo(ByVal NpcIndex As Integer)
                     UI = MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex
 
                     If UI > 0 Then
-                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UI = Npclist(NpcIndex).MaestroUser And Distancia(Npclist(NpcIndex).pos, UserList(UI).pos) > 3 Then
+                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 And UI = Npclist(NpcIndex).MaestroUser And Distancia(Npclist(NpcIndex).pos, UserList(UI).pos) > 3 Then
                             tHeading = FindDirection(Npclist(NpcIndex).pos, UserList(MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex).pos)
                             Call MoveNPCChar(NpcIndex, tHeading)
                             Exit Sub
@@ -1059,27 +1060,20 @@ Function NPCAI(ByVal NpcIndex As Integer)
 
         Case TipoAI.NpcPathfinding
             Call IrUsuarioCercano(NpcIndex)
-
-            If ReCalculatePath(NpcIndex) Then
-                Call PathFindingAI(NpcIndex)
-
-                'Existe el camino?
-                If Npclist(NpcIndex).PFINFO.NoPath Then 'Si no existe nos movemos al azar
-                    'Move randomly
-                   Call MoveNPCChar(NpcIndex, Int(RandomNumber(1, 4)))
-
-                End If
-
-            Else
-
-                If Not PathEnd(NpcIndex) Then
-                    Call FollowPath(NpcIndex)
+                If ReCalculatePath(NpcIndex) Then
+                    Call PathFindingAI(NpcIndex)
+                    'Existe el camino?
+                    If Npclist(NpcIndex).PFINFO.NoPath Then 'Si no existe nos movemos al azar
+                        'Move randomly
+                        Call MoveNPCChar(NpcIndex, Int(RandomNumber(1, 4)))
+                    End If
                 Else
-                    Npclist(NpcIndex).PFINFO.PathLenght = 0
-
+                    If Not PathEnd(NpcIndex) Then
+                        Call FollowPath(NpcIndex)
+                    Else
+                        Npclist(NpcIndex).PFINFO.PathLenght = 0
+                    End If
                 End If
-
-            End If
 
         Case TipoAI.NpcSeth
 
@@ -1289,12 +1283,12 @@ Sub NpcLanzaUnSpell(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 If UserList(UserIndex).flags.Privilegios >= 1 Then Exit Sub
 If UserList(UserIndex).flags.Privilegios > 0 And UserList(UserIndex).flags.Invisible = 1 Then Exit Sub
 If UserList(UserIndex).flags.Invisible = 1 And Npclist(NpcIndex).flags.Magiainvisible = 0 Then Exit Sub
-Dim K As Integer
-K = RandomNumber(1, 10)
-If K > 3 Then Exit Sub
+Dim k As Integer
+k = RandomNumber(1, 10)
+If k > 3 Then Exit Sub
 
-K = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
-Call NpcLanzaSpellSobreUser(NpcIndex, UserIndex, Npclist(NpcIndex).Spells(K))
+k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
+Call NpcLanzaSpellSobreUser(NpcIndex, UserIndex, Npclist(NpcIndex).Spells(k))
 
 End Sub
 

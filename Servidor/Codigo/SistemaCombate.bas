@@ -1,21 +1,21 @@
 Attribute VB_Name = "SistemaCombate"
 Option Explicit
 
-Public Function MinimoInt(ByVal a As Integer, ByVal b As Integer) As Integer
+Public Function MinimoInt(ByVal A As Integer, ByVal b As Integer) As Integer
 
-    If a > b Then
+    If A > b Then
         MinimoInt = b
     Else
-        MinimoInt = a
+        MinimoInt = A
 
     End If
 
 End Function
 
-Public Function MaximoInt(ByVal a As Integer, ByVal b As Integer) As Integer
+Public Function MaximoInt(ByVal A As Integer, ByVal b As Integer) As Integer
 
-    If a > b Then
-        MaximoInt = a
+    If A > b Then
+        MaximoInt = A
     Else
         MaximoInt = b
 
@@ -136,7 +136,7 @@ Public Function UserImpactoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Int
     Arma = UserList(UserIndex).Invent.WeaponEqpObjIndex
 
     If Arma > 0 Then    'Usando un arma
-        If ObjData(Arma).Proyectil = 1 Then
+        If ObjData(Arma).proyectil = 1 Then
             PoderAtaque = PoderAtaqueProyectil(UserIndex)
             Skill = eSkill.Proyectiles
         Else
@@ -221,234 +221,201 @@ End Function
 
 Public Function CalcularDaño(ByVal UserIndex As Integer, Optional ByVal NpcIndex As Integer = 0) As Long
 
-    Dim DañoArma As Long
-    Dim DañoUsuario As Long
-    Dim Arma As ObjData
-    Dim ModifClase As Double
-    Dim Proyectil As ObjData
+    Dim DañoArma As Long, DañoUsuario As Long, Arma As ObjData, ModifClase As Single
+
+    Dim proyectil As ObjData
+
     Dim DañoMaxArma As Long
-    Dim DañoMinArma As Long
-    Dim ObjIndex As Integer
-    Dim Clase As Byte
 
-    ''sacar esto si no queremos q la matadracos mate el dragon si o si
-    Dim matodragon As Boolean
-    matodragon = False
-
-    With UserList(UserIndex)
-        Clase = ClaseToByte(.Clase)
-
-        If .Invent.WeaponEqpObjIndex > 0 Then
-            Arma = ObjData(.Invent.WeaponEqpObjIndex)
-
-            ' Ataca a un npc?
-            If NpcIndex > 0 Then
-
-                If Arma.Proyectil = 1 Then
-                    ModifClase = ModClase(Clase).DañoProyectiles
-                    DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
-                    DañoMaxArma = Arma.MaxHit
-
-                    If Arma.Municion = 1 Then
-                        Proyectil = ObjData(.Invent.MunicionEqpObjIndex)
-                        DañoArma = DañoArma + RandomNumber(Proyectil.MinHit, Proyectil.MaxHit)
-
-                    End If
-
-                Else
-                    ModifClase = ModClase(Clase).DañoArmas
-
-                    'Usa la mata dragones?
-                    If .Invent.WeaponEqpObjIndex = EspadaMataDragonesIndex Then    ' Usa la matadragones?
-
-                        If Npclist(NpcIndex).NPCtype = eNPCType.dragon Then    'Ataca dragon?
-                            DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
-                            DañoMaxArma = Arma.MaxHit
-                            matodragon = True
-                        Else    ' Sino es dragon daño es 1
-                            DañoArma = 1
-                            DañoMaxArma = 1
-
-                        End If
-
-                    Else
-
-                        DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
-                        DañoMaxArma = Arma.MaxHit
-                        DañoArma = DañoArma * (MaximoInt(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15)) / 4)
-                        DañoMaxArma = (DañoMaxArma / 10) * (MaximoInt(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) * 1.2
-
-                    End If
-
-                End If
-
-            Else    ' Ataca usuario
-
-                If Arma.Proyectil = 1 Then
-                    ModifClase = ModClase(Clase).DañoProyectiles
-                    DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
-                    DañoMaxArma = Arma.MaxHit
-                    DañoMaxArma = (DañoMaxArma / 10) * (MaximoInt(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) * 1.2
-
-                    If Arma.Municion = 1 Then
-                        Proyectil = ObjData(.Invent.MunicionEqpObjIndex)
-                        DañoArma = DañoArma + RandomNumber(Proyectil.MinHit, Proyectil.MaxHit)
-                        DañoArma = DañoArma * (MaximoInt(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15)) / 4)
-
-
-                    End If
-
-                Else
-                    ModifClase = ModClase(Clase).DañoArmas
-
-                    If .Invent.WeaponEqpObjIndex = EspadaMataDragonesIndex Then
-                        DañoArma = 1    ' Si usa la espada matadragones daño es 1
-                        DañoMaxArma = 1
-                    Else
-
-                        If .Sagrada.Enabled = 1 Then GoTo sagrado
-
-
-
-
-                        DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
-                        DañoMaxArma = Arma.MaxHit
-                        DañoArma = DañoArma * (MaximoInt(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15)) / 4)
-                        DañoMaxArma = (DañoMaxArma / 10) * (MaximoInt(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) * 1.2
-sagrado:
-
-
-                        If .Invent.WeaponEqpObjIndex = ObjEspadaNormal Or .Invent.WeaponEqpObjIndex = ObjEspadaAse Or .Invent.WeaponEqpObjIndex = ObjVaraNormal _
-                           And Arma.Proyectil = 0 Then
-                            DañoMaxArma = .Sagrada.MinHit
-                            DañoMinArma = .Sagrada.MaxHit
-
-                            DañoArma = RandomNumber(.Sagrada.MaxHit, .Sagrada.MinHit)
-                            DañoArma = DañoArma * (MaximoInt(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15)) / 4)
-                            DañoMaxArma = (DañoMaxArma / 10) * (MaximoInt(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) * 1.2
-
-
-                        End If
-
-                        If .Invent.WeaponEqpObjIndex = ObjArcoNormal And Arma.Proyectil = 1 Then
-                            DañoMinArma = .Sagrada.MinHit
-                            DañoMaxArma = .Sagrada.MaxHit
-
-                            DañoArma = RandomNumber(.Sagrada.MinHit, .Sagrada.MaxHit)
-                        End If
-                    End If
-
-                End If
-
-            End If
-
-
-
-        Else
-            ModifClase = ModClase(Clase).DañoWrestling
-
-            ' Daño sin guantes
-            DañoMinArma = 4
-            DañoMaxArma = 9
-
-            DañoArma = RandomNumber(DañoMinArma, DañoMaxArma)
-
-        End If
-
-        DañoUsuario = RandomNumber(.Stats.MinHit, .Stats.MaxHit)
-        DañoUsuario = DañoUsuario / 1.1
-
-
-
-        '        If .Sagrada.Enabled = 1 Then
-        '            '  If NpcIndex > 0 Then
-        '            If .Invent.WeaponEqpObjIndex = ObjEspadaNormal Or .Invent.WeaponEqpObjIndex = ObjEspadaAse Or .Invent.WeaponEqpObjIndex = ObjVaraNormal _
-                     '               And Arma.Proyectil = 0 Then
-        '                DañoMinArma = .Sagrada.MinHit
-        '                DañoMaxArma = .Sagrada.MaxHit
-        '
-        '                DañoArma = RandomNumber(.Sagrada.MinHit, .Sagrada.MaxHit)
-        '            End If
-        '
-        '            If .Invent.WeaponEqpObjIndex = ObjArcoNormal And Arma.Proyectil = 1 Then
-        '                DañoMinArma = .Sagrada.MinHit
-        '                DañoMaxArma = .Sagrada.MaxHit
-        '
-        '                DañoArma = RandomNumber(.Sagrada.MinHit, .Sagrada.MaxHit)
-        '            End If
-        '
-        '            '   Else
-        '            'DañoMinArma = ObjData(.Invent.WeaponEqpObjIndex).MinHit
-        '            'DañoMaxArma = ObjData(.Invent.WeaponEqpObjIndex).MaxHit
-        '            '
-        '            'DañoArma = RandomNumber(DañoMinArma, DañoMaxArma)
-        '            'End If
-        '        End If
-
+    If UserList(UserIndex).Invent.WeaponEqpObjIndex > 0 Then
+        Arma = ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex)
+    
+        ' Ataca a un npc?
         If NpcIndex > 0 Then
-            If Npclist(NpcIndex).NPCtype = eNPCType.dragon And Not .Invent.WeaponEqpObjIndex = 402 Then
-                CalcularDaño = 0
-                Exit Function
-            End If
-        End If
+        
+            'Usa la mata dragones?
+            If Arma.Subtipo = eSubtipo.otMatadragones Then ' Usa la matadragones?
+                ModifClase = modDañoArma(UserList(UserIndex).Clase)
 
-        If UserIndex > 0 Then
-            If UserList(UserIndex).Invent.WeaponEqpSlot = 0 Then
-                CalcularDaño = 0
-                Exit Function
-            End If
-            If UserList(UserIndex).GranPoder = 1 And GranPoder.TipoAura = hGranPoder.Daño Then
+                If Npclist(NpcIndex).NPCtype = eNPCType.DRAGON Then 'Ataca dragon?
+                    DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
+                    DañoMaxArma = Arma.MaxHit
+                Else ' Si no es dragon daño es 1
+                    DañoArma = 1
+                    DañoMaxArma = 1
 
-                If matodragon Then
-                    CalcularDaño = ((DañoArma + DañoMaxArma + DañoUsuario) * ModifClase) * 2
-                    Exit Function
-                ElseIf .Invent.WeaponEqpObjIndex = ObjEspadaNormal Or .Invent.WeaponEqpObjIndex = ObjEspadaAse Or .Invent.WeaponEqpObjIndex = ObjArcoNormal Then
-                    If NpcIndex > 0 Then
-                        CalcularDaño = ((DañoArma + DañoMaxArma + DañoUsuario) * ModifClase) * 2
-                        Exit Function
-                    Else
-                        CalcularDaño = ((DañoArma + DañoMaxArma + DañoUsuario) * ModifClase) * 2
-                        Exit Function
-                    End If
-                Else
-                    CalcularDaño = ((DañoArma + DañoMaxArma + DañoUsuario) * ModifClase) * 2
-                    Exit Function
                 End If
 
+            Else ' daño comun
+        
+                If Arma.proyectil = 1 Then
+                    If UserList(UserIndex).Sagrada.Enabled = 0 Then
+                        ModifClase = modDañoProyectil(UserList(UserIndex).Clase)
+                        DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
+                        DañoMaxArma = Arma.MaxHit
 
+                        If Arma.Municion = 1 Then
+                            proyectil = ObjData(UserList(UserIndex).Invent.MunicionEqpObjIndex)
+                            DañoArma = DañoArma + RandomNumber(proyectil.MinHit, proyectil.MaxHit)
+                            DañoMaxArma = Arma.MaxHit
+
+                        End If
+
+                    ElseIf UserList(UserIndex).Sagrada.Enabled = 1 Then
+                        ModifClase = modDañoProyectil(UserList(UserIndex).Clase)
+                        DañoArma = RandomNumber(UserList(UserIndex).Sagrada.MinHit, UserList(UserIndex).Sagrada.MaxHit)
+                        DañoMaxArma = UserList(UserIndex).Sagrada.MaxHit
+
+                        If Arma.Municion = 1 Then
+                            proyectil = ObjData(UserList(UserIndex).Invent.MunicionEqpObjIndex)
+                            DañoArma = DañoArma + RandomNumber(proyectil.MinHit, proyectil.MaxHit)
+                            DañoMaxArma = Arma.MaxHit
+
+                        End If
+
+                    End If
+                
+                Else
+
+                    If UserList(UserIndex).Sagrada.Enabled = 0 Then
+                        ModifClase = modDañoArma(UserList(UserIndex).Clase)
+                        DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
+                        DañoMaxArma = Arma.MaxHit
+                    ElseIf UserList(UserIndex).Sagrada.Enabled = 1 Then
+                        ModifClase = modDañoArma(UserList(UserIndex).Clase)
+                        DañoArma = RandomNumber(UserList(UserIndex).Sagrada.MinHit, UserList(UserIndex).Sagrada.MaxHit)
+                        DañoMaxArma = UserList(UserIndex).Sagrada.MaxHit
+
+                    End If
+
+                End If
+
+            End If
+    
+        Else ' Ataca usuario
+
+            If Arma.Subtipo = eSubtipo.otMatadragones Then
+                ModifClase = modDañoArma(UserList(UserIndex).Clase)
+                DañoArma = 1 ' Si usa la espada matadragones daño es 1
+                DañoMaxArma = 1
             Else
 
-                If matodragon Then
-                    CalcularDaño = (DañoArma + DañoMaxArma + DañoUsuario) * ModifClase
-                    Exit Function
-                ElseIf .Invent.WeaponEqpObjIndex = ObjEspadaNormal Or .Invent.WeaponEqpObjIndex = ObjEspadaAse Or .Invent.WeaponEqpObjIndex = ObjArcoNormal Then
-                    If NpcIndex > 0 Then
-                        CalcularDaño = (DañoArma + DañoMaxArma + DañoUsuario) * ModifClase
-                        Exit Function
-                    Else
-                        CalcularDaño = (DañoArma + DañoMaxArma + DañoUsuario) * ModifClase
-                        Exit Function
-                    End If
-                Else
-                    CalcularDaño = (DañoArma + DañoMaxArma + DañoUsuario) * ModifClase
-                    Exit Function
-                End If
-            End If
-        End If
-    End With
+                If Arma.proyectil = 1 Then
+                    If UserList(UserIndex).Sagrada.Enabled = 0 Then
+                        ModifClase = modDañoProyectil(UserList(UserIndex).Clase)
+                        DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
+                        DañoMaxArma = Arma.MaxHit
 
+                        If Arma.Municion = 1 Then
+                            proyectil = ObjData(UserList(UserIndex).Invent.MunicionEqpObjIndex)
+                            DañoArma = DañoArma + RandomNumber(proyectil.MinHit, proyectil.MaxHit)
+                            DañoMaxArma = Arma.MaxHit
+
+                        End If
+
+                    ElseIf UserList(UserIndex).Sagrada.Enabled = 1 Then
+                        ModifClase = modDañoProyectil(UserList(UserIndex).Clase)
+                        DañoArma = RandomNumber(UserList(UserIndex).Sagrada.MinHit, UserList(UserIndex).Sagrada.MaxHit)
+                        DañoMaxArma = UserList(UserIndex).Sagrada.MaxHit
+
+                        If Arma.Municion = 1 Then
+                            proyectil = ObjData(UserList(UserIndex).Invent.MunicionEqpObjIndex)
+                            DañoArma = DañoArma + RandomNumber(proyectil.MinHit, proyectil.MaxHit)
+                            DañoMaxArma = Arma.MaxHit
+
+                        End If
+
+                    End If
+
+                Else
+
+                    If UserList(UserIndex).Sagrada.Enabled = 0 Then
+                        ModifClase = modDañoArma(UserList(UserIndex).Clase)
+                        DañoArma = RandomNumber(Arma.MinHit, Arma.MaxHit)
+                        DañoMaxArma = Arma.MaxHit
+                    ElseIf UserList(UserIndex).Sagrada.Enabled = 1 Then
+                        ModifClase = modDañoArma(UserList(UserIndex).Clase)
+                        DañoArma = RandomNumber(UserList(UserIndex).Sagrada.MinHit, UserList(UserIndex).Sagrada.MaxHit)
+                        DañoMaxArma = UserList(UserIndex).Sagrada.MaxHit
+
+                    End If
+
+                End If
+
+            End If
+
+        End If
+
+    End If
+
+    DañoUsuario = RandomNumber(UserList(UserIndex).Stats.MinHit, UserList(UserIndex).Stats.MaxHit)
+    CalcularDaño = (((3 * DañoArma) + ((DañoMaxArma / 5) * Maximo(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) + DañoUsuario) * ModifClase)
+    'Debug.Print "FUERZA: " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza)
+End Function
+
+Function Maximo(ByVal A As Long, ByVal b As Long) As Long
+If A > b Then
+    Maximo = A
+    Else: Maximo = b
+End If
+End Function
+
+Function modDañoArma(ByVal Clase As String) As Single
+    Select Case UCase$(Clase)
+        Case "GUERRERO", "GLADIADOR MAGICO"
+            modDañoArma = 1.1
+        Case "ASESINO"
+            modDañoArma = 0.9
+        Case "PALADIN"
+            modDañoArma = 0.88
+        Case "PIRATA", "HERRERO MAGICO"
+            modDañoArma = 0.8
+        Case "LADRON", "THESAUROS", "CLERIGO"
+            modDañoArma = 0.75
+        Case "CAZADOR", "BARDO", "DRUIDA", "ARQUERO"
+            modDañoArma = 0.7
+        Case "HERRERO"
+            modDañoArma = 0.65
+        Case "MAGO", "BRUJO"
+            modDañoArma = 0.6
+        Case Else
+            modDañoArma = 0.5
+    End Select
+End Function
+
+Function modDañoProyectil(ByVal Clase As String) As Single
+    Select Case UCase$(Clase)
+        Case "ARQUERO"
+            modDañoProyectil = 1.5
+        Case "CAZADOR", "GLADIADOR MAGICO"
+            modDañoProyectil = 1.2
+        Case "GUERRERO"
+            modDañoProyectil = 0.9
+        Case "PALADIN"
+            modDañoProyectil = 0.8
+        Case "ASESINO", "PIRATA", "HERRERO MAGICO"
+            modDañoProyectil = 0.75
+        Case "CLERIGO", "BARDO", "LADRON", "THESAUROS"
+            modDañoProyectil = 0.7
+        Case "HERRERO", "MINERO"
+            modDañoProyectil = 0.65
+        Case "MAGO", "BRUJO", "DRUIDA"
+            modDañoProyectil = 0.6
+        Case Else
+            modDañoProyectil = 0.5
+    End Select
 End Function
 
 Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 
-    Dim Daño As Long
+    Dim daño As Long
     Dim TeCritico As Byte
     Dim Arma As Long
     Dim Municion As Long
 
     TeCritico = RandomNumber(1, 8)
 
-    Daño = CalcularDaño(UserIndex, NpcIndex)
+    daño = CalcularDaño(UserIndex, NpcIndex)
 
     If Npclist(NpcIndex).Numero = 616 Then
         If Npclist(NpcIndex).Stats.MinHP > 14000 Then
@@ -491,24 +458,24 @@ Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 
     'Peto
     'esta navegando? si es asi le sumamos el daño del barco
-    If UserList(UserIndex).flags.Navegando = 1 Then Daño = Daño + RandomNumber(ObjData(UserList(UserIndex).Invent.BarcoObjIndex).MinHit, ObjData( _
+    If UserList(UserIndex).flags.Navegando = 1 Then daño = daño + RandomNumber(ObjData(UserList(UserIndex).Invent.BarcoObjIndex).MinHit, ObjData( _
                                                                                                                                          UserList(UserIndex).Invent.BarcoObjIndex).MaxHit)
 
-    Daño = Daño - Npclist(NpcIndex).Stats.def
+    daño = daño - Npclist(NpcIndex).Stats.def
 
-    If Daño < 0 Then Daño = 0
+    If daño < 0 Then daño = 0
 
     If UserList(UserIndex).pos.Map = MapaCasaAbandonada1 Then
         Call Efecto_AccionCasaEncantada(UserIndex, NpcIndex)
     End If
 
     ' animacion daño sobre 100
-    If Daño >= 100 Then
+    If daño >= 100 Then
         'Call SendData(SendTarget.ToNPCArea, NpcIndex, Npclist(NpcIndex).pos.Map, "CFX" & Npclist(NpcIndex).char.CharIndex & "," & 38 & "," & 0)
     End If
 
     ' animacion daño bajo 100
-    If Daño < 100 Then
+    If daño < 100 Then
         'Call SendData(SendTarget.ToNPCArea, NpcIndex, Npclist(NpcIndex).pos.Map, "CFX" & Npclist(NpcIndex).char.CharIndex & "," & 14 & "," & 0)
     End If
 
@@ -532,25 +499,25 @@ Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
         End If
     End If
 
-    Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MinHP - Daño
+    Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MinHP - daño
 
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Le has pegado a la criatura por " & Daño & " !!" & FONTTYPE_Motd4)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Le has pegado a la criatura por " & daño & " !!" & FONTTYPE_Motd4)
 
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & Daño & "°" & CStr(Npclist( _
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & daño & "°" & CStr(Npclist( _
                                                                                                                        NpcIndex).char.CharIndex))
 
     If Npclist(NpcIndex).Stats.MinHP < 0 Then
-        Daño = Npclist(NpcIndex).Stats.MinHP + Daño
+        daño = Npclist(NpcIndex).Stats.MinHP + daño
         Npclist(NpcIndex).Stats.MinHP = 0
     End If
 
-    Call CalcularDarExp(UserIndex, NpcIndex, Daño)
+    Call CalcularDarExp(UserIndex, NpcIndex, daño)
 
     If Npclist(NpcIndex).Stats.MinHP > 0 Then
 
         'Trata de apuñalar por la espalda al enemigo
         If PuedeApuñalar(UserIndex) Then
-            Call DoApuñalar(UserIndex, NpcIndex, 0, Daño)
+            Call DoApuñalar(UserIndex, NpcIndex, 0, daño)
             Call SubirSkill(UserIndex, Apuñalar)
         End If
 
@@ -591,12 +558,12 @@ End Sub
 
 Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
-    Dim Daño As Integer, Lugar As Integer, absorbido As Integer, npcfile As String
+    Dim daño As Integer, Lugar As Integer, absorbido As Integer, npcfile As String
     Dim antdaño As Integer, defbarco As Integer, defArmadura As Integer, defEscudo As Integer
     Dim Obj As ObjData, AmuletoDaño As Integer
 
-    Daño = RandomNumber(Npclist(NpcIndex).Stats.MinHit, Npclist(NpcIndex).Stats.MaxHit)
-    antdaño = Daño
+    daño = RandomNumber(Npclist(NpcIndex).Stats.MinHit, Npclist(NpcIndex).Stats.MaxHit)
+    antdaño = daño
 
     If UserList(UserIndex).flags.Navegando = 1 Then
         Obj = ObjData(UserList(UserIndex).Invent.BarcoObjIndex)
@@ -615,9 +582,9 @@ Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
             Obj = ObjData(UserList(UserIndex).Invent.CascoEqpObjIndex)
             absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
             absorbido = absorbido + defbarco
-            Daño = Daño - absorbido
+            daño = daño - absorbido
 
-            If Daño < 1 Then Daño = 1
+            If daño < 1 Then daño = 1
 
         End If
 
@@ -653,22 +620,22 @@ Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
             End If
         End If
 
-        Daño = (Daño - absorbido) - AmuletoDaño
+        daño = (daño - absorbido) - AmuletoDaño
 
         Select Case UCase$(UserList(UserIndex).Clase)
         Case "GUERRERO"
-            Daño = Porcentaje(Daño, "50")
+            daño = Porcentaje(daño, "50")
         Case "ARQUERO"
-            Daño = Porcentaje(Daño, "30")
+            daño = Porcentaje(daño, "30")
         End Select
 
-        If Daño < 1 Then Daño = 1
+        If daño < 1 Then daño = 1
 
     End Select
 
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "N2" & Lugar & "," & Daño)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "N2" & Lugar & "," & daño)
 
-    If UserList(UserIndex).flags.Privilegios = PlayerType.User Then UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - Daño
+    If UserList(UserIndex).flags.Privilegios = PlayerType.User Then UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - daño
 
     'Muere el usuario
     If UserList(UserIndex).Stats.MinHP <= 0 Then
@@ -851,14 +818,14 @@ End Function
 
 Public Sub NpcDañoNpc(ByVal Atacante As Integer, ByVal Victima As Integer)
 
-    Dim Daño As Integer
+    Dim daño As Integer
     Dim ANpc As npc, DNpc As npc
     ANpc = Npclist(Atacante)
 
-    Daño = RandomNumber(ANpc.Stats.MinHit, ANpc.Stats.MaxHit)
-    Npclist(Victima).Stats.MinHP = Npclist(Victima).Stats.MinHP - Daño
+    daño = RandomNumber(ANpc.Stats.MinHit, ANpc.Stats.MaxHit)
+    Npclist(Victima).Stats.MinHP = Npclist(Victima).Stats.MinHP - daño
 
-    Call CalcularDarExp(Npclist(Atacante).MaestroUser, Victima, Daño)
+    Call CalcularDarExp(Npclist(Atacante).MaestroUser, Victima, daño)
 
     If Npclist(Victima).Stats.MinHP < 1 Then
 
@@ -907,16 +874,16 @@ Public Sub NpcAtacaNpc(ByVal Atacante As Integer, ByVal Victima As Integer, Opti
     If NpcImpactoNpc(Atacante, Victima) Then
 
         If Npclist(Victima).flags.Snd2 > 0 Then
-            Call SendData(tomap, Victima, Npclist(Victima).pos.Map, "TW" & Npclist(Victima).flags.Snd2)
+            Call SendData(ToMap, Victima, Npclist(Victima).pos.Map, "TW" & Npclist(Victima).flags.Snd2)
         Else
-            Call SendData(tomap, Victima, Npclist(Victima).pos.Map, "TW" & SND_IMPACTO2)
+            Call SendData(ToMap, Victima, Npclist(Victima).pos.Map, "TW" & SND_IMPACTO2)
 
         End If
 
         If Npclist(Atacante).MaestroUser > 0 Then
-            Call SendData(tomap, Atacante, Npclist(Atacante).pos.Map, "TW" & SND_IMPACTO)
+            Call SendData(ToMap, Atacante, Npclist(Atacante).pos.Map, "TW" & SND_IMPACTO)
         Else
-            Call SendData(tomap, Victima, Npclist(Victima).pos.Map, "TW" & SND_IMPACTO)
+            Call SendData(ToMap, Victima, Npclist(Victima).pos.Map, "TW" & SND_IMPACTO)
 
         End If
 
@@ -925,9 +892,9 @@ Public Sub NpcAtacaNpc(ByVal Atacante As Integer, ByVal Victima As Integer, Opti
     Else
 
         If Npclist(Atacante).MaestroUser > 0 Then
-            Call SendData(tomap, Atacante, Npclist(Atacante).pos.Map, "TW" & SND_SWING)
+            Call SendData(ToMap, Atacante, Npclist(Atacante).pos.Map, "TW" & SND_SWING)
         Else
-            Call SendData(tomap, Victima, Npclist(Victima).pos.Map, "TW" & SND_SWING)
+            Call SendData(ToMap, Victima, Npclist(Victima).pos.Map, "TW" & SND_SWING)
 
         End If
 
@@ -949,65 +916,38 @@ Public Sub UsuarioAtacaNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer
         Exit Sub
 
     End If
-
-    If UserList(UserIndex).flags.Seguro And Npclist(NpcIndex).MaestroUser <> 0 Then
-        If Not Criminal(Npclist(NpcIndex).MaestroUser) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Debes sacar el seguro antes de poder atacar una mascota de un ciudadano." & _
-                                                            FONTTYPE_WARNING)
-            Exit Sub
-
-        End If
-
-    End If
-
-    If UserList(UserIndex).Faccion.ArmadaReal = 1 And Npclist(NpcIndex).MaestroUser <> 0 Then
-        If Not Criminal(Npclist(NpcIndex).MaestroUser) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los soldados del Ejercito Real tienen prohibido atacar ciudadanos y sus macotas." & _
-                                                            FONTTYPE_WARNING)
-            Exit Sub
-        End If
-    End If
-
-    If UserList(UserIndex).Faccion.Templario = 1 And Npclist(NpcIndex).MaestroUser <> 0 Then
-        If Not Criminal(Npclist(NpcIndex).MaestroUser) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, _
-                          "||Los soldados del Ejercito Templario tienen prohibido atacar ciudadanos y sus macotas." & FONTTYPE_WARNING)
-            Exit Sub
-        End If
-    End If
-
-    If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal And UserList(UserIndex).flags.Seguro Then
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Debes quitar el seguro para atacar guardias." & FONTTYPE_INFO)
-        Exit Sub
-
-    End If
+    
+    If UserList(UserIndex).flags.Silenciado = 1 Then
+    Call SendData(ToIndex, UserIndex, 0, "||Estás Silenciado, No puedes atacar a Ningun NPC." & FONTTYPE_FIGHT)
+                Exit Sub
+            End If
 
     If Not GolpeNpcCastillo(UserIndex, NpcIndex) Then Exit Sub
 
     If UserList(UserIndex).flags.Demonio = True Then
         If Npclist(NpcIndex).Numero = 253 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes acatar tu rey!!" & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar a la medusa de tu equipo ¬¬" & FONTTYPE_INFO)
             Exit Sub
         End If
     End If
 
     If UserList(UserIndex).flags.Angel = True Then
         If Npclist(NpcIndex).Numero = 254 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes acatar tu rey!!" & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar a la medusa de tu equipo ¬¬" & FONTTYPE_INFO)
             Exit Sub
         End If
     End If
 
     If UserList(UserIndex).flags.Corsarios = True Then
         If Npclist(NpcIndex).Numero = NpcCorsarios Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes acatar tu rey!!" & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar a la medusa de tu equipo ¬¬" & FONTTYPE_INFO)
             Exit Sub
         End If
     End If
 
     If UserList(UserIndex).flags.Piratas = True Then
         If Npclist(NpcIndex).Numero = NpcPiratas Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes acatar tu rey!!" & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar a la medusa de tu equipo ¬¬" & FONTTYPE_INFO)
             Exit Sub
         End If
     End If
@@ -1174,7 +1114,7 @@ Public Function UsuarioImpacto(ByVal AtacanteIndex As Integer, ByVal VictimaInde
     Dim UserPoderEvasion As Long
     Dim UserPoderEvasionEscudo As Long
     Dim Arma As Integer
-    Dim Proyectil As Boolean
+    Dim proyectil As Boolean
     Dim SkillTacticas As Long
     Dim SkillDefensa As Long
 
@@ -1184,9 +1124,9 @@ Public Function UsuarioImpacto(ByVal AtacanteIndex As Integer, ByVal VictimaInde
     Arma = UserList(AtacanteIndex).Invent.WeaponEqpObjIndex
 
     If Arma > 0 Then
-        Proyectil = ObjData(Arma).Proyectil = 1
+        proyectil = ObjData(Arma).proyectil = 1
     Else
-        Proyectil = False
+        proyectil = False
 
     End If
 
@@ -1204,7 +1144,7 @@ Public Function UsuarioImpacto(ByVal AtacanteIndex As Integer, ByVal VictimaInde
     'Esta usando un arma ???
     If UserList(AtacanteIndex).Invent.WeaponEqpObjIndex > 0 Then
 
-        If Proyectil Then
+        If proyectil Then
             PoderAtaque = PoderAtaqueProyectil(AtacanteIndex)
         Else
             PoderAtaque = PoderAtaqueArma(AtacanteIndex)
@@ -1245,7 +1185,7 @@ Public Function UsuarioImpacto(ByVal AtacanteIndex As Integer, ByVal VictimaInde
 
     If UsuarioImpacto Then
         If Arma > 0 Then
-            If Not Proyectil Then
+            If Not proyectil Then
                 Call SubirSkill(AtacanteIndex, Armas)
             Else
                 Call SubirSkill(AtacanteIndex, Proyectiles)
@@ -1308,7 +1248,7 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
     On Error GoTo ErrorHandler
 
-    Dim Daño As Long, antdaño As Integer
+    Dim daño As Long, antdaño As Integer
     Dim Lugar As Integer, absorbido As Long
     Dim defbarco As Integer, defArmadura As Integer, defEscudo As Integer
     Dim TeCritico As Byte, AmuletoDaño As Integer
@@ -1318,23 +1258,23 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
     Dim Obj As ObjData
 
-    Daño = CalcularDaño(AtacanteIndex)
-    antdaño = Daño
+    daño = CalcularDaño(AtacanteIndex)
+    antdaño = daño
 
     If UserList(VictimaIndex).Invent.AmuletoEqpObjIndex > 0 Then
         If ObjData(UserList(VictimaIndex).Invent.AmuletoEqpObjIndex).AmuletoDefensa.TipoBonifica = eAmuleto.otFisico Then
             AmuletoDaño = RandomNumber(1, ObjData(UserList(VictimaIndex).Invent.AmuletoEqpObjIndex).AmuletoDefensa.Bonifica)
             Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "||Tu Amuleto te ha protegido de " & AmuletoDaño & " puntos de Daño." & FONTTYPE_TALKMSG)
-            Daño = Daño - AmuletoDaño
+            daño = daño - AmuletoDaño
         End If
     End If
 
-    If Daño >= 200 Then
+    If daño >= 200 Then
         If UserList(VictimaIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, VictimaIndex, UserList(VictimaIndex).pos.Map, "CFX" & _
                                                                                                                                             UserList(VictimaIndex).char.CharIndex & "," & 38 & "," & 0)
     End If
 
-    If Daño < 200 Then
+    If daño < 200 Then
         If UserList(VictimaIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, VictimaIndex, UserList(VictimaIndex).pos.Map, "CFX" & _
                                                                                                                                             UserList(VictimaIndex).char.CharIndex & "," & 14 & "," & 0)
 
@@ -1344,7 +1284,7 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
     If UserList(AtacanteIndex).flags.Navegando = 1 Then
         Obj = ObjData(UserList(AtacanteIndex).Invent.BarcoObjIndex)
-        Daño = Daño + RandomNumber(Obj.MinHit, Obj.MaxHit)
+        daño = daño + RandomNumber(Obj.MinHit, Obj.MaxHit)
 
     End If
 
@@ -1384,9 +1324,9 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     Obj = ObjData(UserList(VictimaIndex).Invent.CascoEqpObjIndex)
                     absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
                     absorbido = absorbido + defbarco - Resist
-                    Daño = Daño - absorbido
+                    daño = daño - absorbido
 
-                    If Daño < 0 Then Daño = 1
+                    If daño < 0 Then daño = 1
 
                 End If
 
@@ -1414,24 +1354,24 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     absorbido = defEscudo + defbarco - Resist
                 End If
 
-                Daño = Daño - absorbido
+                daño = daño - absorbido
 
-                If Daño < 0 Then Daño = 1
+                If daño < 0 Then daño = 1
 
             End Select
 
             If TeCritico = 10 Then
                 ' Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Round(Daño * 1.1, 0) & "!" & "°" & _
                   str(UserList(VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Round(Daño * 1.1, 0)
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Round(daño * 1.1, 0)
             Else
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Daño & "!" & "°" & str(UserList( _
                  VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Daño & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & daño & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño
 
             End If
 
@@ -1444,9 +1384,9 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     Obj = ObjData(UserList(VictimaIndex).Invent.CascoEqpObjIndex)
                     absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
                     absorbido = absorbido + defbarco - Resist
-                    Daño = Daño - absorbido
+                    daño = daño - absorbido
 
-                    If Daño < 0 Then Daño = 1
+                    If daño < 0 Then daño = 1
 
                 End If
 
@@ -1474,24 +1414,24 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     absorbido = defEscudo + defbarco - Resist
                 End If
 
-                Daño = Daño - absorbido
+                daño = daño - absorbido
 
-                If Daño < 0 Then Daño = 1
+                If daño < 0 Then daño = 1
 
             End Select
 
             If TeCritico = 10 Then
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Round(Daño * 1.1, 0) & "!" & "°" & _
                  str(UserList(VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Round(Daño * 1.1, 0)
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Round(daño * 1.1, 0)
             Else
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Daño & "!" & "°" & str(UserList( _
                  VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Daño & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & daño & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño
 
             End If
 
@@ -1506,9 +1446,9 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     Obj = ObjData(UserList(VictimaIndex).Invent.CascoEqpObjIndex)
                     absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
                     absorbido = absorbido + defbarco - Resist
-                    Daño = Daño - absorbido
+                    daño = daño - absorbido
 
-                    If Daño < 0 Then Daño = 1
+                    If daño < 0 Then daño = 1
 
                 End If
 
@@ -1537,24 +1477,24 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
                 End If
 
-                Daño = Daño - absorbido
+                daño = daño - absorbido
 
-                If Daño < 0 Then Daño = 1
+                If daño < 0 Then daño = 1
 
             End Select
 
             If TeCritico = 10 Then
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Round(Daño * 1.1, 0) & "!" & "°" & _
                  str(UserList(VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño * 1.1
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño * 1.1
             Else
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Daño & "!" & "°" & str(UserList( _
                  VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Daño & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & daño & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño
             End If
 
         End If
@@ -1570,9 +1510,9 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                 Obj = ObjData(UserList(VictimaIndex).Invent.CascoEqpObjIndex)
                 absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
                 absorbido = absorbido + defbarco - Resist
-                Daño = Daño - absorbido
+                daño = daño - absorbido
 
-                If Daño < 0 Then Daño = 1
+                If daño < 0 Then daño = 1
 
             End If
 
@@ -1601,17 +1541,17 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
             End If
 
-            Daño = Daño - absorbido
+            daño = daño - absorbido
 
-            If Daño < 0 Then Daño = 1
+            If daño < 0 Then daño = 1
 
         End Select
 
         'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Daño & "!" & "°" & str(UserList( _
          VictimaIndex).char.CharIndex))
-        Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Daño & "," & UserList(VictimaIndex).Name)
-        Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
-        UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño
+        Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & daño & "," & UserList(VictimaIndex).Name)
+        Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
+        UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño
 
     End If
 
@@ -1630,7 +1570,7 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
         'Trata de apuñalar por la espalda al enemigo
         If PuedeApuñalar(AtacanteIndex) Then
-            Call DoApuñalar(AtacanteIndex, 0, VictimaIndex, Daño)
+            Call DoApuñalar(AtacanteIndex, 0, VictimaIndex, daño)
             Call SubirSkill(AtacanteIndex, Apuñalar)
 
         End If
@@ -2468,7 +2408,7 @@ Sub UserEnvenena(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As Integer)
     ObjInd = 0
 
     If ArmaObjInd > 0 Then
-        If ObjData(ArmaObjInd).Proyectil = 0 Then
+        If ObjData(ArmaObjInd).proyectil = 0 Then
             ObjInd = ArmaObjInd
         Else
             ObjInd = UserList(AtacanteIndex).Invent.MunicionEqpObjIndex

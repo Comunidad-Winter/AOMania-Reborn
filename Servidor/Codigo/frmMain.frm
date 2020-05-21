@@ -181,8 +181,8 @@ Begin VB.Form frmMain
       Top             =   2520
    End
    Begin VB.Timer GameTimer 
-      Interval        =   80
-      Left            =   0
+      Interval        =   40
+      Left            =   180
       Top             =   2880
    End
    Begin VB.Timer tPiqueteC 
@@ -244,7 +244,7 @@ Begin VB.Form frmMain
          LocalPort       =   7000
       End
       Begin VB.Timer Intervalo 
-         Interval        =   18
+         Interval        =   40
          Left            =   2400
          Top             =   720
       End
@@ -336,8 +336,8 @@ Begin VB.Form frmMain
       Begin VB.Timer TBarcos 
          Enabled         =   0   'False
          Interval        =   60000
-         Left            =   -120
-         Top             =   840
+         Left            =   -30
+         Top             =   795
       End
       Begin VB.CommandButton Command4 
          Caption         =   "Enviar SMSG a los GM's"

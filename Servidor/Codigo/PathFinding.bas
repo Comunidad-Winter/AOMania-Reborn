@@ -1,5 +1,4 @@
 Attribute VB_Name = "PathFinding"
-
 Option Explicit
 
 Private Const ROWS = 100

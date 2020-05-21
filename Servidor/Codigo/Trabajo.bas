@@ -1,7 +1,7 @@
 Attribute VB_Name = "Trabajo"
 Option Explicit
 
-Private Const IntervaloOculto As Integer = 5500    ' el tiempo de aca se divide x 40ms = 12 Sec +-
+Private Const IntervaloOculto As Integer = 4000   ' el tiempo de aca se divide x 40ms = 12 Sec +-
 
 Public Sub DoPermanecerOculto(ByVal UserIndex As Integer)
 
@@ -56,7 +56,7 @@ Public Sub DoOcultarse(ByVal UserIndex As Integer)
     End If
 
     With UserList(UserIndex)
-        Intervalo = "61,2"
+        Intervalo = "40"
         Skill = .Stats.UserSkills(eSkill.Ocultarse)
 
         Suerte = (((0.000002 * Skill - 0.0002) * Skill + 0.0064) * Skill + 0.1124) * 100

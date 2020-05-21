@@ -21,3 +21,11 @@
 · Ahora cuando eres Newbies, los items que no son Newbies, no se caen al suelo.
 · Ahora se pueden tirar objetos, cualquier tile del mapa.
 · Se ha posicionado los nicks de otra manera. (Opiniones)
+· Se hizo detectar cheats CCleaner. (By Gabriel)
+· Se soluciono que el arquero aumente el daño, si aumenta su fuerza.
+· Los items de facciones ahora ya no se caen.
+· [Casa Encantada] Se aumento, para que tarden más en realizar las acciones.
+· Aora no siguen los npcs a los ocultados.
+· Se han cambiado los intervalos.
+· Si atacas a un guardian y eres de su jerarquia, no te sigue.
+· Ahora, en duelos, castillos, y mapas de torneos, no se podrán usar el gran poder.

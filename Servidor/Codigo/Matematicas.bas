@@ -71,3 +71,20 @@ Public Function RandomNumber(ByVal LowerBound As Long, ByVal UpperBound As Long)
     RandomNumber = Fix(Rnd * (UpperBound - LowerBound + 1)) + LowerBound
 
 End Function
+
+Sub AddtoVar(ByRef Var As Variant, ByVal Addon As Variant, ByVal max As Variant)
+    'Le suma un valor a una variable respetando el maximo valor
+
+    If Var >= max Then
+        Var = max
+    Else
+        Var = Var + Addon
+
+        If Var > max Then
+            Var = max
+
+        End If
+
+    End If
+
+End Sub

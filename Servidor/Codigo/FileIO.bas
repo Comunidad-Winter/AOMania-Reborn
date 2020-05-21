@@ -819,6 +819,7 @@ Sub LoadOBJData()
         End If
 
         ObjData(Object).ObjType = val(Leer.GetValue("OBJ" & Object, "ObjType"))
+        ObjData(Object).Subtipo = val(Leer.GetValue("OBJ" & Object, "Subtipo"))
         ObjData(Object).Newbie = val(Leer.GetValue("OBJ" & Object, "Newbie"))
 
         Select Case ObjData(Object).ObjType
@@ -875,7 +876,7 @@ Sub LoadOBJData()
             ObjData(Object).Envenena = val(Leer.GetValue("OBJ" & Object, "Envenena"))
             ObjData(Object).MaxHit = val(Leer.GetValue("OBJ" & Object, "MaxHIT"))
             ObjData(Object).MinHit = val(Leer.GetValue("OBJ" & Object, "MinHIT"))
-            ObjData(Object).Proyectil = val(Leer.GetValue("OBJ" & Object, "Proyectil"))
+            ObjData(Object).proyectil = val(Leer.GetValue("OBJ" & Object, "Proyectil"))
             ObjData(Object).Municion = val(Leer.GetValue("OBJ" & Object, "Municiones"))
             ObjData(Object).StaffPower = val(Leer.GetValue("OBJ" & Object, "StaffPower"))
             ObjData(Object).StaffDamageBonus = val(Leer.GetValue("OBJ" & Object, "StaffDamageBonus"))

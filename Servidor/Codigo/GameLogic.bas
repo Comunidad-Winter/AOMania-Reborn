@@ -35,6 +35,10 @@ End Function
 Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer)
 
     On Error GoTo errhandler
+    
+    Dim TimerTile As Integer
+    
+    TimerTile = RandomNumber(1, 30000)
 
     If UserList(UserIndex).GranPoder = 1 And Not PermiteMapaPoder(UserIndex) Then
         Call mod_GranPoder.QuitarPoder(UserIndex)
@@ -42,14 +46,13 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
 
     'Sonido de pajaritos
 
-    If MapInfo(Map).Zona = "DUNGEON" Then
+    If MapInfo(Map).Zona <> Dungeon Then
 
-    Else
         Dim SoundPajaro As Integer
         Dim PorcPajaro As Integer
 
         SoundPajaro = RandomNumber(21, 22)
-        PorcPajaro = RandomNumber(1, 1000)
+        PorcPajaro = RandomNumber(1, 30000)
 
         If PorcPajaro < 5 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "PJ" & SoundPajaro)
@@ -67,14 +70,14 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
         PorcCasa = RandomNumber(1, 80)
 
         If UserList(UserIndex).pos.X = 51 And UserList(UserIndex).pos.Y = 75 Then
-            Call SendData(SendTarget.tomap, 0, MapaCasaAbandonada1, "TW108")
+            Call SendData(SendTarget.ToMap, 0, MapaCasaAbandonada1, "TW108")
         End If
 
         If PorcCasa < 2 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "TW" & SoundCasa)
         End If
 
-        PorcCasa = RandomNumber(1, 1000)
+        PorcCasa = RandomNumber(1, 30000)
 
         If PorcCasa < 50 Then
             Call Efecto_CaminoCasaEncantada(UserIndex)
@@ -115,7 +118,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
            mapainvo).criatinv = 0 Then
 
             Call SendData(SendTarget.ToAll, 0, 0, "||Se ha invocado una criatura en la Sala de Invocaciones." & FONTTYPE_TALK)
-            Call SendData(SendTarget.tomap, 0, "96", "TW160")
+            Call SendData(SendTarget.ToMap, 0, "96", "TW160")
             MapInfo(mapainvo).criatinv = 1
             Dim criatura As Integer
             Dim invoca As Integer
@@ -255,11 +258,35 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
         End If
 
     End If
+    
+    If ((UserList(UserIndex).pos.Map > 14 And UserList(UserIndex).pos.Map < 19) Or (UserList(UserIndex).pos.Map > 21 And UserList(UserIndex).pos.Map < 25)) And UserList(UserIndex).flags.Muerto = 0 And UserList(UserIndex).flags.Privilegios < 1 Then
+      If TimerTile > 29950 Then Call Gusano(UserIndex)
+    End If
 
     Exit Sub
 
 errhandler:
     Call LogError("Error en DotileEvents")
+
+End Sub
+
+Public Sub Gusano(ByVal UserIndex As Integer)
+
+    Dim daño As Long
+
+    Dim lado As Integer
+
+    daño = RandomNumber(5, 20)
+    lado = RandomNumber(62, 63)
+    
+    Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & 121)
+    Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & lado & "," & 0)
+    UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - daño
+    Call SendData(ToIndex, UserIndex, 0, "||¡¡ Un Gusano te causa " & daño & " de daño!!" & FONTTYPE_Motd4)
+    
+    Call SendUserStatsBox(UserIndex)
+
+    If UserList(UserIndex).Stats.MinHP <= 0 Then Call UserDie(UserIndex)
 
 End Sub
 
@@ -1060,13 +1087,13 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                 tNpc = Npclist(TempCharIndex)
 
                 If tNpc.MaestroUser = 0 Then
-                    If tNpc.Stats.MinHP < (tNpc.Stats.MaxHP * 0.05) Then
+                    If tNpc.Stats.MinHP < (tNpc.Stats.MaxHP * 0.1) Then
                         estatus = estatus & " (Agonizando)"
-                    ElseIf tNpc.Stats.MinHP < (tNpc.Stats.MaxHP * 0.25) Then
+                    ElseIf tNpc.Stats.MinHP < (tNpc.Stats.MaxHP * 0.4) Then
                         estatus = estatus & " (Gravemente Herido)"
-                    ElseIf tNpc.Stats.MinHP < (tNpc.Stats.MaxHP * 0.575) Then
+                    ElseIf tNpc.Stats.MinHP < (tNpc.Stats.MaxHP * 0.65) Then
                         estatus = estatus & " (Bastante herido)"
-                    ElseIf tNpc.Stats.MinHP < (tNpc.Stats.MaxHP * 0.75) Then
+                    ElseIf tNpc.Stats.MinHP < (tNpc.Stats.MaxHP * 0.9) Then
                         estatus = estatus & " (Apenas lastimado)"
                     Else
                         estatus = estatus & " (Totalmente sano)"
@@ -1221,7 +1248,7 @@ End If
 
 End Function
 
-Function FindDirectionEAO(a As WorldPos, b As WorldPos, Optional PuedeAgu As Boolean) As Byte
+Function FindDirectionEAO(A As WorldPos, b As WorldPos, Optional PuedeAgu As Boolean) As Byte
 
     Dim r As Byte
 
@@ -1252,23 +1279,23 @@ Function FindDirectionEAO(a As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
     r = RandomNumber(1, 2)
 
-    If a.X > b.X And a.Y > b.Y Then
+    If A.X > b.X And A.Y > b.Y Then
         FindDirectionEAO = IIf(r = 1, NORTH, WEST)
 
-    ElseIf a.X < b.X And a.Y < b.Y Then
+    ElseIf A.X < b.X And A.Y < b.Y Then
         FindDirectionEAO = IIf(r = 1, SOUTH, EAST)
 
-    ElseIf a.X < b.X And a.Y > b.Y Then
+    ElseIf A.X < b.X And A.Y > b.Y Then
         FindDirectionEAO = IIf(r = 1, NORTH, EAST)
 
-    ElseIf a.X > b.X And a.Y < b.Y Then
+    ElseIf A.X > b.X And A.Y < b.Y Then
         FindDirectionEAO = IIf(r = 1, SOUTH, WEST)
 
-    ElseIf a.X = b.X Then
-        FindDirectionEAO = IIf(a.Y < b.Y, SOUTH, NORTH)
+    ElseIf A.X = b.X Then
+        FindDirectionEAO = IIf(A.Y < b.Y, SOUTH, NORTH)
 
-    ElseIf a.Y = b.Y Then
-        FindDirectionEAO = IIf(a.X < b.X, EAST, WEST)
+    ElseIf A.Y = b.Y Then
+        FindDirectionEAO = IIf(A.X < b.X, EAST, WEST)
 
     Else
 
@@ -1276,17 +1303,17 @@ Function FindDirectionEAO(a As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
     End If
 
-    If Distancia(a, b) > 1 Then
+    If Distancia(A, b) > 1 Then
 
         Select Case FindDirectionEAO
 
 
         Case NORTH
-            If Not LegalPos(a.Map, a.X, a.Y - 1, PuedeAgu) Then
+            If Not LegalPos(A.Map, A.X, A.Y - 1, PuedeAgu) Then
 
-                If a.X > b.X Then
+                If A.X > b.X Then
                     FindDirectionEAO = WEST
-                ElseIf a.X < b.X Then
+                ElseIf A.X < b.X Then
                     FindDirectionEAO = EAST
                 Else
                     FindDirectionEAO = IIf(r > 1, WEST, EAST)
@@ -1297,11 +1324,11 @@ Function FindDirectionEAO(a As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
 
         Case SOUTH
-            If Not LegalPos(a.Map, a.X, a.Y + 1, PuedeAgu) Then
+            If Not LegalPos(A.Map, A.X, A.Y + 1, PuedeAgu) Then
 
-                If a.X > b.X Then
+                If A.X > b.X Then
                     FindDirectionEAO = WEST
-                ElseIf a.X < b.X Then
+                ElseIf A.X < b.X Then
                     FindDirectionEAO = EAST
                 Else
                     FindDirectionEAO = IIf(r > 1, WEST, EAST)
@@ -1313,11 +1340,11 @@ Function FindDirectionEAO(a As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
 
         Case WEST
-            If Not LegalPos(a.Map, a.X - 1, a.Y, PuedeAgu) Then
+            If Not LegalPos(A.Map, A.X - 1, A.Y, PuedeAgu) Then
 
-                If a.Y > b.Y Then
+                If A.Y > b.Y Then
                     FindDirectionEAO = NORTH
-                ElseIf a.Y < b.Y Then
+                ElseIf A.Y < b.Y Then
                     FindDirectionEAO = SOUTH
                 Else
                     FindDirectionEAO = IIf(r > 1, NORTH, SOUTH)
@@ -1326,10 +1353,10 @@ Function FindDirectionEAO(a As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
             End If
 
         Case EAST
-            If Not LegalPos(a.Map, a.X + 1, a.Y, PuedeAgu) Then
-                If a.Y > b.Y Then
+            If Not LegalPos(A.Map, A.X + 1, A.Y, PuedeAgu) Then
+                If A.Y > b.Y Then
                     FindDirectionEAO = NORTH
-                ElseIf a.Y < b.Y Then
+                ElseIf A.Y < b.Y Then
                     FindDirectionEAO = SOUTH
                 Else
                     FindDirectionEAO = IIf(r > 1, NORTH, SOUTH)
@@ -1344,16 +1371,16 @@ Function FindDirectionEAO(a As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
             Select Case FindDirectionEAO
             Case EAST
-                If Not LegalPos(a.Map, a.X + 1, a.Y) Then FindDirectionEAO = WEST
+                If Not LegalPos(A.Map, A.X + 1, A.Y) Then FindDirectionEAO = WEST
 
             Case WEST
-                If Not LegalPos(a.Map, a.X - 1, a.Y) Then FindDirectionEAO = EAST
+                If Not LegalPos(A.Map, A.X - 1, A.Y) Then FindDirectionEAO = EAST
 
             Case NORTH
-                If Not LegalPos(a.Map, a.X, a.Y - 1) Then FindDirectionEAO = SOUTH
+                If Not LegalPos(A.Map, A.X, A.Y - 1) Then FindDirectionEAO = SOUTH
 
             Case SOUTH
-                If Not LegalPos(a.Map, a.X, a.Y + 1) Then FindDirectionEAO = NORTH
+                If Not LegalPos(A.Map, A.X, A.Y + 1) Then FindDirectionEAO = NORTH
 
             End Select
 
