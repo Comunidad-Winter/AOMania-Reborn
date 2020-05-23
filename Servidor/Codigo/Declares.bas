@@ -1070,6 +1070,7 @@ Public Type ObjData
     Pack As tPack
 
     NoRobable As Byte
+  
 End Type
 
 Public Type Regalos
@@ -1840,6 +1841,8 @@ Type MapInfo
     Zona As String
     Restringir As String
     BackUp As Byte
+    
+    Cae As Byte
 
 End Type
 
@@ -2246,3 +2249,5 @@ Public IndexHablaGuild(1 To 100) As Integer
 Public IndexHablaParty(1 To 100) As Integer
 
 Public PalabrasCensuradas() As String
+
+Public EnvioMensajes() As String

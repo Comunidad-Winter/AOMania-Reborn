@@ -835,6 +835,7 @@ Sub Main()
     Call CargarSpawnList
     Call CargarForbidenWords
     Call CargaPalabrasCensuradas
+    Call CargarMensajesEnvio
     
     '¿?¿?¿?¿?¿?¿?¿?¿ CARGAMOS DATOS DESDE ARCHIVOS ¿??¿?¿?¿?¿?¿?¿?¿
 
@@ -1799,7 +1800,7 @@ Public Sub HambreYSed(ByVal UserIndex As Integer, ByRef fEnviarAyS As Boolean)
                 .Counters.AGUACounter = .Counters.AGUACounter + 1
             Else
                 .Counters.AGUACounter = 0
-                .Stats.MinAGU = .Stats.MinAGU - RandomNumber(1, 5)
+                .Stats.MinAGU = .Stats.MinAGU - 10
 
                 If .Stats.MinAGU <= 0 Then
                     .Stats.MinAGU = 0
@@ -1819,7 +1820,7 @@ Public Sub HambreYSed(ByVal UserIndex As Integer, ByRef fEnviarAyS As Boolean)
                 .Counters.COMCounter = .Counters.COMCounter + 1
             Else
                 .Counters.COMCounter = 0
-                .Stats.MinHam = .Stats.MinHam - RandomNumber(1, 5)
+                .Stats.MinHam = .Stats.MinHam - 10
 
                 If .Stats.MinHam <= 0 Then
                     .Stats.MinHam = 0
@@ -2163,3 +2164,21 @@ Public Function MensajeCensura(ByVal Mensaje As String) As String
      MensajeCensura = Mensaje
      
 End Function
+
+Public Sub EnviaMensajesClient()
+      
+      Dim i As Integer
+      Dim Total As Integer
+      Dim Mensaje As String
+      
+      Total = UBound(EnvioMensajes)
+      Total = RandomNumber(1, Total)
+     Mensaje = EnvioMensajes(Total)
+      
+      For i = 1 To LastUser
+            
+            Call SendData(ToIndex, i, 0, "EMC" & Mensaje)
+            
+      Next i
+      
+End Sub

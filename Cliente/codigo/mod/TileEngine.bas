@@ -113,6 +113,8 @@ Public VerdeF(0 To 3) As Long
 Public Tini(0 To 3) As Long
 Public Onlines(0 To 3) As Long
 Public Candados(0 To 3) As Long
+Public NCiudadanos(0 To 3) As Long
+Public NCriminales(0 To 3) As Long
 
 Public EngineRun           As Boolean
 
@@ -1462,6 +1464,8 @@ Sub MoveCharbyPos(ByVal charindex As Integer, ByVal nX As Integer, ByVal nY As I
     If Not EstaDentroDelArea(nX, nY) Then
         Call EraseChar(charindex)
     End If
+    
+    Call RefreshAllChars
 
 End Sub
 
@@ -1936,15 +1940,24 @@ Sub DrawGrhtoHdc(ByVal DestHdc As Long, ByVal GrhIndex As Long, ByRef DestRect A
 
 End Sub
 
-Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer, ByVal PixelOffSetY As Integer, ByRef Light() As Long)
+Private Sub CharRender(ByVal charindex As Integer, _
+                       ByVal PixelOffSetX As Integer, _
+                       ByVal PixelOffSetY As Integer, _
+                       ByRef Light() As Long)
 
-    Dim Moved As Boolean
-    Dim PartyIndexTrue As Boolean
+    Dim Moved             As Boolean
+
+    Dim PartyIndexTrue    As Boolean
+
     Dim ColorClan(0 To 3) As Long
-    Dim Color(0 To 3) As Long
-    Dim MismoChar As Boolean
-    Dim pos As Integer
-    Dim TempChar As Char
+
+    Dim Color(0 To 3)     As Long
+
+    Dim MismoChar         As Boolean
+
+    Dim pos               As Integer
+
+    Dim TempChar          As Char
 
     With CharList(charindex)
 
@@ -2054,16 +2067,17 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
             If MismoChar Then
                 If CharList(UserCharIndex).PartyIndex > 0 And (CharList(UserCharIndex).Invisible = True Or CharList(UserCharIndex).Invisible = False) Then
                     PartyIndexTrue = True
+
                 End If
+
             Else
                 PartyIndexTrue = MismaParty(charindex, True)
-            End If
 
+            End If
 
             If .Heading = E_Heading.SOUTH Then
                 If .Alas.Walk(.Heading).GrhIndex <> 0 Then
-                    Call DrawGrhtoSurface(.Alas.Walk(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y + 35, 1, 1, _
-                                          White, 0)
+                    Call DrawGrhtoSurface(.Alas.Walk(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y + 35, 1, 1, White, 0)
 
                 End If
 
@@ -2080,9 +2094,10 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
 
             If .Heading <> E_Heading.SOUTH Then
                 If .Alas.Walk(.Heading).GrhIndex <> 0 Then
-                    Call DrawGrhtoSurface(.Alas.Walk(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y + IIf(.Heading _
-                                                                                                                                         = E_Heading.NORTH, 35, 35), 1, 1, White, 0)    'El primer 25, es cuando esta mirando para arriba, el siguiente 20 es cuando esta mirando para izquierda o derecha ?Ta?, anda cambiando el "20"
+                    Call DrawGrhtoSurface(.Alas.Walk(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y + IIf(.Heading = E_Heading.NORTH, 35, 35), 1, 1, White, 0)    'El primer 25, es cuando esta mirando para arriba, el siguiente 20 es cuando esta mirando para izquierda o derecha ?Ta?, anda cambiando el "20"
+
                 End If
+
             End If
 
             Dim xx As Integer
@@ -2130,8 +2145,11 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                     xx = 30
                 Else
                     xx = 0
+
                 End If
+
                 Call DrawGrhtoSurface(.Arma.WeaponWalk(.Heading), PixelOffSetX, PixelOffSetY - xx, 1, 1, White, 0)
+
             End If
 
             If .Escudo.ShieldWalk(.Heading).GrhIndex <> 0 Then
@@ -2177,52 +2195,67 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
                     xx = 30
                 Else
                     xx = 0
+
                 End If
+
                 Call DrawGrhtoSurface(.Escudo.ShieldWalk(.Heading), PixelOffSetX, PixelOffSetY - xx, 1, 1, White, 0)
+
             End If
              
-             Call ColoresNick(charindex, PixelOffSetX, PixelOffSetY, PartyIndexTrue)
+            Call ColoresNick(charindex, PixelOffSetX, PixelOffSetY, PartyIndexTrue)
         
-             If PartyIndexTrue Then Call BarraParty(charindex, PixelOffSetX, PixelOffSetY)
-             
-             
+            If PartyIndexTrue Then Call BarraParty(charindex, PixelOffSetX, PixelOffSetY)
             
         End If
         
         If AoSetup.bNombreNpc Then
-          If .Hostile = 1 Then
-              Call DarNickNpcs(charindex, PixelOffSetX, PixelOffSetY)
-          End If
+            If .Hostile = 1 Then
+                Call DarNickNpcs(charindex, PixelOffSetX, PixelOffSetY)
+
+            End If
+
         End If
         
         If .Icono = 1 Then
-           With GrhData("17395")
-                    Call Directx_Render_Texture(.FileNum, PixelOffSetX + 12.5, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
-           End With
+
+            With GrhData("17395")
+                Call Directx_Render_Texture(.FileNum, PixelOffSetX + 12.5, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
+
+            End With
+
         End If
         
         If .NpcType = eNPCType.nQuest Then
         
-           If ProcesoQuest = 0 Then
+            If ProcesoQuest = 0 Then
             
-           With GrhData("17394")
+                With GrhData("17394")
                     Call Directx_Render_Texture(.FileNum, PixelOffSetX + 12.5, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
-           End With
+
+                End With
            
-           ElseIf ProcesoQuest = 1 Then
+            ElseIf ProcesoQuest = 1 Then
            
-           With GrhData("17397")
+                With GrhData("17397")
                     Call Directx_Render_Texture(.FileNum, PixelOffSetX + 10, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
-           End With
+
+                End With
            
-           ElseIf ProcesoQuest = 2 Then
+            ElseIf ProcesoQuest = 2 Then
             
-            With GrhData("17396")
+                With GrhData("17396")
                     Call Directx_Render_Texture(.FileNum, PixelOffSetX + 10, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
-           End With
+
+                End With
            
-           End If
+            End If
             
+        End If
+        
+        If VerMapa Then
+               
+            Call Directx_Render_Texture(10001, 150, 120, 512, 512, 0, 0, White, 0, 0)
+               
         End If
 
         Velocidad = 1
@@ -2230,24 +2263,35 @@ Private Sub CharRender(ByVal charindex As Integer, ByVal PixelOffSetX As Integer
         Dim i As Long
 
         If .Particle_Count > 0 Then
+
             For i = 1 To .Particle_Count
+
                 If .Particle_Group(i) > 0 Then
                     Call Particle_Group_Render(.Particle_Group(i), PixelOffSetX, PixelOffSetY)
+
                 End If
+
             Next i
+
         End If
 
         Call Dialogos.UpdateDialogPos(PixelOffSetX + 4 + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y, charindex)
 
         If .FxIndex <> 0 Then
+
             Dim Colormeditar(0 To 3) As Long
+
             Call longToArray(Colormeditar, D3DColorRGBA(255, 255, 255, 120))
+
             If AoSetup.bTransparencia = 0 Then
                 Call DrawGrhtoSurface(.fx, PixelOffSetX + FxData(.FxIndex).OffsetX, PixelOffSetY + FxData(.FxIndex).OffsetY, 1, 1, Colormeditar)
             Else
                 Call DrawGrhtoSurface(.fx, PixelOffSetX + FxData(.FxIndex).OffsetX, PixelOffSetY + FxData(.FxIndex).OffsetY, 1, 1, White)
+
             End If
+
             If .fx.Started = 0 Then .FxIndex = 0
+
         End If
 
     End With
@@ -2299,14 +2343,14 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
     With CharList(charindex)
            
         If Nombres Then
+        
             If Len(.Nombre) <> 0 Then
+            
                 pos = getTagPosition(.Nombre)
 
                 Dim lCenter     As Long
 
                 Dim lCenterClan As Long
-
-                '  If InStr(.Nombre, "<") > 0 And InStr(.Nombre, ">") > 0 Then
                                         
                 Dim Line        As String
 
@@ -2317,27 +2361,6 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
 
                 sClan = mid$(.Nombre, pos)
                 lCenterClan = (frmMain.TextWidth(sClan) / 2) - 19
-
-                If .Criminal = 1 Then
-                    'ColorClan = RGB(255, 0, 0)
-                    ColorToArray ColorClan, CaosClan
-                ElseIf .Criminal = 2 Then
-                    'ColorClan = RGB(0, 255, 0)
-                    ColorToArray ColorClan, Caos
-                ElseIf .Criminal = 3 Then
-                    'ColorClan = RGB(0, 255, 0)
-                    ColorToArray ColorClan, White
-                ElseIf .Criminal = 4 Then
-                    'ColorClan = RGB(0, 255, 0)
-                    ColorToArray ColorClan, Real
-                ElseIf .Criminal = 5 Then
-                    'ColorClan = RGB(150, 150, 150)
-                    ColorToArray ColorClan, Tini
-                Else
-                    'ColorClan = RGB(0, 128, 255)
-                    ColorToArray ColorClan, RealClan
-
-                End If
                                         
                 Select Case .priv
                                 
@@ -2347,33 +2370,31 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
                                
                             If Len(sClan) = 0 Then
                                 
-                                If .Criminal = 0 Then
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                ElseIf .Criminal = 1 Then
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, CaosClan)
-                                ElseIf .Criminal = 2 Then
+                                If .Criminal = 0 Then 'Ciudadano
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, NCiudadanos)
+                                ElseIf .Criminal = 1 Then 'Criminal
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, NCriminales)
+                                ElseIf .Criminal = 2 Then 'Faccion fuego
                                     Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
-                                ElseIf .Criminal = 3 Then
+                                ElseIf .Criminal = 3 Then 'Faccion Templaria
                                     Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, White)
-                                ElseIf .Criminal = 4 Then
+                                ElseIf .Criminal = 4 Then 'Faccion Agua
                                     Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                ElseIf .Criminal = 5 Then
+                                ElseIf .Criminal = 5 Then 'Faccion Nemesis
                                     Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
-                                Else
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, RealClan)
 
                                 End If
                                 
                             ElseIf Len(sClan) > 0 Then
                                      
                                 If .Criminal = 0 Then
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
-                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, NCiudadanos)
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, NCiudadanos)
                                      
                                 ElseIf .Criminal = 1 Then
                                     longToArray Color, ColoresPJ(50)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
-                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, NCriminales)
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, NCriminales)
                                         
                                 ElseIf .Criminal = 2 Then ' Templario
                                     Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
@@ -2387,7 +2408,7 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
                                     Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
                                     Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
                                         
-                                ElseIf .Criminal = 5 Then ' Namesis
+                                ElseIf .Criminal = 5 Then ' Nemesis
                                     Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Tini)
                                     Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, CaosClan)
 
@@ -2420,12 +2441,12 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
                             ElseIf Len(sClan) > 0 Then
 
                                 If .Criminal = 0 Then
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Real)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, NCiudadanos)
                                     Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
-                                     
+                                
                                 ElseIf .Criminal = 1 Then
                                     longToArray Color, ColoresPJ(50)
-                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Caos)
+                                    Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, NCriminales)
                                     Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, VerdeF)
                                         
                                 ElseIf .Criminal = 2 Then ' Templario
@@ -2460,8 +2481,6 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
                         Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
 
                 End Select
-
-                '       End If
                                
             End If
          
@@ -3203,7 +3222,8 @@ Private Function MismoClan(ByVal userindex As Integer) As Boolean
 End Function
 
 Private Sub InitColours()
-        
+    'BassColor
+    
 '    White(0) = D3DColorXRGB(255, 255, 255)
 '    White(1) = White(0)
 '    White(2) = White(0)
@@ -3314,35 +3334,35 @@ Private Sub InitColours()
     'Caos(2) = Caos(2)
     'Caos(3) = Caos(3)
     
-    longToArray Caos, D3DColorXRGB(204, 0, 0)
+    longToArray Caos, D3DColorXRGB(255, 1, 1)
     
 '    CaosClan(0) = D3DColorXRGB(255, 0, 0)
 '    CaosClan(1) = CaosClan(1)
 '    CaosClan(2) = CaosClan(2)
 '    CaosClan(3) = CaosClan(3)
     
-    longToArray CaosClan, D3DColorXRGB(255, 0, 0)
+    longToArray CaosClan, D3DColorXRGB(255, 1, 1)
     
 '    Real(0) = D3DColorXRGB(0, 102, 204)
 '    Real(1) = Real(1)
 '    Real(2) = Real(2)
 '    Real(3) = Real(3)
     
-    longToArray Real, D3DColorXRGB(0, 102, 204)
+    longToArray Real, D3DColorXRGB(1, 128, 255)
     
 '    RealClan(0) = D3DColorXRGB(0, 153, 255)
 '    RealClan(1) = RealClan(1)
 '    RealClan(2) = RealClan(2)
 '    RealClan(3) = RealClan(3)
     
-    longToArray RealClan, D3DColorXRGB(0, 153, 255)
+    longToArray RealClan, D3DColorXRGB(1, 128, 255)
     
 '    VerdeF(0) = D3DColorXRGB(0, 255, 153)
 '    VerdeF(1) = VerdeF(1)
 '    VerdeF(2) = VerdeF(2)
 '    VerdeF(3) = VerdeF(3)
     
-    longToArray VerdeF, D3DColorXRGB(0, 255, 153)
+    longToArray VerdeF, D3DColorXRGB(5, 250, 128)
     
 '    Tini(0) = D3DColorXRGB(153, 153, 153)
 '    Tini(1) = Tini(1)
@@ -3354,6 +3374,10 @@ Private Sub InitColours()
     longToArray Onlines, D3DColorRGBA(152, 152, 246, 255)
     
     longToArray Candados, D3DColorXRGB(113, 116, 246)
+    
+    longToArray NCiudadanos, D3DColorXRGB(1, 100, 220)
+    
+    longToArray NCriminales, D3DColorXRGB(200, 1, 1)
     
 End Sub
 
@@ -3684,9 +3708,13 @@ Private Sub Directx_Init_FontSettings()
     'More info: http://www.vbgore.com/GameClient.TileEngine.Engine_Init_FontSettings
     '*****************************************************************
     Dim FileNum  As Byte
+
     Dim LoopChar As Long
+
     Dim Row      As Single
+
     Dim u        As Single
+
     Dim v        As Single
 
     '*** Default font ***
@@ -3729,49 +3757,50 @@ Private Sub Directx_Init_FontSettings()
 End Sub
 
 Public Sub Directx_Render_Texture(ByVal fileIndex As Long, _
-          ByVal X As Integer, _
-          ByVal Y As Integer, _
-          ByVal Height As Integer, _
-          ByVal Width As Integer, _
-          ByVal sX As Integer, _
-          ByVal sY As Integer, _
-          ByRef Color() As Long, _
-          Optional ByVal Angle As Single = 0, _
-          Optional ByVal AlphaB As Byte = 0)
+                                  ByVal X As Integer, _
+                                  ByVal Y As Integer, _
+                                  ByVal Height As Integer, _
+                                  ByVal Width As Integer, _
+                                  ByVal sX As Integer, _
+                                  ByVal sY As Integer, _
+                                  ByRef Color() As Long, _
+                                  Optional ByVal Angle As Single = 0, _
+                                  Optional ByVal AlphaB As Byte = 0)
 
-          '<EhHeader>
-          On Error GoTo Directx_Render_Texture_Err
+        '<EhHeader>
+        On Error GoTo Directx_Render_Texture_Err
 
-          '</EhHeader>
+        '</EhHeader>
 
-          Dim TexSurface As Direct3DTexture8
-          Dim TexWidth   As Integer, TexHeight As Integer
+        Dim TexSurface As Direct3DTexture8
+
+        Dim TexWidth   As Integer, TexHeight As Integer
  
-100       Set TexSurface = Texture.Surface(fileIndex, TexWidth, TexHeight)
+100     Set TexSurface = Texture.Surface(fileIndex, TexWidth, TexHeight)
 
-102       With SpriteBatch
+102     With SpriteBatch
 
-104           Call .SetAlpha(AlphaB)
+104         Call .SetAlpha(AlphaB)
     
-              '// Seteamos la textura
-106           Call .SetTexture(TexSurface)
+            '// Seteamos la textura
+106         Call .SetTexture(TexSurface)
 
-108           If TexWidth <> 0 And TexHeight <> 0 Then
-110               Call .Draw(X, Y, Width, Height, Color, sX / TexWidth, sY / TexHeight, (sX + Width) / TexWidth, (sY + Height) / TexHeight, Angle)
-              Else
-112               Call .Draw(X, Y, TexWidth, TexHeight, Color, , , , , Angle)
+108         If TexWidth <> 0 And TexHeight <> 0 Then
+110             Call .Draw(X, Y, Width, Height, Color, sX / TexWidth, sY / TexHeight, (sX + Width) / TexWidth, (sY + Height) / TexHeight, Angle)
+            Else
+112             Call .Draw(X, Y, TexWidth, TexHeight, Color, , , , , Angle)
 
-              End If
+            End If
   
-          End With
+        End With
   
 Directx_Render_Texture_Err:
 
-          If Err.Number <> 0 Then
-              LogError Err.Description & vbCrLf & "in Directx_Render_Texture " & "at line " & Erl
+        If Err.Number <> 0 Then
+            LogError Err.Description & vbCrLf & "in Directx_Render_Texture " & "at line " & Erl
 
-              '</EhFooter>
-          End If
+            '</EhFooter>
+        End If
 
 End Sub
 
@@ -3823,7 +3852,11 @@ Public Sub Directx_Renderer()
 
 End Sub
 
-Public Sub Draw_Box(ByVal X As Integer, ByVal Y As Integer, ByVal w As Integer, ByVal H As Integer, ByRef BackgroundColor() As Long)
+Public Sub Draw_Box(ByVal X As Integer, _
+                    ByVal Y As Integer, _
+                    ByVal w As Integer, _
+                    ByVal H As Integer, _
+                    ByRef BackgroundColor() As Long)
     
     Call SpriteBatch.SetTexture(Nothing)
     Call SpriteBatch.Draw(X, Y, w, H, BackgroundColor)
@@ -3891,30 +3924,30 @@ ErrorHandler:
 End Function
 
 Public Function Particle_Group_Create(ByVal map_x As Integer, _
-    ByVal map_y As Integer, _
-    ByRef Grh_Index_List() As Long, _
-    ByRef Rgb_List() As Long, _
-    Optional ByVal Particle_Count As Long = 20, _
-    Optional ByVal Stream_Type As Long = 1, _
-    Optional ByVal alpha_blend As Boolean, _
-    Optional ByVal alive_counter As Long = -1, _
-    Optional ByVal Frame_Speed As Single = 0.5, _
-    Optional ByVal id As Long, _
-    Optional ByVal X1 As Integer, _
-    Optional ByVal Y1 As Integer, _
-    Optional ByVal Angle As Integer, _
-    Optional ByVal vecx1 As Integer, _
-    Optional ByVal vecx2 As Integer, _
-    Optional ByVal vecy1 As Integer, _
-    Optional ByVal vecy2 As Integer, _
-    Optional ByVal life1 As Integer, _
-    Optional ByVal life2 As Integer, _
-    Optional ByVal fric As Integer, _
-    Optional ByVal spin_speedL As Single, _
-    Optional ByVal gravity As Boolean, _
-    Optional ByVal grav_strength As Long, _
-    Optional ByVal bounce_strength As Long, _
-    Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean) As Long
+                                      ByVal map_y As Integer, _
+                                      ByRef Grh_Index_List() As Long, _
+                                      ByRef Rgb_List() As Long, _
+                                      Optional ByVal Particle_Count As Long = 20, _
+                                      Optional ByVal Stream_Type As Long = 1, _
+                                      Optional ByVal alpha_blend As Boolean, _
+                                      Optional ByVal alive_counter As Long = -1, _
+                                      Optional ByVal Frame_Speed As Single = 0.5, _
+                                      Optional ByVal id As Long, _
+                                      Optional ByVal X1 As Integer, _
+                                      Optional ByVal Y1 As Integer, _
+                                      Optional ByVal Angle As Integer, _
+                                      Optional ByVal vecx1 As Integer, _
+                                      Optional ByVal vecx2 As Integer, _
+                                      Optional ByVal vecy1 As Integer, _
+                                      Optional ByVal vecy2 As Integer, _
+                                      Optional ByVal life1 As Integer, _
+                                      Optional ByVal life2 As Integer, _
+                                      Optional ByVal fric As Integer, _
+                                      Optional ByVal spin_speedL As Single, _
+                                      Optional ByVal gravity As Boolean, _
+                                      Optional ByVal grav_strength As Long, _
+                                      Optional ByVal bounce_strength As Long, _
+                                      Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean) As Long
    
     '**************************************************************
     'Author: Aaron Perkins
@@ -3930,9 +3963,7 @@ Public Function Particle_Group_Create(ByVal map_x As Integer, _
 
     Particle_Group_Create = Particle_Group_Next_Open
         
-    Call Particle_Group_Make(Particle_Group_Create, map_x, map_y, Particle_Count, Stream_Type, Grh_Index_List(), Rgb_List(), alpha_blend, _
-        alive_counter, Frame_Speed, id, X1, Y1, Angle, vecx1, vecx2, vecy1, vecy2, life1, life2, fric, spin_speedL, gravity, grav_strength, _
-        bounce_strength, X2, Y2, XMove, move_x1, move_x2, move_y1, move_y2, YMove, spin_speedH, spin)
+    Call Particle_Group_Make(Particle_Group_Create, map_x, map_y, Particle_Count, Stream_Type, Grh_Index_List(), Rgb_List(), alpha_blend, alive_counter, Frame_Speed, id, X1, Y1, Angle, vecx1, vecx2, vecy1, vecy2, life1, life2, fric, spin_speedL, gravity, grav_strength, bounce_strength, X2, Y2, XMove, move_x1, move_x2, move_y1, move_y2, YMove, spin_speedH, spin)
 
 End Function
  
@@ -3953,6 +3984,7 @@ Public Function Particle_Group_Remove(ByVal Particle_Group_Index As Long) As Boo
 End Function
  
 Public Function Particle_Group_Remove_All() As Boolean
+
     '*****************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 1/04/2003
@@ -4007,30 +4039,30 @@ ErrorHandler:
 End Function
  
 Private Sub Particle_Group_Make(ByVal ParticleIndex As Long, _
-    ByVal map_x As Integer, _
-    ByVal map_y As Integer, _
-    ByVal Particle_Count As Long, _
-    ByVal Stream_Type As Long, _
-    ByRef Grh_Index_List() As Long, _
-    ByRef Rgb_List() As Long, _
-    Optional ByVal alpha_blend As Boolean, _
-    Optional ByVal alive_counter As Long = -1, _
-    Optional ByVal Frame_Speed As Single = 0.5, _
-    Optional ByVal id As Long, _
-    Optional ByVal X1 As Integer, _
-    Optional ByVal Y1 As Integer, _
-    Optional ByVal Angle As Integer, _
-    Optional ByVal vecx1 As Integer, _
-    Optional ByVal vecx2 As Integer, _
-    Optional ByVal vecy1 As Integer, _
-    Optional ByVal vecy2 As Integer, _
-    Optional ByVal life1 As Integer, _
-    Optional ByVal life2 As Integer, _
-    Optional ByVal fric As Integer, _
-    Optional ByVal spin_speedL As Single, _
-    Optional ByVal gravity As Boolean, _
-    Optional ByVal grav_strength As Long, _
-    Optional ByVal bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean)
+                                ByVal map_x As Integer, _
+                                ByVal map_y As Integer, _
+                                ByVal Particle_Count As Long, _
+                                ByVal Stream_Type As Long, _
+                                ByRef Grh_Index_List() As Long, _
+                                ByRef Rgb_List() As Long, _
+                                Optional ByVal alpha_blend As Boolean, _
+                                Optional ByVal alive_counter As Long = -1, _
+                                Optional ByVal Frame_Speed As Single = 0.5, _
+                                Optional ByVal id As Long, _
+                                Optional ByVal X1 As Integer, _
+                                Optional ByVal Y1 As Integer, _
+                                Optional ByVal Angle As Integer, _
+                                Optional ByVal vecx1 As Integer, _
+                                Optional ByVal vecx2 As Integer, _
+                                Optional ByVal vecy1 As Integer, _
+                                Optional ByVal vecy2 As Integer, _
+                                Optional ByVal life1 As Integer, _
+                                Optional ByVal life2 As Integer, _
+                                Optional ByVal fric As Integer, _
+                                Optional ByVal spin_speedL As Single, _
+                                Optional ByVal gravity As Boolean, _
+                                Optional ByVal grav_strength As Long, _
+                                Optional ByVal bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean)
 
     '*****************************************************************
     'Author: Aaron Perkins
@@ -4124,30 +4156,30 @@ Private Sub Particle_Group_Make(ByVal ParticleIndex As Long, _
 End Sub
  
 Private Sub Particle_Render(ByRef Temp_Particle As Particle, _
-    ByVal Screen_X As Integer, _
-    ByVal Screen_Y As Integer, _
-    ByVal Grh_Index As Long, _
-    ByRef Rgb_List() As Long, _
-    Optional ByVal alpha_blend As Boolean, _
-    Optional ByVal no_move As Boolean, _
-    Optional ByVal X1 As Integer, _
-    Optional ByVal Y1 As Integer, _
-    Optional ByVal Angle As Integer, _
-    Optional ByVal vecx1 As Integer, _
-    Optional ByVal vecx2 As Integer, _
-    Optional ByVal vecy1 As Integer, _
-    Optional ByVal vecy2 As Integer, _
-    Optional ByVal life1 As Integer, _
-    Optional ByVal life2 As Integer, _
-    Optional ByVal fric As Integer, _
-    Optional ByVal spin_speedL As Single, _
-    Optional ByVal gravity As Boolean, _
-    Optional ByVal grav_strength As Long, _
-    Optional ByVal bounce_strength As Long, _
-    Optional ByVal X2 As Integer, _
-    Optional ByVal Y2 As Integer, _
-    Optional ByVal XMove As Boolean, _
-    Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean)
+                            ByVal Screen_X As Integer, _
+                            ByVal Screen_Y As Integer, _
+                            ByVal Grh_Index As Long, _
+                            ByRef Rgb_List() As Long, _
+                            Optional ByVal alpha_blend As Boolean, _
+                            Optional ByVal no_move As Boolean, _
+                            Optional ByVal X1 As Integer, _
+                            Optional ByVal Y1 As Integer, _
+                            Optional ByVal Angle As Integer, _
+                            Optional ByVal vecx1 As Integer, _
+                            Optional ByVal vecx2 As Integer, _
+                            Optional ByVal vecy1 As Integer, _
+                            Optional ByVal vecy2 As Integer, _
+                            Optional ByVal life1 As Integer, _
+                            Optional ByVal life2 As Integer, _
+                            Optional ByVal fric As Integer, _
+                            Optional ByVal spin_speedL As Single, _
+                            Optional ByVal gravity As Boolean, _
+                            Optional ByVal grav_strength As Long, _
+                            Optional ByVal bounce_strength As Long, _
+                            Optional ByVal X2 As Integer, _
+                            Optional ByVal Y2 As Integer, _
+                            Optional ByVal XMove As Boolean, _
+                            Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean)
     '**************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 4/24/2003
@@ -4205,21 +4237,25 @@ Private Sub Particle_Render(ByRef Temp_Particle As Particle, _
     
     'Draw it
     If Temp_Particle.Grh.GrhIndex Then
-        DrawGrhtoSurface Temp_Particle.Grh, Temp_Particle.X + Screen_X, Temp_Particle.Y + Screen_Y, 1, 1, Rgb_List(), 1, Temp_Particle.Angle, _
-            alpha_blend
+        DrawGrhtoSurface Temp_Particle.Grh, Temp_Particle.X + Screen_X, Temp_Particle.Y + Screen_Y, 1, 1, Rgb_List(), 1, Temp_Particle.Angle, alpha_blend
 
     End If
 
 End Sub
  
-Private Sub Particle_Group_Render(ByVal ParticleIndex As Long, ByVal Screen_X As Integer, ByVal Screen_Y As Integer)
+Private Sub Particle_Group_Render(ByVal ParticleIndex As Long, _
+                                  ByVal Screen_X As Integer, _
+                                  ByVal Screen_Y As Integer)
+
     '*****************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 12/15/2002
     'Renders a particle stream at a paticular screen point
     '*****************************************************************
     Dim LooPC            As Long
+
     Dim temp_rgb(0 To 3) As Long
+
     Dim no_move          As Boolean
     
     With Particle_Group_List(ParticleIndex)
@@ -4255,10 +4291,7 @@ Private Sub Particle_Group_Render(ByVal ParticleIndex As Long, ByVal Screen_X As
             For LooPC = 1 To .Particle_Count
        
                 'Render particle
-                Call Particle_Render(.Particle_Stream(LooPC), Screen_X, Screen_Y, .Grh_Index_List(Round(RandomNumber(1, .Grh_Index_Count), 0)), _
-                    temp_rgb(), .alpha_blend, no_move, .X1, .Y1, .Angle, .vecx1, .vecx2, .vecy1, .vecy2, .life1, .life2, .fric, .spin_speedL, _
-                    .gravity, .grav_strength, .bounce_strength, .X2, .Y2, .XMove, .move_x1, .move_x2, .move_y1, .move_y2, .YMove, .spin_speedH, _
-                    .spin)
+                Call Particle_Render(.Particle_Stream(LooPC), Screen_X, Screen_Y, .Grh_Index_List(Round(RandomNumber(1, .Grh_Index_Count), 0)), temp_rgb(), .alpha_blend, no_move, .X1, .Y1, .Angle, .vecx1, .vecx2, .vecy1, .vecy2, .life1, .life2, .fric, .spin_speedL, .gravity, .grav_strength, .bounce_strength, .X2, .Y2, .XMove, .move_x1, .move_x2, .move_y1, .move_y2, .YMove, .spin_speedH, .spin)
                            
             Next LooPC
        
@@ -4319,7 +4352,9 @@ Private Function Particle_Group_Check(ByVal Particle_Group_Index As Long) As Boo
 
 End Function
  
-Public Function Particle_Group_Map_Pos_Set(ByVal Particle_Group_Index As Long, ByVal map_x As Long, ByVal map_y As Long) As Boolean
+Public Function Particle_Group_Map_Pos_Set(ByVal Particle_Group_Index As Long, _
+                                           ByVal map_x As Long, _
+                                           ByVal map_y As Long) As Boolean
     '**************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 5/27/2003
@@ -4344,12 +4379,14 @@ Public Function Particle_Group_Map_Pos_Set(ByVal Particle_Group_Index As Long, B
 End Function
 
 Private Sub Particle_Group_Destroy(ByVal ParticleIndex As Long)
+
     '**************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 10/07/2002
     '
     '**************************************************************
     Dim Temp As Particle_Group
+
     Dim i    As Long
 
     With Particle_Group_List(ParticleIndex)
@@ -4400,30 +4437,30 @@ Private Sub Particle_Group_Destroy(ByVal ParticleIndex As Long)
 End Sub
  
 Private Sub Char_Particle_Group_Make(ByVal Particle_Group_Index As Long, _
-    ByVal charindex As Integer, _
-    ByVal particle_CharIndex As Integer, _
-    ByVal Particle_Count As Long, _
-    ByVal Stream_Type As Long, _
-    ByRef Grh_Index_List() As Long, _
-    ByRef Rgb_List() As Long, _
-    Optional ByVal alpha_blend As Boolean, _
-    Optional ByVal alive_counter As Long = -1, _
-    Optional ByVal Frame_Speed As Single = 0.5, _
-    Optional ByVal id As Long, _
-    Optional ByVal X1 As Integer, _
-    Optional ByVal Y1 As Integer, _
-    Optional ByVal Angle As Integer, _
-    Optional ByVal vecx1 As Integer, _
-    Optional ByVal vecx2 As Integer, _
-    Optional ByVal vecy1 As Integer, _
-    Optional ByVal vecy2 As Integer, _
-    Optional ByVal life1 As Integer, _
-    Optional ByVal life2 As Integer, _
-    Optional ByVal fric As Integer, _
-    Optional ByVal spin_speedL As Single, _
-    Optional ByVal gravity As Boolean, _
-    Optional ByVal grav_strength As Long, _
-    Optional ByVal bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean)
+                                     ByVal charindex As Integer, _
+                                     ByVal particle_CharIndex As Integer, _
+                                     ByVal Particle_Count As Long, _
+                                     ByVal Stream_Type As Long, _
+                                     ByRef Grh_Index_List() As Long, _
+                                     ByRef Rgb_List() As Long, _
+                                     Optional ByVal alpha_blend As Boolean, _
+                                     Optional ByVal alive_counter As Long = -1, _
+                                     Optional ByVal Frame_Speed As Single = 0.5, _
+                                     Optional ByVal id As Long, _
+                                     Optional ByVal X1 As Integer, _
+                                     Optional ByVal Y1 As Integer, _
+                                     Optional ByVal Angle As Integer, _
+                                     Optional ByVal vecx1 As Integer, _
+                                     Optional ByVal vecx2 As Integer, _
+                                     Optional ByVal vecy1 As Integer, _
+                                     Optional ByVal vecy2 As Integer, _
+                                     Optional ByVal life1 As Integer, _
+                                     Optional ByVal life2 As Integer, _
+                                     Optional ByVal fric As Integer, _
+                                     Optional ByVal spin_speedL As Single, _
+                                     Optional ByVal gravity As Boolean, _
+                                     Optional ByVal grav_strength As Long, _
+                                     Optional ByVal bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean)
                                
     '*****************************************************************
     'Author: Aaron Perkins
@@ -4515,30 +4552,31 @@ Private Sub Char_Particle_Group_Make(ByVal Particle_Group_Index As Long, _
 End Sub
  
 Public Function Char_Particle_Group_Create(ByVal charindex As Integer, _
-    ByRef Grh_Index_List() As Long, _
-    ByRef Rgb_List() As Long, _
-    Optional ByVal Particle_Count As Long = 20, _
-    Optional ByVal Stream_Type As Long = 1, _
-    Optional ByVal alpha_blend As Boolean, _
-    Optional ByVal alive_counter As Long = -1, _
-    Optional ByVal Frame_Speed As Single = 0.5, _
-    Optional ByVal id As Long, _
-    Optional ByVal X1 As Integer, _
-    Optional ByVal Y1 As Integer, _
-    Optional ByVal Angle As Integer, _
-    Optional ByVal vecx1 As Integer, _
-    Optional ByVal vecx2 As Integer, _
-    Optional ByVal vecy1 As Integer, _
-    Optional ByVal vecy2 As Integer, _
-    Optional ByVal life1 As Integer, _
-    Optional ByVal life2 As Integer, _
-    Optional ByVal fric As Integer, _
-    Optional ByVal spin_speedL As Single, _
-    Optional ByVal gravity As Boolean, _
-    Optional ByVal grav_strength As Long, _
-    Optional ByVal bounce_strength As Long, _
-    Optional ByVal X2 As Integer, _
-    Optional ByVal Y2 As Integer, Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean) As Long
+                                           ByRef Grh_Index_List() As Long, _
+                                           ByRef Rgb_List() As Long, _
+                                           Optional ByVal Particle_Count As Long = 20, _
+                                           Optional ByVal Stream_Type As Long = 1, _
+                                           Optional ByVal alpha_blend As Boolean, _
+                                           Optional ByVal alive_counter As Long = -1, _
+                                           Optional ByVal Frame_Speed As Single = 0.5, _
+                                           Optional ByVal id As Long, _
+                                           Optional ByVal X1 As Integer, _
+                                           Optional ByVal Y1 As Integer, _
+                                           Optional ByVal Angle As Integer, _
+                                           Optional ByVal vecx1 As Integer, _
+                                           Optional ByVal vecx2 As Integer, _
+                                           Optional ByVal vecy1 As Integer, _
+                                           Optional ByVal vecy2 As Integer, _
+                                           Optional ByVal life1 As Integer, _
+                                           Optional ByVal life2 As Integer, _
+                                           Optional ByVal fric As Integer, _
+                                           Optional ByVal spin_speedL As Single, _
+                                           Optional ByVal gravity As Boolean, _
+                                           Optional ByVal grav_strength As Long, _
+                                           Optional ByVal bounce_strength As Long, _
+                                           Optional ByVal X2 As Integer, _
+                                           Optional ByVal Y2 As Integer, Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean) As Long
+
     '**************************************************************
     'Author: Augusto José Rando
     '**************************************************************
@@ -4550,15 +4588,14 @@ Public Function Char_Particle_Group_Create(ByVal charindex As Integer, _
    
     If char_part_free_index > 0 Then
         Char_Particle_Group_Create = Particle_Group_Next_Open
-        Char_Particle_Group_Make Char_Particle_Group_Create, charindex, char_part_free_index, Particle_Count, Stream_Type, Grh_Index_List(), _
-            Rgb_List(), alpha_blend, alive_counter, Frame_Speed, id, X1, Y1, Angle, vecx1, vecx2, vecy1, vecy2, life1, life2, fric, _
-            spin_speedL, gravity, grav_strength, bounce_strength, X2, Y2, XMove, move_x1, move_x2, move_y1, move_y2, YMove, spin_speedH, spin
+        Char_Particle_Group_Make Char_Particle_Group_Create, charindex, char_part_free_index, Particle_Count, Stream_Type, Grh_Index_List(), Rgb_List(), alpha_blend, alive_counter, Frame_Speed, id, X1, Y1, Angle, vecx1, vecx2, vecy1, vecy2, life1, life2, fric, spin_speedL, gravity, grav_strength, bounce_strength, X2, Y2, XMove, move_x1, move_x2, move_y1, move_y2, YMove, spin_speedH, spin
        
     End If
  
 End Function
  
-Private Function Char_Particle_Group_Find(ByVal charindex As Integer, ByVal Stream_Type As Long) As Integer
+Private Function Char_Particle_Group_Find(ByVal charindex As Integer, _
+                                          ByVal Stream_Type As Long) As Integer
     '*****************************************************************
     'Author: Augusto José Rando
     'Modified: returns slot or -1
@@ -4615,7 +4652,9 @@ ErrorHandler:
  
 End Function
  
-Public Function Char_Particle_Group_Remove(ByVal charindex As Integer, ByVal Stream_Type As Long)
+Public Function Char_Particle_Group_Remove(ByVal charindex As Integer, _
+                                           ByVal Stream_Type As Long)
+
     '**************************************************************
     'Author: Augusto José Rando
     '**************************************************************
@@ -4632,6 +4671,7 @@ Public Function Char_Particle_Group_Remove(ByVal charindex As Integer, ByVal Str
 End Function
  
 Public Function Char_Particle_Group_Remove_All(ByVal charindex As Integer)
+
     '**************************************************************
     'Author: Augusto José Rando
     '**************************************************************
@@ -4652,7 +4692,8 @@ Public Function Char_Particle_Group_Remove_All(ByVal charindex As Integer)
    
 End Function
  
-Public Function Map_Particle_Group_Get(ByVal map_x As Integer, ByVal map_y As Integer) As Long
+Public Function Map_Particle_Group_Get(ByVal map_x As Integer, _
+                                       ByVal map_y As Integer) As Long
  
     If InMapBounds(map_x, map_y) Then
         Map_Particle_Group_Get = MapData(map_x, map_y).Particle_Group
@@ -4736,5 +4777,129 @@ Public Sub ActualizaPosicion(ByRef rData As String)
     Exit Sub
 fin:
     Debug.Print "ERROR POSICION " & CharList(UserCharIndex).pos.X & " " & CharList(UserCharIndex).pos.Y
+
+End Sub
+
+Public Sub ReiniciarChars()
+
+    On Error Resume Next
+
+    Dim X As Integer
+
+    'binmode: se reinician los char
+    For X = LBound(CharList) To UBound(CharList)
+        ResetCharSlot (X)
+    Next X
+
+End Sub
+
+Sub ResetCharSlot(ByVal charindex As Integer)
+
+    On Error Resume Next
+   
+    Dim i As Integer
+   
+    CharList(charindex).Active = 0
+    CharList(charindex).Criminal = 0
+    CharList(charindex).Alas.HeadOffset.X = 0
+    CharList(charindex).Alas.HeadOffset.Y = 0
+   
+    For i = 1 To 4
+        CharList(charindex).Alas.Walk(i).FrameCounter = 0
+        CharList(charindex).Alas.Walk(i).GrhIndex = 0
+        CharList(charindex).Alas.Walk(i).Loops = 0
+        CharList(charindex).Alas.Walk(i).Speed = 0
+        CharList(charindex).Alas.Walk(i).Started = 0
+    Next i
+   
+    CharList(charindex).AnimTime = 0
+    CharList(charindex).Arma.WeaponAttack = 0
+   
+    For i = 1 To 4
+        CharList(charindex).Arma.WeaponWalk(i).FrameCounter = 0
+        CharList(charindex).Arma.WeaponWalk(i).GrhIndex = 0
+        CharList(charindex).Arma.WeaponWalk(i).Loops = 0
+        CharList(charindex).Arma.WeaponWalk(i).Speed = 0
+        CharList(charindex).Arma.WeaponWalk(i).Started = 0
+    Next i
+   
+    CharList(charindex).Body.HeadOffset.X = 0
+    CharList(charindex).Body.HeadOffset.Y = 0
+   
+    For i = 1 To 4
+        CharList(charindex).Body.Walk(i).FrameCounter = 0
+        CharList(charindex).Body.Walk(i).GrhIndex = 0
+        CharList(charindex).Body.Walk(i).Loops = 0
+        CharList(charindex).Body.Walk(i).Speed = 0
+        CharList(charindex).Body.Walk(i).Started = 0
+    Next i
+   
+    CharList(charindex).BodyNum = 0
+    CharList(charindex).Stats.MinHP = 0
+    CharList(charindex).Stats.MaxHP = 0
+   
+    For i = 1 To 4
+        CharList(charindex).Casco.Head(i).FrameCounter = 0
+        CharList(charindex).Casco.Head(i).GrhIndex = 0
+        CharList(charindex).Casco.Head(i).Loops = 0
+        CharList(charindex).Casco.Head(i).Speed = 0
+        CharList(charindex).Casco.Head(i).Started = 0
+    Next i
+   
+    CharList(charindex).Criminal = 0
+    CharList(charindex).CvcBlue = 0
+    CharList(charindex).CvcRed = 0
+    CharList(charindex).Escudo.ShieldAttack = 0
+   
+    For i = 1 To 4
+        CharList(charindex).Escudo.ShieldWalk(i).FrameCounter = 0
+        CharList(charindex).Escudo.ShieldWalk(i).GrhIndex = 0
+        CharList(charindex).Escudo.ShieldWalk(i).Loops = 0
+        CharList(charindex).Escudo.ShieldWalk(i).Speed = 0
+        CharList(charindex).Escudo.ShieldWalk(i).Started = 0
+    Next i
+   
+    CharList(charindex).EscudoEqu = False
+    CharList(charindex).fx.FrameCounter = 0
+    CharList(charindex).fx.GrhIndex = 0
+    CharList(charindex).fx.Loops = 0
+    CharList(charindex).fx.Speed = 0
+    CharList(charindex).fx.Started = 0
+    CharList(charindex).FxIndex = 0
+    CharList(charindex).Invisible = False
+    CharList(charindex).Moving = 0
+    CharList(charindex).Muerto = False
+    CharList(charindex).Nombre = ""
+    CharList(charindex).Pie = False
+    CharList(charindex).pos.Map = 0
+    CharList(charindex).pos.X = 0
+    CharList(charindex).pos.Y = 0
+    CharList(charindex).UsandoArma = False
+    
+    For i = 1 To 4
+        CharList(charindex).Head.Head(i).FrameCounter = 0
+        CharList(charindex).Head.Head(i).GrhIndex = 0
+        CharList(charindex).Head.Head(i).Loops = 0
+        CharList(charindex).Head.Head(i).Speed = 0
+        CharList(charindex).Head.Head(i).Started = 0
+    Next i
+    
+    CharList(charindex).Heading = 0
+    CharList(charindex).Hostile = 0
+    CharList(charindex).iBody = 0
+    CharList(charindex).Icono = 0
+    CharList(charindex).iHead = 0
+    CharList(charindex).MoveOffsetX = 0
+    CharList(charindex).MoveOffsetY = 0
+    CharList(charindex).NombreNpc = 0
+    CharList(charindex).NpcType = 0
+    CharList(charindex).oldPos.Map = 0
+    CharList(charindex).oldPos.X = 0
+    CharList(charindex).oldPos.Y = 0
+    CharList(charindex).Particle_Count = 0
+    CharList(charindex).PartyIndex = 0
+    CharList(charindex).priv = 0
+    CharList(charindex).scrollDirectionX = 0
+    CharList(charindex).scrollDirectionY = 0
 
 End Sub

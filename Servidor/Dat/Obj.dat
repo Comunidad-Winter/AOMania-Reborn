@@ -11496,6 +11496,7 @@ CP11=BRUJO
 CP13=BANDIDO
 CP14=DOMADOR
 Cae=1
+Sagrada=1
  
 [OBJ1002]
 Name=Piedra Cambio Faccion (donacion)
@@ -11980,6 +11981,7 @@ CP12=ARQUERO
 CP13=BANDIDO
 CP14=DOMADOR
 Cae=1
+Sagrada=1
  
 [OBJ1065]
 Name=Cartel
@@ -12818,6 +12820,7 @@ CP12=ARQUERO
 CP13=BANDIDO
 CP14=DOMADOR
 Cae=1
+Sagrada=1
  
 [OBJ1115]
 Name=Daga Venenosa
@@ -20761,6 +20764,7 @@ CP12=ARQUERO
 CP13=BANDIDO
 CP14=DOMADOR
 Cae=1
+Sagrada=1
  
 [OBJ1708]
 Name=Armadura del Clan Warros Enanos

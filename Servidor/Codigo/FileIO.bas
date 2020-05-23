@@ -304,6 +304,23 @@ Sub CargaPalabrasCensuradas()
    
 End Sub
 
+Public Sub CargarMensajesEnvio()
+      
+      ReDim EnvioMensajes(1 To TxtDimension(DatPath & "Mensajes.txt"))
+      
+      Dim n As Integer, i As Integer
+      
+      n = FreeFile(1)
+      Open DatPath & "Mensajes.txt" For Input As #n
+      
+      For i = 1 To UBound(EnvioMensajes)
+        Line Input #n, EnvioMensajes(i)
+      Next i
+      
+      Close #n
+      
+End Sub
+
 Public Sub CargarHechizos()
 
 
@@ -649,6 +666,7 @@ Public Sub GrabarMapa(ByVal Map As Long, ByRef MAPFILE As String)
         Call IniManager.ChangeValue("Mapa" & Map, "Zona", .Zona)
         Call IniManager.ChangeValue("Mapa" & Map, "Restringir", .Restringir)
         Call IniManager.ChangeValue("Mapa" & Map, "BackUp", CStr(.BackUp))
+        Call IniManager.ChangeValue("Mapa" & Map, "Cae", val(.Cae))
 
         If .Pk Then
             Call IniManager.ChangeValue("Mapa" & Map, "Pk", "0")
@@ -973,7 +991,7 @@ Sub LoadOBJData()
 
         ObjData(Object).Gm = val(Leer.GetValue("OBJ" & Object, "GM"))
 
-        ObjData(Object).sagrado = val(Leer.GetValue("OBJ" & Object, "Sagrado"))
+        ObjData(Object).sagrado = val(Leer.GetValue("OBJ" & Object, "Sagrada"))
 
         ObjData(Object).Limpiar = val(Leer.GetValue("OBJ" & Object, "Limpiar"))
 
@@ -1766,6 +1784,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
         .Zona = Leer.GetValue("Mapa" & Map, "Zona")
         .Restringir = Leer.GetValue("Mapa" & Map, "Restringir")
         .BackUp = val(Leer.GetValue("Mapa" & Map, "BACKUP"))
+        .Cae = val(Leer.GetValue("Mapa" & Map, "Cae"))
 
     End With
 

@@ -1,5 +1,6 @@
 [MAPA54]
 BACKUP=1
+CAE=0
 MAGIASINEFECTO=1
 MUSICNUM=13
 NAME=Zona residencial de Nix

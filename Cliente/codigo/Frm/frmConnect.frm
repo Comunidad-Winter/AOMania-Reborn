@@ -231,6 +231,8 @@ Private Sub Form_Activate()
 
         Call Audio.PlayWave("173.wav")
     End If
+    
+    Call ReiniciarChars
  
 End Sub
 
@@ -303,27 +305,19 @@ End Sub
 Private Sub Image2_Click()
 
     Call Audio.PlayWave(SND_CLICK)
-  
-    'If frmMain.Socket1.Connected Then frmMain.Socket1.Disconnect
-
-    'If frmConnect.MousePointer = 11 Then
-    '  Exit Sub
-    'End If
            
     UserName = NombreTXT.Text
    
     UserPassword = MD5String(PasswordTXT.Text)
 
-    If CheckUserData(False) = True Then
-        'SendNewChar = False
-        EstadoLogin = E_MODO.Normal
-        Me.MousePointer = 11
-        
-        frmMain.Socket1.HostName = CurServerIp
-        frmMain.Socket1.RemotePort = CurServerPort
-        frmMain.Socket1.Connect
-
-    End If
+    EstadoLogin = E_MODO.Normal
+    Me.MousePointer = 11
+    
+    If frmMain.Socket1.Connected Then frmMain.Socket1.Disconnect
+    
+    frmMain.Socket1.HostName = CurServerIp
+    frmMain.Socket1.RemotePort = CurServerPort
+    frmMain.Socket1.Connect
     
     If Check1.Value = 1 Then
         SaveSetting App.exeName, "textos", "Pasword", PasswordTXT.Text

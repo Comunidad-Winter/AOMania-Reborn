@@ -235,7 +235,7 @@ Public Sub FundirMineral(ByVal UserIndex As Integer)
 
 End Sub
 
-Function TieneObjetos(ByVal ItemIndex As Integer, ByVal Cant As Integer, ByVal UserIndex As Integer) As Boolean
+Function TieneObjetos(ByVal ItemIndex As Integer, ByVal cant As Integer, ByVal UserIndex As Integer) As Boolean
 
 'Call LogTarea("Sub TieneObjetos")
 
@@ -251,7 +251,7 @@ Function TieneObjetos(ByVal ItemIndex As Integer, ByVal Cant As Integer, ByVal U
 
     Next i
 
-    If Cant <= Total Then
+    If cant <= Total Then
         TieneObjetos = True
         Exit Function
 
@@ -260,25 +260,25 @@ Function TieneObjetos(ByVal ItemIndex As Integer, ByVal Cant As Integer, ByVal U
 End Function
 
 
-Function QuitarObjetosBov(ByVal ItemIndex As Integer, ByVal Cant As Integer, ByVal UserIndex As Integer) As Boolean
+Function QuitarObjetosBov(ByVal ItemIndex As Integer, ByVal cant As Integer, ByVal UserIndex As Integer) As Boolean
     Dim i As Integer
 
     For i = 1 To MAX_BANCOINVENTORY_SLOTS
 
         If UserList(UserIndex).BancoInvent.Object(i).ObjIndex = ItemIndex Then
 
-            UserList(UserIndex).BancoInvent.Object(i).Amount = UserList(UserIndex).BancoInvent.Object(i).Amount - Cant
+            UserList(UserIndex).BancoInvent.Object(i).Amount = UserList(UserIndex).BancoInvent.Object(i).Amount - cant
 
             If (UserList(UserIndex).BancoInvent.Object(i).Amount <= 0) Then
-                Cant = Abs(UserList(UserIndex).BancoInvent.Object(i).Amount)
+                cant = Abs(UserList(UserIndex).BancoInvent.Object(i).Amount)
                 UserList(UserIndex).BancoInvent.Object(i).Amount = 0
                 UserList(UserIndex).BancoInvent.Object(i).ObjIndex = 0
                 UserList(UserIndex).BancoInvent.NroItems = UserList(UserIndex).BancoInvent.NroItems - 1
             Else
-                Cant = 0
+                cant = 0
             End If
 
-            If (Cant = 0) Then
+            If (cant = 0) Then
                 QuitarObjetosBov = True
                 Exit Function
             End If
@@ -288,7 +288,7 @@ Function QuitarObjetosBov(ByVal ItemIndex As Integer, ByVal Cant As Integer, ByV
     Next i
 
 End Function
-Function QuitarObjetos(ByVal ItemIndex As Integer, ByVal Cant As Integer, ByVal UserIndex As Integer) As Boolean
+Function QuitarObjetos(ByVal ItemIndex As Integer, ByVal cant As Integer, ByVal UserIndex As Integer) As Boolean
 'Call LogTarea("Sub QuitarObjetos")
 
     Dim i As Integer
@@ -299,20 +299,20 @@ Function QuitarObjetos(ByVal ItemIndex As Integer, ByVal Cant As Integer, ByVal 
 
             Call Desequipar(UserIndex, i)
 
-            UserList(UserIndex).Invent.Object(i).Amount = UserList(UserIndex).Invent.Object(i).Amount - Cant
+            UserList(UserIndex).Invent.Object(i).Amount = UserList(UserIndex).Invent.Object(i).Amount - cant
 
             If (UserList(UserIndex).Invent.Object(i).Amount <= 0) Then
-                Cant = Abs(UserList(UserIndex).Invent.Object(i).Amount)
+                cant = Abs(UserList(UserIndex).Invent.Object(i).Amount)
                 UserList(UserIndex).Invent.Object(i).Amount = 0
                 UserList(UserIndex).Invent.Object(i).ObjIndex = 0
             Else
-                Cant = 0
+                cant = 0
 
             End If
 
             Call UpdateUserInv(False, UserIndex, i)
 
-            If (Cant = 0) Then
+            If (cant = 0) Then
                 QuitarObjetos = True
                 Exit Function
             End If
@@ -1083,68 +1083,25 @@ Sub DoDomar(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 End Sub
 
 Sub DoAdminInvisible(ByVal UserIndex As Integer)
-
     With UserList(UserIndex)
-
         If .flags.AdminInvisible = 0 Then
-
-            ' Sacamos el mimetizmo
-            If .flags.Mimetizado = 1 Then
-                .char.Body = .CharMimetizado.Body
-                .char.Head = .CharMimetizado.Head
-                .char.CascoAnim = .CharMimetizado.CascoAnim
-                .char.ShieldAnim = .CharMimetizado.ShieldAnim
-                .char.WeaponAnim = .CharMimetizado.WeaponAnim
-                .char.Alas = .CharMimetizado.Alas
-                .Counters.Mimetismo = 0
-                .flags.Mimetizado = 0
-
-            End If
-
             .flags.AdminInvisible = 1
             .flags.Invisible = 1
-            .flags.Oculto = 1
             .flags.OldBody = .char.Body
             .flags.OldHead = .char.Head
-
             .char.Body = 0
             .char.Head = 0
-            .char.ShieldAnim = NingunEscudo
-            .char.WeaponAnim = NingunArma
-            .char.CascoAnim = NingunCasco
-            .char.Alas = NingunAlas
-
         Else
-
             .flags.AdminInvisible = 0
             .flags.Invisible = 0
-            .flags.Oculto = 0
-            .Counters.Ocultando = 0
             .char.Body = .flags.OldBody
             .char.Head = .flags.OldHead
-
-            If .Invent.EscudoEqpObjIndex > 0 Then .char.ShieldAnim = ObjData(.Invent.EscudoEqpObjIndex).ShieldAnim
-
-            If .Invent.WeaponEqpObjIndex > 0 Then .char.WeaponAnim = ObjData(.Invent.WeaponEqpObjIndex).WeaponAnim
-
-            If .Invent.CascoEqpObjIndex > 0 Then .char.CascoAnim = ObjData(.Invent.CascoEqpObjIndex).CascoAnim
-            If .Invent.AlaEqpObjIndex > 0 Then .char.Alas = ObjData(.Invent.AlaEqpObjIndex).Ropaje
-
         End If
-
-        'vuelve a ser visible por la fuerza
-        .showName = Not .showName
-        'Call ChangeUserChar(SendTarget.ToPCArea, UserIndex, .pos.Map, UserIndex, .char.Body, .char.Head, _
-         .char.Heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
-
-        'Sucio, pero funciona, y siendo un comando administrativo de uso poco frecuente no molesta demasiado...
-        Call EraseUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex)
-        Call MakeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .pos.Map, .pos.X, .pos.Y)
-
-        Call SendData(SendTarget.ToMap, 0, .pos.Map, "NOVER" & .char.CharIndex & ",0," & .PartyIndex)
-
+    '[GAU] Agregamo UserList(UserIndex).Char.Botas
+   Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
+                                                                                                                            UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList( _
+                                                                                                                                                                                                                             UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
     End With
-
 End Sub
 
 Sub TratarDeHacerFogata(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal UserIndex As Integer)
@@ -2176,14 +2133,17 @@ Public Sub DoMeditar(ByVal UserIndex As Integer)
 
     UserList(UserIndex).Counters.IdleCount = 0
 
-    Dim Suerte As Integer
-    Dim res As Integer
-    Dim Cant As Integer
+    Dim Suerte  As Integer
+
+    Dim res     As Integer
+
+    Dim cant    As Integer
 
     'Barrin 3/10/03
     'Esperamos a que se termine de concentrar
     Dim TActual As Long
-    TActual = GetTickCount() And &H7FFFFFFF
+
+    TActual = GetTickCount()
 
     If TActual - UserList(UserIndex).Counters.tInicioMeditar < TIEMPO_INICIOMEDITAR Then
         Exit Sub
@@ -2194,6 +2154,10 @@ Public Sub DoMeditar(ByVal UserIndex As Integer)
         UserList(UserIndex).Counters.bPuedeMeditar = True
 
     End If
+    
+    If UserList(UserIndex).Counters.bPuedeMeditar = False Then Exit Sub
+    
+    Suerte = CSng(CLng(35 - (UserList(UserIndex).Stats.UserSkills(Meditar) / 3.333)))
 
     If UserList(UserIndex).Stats.MinMAN >= UserList(UserIndex).Stats.MaxMAN Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z16")
@@ -2205,74 +2169,45 @@ Public Sub DoMeditar(ByVal UserIndex As Integer)
         Exit Sub
 
     End If
+    
+    Dim Rest As Integer
 
-    If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
-        If UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 10 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= -1 Then
-            Suerte = 35
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 20 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 11 Then
-            Suerte = 30
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 30 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 21 Then
-            Suerte = 28
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 40 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 31 Then
-            Suerte = 24
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 50 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 41 Then
-            Suerte = 22
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 60 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 51 Then
-            Suerte = 20
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 70 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 61 Then
-            Suerte = 18
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 80 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 71 Then
-            Suerte = 15
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 90 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 81 Then
-            Suerte = 10
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 100 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 91 Then
-            Suerte = 5
+    Rest = 0
+    
+    If NameDay = "Noche" Then
+       
+        If UCase$(UserList(UserIndex).Clase) = "ELFO OSCURO" Then
+           
+            If UserList(UserIndex).Stats.UserSkills(Meditar) < 40 Then
+                Rest = 10
+            ElseIf UserList(UserIndex).Stats.UserSkills(Meditar) < 80 Then
+                Rest = 7
+            ElseIf UserList(UserIndex).Stats.UserSkills(Meditar) < 100 Then
+                Rest = 3
 
+            End If
+           
         End If
-
-    Else
-
-        If UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 10 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 10 Then
-            Suerte = 35
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 20 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 110 Then
-            Suerte = 30
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 30 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 210 Then
-            Suerte = 28
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 40 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 310 Then
-            Suerte = 24
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 50 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 410 Then
-            Suerte = 22
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 60 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 510 Then
-            Suerte = 20
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 70 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 610 Then
-            Suerte = 18
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 80 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 710 Then
-            Suerte = 15
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 90 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 810 Then
-            Suerte = 10
-        ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) <= 100 And UserList(UserIndex).Stats.UserSkills(eSkill.Meditar) >= 910 Then
-            Suerte = 5
-
-        End If
-
+       
     End If
 
-    res = RandomNumber(1, Suerte)
+    res = RandomNumber(1, Suerte - Rest)
 
     If res = 1 Then
-        Cant = Porcentaje(UserList(UserIndex).Stats.MaxMAN, 3)
-        UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MinMAN + Cant
+        cant = Porcentaje(UserList(UserIndex).Stats.MaxMAN, 3)
+        Call AddtoVar(UserList(UserIndex).Stats.MinMAN, cant, UserList(UserIndex).Stats.MaxMAN)
+        'UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MinMAN + Cant
 
-        If UserList(UserIndex).Stats.MinMAN > UserList(UserIndex).Stats.MaxMAN Then UserList(UserIndex).Stats.MinMAN = UserList( _
-           UserIndex).Stats.MaxMAN
+        'If UserList(UserIndex).Stats.MinMAN > UserList(UserIndex).Stats.MaxMAN Then UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN
 
         If Not UserList(UserIndex).flags.UltimoMensaje = 22 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has recuperado " & Cant & " puntos de mana!" & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has recuperado " & cant & " puntos de mana!" & FONTTYPE_INFO)
             UserList(UserIndex).flags.UltimoMensaje = 22
-
         End If
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "ASM" & UserList(UserIndex).Stats.MinMAN)
+        
+        Call SendUserStatsBox(UserIndex)
         Call SubirSkill(UserIndex, Meditar)
 
     End If

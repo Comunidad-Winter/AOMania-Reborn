@@ -358,308 +358,329 @@ Public Sub CommandAdmins(ByVal UserIndex As Integer, ByVal rData As String)
         End If
 
     End If
-
-    If UCase$(Left$(rData, 13)) = "/DAMECRIATURA" Then
-        rData = Right$(rData, Len(rData) - 13)
-
-        Dim ProtectCase As Integer
-
+    
+    If UCase$(Left$(rData, 8)) = "/ITEMMAP" Then
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-
-        If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-
-        If DiaEspecialExp = True Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los Dioses de AoMania no te permiten usar tu poder para cambiar este día especial." & FONTTYPE_INFO)
-            Exit Sub
-
-        End If
-
-        If DiaEspecialOro = True Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los Dioses de AoMania no te permiten usar tu poder para cambiar este día especial." & FONTTYPE_INFO)
-            Exit Sub
-
-        End If
-
-        ProtectCase = val(rData)
-
-        If ProtectCase <= 15 Then
-            Call CriaturasNormales(ProtectCase)
-        Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has introducido un día de criatura incorrecto, total de criaturas: 15" & FONTTYPE_INFO)
-
-        End If
-
-        Exit Sub
-
-    End If
-
-    If UCase$(Left$(rData, 13)) = "/AOMCREDITOS " Then
-        rData = Right$(rData, Len(rData) - 13)
-
-        If UCase$(rData) = "LISTA" Then
-
-            For LoopC = 1 To NumAoMCreditos
-
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & LoopC & ": " & AoMCreditos(LoopC).Name & " - " & AoMCreditos(LoopC).Monedas & FONTTYPE_INFO)
-
-            Next LoopC
-
-        ElseIf UCase$(rData) = "NPC" Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Número NPC de AOMCREDITOS es: " & NpcAoMCreditos & FONTTYPE_INFO)
-
-        Else
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Sintaxis incorrecto: /AOMCREDITOS <LISTA/NPC>" & FONTTYPE_INFO)
-
-        End If
-
-        Exit Sub
-
-    End If
-
-    Select Case UCase$(Left$(rData, 13))
-
-        Case "/FORCEMIDIMAP"
-            Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-
-            If Len(rData) > 13 Then
-                rData = Right$(rData, Len(rData) - 14)
-            Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El formato correcto de este comando es /FORCEMIDMAP MIDI MAPA, siendo el MAPA opcional" & FONTTYPE_INFO)
+        
+        If UserList(UserIndex).flags.Privilegios = PlayerType.Dios Then
+        
+            If MapInfo(UserList(UserIndex).pos.Map).Cae = 1 Then
+                Call SendData(ToIndex, UserIndex, 0, "||[Info Map] Ahora caen items al suelo!" & FONTTYPE_INFO)
+                MapInfo(UserList(UserIndex).pos.Map).Cae = 0
+                Exit Sub
+            ElseIf MapInfo(UserList(UserIndex).pos.Map).Cae = 0 Then
+                Call SendData(ToIndex, UserIndex, 0, "||[Info Map] Ahora no caeran items al suelo!" & FONTTYPE_INFO)
+                MapInfo(UserList(UserIndex).pos.Map).Cae = 1
                 Exit Sub
 
             End If
 
-            'Solo dioses, admins y RMS
-            If UserList(UserIndex).flags.Privilegios < PlayerType.Dios And Not UserList(UserIndex).flags.EsRolesMaster Then Exit Sub
+        End If
 
-            'Obtenemos el número de midi
-            Arg1 = ReadField(1, rData, vbKeySpace)
-            ' y el de mapa
-            Arg2 = ReadField(2, rData, vbKeySpace)
+    End If
 
-            'Si el mapa no fue enviado tomo el actual
-            If IsNumeric(Arg2) Then
-                tInt = CInt(Arg2)
-            Else
-                tInt = UserList(UserIndex).pos.Map
 
-            End If
+If UCase$(Left$(rData, 13)) = "/DAMECRIATURA" Then
+    rData = Right$(rData, Len(rData) - 13)
 
-            If IsNumeric(Arg1) Then
-                If Arg1 = "0" Then
-                    'Ponemos el default del mapa
-                    Call SendData(SendTarget.ToMap, 0, tInt, "TM" & CStr(MapInfo(UserList(UserIndex).pos.Map).Music))
-                Else
-                    'Ponemos el pedido por el GM
-                    Call SendData(SendTarget.ToMap, 0, tInt, "TM" & Arg1)
+    Dim ProtectCase As Integer
 
-                End If
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
-            Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El formato correcto de este comando es /FORCEMIDMAP MIDI MAPA, siendo el MAPA opcional" & FONTTYPE_INFO)
+    If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
 
-            End If
+    If DiaEspecialExp = True Then
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los Dioses de AoMania no te permiten usar tu poder para cambiar este día especial." & FONTTYPE_INFO)
+        Exit Sub
 
+    End If
+
+    If DiaEspecialOro = True Then
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los Dioses de AoMania no te permiten usar tu poder para cambiar este día especial." & FONTTYPE_INFO)
+        Exit Sub
+
+    End If
+
+    ProtectCase = val(rData)
+
+    If ProtectCase <= 15 Then
+        Call CriaturasNormales(ProtectCase)
+    Else
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has introducido un día de criatura incorrecto, total de criaturas: 15" & FONTTYPE_INFO)
+
+    End If
+
+    Exit Sub
+
+End If
+
+If UCase$(Left$(rData, 13)) = "/AOMCREDITOS " Then
+    rData = Right$(rData, Len(rData) - 13)
+
+    If UCase$(rData) = "LISTA" Then
+
+        For LoopC = 1 To NumAoMCreditos
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & LoopC & ": " & AoMCreditos(LoopC).Name & " - " & AoMCreditos(LoopC).Monedas & FONTTYPE_INFO)
+
+        Next LoopC
+
+    ElseIf UCase$(rData) = "NPC" Then
+
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Número NPC de AOMCREDITOS es: " & NpcAoMCreditos & FONTTYPE_INFO)
+
+    Else
+
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Sintaxis incorrecto: /AOMCREDITOS <LISTA/NPC>" & FONTTYPE_INFO)
+
+    End If
+
+    Exit Sub
+
+End If
+
+Select Case UCase$(Left$(rData, 13))
+
+    Case "/FORCEMIDIMAP"
+        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+
+        If Len(rData) > 13 Then
+            rData = Right$(rData, Len(rData) - 14)
+        Else
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El formato correcto de este comando es /FORCEMIDMAP MIDI MAPA, siendo el MAPA opcional" & FONTTYPE_INFO)
             Exit Sub
 
-        Case "/FORCEWAVMAP "
-            Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-            rData = Right$(rData, Len(rData) - 13)
+        End If
 
-            'Solo dioses, admins y RMS
-            If UserList(UserIndex).flags.Privilegios < PlayerType.Dios And Not UserList(UserIndex).flags.EsRolesMaster Then Exit Sub
+        'Solo dioses, admins y RMS
+        If UserList(UserIndex).flags.Privilegios < PlayerType.Dios And Not UserList(UserIndex).flags.EsRolesMaster Then Exit Sub
 
-            'Obtenemos el número de wav
-            Arg1 = ReadField(1, rData, vbKeySpace)
-            ' el de mapa
-            Arg2 = ReadField(2, rData, vbKeySpace)
-            ' el de X
-            Arg3 = ReadField(3, rData, vbKeySpace)
-            ' y el de Y (las coords X-Y sólo tendrán sentido al implementarse el panning en la 11.6)
-            Arg4 = ReadField(4, rData, vbKeySpace)
+        'Obtenemos el número de midi
+        Arg1 = ReadField(1, rData, vbKeySpace)
+        ' y el de mapa
+        Arg2 = ReadField(2, rData, vbKeySpace)
 
-            If IsNumeric(Arg2) And IsNumeric(Arg3) And IsNumeric(Arg4) Then
-                tInt = CInt(Arg2)
+        'Si el mapa no fue enviado tomo el actual
+        If IsNumeric(Arg2) Then
+            tInt = CInt(Arg2)
+        Else
+            tInt = UserList(UserIndex).pos.Map
+
+        End If
+
+        If IsNumeric(Arg1) Then
+            If Arg1 = "0" Then
+                'Ponemos el default del mapa
+                Call SendData(SendTarget.ToMap, 0, tInt, "TM" & CStr(MapInfo(UserList(UserIndex).pos.Map).Music))
             Else
-                tInt = UserList(UserIndex).pos.Map
-                Arg3 = CStr(UserList(UserIndex).pos.X)
-                Arg4 = CStr(UserList(UserIndex).pos.Y)
+                'Ponemos el pedido por el GM
+                Call SendData(SendTarget.ToMap, 0, tInt, "TM" & Arg1)
 
             End If
 
-            If IsNumeric(Arg1) Then
-                Call SendData(SendTarget.ToMap, 0, tInt, "TW" & Arg1)
-            Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El formato correcto de este comando es /FORCEWAVMAP WAV MAPA X Y, siendo la posición opcional" & FONTTYPE_INFO)
-
-            End If
-
-            Exit Sub
-
-    End Select
-
-    If UCase$(Left$(rData, 12)) = "/ACEPTCONSE " Then
-        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-
-        If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-        rData = Right$(rData, Len(rData) - 12)
-        TIndex = NameIndex(rData)
-
-        If TIndex <= 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline" & FONTTYPE_INFO)
         Else
-            Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " Ha sido coronado como el nuevo Rey Imperial." & FONTTYPE_CONSEJO)
-            UserList(TIndex).flags.PertAlCons = 1
-            Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y, False)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El formato correcto de este comando es /FORCEMIDMAP MIDI MAPA, siendo el MAPA opcional" & FONTTYPE_INFO)
 
         End If
 
         Exit Sub
 
-    End If
-
-    If UCase$(Left$(rData, 16)) = "/ACEPTCONSECAOS " Then
+    Case "/FORCEWAVMAP "
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-
-        If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-        rData = Right$(rData, Len(rData) - 16)
-        TIndex = NameIndex(rData)
-
-        If TIndex <= 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline" & FONTTYPE_INFO)
-        Else
-            Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " Ha sido coronado como el nuevo Rey del Caos." & FONTTYPE_CONSEJOCAOS)
-            UserList(TIndex).flags.PertAlConsCaos = 1
-            Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y, False)
-
-        End If
-
-        Exit Sub
-
-    End If
-
-    If UCase$(Left$(rData, 8)) = "/TRIGGER" Then
-        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-
-        If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-
-        rData = Trim(Right(rData, Len(rData) - 8))
-        Mapa = UserList(UserIndex).pos.Map
-        X = UserList(UserIndex).pos.X
-        Y = UserList(UserIndex).pos.Y
-
-        If rData <> "" Then
-            tInt = MapData(Mapa, X, Y).Trigger
-            MapData(Mapa, X, Y).Trigger = val(rData)
-
-        End If
-
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Trigger " & MapData(Mapa, X, Y).Trigger & " en mapa " & Mapa & " " & X & ", " & Y & FONTTYPE_INFO)
-        Exit Sub
-
-    End If
-
-    If UCase(Left$(rData, 13)) = "/VERPANTALLA " Then
-
-        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-
-        If UserList(UserIndex).flags.Privilegios < PlayerType.Dios Then Exit Sub
-        'If UCase$(UserList(UserIndex).Name) <> "SETH" Then Exit Sub
-
         rData = Right$(rData, Len(rData) - 13)
-        TIndex = NameIndex(UCase$(rData))
 
-        If TIndex <= 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline" & FONTTYPE_INFO)
+        'Solo dioses, admins y RMS
+        If UserList(UserIndex).flags.Privilegios < PlayerType.Dios And Not UserList(UserIndex).flags.EsRolesMaster Then Exit Sub
+
+        'Obtenemos el número de wav
+        Arg1 = ReadField(1, rData, vbKeySpace)
+        ' el de mapa
+        Arg2 = ReadField(2, rData, vbKeySpace)
+        ' el de X
+        Arg3 = ReadField(3, rData, vbKeySpace)
+        ' y el de Y (las coords X-Y sólo tendrán sentido al implementarse el panning en la 11.6)
+        Arg4 = ReadField(4, rData, vbKeySpace)
+
+        If IsNumeric(Arg2) And IsNumeric(Arg3) And IsNumeric(Arg4) Then
+            tInt = CInt(Arg2)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Se sacara una captura de pantalla del usuario" & FONTTYPE_INFO)
-            UserList(TIndex).SnapShot = True
-            UserList(TIndex).SnapShotAdmin = UserIndex
+            tInt = UserList(UserIndex).pos.Map
+            Arg3 = CStr(UserList(UserIndex).pos.X)
+            Arg4 = CStr(UserList(UserIndex).pos.Y)
 
-            Call SendData(SendTarget.ToIndex, TIndex, 0, "TCSS")
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "SSOP")
-            Call frmMain.Winsock1.Close
-            Call frmMain.Winsock2.Close
-            'asignamos el puerto local que abriremos
+        End If
 
-            frmMain.Winsock1.LocalPort = 7000
-            frmMain.Winsock2.LocalPort = 6999
-            frmMain.flag = False
-
-            Call frmMain.Winsock1.listen
-            Call frmMain.Winsock2.listen
+        If IsNumeric(Arg1) Then
+            Call SendData(SendTarget.ToMap, 0, tInt, "TW" & Arg1)
+        Else
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El formato correcto de este comando es /FORCEWAVMAP WAV MAPA X Y, siendo la posición opcional" & FONTTYPE_INFO)
 
         End If
 
         Exit Sub
 
-    End If
+End Select
 
-    If UCase(rData) = "/BANIPRELOAD" Then
-        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+If UCase$(Left$(rData, 12)) = "/ACEPTCONSE " Then
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
-        If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-        Call BanIpGuardar
-        Call BanIpCargar
-        Exit Sub
+    If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
+    rData = Right$(rData, Len(rData) - 12)
+    TIndex = NameIndex(rData)
 
-    End If
-
-    If UCase$(rData) = "/TCPESSTATS" Then
-        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-
-        If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los datos estan en BYTES." & FONTTYPE_INFO)
-
-        With TCPESStats
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||IN/s: " & .BytesRecibidosXSEG & " OUT/s: " & .BytesEnviadosXSEG & FONTTYPE_INFO)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||IN/s MAX: " & .BytesRecibidosXSEGMax & " -> " & .BytesRecibidosXSEGCuando & FONTTYPE_INFO)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||OUT/s MAX: " & .BytesEnviadosXSEGMax & " -> " & .BytesEnviadosXSEGCuando & FONTTYPE_INFO)
-
-        End With
+    If TIndex <= 0 Then
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline" & FONTTYPE_INFO)
+    Else
+        Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " Ha sido coronado como el nuevo Rey Imperial." & FONTTYPE_CONSEJO)
+        UserList(TIndex).flags.PertAlCons = 1
+        Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y, False)
 
     End If
 
-    If UCase$(rData) = "/RELOADSINI" Then
-        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+    Exit Sub
 
-        If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
+End If
 
-        Call LoadSini
-        Exit Sub
+If UCase$(Left$(rData, 16)) = "/ACEPTCONSECAOS " Then
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
-    End If
+    If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
+    rData = Right$(rData, Len(rData) - 16)
+    TIndex = NameIndex(rData)
 
-    If UCase$(rData) = "/RELOADHECHIZOS" Then
-        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-
-        If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-
-        Call CargarHechizos
-        Exit Sub
-
-    End If
-
-    If UCase$(rData) = "/RELOADOBJ" Then
-        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
-
-        If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
-
-        Call LoadOBJData
-        Exit Sub
+    If TIndex <= 0 Then
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline" & FONTTYPE_INFO)
+    Else
+        Call SendData(SendTarget.ToAll, 0, 0, "||" & rData & " Ha sido coronado como el nuevo Rey del Caos." & FONTTYPE_CONSEJOCAOS)
+        UserList(TIndex).flags.PertAlConsCaos = 1
+        Call WarpUserChar(TIndex, UserList(TIndex).pos.Map, UserList(TIndex).pos.X, UserList(TIndex).pos.Y, False)
 
     End If
 
-    If UCase$(rData) = "/REINICIAR" Then
-        Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+    Exit Sub
 
-        Call ReiniciarServidor(True)
-        Exit Sub
+End If
+
+If UCase$(Left$(rData, 8)) = "/TRIGGER" Then
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+
+    If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
+
+    rData = Trim(Right(rData, Len(rData) - 8))
+    Mapa = UserList(UserIndex).pos.Map
+    X = UserList(UserIndex).pos.X
+    Y = UserList(UserIndex).pos.Y
+
+    If rData <> "" Then
+        tInt = MapData(Mapa, X, Y).Trigger
+        MapData(Mapa, X, Y).Trigger = val(rData)
 
     End If
+
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Trigger " & MapData(Mapa, X, Y).Trigger & " en mapa " & Mapa & " " & X & ", " & Y & FONTTYPE_INFO)
+    Exit Sub
+
+End If
+
+If UCase(Left$(rData, 13)) = "/VERPANTALLA " Then
+
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+
+    If UserList(UserIndex).flags.Privilegios < PlayerType.Dios Then Exit Sub
+    'If UCase$(UserList(UserIndex).Name) <> "SETH" Then Exit Sub
+
+    rData = Right$(rData, Len(rData) - 13)
+    TIndex = NameIndex(UCase$(rData))
+
+    If TIndex <= 0 Then
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline" & FONTTYPE_INFO)
+    Else
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Se sacara una captura de pantalla del usuario" & FONTTYPE_INFO)
+        UserList(TIndex).SnapShot = True
+        UserList(TIndex).SnapShotAdmin = UserIndex
+
+        Call SendData(SendTarget.ToIndex, TIndex, 0, "TCSS")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "SSOP")
+        Call frmMain.Winsock1.Close
+        Call frmMain.Winsock2.Close
+        'asignamos el puerto local que abriremos
+
+        frmMain.Winsock1.LocalPort = 7000
+        frmMain.Winsock2.LocalPort = 6999
+        frmMain.flag = False
+
+        Call frmMain.Winsock1.listen
+        Call frmMain.Winsock2.listen
+
+    End If
+
+    Exit Sub
+
+End If
+
+If UCase(rData) = "/BANIPRELOAD" Then
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+
+    If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
+    Call BanIpGuardar
+    Call BanIpCargar
+    Exit Sub
+
+End If
+
+If UCase$(rData) = "/TCPESSTATS" Then
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+
+    If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
+
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los datos estan en BYTES." & FONTTYPE_INFO)
+
+    With TCPESStats
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||IN/s: " & .BytesRecibidosXSEG & " OUT/s: " & .BytesEnviadosXSEG & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||IN/s MAX: " & .BytesRecibidosXSEGMax & " -> " & .BytesRecibidosXSEGCuando & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||OUT/s MAX: " & .BytesEnviadosXSEGMax & " -> " & .BytesEnviadosXSEGCuando & FONTTYPE_INFO)
+
+    End With
+
+End If
+
+If UCase$(rData) = "/RELOADSINI" Then
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+
+    If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
+
+    Call LoadSini
+    Exit Sub
+
+End If
+
+If UCase$(rData) = "/RELOADHECHIZOS" Then
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+
+    If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
+
+    Call CargarHechizos
+    Exit Sub
+
+End If
+
+If UCase$(rData) = "/RELOADOBJ" Then
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+
+    If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
+
+    Call LoadOBJData
+    Exit Sub
+
+End If
+
+If UCase$(rData) = "/REINICIAR" Then
+    Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
+
+    Call ReiniciarServidor(True)
+    Exit Sub
+
+End If
 
 End Sub
 

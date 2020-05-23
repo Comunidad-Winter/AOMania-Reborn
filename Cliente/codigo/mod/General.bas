@@ -904,14 +904,14 @@ Sub CheckKeys()
     'Exit Sub
     'End If
     
-    If GetKeyState(CustomKeys.BindedKey(eKeyType.mKeyToggleMAPA)) < 0 Then
-       If frmMain.SendTxt.Visible Then Exit Sub
-       
-       If frmMapa.Visible = False Then frmMapa.Visible = True
-    ElseIf frmMapa.Visible Then
-        frmMapa.Visible = False
-
-    End If
+    'If GetKeyState(CustomKeys.BindedKey(eKeyType.mKeyToggleMAPA)) < 0 Then
+    '   If frmMain.SendTxt.Visible Then Exit Sub
+    '
+    '   If frmMapa.Visible = False Then frmMapa.Visible = True
+    'ElseIf frmMapa.Visible Then
+    '    frmMapa.Visible = False
+'
+'    End If
     
 
     'Don't allow any these keys during movement..
@@ -962,6 +962,8 @@ Sub CheckKeys()
         End If
 
     End If
+    
+    Call RefreshAllChars
 
 End Sub
 
@@ -1240,6 +1242,8 @@ Sub Main()
     pausa = False
         
     Do While prgRun
+         
+        Call RefreshAllChars
 
         Call Directx_Renderer
                                 
@@ -1757,4 +1761,20 @@ End Sub
 
 Sub EnviaM(sentido As Byte)
     Call SendData("Ñ" & sentido & CodigoCorreccion & "*" & CharList(UserCharIndex).pos.X & "*" & CharList(UserCharIndex).pos.Y)
+End Sub
+
+Sub RefreshAllChars()
+   '*****************************************************************
+   'Goes through the charlist and replots all the characters on the map
+   'Used to make sure everyone is visible
+   '*****************************************************************
+   
+   Dim LooPC As Integer
+   
+   For LooPC = 1 To LastChar
+      If CharList(LooPC).Active = 1 Then
+         MapData(CharList(LooPC).pos.X, CharList(LooPC).pos.Y).charindex = LooPC
+      End If
+   Next LooPC
+   
 End Sub

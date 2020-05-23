@@ -14,13 +14,14 @@ Sub HandleData2(ByVal rData As String)
     Select Case UCase$(Left$(rData, 2))
         
         Case "PL"
-             For X = 1 To 10
+
+            For X = 1 To 10
                   
-                  frmMain.UserClanPos(X).Visible = False
+                frmMain.UserClanPos(X).Visible = False
                   
-             Next X
-         Exit Sub
-        
+            Next X
+
+            Exit Sub
         
         Case "PO"
             rData = Right$(rData, Len(rData) - 2)
@@ -28,7 +29,7 @@ Sub HandleData2(ByVal rData As String)
             ClanPos(X).X = Val(ReadField(1, rData, 44))
             ClanPos(X).Y = Val(ReadField(2, rData, 44))
             Call ActualizarShpClanPos
-        Exit Sub
+            Exit Sub
 
         Case "XN"             '>>>>>> Coge información de quest NPC
             rData = Right$(rData, Len(rData) - 2)
@@ -84,19 +85,46 @@ Sub HandleData2(ByVal rData As String)
     End Select
    
     Select Case UCase$(Left$(rData, 3))
+    
+        Case "EMC"
+
+            Dim NColor As Integer
+
+            rData = Right$(rData, Len(rData) - 3)
+            CountMEC = 380 + Len(CStr(rData))
+            MensajeEnvio = String(380, " ") + rData
+            frmMain.EnvioMsj.SelStart = 0
+            frmMain.EnvioMsj.SelLength = Len(frmMain.EnvioMsj)
+        
+            NColor = RandomNumber(1, 4)
+        
+            If NColor = 1 Then
+                frmMain.EnvioMsj.SelColor = vbCyan
+            ElseIf NColor = 2 Then
+                frmMain.EnvioMsj.SelColor = vbWhite
+            ElseIf NColor = 3 Then
+                frmMain.EnvioMsj.SelColor = vbYellow
+            ElseIf NColor = 4 Then
+                frmMain.EnvioMsj.SelColor = vbRed
+
+            End If
+        
+            frmMain.EnvioMsj.SelBold = True
+        
+            frmMain.TimerMsj.Enabled = True
+            Exit Sub
         
         Case "ACT"    'binmode: correccion de posicion
     
-        rData = Right$(rData, Len(rData) - 3)
-       Call ActualizaPosicion(rData)
-        
+            rData = Right$(rData, Len(rData) - 3)
+            Call ActualizaPosicion(rData)
        
-        Exit Sub
+            Exit Sub
         
         Case "SMN"
-          MapInfo.Name = Right$(rData, Len(rData) - 3)
-          TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.X & " Y: " & CharList(UserCharIndex).pos.Y & ")"
-          Exit Sub
+            MapInfo.Name = Right$(rData, Len(rData) - 3)
+            TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.X & " Y: " & CharList(UserCharIndex).pos.Y & ")"
+            Exit Sub
        
         Case "VPA"
            

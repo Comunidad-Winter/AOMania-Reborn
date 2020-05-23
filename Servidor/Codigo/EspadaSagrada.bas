@@ -323,3 +323,276 @@ End Sub
 Sub ConnectSagrada(UserIndex As Integer)
     Call ChangeSagradaHit(UserIndex)
 End Sub
+
+Public Function ViewSagradaHit(UserIndex As Integer, Item As Integer) As String
+     
+     Dim MinHit As Integer
+     Dim MaxHit As Integer
+     
+    With UserList(UserIndex)
+
+        If Item = ObjEspadaNormal Then
+
+            Select Case UCase$(.Clase)
+
+            Case "GUERRERO"
+
+                If .Stats.ELV <= 14 Then
+                    MaxHit = 10
+                    MinHit = 10
+                ElseIf .Stats.ELV <= 24 Then
+                    MaxHit = 14
+                    MinHit = 16
+                ElseIf .Stats.ELV <= 29 Then
+                    MaxHit = 22
+                    MinHit = 20
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 26
+                    MinHit = 25
+                ElseIf .Stats.ELV <= 44 Then
+                    MaxHit = 29
+                    MinHit = 28
+                ElseIf .Stats.ELV <= 55 Then
+                    MaxHit = 31
+                    MinHit = 33
+                End If
+
+            Case "PALADIN"
+
+                If .Stats.ELV <= 14 Then
+                    MaxHit = 10
+                    MinHit = 10
+                ElseIf .Stats.ELV <= 24 Then
+                    MaxHit = 14
+                    MinHit = 16
+                ElseIf .Stats.ELV <= 29 Then
+                    MaxHit = 22
+                    MinHit = 20
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 26
+                    MinHit = 25
+                ElseIf .Stats.ELV <= 44 Then
+                    MaxHit = 29
+                    MinHit = 28
+                ElseIf .Stats.ELV <= 55 Then
+                    MaxHit = 31
+                    MinHit = 33
+                End If
+
+            Case "LADRON"
+
+                If .Stats.ELV <= 14 Then
+                    MaxHit = 10
+                    MinHit = 10
+                ElseIf .Stats.ELV <= 24 Then
+                    MaxHit = 14
+                    MinHit = 16
+                ElseIf .Stats.ELV <= 29 Then
+                    MaxHit = 22
+                    MinHit = 20
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 26
+                    MinHit = 25
+                ElseIf .Stats.ELV <= 44 Then
+                    MaxHit = 29
+                    MinHit = 28
+                ElseIf .Stats.ELV <= 55 Then
+                    MaxHit = 31
+                    MinHit = 33
+                End If
+
+            Case "CLERIGO"
+
+                If .Stats.ELV <= 14 Then
+                    MaxHit = 10
+                    MinHit = 10
+                ElseIf .Stats.ELV <= 24 Then
+                    MaxHit = 14
+                    MinHit = 16
+                ElseIf .Stats.ELV <= 29 Then
+                    MaxHit = 22
+                    MinHit = 20
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 26
+                    MinHit = 25
+                ElseIf .Stats.ELV <= 44 Then
+                    MaxHit = 29
+                    MinHit = 28
+                ElseIf .Stats.ELV <= 55 Then
+                    MaxHit = 31
+                    MinHit = 33
+                End If
+
+            Case "BARDO"
+
+                If .Stats.ELV <= 14 Then
+                    MaxHit = 10
+                    MinHit = 10
+                ElseIf .Stats.ELV <= 24 Then
+                    MaxHit = 14
+                    MinHit = 16
+                ElseIf .Stats.ELV <= 29 Then
+                    MaxHit = 22
+                    MinHit = 20
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 26
+                    .Sagrada.MinHit = 25
+                ElseIf .Stats.ELV <= 44 Then
+                    MaxHit = 29
+                    MinHit = 28
+                ElseIf .Stats.ELV <= 55 Then
+                    MaxHit = 31
+                    MinHit = 33
+                End If
+
+            Case "DRUIDA"
+
+                If .Stats.ELV <= 14 Then
+                    MaxHit = 10
+                    MinHit = 10
+                ElseIf .Stats.ELV <= 24 Then
+                    MaxHit = 14
+                    MinHit = 16
+                ElseIf .Stats.ELV <= 29 Then
+                    MaxHit = 22
+                    MinHit = 20
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 26
+                    MinHit = 25
+                ElseIf .Stats.ELV <= 44 Then
+                    MaxHit = 29
+                    MinHit = 28
+                ElseIf .Stats.ELV <= 55 Then
+                    MaxHit = 31
+                    MinHit = 33
+                End If
+
+            End Select
+
+        End If
+
+        If Item = ObjEspadaAse Then
+
+            Select Case UCase(.Clase)
+
+            Case "ASESINO"
+
+                If .Stats.ELV <= 14 Then
+                    MaxHit = 10
+                    MinHit = 10
+                ElseIf .Stats.ELV <= 24 Then
+                    MaxHit = 14
+                    MinHit = 16
+                ElseIf .Stats.ELV <= 29 Then
+                    MaxHit = 22
+                    MinHit = 20
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 26
+                    MinHit = 25
+                ElseIf .Stats.ELV <= 44 Then
+                    MaxHit = 29
+                    MinHit = 28
+                ElseIf .Stats.ELV <= 55 Then
+                    MaxHit = 31
+                    MinHit = 33
+                End If
+
+            End Select
+
+        End If
+
+        If Item = ObjArcoNormal Then
+
+            Select Case UCase$(.Clase)
+
+            Case "ARQUERO"
+
+                If .Stats.ELV <= 14 Then
+                    MaxHit = 5
+                    MinHit = 3
+                ElseIf .Stats.ELV <= 19 Then
+                    MaxHit = 9
+                    MinHit = 7
+                ElseIf .Stats.ELV <= 24 Then
+                    MaxHit = 12
+                    MinHit = 10
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 15
+                    MinHit = 13
+                ElseIf .Stats.ELV <= 39 Then
+                    MaxHit = 17
+                    MinHit = 15
+                ElseIf .Stats.ELV <= 44 Then
+                    MaxHit = 20
+                    MinHit = 18
+                ElseIf .Stats.ELV <= 55 Then
+                    MaxHit = 23
+                    MinHit = 21
+
+                End If
+
+            Case "CAZADOR"
+
+                If .Stats.ELV <= 14 Then
+                    MaxHit = 5
+                    MinHit = 3
+                ElseIf .Stats.ELV <= 19 Then
+                    MaxHit = 9
+                    MinHit = 7
+                ElseIf .Stats.ELV <= 24 Then
+                    MaxHit = 12
+                    MinHit = 10
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 15
+                    MinHit = 13
+                ElseIf .Stats.ELV <= 39 Then
+                    MaxHit = 17
+                    MinHit = 15
+                ElseIf .Stats.ELV <= 44 Then
+                    MaxHit = 20
+                    MinHit = 18
+                ElseIf .Stats.ELV <= 55 Then
+                    MaxHit = 23
+                    MinHit = 21
+
+                End If
+
+            End Select
+
+        End If
+
+        If Item = ObjVaraNormal Then
+
+            Select Case UCase$(.Clase)
+
+            Case "MAGO"
+
+                If .Stats.ELV <= 14 Then
+                ElseIf .Stats.ELV <= 24 Then
+                ElseIf .Stats.ELV <= 34 Then
+                    MaxHit = 30
+                    MinHit = 30
+                ElseIf .Stats.ELV <= 44 Then
+                ElseIf .Stats.ELV <= 55 Then
+
+                End If
+
+            Case "BRUJO"
+
+                If .Stats.ELV <= 14 Then
+                ElseIf .Stats.ELV <= 24 Then
+                ElseIf .Stats.ELV <= 34 Then
+                ElseIf .Stats.ELV <= 44 Then
+                ElseIf .Stats.ELV <= 55 Then
+
+                End If
+
+            End Select
+
+        End If
+
+    End With
+     
+     ViewSagradaHit = val(MaxHit) & ", " & val(MinHit)
+End Function
+

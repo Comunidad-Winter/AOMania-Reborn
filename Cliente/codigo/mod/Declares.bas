@@ -1,6 +1,9 @@
 Attribute VB_Name = "Mod_Declaraciones"
 Option Explicit
 
+Public Declare Function GetActiveWindow Lib "user32" () As Long
+Public Declare Function GetForegroundWindow Lib "user32" () As Long
+
 'CRAW; 18/09/2019 --> VARIABLES AUTO L PUBLICAS
 Public TickCountClient As Long
 Public TickCountServer As Long
@@ -36,7 +39,7 @@ Public CustomKeys          As New clsCustomKeys
 
 '"192.171.19.138"
 '"127.0.0.1"
-Public Const CurServerIp   As String = "127.0.0.1"
+Public Const CurServerIp   As String = "192.171.19.138"
 Public Const CurServerPort As Integer = 9879
 
 Public Centrada            As Boolean
@@ -441,7 +444,7 @@ Type CanjInv
     MaxHit As Integer
     MinHit As Integer
     ObjType As Integer
-    cantidad As Integer
+    Cantidad As Integer
     
 End Type
 
@@ -778,4 +781,6 @@ Public cargandomapa As Boolean
 Public CodigoCorreccion As Byte
 Public TextoMapa As String
 
-Public AbreMapa As Boolean
+Public VerMapa As Boolean
+Public MensajeEnvio As String
+Public CountMEC As Integer

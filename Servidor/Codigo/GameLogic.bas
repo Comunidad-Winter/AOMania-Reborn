@@ -54,7 +54,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
         SoundPajaro = RandomNumber(21, 22)
         PorcPajaro = RandomNumber(1, 30000)
 
-        If PorcPajaro < 5 Then
+        If PorcPajaro > 29950 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "PJ" & SoundPajaro)
         End If
 
@@ -272,17 +272,17 @@ End Sub
 
 Public Sub Gusano(ByVal UserIndex As Integer)
 
-    Dim daño As Long
+    Dim Daño As Long
 
     Dim lado As Integer
 
-    daño = RandomNumber(5, 20)
+    Daño = RandomNumber(5, 20)
     lado = RandomNumber(62, 63)
     
     Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & 121)
     Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & lado & "," & 0)
-    UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - daño
-    Call SendData(ToIndex, UserIndex, 0, "||¡¡ Un Gusano te causa " & daño & " de daño!!" & FONTTYPE_Motd4)
+    UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - Daño
+    Call SendData(ToIndex, UserIndex, 0, "||¡¡ Un Gusano te causa " & Daño & " de daño!!" & FONTTYPE_Motd4)
     
     Call SendUserStatsBox(UserIndex)
 
@@ -549,6 +549,9 @@ Function CheckForSameName(ByVal UserIndex As Integer, ByVal Name As String) As B
 
             If UCase$(UserList(LoopC).Name) = UCase$(Name) Then
                 CheckForSameName = True
+                'Call SendData(SendTarget.ToIndex, LoopC, 0, _
+                          "ERRSe ha conectado un usuario con el mismo nombre.")
+                Call CloseSocket(LoopC)
                 Exit Function
 
             End If
@@ -1248,7 +1251,7 @@ End If
 
 End Function
 
-Function FindDirectionEAO(A As WorldPos, b As WorldPos, Optional PuedeAgu As Boolean) As Byte
+Function FindDirectionEAO(a As WorldPos, b As WorldPos, Optional PuedeAgu As Boolean) As Byte
 
     Dim r As Byte
 
@@ -1279,23 +1282,23 @@ Function FindDirectionEAO(A As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
     r = RandomNumber(1, 2)
 
-    If A.X > b.X And A.Y > b.Y Then
+    If a.X > b.X And a.Y > b.Y Then
         FindDirectionEAO = IIf(r = 1, NORTH, WEST)
 
-    ElseIf A.X < b.X And A.Y < b.Y Then
+    ElseIf a.X < b.X And a.Y < b.Y Then
         FindDirectionEAO = IIf(r = 1, SOUTH, EAST)
 
-    ElseIf A.X < b.X And A.Y > b.Y Then
+    ElseIf a.X < b.X And a.Y > b.Y Then
         FindDirectionEAO = IIf(r = 1, NORTH, EAST)
 
-    ElseIf A.X > b.X And A.Y < b.Y Then
+    ElseIf a.X > b.X And a.Y < b.Y Then
         FindDirectionEAO = IIf(r = 1, SOUTH, WEST)
 
-    ElseIf A.X = b.X Then
-        FindDirectionEAO = IIf(A.Y < b.Y, SOUTH, NORTH)
+    ElseIf a.X = b.X Then
+        FindDirectionEAO = IIf(a.Y < b.Y, SOUTH, NORTH)
 
-    ElseIf A.Y = b.Y Then
-        FindDirectionEAO = IIf(A.X < b.X, EAST, WEST)
+    ElseIf a.Y = b.Y Then
+        FindDirectionEAO = IIf(a.X < b.X, EAST, WEST)
 
     Else
 
@@ -1303,17 +1306,17 @@ Function FindDirectionEAO(A As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
     End If
 
-    If Distancia(A, b) > 1 Then
+    If Distancia(a, b) > 1 Then
 
         Select Case FindDirectionEAO
 
 
         Case NORTH
-            If Not LegalPos(A.Map, A.X, A.Y - 1, PuedeAgu) Then
+            If Not LegalPos(a.Map, a.X, a.Y - 1, PuedeAgu) Then
 
-                If A.X > b.X Then
+                If a.X > b.X Then
                     FindDirectionEAO = WEST
-                ElseIf A.X < b.X Then
+                ElseIf a.X < b.X Then
                     FindDirectionEAO = EAST
                 Else
                     FindDirectionEAO = IIf(r > 1, WEST, EAST)
@@ -1324,11 +1327,11 @@ Function FindDirectionEAO(A As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
 
         Case SOUTH
-            If Not LegalPos(A.Map, A.X, A.Y + 1, PuedeAgu) Then
+            If Not LegalPos(a.Map, a.X, a.Y + 1, PuedeAgu) Then
 
-                If A.X > b.X Then
+                If a.X > b.X Then
                     FindDirectionEAO = WEST
-                ElseIf A.X < b.X Then
+                ElseIf a.X < b.X Then
                     FindDirectionEAO = EAST
                 Else
                     FindDirectionEAO = IIf(r > 1, WEST, EAST)
@@ -1340,11 +1343,11 @@ Function FindDirectionEAO(A As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
 
         Case WEST
-            If Not LegalPos(A.Map, A.X - 1, A.Y, PuedeAgu) Then
+            If Not LegalPos(a.Map, a.X - 1, a.Y, PuedeAgu) Then
 
-                If A.Y > b.Y Then
+                If a.Y > b.Y Then
                     FindDirectionEAO = NORTH
-                ElseIf A.Y < b.Y Then
+                ElseIf a.Y < b.Y Then
                     FindDirectionEAO = SOUTH
                 Else
                     FindDirectionEAO = IIf(r > 1, NORTH, SOUTH)
@@ -1353,10 +1356,10 @@ Function FindDirectionEAO(A As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
             End If
 
         Case EAST
-            If Not LegalPos(A.Map, A.X + 1, A.Y, PuedeAgu) Then
-                If A.Y > b.Y Then
+            If Not LegalPos(a.Map, a.X + 1, a.Y, PuedeAgu) Then
+                If a.Y > b.Y Then
                     FindDirectionEAO = NORTH
-                ElseIf A.Y < b.Y Then
+                ElseIf a.Y < b.Y Then
                     FindDirectionEAO = SOUTH
                 Else
                     FindDirectionEAO = IIf(r > 1, NORTH, SOUTH)
@@ -1371,16 +1374,16 @@ Function FindDirectionEAO(A As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
             Select Case FindDirectionEAO
             Case EAST
-                If Not LegalPos(A.Map, A.X + 1, A.Y) Then FindDirectionEAO = WEST
+                If Not LegalPos(a.Map, a.X + 1, a.Y) Then FindDirectionEAO = WEST
 
             Case WEST
-                If Not LegalPos(A.Map, A.X - 1, A.Y) Then FindDirectionEAO = EAST
+                If Not LegalPos(a.Map, a.X - 1, a.Y) Then FindDirectionEAO = EAST
 
             Case NORTH
-                If Not LegalPos(A.Map, A.X, A.Y - 1) Then FindDirectionEAO = SOUTH
+                If Not LegalPos(a.Map, a.X, a.Y - 1) Then FindDirectionEAO = SOUTH
 
             Case SOUTH
-                If Not LegalPos(A.Map, A.X, A.Y + 1) Then FindDirectionEAO = NORTH
+                If Not LegalPos(a.Map, a.X, a.Y + 1) Then FindDirectionEAO = NORTH
 
             End Select
 
@@ -1392,13 +1395,10 @@ Function FindDirectionEAO(A As WorldPos, b As WorldPos, Optional PuedeAgu As Boo
 
 End Function
 
-
 '[Barrin 30-11-03]
 Public Function ItemNoEsDeMapa(ByVal Index As Integer) As Boolean
 
-    ItemNoEsDeMapa = ObjData(Index).ObjType <> eOBJType.otPuertas And ObjData(Index).ObjType <> eOBJType.otFOROS And ObjData(Index).ObjType <> _
-                     eOBJType.otCARTELES And ObjData(Index).ObjType <> eOBJType.otArboles And ObjData(Index).ObjType <> eOBJType.otYacimiento And ObjData( _
-                     Index).ObjType <> eOBJType.otTELEPORT
+    ItemNoEsDeMapa = ObjData(Index).ObjType <> eOBJType.otPuertas And ObjData(Index).ObjType <> eOBJType.otFOROS And ObjData(Index).ObjType <> eOBJType.otCARTELES And ObjData(Index).ObjType <> eOBJType.otArboles And ObjData(Index).ObjType <> eOBJType.otYacimiento And ObjData(Index).ObjType <> eOBJType.otTELEPORT
 
 End Function
 

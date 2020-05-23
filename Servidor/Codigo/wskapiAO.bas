@@ -207,7 +207,7 @@ Public Function WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As L
 
     On Error Resume Next
 
-    Dim ret      As Long
+    Dim Ret      As Long
     Dim Tmp      As String
 
     Dim s        As Long, e As Long
@@ -291,16 +291,16 @@ Public Function WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As L
                     Tmp = Space$(SIZE_RCVBUF)   'si cambias este valor, tambien hacelo mas abajo
                     'donde dice ret = 8192 :)
         
-                    ret = recv(s, Tmp, Len(Tmp), 0)
+                    Ret = recv(s, Tmp, Len(Tmp), 0)
 
                     ' Comparo por = 0 ya que esto es cuando se cierra
                     ' "gracefully". (mas abajo)
-                    If ret < 0 Then
+                    If Ret < 0 Then
                         UltError = err.LastDllError
 
                         If UltError = WSAEMSGSIZE Then
                             Debug.Print "WSAEMSGSIZE"
-                            ret = SIZE_RCVBUF
+                            Ret = SIZE_RCVBUF
                         Else
                             Debug.Print "Error en Recv: " & GetWSAErrorString(UltError)
                             Call LogApiSock("Error en Recv: N=" & n & " S=" & s & " Str=" & GetWSAErrorString(UltError))
@@ -320,7 +320,7 @@ Public Function WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As L
 
                         End If
 
-                    ElseIf ret = 0 Then
+                    ElseIf Ret = 0 Then
 
                         If UserList(n).flags.Privilegios = User Then
                             Call CloseSocketSL(n)
@@ -332,7 +332,7 @@ Public Function WndProc(ByVal hWnd As Long, ByVal Msg As Long, ByVal wParam As L
         
                     'Call WSAAsyncSelect(s, hWndMsg, ByVal 1025, ByVal (FD_READ Or FD_WRITE Or FD_CLOSE Or FD_ACCEPT))
         
-                    Tmp = Left(Tmp, ret)
+                    Tmp = Left(Tmp, Ret)
         
                     'Call LogApiSock("WndProc:FD_READ:N=" & N & ":TMP=" & Tmp)
         
@@ -368,7 +368,7 @@ Public Function WsApiEnviar(ByVal Slot As Integer, ByVal str As String) As Long
   
     'If frmMain.SUPERLOG.Value = 1 Then LogCustom ("WsApiEnviar:: slot=" & Slot & " str=" & str & " len(str)=" & Len(str) & " encolar=" & Encolar)
 
-    Dim ret      As String
+    Dim Ret      As String
     Dim UltError As Long
     Dim Retorno  As Long
 
@@ -378,9 +378,9 @@ Public Function WsApiEnviar(ByVal Slot As Integer, ByVal str As String) As Long
 
     If UserList(Slot).ConnID <> -1 And UserList(Slot).ConnIDValida Then
           
-        ret = send(ByVal UserList(Slot).ConnID, ByVal str, ByVal Len(str), ByVal 0)
+        Ret = send(ByVal UserList(Slot).ConnID, ByVal str, ByVal Len(str), ByVal 0)
 
-        If ret < 0 Then
+        If Ret < 0 Then
             UltError = err.LastDllError
 
             'If UltError = WSAEWOULDBLOCK Then
@@ -443,7 +443,7 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
     '========================
     
     Dim NewIndex  As Integer
-    Dim ret       As Long
+    Dim Ret       As Long
     Dim Tam       As Long, sa As sockaddr
     Dim NuevoSock As Long
     Dim i         As Long
@@ -458,9 +458,9 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
     
     'Modificado por Maraxus
     'Ret = WSAAccept(SockID, sa, Tam, AddressOf CondicionSocket, 0)
-    ret = accept(SockID, sa, Tam)
+    Ret = accept(SockID, sa, Tam)
 
-    If ret = INVALID_SOCKET Then
+    If Ret = INVALID_SOCKET Then
         i = err.LastDllError
         Call LogCriticEvent("Error en Accept() API " & i & ": " & GetWSAErrorString(i))
         Exit Sub
@@ -489,7 +489,7 @@ Public Sub EventoSockAccept(ByVal SockID As Long)
     '    End If
     'End If
 
-    NuevoSock = ret
+    NuevoSock = Ret
     
     'Seteamos el tamaño del buffer de entrada a 512 bytes
     If setsockopt(NuevoSock, SOL_SOCKET, SO_RCVBUFFER, SIZE_RCVBUF, 4) <> 0 Then

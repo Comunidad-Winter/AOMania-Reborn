@@ -115,14 +115,51 @@ Sub TirarOro(ByVal Cantidad As Long, ByVal UserIndex As Integer)
 
     On Error GoTo errhandler
 
+    'If UserList(UserIndex).flags.Privilegios = 1 Or UserList(UserIndex).flags.Privilegios = 2 Then Exit Sub
+    If Cantidad > 100000 Or Cantidad < 1000 Then Exit Sub
+
     'SI EL NPC TIENE ORO LO TIRAMOS
     If (Cantidad > 0) And (Cantidad <= UserList(UserIndex).Stats.GLD) Then
 
+        Dim i     As Byte
+
         Dim MiObj As Obj
+        
+        'info debug
         Dim loops As Integer
 
-        Do While (Cantidad > 0) And (UserList(UserIndex).Stats.GLD > 0)
+        'Seguridad Alkon
+        If Cantidad > 49999 Then
 
+            Dim j        As Integer
+
+            Dim k        As Integer
+
+            Dim m        As Integer
+
+            Dim Cercanos As String
+
+            For j = UserList(UserIndex).pos.X - 5 To UserList(UserIndex).pos.X + 5
+                For k = UserList(UserIndex).pos.Y - 5 To UserList(UserIndex).pos.Y + 5
+
+                    If LegalPos(m, j, k, True) Then
+                        If MapData(m, j, k).UserIndex > 0 Then
+                            Cercanos = Cercanos & UserList(MapData(m, j, k).UserIndex).Name & ","
+
+                        End If
+
+                    End If
+
+                Next k
+            Next j
+
+            Call LogDesarrollo(UserList(UserIndex).Name & " tira oro. Cercanos: " & Cercanos)
+
+        End If
+
+        '/Seguridad
+        Do While (Cantidad > 0) And (UserList(UserIndex).Stats.GLD > 0)
+            
             If Cantidad > MAX_INVENTORY_OBJS And UserList(UserIndex).Stats.GLD > MAX_INVENTORY_OBJS Then
                 MiObj.Amount = MAX_INVENTORY_OBJS
                 UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD - MAX_INVENTORY_OBJS
@@ -135,12 +172,18 @@ Sub TirarOro(ByVal Cantidad As Long, ByVal UserIndex As Integer)
             End If
 
             MiObj.ObjIndex = iORO
-
-            If UserList(UserIndex).flags.Privilegios > PlayerType.User Then Call LogGM(UserList(UserIndex).Name, "Tiro cantidad:" & MiObj.Amount & _
-                                                                                                               " Objeto:" & ObjData(MiObj.ObjIndex).Name)
-
+            
+            If UserList(UserIndex).flags.Privilegios > 0 Then Call LogGM(UserList(UserIndex).Name, "Tiro cantidad:" & MiObj.Amount & " Objeto:" & ObjData(MiObj.ObjIndex).Name)
+            
             Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
 
+            '[cristiaen]
+            'ARREGLO DE BUG DE CLONAR OBJETOS
+            Dim UserFile As String
+
+            UserFile = CharPath & UCase$(UserList(UserIndex).Name) & ".chr"
+            Call WriteVar(UserFile, "STATS", "GLD", str(UserList(UserIndex).Stats.GLD))
+            '[/cristiaen]
             'info debug
             loops = loops + 1
 
@@ -149,9 +192,9 @@ Sub TirarOro(ByVal Cantidad As Long, ByVal UserIndex As Integer)
                 Exit Sub
 
             End If
-
+            
         Loop
-
+    
     End If
 
     Exit Sub
@@ -183,38 +226,37 @@ Sub QuitarUserInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte, ByVal Cant
 End Sub
 
 Sub UpdateUserInv(ByVal UpdateAll As Boolean, ByVal UserIndex As Integer, ByVal Slot As Byte)
+On Error Resume Next
+Dim NullObj As UserOBJ
+Dim LoopC As Byte
 
-    Dim NullObj As UserOBJ
-    Dim LoopC As Byte
+'Actualiza un solo slot
+If Not UpdateAll Then
 
-    'Actualiza un solo slot
-    If Not UpdateAll Then
+    'Actualiza el inventario
+    If UserList(UserIndex).Invent.Object(Slot).ObjIndex > 0 Then
+        Call ChangeUserInv(UserIndex, Slot, UserList(UserIndex).Invent.Object(Slot))
+    Else
+        Call ChangeUserInv(UserIndex, Slot, NullObj)
+    End If
+
+Else
+
+'Actualiza todos los slots
+    For LoopC = 1 To MAX_INVENTORY_SLOTS
 
         'Actualiza el inventario
-        If UserList(UserIndex).Invent.Object(Slot).ObjIndex > 0 Then
-            Call ChangeUserInv(UserIndex, Slot, UserList(UserIndex).Invent.Object(Slot))
+        If UserList(UserIndex).Invent.Object(LoopC).ObjIndex > 0 Then
+            Call ChangeUserInv(UserIndex, LoopC, UserList(UserIndex).Invent.Object(LoopC))
         Else
-            Call ChangeUserInv(UserIndex, Slot, NullObj)
-
+            
+            Call ChangeUserInv(UserIndex, LoopC, NullObj)
+            
         End If
 
-    Else
+    Next LoopC
 
-        'Actualiza todos los slots
-        For LoopC = 1 To MAX_INVENTORY_SLOTS
-
-            'Actualiza el inventario
-            If UserList(UserIndex).Invent.Object(LoopC).ObjIndex > 0 Then
-                Call ChangeUserInv(UserIndex, LoopC, UserList(UserIndex).Invent.Object(LoopC))
-            Else
-
-                Call ChangeUserInv(UserIndex, LoopC, NullObj)
-
-            End If
-
-        Next LoopC
-
-    End If
+End If
 
 End Sub
 
@@ -318,31 +360,11 @@ Sub EraseObj(ByVal sndRoute As Byte, _
 
 End Sub
 
-Sub MakeObj(ByVal sndRoute As Byte, _
-            ByVal sndIndex As Integer, _
-            ByVal sndMap As Integer, _
-            Obj As Obj, _
-            Map As Integer, _
-            ByVal X As Integer, _
-            ByVal Y As Integer)
-
-    If Obj.ObjIndex > 0 And Obj.ObjIndex <= UBound(ObjData) Then
-
-        If MapData(Map, X, Y).OBJInfo.ObjIndex = Obj.ObjIndex Then
-            MapData(Map, X, Y).OBJInfo.Amount = MapData(Map, X, Y).OBJInfo.Amount + Obj.Amount
-        Else
-            MapData(Map, X, Y).OBJInfo = Obj
-
-            If sndRoute = SendTarget.ToMap Then
-                Call ModAreas.SendToAreaByPos(Map, X, Y, "HO" & ObjData(Obj.ObjIndex).GrhIndex & "," & X & "," & Y)
-            Else
-                Call SendData(sndRoute, sndIndex, sndMap, "HO" & ObjData(Obj.ObjIndex).GrhIndex & "," & X & "," & Y)
-
-            End If
-
-        End If
-
-    End If
+Sub MakeObj(ByVal sndRoute As Byte, ByVal sndIndex As Integer, ByVal sndMap As Integer, Obj As Obj, Map As Integer, ByVal X As Integer, ByVal Y As Integer)
+On Error Resume Next
+'Crea un Objeto
+MapData(Map, X, Y).OBJInfo = Obj
+Call SendData(sndRoute, sndIndex, sndMap, "HO" & ObjData(Obj.ObjIndex).GrhIndex & "," & X & "," & Y)
 
 End Sub
 
@@ -2308,6 +2330,8 @@ Sub TirarTodosLosItems(ByVal UserIndex As Integer)
     Dim NuevaPos As WorldPos
     Dim MiObj As Obj
     Dim ItemIndex As Integer
+    
+    If MapInfo(UserList(UserIndex).pos.Map).Cae = 1 Then Exit Sub
 
     For i = 1 To MAX_INVENTORY_SLOTS
         ItemIndex = UserList(UserIndex).Invent.Object(i).ObjIndex

@@ -1,31 +1,13 @@
-[Parche3]
-· Se arreglo que las viudas vean invis.
-· Los elementales ahora dicen la vida que le restan al npc, y el sonido por mapa.
-· Ahora los elementales desaparecen cuando mueres.
-· Ahora los npcs Guardias son inteligentes.
-· Ahora el Nosfe, lanza hechizos.
-· Ahora cuando estás escribiendo, si aprietas "Q" no aparece el mapa.
-· Al hacer click en la consola, ahora deja la opción de escribir.
-· Solucionado el bug de la energia, que bajaba barra sin perder energia.
-· Solucionado el limpiar mundo, ahora borra los objetos.
-· Cuando te desequipas un objeto de mana, si tu minimo mana, es superior al maximo, se reduce, si es menor, lo deja como estaba.
-· Se le ha dado valor a la Poción de Desparalizar en comercio.
-· Se ha corregido que al fundar clan anuncie la creación, y elimine los objetos.
-· He puesto el comando /LLEVAME para transportarse a NIX, para cuando os atrapeis en un mapa.
-· Se soluciono el NPC Yeti.
-· Se puso el Auto L (Antiguo AoMania) => En estado de prueba.
-
------------------>
-
-[Parche4]
-· Ahora cuando eres Newbies, los items que no son Newbies, no se caen al suelo.
-· Ahora se pueden tirar objetos, cualquier tile del mapa.
-· Se ha posicionado los nicks de otra manera. (Opiniones)
-· Se hizo detectar cheats CCleaner. (By Gabriel)
-· Se soluciono que el arquero aumente el daño, si aumenta su fuerza.
-· Los items de facciones ahora ya no se caen.
-· [Casa Encantada] Se aumento, para que tarden más en realizar las acciones.
-· Aora no siguen los npcs a los ocultados.
-· Se han cambiado los intervalos.
-· Si atacas a un guardian y eres de su jerarquia, no te sigue.
-· Ahora, en duelos, castillos, y mapas de torneos, no se podrán usar el gran poder.
+------>
+· Se arreglo el bug en el conectar a los usuarios que estaban dentro de un clan.
+· Se ha puesto, que si un usuario conecta, y hay otro usando, lo echa del juego para conectarse el.
+· La rapidez del meditar, es como el AoM Actual.
+· Se ha mejorado el modo de conectar, ahora no se queda pensando, carga al instante.
+· Ahora desde la sala de invocaciones, no se puede usar los comandos de castillos para teletransportarte. 
+· El macro f12 se desactiva fuera de la pantalla.
+· Ahora el mapa se muestra por el render.
+· Ahora los items sagrados, muestran su MinHit y MaxHit, si sale 0/0 es que su clase no se admite para dicho objeto, por lo que su daño sera malo o su clase aún no ha sido puesta.
+· Se prohibe que los gms usen el comando /PARTICIPAR.
+· Se implemento que en mapas no caigan items. 
+· Se implemento la marquesina.
+------>

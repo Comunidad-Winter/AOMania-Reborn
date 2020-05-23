@@ -26,7 +26,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
     Dim n As Integer
     Dim wpaux As WorldPos
     Dim mifile As Integer
-    Dim x As Integer
+    Dim X As Integer
     Dim Y As Integer
     Dim DummyInt As Integer
     Dim T() As String
@@ -738,7 +738,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
                             '''''''''''         'Si viene el clan n°1
                             modGuilds.UsuariosEnCvcClan1 = modGuilds.UsuariosEnCvcClan1 + 1
                             UserList(i).ViejaPos.Map = UserList(i).pos.Map
-                            UserList(i).ViejaPos.x = UserList(i).pos.x
+                            UserList(i).ViejaPos.X = UserList(i).pos.X
                             UserList(i).ViejaPos.Y = UserList(i).pos.Y
                             WarpUserChar i, 8, RandomNumber(47, 55), RandomNumber(15, 21), True
                             UserList(i).EnCvc = True
@@ -750,7 +750,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
                             '''''''''''''''           'Si tambien viene el 2°
                             modGuilds.UsuariosEnCvcClan2 = modGuilds.UsuariosEnCvcClan2 + 1
                             UserList(i).ViejaPos.Map = UserList(i).pos.Map
-                            UserList(i).ViejaPos.x = UserList(i).pos.x
+                            UserList(i).ViejaPos.X = UserList(i).pos.X
                             UserList(i).ViejaPos.Y = UserList(i).pos.Y
                             WarpUserChar i, 8, RandomNumber(47, 55), RandomNumber(77, 83), True
                             UserList(i).EnCvc = True
@@ -776,7 +776,18 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
 
     Case "/MEDITAR"
+        
+        If UserList(UserIndex).flags.Silenciado = 1 Then
+                Call SendData(ToIndex, UserIndex, 0, "||Estas silenciado no puedes Meditar." & FONTTYPE_INFO)
+                Exit Sub
+        End If
+        
+        If UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN Then
+                Call SendData(ToIndex, UserIndex, 0, "||No puedes meditar, tu mana esta al límite o tu personaje no usa mana." & FONTTYPE_INFO)
+                Exit Sub
 
+        End If
+        
         If UserList(UserIndex).flags.Muerto = 1 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
             Exit Sub
@@ -788,34 +799,25 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
             Exit Sub
 
         End If
+        
+        Dim Cant As Integer
 
-        'If UserList(UserIndex).flags.Privilegios > PlayerType.User Then
-        'UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN
-        'Call SendData(SendTarget.toindex, UserIndex, 0, "||Mana restaurado" & FONTTYPE_VENENO)
-        'Call EnviarMn(UserIndex)
-        'Exit Sub
-
-        'End If
-
-        If UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN Then
-            Exit Sub
-
-        End If
+       Cant = Porcentaje(UserList(UserIndex).Stats.MaxMAN, 3)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "MEDOK")
 
         If Not UserList(UserIndex).flags.Meditando Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z23")
-        Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z16")
+                Call SendData(ToIndex, UserIndex, 0, "||Vas a Recuperar " & Cant & " puntos de mana." & FONTTYPE_INFO)
+            Else
+                Call SendData(ToIndex, UserIndex, 0, "||Dejas de meditar." & FONTTYPE_INFO)
 
-        End If
+         End If
 
         UserList(UserIndex).flags.Meditando = Not UserList(UserIndex).flags.Meditando
 
         'Barrin 3/10/03 Tiempo de inicio al meditar
         If UserList(UserIndex).flags.Meditando Then
-            UserList(UserIndex).Counters.tInicioMeditar = GetTickCount() And &H7FFFFFFF
+            UserList(UserIndex).Counters.tInicioMeditar = GetTickCount()
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z37")
 
             UserList(UserIndex).char.loops = LoopAdEternum
@@ -838,7 +840,9 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Call modAsedio.Inscribir_Asedio(UserIndex)
 
     Case "/PARTICIPAR"
-
+        
+        If UserList(UserIndex).flags.Privilegios > 0 Then Exit Sub
+        
         Call CommandParticipar(UserIndex)
 
         Exit Sub
@@ -2188,7 +2192,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Call Guilds(UserList(UserIndex).GuildIndex).ExpulsarMiembro(UserList(UserIndex).Name)
         UserList(UserIndex).GuildIndex = 0
         'UserList(UserIndex).flags.YaCerroClan = 1
-        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.x, UserList(UserIndex).pos.Y)
+        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
         Exit Sub
 
     Case "/FUNDARCLAN"

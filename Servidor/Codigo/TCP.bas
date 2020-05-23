@@ -488,6 +488,194 @@ Sub ConnectNewUser(UserIndex As Integer, _
 
 End Sub
 
+Sub Proceso_Desconexion(ByVal UserIndex As Integer)
+    
+    On Error Resume Next
+    
+    Dim Error As Integer
+    
+    'Este sub, pondremos los sistemas, que X eventos deba realizar dicha operación, antes de salir.
+    
+    Error = 1
+    
+    Call RestCriCi(UserIndex)
+    
+    Error = 2
+    
+    If UserList(UserIndex).GranPoder = 1 Then
+        Call mod_GranPoder.DesconectaPoder(UserIndex)
+
+    End If
+       
+    Error = 3
+     
+    If UserList(UserIndex).flags.automatico = True Then
+        Call Rondas_UsuarioDesconecta(UserIndex)
+
+    End If
+     
+    Error = 4
+     
+    If (UserList(UserIndex).Name <> "") And UserList(UserIndex).flags.Privilegios > PlayerType.User And (UserList(UserIndex).flags.Privilegios < PlayerType.Dios Or UserList(UserIndex).flags.Privilegios >= PlayerType.Dios) Then
+    
+        If Not UserList(UserIndex).pos.Map = 47 Then
+            Call WarpUserChar(UserIndex, 47, RandomNumber(58, 73), RandomNumber(18, 24), True)
+
+        End If
+      
+    End If
+    
+    If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
+        If UserList(UserIndex).pos.Map = 47 Then
+            Call WarpUserChar(UserIndex, 34, 30, 50, True)
+
+        End If
+
+    End If
+    
+    Error = 5
+    
+    If UserList(UserIndex).pos.Map = 79 And UserList(UserIndex).flags.automatico = False Then
+        Call WarpUserChar(UserIndex, 1, 45, 49, True)
+
+    End If
+    
+    Error = 7
+
+    If UserList(UserIndex).flags.bandas = True Then
+        Call Ban_Desconecta(UserIndex)
+
+    End If
+    
+    Error = 8
+    
+    If UserList(UserIndex).flags.medusas = True Then
+        Call Med_Desconecta(UserIndex)
+
+    End If
+     
+    Error = 9
+     
+    If UserList(UserIndex).flags.EnDosVDos = True Then
+        Call CerroEnDuelo(UserIndex)
+
+    End If
+    
+    Error = 10
+
+    If UserList(UserIndex).flags.Montado = True Then
+        UserList(UserIndex).char.Body = UserList(UserIndex).flags.NumeroMont
+   
+        Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
+
+        UserList(UserIndex).flags.NumeroMont = 0
+        UserList(UserIndex).flags.Montado = False
+
+    End If
+    
+    Error = 11
+     
+    If UserList(UserIndex).pos.Map = MAPADUELO And UserIndex = duelosespera Then
+        Call WarpUserChar(UserIndex, 34, 30, 50, True)
+        Call SendData(SendTarget.ToAllButIndex, 0, 0, "||Duelos: " & UserList(UserIndex).Name & " ha salido de la sala de torneos." & FONTTYPE_TALK)
+        duelosespera = duelosreta
+        numduelos = 0
+
+    End If
+
+    If UserList(UserIndex).pos.Map = MAPADUELO And UserIndex = duelosreta Then
+        Call WarpUserChar(UserIndex, 34, 30, 50, True)
+        Call SendData(SendTarget.ToAllButIndex, 0, 0, "||Duelos: " & UserList(UserIndex).Name & " ha salido de la sala de torneos." & FONTTYPE_TALK)
+
+    End If
+    
+    If UserList(UserIndex).flags.EstaDueleando = True Then
+        Call DesconectarDuelo(UserList(UserIndex).flags.Oponente, UserIndex)
+
+    End If
+    
+    Error = 12
+    
+    If UserList(UserIndex).pos.Map = 76 Then
+        Call WarpUserChar(UserIndex, 34, 30, 50, True)
+
+    End If
+    
+    Error = 13
+    
+    If UserIndex = Team.Pj1 Or UserIndex = Team.Pj2 Then
+        Team.SonDos = False
+        Team.Pj1 = 0
+        Team.Pj2 = 0
+
+    End If
+    
+    Error = 14
+    
+    If UserList(UserIndex).EnCvc Then
+
+        'Dim ijaji As Integer
+        'For ijaji = 1 To LastUser
+        With UserList(UserIndex)
+
+            If Guilds(UserList(UserIndex).GuildIndex).GuildName = Nombre1 Then
+                If .EnCvc = True Then
+                    modGuilds.UsuariosEnCvcClan1 = modGuilds.UsuariosEnCvcClan1 - 1
+                    UserList(UserIndex).EnCvc = False
+
+                    If modGuilds.UsuariosEnCvcClan1 = 0 And CvcFunciona = True Then
+                        Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & "El clan " & Nombre2 & " derrotó al clan " & Nombre1 & "." & FONTTYPE_GUILD)
+                        CvcFunciona = False
+                        Call LlevarUsuarios
+
+                    End If
+
+                End If
+
+            End If
+                     
+            If Guilds(UserList(UserIndex).GuildIndex).GuildName = Nombre2 Then
+                If .EnCvc = True Then
+                    modGuilds.UsuariosEnCvcClan2 = modGuilds.UsuariosEnCvcClan2 - 1
+                    UserList(UserIndex).EnCvc = False
+
+                    If modGuilds.UsuariosEnCvcClan2 = 0 And CvcFunciona = True Then
+                        Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & "El clan " & Nombre1 & " derrotó al clan " & Nombre2 & "." & FONTTYPE_GUILD)
+                        CvcFunciona = False
+                        Call LlevarUsuarios
+
+                    End If
+
+                End If
+
+            End If
+
+        End With
+
+        'Next ijaji
+    End If
+    
+    Error 15
+    
+    If UserList(UserIndex).flags.Privilegios > 0 Then
+        If UserList(UserIndex).flags.AdminInvisible = 1 Then
+            UserList(UserIndex).flags.AdminInvisible = 0
+            UserList(UserIndex).flags.Invisible = 0
+            UserList(UserIndex).char.Body = UserList(UserIndex).flags.OldBody
+            UserList(UserIndex).char.Head = UserList(UserIndex).flags.OldHead
+
+        End If
+
+    End If
+    
+    Exit Sub
+    
+err:
+    Debug.Print "Error " & Error & " en el sub: Proceso_Desconexion"
+    LogError "Error " & Error & " en el sub: Proceso_Desconexion"
+
+End Sub
+
 Sub CloseSocket(ByVal UserIndex As Integer)
     Dim LoopC As Integer
     Dim i As Integer
@@ -505,124 +693,14 @@ Sub CloseSocket(ByVal UserIndex As Integer)
 
     End If
 
-    If NocheLicantropo = True Then
-        If UserList(UserIndex).flags.Privilegios = PlayerType.User And _
-           UCase$(UserList(UserIndex).Raza) = "LICANTROPO" And _
-           UserList(UserIndex).flags.Licantropo = "1" Then
-            Call QuitarPoderLicantropo(UserIndex)
-        End If
-    End If
+    Call Proceso_Desconexion(UserIndex)
+
+    If Centinela.RevisandoUserIndex = UserIndex Then Call modCentinela.CentinelaUserLogout
     
-    If UserList(UserIndex).GuildIndex > 0 Then
-            Call SendData(ToGuildMembers, UserList(UserIndex).GuildIndex, 0, "PL")
-    End If
-
-    DoEvents
-
-    Call RestCriCi(UserIndex)
-
-    DoEvents
-
-    If UserList(UserIndex).GranPoder = 1 Then
-        Call mod_GranPoder.DesconectaPoder(UserIndex)
-    End If
-
-    If UserList(UserIndex).flags.automatico = True Then
-        Call Rondas_UsuarioDesconecta(UserIndex)
-    End If
-
-    If (UserList(UserIndex).Name <> "") And UserList(UserIndex).flags.Privilegios > PlayerType.User And (UserList(UserIndex).flags.Privilegios < _
-                                                                                                         PlayerType.Dios Or UserList(UserIndex).flags.Privilegios >= PlayerType.Dios) Then
-
-        If Not UserList(UserIndex).pos.Map = 47 Then
-            Call WarpUserChar(UserIndex, 47, RandomNumber(58, 73), RandomNumber(18, 24), True)
-
-        End If
-
-    End If
-
-    If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
-        If UserList(UserIndex).pos.Map = 47 Then
-            Call WarpUserChar(UserIndex, 34, 30, 50, True)
-
-        End If
-
-    End If
-
-    If UserList(UserIndex).pos.Map = 79 And UserList(UserIndex).flags.automatico = False Then
-        Call WarpUserChar(UserIndex, 1, 45, 49, True)
-
-    End If
-
-    If UserList(UserIndex).flags.bandas = True Then
-        Call Ban_Desconecta(UserIndex)
-    End If
-
-    If UserList(UserIndex).flags.medusas = True Then
-        Call Med_Desconecta(UserIndex)
-    End If
-
-    If UserList(UserIndex).flags.EnDosVDos = True Then
-        Call CerroEnDuelo(UserIndex)
-    End If
-
-    If UserList(UserIndex).flags.Montado = True Then
-        UserList(UserIndex).char.Body = UserList(UserIndex).flags.NumeroMont
-        '[MaTeO 9]
-        Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
-                                                                                                                        UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, _
-                            UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
-        '[/MaTeO 9]
-        UserList(UserIndex).flags.NumeroMont = 0
-        UserList(UserIndex).flags.Montado = False
-
-    End If
-
-    If UserList(UserIndex).pos.Map = MAPADUELO And UserIndex = duelosespera Then
-        Call WarpUserChar(UserIndex, 34, 30, 50, True)
-        Call SendData(SendTarget.ToAllButIndex, 0, 0, "||Duelos: " & UserList(UserIndex).Name & " ha salido de la sala de torneos." & FONTTYPE_TALK)
-        duelosespera = duelosreta
-        numduelos = 0
-
-    End If
-
-    If UserList(UserIndex).pos.Map = MAPADUELO And UserIndex = duelosreta Then
-        Call WarpUserChar(UserIndex, 34, 30, 50, True)
-        Call SendData(SendTarget.ToAllButIndex, 0, 0, "||Duelos: " & UserList(UserIndex).Name & " ha salido de la sala de torneos." & FONTTYPE_TALK)
-
-    End If
-
-    If UserList(UserIndex).pos.Map = 76 Then
-        Call WarpUserChar(UserIndex, 34, 30, 50, True)
-
-    End If
-
-    If UserIndex = Team.Pj1 Or UserIndex = Team.Pj2 Then
-        Team.SonDos = False
-        Team.Pj1 = 0
-        Team.Pj2 = 0
-
-    End If
-
-    If UserList(UserIndex).flags.EstaDueleando = True Then
-        Call DesconectarDuelo(UserList(UserIndex).flags.Oponente, UserIndex)
-
-    End If
-
-
-    '////////////////////////////////////////////////////////////////////////////////////////
-    'Call SecurityIp.IpRestarConexion(GetLongIp(UserList(UserIndex).ip))
-
     If UserList(UserIndex).ConnID <> -1 Then
         Call CloseSocketSL(UserIndex)
-
     End If
-
-    'Es el mismo user al que está revisando el centinela??
-    'IMPORTANTE!!! hacerlo antes de resetear así todavía sabemos el nombre del user
-    ' y lo podemos loguear
-    If Centinela.RevisandoUserIndex = UserIndex Then Call modCentinela.CentinelaUserLogout
-
+    
     'mato los comercios seguros
     If UserList(UserIndex).ComUsu.DestUsu > 0 Then
         If UserList(UserList(UserIndex).ComUsu.DestUsu).flags.UserLogged Then
@@ -680,17 +758,15 @@ errhandler:
     Call ResetUserSlot(UserIndex)
 
     If UserList(UserIndex).ConnID <> -1 Then
-        Call CloseSocketSL(UserIndex)
-
+    Call CloseSocketSL(UserIndex)
     End If
 
     Call LogError("CloseSocket - Error = " & err.Number & " - Descripción = " & err.Description & " - UserIndex = " & UserIndex)
 
 End Sub
 
-'[Alejo-21-5]: Cierra un socket sin limpiar el slot
 Sub CloseSocketSL(ByVal UserIndex As Integer)
-
+  
     If UserList(UserIndex).ConnID <> -1 And UserList(UserIndex).ConnIDValida Then
         Call BorraSlotSock(UserList(UserIndex).ConnID)
         Call WSApiCloseSocket(UserList(UserIndex).ConnID)
@@ -1458,18 +1534,10 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         End If
 
         '¿Ya esta conectado el personaje?
-        If CheckForSameName(UserIndex, Name) Then
-            If UserList(NameIndex(Name)).Counters.Saliendo Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERREl usuario está saliendo.")
-            Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRPerdon, un usuario con el mismo nombre se há logoeado.")
-
-            End If
-
-            Call CloseSocket(UserIndex)
-            Exit Sub
-
-        End If
+       If CheckForSameName(UserIndex, Name) Then
+       
+       End If
+    
 
         'Cargamos el personaje
         Dim Leer As New clsIniManager
@@ -2411,7 +2479,7 @@ Sub ResetUserSlot(ByVal UserIndex As Integer)
 
     With UserList(UserIndex).ComUsu
         .Acepto = False
-        .Cant = 0
+        .cant = 0
         .DestNick = ""
         .DestUsu = 0
         .Objeto = 0
@@ -2539,37 +2607,8 @@ Sub CloseUser(ByVal UserIndex As Integer)
     End With
 
     Call ResetUserSlot(UserIndex)
+    
     Exit Sub
-    If UserList(UserIndex).EnCvc Then
-            'Dim ijaji As Integer
-            'For ijaji = 1 To LastUser
-                With UserList(UserIndex)
-                    If Guilds(.GuildIndex).GuildName = Nombre1 Then
-                        If .EnCvc = True Then
-                                modGuilds.UsuariosEnCvcClan1 = modGuilds.UsuariosEnCvcClan1 - 1
-                                UserList(UserIndex).EnCvc = False
-                                If modGuilds.UsuariosEnCvcClan1 = 0 And CvcFunciona = True Then
-                                    Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & "El clan " & Nombre2 & " derrotó al clan " & Nombre1 & "." & FONTTYPE_GUILD)
-                                    CvcFunciona = False
-                                    Call LlevarUsuarios
-                                End If
-                         End If
-                     End If
-                     
-                    If Guilds(.GuildIndex).GuildName = Nombre2 Then
-                        If .EnCvc = True Then
-                                modGuilds.UsuariosEnCvcClan2 = modGuilds.UsuariosEnCvcClan2 - 1
-                                UserList(UserIndex).EnCvc = False
-                                If modGuilds.UsuariosEnCvcClan2 = 0 And CvcFunciona = True Then
-                                    Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & "El clan " & Nombre1 & " derrotó al clan " & Nombre2 & "." & FONTTYPE_GUILD)
-                                    CvcFunciona = False
-                                    Call LlevarUsuarios
-                                End If
-                        End If
-                    End If
-                End With
-            'Next ijaji
-    End If
     
 
 errhandler:

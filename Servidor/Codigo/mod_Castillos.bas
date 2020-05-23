@@ -143,6 +143,11 @@ End Sub
 Public Sub WarpCastillo(ByVal UserIndex As Integer, ByVal Castillo As String)
 
     With UserList(UserIndex)
+    
+        If .pos.Map = mapainvo Then
+            Call SendData(ToIndex, UserIndex, 0, "||No puedes teletransportarte al castillo estando en la sala de invocaciones." & FONTTYPE_INFO)
+           Exit Sub
+        End If
 
         If .flags.EstaDueleando1 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes defender el castillo estando en DUELOS." & FONTTYPE_WARNING)

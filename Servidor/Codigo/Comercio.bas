@@ -103,7 +103,7 @@ Function UserCompraObj(ByVal UserIndex As Integer, ByVal ObjIndex As Integer, By
 
 
         'tal vez suba el skill comerciar ;-)
-        Call SubirSkill(UserIndex, comerciar)
+        Call SubirSkill(UserIndex, Comerciar)
         Call EnviarOro(UserIndex)
 
         If ObjData(obji).ObjType = eOBJType.otLlaves Then Call logVentaCasa(UserList(UserIndex).Name & " compro " & ObjData(obji).Name)
@@ -117,7 +117,7 @@ Function UserCompraObj(ByVal UserIndex As Integer, ByVal ObjIndex As Integer, By
     Exit Function
 
 errorh:
-    Call LogError("Error en USERCOMPRAOBJ. " & Err.Description)
+    Call LogError("Error en USERCOMPRAOBJ. " & err.Description)
 
 End Function
 
@@ -222,12 +222,12 @@ Sub NpcCompraObj(ByVal UserIndex As Integer, ByVal ObjIndex As Integer, ByVal Ca
     If UserList(UserIndex).Stats.GLD > MaxOro Then UserList(UserIndex).Stats.GLD = MaxOro
 
     'tal vez suba el skill comerciar ;-)
-    Call SubirSkill(UserIndex, comerciar)
+    Call SubirSkill(UserIndex, Comerciar)
     Call EnviarOro(UserIndex)
     Exit Sub
 
 errorh:
-    Call LogError("Error en NPCCOMPRAOBJ. " & Err.Description)
+    Call LogError("Error en NPCCOMPRAOBJ. " & err.Description)
 
 End Sub
 
@@ -338,7 +338,7 @@ Sub NPCVentaItem(ByVal UserIndex As Integer, ByVal i As Integer, ByVal Cantidad 
     Exit Sub
 
 errhandler:
-    Call LogError("Error en comprar item: " & Err.Description)
+    Call LogError("Error en comprar item: " & err.Description)
 
 End Sub
 
@@ -428,7 +428,7 @@ Sub NPCCompraItem(ByVal UserIndex As Integer, ByVal Item As Integer, ByVal Canti
     Exit Sub
 
 errhandler:
-    Call LogError("Error en vender item: " & Err.Description)
+    Call LogError("Error en vender item: " & err.Description)
 
 End Sub
 
@@ -437,10 +437,46 @@ Sub UpdateVentanaComercio(ByVal Slot As Integer, ByVal NpcInv As Byte, ByVal Use
 
 End Sub
 
-Function Descuento(ByVal UserIndex As Integer) As Single
-'Calcula el descuento al comerciar
-    Descuento = 1 + UserList(UserIndex).Stats.UserSkills(eSkill.comerciar) / 100
-    UserList(UserIndex).flags.Descuento = Descuento
+Function Descuento(ByVal UserIndex As Integer) As String
+
+'Establece el descuento en funcion del skill comercio
+Dim PtsComercio As Integer
+PtsComercio = UserList(UserIndex).Stats.UserSkills(Comerciar)
+
+If PtsComercio <= 11 And PtsComercio > 5 Then
+    UserList(UserIndex).flags.Descuento = 1.1
+    Descuento = 1.1
+ElseIf PtsComercio <= 20 And PtsComercio >= 12 Then
+    UserList(UserIndex).flags.Descuento = 1.2
+    Descuento = 1.2
+ElseIf PtsComercio <= 30 And PtsComercio >= 19 Then
+    UserList(UserIndex).flags.Descuento = 1.3
+    Descuento = 1.3
+ElseIf PtsComercio <= 40 And PtsComercio >= 29 Then
+    UserList(UserIndex).flags.Descuento = 1.4
+    Descuento = 1.4
+ElseIf PtsComercio <= 50 And PtsComercio >= 39 Then
+    UserList(UserIndex).flags.Descuento = 1.5
+    Descuento = 1.5
+ElseIf PtsComercio <= 60 And PtsComercio >= 49 Then
+    UserList(UserIndex).flags.Descuento = 1.6
+    Descuento = 1.6
+ElseIf PtsComercio <= 70 And PtsComercio >= 59 Then
+    UserList(UserIndex).flags.Descuento = 1.7
+    Descuento = 1.7
+ElseIf PtsComercio <= 80 And PtsComercio >= 69 Then
+    UserList(UserIndex).flags.Descuento = 1.8
+    Descuento = 1.8
+ElseIf PtsComercio <= 99 And PtsComercio >= 79 Then
+    UserList(UserIndex).flags.Descuento = 1.9
+    Descuento = 1.9
+ElseIf PtsComercio <= 999999 And PtsComercio >= 99 Then
+    UserList(UserIndex).flags.Descuento = 2
+    Descuento = 2
+Else
+    UserList(UserIndex).flags.Descuento = 0
+    Descuento = 0
+End If
 
 End Function
 

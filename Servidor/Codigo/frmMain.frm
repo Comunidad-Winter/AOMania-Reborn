@@ -29,6 +29,11 @@ Begin VB.Form frmMain
    ScaleWidth      =   5190
    StartUpPosition =   2  'CenterScreen
    WindowState     =   1  'Minimized
+   Begin VB.Timer TimerEnviaMsj 
+      Interval        =   60000
+      Left            =   30
+      Top             =   885
+   End
    Begin VB.Timer RespawnNPC 
       Interval        =   60000
       Left            =   4680
@@ -1605,6 +1610,20 @@ ErrorHandler:
 End Sub
 
 
+
+Private Sub TimerEnviaMsj_Timer()
+
+    Static CountTimer As Long
+    
+    CountTimer = CountTimer + 1
+    
+     If CountTimer < 5 Then Exit Sub
+      
+     Call EnviaMensajesClient
+     
+     CountTimer = 0
+     
+End Sub
 
 Private Sub TNosfeSagrada_Timer()
     Call TCP_HandleData2.RegUser

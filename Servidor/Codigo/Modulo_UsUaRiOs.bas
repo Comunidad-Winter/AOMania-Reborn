@@ -347,43 +347,38 @@ Public Sub EnviarMiniEstadisticas(ByVal UserIndex As Integer)
 
 End Sub
 
-Sub EraseUserChar(sndRoute As Byte, sndIndex As Integer, sndMap As Integer, UserIndex As Integer)
+Sub EraseUserChar(sndRoute As Byte, _
+                  sndIndex As Integer, _
+                  sndMap As Integer, _
+                  UserIndex As Integer)
 
     On Error GoTo ErrorHandler
-
+   
     CharList(UserList(UserIndex).char.CharIndex) = 0
-
+    
     If UserList(UserIndex).char.CharIndex = LastChar Then
 
         Do Until CharList(LastChar) > 0
             LastChar = LastChar - 1
 
-            If LastChar <= 1 Then Exit Do
+            If LastChar = 0 Then Exit Do
         Loop
 
     End If
-
-    Dim code As String
-    code = str(UserList(UserIndex).char.CharIndex)
-
-    'Le mandamos el mensaje para que borre el personaje a los clientes que estén en el mismo mapa
-    If sndRoute = SendTarget.ToMap Then
-        Call SendToUserArea(UserIndex, "BP" & code)
-        Call QuitarUser(UserIndex, UserList(UserIndex).pos.Map)
-    Else
-        Call SendData(sndRoute, sndIndex, sndMap, "BP" & code)
-
-    End If
-
+    
     MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).UserIndex = 0
+    
+    'binmode: grrrrr.. para algo esta sndroute, sndindex, sndmap...
+    Call SendData(sndRoute, sndIndex, sndMap, "BP" & UserList(UserIndex).char.CharIndex)
+    
     UserList(UserIndex).char.CharIndex = 0
-
+    
     NumChars = NumChars - 1
-
+    
     Exit Sub
-
+    
 ErrorHandler:
-    Call LogError("Error en EraseUserchar " & err.Number & ": " & err.Description)
+    Call LogError("Error en EraseUserchar")
 
 End Sub
 
@@ -1004,12 +999,13 @@ Public Sub EnviaPosClan(ByVal UserIndex As Integer)
 
     Dim i      As Integer
           
-     If Guilds(UserIndex).GuildName <> "" Then
+     If Guilds(UserList(UserIndex).GuildIndex).GuildName <> "" Then
           
     For i = 1 To LastUser
 
-        If UserList(i).Name <> UserList(UserIndex).Name Then
-            If Guilds(UserList(i).GuildIndex).GuildName = Guilds(UserList(UserIndex).GuildIndex).GuildName Then
+        If UCase$(UserList(i).Name) <> UCase$(UserList(UserIndex).Name) Then
+           If UserList(i).GuildIndex > 0 Then
+            If UCase$(Guilds(UserList(i).GuildIndex).GuildName) = UCase$(Guilds(UserList(UserIndex).GuildIndex).GuildName) Then
                 If UserList(i).pos.Map = UserList(UserIndex).pos.Map Then
                     IDUser = IDUser + 1
                     Call SendData(ToIndex, UserIndex, 0, "PO" & UserList(i).pos.X & "," & UserList(i).pos.Y & "," & IDUser)
@@ -1019,6 +1015,7 @@ Public Sub EnviaPosClan(ByVal UserIndex As Integer)
 
             End If
 
+        End If
         End If
 
     Next i
@@ -1091,11 +1088,48 @@ Sub ChangeUserInv(UserIndex As Integer, Slot As Byte, Object As UserOBJ)
                 PrecioQl = 3
             End If
         End If
-
+        
+          If ObjData(Object.ObjIndex).ObjType = eOBJType.otWeapon Then
+              If ObjData(Object.ObjIndex).sagrado = 1 Then
+                 Dim Ver As String
+                 
+                 Ver = ViewSagradaHit(UserIndex, Object.ObjIndex)
+                 
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
+                                                        Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & _
+                                                        Ver & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
+                                                        Object.ObjIndex).MinDef & "," & ObjData(Object.ObjIndex).Valor \ PrecioQl)
+              
+              ElseIf ObjData(Object.ObjIndex).sagrado = 0 Then
+                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
+                                                        Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & _
+                                                        ObjData(Object.ObjIndex).MaxHit & "," & ObjData(Object.ObjIndex).MinHit & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
+                                                        Object.ObjIndex).MinDef & "," & ObjData(Object.ObjIndex).Valor \ PrecioQl)
+              End If
+          
+          'ElseIf ObjData(Object.ObjIndex).ObjType = eOBJType.otUseOnce Then
+          
+          '  If UserList(UserIndex).Sagrada.Enabled = 1 Then
+          '       Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
+                                                        Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & _
+                                                        UserList(UserIndex).Sagrada.MaxHit & "," & UserList(UserIndex).Sagrada.MinHit & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
+                                                        Object.ObjIndex).MinDef & "," & ObjData(Object.ObjIndex).Valor \ PrecioQl)
+              
+          '    ElseIf UserList(UserIndex).Sagrada.Enabled = 0 Then
+          '        Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
+                                                        Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & _
+                                                        ObjData(Object.ObjIndex).MaxHit & "," & ObjData(Object.ObjIndex).MinHit & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
+                                                        Object.ObjIndex).MinDef & "," & ObjData(Object.ObjIndex).Valor \ PrecioQl)
+              'End If
+          
+          Else
+          
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
                                                         Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & _
                                                         ObjData(Object.ObjIndex).MaxHit & "," & ObjData(Object.ObjIndex).MinHit & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
                                                         Object.ObjIndex).MinDef & "," & ObjData(Object.ObjIndex).Valor \ PrecioQl)
+          End If
+
     Else
         'Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & ",0," & "(Vacío)" & ",0,0,0")
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & "0" & "," & "(None)" & "," & "0" & "," & "0")
@@ -1105,48 +1139,29 @@ Sub ChangeUserInv(UserIndex As Integer, Slot As Byte, Object As UserOBJ)
 End Sub
 
 Function NextOpenCharIndex() As Integer
-'Modificada por el oso para codificar los MP1234,2,1 en 2 bytes
-'para lograrlo, el charindex no puede tener su bit numero 6 (desde 0) en 1
-'y tampoco puede ser un charindex que tenga el bit 0 en 1.
 
-    On Local Error GoTo hayerror
+Dim LoopC As Integer
 
-    Dim LoopC As Integer
-
-    LoopC = 1
-
-    While LoopC < MAXCHARS
-
-        If CharList(LoopC) = 0 And Not ((LoopC And &HFFC0&) = 64) Then
-            NextOpenCharIndex = LoopC
-            NumChars = NumChars + 1
-
-            If LoopC > LastChar Then LastChar = LoopC
-            Exit Function
-        Else
-            LoopC = LoopC + 1
-
-        End If
-
-    Wend
-
-    Exit Function
-hayerror:
-    LogError ("NextOpenCharIndex: num: " & err.Number & " desc: " & err.Description)
+For LoopC = 1 To LastChar + 1
+    If CharList(LoopC) = 0 Then
+        NextOpenCharIndex = LoopC
+        NumChars = NumChars + 1
+        If LoopC > LastChar Then LastChar = LoopC
+        Exit Function
+    End If
+Next LoopC
 
 End Function
 
 Function NextOpenUser() As Integer
     Dim LoopC As Long
-
+    
     For LoopC = 1 To MaxUsers + 1
-
         If LoopC > MaxUsers Then Exit For
         If (UserList(LoopC).ConnID = -1 And UserList(LoopC).flags.UserLogged = False) Then Exit For
     Next LoopC
-
+    
     NextOpenUser = LoopC
-
 End Function
 
 Sub SendUserHitBox(ByVal UserIndex As Integer)
