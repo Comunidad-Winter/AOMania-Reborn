@@ -3115,7 +3115,7 @@ Private Sub ShowNextFrame()
 
     End If
 
-    If Not IsSeguroHechizos Then
+    If IsSeguroHechizos Then
         Call Text_Draw(0, 65, "*", ColorSD)
         Call Text_Draw(12, 65, "SEGURO HECHIZOS", ColorSD2)
     Else
@@ -3123,7 +3123,7 @@ Private Sub ShowNextFrame()
 
     End If
 
-    If IsSeguroObjetos Then
+    If Not IsSeguroObjetos Then
         Call Text_Draw(0, 52, "X", ColorSD)
         Call Text_Draw(12, 52, "SEGURO OBJETOS", ColorSD2)
     Else
@@ -4976,5 +4976,7 @@ Sub ResetCharSlot(ByVal charindex As Integer)
     CharList(charindex).priv = 0
     CharList(charindex).scrollDirectionX = 0
     CharList(charindex).scrollDirectionY = 0
+    
+    CharList(charindex).Gm = 0
 
 End Sub

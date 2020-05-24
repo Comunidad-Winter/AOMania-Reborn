@@ -318,6 +318,7 @@ Public Sub CheckUpdateNeededUser(ByVal UserIndex As Integer, ByVal heading As By
                         '... excepto que nos hayamos warpeado al mapa
                     ElseIf heading = USER_NUEVO And Not ButIndex Then
                         Call MakeUserChar(SendTarget.ToIndex, UserIndex, 0, UserIndex, Map, X, Y)
+               
                     End If
                 End If
 

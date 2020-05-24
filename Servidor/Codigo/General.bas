@@ -4,6 +4,7 @@ Attribute VB_Name = "General"
 Option Explicit
 
 Global LeerNPCs As New clsIniManager
+Global LeerNPCsHostil As New clsIniManager
 
 Private Declare Sub MDFile Lib "aamd532.dll" (ByVal f As String, ByVal r As String)
 Private Declare Sub MDStringFix Lib "aamd532.dll" (ByVal f As String, ByVal T As Long, ByVal r As String)
@@ -300,12 +301,12 @@ Function ZonaCura(ByVal UserIndex As Integer) As Boolean
 
     Dim X As Integer, Y As Integer
 
-    For Y = UserList(UserIndex).pos.Y - MinYBorder + 1 To UserList(UserIndex).pos.Y + MinYBorder - 1
-        For X = UserList(UserIndex).pos.X - MinXBorder + 1 To UserList(UserIndex).pos.X + MinXBorder - 1
+    For Y = UserList(UserIndex).Pos.Y - MinYBorder + 1 To UserList(UserIndex).Pos.Y + MinYBorder - 1
+        For X = UserList(UserIndex).Pos.X - MinXBorder + 1 To UserList(UserIndex).Pos.X + MinXBorder - 1
 
-            If MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex > 0 Then
-                If Npclist(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex).NPCtype = 1 Then
-                    If Distancia(UserList(UserIndex).pos, Npclist(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex).pos) < 10 Then
+            If MapData(UserList(UserIndex).Pos.Map, X, Y).NpcIndex > 0 Then
+                If Npclist(MapData(UserList(UserIndex).Pos.Map, X, Y).NpcIndex).NPCtype = 1 Then
+                    If Distancia(UserList(UserIndex).Pos, Npclist(MapData(UserList(UserIndex).Pos.Map, X, Y).NpcIndex).Pos) < 10 Then
                         ZonaCura = True
                         Exit Function
 
@@ -985,7 +986,7 @@ Function FileExist(ByVal File As String, Optional FileType As VbFileAttribute = 
 
 End Function
 
-Public Function ReadField(ByVal pos As Long, ByRef Text As String, ByVal SepASCII As Long) As String
+Public Function ReadField(ByVal Pos As Long, ByRef Text As String, ByVal SepASCII As Long) As String
 '*****************************************************************
 'Author: Juan Martín Sotuyo Dodero (Maraxus)
 'Last Modify Date: 11/15/2004
@@ -996,7 +997,7 @@ Public Function ReadField(ByVal pos As Long, ByRef Text As String, ByVal SepASCI
     Dim lastPos As Long
     Dim CurrentPos As Long
 
-    For i = 1 To pos
+    For i = 1 To Pos
         lastPos = CurrentPos
         CurrentPos = InStr(lastPos + 1, Text, ChrW$(SepASCII), vbBinaryCompare)
     Next i
@@ -1437,9 +1438,9 @@ Public Function Intemperie(ByVal UserIndex As Integer) As Boolean
 
     With UserList(UserIndex)
 
-        If MapInfo(.pos.Map).Zona <> "DUNGEON" Then
-            If MapData(.pos.Map, .pos.X, .pos.Y).Trigger <> 1 And MapData(.pos.Map, .pos.X, .pos.Y).Trigger <> 2 And MapData(.pos.Map, .pos.X, _
-                                                                                                                             .pos.Y).Trigger <> 4 Then Intemperie = True
+        If MapInfo(.Pos.Map).Zona <> "DUNGEON" Then
+            If MapData(.Pos.Map, .Pos.X, .Pos.Y).Trigger <> 1 And MapData(.Pos.Map, .Pos.X, .Pos.Y).Trigger <> 2 And MapData(.Pos.Map, .Pos.X, _
+                                                                                                                             .Pos.Y).Trigger <> 4 Then Intemperie = True
         Else
             Intemperie = False
 
@@ -1512,7 +1513,7 @@ Public Sub EfectoFrio(ByVal UserIndex As Integer)
         UserList(UserIndex).Counters.Frio = UserList(UserIndex).Counters.Frio + 1
     Else
 
-        If MapInfo(UserList(UserIndex).pos.Map).Terreno = Nieve Then
+        If MapInfo(UserList(UserIndex).Pos.Map).Terreno = Nieve Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Estas muriendo de frio, abrigate o moriras!!." & FONTTYPE_INFO)
             modifi = Porcentaje(UserList(UserIndex).Stats.MaxHP, 5)
             UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - modifi
@@ -1575,7 +1576,7 @@ Public Sub EfectoInvisibilidad(ByVal UserIndex As Integer)
 
         If UserList(UserIndex).flags.Oculto = 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z11")
-            Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",0," & UserList( _
+            Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",0," & UserList( _
                                                                             UserIndex).PartyIndex)
         End If
 
@@ -1624,7 +1625,7 @@ Public Sub EfectoParalisisUser(ByVal UserIndex As Integer)
     Else
         UserList(UserIndex).flags.Paralizado = 0
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
-        Call Corr_ActualizarPosicion(UserIndex, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+        Call Corr_ActualizarPosicion(UserIndex, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
     End If
 
 End Sub
@@ -1632,9 +1633,9 @@ End Sub
 Public Sub RecStamina(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal Intervalo As Integer)
     If UserList(UserIndex).flags.Desnudo = 0 Then
 
-        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
-                                                                                                                              UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
-                                                                                                                                                                                                                                                             UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
+        If MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 1 And MapData(UserList( _
+                                                                                                                              UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 2 And MapData(UserList(UserIndex).Pos.Map, UserList( _
+                                                                                                                                                                                                                                                             UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 4 Then Exit Sub
 
         Dim massta As Integer
 
@@ -1668,13 +1669,11 @@ Public Sub EfectoVeneno(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean
     Else
 
         If UserList(UserIndex).TipoVeneno = 0 Or UserList(UserIndex).TipoVeneno = 2 Then
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList( _
-                                                                                       UserIndex).char.CharIndex & "," & 37 & "," & 1)
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 37 & "," & 1)
         Else
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList( _
-                                                                                       UserIndex).char.CharIndex & "," & 53 & "," & 1)
-        End If
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 53 & "," & 1)
 
+        End If
 
         UserList(UserIndex).Counters.Veneno = 0
 
@@ -1682,14 +1681,15 @@ Public Sub EfectoVeneno(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean
             UserList(UserIndex).DañoVeneno = 1
         Else
             UserList(UserIndex).DañoVeneno = RandomNumber(6, UserList(UserIndex).AumentoVeneno)
+
         End If
 
         UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - UserList(UserIndex).DañoVeneno
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El veneno te causa " & UserList(UserIndex).DañoVeneno & " puntos de daño. Si no te curas moriras." & FONTTYPE_VENENO)
 
-
         If UserList(UserIndex).Stats.MinHP < 1 Then Call UserDie(UserIndex)
         Call EnviarHP(UserIndex)
+
     End If
 
 End Sub
@@ -1698,6 +1698,7 @@ Public Sub EfectoMetamorfosis(ByVal UserIndex As Integer)
 
     If UserList(UserIndex).Counters.Metamorfosis > 0 Then
         UserList(UserIndex).Counters.Metamorfosis = UserList(UserIndex).Counters.Metamorfosis - 1
+
     End If
 
     If UserList(UserIndex).Counters.Metamorfosis = 0 Then
@@ -1717,12 +1718,10 @@ Public Sub EfectoMetamorfosis(ByVal UserIndex As Integer)
         UserList(UserIndex).CharMimetizado.Agilidad = 0
         UserList(UserIndex).CharMimetizado.Inteligencia = 0
 
-        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserIndex, _
-                            UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, _
-                            UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
+        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).Pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
 
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & _
-                                                                                   UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
+
     End If
 
 End Sub
@@ -1737,7 +1736,7 @@ End Sub
 
 Public Sub DuracionPociones(ByVal UserIndex As Integer)
 
-'Controla la duracion de las pociones
+    'Controla la duracion de las pociones
     With UserList(UserIndex)
 
         If .flags.DuracionEfectoAmarillas > 0 Then
@@ -1792,7 +1791,7 @@ Public Sub HambreYSed(ByVal UserIndex As Integer, ByRef fEnviarAyS As Boolean)
 
     With UserList(UserIndex)
 
-        If .flags.Privilegios >= PlayerType.Consejero Then Exit Sub
+        If .flags.Privilegios > 1 Then Exit Sub
 
         'Sed
         If .Stats.MinAGU > 0 Then
@@ -1839,46 +1838,67 @@ Public Sub HambreYSed(ByVal UserIndex As Integer, ByRef fEnviarAyS As Boolean)
 End Sub
 
 Public Sub Sanar(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal Intervalo As Integer)
+        '<EhHeader>
+        On Error GoTo Sanar_Err
+        '</EhHeader>
 
-    If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
-                                                                                                                          UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
-                                                                                                                                                                                                                                                         UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
+100     If MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 1 And _
+       MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 2 And _
+       MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 4 Then Exit Sub
 
-    Dim mashit As Integer
+        Dim mashit As Integer
 
-    'con el paso del tiempo va sanando....pero muy lentamente ;-)
-    If UserList(UserIndex).Stats.MinHP < UserList(UserIndex).Stats.MaxHP Then
-        If UserList(UserIndex).Counters.HPCounter < Intervalo Then
-            UserList(UserIndex).Counters.HPCounter = UserList(UserIndex).Counters.HPCounter + 1
-        Else
-            mashit = RandomNumber(2, Porcentaje(UserList(UserIndex).Stats.MaxSta, 5))
+        'con el paso del tiempo va sanando....pero muy lentamente ;-)
+102     If UserList(UserIndex).Stats.MinHP < UserList(UserIndex).Stats.MaxHP Then
+104         If UserList(UserIndex).Counters.HPCounter < Intervalo Then
+106             UserList(UserIndex).Counters.HPCounter = UserList(UserIndex).Counters.HPCounter + 1
+            Else
+108             mashit = RandomNumber(2, Porcentaje(UserList(UserIndex).Stats.MaxSta, 5))
 
-            UserList(UserIndex).Counters.HPCounter = 0
-            UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP + mashit
+110             UserList(UserIndex).Counters.HPCounter = 0
+112             UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP + mashit
 
-            If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then UserList(UserIndex).Stats.MinHP = UserList( _
-               UserIndex).Stats.MaxHP
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has sanado " & mashit & " Puntos de vida." & FONTTYPE_INFO)
-            EnviarStats = True
+114             If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then UserList(UserIndex).Stats.MinHP = UserList( _
+                   UserIndex).Stats.MaxHP
+116             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has sanado " & mashit & " Puntos de vida." & FONTTYPE_INFO)
+118             EnviarStats = True
+            
+120             If UserList(UserIndex).PartyIndex > 0 Then
+122                    Parties(UserList(UserIndex).PartyIndex).UpdateUserParty
+                End If
+            
+            End If
 
         End If
 
-    End If
+        '<EhFooter>
+        Exit Sub
 
+Sanar_Err:
+        Debug.Print err.Description & vbCrLf & _
+               "in AoManiaServer.General.Sanar " & _
+               "at line " & Erl, _
+               vbExclamation + vbOKOnly, "Application Error"
+        Resume Next
+        '</EhFooter>
 End Sub
 
 Public Sub CargaNpcsDat()
 
     Call LeerNPCs.Initialize(DatPath & "NPCs.dat")
+    Call LeerNPCsHostil.Initialize(DatPath & "NPCs-HOSTILES.dat")
 
 End Sub
 
 Sub PasarSegundo()
 
     Dim Saturin As Integer
-    Dim pos As WorldPos
-    Dim Posa As WorldPos
-    Dim i As Long
+
+    Dim Pos     As WorldPos
+
+    Dim Posa    As WorldPos
+
+    Dim i       As Long
 
     For i = 1 To LastUser
 
@@ -2125,11 +2145,11 @@ Public Sub DuracionAngelyDemonio(ByVal UserIndex As Integer)
                 .Counters.Mimetismo = 0
                 .flags.Mimetizado = 0
 
-                Call ChangeUserChar(SendTarget.ToMap, UserIndex, .pos.Map, UserIndex, _
+                Call ChangeUserChar(SendTarget.ToMap, UserIndex, .Pos.Map, UserIndex, _
                                     .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, _
                                     .char.CascoAnim, .char.Alas)
 
-                Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "CFX" & _
+                Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "CFX" & _
                                                                         .char.CharIndex & "," & 1 & "," & 1)
 
                 If .Metamorfosis.Angel = 1 Then
@@ -2167,7 +2187,6 @@ End Function
 
 Public Sub EnviaMensajesClient()
       
-      Dim i As Integer
       Dim Total As Integer
       Dim Mensaje As String
       
@@ -2175,10 +2194,7 @@ Public Sub EnviaMensajesClient()
       Total = RandomNumber(1, Total)
      Mensaje = EnvioMensajes(Total)
       
-      For i = 1 To LastUser
             
-            Call SendData(ToIndex, i, 0, "EMC" & Mensaje)
-            
-      Next i
+            Call SendData(ToAll, 0, 0, "EMC" & Mensaje)
       
 End Sub

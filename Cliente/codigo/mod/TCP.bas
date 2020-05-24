@@ -286,6 +286,10 @@ Sub HandleData(ByVal rData As String)
         Next X
 
         Call Ambient_SetActual(0, 0, 0)
+        
+        Call CleanerPlus
+        Call ReiniciarChars
+        
         AoDefResult = 0
         Exit Sub
 
@@ -1914,7 +1918,7 @@ Sub HandleData(ByVal rData As String)
         CANJInventory(CANJInvDim).MaxHit = ReadField(6, rData, 44)
         CANJInventory(CANJInvDim).MinHit = ReadField(7, rData, 44)
         CANJInventory(CANJInvDim).ObjType = ReadField(8, rData, 44)
-        CANJInventory(CANJInvDim).cantidad = ReadField(9, rData, 44)
+        CANJInventory(CANJInvDim).Cantidad = ReadField(9, rData, 44)
         frmCanjes.List1(0).AddItem CANJInventory(CANJInvDim).Name
         Exit Sub
 
@@ -2539,20 +2543,20 @@ Sub SendData(ByVal sdData As String)
 End Sub
 
 Sub login()
-    Dim version As String
+    Dim Version As String
     
-    version = App.Major & "." & App.Minor & "." & App.Revision
+    Version = App.Major & "." & App.Minor & "." & App.Revision
 
     Select Case EstadoLogin
    
         Case E_MODO.Normal
             
-            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & version & "," & HDD & "," & "0")
+            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & Version & "," & HDD & "," & "0")
           
         Case E_MODO.CrearNuevoPj
             Call SendData("TIRDAD" & UserFuerza & "," & UserAgilidad _
                & "," & UserInteligencia & "," & UserCarisma & "," & UserConstitucion)
-            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
+            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & Version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
                 UserBanco & "," & UserPersonaje & "," & UserEmail & "," & HDD)
 
         Case E_MODO.Dados

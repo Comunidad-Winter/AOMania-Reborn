@@ -865,21 +865,8 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
     Dim i             As Integer
 
     With UserList(UserIndex)
+            
         sailing = PuedeAtravesarAgua(UserIndex)
-        
-        Call Corr_MandaPosicion(UserIndex, SuX, SuY, codigo, 1)
-       
-        If .flags.pendingUpdate Then
-
-            Dim now As Long
-
-            now = GetTickCount() And &H7FFFFFFF
-
-            If (now - .Counters.validInputs < 0) Then Exit Sub
-
-            UserList(UserIndex).flags.pendingUpdate = False
-
-        End If
 
         nPos = .pos
         Call HeadtoPos(nHeading, nPos)
@@ -893,6 +880,8 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
         'End If
 
         If MoveToLegalPos(.pos.Map, nPos.X, nPos.Y, sailing, Not sailing) Then
+        
+          Call Corr_MandaPosicion(UserIndex, SuX, SuY, codigo, 1)
 
             'si no estoy solo en el mapa...
             If MapInfo(.pos.Map).NumUsers > 1 Then
@@ -925,7 +914,9 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
                             MapData(.pos.Map, CasPerPos.X, CasPerPos.Y).UserIndex = CasperIndex
 
                         End With
-
+                        
+                        Call Corr_MandaPosicion(UserIndex, SuX, SuY, codigo, 1)
+                        
                         'Actualizamos las áreas de ser necesario
                         Call ModAreas.CheckUpdateNeededUser(CasperIndex, CasperHeading)
 
@@ -958,13 +949,11 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
                 If ZonaCura(UserIndex) Then Call AutoCuraUser(UserIndex)
 
                 'Actualizamos las áreas de ser necesario
+                
                 Call ModAreas.CheckUpdateNeededUser(UserIndex, nHeading)
 
             Else
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & .pos.X & "," & .pos.Y)
-                'Call Corr_MandaPosicion(UserIndex, SuX, SuY, codigo, 1)
-
-                .flags.pendingUpdate = True
 
                 .Counters.validInputs = (GetTickCount() And &H7FFFFFFF) + .char.delay + 20
 
@@ -972,8 +961,6 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
 
         Else
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & .pos.X & "," & .pos.Y)
-
-            .flags.pendingUpdate = True
 
             .Counters.validInputs = (GetTickCount() And &H7FFFFFFF) + .char.delay + 20
 
@@ -986,8 +973,6 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
                Call EnviaPosClan(UserIndex)
             
         End If
-        
-        'Call Corr_MandaPosicion(UserIndex, SuX, SuY, codigo, 1)
         
     End With
 

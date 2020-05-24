@@ -190,7 +190,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
         If GuildName = Norte And GuildName = Sur And GuildName = Oeste And GuildName = Este And GuildName = Fortaleza Then
 
-            Call WarpUserChar(UserIndex, 164, 45, 52, True)
+            Call WarpCastillo(UserIndex, "FORTALEZAFUERTE")
 
         Else
 
@@ -1503,7 +1503,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
             IndexHablaGuild(UserList(UserIndex).GuildIndex) = UserIndex
             Call SendData(SendTarget.ToDiosesYclan, UserList(UserIndex).GuildIndex, 0, "|+MiembroClan: " & UserList(UserIndex).Name & " dice: " & _
                                                                                        MensajeCensura(rData) & FONTTYPE_GUILDMSG)
-            FrmUserhablan.hClan (now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
+            FrmUserhablan.hClan (Now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
             Call addConsolee(UserList(UserIndex).Name & ": " & rData, 255, 0, 0, True, False)
             Call LogUser(UserList(UserIndex).Name, "Dice en Clan: " & rData)
 
@@ -1682,7 +1682,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
             IndexHablaParty(UserList(UserIndex).PartyIndex) = UserIndex
             Call mdParty.BroadCastParty(UserIndex, "MiembroParty: " & UserList(UserIndex).Name & " dice: " & mid$(rData, 7) & FONTTYPE_PARTY)
             rData = Right$(rData, Len(rData) - 6)
-            FrmUserhablan.hParty (now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
+            FrmUserhablan.hParty (Now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
             Call LogUser(UserList(UserIndex).Name, "Dice en Party: " & rData)
 
         End If
@@ -1790,7 +1790,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Else
             SSName = UserList(UserIndex).Name
             SSMsg = rData
-            SSFH = now
+            SSFH = Now
             SSRev = val(GetVar(App.Path & "\Logs\Show\SOS\" & SSName & ".ini", "Config", "NumMsg"))
             SSSuma = SSRev + "1"
 
@@ -1820,7 +1820,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             SDName = UserList(UserIndex).Name
             SDMsg = rData
-            SDFH = now
+            SDFH = Now
             SDRev = val(GetVar(App.Path & "\Logs\Show\DENUNCIA\" & SDName & ".ini", "Config", "NumMsg"))
             SDSuma = SDRev + "1"
 
@@ -1850,7 +1850,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             SBName = UserList(UserIndex).Name
             SBMsg = rData
-            SBFH = now
+            SBFH = Now
             SBRev = val(GetVar(App.Path & "\Logs\Show\BUG\" & SBName & ".ini", "Config", "NumMsg"))
             SBSuma = SBRev + "1"
 
@@ -1880,7 +1880,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
             SGName = UserList(UserIndex).Name
             SGMsg = rData
-            SGFH = now
+            SGFH = Now
             SGRev = val(GetVar(App.Path & "\Logs\Show\SUGERENCIA\" & SGName & ".ini", "Config", "NumMsg"))
             SGSuma = SGRev + "1"
 
@@ -1928,7 +1928,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
         Else
             GMName = UserList(UserIndex).Name
             GMMsg = rData
-            GMFH = now
+            GMFH = Now
             GMRev = val(GetVar(App.Path & "\Logs\Consultas\" & GMName & ".ini", "Config", "NumMsg"))
             GMSuma = GMRev + "1"
 

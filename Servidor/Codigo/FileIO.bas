@@ -1264,7 +1264,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
 
     End If
 
-    UserList(UserIndex).flags.Navegando = CByte(UserFile.GetValue("FLAGS", "Navegando"))
+    UserList(UserIndex).flags.navegando = CByte(UserFile.GetValue("FLAGS", "Navegando"))
     UserList(UserIndex).flags.Embarcado = CByte(UserFile.GetValue("FLAGS", "Embarcado"))
 
     UserList(UserIndex).Counters.Pena = CLng(UserFile.GetValue("COUNTERS", "Pena"))
@@ -1304,9 +1304,9 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).Pregunta = UserFile.GetValue("INIT", "Pregunta")
     UserList(UserIndex).Respuesta = UserFile.GetValue("INIT", "Respuesta")
 
-    UserList(UserIndex).pos.Map = CInt(ReadField(1, UserFile.GetValue("INIT", "Position"), 45))
-    UserList(UserIndex).pos.X = CInt(ReadField(2, UserFile.GetValue("INIT", "Position"), 45))
-    UserList(UserIndex).pos.Y = CInt(ReadField(3, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).Pos.Map = CInt(ReadField(1, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).Pos.X = CInt(ReadField(2, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).Pos.Y = CInt(ReadField(3, UserFile.GetValue("INIT", "Position"), 45))
 
     UserList(UserIndex).PalabraSecreta = UserFile.GetValue("INIT", "PalabraSecreta")
     UserList(UserIndex).flags.RPasswd = UserFile.GetValue("FLAGS", "RPasswd")
@@ -1485,7 +1485,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
         For LoopC = 1 To 10
             UserList(UserIndex).Quest.MataNpc(LoopC) = val(UserFile.GetValue("QUEST", "MataNPC" & LoopC))
             UserList(UserIndex).Quest.BuscaObj(LoopC) = val(UserFile.GetValue("QUEST", "BuscaOBJ" & LoopC))
-            UserList(UserIndex).Quest.Mapa(LoopC) = val(UserFile.GetValue("QUEST", "Mapa" & LoopC))
+            UserList(UserIndex).Quest.mapa(LoopC) = val(UserFile.GetValue("QUEST", "Mapa" & LoopC))
             UserList(UserIndex).Quest.DarObjNpc(LoopC) = val(UserFile.GetValue("QUEST", "DarObjNpc" & LoopC))
         Next LoopC
         
@@ -1639,7 +1639,7 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
     Set InfReader = New clsByteBuffer
     Set Leer = New clsIniManager
 
-    npcfile = DatPath & "NPCs.dat"
+    'npcfile = DatPath & "NPCs.dat"
 
     hFile = FreeFile
 
@@ -1716,10 +1716,13 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
 
                     If .NpcIndex > 0 Then
 
-                        'Si el npc debe hacer respawn en la pos
-                        'original la guardamos
+                         If .NpcIndex > 499 Then
+                             npcfile = DatPath & "NPCs-HOSTILES.dat"
+                         Else
+                             npcfile = DatPath & "NPCs.dat"
+                         End If
 
-                        If val(Leer.GetValue("NPC" & .NpcIndex, "PosOrig")) = 1 Then
+                         If val(GetVar(npcfile, "NPC" & MapData(Map, X, Y).NpcIndex, "PosOrig")) = 1 Then
                             .NpcIndex = OpenNPC(.NpcIndex)
                             Npclist(.NpcIndex).Orig.Map = Map
                             Npclist(.NpcIndex).Orig.X = X
@@ -1728,17 +1731,9 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
                             .NpcIndex = OpenNPC(.NpcIndex)
                         End If
 
-                        Npclist(.NpcIndex).pos.Map = Map
-                        Npclist(.NpcIndex).pos.X = X
-                        Npclist(.NpcIndex).pos.Y = Y
-
-                        If val(GetVar(App.Path & "\Dat\Npcs.Dat", "NPC" & Npclist(.NpcIndex).Numero, "PosOrig")) = 1 Then
-
-                            Npclist(.NpcIndex).Orig.Map = Map
-                            Npclist(.NpcIndex).Orig.X = X
-                            Npclist(.NpcIndex).Orig.Y = Y
-
-                        End If
+                        Npclist(.NpcIndex).Pos.Map = Map
+                        Npclist(.NpcIndex).Pos.X = X
+                        Npclist(.NpcIndex).Pos.Y = Y
 
                         'Call MakeNPCChar(True, 0, .NpcIndex, map, X, Y)
                         'Call MakeNPCChar(ToNone, 0, 0, MapData(map, X, Y).NpcIndex, map, X, Y)
@@ -2053,7 +2048,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("FLAGS", "Desnudo", CStr(.flags.Desnudo))
         Call Manager.ChangeValue("FLAGS", "Ban", CStr(.flags.Ban))
         Call Manager.ChangeValue("FLAGS", "Silenciado", CStr(.flags.Silenciado))
-        Call Manager.ChangeValue("FLAGS", "Navegando", CStr(.flags.Navegando))
+        Call Manager.ChangeValue("FLAGS", "Navegando", CStr(.flags.navegando))
         Call Manager.ChangeValue("FLAGS", "Embarcado", CStr(.flags.Embarcado))
 
         Call Manager.ChangeValue("FLAGS", "Envenenado", CStr(.flags.Envenenado))
@@ -2149,7 +2144,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("INIT", "Casco", CStr(.char.CascoAnim))
 
         Call Manager.ChangeValue("INIT", "LastIP", .ip)
-        Call Manager.ChangeValue("INIT", "Position", .pos.Map & "-" & .pos.X & "-" & .pos.Y)
+        Call Manager.ChangeValue("INIT", "Position", .Pos.Map & "-" & .Pos.X & "-" & .Pos.Y)
         'soporte
         Call Manager.ChangeValue("INIT", "Pregunta", .Pregunta)
         Call Manager.ChangeValue("INIT", "Respuesta", .Respuesta)
@@ -2314,7 +2309,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
             For LoopC = 1 To 10
                 Call Manager.ChangeValue("QUEST", "MataNPC" & LoopC, .Quest.MataNpc(LoopC))
                 Call Manager.ChangeValue("QUEST", "BuscaOBJ" & LoopC, .Quest.BuscaObj(LoopC))
-                Call Manager.ChangeValue("QUEST", "Mapa" & LoopC, .Quest.Mapa(LoopC))
+                Call Manager.ChangeValue("QUEST", "Mapa" & LoopC, .Quest.mapa(LoopC))
                 Call Manager.ChangeValue("QUEST", "DarObjNpc" & LoopC, .Quest.DarObjNpc(LoopC))
             Next LoopC
             

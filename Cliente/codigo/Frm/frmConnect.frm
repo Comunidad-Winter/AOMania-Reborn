@@ -231,8 +231,6 @@ Private Sub Form_Activate()
 
         Call Audio.PlayWave("173.wav")
     End If
-    
-    Call ReiniciarChars
  
 End Sub
 

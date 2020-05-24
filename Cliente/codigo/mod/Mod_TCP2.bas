@@ -126,6 +126,7 @@ Sub HandleData2(ByVal rData As String)
         Case "ACT"    'binmode: correccion de posicion
     
             rData = Right$(rData, Len(rData) - 3)
+           
             Call ActualizaPosicion(rData)
        
             Exit Sub

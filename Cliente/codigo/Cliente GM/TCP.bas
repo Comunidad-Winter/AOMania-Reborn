@@ -6,13 +6,13 @@ Public LlegaronSkills As Boolean
 Public LlegaronAtrib  As Boolean
 Public LlegoFama      As Boolean
 
-Sub HandleData(ByVal Rdata As String)
+Sub HandleData(ByVal rData As String)
 
     On Error Resume Next
 
     Dim retval As Variant
-    Dim X As Integer
-    Dim Y As Integer
+    Dim x As Integer
+    Dim y As Integer
     Dim charindex As Integer
     Dim TempInt As Integer
     Dim tempstr As String
@@ -30,7 +30,7 @@ Sub HandleData(ByVal Rdata As String)
     Dim LooPC As Integer
 
     'Rdata = AoDefServDecrypt(AoDefDecode(Rdata))
-    sData = UCase$(Rdata)
+    sData = UCase$(rData)
 
     If Left$(sData, 4) = "INVI" Then CartelInvisibilidad = Right$(sData, Len(sData) - 4)
 
@@ -221,8 +221,8 @@ Sub HandleData(ByVal Rdata As String)
 
         Call SetConnected
 
-        bTecho = IIf(MapData(UserPos.X, UserPos.Y).Trigger = 1 Or MapData(UserPos.X, UserPos.Y).Trigger = 2 Or MapData(UserPos.X, _
-                                                                                                                       UserPos.Y).Trigger = 4, True, False)
+        bTecho = IIf(MapData(UserPos.x, UserPos.y).Trigger = 1 Or MapData(UserPos.x, UserPos.y).Trigger = 2 Or MapData(UserPos.x, _
+                                                                                                                       UserPos.y).Trigger = 4, True, False)
         frmMain.lblUserName.Caption = UserName
         frmMain.LvlLbl.Caption = UserLvl
 
@@ -276,15 +276,18 @@ Sub HandleData(ByVal Rdata As String)
             CharList(i).Invisible = False
         Next i
 
-        For X = 1 To 100
-            For Y = 1 To 100
+        For x = 1 To 100
+            For y = 1 To 100
                 For m = 0 To 3
-                    MapData(X, Y).Color(m) = 0
+                    MapData(x, y).Color(m) = 0
                 Next m
-            Next Y
-        Next X
+            Next y
+        Next x
 
         Call Ambient_SetActual(0, 0, 0)
+        
+        Call CleanerPlus
+        Call ReiniciarChars
         
         AoDefResult = 0
 
@@ -567,25 +570,25 @@ Sub HandleData(ByVal Rdata As String)
 
 
     Case "³"
-        Rdata = Right$(Rdata, Len(Rdata) - 1)
-        NumUsers = Rdata
+        rData = Right$(rData, Len(rData) - 1)
+        NumUsers = rData
 
         frmPaneldeGM.Label2.Caption = "Hay " & NumUsers & " Usuarios Online."
 
         Exit Sub
 
     Case "+"              ' >>>>> Mover Char >>> +
-        Rdata = Right$(Rdata, Len(Rdata) - 1)
+        rData = Right$(rData, Len(rData) - 1)
 
-        charindex = Val(ReadField(1, Rdata, Asc(",")))
-        X = Val(ReadField(2, Rdata, Asc(",")))
-        Y = Val(ReadField(3, Rdata, Asc(",")))
+        charindex = Val(ReadField(1, rData, Asc(",")))
+        x = Val(ReadField(2, rData, Asc(",")))
+        y = Val(ReadField(3, rData, Asc(",")))
 
         With CharList(charindex)
 
             'Esto es solo por si acaso...
-            If InMapBounds(.oldPos.X, .oldPos.Y) Then
-                MapData(.oldPos.X, .oldPos.Y).charindex = 0
+            If InMapBounds(.oldPos.x, .oldPos.y) Then
+                MapData(.oldPos.x, .oldPos.y).charindex = 0
 
             End If
 
@@ -603,31 +606,31 @@ Sub HandleData(ByVal Rdata As String)
 
             End If
 
-            Call MoveCharbyPos(charindex, X, Y)
+            Call MoveCharbyPos(charindex, x, y)
 
         End With
 
         Exit Sub
 
     Case "$"                 ' >>>>> Mover char forzado >>> *
-        Rdata = Right$(Rdata, Len(Rdata) - 1)
-        TempInt = CByte(Rdata)
+        rData = Right$(rData, Len(rData) - 1)
+        TempInt = CByte(rData)
         Call MoveCharbyHead(UserCharIndex, TempInt)
         Call MoveScreen(TempInt)
 
         Exit Sub
 
     Case "*", "_"             ' >>>>> Mover NPC >>> *
-        Rdata = Right$(Rdata, Len(Rdata) - 1)
+        rData = Right$(rData, Len(rData) - 1)
 
-        charindex = Val(ReadField(1, Rdata, Asc(",")))
-        X = Val(ReadField(2, Rdata, Asc(",")))
-        Y = Val(ReadField(3, Rdata, Asc(",")))
+        charindex = Val(ReadField(1, rData, Asc(",")))
+        x = Val(ReadField(2, rData, Asc(",")))
+        y = Val(ReadField(3, rData, Asc(",")))
 
         With CharList(charindex)
 
-            If InMapBounds(.oldPos.X, .oldPos.Y) Then
-                MapData(.oldPos.X, .oldPos.Y).charindex = 0
+            If InMapBounds(.oldPos.x, .oldPos.y) Then
+                MapData(.oldPos.x, .oldPos.y).charindex = 0
 
             End If
 
@@ -644,7 +647,7 @@ Sub HandleData(ByVal Rdata As String)
 
             End If
 
-            Call MoveCharbyPos(charindex, X, Y)
+            Call MoveCharbyPos(charindex, x, y)
 
         End With
 
@@ -796,8 +799,8 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "CM"              ' >>>>> Cargar Mapa :: CM
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        UserMap = ReadField(1, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 2)
+        UserMap = ReadField(1, rData, 44)
         'Obtiene la version del mapa
 
         Call SwitchMap(UserMap)
@@ -812,156 +815,156 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "PU"                 ' >>>>> Actualiza Posición Usuario :: PU
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        MapData(UserPos.X, UserPos.Y).charindex = 0
-        UserPos.X = CInt(ReadField(1, Rdata, 44))
-        UserPos.Y = CInt(ReadField(2, Rdata, 44))
-        MapData(UserPos.X, UserPos.Y).charindex = UserCharIndex
+        rData = Right$(rData, Len(rData) - 2)
+        MapData(UserPos.x, UserPos.y).charindex = 0
+        UserPos.x = CInt(ReadField(1, rData, 44))
+        UserPos.y = CInt(ReadField(2, rData, 44))
+        MapData(UserPos.x, UserPos.y).charindex = UserCharIndex
         CharList(UserCharIndex).pos = UserPos
 
         Call ActualizarShpUserPos
         Exit Sub
 
     Case "N2"    ' <<--- Npc nos impacto (Ahorramos ancho de banda)
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        i = Val(ReadField(1, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 2)
+        i = Val(ReadField(1, rData, 44))
 
         Select Case i
 
         Case bCabeza
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_CABEZA & Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_CABEZA & Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bBrazoIzquierdo
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_BRAZO_IZQ & Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_BRAZO_IZQ & Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bBrazoDerecho
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_BRAZO_DER & Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_BRAZO_DER & Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bPiernaIzquierda
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_PIERNA_IZQ & Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_PIERNA_IZQ & Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bPiernaDerecha
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_PIERNA_DER & Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_PIERNA_DER & Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bTorso
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_TORSO & Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_TORSO & Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         End Select
 
         Exit Sub
 
     Case "U2"    ' <<--- El user ataco un npc e impacato
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_CRIATURA_1 & Rdata & MENSAJE_2, 255, 0, 0, True, False, False)
+        rData = Right$(rData, Len(rData) - 2)
+        Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_GOLPE_CRIATURA_1 & rData & MENSAJE_2, 255, 0, 0, True, False, False)
         Exit Sub
 
     Case "U3"    ' <<--- El user ataco un user y falla
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & Rdata & MENSAJE_ATAQUE_FALLO, 255, 0, 0, True, False, False)
+        rData = Right$(rData, Len(rData) - 2)
+        Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & rData & MENSAJE_ATAQUE_FALLO, 255, 0, 0, True, False, False)
         Exit Sub
 
     Case "N4"    ' <<--- user nos impacto
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        i = Val(ReadField(1, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 2)
+        i = Val(ReadField(1, rData, 44))
 
         Select Case i
 
         Case bCabeza
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, Rdata, 44) & MENSAJE_RECIVE_IMPACTO_CABEZA & Val(ReadField(2, _
-                                                                                                                                      Rdata, 44)) & " !!", 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, rData, 44) & MENSAJE_RECIVE_IMPACTO_CABEZA & Val(ReadField(2, _
+                                                                                                                                      rData, 44)) & " !!", 255, 0, 0, True, False, False)
 
         Case bBrazoIzquierdo
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, Rdata, 44) & MENSAJE_RECIVE_IMPACTO_BRAZO_IZQ & Val(ReadField(2, _
-                                                                                                                                         Rdata, 44)) & " !!", 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, rData, 44) & MENSAJE_RECIVE_IMPACTO_BRAZO_IZQ & Val(ReadField(2, _
+                                                                                                                                         rData, 44)) & " !!", 255, 0, 0, True, False, False)
 
         Case bBrazoDerecho
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, Rdata, 44) & MENSAJE_RECIVE_IMPACTO_BRAZO_DER & Val(ReadField(2, _
-                                                                                                                                         Rdata, 44)) & " !!", 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, rData, 44) & MENSAJE_RECIVE_IMPACTO_BRAZO_DER & Val(ReadField(2, _
+                                                                                                                                         rData, 44)) & " !!", 255, 0, 0, True, False, False)
 
         Case bPiernaIzquierda
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, Rdata, 44) & MENSAJE_RECIVE_IMPACTO_PIERNA_IZQ & Val(ReadField( _
-                                                                                                                                2, Rdata, 44)) & " !!", 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, rData, 44) & MENSAJE_RECIVE_IMPACTO_PIERNA_IZQ & Val(ReadField( _
+                                                                                                                                2, rData, 44)) & " !!", 255, 0, 0, True, False, False)
 
         Case bPiernaDerecha
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, Rdata, 44) & MENSAJE_RECIVE_IMPACTO_PIERNA_DER & Val(ReadField( _
-                                                                                                                                2, Rdata, 44)) & " !!", 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, rData, 44) & MENSAJE_RECIVE_IMPACTO_PIERNA_DER & Val(ReadField( _
+                                                                                                                                2, rData, 44)) & " !!", 255, 0, 0, True, False, False)
 
         Case bTorso
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, Rdata, 44) & MENSAJE_RECIVE_IMPACTO_TORSO & Val(ReadField(2, _
-                                                                                                                                     Rdata, 44)) & " !!", 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_1 & ReadField(3, rData, 44) & MENSAJE_RECIVE_IMPACTO_TORSO & Val(ReadField(2, _
+                                                                                                                                     rData, 44)) & " !!", 255, 0, 0, True, False, False)
 
         End Select
 
         Exit Sub
 
     Case "N5"    ' <<--- impactamos un user
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        i = Val(ReadField(1, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 2)
+        i = Val(ReadField(1, rData, 44))
 
         Select Case i
 
         Case bCabeza
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, Rdata, 44) & MENSAJE_PRODUCE_IMPACTO_CABEZA & _
-                                                  Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, rData, 44) & MENSAJE_PRODUCE_IMPACTO_CABEZA & _
+                                                  Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bBrazoIzquierdo
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, Rdata, 44) & MENSAJE_PRODUCE_IMPACTO_BRAZO_IZQ & _
-                                                  Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, rData, 44) & MENSAJE_PRODUCE_IMPACTO_BRAZO_IZQ & _
+                                                  Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bBrazoDerecho
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, Rdata, 44) & MENSAJE_PRODUCE_IMPACTO_BRAZO_DER & _
-                                                  Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, rData, 44) & MENSAJE_PRODUCE_IMPACTO_BRAZO_DER & _
+                                                  Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bPiernaIzquierda
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, Rdata, 44) & MENSAJE_PRODUCE_IMPACTO_PIERNA_IZQ _
-                                                & Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, rData, 44) & MENSAJE_PRODUCE_IMPACTO_PIERNA_IZQ _
+                                                & Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bPiernaDerecha
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, Rdata, 44) & MENSAJE_PRODUCE_IMPACTO_PIERNA_DER _
-                                                & Val(ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, rData, 44) & MENSAJE_PRODUCE_IMPACTO_PIERNA_DER _
+                                                & Val(ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         Case bTorso
-            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, Rdata, 44) & MENSAJE_PRODUCE_IMPACTO_TORSO & Val( _
-                                                  ReadField(2, Rdata, 44)), 255, 0, 0, True, False, False)
+            Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_PRODUCE_IMPACTO_1 & ReadField(3, rData, 44) & MENSAJE_PRODUCE_IMPACTO_TORSO & Val( _
+                                                  ReadField(2, rData, 44)), 255, 0, 0, True, False, False)
 
         End Select
 
         Exit Sub
 
     Case "|$"
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        TempInt = InStr(1, Rdata, ":")
-        tempstr = mid(Rdata, 1, TempInt)
+        rData = Right$(rData, Len(rData) - 2)
+        TempInt = InStr(1, rData, ":")
+        tempstr = mid(rData, 1, TempInt)
         Call AddtoRichTextBox(frmMain.RecTxt, tempstr, 99, 204, 36, 0, 0, True)
-        tempstr = Right$(Rdata, Len(Rdata) - TempInt)
+        tempstr = Right$(rData, Len(rData) - TempInt)
         Call AddtoRichTextBox(frmMain.RecTxt, tempstr, 225, 225, 225, 0, 0)
         Exit Sub
 
     Case "||"
         ' >>>>> Dialogo de Usuarios y NPCs :: ||
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
+        rData = Right$(rData, Len(rData) - 2)
         Dim iUser As Integer
-        iUser = Val(ReadField(3, Rdata, 176))
+        iUser = Val(ReadField(3, rData, 176))
 
         If iUser > 0 Then
-            Dialogos.CreateDialog ReadField(2, Rdata, 176), iUser, Val(ReadField(1, Rdata, 176))
+            Dialogos.CreateDialog ReadField(2, rData, 176), iUser, Val(ReadField(1, rData, 176))
         Else
-            AddtoRichTextBox frmMain.RecTxt, ReadField(1, Rdata, 126), Val(ReadField(2, Rdata, 126)), Val(ReadField(3, Rdata, 126)), Val( _
-                                                                                                                                     ReadField(4, Rdata, 126)), Val(ReadField(5, Rdata, 126)), Val(ReadField(6, Rdata, 126))
+            AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
 
         End If
 
         Exit Sub
 
     Case "|+"                 ' >>>>> Consola de clan y NPCs :: |+
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
+        rData = Right$(rData, Len(rData) - 2)
 
-        iUser = Val(ReadField(3, Rdata, 176))
+        iUser = Val(ReadField(3, rData, 176))
 
         If iUser = 0 Then
 
-            AddtoRichTextBox frmMain.RecTxt, ReadField(1, Rdata, 126), Val(ReadField(2, Rdata, 126)), Val(ReadField(3, Rdata, 126)), Val( _
-                                                                                                                                     ReadField(4, Rdata, 126)), Val(ReadField(5, Rdata, 126)), Val(ReadField(6, Rdata, 126))
+            AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
 
         End If
 
@@ -969,15 +972,15 @@ Sub HandleData(ByVal Rdata As String)
 
     Case "!!"                ' >>>>> Msgbox :: !!
 
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        frmMensaje.msg.Caption = Rdata
+        rData = Right$(rData, Len(rData) - 2)
+        frmMensaje.msg.Caption = rData
         frmMensaje.Show
 
         Exit Sub
 
     Case "IU"                ' >>>>> Indice de Usuario en Server :: IU
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        userindex = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 2)
+        userindex = Val(rData)
 
         requestPing = 0
         Dim now As Long
@@ -991,28 +994,28 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "IP"                ' >>>>> Indice de Personaje de Usuario :: IP
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        UserCharIndex = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 2)
+        UserCharIndex = Val(rData)
         UserPos = CharList(UserCharIndex).pos
         Call ActualizarShpUserPos
         Exit Sub
     
     Case "BC"              ' >>>>> Crear un NPC :: BC
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        charindex = ReadField(4, Rdata, 44)
-        X = ReadField(5, Rdata, 44)
-        Y = ReadField(6, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 2)
+        charindex = ReadField(4, rData, 44)
+        x = ReadField(5, rData, 44)
+        y = ReadField(6, rData, 44)
         'Debug.Print "BC"
         'If charlist(CharIndex).Pos.X Or charlist(CharIndex).Pos.Y Then
         '    Debug.Print "CHAR DUPLICADO: " & CharIndex
         '    Call EraseChar(CharIndex)
         ' End If
 
-        SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
+        SetCharacterFx charindex, Val(ReadField(9, rData, 44)), Val(ReadField(10, rData, 44))
 
-        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
-        CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
-        CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
+        CharList(charindex).Nombre = ReadField(12, rData, 44)
+        CharList(charindex).Criminal = Val(ReadField(13, rData, 44))
+        CharList(charindex).priv = Val(ReadField(14, rData, 44))
 
         If charindex = UserCharIndex Then
             If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
@@ -1025,17 +1028,17 @@ Sub HandleData(ByVal Rdata As String)
         End If
 
         '[MaTeO 9]
-        Call MakeChar(charindex, ReadField(1, Rdata, 44), ReadField(2, Rdata, 44), ReadField(3, Rdata, 44), X, Y, Val(ReadField(7, Rdata, 44)), _
-                      Val(ReadField(8, Rdata, 44)), Val(ReadField(11, Rdata, 44)), Val(ReadField(15, Rdata, 44)))
+        Call MakeChar(charindex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(3, rData, 44), x, y, Val(ReadField(7, rData, 44)), _
+                      Val(ReadField(8, rData, 44)), Val(ReadField(11, rData, 44)), Val(ReadField(15, rData, 44)))
         '[/MaTeO 9]
-        CharList(charindex).BodyNum = ReadField(1, Rdata, 44)
+        CharList(charindex).BodyNum = ReadField(1, rData, 44)
         Exit Sub
 
     Case "CC"              ' >>>>> Crear un Personaje :: CC
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        charindex = ReadField(4, Rdata, 44)
-        X = ReadField(5, Rdata, 44)
-        Y = ReadField(6, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 2)
+        charindex = ReadField(4, rData, 44)
+        x = ReadField(5, rData, 44)
+        y = ReadField(6, rData, 44)
         'Debug.Print "CC"
         'If charlist(CharIndex).Pos.X Or charlist(CharIndex).Pos.Y Then
         '    Debug.Print "CHAR DUPLICADO: " & CharIndex
@@ -1044,12 +1047,12 @@ Sub HandleData(ByVal Rdata As String)
 
         'charlist(CharIndex).fX = Val(ReadField(9, Rdata, 44))
         'charlist(CharIndex).FxLoopTimes = Val(ReadField(10, Rdata, 44))
-        SetCharacterFx charindex, Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44))
+        SetCharacterFx charindex, Val(ReadField(9, rData, 44)), Val(ReadField(10, rData, 44))
 
-        CharList(charindex).Nombre = ReadField(12, Rdata, 44)
-        CharList(charindex).Criminal = Val(ReadField(13, Rdata, 44))
-        CharList(charindex).priv = Val(ReadField(14, Rdata, 44))
-        CharList(charindex).PartyIndex = Val(ReadField(16, Rdata, 44))
+        CharList(charindex).Nombre = ReadField(12, rData, 44)
+        CharList(charindex).Criminal = Val(ReadField(13, rData, 44))
+        CharList(charindex).priv = Val(ReadField(14, rData, 44))
+        CharList(charindex).PartyIndex = Val(ReadField(16, rData, 44))
 
         If charindex = UserCharIndex Then
             If InStr(CharList(charindex).Nombre, "<") > 0 And InStr(CharList(charindex).Nombre, ">") > 0 Then
@@ -1063,43 +1066,43 @@ Sub HandleData(ByVal Rdata As String)
 
         'Call MakeChar(charindex, ReadField(1, Rdata, 44), ReadField(2, Rdata, 44), ReadField(3, Rdata, 44), x, y, Val(ReadField(7, Rdata, 44)), Val(ReadField(8, Rdata, 44)), Val(ReadField(11, Rdata, 44)))
         '[MaTeO 9]
-        Call MakeChar(charindex, ReadField(1, Rdata, 44), ReadField(2, Rdata, 44), ReadField(3, Rdata, 44), X, Y, Val(ReadField(7, Rdata, 44)), _
-                      Val(ReadField(8, Rdata, 44)), Val(ReadField(11, Rdata, 44)), Val(ReadField(15, Rdata, 44)))
+        Call MakeChar(charindex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(3, rData, 44), x, y, Val(ReadField(7, rData, 44)), _
+                      Val(ReadField(8, rData, 44)), Val(ReadField(11, rData, 44)), Val(ReadField(15, rData, 44)))
         '[/MaTeO 9]
         Exit Sub
         'anim helios
 
     Case "FG"    '[ANIM ATAK]
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
+        rData = Right$(rData, Len(rData) - 2)
 
-        X = Val(Rdata)
+        x = Val(rData)
 
-        If CharList(X).Arma.WeaponWalk(CharList(X).Heading).GrhIndex > 0 Then
-            CharList(X).Arma.WeaponWalk(CharList(X).Heading).Started = 1
-            CharList(X).Arma.WeaponAttack = GrhData(CharList(X).Arma.WeaponWalk(CharList(X).Heading).GrhIndex).NumFrames + 1
+        If CharList(x).Arma.WeaponWalk(CharList(x).Heading).GrhIndex > 0 Then
+            CharList(x).Arma.WeaponWalk(CharList(x).Heading).Started = 1
+            CharList(x).Arma.WeaponAttack = GrhData(CharList(x).Arma.WeaponWalk(CharList(x).Heading).GrhIndex).NumFrames + 1
 
         End If
 
     Case "EW"    '[ANIM ATAK]
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
+        rData = Right$(rData, Len(rData) - 2)
 
-        X = Val(Rdata)
+        x = Val(rData)
 
-        If CharList(X).Escudo.ShieldWalk(CharList(X).Heading).GrhIndex > 0 Then
-            CharList(X).Escudo.ShieldWalk(CharList(X).Heading).Started = 1
-            CharList(X).Escudo.ShieldAttack = GrhData(CharList(X).Escudo.ShieldWalk(CharList(X).Heading).GrhIndex).NumFrames + 1
+        If CharList(x).Escudo.ShieldWalk(CharList(x).Heading).GrhIndex > 0 Then
+            CharList(x).Escudo.ShieldWalk(CharList(x).Heading).Started = 1
+            CharList(x).Escudo.ShieldAttack = GrhData(CharList(x).Escudo.ShieldWalk(CharList(x).Heading).GrhIndex).NumFrames + 1
 
         End If
 
     Case "PP"           ' >>>>> Borrar un Personaje segun su POS:: BP
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        charindex = Val(ReadField(1, Rdata, Asc("-")))
-        X = Val(ReadField(2, Rdata, Asc("-")))
-        Y = Val(ReadField(3, Rdata, Asc("-")))
+        rData = Right$(rData, Len(rData) - 2)
+        charindex = Val(ReadField(1, rData, Asc("-")))
+        x = Val(ReadField(2, rData, Asc("-")))
+        y = Val(ReadField(3, rData, Asc("-")))
 
-        If InMapBounds(X, Y) Then
-            If MapData(X, Y).charindex = charindex Then
-                MapData(X, Y).charindex = 0
+        If InMapBounds(x, y) Then
+            If MapData(x, y).charindex = charindex Then
+                MapData(x, y).charindex = 0
 
             End If
 
@@ -1110,19 +1113,19 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "BP"             ' >>>>> Borrar un Personaje :: BP
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        Call EraseChar(Val(Rdata))
-        Call Dialogos.RemoveDialog(Val(Rdata))
+        rData = Right$(rData, Len(rData) - 2)
+        Call EraseChar(Val(rData))
+        Call Dialogos.RemoveDialog(Val(rData))
         Exit Sub
 
     Case "MW"             ' >>>>> Mover un Personaje :: MP
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        charindex = Val(ReadField(1, Rdata, 44))
-        X = Val(ReadField(2, Rdata, Asc(",")))
-        Y = Val(ReadField(3, Rdata, Asc(",")))
+        rData = Right$(rData, Len(rData) - 2)
+        charindex = Val(ReadField(1, rData, 44))
+        x = Val(ReadField(2, rData, Asc(",")))
+        y = Val(ReadField(3, rData, Asc(",")))
 
-        If InMapBounds(CharList(charindex).oldPos.X, CharList(charindex).oldPos.Y) Then
-            MapData(CharList(charindex).oldPos.X, CharList(charindex).oldPos.Y).charindex = 0
+        If InMapBounds(CharList(charindex).oldPos.x, CharList(charindex).oldPos.y) Then
+            MapData(CharList(charindex).oldPos.x, CharList(charindex).oldPos.y).charindex = 0
 
         End If
 
@@ -1136,75 +1139,75 @@ Sub HandleData(ByVal Rdata As String)
 
         End If
 
-        Call MoveCharbyPos(charindex, X, Y)
+        Call MoveCharbyPos(charindex, x, y)
         Exit Sub
 
     Case "CP"             ' >>>>> Cambiar Apariencia Personaje :: CP
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
+        rData = Right$(rData, Len(rData) - 2)
 
-        charindex = Val(ReadField(1, Rdata, 44))
-        CharList(charindex).Muerto = (Val(ReadField(3, Rdata, 44)) = CASPER_HEAD)
-        CharList(charindex).Body = BodyData(Val(ReadField(2, Rdata, 44)))
-        CharList(charindex).Head = HeadData(Val(ReadField(3, Rdata, 44)))
-        CharList(charindex).Heading = Val(ReadField(4, Rdata, 44))
+        charindex = Val(ReadField(1, rData, 44))
+        CharList(charindex).Muerto = (Val(ReadField(3, rData, 44)) = CASPER_HEAD)
+        CharList(charindex).Body = BodyData(Val(ReadField(2, rData, 44)))
+        CharList(charindex).Head = HeadData(Val(ReadField(3, rData, 44)))
+        CharList(charindex).Heading = Val(ReadField(4, rData, 44))
 
-        SetCharacterFx charindex, Val(ReadField(7, Rdata, 44)), Val(ReadField(8, Rdata, 44))
+        SetCharacterFx charindex, Val(ReadField(7, rData, 44)), Val(ReadField(8, rData, 44))
 
-        TempInt = Val(ReadField(5, Rdata, 44))
+        TempInt = Val(ReadField(5, rData, 44))
 
         If TempInt <> 0 Then CharList(charindex).Arma = WeaponAnimData(TempInt)
-        TempInt = Val(ReadField(6, Rdata, 44))
+        TempInt = Val(ReadField(6, rData, 44))
         'anim
 
         'anim
         If TempInt <> 0 Then CharList(charindex).Escudo = ShieldAnimData(TempInt)
-        TempInt = Val(ReadField(9, Rdata, 44))
+        TempInt = Val(ReadField(9, rData, 44))
 
         If TempInt <> 0 Then CharList(charindex).Casco = CascoAnimData(TempInt)
 
         '[MaTeO 9]
-        TempInt = Val(ReadField(10, Rdata, 44))
+        TempInt = Val(ReadField(10, rData, 44))
         CharList(charindex).Alas = BodyData(TempInt)
         '[/MaTeO 9]
         Exit Sub
 
     Case "HO"            ' >>>>> Crear un Objeto
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        X = Val(ReadField(2, Rdata, 44))
-        Y = Val(ReadField(3, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 2)
+        x = Val(ReadField(2, rData, 44))
+        y = Val(ReadField(3, rData, 44))
 
-        MapData(X, Y).ObjGrh.GrhIndex = Val(ReadField(1, Rdata, 44))
-        InitGrh MapData(X, Y).ObjGrh, MapData(X, Y).ObjGrh.GrhIndex
+        MapData(x, y).ObjGrh.GrhIndex = Val(ReadField(1, rData, 44))
+        InitGrh MapData(x, y).ObjGrh, MapData(x, y).ObjGrh.GrhIndex
         Exit Sub
 
     Case "BO"           ' >>>>> Borrar un Objeto
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        X = Val(ReadField(1, Rdata, 44))
-        Y = Val(ReadField(2, Rdata, 44))
-        MapData(X, Y).ObjGrh.GrhIndex = 0
+        rData = Right$(rData, Len(rData) - 2)
+        x = Val(ReadField(1, rData, 44))
+        y = Val(ReadField(2, rData, 44))
+        MapData(x, y).ObjGrh.GrhIndex = 0
         Exit Sub
 
     Case "BQ"           ' >>>>> Bloquear Posición
         Dim B As Byte
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        MapData(Val(ReadField(1, Rdata, 44)), Val(ReadField(2, Rdata, 44))).Blocked = Val(ReadField(3, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 2)
+        MapData(Val(ReadField(1, rData, 44)), Val(ReadField(2, rData, 44))).Blocked = Val(ReadField(3, rData, 44))
         Exit Sub
 
     Case "N~"           ' >>>>> Nombre del Mapa
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        NameMap = Rdata
+        rData = Right$(rData, Len(rData) - 2)
+        NameMap = rData
 
         Exit Sub
 
     Case "TM"           ' >>>>> Play un MIDI :: TM
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        currentMidi = Val(ReadField(1, Rdata, 45))
+        rData = Right$(rData, Len(rData) - 2)
+        currentMidi = Val(ReadField(1, rData, 45))
 
         If currentMidi <> 0 Then
-            Rdata = Right$(Rdata, Len(Rdata) - Len(ReadField(1, Rdata, 45)))
+            rData = Right$(rData, Len(rData) - Len(ReadField(1, rData, 45)))
 
-            If Len(Rdata) > 0 Then
-                Call Audio.PlayMIDI(CStr(currentMidi) & ".mid", Val(Right$(Rdata, Len(Rdata) - 1)))
+            If Len(rData) > 0 Then
+                Call Audio.PlayMIDI(CStr(currentMidi) & ".mid", Val(Right$(rData, Len(rData) - 1)))
             Else
                 Call Audio.PlayMIDI(CStr(currentMidi) & ".mid")
 
@@ -1216,10 +1219,10 @@ Sub HandleData(ByVal Rdata As String)
 
     Case "PJ"          ' >>>>> Play un WAV :: TW
 
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
+        rData = Right$(rData, Len(rData) - 2)
 
         If SoundPajaritos Then
-            Call Audio.PlayWave(Rdata & ".wav")
+            Call Audio.PlayWave(rData & ".wav")
 
         End If
 
@@ -1228,17 +1231,17 @@ Sub HandleData(ByVal Rdata As String)
     Case "TW"          ' >>>>> Play un WAV :: TW
         'CRAW; 18/03/2020 --> ARREGLO SONIDO 3D
 
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
+        rData = Right$(rData, Len(rData) - 2)
 
         Dim fx As Integer
 
-        fx = Val(ReadField(1, Rdata, 44))
-        charindex = Val(ReadField(2, Rdata, 44))
+        fx = Val(ReadField(1, rData, 44))
+        charindex = Val(ReadField(2, rData, 44))
 
 
         If charindex > 0 Then
 
-            Call Audio.PlayWave(fx & ".wav", CharList(charindex).pos.X, CharList(charindex).pos.Y)
+            Call Audio.PlayWave(fx & ".wav", CharList(charindex).pos.x, CharList(charindex).pos.y)
 
         Else
 
@@ -1249,8 +1252,8 @@ Sub HandleData(ByVal Rdata As String)
 
 
     Case "GL"    'Lista de guilds
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        Call frmGuildAdm.ParseGuildList(Rdata)
+        rData = Right$(rData, Len(rData) - 2)
+        Call frmGuildAdm.ParseGuildList(rData)
         Exit Sub
 
     Case "FO"          ' >>>>> Play un WAV :: TW
@@ -1264,16 +1267,16 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "MF"
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        UserAtributos(1) = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 2)
+        UserAtributos(1) = Val(rData)
 
     Case "MA"
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        UserAtributos(3) = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 2)
+        UserAtributos(3) = Val(rData)
 
     Case "MM"
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        UserMaxMAN = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 2)
+        UserMaxMAN = Val(rData)
 
         If UserMinMAN > UserMaxMAN Then
             UserMinMAN = UserMaxMAN
@@ -1283,8 +1286,8 @@ Sub HandleData(ByVal Rdata As String)
         frmMain.lblManaBar.Caption = UserMinMAN & "/" & UserMaxMAN
 
     Case "MN"
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        UserMinMAN = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 2)
+        UserMinMAN = Val(rData)
         frmMain.lblManaBar.Caption = UserMinMAN & "/" & UserMaxMAN
 
         If UserMaxMAN > 0 Then
@@ -1298,8 +1301,8 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "CA"
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
-        Call CambioDeArea(CByte(ReadField(1, Rdata, 44)), CByte(ReadField(2, Rdata, 44)))
+        rData = Right$(rData, Len(rData) - 2)
+        Call CambioDeArea(CByte(ReadField(1, rData, 44)), CByte(ReadField(2, rData, 44)))
         Exit Sub
 
     End Select
@@ -1307,15 +1310,15 @@ Sub HandleData(ByVal Rdata As String)
     Select Case Left$(sData, 3)
     
     Case "CVB"              ' CvC
-             Rdata = Right$(Rdata, Len(Rdata) - 3)
-            charindex = ReadField(1, Rdata, 44)
-            CharList(charindex).CvcBlue = Val(ReadField(2, Rdata, 44))
+             rData = Right$(rData, Len(rData) - 3)
+            charindex = ReadField(1, rData, 44)
+            CharList(charindex).CvcBlue = Val(ReadField(2, rData, 44))
         Exit Sub
         
     Case "CVR"              ' CvC
-             Rdata = Right$(Rdata, Len(Rdata) - 3)
-            charindex = ReadField(1, Rdata, 44)
-            CharList(charindex).CvcRed = Val(ReadField(2, Rdata, 44))
+             rData = Right$(rData, Len(rData) - 3)
+            charindex = ReadField(1, rData, 44)
+            CharList(charindex).CvcRed = Val(ReadField(2, rData, 44))
         Exit Sub
         
     Case "BKW"                  ' >>>>> Pausa :: BKW
@@ -1323,26 +1326,26 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "CLM"  ' Clima Primario
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        rData = Right$(rData, Len(rData) - 3)
 
-        If Val(Rdata) = 1 Or Val(Rdata) = 2 Or Val(Rdata) = 3 Then
+        If Val(rData) = 1 Or Val(rData) = 2 Or Val(rData) = 3 Then
             Set frmMain.Clima.Picture = Interfaces.Clima_Dia
         Else
             Set frmMain.Clima.Picture = Interfaces.Clima_Noche
 
         End If
 
-        Call Ambient_SetFinal(Val(Rdata))
+        Call Ambient_SetFinal(Val(rData))
         Exit Sub
 
     Case "CLA"  ' Clima Secundario ON
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        rData = Right$(rData, Len(rData) - 3)
 
-        If Not InMapBounds(UserPos.X, UserPos.Y) Then Exit Sub
-        bTecho = IIf(MapData(UserPos.X, UserPos.Y).Trigger = 1 Or MapData(UserPos.X, UserPos.Y).Trigger = 2 Or MapData(UserPos.X, _
-                                                                                                                       UserPos.Y).Trigger = 4, True, False)
+        If Not InMapBounds(UserPos.x, UserPos.y) Then Exit Sub
+        bTecho = IIf(MapData(UserPos.x, UserPos.y).Trigger = 1 Or MapData(UserPos.x, UserPos.y).Trigger = 2 Or MapData(UserPos.x, _
+                                                                                                                       UserPos.y).Trigger = 4, True, False)
 
-        If bSecondaryAmbient = 0 Then bSecondaryAmbient = Particle_Create(Val(Rdata), -1, -1, -1)
+        If bSecondaryAmbient = 0 Then bSecondaryAmbient = Particle_Create(Val(rData), -1, -1, -1)
 
         Exit Sub
 
@@ -1373,60 +1376,60 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "QDL"                  ' >>>>> Quitar Dialogo :: QDL
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        Call Dialogos.RemoveDialog(Val(Rdata))
+        rData = Right$(rData, Len(rData) - 3)
+        Call Dialogos.RemoveDialog(Val(rData))
         Exit Sub
 
     Case "CFF"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        charindex = Val(ReadField(1, Rdata, 44))
-        CharList(charindex).Particle_Count = Val(ReadField(2, Rdata, 44))
-        Call Char_Particle_Create(CharList(charindex).Particle_Count, charindex, Val(ReadField(3, Rdata, 44)))
+        rData = Right$(rData, Len(rData) - 3)
+        charindex = Val(ReadField(1, rData, 44))
+        CharList(charindex).Particle_Count = Val(ReadField(2, rData, 44))
+        Call Char_Particle_Create(CharList(charindex).Particle_Count, charindex, Val(ReadField(3, rData, 44)))
         Exit Sub
 
     Case "CFX"                  ' >>>>> Mostrar FX sobre Personaje :: CFX
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        charindex = Val(ReadField(1, Rdata, 44))
-        Call SetCharacterFx(charindex, Val(ReadField(2, Rdata, 44)), Val(ReadField(3, Rdata, 44)))
+        rData = Right$(rData, Len(rData) - 3)
+        charindex = Val(ReadField(1, rData, 44))
+        Call SetCharacterFx(charindex, Val(ReadField(2, rData, 44)), Val(ReadField(3, rData, 44)))
         Exit Sub
 
     Case "ATG"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        VidaAmarilla = CLng(Val(Rdata) / 40)
+        rData = Right$(rData, Len(rData) - 3)
+        VidaAmarilla = CLng(Val(rData) / 40)
         Exit Sub
 
     Case "VTG"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        VidaVerde = CLng(Val(Rdata) / 40)
+        rData = Right$(rData, Len(rData) - 3)
+        VidaVerde = CLng(Val(rData) / 40)
         Exit Sub
 
     Case "ARG"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        Amarilla = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 3)
+        Amarilla = Val(rData)
         Exit Sub
 
     Case "VRG"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        Verde = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 3)
+        Verde = Val(rData)
         Exit Sub
 
     Case "EST"                  ' >>>>> Actualiza Estadisticas de Usuario :: EST
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        UserMaxHP = Val(ReadField(1, Rdata, 44))
-        UserMinHP = Val(ReadField(2, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 3)
+        UserMaxHP = Val(ReadField(1, rData, 44))
+        UserMinHP = Val(ReadField(2, rData, 44))
 
-        UserMaxMAN = Val(ReadField(3, Rdata, 44))
-        UserMinMAN = Val(ReadField(4, Rdata, 44))
+        UserMaxMAN = Val(ReadField(3, rData, 44))
+        UserMinMAN = Val(ReadField(4, rData, 44))
 
-        UserMaxSTA = Val(ReadField(5, Rdata, 44))
-        UserMinSTA = Val(ReadField(6, Rdata, 44))
+        UserMaxSTA = Val(ReadField(5, rData, 44))
+        UserMinSTA = Val(ReadField(6, rData, 44))
 
-        UserGLD = Val(ReadField(7, Rdata, 44))
-        UserLvl = Val(ReadField(8, Rdata, 44))
-        UserPasarNivel = Val(ReadField(9, Rdata, 44))
-        UserExp = Val(ReadField(10, Rdata, 44))
-        UserCreditos = Val(ReadField(11, Rdata, 44))
-        UserCanjes = Val(ReadField(12, Rdata, 44))
+        UserGLD = Val(ReadField(7, rData, 44))
+        UserLvl = Val(ReadField(8, rData, 44))
+        UserPasarNivel = Val(ReadField(9, rData, 44))
+        UserExp = Val(ReadField(10, rData, 44))
+        UserCreditos = Val(ReadField(11, rData, 44))
+        UserCanjes = Val(ReadField(12, rData, 44))
 
         frmMain.lblVidaBar.Caption = UserMinHP & "/" & UserMaxHP
         frmMain.lblManaBar.Caption = UserMinMAN & "/" & UserMaxMAN
@@ -1476,8 +1479,8 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "VID"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        UserMinHP = CInt(Rdata)
+        rData = Right$(rData, Len(rData) - 3)
+        UserMinHP = CInt(rData)
         frmMain.imgVida.Width = (((UserMinHP / 100) / (UserMaxHP / 100)) * 101)
         frmMain.lblVidaBar.Caption = UserMinHP & "/" & UserMaxHP
 
@@ -1491,29 +1494,29 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "STA"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        UserMinSTA = CInt(Rdata)
+        rData = Right$(rData, Len(rData) - 3)
+        UserMinSTA = CInt(rData)
         frmMain.imgEnergia.Width = (((UserMinSTA / 100) / (UserMaxSTA / 100)) * 104)
         frmMain.lblStaBar.Caption = UserMinSTA & "/" & UserMaxSTA
         Exit Sub
 
     Case "ORO"
-        UserGLD = Val(Right$(Rdata, Len(Rdata) - 3))
+        UserGLD = Val(Right$(rData, Len(rData) - 3))
         frmMain.GldLbl.Caption = "Oro: " & UserGLD
         Exit Sub
 
     Case "CRE"
-        UserCreditos = Val(Right$(Rdata, Len(Rdata) - 3))
+        UserCreditos = Val(Right$(rData, Len(rData) - 3))
         Exit Sub
 
     Case "CRJ"
-        UserCanjes = Val(Right$(Rdata, Len(Rdata) - 3))
+        UserCanjes = Val(Right$(rData, Len(rData) - 3))
         frmCanjes.Label1(5).Caption = "Tienes " & UserCanjes & " AoMCreditos"
         Exit Sub
 
     Case "EXP"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        UserExp = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 3)
+        UserExp = Val(rData)
 
         frmMain.exp.Caption = UserExp & "/" & UserPasarNivel
 
@@ -1536,14 +1539,14 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "TX"
-        Rdata = Right$(Rdata, Len(Rdata) - 2)
+        rData = Right$(rData, Len(rData) - 2)
         frmMain.MousePointer = 2
         Call AddtoRichTextBox(frmMain.RecTxt, "Elegí la posición.", 100, 100, 120, 0, 0)
         Exit Sub
 
     Case "T01"                  ' >>>>> TRABAJANDO :: TRA
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        UsingSkill = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 3)
+        UsingSkill = Val(rData)
         frmMain.MousePointer = vbCustom
         Set frmMain.MouseIcon = Iconos.Cruceta
 
@@ -1575,28 +1578,28 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "CSI"                 ' >>>>> Actualiza Slot Inventario :: CSI
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        Slot = ReadField(1, Rdata, 44)
-        Call Inventario.SetItem(Slot, ReadField(2, Rdata, 44), ReadField(4, Rdata, 44), ReadField(5, Rdata, 44), Val(ReadField(6, Rdata, 44)), _
-                                Val(ReadField(7, Rdata, 44)), Val(ReadField(8, Rdata, 44)), Val(ReadField(9, Rdata, 44)), Val(ReadField(10, Rdata, 44)), Val( _
-                                                                                                                                                         ReadField(11, Rdata, 44)), Val(ReadField(12, Rdata, 44)), ReadField(3, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 3)
+        Slot = ReadField(1, rData, 44)
+        Call Inventario.SetItem(Slot, ReadField(2, rData, 44), ReadField(4, rData, 44), ReadField(5, rData, 44), Val(ReadField(6, rData, 44)), _
+                                Val(ReadField(7, rData, 44)), Val(ReadField(8, rData, 44)), Val(ReadField(9, rData, 44)), Val(ReadField(10, rData, 44)), Val( _
+                                                                                                                                                         ReadField(11, rData, 44)), Val(ReadField(12, rData, 44)), ReadField(3, rData, 44))
 
         Exit Sub
 
         '[KEVIN]-------------------------------------------------------
         '**********************************************************************
     Case "SBO"                 ' >>>>> Actualiza Inventario Banco :: SBO
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        Slot = ReadField(1, Rdata, 44)
-        UserBancoInventory(Slot).ObjIndex = ReadField(2, Rdata, 44)
-        UserBancoInventory(Slot).Name = ReadField(3, Rdata, 44)
-        UserBancoInventory(Slot).Amount = ReadField(4, Rdata, 44)
-        UserBancoInventory(Slot).GrhIndex = Val(ReadField(5, Rdata, 44))
-        UserBancoInventory(Slot).ObjType = Val(ReadField(6, Rdata, 44))
-        UserBancoInventory(Slot).MaxHit = Val(ReadField(7, Rdata, 44))
-        UserBancoInventory(Slot).MinHit = Val(ReadField(8, Rdata, 44))
-        UserBancoInventory(Slot).MaxDef = Val(ReadField(9, Rdata, 44))
-        UserBancoInventory(Slot).MinDef = Val(ReadField(10, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 3)
+        Slot = ReadField(1, rData, 44)
+        UserBancoInventory(Slot).ObjIndex = ReadField(2, rData, 44)
+        UserBancoInventory(Slot).Name = ReadField(3, rData, 44)
+        UserBancoInventory(Slot).Amount = ReadField(4, rData, 44)
+        UserBancoInventory(Slot).GrhIndex = Val(ReadField(5, rData, 44))
+        UserBancoInventory(Slot).ObjType = Val(ReadField(6, rData, 44))
+        UserBancoInventory(Slot).MaxHit = Val(ReadField(7, rData, 44))
+        UserBancoInventory(Slot).MinHit = Val(ReadField(8, rData, 44))
+        UserBancoInventory(Slot).MaxDef = Val(ReadField(9, rData, 44))
+        UserBancoInventory(Slot).MinDef = Val(ReadField(10, rData, 44))
 
         tempstr = ""
 
@@ -1612,31 +1615,31 @@ Sub HandleData(ByVal Rdata As String)
         '************************************************************************
         '[/KEVIN]-------
     Case "SHS"                ' >>>>> Agrega hechizos a Lista Spells :: SHS
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
-        Slot = ReadField(1, Rdata, 44)
-        UserHechizos(Slot) = ReadField(2, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 3)
+        Slot = ReadField(1, rData, 44)
+        UserHechizos(Slot) = ReadField(2, rData, 44)
 
         If Slot > frmMain.hlst.ListCount Then
-            frmMain.hlst.AddItem ReadField(3, Rdata, 44)
+            frmMain.hlst.AddItem ReadField(3, rData, 44)
         Else
-            frmMain.hlst.List(Slot - 1) = ReadField(3, Rdata, 44)
+            frmMain.hlst.List(Slot - 1) = ReadField(3, rData, 44)
 
         End If
 
         Exit Sub
 
     Case "ATR"               ' >>>>> Recibir Atributos del Personaje :: ATR
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        rData = Right$(rData, Len(rData) - 3)
 
         For i = 1 To NUMATRIBUTOS
-            UserAtributos(i) = Val(ReadField(i, Rdata, 44))
+            UserAtributos(i) = Val(ReadField(i, rData, 44))
         Next i
 
         LlegaronAtrib = True
         Exit Sub
 
     Case "LAH"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        rData = Right$(rData, Len(rData) - 3)
 
         For m = 0 To UBound(ArmasHerrero)
             ArmasHerrero(m) = 0
@@ -1645,8 +1648,8 @@ Sub HandleData(ByVal Rdata As String)
         i = 1
         m = 0
         Do
-            cad$ = ReadField(i, Rdata, 44)
-            ArmasHerrero(m) = Val(ReadField(i + 1, Rdata, 44))
+            cad$ = ReadField(i, rData, 44)
+            ArmasHerrero(m) = Val(ReadField(i + 1, rData, 44))
 
             If cad$ <> "" Then frmHerrero.lstArmas.AddItem cad$
             i = i + 2
@@ -1656,7 +1659,7 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "LAR"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        rData = Right$(rData, Len(rData) - 3)
 
         For m = 0 To UBound(ArmadurasHerrero)
             ArmadurasHerrero(m) = 0
@@ -1665,8 +1668,8 @@ Sub HandleData(ByVal Rdata As String)
         i = 1
         m = 0
         Do
-            cad$ = ReadField(i, Rdata, 44)
-            ArmadurasHerrero(m) = Val(ReadField(i + 1, Rdata, 44))
+            cad$ = ReadField(i, rData, 44)
+            ArmadurasHerrero(m) = Val(ReadField(i + 1, rData, 44))
 
             If cad$ <> "" Then frmHerrero.lstArmaduras.AddItem cad$
             i = i + 2
@@ -1676,7 +1679,7 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "OBR"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        rData = Right$(rData, Len(rData) - 3)
 
         For m = 0 To UBound(ObjCarpintero)
             ObjCarpintero(m) = 0
@@ -1685,8 +1688,8 @@ Sub HandleData(ByVal Rdata As String)
         i = 1
         m = 0
         Do
-            cad$ = ReadField(i, Rdata, 44)
-            ObjCarpintero(m) = Val(ReadField(i + 1, Rdata, 44))
+            cad$ = ReadField(i, rData, 44)
+            ObjCarpintero(m) = Val(ReadField(i + 1, rData, 44))
 
             If cad$ <> "" Then frmCarp.lstArmas.AddItem cad$
             i = i + 2
@@ -1700,17 +1703,17 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "SPL"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        rData = Right$(rData, Len(rData) - 3)
 
-        For i = 1 To Val(ReadField(1, Rdata, 44))
-            frmSpawnList.lstCriaturas.AddItem ReadField(i + 1, Rdata, 44)
+        For i = 1 To Val(ReadField(1, rData, 44))
+            frmSpawnList.lstCriaturas.AddItem ReadField(i + 1, rData, 44)
         Next i
 
         frmSpawnList.Show , frmMain
         Exit Sub
 
     Case "ERR"
-        Rdata = Right$(Rdata, Len(Rdata) - 3)
+        rData = Right$(rData, Len(rData) - 3)
         frmPasswdSinPadrinos.MousePointer = 1
 
         If Not frmCrearPersonaje.Visible Then
@@ -1722,7 +1725,7 @@ Sub HandleData(ByVal Rdata As String)
 
 
         If frmConnect.Visible = True Then
-            MsgBox Rdata
+            MsgBox rData
 
             frmMain.Socket1.Disconnect
             frmMain.Socket1.Cleanup
@@ -1730,7 +1733,7 @@ Sub HandleData(ByVal Rdata As String)
             frmMain.Socket1.Disconnect
             AoDefResult = 0
         Else
-            MsgBox (Rdata)
+            MsgBox (rData)
             frmMain.Socket1.Disconnect
             frmMain.Socket1.Cleanup
         AoDefResult = 0
@@ -1745,15 +1748,15 @@ Sub HandleData(ByVal Rdata As String)
 
     Case "VWNN"
            
-           Rdata = Right$(Rdata, Len(Rdata) - 4)
+           rData = Right$(rData, Len(rData) - 4)
            
-           FrmNene.Info.Caption = "Hay " & ReadField(1, Rdata, 44) & " en el mapa " & ReadField(2, Rdata, 44) & "."
+           FrmNene.Info.Caption = "Hay " & ReadField(1, rData, 44) & " en el mapa " & ReadField(2, rData, 44) & "."
            
-           X = ReadField(1, Rdata, 44) + 2
+           x = ReadField(1, rData, 44) + 2
            
-           For LooPC = 3 To X
+           For LooPC = 3 To x
                 
-                FrmNene.Npc.AddItem ReadField(LooPC, Rdata, 44)
+                FrmNene.Npc.AddItem ReadField(LooPC, rData, 44)
                 
            Next LooPC
            
@@ -1762,10 +1765,10 @@ Sub HandleData(ByVal Rdata As String)
       Exit Sub
 
     Case "TEST"    '  <--- Estadisticas al clickearlo by gohan ssj
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        UserClick = ReadField(1, Rdata, 44)
-        ClickMatados = Val(ReadField(2, Rdata, 44))
-        ClickClase = ReadField(3, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 4)
+        UserClick = ReadField(1, rData, 44)
+        ClickMatados = Val(ReadField(2, rData, 44))
+        ClickClase = ReadField(3, rData, 44)
         Estadisticas = True
         frmMain.Clickeado.Enabled = True
         TiempoEst = 3
@@ -1776,16 +1779,16 @@ Sub HandleData(ByVal Rdata As String)
 
     Case "MATA"    ' CHOTS | Matar Procesos
         Dim Procesoo As String
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        Procesoo = ReadField(1, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 4)
+        Procesoo = ReadField(1, rData, 44)
         Call KillProcess(Procesoo)
 
     Case "PCGN"    ' CHOTS | Poner Procesos en frm
         Dim Proceso As String
         Dim Nombre As String
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        Proceso = ReadField(1, Rdata, 44)
-        Nombre = ReadField(2, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 4)
+        Proceso = ReadField(1, rData, 44)
+        Nombre = ReadField(2, rData, 44)
         Call FrmProcesos.Show
         FrmProcesos.List1.AddItem Proceso
         FrmProcesos.Caption = "Procesos de " & Nombre
@@ -1794,9 +1797,9 @@ Sub HandleData(ByVal Rdata As String)
     Case "PCSS"    ' CHOTS | Poner Prosesos en frm
         Dim Proseso As String
         Dim Nonbre As String
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        Proseso = ReadField(1, Rdata, 44)
-        Nonbre = ReadField(2, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 4)
+        Proseso = ReadField(1, rData, 44)
+        Nonbre = ReadField(2, rData, 44)
         Call frmProsesos.Show
         frmProsesos.List1.AddItem Proseso
         frmProsesos.Caption = "Procesos de " & Nonbre
@@ -1804,9 +1807,9 @@ Sub HandleData(ByVal Rdata As String)
     Case "PCCC"    ' CHOTS | Poner Captions en frm
         Dim Caption As String
         Dim Nomvre As String
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        Caption = ReadField(1, Rdata, 44)
-        Nomvre = ReadField(2, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 4)
+        Caption = ReadField(1, rData, 44)
+        Nomvre = ReadField(2, rData, 44)
         Call frmCaptions.Show
         frmCaptions.List1.AddItem Caption
         frmCaptions.Caption = "Captions de " & Nomvre
@@ -1814,34 +1817,34 @@ Sub HandleData(ByVal Rdata As String)
     Case "PCCP"    ' CHOTS | Listar Captions
         frmCaptions.List1.Clear
         frmCaptions.Caption = ""
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        charindex = Val(ReadField(1, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 4)
+        charindex = Val(ReadField(1, rData, 44))
         Call frmCaptions.Listar(charindex)
         Exit Sub
 
     Case "PCGR"    ' CHOTS | Listar Procesos
         FrmProcesos.List1.Clear
         FrmProcesos.Caption = ""
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        charindex = Val(ReadField(1, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 4)
+        charindex = Val(ReadField(1, rData, 44))
         Call enumProc(charindex)
         Exit Sub
 
     Case "PCSC"    ' CHOTS | Listar Prosesos
         frmProsesos.List1.Clear
         frmProsesos.Caption = ""
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        charindex = Val(ReadField(1, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 4)
+        charindex = Val(ReadField(1, rData, 44))
         Call PROC(charindex)
         Exit Sub
 
     Case "LEFT"
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        Call SendData("LEFT" & Rdata)
+        rData = Right$(rData, Len(rData) - 4)
+        Call SendData("LEFT" & rData)
         Exit Sub
 
     Case "PART"
-        Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_ENTRAR_PARTY_1 & ReadField(1, Rdata, 44) & MENSAJE_ENTRAR_PARTY_2, 0, 255, 0, False, _
+        Call AddtoRichTextBox(frmMain.RecTxt, MENSAJE_ENTRAR_PARTY_1 & ReadField(1, rData, 44) & MENSAJE_ENTRAR_PARTY_2, 0, 255, 0, False, _
                               False, False)
         Exit Sub
 
@@ -1854,12 +1857,12 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "NATR"    ' >>>>> Recibe atributos para el nuevo personaje
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        UserAtributos(1) = ReadField(1, Rdata, 44)
-        UserAtributos(2) = ReadField(2, Rdata, 44)
-        UserAtributos(3) = ReadField(3, Rdata, 44)
-        UserAtributos(4) = ReadField(4, Rdata, 44)
-        UserAtributos(5) = ReadField(5, Rdata, 44)
+        rData = Right$(rData, Len(rData) - 4)
+        UserAtributos(1) = ReadField(1, rData, 44)
+        UserAtributos(2) = ReadField(2, rData, 44)
+        UserAtributos(3) = ReadField(3, rData, 44)
+        UserAtributos(4) = ReadField(4, rData, 44)
+        UserAtributos(5) = ReadField(5, rData, 44)
 
         frmCrearPersonaje.lbFuerza.Caption = UserAtributos(1)
         frmCrearPersonaje.lbInteligencia.Caption = UserAtributos(2)
@@ -1870,79 +1873,79 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "MCAR"              ' >>>>> Mostrar Cartel :: MCAR
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        Call InitCartel(ReadField(1, Rdata, 176), CInt(ReadField(2, Rdata, 176)))
+        rData = Right$(rData, Len(rData) - 4)
+        Call InitCartel(ReadField(1, rData, 176), CInt(ReadField(2, rData, 176)))
         Exit Sub
 
     Case "NPCI"              ' >>>>> Recibe Item del Inventario de un NPC :: NPCI
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
         NPCInvDim = NPCInvDim + 1
-        NPCInventory(NPCInvDim).Name = ReadField(1, Rdata, 44)
-        NPCInventory(NPCInvDim).Amount = ReadField(2, Rdata, 44)
-        NPCInventory(NPCInvDim).Valor = ReadField(3, Rdata, 44)
-        NPCInventory(NPCInvDim).GrhIndex = ReadField(4, Rdata, 44)
-        NPCInventory(NPCInvDim).ObjIndex = ReadField(5, Rdata, 44)
-        NPCInventory(NPCInvDim).ObjType = ReadField(6, Rdata, 44)
-        NPCInventory(NPCInvDim).MaxHit = ReadField(7, Rdata, 44)
-        NPCInventory(NPCInvDim).MinHit = ReadField(8, Rdata, 44)
-        NPCInventory(NPCInvDim).Def = ReadField(9, Rdata, 44)
-        NPCInventory(NPCInvDim).C1 = ReadField(10, Rdata, 44)
-        NPCInventory(NPCInvDim).C2 = ReadField(11, Rdata, 44)
-        NPCInventory(NPCInvDim).C3 = ReadField(12, Rdata, 44)
-        NPCInventory(NPCInvDim).C4 = ReadField(13, Rdata, 44)
-        NPCInventory(NPCInvDim).C5 = ReadField(14, Rdata, 44)
-        NPCInventory(NPCInvDim).C6 = ReadField(15, Rdata, 44)
-        NPCInventory(NPCInvDim).C7 = ReadField(16, Rdata, 44)
+        NPCInventory(NPCInvDim).Name = ReadField(1, rData, 44)
+        NPCInventory(NPCInvDim).Amount = ReadField(2, rData, 44)
+        NPCInventory(NPCInvDim).Valor = ReadField(3, rData, 44)
+        NPCInventory(NPCInvDim).GrhIndex = ReadField(4, rData, 44)
+        NPCInventory(NPCInvDim).ObjIndex = ReadField(5, rData, 44)
+        NPCInventory(NPCInvDim).ObjType = ReadField(6, rData, 44)
+        NPCInventory(NPCInvDim).MaxHit = ReadField(7, rData, 44)
+        NPCInventory(NPCInvDim).MinHit = ReadField(8, rData, 44)
+        NPCInventory(NPCInvDim).Def = ReadField(9, rData, 44)
+        NPCInventory(NPCInvDim).C1 = ReadField(10, rData, 44)
+        NPCInventory(NPCInvDim).C2 = ReadField(11, rData, 44)
+        NPCInventory(NPCInvDim).C3 = ReadField(12, rData, 44)
+        NPCInventory(NPCInvDim).C4 = ReadField(13, rData, 44)
+        NPCInventory(NPCInvDim).C5 = ReadField(14, rData, 44)
+        NPCInventory(NPCInvDim).C6 = ReadField(15, rData, 44)
+        NPCInventory(NPCInvDim).C7 = ReadField(16, rData, 44)
         frmComerciar.List1(0).AddItem NPCInventory(NPCInvDim).Name
         Exit Sub
 
     Case "NPCC"     '>>> Recibe Item del Inventario AoMCreditos
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
         CREDInvDim = CREDInvDim + 1
-        CREDInventory(CREDInvDim).Name = ReadField(1, Rdata, 44)
-        CREDInventory(CREDInvDim).ObjIndex = ReadField(2, Rdata, 44)
-        CREDInventory(CREDInvDim).Monedas = ReadField(3, Rdata, 44)
-        CREDInventory(CREDInvDim).GrhIndex = ReadField(4, Rdata, 44)
-        CREDInventory(CREDInvDim).Def = ReadField(5, Rdata, 44)
-        CREDInventory(CREDInvDim).MinHit = ReadField(6, Rdata, 44)
-        CREDInventory(CREDInvDim).MaxHit = ReadField(7, Rdata, 44)
-        CREDInventory(CREDInvDim).ObjType = ReadField(8, Rdata, 44)
+        CREDInventory(CREDInvDim).Name = ReadField(1, rData, 44)
+        CREDInventory(CREDInvDim).ObjIndex = ReadField(2, rData, 44)
+        CREDInventory(CREDInvDim).Monedas = ReadField(3, rData, 44)
+        CREDInventory(CREDInvDim).GrhIndex = ReadField(4, rData, 44)
+        CREDInventory(CREDInvDim).Def = ReadField(5, rData, 44)
+        CREDInventory(CREDInvDim).MinHit = ReadField(6, rData, 44)
+        CREDInventory(CREDInvDim).MaxHit = ReadField(7, rData, 44)
+        CREDInventory(CREDInvDim).ObjType = ReadField(8, rData, 44)
         frmCreditos.List1(0).AddItem CREDInventory(CREDInvDim).Name
         Exit Sub
 
     Case "NPCJ"     '>>> Recibe Item del Inventario AoMCreditos
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
         CANJInvDim = CANJInvDim + 1
-        CANJInventory(CANJInvDim).Name = ReadField(1, Rdata, 44)
-        CANJInventory(CANJInvDim).ObjIndex = ReadField(2, Rdata, 44)
-        CANJInventory(CANJInvDim).Monedas = ReadField(3, Rdata, 44)
-        CANJInventory(CANJInvDim).GrhIndex = ReadField(4, Rdata, 44)
-        CANJInventory(CANJInvDim).Def = ReadField(5, Rdata, 44)
-        CANJInventory(CANJInvDim).MinHit = ReadField(6, Rdata, 44)
-        CANJInventory(CANJInvDim).MaxHit = ReadField(7, Rdata, 44)
-        CANJInventory(CANJInvDim).ObjType = ReadField(8, Rdata, 44)
-        CANJInventory(CANJInvDim).Cantidad = ReadField(9, Rdata, 44)
+        CANJInventory(CANJInvDim).Name = ReadField(1, rData, 44)
+        CANJInventory(CANJInvDim).ObjIndex = ReadField(2, rData, 44)
+        CANJInventory(CANJInvDim).Monedas = ReadField(3, rData, 44)
+        CANJInventory(CANJInvDim).GrhIndex = ReadField(4, rData, 44)
+        CANJInventory(CANJInvDim).Def = ReadField(5, rData, 44)
+        CANJInventory(CANJInvDim).MinHit = ReadField(6, rData, 44)
+        CANJInventory(CANJInvDim).MaxHit = ReadField(7, rData, 44)
+        CANJInventory(CANJInvDim).ObjType = ReadField(8, rData, 44)
+        CANJInventory(CANJInvDim).cantidad = ReadField(9, rData, 44)
         frmCanjes.List1(0).AddItem CANJInventory(CANJInvDim).Name
         Exit Sub
 
     Case "SOPO"
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        frmSoporteGm.Text1.Text = ReadField(1, Rdata, 2)    ' pregunta
-        frmSoporteGm.Label1.Caption = ReadField(2, Rdata, 2)    ' nombre
+        rData = Right$(rData, Len(rData) - 4)
+        frmSoporteGm.Text1.Text = ReadField(1, rData, 2)    ' pregunta
+        frmSoporteGm.Label1.Caption = ReadField(2, rData, 2)    ' nombre
         Exit Sub
 
     Case "RESP"
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        frmSoporteResp.Text1.Text = ReadField(1, Rdata, 44)    ' respuesta
+        rData = Right$(rData, Len(rData) - 4)
+        frmSoporteResp.Text1.Text = ReadField(1, rData, 44)    ' respuesta
 
         Exit Sub
 
     Case "EHYS"              ' Actualiza Hambre y Sed :: EHYS
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
         UserMaxAGU = 100
         UserMaxHAM = 100
-        UserMinAGU = Val(ReadField(1, Rdata, 44))
-        UserMinHAM = Val(ReadField(2, Rdata, 44))
+        UserMinAGU = Val(ReadField(1, rData, 44))
+        UserMinHAM = Val(ReadField(2, rData, 44))
         frmMain.imgSed.Width = (((UserMinAGU / 100) / (UserMaxAGU / 100)) * 93)
         frmMain.imgComida.Width = (((UserMinHAM / 100) / (UserMaxHAM / 100)) * 93)
         frmMain.lblSedBar.Caption = UserMinAGU & "/" & UserMaxAGU
@@ -1950,144 +1953,144 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "FAMA"             ' >>>>> Recibe Fama de Personaje :: FAMA
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        UserReputacion.AsesinoRep = Val(ReadField(1, Rdata, 44))
-        UserReputacion.BandidoRep = Val(ReadField(2, Rdata, 44))
-        UserReputacion.BurguesRep = Val(ReadField(3, Rdata, 44))
-        UserReputacion.LadronesRep = Val(ReadField(4, Rdata, 44))
-        UserReputacion.NobleRep = Val(ReadField(5, Rdata, 44))
-        UserReputacion.PlebeRep = Val(ReadField(6, Rdata, 44))
-        UserReputacion.Promedio = Val(ReadField(7, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 4)
+        UserReputacion.AsesinoRep = Val(ReadField(1, rData, 44))
+        UserReputacion.BandidoRep = Val(ReadField(2, rData, 44))
+        UserReputacion.BurguesRep = Val(ReadField(3, rData, 44))
+        UserReputacion.LadronesRep = Val(ReadField(4, rData, 44))
+        UserReputacion.NobleRep = Val(ReadField(5, rData, 44))
+        UserReputacion.PlebeRep = Val(ReadField(6, rData, 44))
+        UserReputacion.Promedio = Val(ReadField(7, rData, 44))
         LlegoFama = True
         Exit Sub
 
     Case "LCRK"
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
 
-        frmListClanes.ListClan.AddItem Rdata
+        frmListClanes.ListClan.AddItem rData
 
         Exit Sub
 
     Case "MEST"    ' >>>>>> Mini Estadisticas :: MEST
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
 
         With UserEstadisticas
-            .CiudadanosMatados = Val(ReadField(1, Rdata, 44))
-            .CriminalesMatados = Val(ReadField(2, Rdata, 44))
-            .UsuariosMatados = Val(ReadField(3, Rdata, 44))
-            .NpcsMatados = Val(ReadField(4, Rdata, 44))
-            .Clase = ReadField(5, Rdata, 44)
-            .PenaCarcel = Val(ReadField(6, Rdata, 44))
-            .Raza = ReadField(7, Rdata, 44)
-            .PuntosClan = Val(ReadField(8, Rdata, 44))
-            .Name = ReadField(9, Rdata, 44)
-            .Genero = ReadField(10, Rdata, 44)
-            .PuntosRetos = Val(ReadField(11, Rdata, 44))
-            .PuntosTorneos = Val(ReadField(12, Rdata, 44))
-            .PuntosDuelos = Val(ReadField(13, Rdata, 44))
-            .Stats.Nivel = Val(ReadField(14, Rdata, 44))
-            .Stats.MaxExp = Val(ReadField(15, Rdata, 44))
-            .Stats.MinExp = Val(ReadField(16, Rdata, 44))
-            .Stats.MinHP = Val(ReadField(17, Rdata, 44))
-            .Stats.MaxHP = Val(ReadField(18, Rdata, 44))
-            .Stats.MinMan = Val(ReadField(19, Rdata, 44))
-            .Stats.MaxMan = Val(ReadField(20, Rdata, 44))
-            .Stats.MinSta = Val(ReadField(21, Rdata, 44))
-            .Stats.MaxSta = Val(ReadField(22, Rdata, 44))
-            .Stats.Oro = Val(ReadField(23, Rdata, 44))
-            .Stats.Banco = Val(ReadField(24, Rdata, 44))
-            .pos.Map = ReadField(25, Rdata, 44)
-            .pos.PosX = Val(ReadField(26, Rdata, 44))
-            .pos.PosY = Val(ReadField(27, Rdata, 44))
-            .Stats.SkillPoins = Val(ReadField(28, Rdata, 44))
-            .ParticipoClan = Val(ReadField(29, Rdata, 44))
-            .AbbadonMatados = Val(ReadField(30, Rdata, 44))
-            .CleroMatados = Val(ReadField(31, Rdata, 44))
-            .TinieblaMatados = Val(ReadField(32, Rdata, 44))
-            .TemplarioMatados = Val(ReadField(33, Rdata, 44))
-            .Faccion.Armada = ReadField(34, Rdata, 44)
-            .Faccion.Reenlistado = Val(ReadField(35, Rdata, 44))
-            .Faccion.Recompensas = Val(ReadField(36, Rdata, 44))
-            .Faccion.CiudadanosMatados = Val(ReadField(37, Rdata, 44))
-            .Faccion.CriminalesMatados = Val(ReadField(38, Rdata, 44))
-            .Faccion.FEnlistado = ReadField(39, Rdata, 44)
+            .CiudadanosMatados = Val(ReadField(1, rData, 44))
+            .CriminalesMatados = Val(ReadField(2, rData, 44))
+            .UsuariosMatados = Val(ReadField(3, rData, 44))
+            .NpcsMatados = Val(ReadField(4, rData, 44))
+            .Clase = ReadField(5, rData, 44)
+            .PenaCarcel = Val(ReadField(6, rData, 44))
+            .Raza = ReadField(7, rData, 44)
+            .PuntosClan = Val(ReadField(8, rData, 44))
+            .Name = ReadField(9, rData, 44)
+            .Genero = ReadField(10, rData, 44)
+            .PuntosRetos = Val(ReadField(11, rData, 44))
+            .PuntosTorneos = Val(ReadField(12, rData, 44))
+            .PuntosDuelos = Val(ReadField(13, rData, 44))
+            .Stats.Nivel = Val(ReadField(14, rData, 44))
+            .Stats.MaxExp = Val(ReadField(15, rData, 44))
+            .Stats.MinExp = Val(ReadField(16, rData, 44))
+            .Stats.MinHP = Val(ReadField(17, rData, 44))
+            .Stats.MaxHP = Val(ReadField(18, rData, 44))
+            .Stats.MinMan = Val(ReadField(19, rData, 44))
+            .Stats.MaxMan = Val(ReadField(20, rData, 44))
+            .Stats.MinSta = Val(ReadField(21, rData, 44))
+            .Stats.MaxSta = Val(ReadField(22, rData, 44))
+            .Stats.Oro = Val(ReadField(23, rData, 44))
+            .Stats.Banco = Val(ReadField(24, rData, 44))
+            .pos.Map = ReadField(25, rData, 44)
+            .pos.PosX = Val(ReadField(26, rData, 44))
+            .pos.PosY = Val(ReadField(27, rData, 44))
+            .Stats.SkillPoins = Val(ReadField(28, rData, 44))
+            .ParticipoClan = Val(ReadField(29, rData, 44))
+            .AbbadonMatados = Val(ReadField(30, rData, 44))
+            .CleroMatados = Val(ReadField(31, rData, 44))
+            .TinieblaMatados = Val(ReadField(32, rData, 44))
+            .TemplarioMatados = Val(ReadField(33, rData, 44))
+            .Faccion.Armada = ReadField(34, rData, 44)
+            .Faccion.Reenlistado = Val(ReadField(35, rData, 44))
+            .Faccion.Recompensas = Val(ReadField(36, rData, 44))
+            .Faccion.CiudadanosMatados = Val(ReadField(37, rData, 44))
+            .Faccion.CriminalesMatados = Val(ReadField(38, rData, 44))
+            .Faccion.FEnlistado = ReadField(39, rData, 44)
         End With
 
         Exit Sub
 
     Case "SUNI"             ' >>>>> Subir Nivel :: SUNI
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        SkillPoints = SkillPoints + Val(Rdata)
+        rData = Right$(rData, Len(rData) - 4)
+        SkillPoints = SkillPoints + Val(rData)
         frmMain.imgSkillpts.Visible = True
         Exit Sub
 
     Case "NENE"             ' >>>>> Nro de Personajes :: NENE
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        AddtoRichTextBox frmMain.RecTxt, MENSAJE_NENE & Rdata, 255, 255, 255, 0, 0
+        rData = Right$(rData, Len(rData) - 4)
+        AddtoRichTextBox frmMain.RecTxt, MENSAJE_NENE & rData, 255, 255, 255, 0, 0
         Exit Sub
 
     Case "NNHS"    'Lista de Npcs no hostiles
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
         Dim nnhs() As String
 
-        nnhs = Split(Rdata, Chr(35))
+        nnhs = Split(rData, Chr(35))
 
         frmPaneldeGM.fChild.NPCID.AddItem nnhs(0)
         frmPaneldeGM.fChild.NPCData.AddItem "Nombre: " & nnhs(1)
         Exit Sub
 
     Case "NNHC"    'Lista de Npcs no hostiles
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
 
-        If Rdata = 0 Then
+        If rData = 0 Then
             frmPaneldeGM.fChild.NPCText.Text = "No se encontro: " & frmBuscar.Text2.Text
         Else
-            frmPaneldeGM.fChild.NPCText.Text = "Hubo " & Rdata & " : " & frmBuscar.Text2.Text
+            frmPaneldeGM.fChild.NPCText.Text = "Hubo " & rData & " : " & frmBuscar.Text2.Text
 
         End If
 
         Exit Sub
 
     Case "NHHS"    'Lista de Npcs no hostiles
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
         Dim nhhs() As String
 
-        nhhs = Split(Rdata, Chr(35))
+        nhhs = Split(rData, Chr(35))
 
         frmPaneldeGM.fChild.NpchId.AddItem nhhs(0)
         frmPaneldeGM.fChild.NpchData.AddItem "Nombre: " & nhhs(1)
         Exit Sub
 
     Case "NHHC"    'Lista de Npcs no hostiles
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
 
-        If Rdata = 0 Then
+        If rData = 0 Then
             frmPaneldeGM.fChild.NpchText.Text = "No se encontro: " & frmBuscar.Text3.Text
         Else
-            frmPaneldeGM.fChild.NpchText.Text = "Hubo " & Rdata & " : " & frmBuscar.Text3.Text
+            frmPaneldeGM.fChild.NpchText.Text = "Hubo " & rData & " : " & frmBuscar.Text3.Text
 
         End If
 
         Exit Sub
 
     Case "VCTS"  'Lista de Objetos completa
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
 
         Dim Vitc() As String
 
-        Vitc = Split(Rdata, Chr(35))
+        Vitc = Split(rData, Chr(35))
 
         frmPaneldeGM.fChild.OBJIDs.AddItem Vitc(0)
         frmPaneldeGM.fChild.OBJData.AddItem Vitc(1)
         Exit Sub
 
     Case "VITS"
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
 
-        If Rdata = 0 Then
+        If rData = 0 Then
             frmPaneldeGM.fChild.OBJText.Text = "No se encontro: " & frmBuscar.Text1.Text
         Else
-            frmPaneldeGM.fChild.OBJText.Text = "Hubo " & Rdata & " : " & frmBuscar.Text1.Text
+            frmPaneldeGM.fChild.OBJText.Text = "Hubo " & rData & " : " & frmBuscar.Text1.Text
 
         End If
 
@@ -2100,22 +2103,22 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "NSOS"              '>>>>> Mensajes SOS
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
 
-        frmPaneldeGM.ListShow.AddItem Rdata
+        frmPaneldeGM.ListShow.AddItem rData
 
         Exit Sub
 
     Case "PSGM"             ' >>>>> Mensaje :: RSOS
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        frmPaneldeGM.ListConsultas.AddItem Rdata
+        rData = Right$(rData, Len(rData) - 4)
+        frmPaneldeGM.ListConsultas.AddItem rData
 
         Exit Sub
 
     Case "FMSG"             ' >>>>> Foros :: FMSG
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
-        frmForo.List.AddItem ReadField(1, Rdata, 176)
-        frmForo.Text(frmForo.List.ListCount - 1).Text = ReadField(2, Rdata, 176)
+        rData = Right$(rData, Len(rData) - 4)
+        frmForo.List.AddItem ReadField(1, rData, 176)
+        frmForo.Text(frmForo.List.ListCount - 1).Text = ReadField(2, rData, 176)
         Load frmForo.Text(frmForo.List.ListCount)
         Exit Sub
 
@@ -2133,8 +2136,8 @@ Sub HandleData(ByVal Rdata As String)
     Select Case Left$(sData, 5)
 
     Case "MXVID"
-        Rdata = Right$(Rdata, Len(Rdata) - 5)
-        UserMaxHP = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 5)
+        UserMaxHP = Val(rData)
 
         If UserMinHP > UserMaxHP Then
             UserMinHP = UserMaxHP
@@ -2147,8 +2150,8 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "MXMAN"
-        Rdata = Right$(Rdata, Len(Rdata) - 5)
-        UserMaxMAN = Val(Rdata)
+        rData = Right$(rData, Len(rData) - 5)
+        UserMaxMAN = Val(rData)
 
         If UserMinMAN > UserMaxMAN Then
             UserMinMAN = UserMaxMAN
@@ -2161,24 +2164,24 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "NOPRT"
-        Rdata = Right$(Rdata, Len(Rdata) - 5)
-        charindex = Val(ReadField(1, Rdata, 44))
-        CharList(charindex).PartyIndex = Val(ReadField(2, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 5)
+        charindex = Val(ReadField(1, rData, 44))
+        CharList(charindex).PartyIndex = Val(ReadField(2, rData, 44))
 
         Exit Sub
 
     Case "NOVER"
-        Rdata = Right$(Rdata, Len(Rdata) - 5)
-        charindex = Val(ReadField(1, Rdata, 44))
-        CharList(charindex).Invisible = (Val(ReadField(2, Rdata, 44)) = 1)
-        CharList(charindex).PartyIndex = Val(ReadField(3, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 5)
+        charindex = Val(ReadField(1, rData, 44))
+        CharList(charindex).Invisible = (Val(ReadField(2, rData, 44)) = 1)
+        CharList(charindex).PartyIndex = Val(ReadField(3, rData, 44))
 
         Exit Sub
 
     Case "ZMOTD"
-        Rdata = Right$(Rdata, Len(Rdata) - 5)
+        rData = Right$(rData, Len(rData) - 5)
         frmCambiaMotd.Show , frmMain
-        frmCambiaMotd.txtMotd.Text = Rdata
+        frmCambiaMotd.txtMotd.Text = rData
         Exit Sub
 
     Case "MEDOK"            ' >>>>> Meditar OK :: MEDOK
@@ -2203,20 +2206,20 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "SKILLS"           ' >>>>> Recibe Skills del Personaje :: SKILLS
-        Rdata = Right$(Rdata, Len(Rdata) - 6)
+        rData = Right$(rData, Len(rData) - 6)
 
         For i = 1 To NUMSKILLS
-            UserSkills(i) = Val(ReadField(i, Rdata, 44))
+            UserSkills(i) = Val(ReadField(i, rData, 44))
         Next i
 
         LlegaronSkills = True
         Exit Sub
 
     Case "LSTCRI"
-        Rdata = Right$(Rdata, Len(Rdata) - 6)
+        rData = Right$(rData, Len(rData) - 6)
 
-        For i = 1 To Val(ReadField(1, Rdata, 44))
-            frmEntrenador.lstCriaturas.AddItem ReadField(i + 1, Rdata, 44)
+        For i = 1 To Val(ReadField(1, rData, 44))
+            frmEntrenador.lstCriaturas.AddItem ReadField(i + 1, rData, 44)
         Next i
 
         frmEntrenador.Show , frmMain
@@ -2227,42 +2230,42 @@ Sub HandleData(ByVal Rdata As String)
     Select Case Left$(sData, 7)
 
     Case "GUILDNE"
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        Call frmGuildNews.ParseGuildNews(Rdata)
+        rData = Right$(rData, Len(rData) - 7)
+        Call frmGuildNews.ParseGuildNews(rData)
         Exit Sub
 
     Case "PEACEDE"  'detalles de paz
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        Call frmUserRequest.recievePeticion(Rdata)
+        rData = Right$(rData, Len(rData) - 7)
+        Call frmUserRequest.recievePeticion(rData)
         Exit Sub
 
     Case "ALLIEDE"  'detalles de paz
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        Call frmUserRequest.recievePeticion(Rdata)
+        rData = Right$(rData, Len(rData) - 7)
+        Call frmUserRequest.recievePeticion(rData)
         Exit Sub
 
     Case "ALLIEPR"  'lista de prop de alianzas
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        Call frmPeaceProp.ParseAllieOffers(Rdata)
+        rData = Right$(rData, Len(rData) - 7)
+        Call frmPeaceProp.ParseAllieOffers(rData)
 
     Case "PEACEPR"  'lista de prop de paz
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        Call frmPeaceProp.ParsePeaceOffers(Rdata)
+        rData = Right$(rData, Len(rData) - 7)
+        Call frmPeaceProp.ParsePeaceOffers(rData)
         Exit Sub
 
     Case "CHRINFO"
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        Call frmCharInfo.parseCharInfo(Rdata)
+        rData = Right$(rData, Len(rData) - 7)
+        Call frmCharInfo.parseCharInfo(rData)
         Exit Sub
 
     Case "LEADERI"
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        Call frmGuildLeader.ParseLeaderInfo(Rdata)
+        rData = Right$(rData, Len(rData) - 7)
+        Call frmGuildLeader.ParseLeaderInfo(rData)
         Exit Sub
 
     Case "CLKNDET"
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        Call frmGuildBrief.ParseGuildInfo(Rdata)
+        rData = Right$(rData, Len(rData) - 7)
+        Call frmGuildBrief.ParseGuildInfo(rData)
         Exit Sub
 
     Case "SHOWFUN"
@@ -2275,8 +2278,8 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "PETICIO"         ' >>>>> Paralizar OK :: PARADOK
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        Call frmUserRequest.recievePeticion(Rdata)
+        rData = Right$(rData, Len(rData) - 7)
+        Call frmUserRequest.recievePeticion(rData)
         Call frmUserRequest.Show(vbModeless, frmMain)
         Exit Sub
 
@@ -2296,9 +2299,9 @@ Sub HandleData(ByVal Rdata As String)
 
                 i = i + 1
             Loop
-            Rdata = Right$(Rdata, Len(Rdata) - 7)
+            rData = Right$(rData, Len(rData) - 7)
 
-            If ReadField(2, Rdata, 44) = "0" Then
+            If ReadField(2, rData, 44) = "0" Then
                 frmComerciar.List1(0).ListIndex = frmComerciar.LastIndex1
             Else
                 frmComerciar.List1(1).ListIndex = frmComerciar.LastIndex2
@@ -2379,9 +2382,9 @@ Sub HandleData(ByVal Rdata As String)
                 ii = ii + 1
             Loop
 
-            Rdata = Right$(Rdata, Len(Rdata) - 7)
+            rData = Right$(rData, Len(rData) - 7)
 
-            If ReadField(2, Rdata, 44) = "0" Then
+            If ReadField(2, rData, 44) = "0" Then
                 frmBancoObj.List1(0).ListIndex = frmBancoObj.LastIndex1
             Else
                 frmBancoObj.List1(1).ListIndex = frmBancoObj.LastIndex2
@@ -2427,8 +2430,8 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "LISTUSU"
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        T = Split(Rdata, ",")
+        rData = Right$(rData, Len(rData) - 7)
+        T = Split(rData, ",")
 
         If frmPaneldeGM.Visible Then
             frmPaneldeGM.ComboNick.Clear
@@ -2445,12 +2448,12 @@ Sub HandleData(ByVal Rdata As String)
         Exit Sub
 
     Case "SCSR"
-        Rdata = Right$(Rdata, Len(Rdata) - 4)
+        rData = Right$(rData, Len(rData) - 4)
         Exit Sub
 
     Case "LISTQST"
-        Rdata = Right$(Rdata, Len(Rdata) - 7)
-        frmPaneldeGM.ListQuest.AddItem Rdata
+        rData = Right$(rData, Len(rData) - 7)
+        frmPaneldeGM.ListQuest.AddItem rData
 
         Exit Sub
 
@@ -2465,16 +2468,16 @@ Sub HandleData(ByVal Rdata As String)
 
 
     Case "MAYORES"
-        Rdata = Right$(Rdata, Len(Rdata) - 5)
+        rData = Right$(rData, Len(rData) - 5)
 
-        Mayores.CiudadanoMaxNivel = ReadField(1, Rdata, 44)
-        Mayores.CriminalMaxNivel = ReadField(2, Rdata, 44)
-        Mayores.MaxCiudadano = ReadField(3, Rdata, 44)
-        Mayores.MaxCriminal = ReadField(4, Rdata, 44)
-        Mayores.OnlineCiudadano = ReadField(5, Rdata, 44)
-        Mayores.OnlineCriminal = ReadField(6, Rdata, 44)
-        Mayores.MaxOroOnline = ReadField(7, Rdata, 44)
-        Mayores.MaxOro = ReadField(8, Rdata, 44)
+        Mayores.CiudadanoMaxNivel = ReadField(1, rData, 44)
+        Mayores.CriminalMaxNivel = ReadField(2, rData, 44)
+        Mayores.MaxCiudadano = ReadField(3, rData, 44)
+        Mayores.MaxCriminal = ReadField(4, rData, 44)
+        Mayores.OnlineCiudadano = ReadField(5, rData, 44)
+        Mayores.OnlineCriminal = ReadField(6, rData, 44)
+        Mayores.MaxOroOnline = ReadField(7, rData, 44)
+        Mayores.MaxOro = ReadField(8, rData, 44)
 
 
         Call frmMayor.Show(vbModeless, frmMain)
@@ -2483,21 +2486,21 @@ Sub HandleData(ByVal Rdata As String)
     End Select
 
     '[Alejo]
-    Select Case UCase$(Left$(Rdata, 9))
+    Select Case UCase$(Left$(rData, 9))
 
     Case "COMUSUPET"
-        Rdata = Right$(Rdata, Len(Rdata) - 9)
-        OtroInventario(1).ObjIndex = ReadField(2, Rdata, 44)
-        OtroInventario(1).Name = ReadField(3, Rdata, 44)
-        OtroInventario(1).Amount = ReadField(4, Rdata, 44)
-        OtroInventario(1).Equipped = ReadField(5, Rdata, 44)
-        OtroInventario(1).GrhIndex = Val(ReadField(6, Rdata, 44))
-        OtroInventario(1).ObjType = Val(ReadField(7, Rdata, 44))
-        OtroInventario(1).MaxHit = Val(ReadField(8, Rdata, 44))
-        OtroInventario(1).MinHit = Val(ReadField(9, Rdata, 44))
-        OtroInventario(1).MaxDef = Val(ReadField(10, Rdata, 44))
-        OtroInventario(1).MinDef = Val(ReadField(11, Rdata, 44))
-        OtroInventario(1).Valor = Val(ReadField(12, Rdata, 44))
+        rData = Right$(rData, Len(rData) - 9)
+        OtroInventario(1).ObjIndex = ReadField(2, rData, 44)
+        OtroInventario(1).Name = ReadField(3, rData, 44)
+        OtroInventario(1).Amount = ReadField(4, rData, 44)
+        OtroInventario(1).Equipped = ReadField(5, rData, 44)
+        OtroInventario(1).GrhIndex = Val(ReadField(6, rData, 44))
+        OtroInventario(1).ObjType = Val(ReadField(7, rData, 44))
+        OtroInventario(1).MaxHit = Val(ReadField(8, rData, 44))
+        OtroInventario(1).MinHit = Val(ReadField(9, rData, 44))
+        OtroInventario(1).MaxDef = Val(ReadField(10, rData, 44))
+        OtroInventario(1).MinDef = Val(ReadField(11, rData, 44))
+        OtroInventario(1).Valor = Val(ReadField(12, rData, 44))
 
         frmComerciarUsu.List2.Clear
 
@@ -2510,7 +2513,7 @@ Sub HandleData(ByVal Rdata As String)
 
     End Select
 
-    Call HandleData2(Rdata)
+    Call HandleData2(rData)
 
     ';Call LogCustom("Unhandled data: " & Rdata)
 

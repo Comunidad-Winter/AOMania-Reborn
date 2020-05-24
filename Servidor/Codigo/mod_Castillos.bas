@@ -26,6 +26,7 @@ Public Sur As String
 Public Oeste As String
 Public Este As String
 Public Fortaleza As String
+Public FortalezaFuerte As String
 
 Private HoraSur As String
 Private HoraNorte As String
@@ -149,8 +150,8 @@ Public Sub WarpCastillo(ByVal UserIndex As Integer, ByVal Castillo As String)
            Exit Sub
         End If
 
-        If .flags.EstaDueleando1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes defender el castillo estando en DUELOS." & FONTTYPE_WARNING)
+        If .pos.Map = MAPADUELO Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes defender el castillo estando en DUELOS." & FONTTYPE_INFO)
             Exit Sub
 
         End If
@@ -214,6 +215,11 @@ Public Sub WarpCastillo(ByVal UserIndex As Integer, ByVal Castillo As String)
         Case "FORTALEZA"
             Map = MapaFortaleza
             WarpUser = (StrComp(GuildName, Fortaleza, vbTextCompare) = 0)
+        
+        Case "FORTALEZAFUERTE"
+             Map = MapaFuerte
+             WarpUser = (StrComp(GuildName, Fortaleza, vbTextCompare) = 0)
+             'Call WarpUserChar(UserIndex, 164, 45, 52, True)
 
         End Select
 
@@ -250,8 +256,12 @@ Public Sub WarpCastillo(ByVal UserIndex As Integer, ByVal Castillo As String)
                     Exit Sub
                 End If
             End Select
-
-            Call WarpUserChar(UserIndex, Map, X, Y, True)
+            
+            If UCase$(Castillo) = "FORTALEZAFUERTE" Then
+                Call WarpUserChar(UserIndex, 164, 45, 52, True)
+                Else
+                Call WarpUserChar(UserIndex, Map, X, Y, True)
+           End If
 
             Select Case UCase$(Castillo)
             Case "NORTE"
@@ -574,7 +584,7 @@ Public Sub AccionNpcCastillos(ByVal NPCNumber As Integer, ByVal UserIndex As Int
 
             Case 98
                 Norte = Guilds(.GuildIndex).GuildName
-                HoraNorte = now
+                HoraNorte = Now
 
                 Call SendData(SendTarget.ToAll, 0, 0, "||EL CLAN " & UCase$(Norte) & " HA CONQUISTADO EL CASTILLO NORTE." & FONTTYPE_GUILD)
 
@@ -594,7 +604,7 @@ Public Sub AccionNpcCastillos(ByVal NPCNumber As Integer, ByVal UserIndex As Int
             Case 99
 
                 Sur = Guilds(.GuildIndex).GuildName
-                HoraSur = now
+                HoraSur = Now
 
                 Call SendData(SendTarget.ToAll, 0, 0, "||EL CLAN " & UCase$(Sur) & " HA CONQUISTADO EL CASTILLO SUR." & FONTTYPE_GUILD)
 
@@ -613,7 +623,7 @@ Public Sub AccionNpcCastillos(ByVal NPCNumber As Integer, ByVal UserIndex As Int
 
             Case 100
                 Este = Guilds(.GuildIndex).GuildName
-                HoraEste = now
+                HoraEste = Now
 
                 Call SendData(SendTarget.ToAll, 0, 0, "||EL CLAN " & UCase$(Este) & " HA CONQUISTADO EL CASTILLO ESTE." & FONTTYPE_GUILD)
 
@@ -632,7 +642,7 @@ Public Sub AccionNpcCastillos(ByVal NPCNumber As Integer, ByVal UserIndex As Int
 
             Case 101
                 Oeste = Guilds(.GuildIndex).GuildName
-                HoraOeste = now
+                HoraOeste = Now
 
                 Call SendData(SendTarget.ToAll, 0, 0, "||EL CLAN " & UCase$(Oeste) & " HA CONQUISTADO EL CASTILLO OESTE." & FONTTYPE_GUILD)
 
@@ -658,7 +668,7 @@ Public Sub AccionNpcCastillos(ByVal NPCNumber As Integer, ByVal UserIndex As Int
             If UserMap = 102 Then
 
                 Fortaleza = Guilds(.GuildIndex).GuildName
-                HoraForta = now
+                HoraForta = Now
 
                 Call SendData(SendTarget.ToAll, 0, 0, "||EL CLAN " & UCase$(Fortaleza) & " HA CONQUISTADO EL CASTILLO FORTALEZA." & FONTTYPE_GUILD)
                 Call SendData(SendTarget.ToAll, UserIndex, .pos.Map, "TW44")

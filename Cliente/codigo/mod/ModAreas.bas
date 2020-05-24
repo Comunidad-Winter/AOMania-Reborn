@@ -55,25 +55,25 @@ Public Sub CalcularAreas(HalfWindowTileWidth As Integer, HalfWindowTileHeight As
 End Sub
 
 ' Elimina todo fuera del area del usuario
-Public Sub CambioDeArea(ByVal X As Byte, ByVal Y As Byte)
+Public Sub CambioDeArea(ByVal x As Byte, ByVal y As Byte)
 
-    CurAreaX = X \ AreasX
-    CurAreaY = Y \ AreasY
+    CurAreaX = x \ AreasX
+    CurAreaY = y \ AreasY
 
-    Dim loopX As Integer, loopY As Integer, CharIndex As Integer
+    Dim loopX As Integer, loopY As Integer, charindex As Integer
 
     ' Recorremos el mapa entero (TODO: Se puede optimizar si el server nos enviara la direccion del area que nos movimos)
     For loopX = 1 To 100
         For loopY = 1 To 100
-
+             
             ' Si el tile esta fuera del area
             If Not EstaDentroDelArea(loopX, loopY) Then
 
                 ' Borrar char
-                CharIndex = InMapBounds(loopX, loopY)
-                If (CharIndex > 0) Then
-                    If (CharIndex <> UserCharIndex) Then
-                        Call EraseChar(CharIndex)
+                charindex = InMapBounds(loopX, loopY)
+                If (charindex > 0) Then
+                    If (charindex <> UserCharIndex) Then
+                        Call EraseChar(charindex)
                     End If
                 End If
 
@@ -89,30 +89,51 @@ Public Sub CambioDeArea(ByVal X As Byte, ByVal Y As Byte)
 
 End Sub
 
+Public Sub CleanerPlus()
+          Dim x As Long
+   Dim y As Long
+
+'edit cambio el rango de valores en x y para solucionar otro bug con respecto al cambio de mapas
+
+  For x = XMinMapSize To XMaxMapSize
+       For y = YMinMapSize To YMaxMapSize
+
+       If (MapData(x, y).charindex) Then
+         Call EraseChar(MapData(x, y).charindex)
+       End If
+
+      If (MapData(x, y).ObjGrh.GrhIndex) Then
+        Call Map_DestroyObject(x, y)
+      End If
+
+   Next y
+ Next x
+End Sub
+
 ' Calcula si la posicion se encuentra dentro del area del usuario
-Public Function EstaDentroDelArea(ByVal X As Integer, ByVal Y As Integer) As Boolean
-    EstaDentroDelArea = (Abs(CurAreaX - X \ AreasX) <= 1) And (Abs(CurAreaY - Y \ AreasY) <= 1)
+Public Function EstaDentroDelArea(ByVal x As Integer, ByVal y As Integer) As Boolean
+    EstaDentroDelArea = (Abs(CurAreaX - x \ AreasX) <= 1) And (Abs(CurAreaY - y \ AreasY) <= 1)
 End Function
 
-Private Function Char_MapPosExits(ByVal X As Byte, ByVal Y As Byte) As Integer
+Private Function Char_MapPosExits(ByVal x As Byte, ByVal y As Byte) As Integer
  
         '*****************************************************************
         'Checks to see if a tile position has a char_index and return it
         '*****************************************************************
    
-        If (InMapBounds(X, Y)) Then
-                Char_MapPosExits = MapData(X, Y).CharIndex
+        If (InMapBounds(x, y)) Then
+                Char_MapPosExits = MapData(x, y).charindex
         Else
                 Char_MapPosExits = 0
         End If
   
 End Function
 
-Private Sub Map_DestroyObject(ByVal X As Byte, ByVal Y As Byte)
+Private Sub Map_DestroyObject(ByVal x As Byte, ByVal y As Byte)
 
-      If (InMapBounds(X, Y)) Then
+      If (InMapBounds(x, y)) Then
 
-            With MapData(X, Y)
+            With MapData(x, y)
                   .OBJInfo.ObjIndex = 0
                   .OBJInfo.Amount = 0
                   
@@ -125,14 +146,14 @@ Private Sub Map_DestroyObject(ByVal X As Byte, ByVal Y As Byte)
 
 End Sub
 
-Private Function Map_PosExitsObject(ByVal X As Byte, ByVal Y As Byte) As Integer
+Private Function Map_PosExitsObject(ByVal x As Byte, ByVal y As Byte) As Integer
  
       '*****************************************************************
       'Checks to see if a tile position has a char_index and return it
       '*****************************************************************
 
-      If (InMapBounds(X, Y)) Then
-            Map_PosExitsObject = MapData(X, Y).ObjGrh.GrhIndex
+      If (InMapBounds(x, y)) Then
+            Map_PosExitsObject = MapData(x, y).ObjGrh.GrhIndex
       Else
             Map_PosExitsObject = 0
       End If

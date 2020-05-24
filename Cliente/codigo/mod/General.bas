@@ -832,16 +832,16 @@ Sub MoveTo(ByVal Direccion As E_Heading)
     Select Case Direccion
 
         Case E_Heading.NORTH
-            LegalOk = MoveToLegalPos(UserPos.X, UserPos.Y - 1)
+            LegalOk = MoveToLegalPos(UserPos.x, UserPos.y - 1)
 
         Case E_Heading.EAST
-            LegalOk = MoveToLegalPos(UserPos.X + 1, UserPos.Y)
+            LegalOk = MoveToLegalPos(UserPos.x + 1, UserPos.y)
 
         Case E_Heading.SOUTH
-            LegalOk = MoveToLegalPos(UserPos.X, UserPos.Y + 1)
+            LegalOk = MoveToLegalPos(UserPos.x, UserPos.y + 1)
 
         Case E_Heading.WEST
-            LegalOk = MoveToLegalPos(UserPos.X - 1, UserPos.Y)
+            LegalOk = MoveToLegalPos(UserPos.x - 1, UserPos.y)
 
     End Select
     
@@ -870,9 +870,9 @@ Sub MoveTo(ByVal Direccion As E_Heading)
     
     Call ActualizarShpUserPos
     
-    Call Audio.MoveListener(UserPos.X, UserPos.Y)
+    Call Audio.MoveListener(UserPos.x, UserPos.y)
     
-        TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.X & " Y: " & CharList(UserCharIndex).pos.Y & ")"
+        TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.x & " Y: " & CharList(UserCharIndex).pos.y & ")"
 
     
 End Sub
@@ -967,39 +967,19 @@ Sub CheckKeys()
 
 End Sub
 
-Sub CleanerPlus()
-   Dim X As Long
-   Dim Y As Long
-
-'edit cambio el rango de valores en x y para solucionar otro bug con respecto al cambio de mapas
-
-  For X = XMinMapSize To XMaxMapSize
-       For Y = YMinMapSize To YMaxMapSize
-
-       If (MapData(X, Y).charindex) Then
-         Call EraseChar(MapData(X, Y).charindex)
-       End If
-
-      'If (MapData(x, y).ObjGrh.GrhIndex) Then
-       ' Call Map_DestroyObject(x, y)
-      'End If
-
-   Next Y
- Next X
- 
-End Sub
 
 Sub SwitchMap(ByVal Map As Integer)
     '**************************************************************
     'Formato de mapas optimizado para reducir el espacio que ocupan.
     'Diseñado y creado por Juan Martín Sotuyo Dodero (Maraxus) (juansotuyo@hotmail.com)
     '**************************************************************
-
-    Call Particle_Group_Remove_All
+    
     Call CleanerPlus
+    Call Particle_Group_Remove_All
+    
 
-    Dim Y        As Long
-    Dim X        As Long
+    Dim y        As Long
+    Dim x        As Long
     Dim TempInt  As Integer
     Dim ByFlags  As Byte
     Dim FileBuff As clsByteBuffer
@@ -1023,25 +1003,25 @@ Sub SwitchMap(ByVal Map As Integer)
    
     'Load arrays
 
-    For Y = YMinMapSize To YMaxMapSize
-        For X = XMinMapSize To XMaxMapSize
+    For y = YMinMapSize To YMaxMapSize
+        For x = XMinMapSize To XMaxMapSize
             'Get handle, , ByFlags
             ByFlags = FileBuff.getByte()
            
-            MapData(X, Y).Blocked = (ByFlags And 1)
+            MapData(x, y).Blocked = (ByFlags And 1)
            
             'Get handle, , MapData(X, Y).Graphic(1).GrhIndex
-            MapData(X, Y).Graphic(1).GrhIndex = FileBuff.getLong()
-            InitGrh MapData(X, Y).Graphic(1), MapData(X, Y).Graphic(1).GrhIndex
+            MapData(x, y).Graphic(1).GrhIndex = FileBuff.getLong()
+            InitGrh MapData(x, y).Graphic(1), MapData(x, y).Graphic(1).GrhIndex
            
             'Layer 2 used?
 
             If ByFlags And 2 Then
                 'Get handle, , MapData(X, Y).Graphic(2).GrhIndex
-                MapData(X, Y).Graphic(2).GrhIndex = FileBuff.getLong()
-                InitGrh MapData(X, Y).Graphic(2), MapData(X, Y).Graphic(2).GrhIndex
+                MapData(x, y).Graphic(2).GrhIndex = FileBuff.getLong()
+                InitGrh MapData(x, y).Graphic(2), MapData(x, y).Graphic(2).GrhIndex
             Else
-                MapData(X, Y).Graphic(2).GrhIndex = 0
+                MapData(x, y).Graphic(2).GrhIndex = 0
 
             End If
                
@@ -1049,10 +1029,10 @@ Sub SwitchMap(ByVal Map As Integer)
 
             If ByFlags And 4 Then
                 'Get handle, , MapData(X, Y).Graphic(3).GrhIndex
-                MapData(X, Y).Graphic(3).GrhIndex = FileBuff.getLong()
-                InitGrh MapData(X, Y).Graphic(3), MapData(X, Y).Graphic(3).GrhIndex
+                MapData(x, y).Graphic(3).GrhIndex = FileBuff.getLong()
+                InitGrh MapData(x, y).Graphic(3), MapData(x, y).Graphic(3).GrhIndex
             Else
-                MapData(X, Y).Graphic(3).GrhIndex = 0
+                MapData(x, y).Graphic(3).GrhIndex = 0
 
             End If
                
@@ -1060,10 +1040,10 @@ Sub SwitchMap(ByVal Map As Integer)
 
             If ByFlags And 8 Then
                 'Get handle, , MapData(X, Y).Graphic(4).GrhIndex
-                MapData(X, Y).Graphic(4).GrhIndex = FileBuff.getLong()
-                InitGrh MapData(X, Y).Graphic(4), MapData(X, Y).Graphic(4).GrhIndex
+                MapData(x, y).Graphic(4).GrhIndex = FileBuff.getLong()
+                InitGrh MapData(x, y).Graphic(4), MapData(x, y).Graphic(4).GrhIndex
             Else
-                MapData(X, Y).Graphic(4).GrhIndex = 0
+                MapData(x, y).Graphic(4).GrhIndex = 0
 
             End If
            
@@ -1071,29 +1051,29 @@ Sub SwitchMap(ByVal Map As Integer)
 
             If ByFlags And 16 Then
                 'Get handle, , MapData(X, Y).Trigger
-                MapData(X, Y).Trigger = FileBuff.getInteger()
+                MapData(x, y).Trigger = FileBuff.getInteger()
             Else
-                MapData(X, Y).Trigger = 0
+                MapData(x, y).Trigger = 0
 
             End If
             
             For ii = 1 To 5 'inicialiamos los grhs de la sangre
-                Call InitGrh(MapData(X, Y).Sangre(ii).grhSangre, 17355, 0)
+                Call InitGrh(MapData(x, y).Sangre(ii).grhSangre, 17355, 0)
                 
             Next ii
            
             'Erase NPCs
 
-            If MapData(X, Y).charindex > 0 Then
-                Call EraseChar(MapData(X, Y).charindex)
+            If MapData(x, y).charindex > 0 Then
+                Call EraseChar(MapData(x, y).charindex)
 
             End If
            
             'Erase OBJs
-            MapData(X, Y).ObjGrh.GrhIndex = 0
+            MapData(x, y).ObjGrh.GrhIndex = 0
 
-        Next X
-    Next Y
+        Next x
+    Next y
 
     'Close handle
      
@@ -1458,9 +1438,9 @@ Private Function CMSValidateChar_(ByVal iAsc As Integer) As Boolean
 End Function
 
 'TODO : como todo lorelativo a mapas, no tiene anda que hacer acá....
-Function HayAgua(ByVal X As Integer, ByVal Y As Integer) As Boolean
+Function HayAgua(ByVal x As Integer, ByVal y As Integer) As Boolean
 
-    HayAgua = MapData(X, Y).Graphic(1).GrhIndex >= 1505 And MapData(X, Y).Graphic(1).GrhIndex <= 1520 And MapData(X, Y).Graphic(2).GrhIndex = 0
+    HayAgua = MapData(x, y).Graphic(1).GrhIndex >= 1505 And MapData(x, y).Graphic(1).GrhIndex <= 1520 And MapData(x, y).Graphic(2).GrhIndex = 0
 
 End Function
     
@@ -1662,8 +1642,8 @@ Public Sub ActualizarShpUserPos()
     'frmMain.PicMiniMapa.Cls
     'frmMain.PicMiniMapa.PSet (UserPos.X, UserPos.Y), vbRed
     
-    frmMain.MiniUserPos.Left = UserPos.X - 2
-    frmMain.MiniUserPos.Top = UserPos.Y - 2
+    frmMain.MiniUserPos.Left = UserPos.x - 2
+    frmMain.MiniUserPos.Top = UserPos.y - 2
 
 End Sub
 
@@ -1671,9 +1651,9 @@ Public Sub ActualizarShpClanPos()
     Dim i As Integer
     
     For i = 1 To 10
-        If ClanPos(i).X > 0 And ClanPos(i).Y > 0 Then
-            frmMain.UserClanPos(i).Left = ClanPos(i).X - 2
-            frmMain.UserClanPos(i).Top = ClanPos(i).Y - 2
+        If ClanPos(i).x > 0 And ClanPos(i).y > 0 Then
+            frmMain.UserClanPos(i).Left = ClanPos(i).x - 2
+            frmMain.UserClanPos(i).Top = ClanPos(i).y - 2
             frmMain.UserClanPos(i).Visible = True
             Else
             frmMain.UserClanPos(i).Visible = False
@@ -1760,7 +1740,7 @@ Sub SaveDataLauncher()
 End Sub
 
 Sub EnviaM(sentido As Byte)
-    Call SendData("Ñ" & sentido & CodigoCorreccion & "*" & CharList(UserCharIndex).pos.X & "*" & CharList(UserCharIndex).pos.Y)
+    Call SendData("Ñ" & sentido & CodigoCorreccion & "*" & CharList(UserCharIndex).pos.x & "*" & CharList(UserCharIndex).pos.y)
 End Sub
 
 Sub RefreshAllChars()
@@ -1773,7 +1753,7 @@ Sub RefreshAllChars()
    
    For LooPC = 1 To LastChar
       If CharList(LooPC).Active = 1 Then
-         MapData(CharList(LooPC).pos.X, CharList(LooPC).pos.Y).charindex = LooPC
+         MapData(CharList(LooPC).pos.x, CharList(LooPC).pos.y).charindex = LooPC
       End If
    Next LooPC
    

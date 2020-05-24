@@ -2,6 +2,9 @@
 · Se arreglo la marquesina al andar. 
 · Se ha reformado la forma de robar personaje. (Testearlo) en caso de algun problema, vuelvan a reportarlo.
 · Se ha reformado la forma de subir skills.
+· Ahora cuando sanas automaticamente, las barras vida de las partys actualizan.
+· Posible solución a los clones.
+· Se volvio a revisar los warps para fortaleza fuerte. (Revisiones!)
 ------>
 
 
