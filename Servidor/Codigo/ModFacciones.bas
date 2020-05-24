@@ -1454,62 +1454,75 @@ Function UseRangeFragata(ByVal UserIndex As Integer, ByVal ObjIndex As Integer) 
     If ObjIndex = 1117 And UserList(UserIndex).Stats.ELV < 25 Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1118 And UserList(UserIndex).Faccion.RecompensasReal < SegundoRango Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1119 And UserList(UserIndex).Faccion.RecompensasReal < TercerRango Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1120 And UserList(UserIndex).Stats.ELV < 25 Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1121 And UserList(UserIndex).Faccion.RecompensasCaos < SegundoRango Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1122 And UserList(UserIndex).Faccion.RecompensasCaos < TercerRango Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1350 And UserList(UserIndex).Stats.ELV < 25 Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1351 And UserList(UserIndex).Faccion.RecompensasTemplaria < SegundoRango Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1352 And UserList(UserIndex).Faccion.RecompensasTemplaria < TercerRango Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1580 And UserList(UserIndex).Stats.ELV < 25 Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1581 And UserList(UserIndex).Faccion.RecompensasNemesis < SegundoRango Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     If ObjIndex = 1582 And UserList(UserIndex).Faccion.RecompensasNemesis < TercerRango Then
         UseRangeFragata = False
         Exit Function
+
     End If
 
     UseRangeFragata = True
+
 End Function

@@ -280,6 +280,8 @@ Public Type Char
     Hostile As Byte
     
     Icono As Byte
+    
+    Gm As Byte
 
 End Type
 
@@ -2327,6 +2329,28 @@ Public Sub BarraParty(ByVal charindex As Integer, _
                        
 End Sub
 
+Function PuedesVerGMs(ByVal charindex As Integer) As Boolean
+        
+        If charindex = UserCharIndex And CharList(charindex).Gm > 0 Then
+            PuedesVerGMs = True
+            Exit Function
+        End If
+        
+        If charindex <> UserCharIndex And CharList(UserCharIndex).Gm >= PlayerType.Dios And CharList(charindex).Gm <= PlayerType.Dios Then
+            PuedesVerGMs = True
+            Exit Function
+        End If
+        
+        If charindex <> UserCharIndex And CharList(UserCharIndex).Gm >= PlayerType.Dios And CharList(charindex).Gm >= PlayerType.Dios Then
+            PuedesVerGMs = True
+            Exit Function
+        End If
+        
+        
+        PuedesVerGMs = False
+        
+End Function
+
 Public Sub ColoresNick(ByVal charindex As Integer, _
                        ByVal PixelOffSetX As Integer, _
                        ByVal PixelOffSetY As Integer, _
@@ -2471,14 +2495,65 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
 
                         End If
                         
-                    Case 3  'admin
-                        longToArray ColorClan, D3DColorXRGB(255, 128, 64)
-                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
-                        Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
-                                      
-                    Case Else 'el resto
-                        longToArray Color, ColoresPJ(.priv)
-                        Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, Color)
+                   Case 1  'Consejeros
+
+                        If .Invisible = False Then
+                            longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                            Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+
+                        End If
+                                    
+                        If .Invisible = True Then
+                            
+                            If PuedesVerGMs(charindex) Then
+                                longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                                Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+
+                            End If
+                            
+                        End If
+                        
+                    Case 2  'SemiDioses
+
+                        If .Invisible = False Then
+                            longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                            Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+
+                        End If
+                                    
+                        If .Invisible = True Then
+                            
+                            If PuedesVerGMs(charindex) Then
+                                longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                                Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+
+                            End If
+                            
+                        End If
+                        
+                    Case 3  'Dioses
+
+                        If .Invisible = False Then
+                            longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                            Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                            Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+
+                        End If
+                                    
+                        If .Invisible = True Then
+                            
+                            If PuedesVerGMs(charindex) Then
+                                longToArray ColorClan, D3DColorXRGB(255, 128, 64)
+                                Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, ColorClan)
+                                Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, ColorClan)
+
+                            End If
+                            
+                        End If
 
                 End Select
                                

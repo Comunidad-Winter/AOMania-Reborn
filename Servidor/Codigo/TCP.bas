@@ -492,29 +492,29 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
     
     On Error Resume Next
     
-    Dim Error As Integer
+    Dim error As Integer
     
     'Este sub, pondremos los sistemas, que X eventos deba realizar dicha operación, antes de salir.
     
-    Error = 1
+    error = 1
     
     Call RestCriCi(UserIndex)
     
-    Error = 2
+    error = 2
     
     If UserList(UserIndex).GranPoder = 1 Then
         Call mod_GranPoder.DesconectaPoder(UserIndex)
 
     End If
        
-    Error = 3
+    error = 3
      
     If UserList(UserIndex).flags.automatico = True Then
         Call Rondas_UsuarioDesconecta(UserIndex)
 
     End If
      
-    Error = 4
+    error = 4
      
     If (UserList(UserIndex).Name <> "") And UserList(UserIndex).flags.Privilegios > PlayerType.User And (UserList(UserIndex).flags.Privilegios < PlayerType.Dios Or UserList(UserIndex).flags.Privilegios >= PlayerType.Dios) Then
     
@@ -533,35 +533,35 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
 
     End If
     
-    Error = 5
+    error = 5
     
     If UserList(UserIndex).pos.Map = 79 And UserList(UserIndex).flags.automatico = False Then
         Call WarpUserChar(UserIndex, 1, 45, 49, True)
 
     End If
     
-    Error = 7
+    error = 7
 
     If UserList(UserIndex).flags.bandas = True Then
         Call Ban_Desconecta(UserIndex)
 
     End If
     
-    Error = 8
+    error = 8
     
     If UserList(UserIndex).flags.medusas = True Then
         Call Med_Desconecta(UserIndex)
 
     End If
      
-    Error = 9
+    error = 9
      
     If UserList(UserIndex).flags.EnDosVDos = True Then
         Call CerroEnDuelo(UserIndex)
 
     End If
     
-    Error = 10
+    error = 10
 
     If UserList(UserIndex).flags.Montado = True Then
         UserList(UserIndex).char.Body = UserList(UserIndex).flags.NumeroMont
@@ -573,7 +573,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
 
     End If
     
-    Error = 11
+    error = 11
      
     If UserList(UserIndex).pos.Map = MAPADUELO And UserIndex = duelosespera Then
         Call WarpUserChar(UserIndex, 34, 30, 50, True)
@@ -594,14 +594,14 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
 
     End If
     
-    Error = 12
+    error = 12
     
     If UserList(UserIndex).pos.Map = 76 Then
         Call WarpUserChar(UserIndex, 34, 30, 50, True)
 
     End If
     
-    Error = 13
+    error = 13
     
     If UserIndex = Team.Pj1 Or UserIndex = Team.Pj2 Then
         Team.SonDos = False
@@ -610,7 +610,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
 
     End If
     
-    Error = 14
+    error = 14
     
     If UserList(UserIndex).EnCvc Then
 
@@ -655,7 +655,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
         'Next ijaji
     End If
     
-    Error 15
+    error = 15
     
     If UserList(UserIndex).flags.Privilegios > 0 Then
         If UserList(UserIndex).flags.AdminInvisible = 1 Then
@@ -668,11 +668,17 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
 
     End If
     
+    error = 16
+    
+      If UserList(UserIndex).flags.Privilegios > 0 Then
+            Call PaqueteSoloGms(UserIndex, 2)
+       End If
+    
     Exit Sub
     
 err:
-    Debug.Print "Error " & Error & " en el sub: Proceso_Desconexion"
-    LogError "Error " & Error & " en el sub: Proceso_Desconexion"
+    Debug.Print "Error " & error & " en el sub: Proceso_Desconexion"
+    LogError "Error " & error & " en el sub: Proceso_Desconexion"
 
 End Sub
 
@@ -1398,7 +1404,7 @@ Function ValidateChr(ByVal UserIndex As Integer) As Boolean
 End Function
 
 Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, ByVal hdString As String)
-    Dim n As Integer
+    Dim N As Integer
     Dim tStr As String
     Dim X As Integer
     Dim Total As Integer
@@ -1881,16 +1887,16 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         End If
 
-        n = FreeFile
-        Open App.Path & "\logs\numusers.log" For Output As n
-        Print #n, NumUsers
-        Close #n
+        N = FreeFile
+        Open App.Path & "\logs\numusers.log" For Output As N
+        Print #N, NumUsers
+        Close #N
 
-        n = FreeFile
+        N = FreeFile
         'Log
-        Open App.Path & "\logs\Connect.log" For Append Shared As #n
-        Print #n, Time; Date & " " & .Name & " ha entrado al juego. UserIndex: " & UserIndex & " IP: " & .ip & " HDD: " & .hd_String
-        Close #n
+        Open App.Path & "\logs\Connect.log" For Append Shared As #N
+        Print #N, Time; Date & " " & .Name & " ha entrado al juego. UserIndex: " & UserIndex & " IP: " & .ip & " HDD: " & .hd_String
+        Close #N
 
         If .pos.Map = MAPADUELO Then
             Call WarpUserChar(UserIndex, 34, 30, 50, True)
@@ -1918,11 +1924,53 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         #End If
         
         Call Corr_EntraUser(UserIndex)
-
+        
+        If .flags.Privilegios > 0 Then
+            Call PaqueteSoloGms(UserIndex, 1)
+        End If
+        
         DoEvents
 
     End With
 
+End Sub
+
+Sub PaqueteSoloGms(ByVal UserIndex As Integer, ByVal State As Byte)
+      
+    Dim UI As Integer
+      
+    Select Case State
+           
+        Case 1
+                
+            For UI = 1 To LastUser
+                      
+                If UserList(UI).flags.Privilegios > 0 Then
+                            
+                    Call SendData(ToIndex, UI, 0, "RIG" & UserList(UserIndex).char.CharIndex & ", " & UserList(UserIndex).flags.Privilegios)
+                            
+                End If
+                      
+            Next UI
+                
+            Exit Sub
+           
+        Case 2
+           
+            For UI = 1 To LastUser
+                      
+                If UserList(UI).flags.Privilegios > 0 Then
+                            
+                    Call SendData(ToIndex, UI, 0, "RIG" & UserList(UserIndex).char.CharIndex & ", 0")
+                            
+                End If
+                      
+            Next UI
+                
+            Exit Sub
+           
+    End Select
+      
 End Sub
 
 Sub SendMOTD(ByVal UserIndex As Integer)
@@ -2479,7 +2527,7 @@ Sub ResetUserSlot(ByVal UserIndex As Integer)
 
     With UserList(UserIndex).ComUsu
         .Acepto = False
-        .cant = 0
+        .Cant = 0
         .DestNick = ""
         .DestUsu = 0
         .Objeto = 0
@@ -2497,7 +2545,7 @@ Sub CloseUser(ByVal UserIndex As Integer)
 
     On Error GoTo errhandler
 
-    Dim n As Integer
+    Dim N As Integer
     Dim X As Integer
     Dim Y As Integer
     Dim LoopC As Integer
@@ -2599,11 +2647,11 @@ Sub CloseUser(ByVal UserIndex As Integer)
 
 
 
-    n = FreeFile(1)
+    N = FreeFile(1)
     With UserList(UserIndex)
-        Open App.Path & "\logs\Connect.log" For Append Shared As #n
-        Print #n, Time; Date & " " & .Name & " ha dejado el juego. UserIndex: " & UserIndex & " IP: " & .ip & " HDD: " & .hd_String
-        Close #n
+        Open App.Path & "\logs\Connect.log" For Append Shared As #N
+        Print #N, Time; Date & " " & .Name & " ha dejado el juego. UserIndex: " & UserIndex & " IP: " & .ip & " HDD: " & .hd_String
+        Close #N
     End With
 
     Call ResetUserSlot(UserIndex)
@@ -2662,7 +2710,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
     Dim ind
 
-    Dim n                  As Integer
+    Dim N                  As Integer
 
     Dim wpaux              As WorldPos
 
@@ -3164,10 +3212,10 @@ ExitErr1:
 
         Dim mm As String
 
-        For n = 1 To Quest.Longitud
-            mm = Quest.VerElemento(n)
+        For N = 1 To Quest.Longitud
+            mm = Quest.VerElemento(N)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "LISTQST" & mm)
-        Next n
+        Next N
 
         Exit Sub
 

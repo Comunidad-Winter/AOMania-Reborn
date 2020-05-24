@@ -1571,329 +1571,49 @@ End Function
 
 Sub SubirSkill(ByVal UserIndex As Integer, ByVal Skill As Integer)
 
-    With UserList(UserIndex)
-
-        If .flags.Hambre = 0 Or .flags.Sed = 0 Then
-
-            With .Stats
-
-                If .UserSkills(Skill) = MAXSKILLPOINTS Then Exit Sub
-
-                Dim Lvl As Integer
-                Lvl = .ELV
-
-                If Lvl > UBound(LevelSkill) Then Lvl = UBound(LevelSkill)
-
-                If .UserSkills(Skill) >= LevelSkill(Lvl).LevelValue Then Exit Sub
-
-                Dim prob As Integer
-
-                If Lvl < 11 Then
-                    prob = 10
-                Else
-                    prob = 20
-
-                End If
-
-                If RandomNumber(1, prob) = 2 Then
-
-                    If .UserSkills(Skill) <= 3 And Lvl = 1 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 5 And Lvl = 2 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 8 And Lvl = 3 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 10 And Lvl = 4 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 13 And Lvl = 5 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 15 And Lvl = 6 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 18 And Lvl = 7 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 20 And Lvl = 8 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 23 And Lvl = 9 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 25 And Lvl = 10 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 28 And Lvl = 11 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 30 And Lvl = 12 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 33 And Lvl = 13 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 35 And Lvl = 14 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 38 And Lvl = 15 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 40 And Lvl = 16 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 43 And Lvl = 17 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 45 And Lvl = 18 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 48 And Lvl = 19 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 50 And Lvl = 20 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 53 And Lvl = 21 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 55 And Lvl = 22 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 58 And Lvl = 23 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 60 And Lvl = 24 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 63 And Lvl = 25 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 65 And Lvl = 26 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 68 And Lvl = 27 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 70 And Lvl = 28 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 73 And Lvl = 29 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 75 And Lvl = 30 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 78 And Lvl = 31 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 80 And Lvl = 32 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 83 And Lvl = 33 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 85 And Lvl = 34 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 88 And Lvl = 35 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 90 And Lvl = 36 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 92 And Lvl = 37 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 95 And Lvl = 38 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 98 And Lvl = 39 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-                    ElseIf .UserSkills(Skill) <= 100 And Lvl >= 40 Then
-                        .UserSkills(Skill) = .UserSkills(Skill) + 1
-
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & _
-                                                                      " en un punto!. Ahora tienes " & .UserSkills(Skill) & " pts." & FONTTYPE_INFO)
-
-                        .Exp = .Exp + 100
-
-                    End If
-
-                    If .Exp > MAXEXP Then .Exp = MAXEXP
-
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z25")
-                    Call CheckUserLevel(UserIndex)
-                    Call EnviarExp(UserIndex)
-                    Call EnviarSkills(UserIndex)
-
-                End If
-
-            End With
+    Dim Aumenta As Integer
+
+    Dim Prob    As Integer
+    
+    If UserList(UserIndex).Stats.ELV <= 3 Then
+        Prob = 15
+    ElseIf UserList(UserIndex).Stats.ELV > 3 And UserList(UserIndex).Stats.ELV < 6 Then
+        Prob = 15
+    ElseIf UserList(UserIndex).Stats.ELV >= 6 And UserList(UserIndex).Stats.ELV < 10 Then
+        Prob = 20
+    ElseIf UserList(UserIndex).Stats.ELV >= 10 And UserList(UserIndex).Stats.ELV < 20 Then
+        Prob = 20
+    Else
+        Prob = 25
+
+    End If
+    
+    Aumenta = Int(RandomNumber(1, Prob))
+    
+    Dim lvl As Integer
+
+    lvl = UserList(UserIndex).Stats.ELV
+    
+    If lvl >= UBound(LevelSkill) Then Exit Sub
+    If UserList(UserIndex).Stats.UserSkills(Skill) = MAXSKILLPOINTS Then Exit Sub
+    
+    If Aumenta = 7 And UserList(UserIndex).Stats.UserSkills(Skill) < LevelSkill(lvl).LevelValue Then
+        Call AddtoVar(UserList(UserIndex).Stats.UserSkills(Skill), 1, MAXSKILLPOINTS)
+        Call SendData(ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & " en un punto!. Ahora tienes " & UserList(UserIndex).Stats.UserSkills(Skill) & " pts." & FONTTYPE_INFO)
+
+        If lvl < 15 Then
+            Call AddtoVar(UserList(UserIndex).Stats.Exp, lvl * 10, MAXEXP)
+            Call SendData(ToIndex, UserIndex, 0, "||¡Has ganado " & lvl * 10 & " puntos de experiencia!" & FONTTYPE_FIGHT)
+        Else
+            Call AddtoVar(UserList(UserIndex).Stats.Exp, 50, MAXEXP)
+            Call SendData(ToIndex, UserIndex, 0, "||¡Has ganado 50 puntos de experiencia!" & FONTTYPE_FIGHT)
 
         End If
 
-    End With
+        Call EnviarSkills(UserIndex)
+        Call CheckUserLevel(UserIndex)
+
+    End If
 
 End Sub
 

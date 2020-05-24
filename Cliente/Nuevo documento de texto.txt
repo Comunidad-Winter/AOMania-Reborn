@@ -1,13 +1,8 @@
 ------>
-· Se arreglo el bug en el conectar a los usuarios que estaban dentro de un clan.
-· Se ha puesto, que si un usuario conecta, y hay otro usando, lo echa del juego para conectarse el.
-· La rapidez del meditar, es como el AoM Actual.
-· Se ha mejorado el modo de conectar, ahora no se queda pensando, carga al instante.
-· Ahora desde la sala de invocaciones, no se puede usar los comandos de castillos para teletransportarte. 
-· El macro f12 se desactiva fuera de la pantalla.
-· Ahora el mapa se muestra por el render.
-· Ahora los items sagrados, muestran su MinHit y MaxHit, si sale 0/0 es que su clase no se admite para dicho objeto, por lo que su daño sera malo o su clase aún no ha sido puesta.
-· Se prohibe que los gms usen el comando /PARTICIPAR.
-· Se implemento que en mapas no caigan items. 
-· Se implemento la marquesina.
+· Se arreglo la marquesina al andar. 
+· Se ha reformado la forma de robar personaje. (Testearlo) en caso de algun problema, vuelvan a reportarlo.
+· Se ha reformado la forma de subir skills.
 ------>
+
+
+

@@ -230,14 +230,6 @@ Public Enum eTrigger
 
 End Enum
 
-''
-' constantes para el trigger 6
-'
-' @see eTrigger
-' @param TRIGGER6_PERMITE TRIGGER6_PERMITE
-' @param TRIGGER6_PROHIBE TRIGGER6_PROHIBE
-' @param TRIGGER6_AUSENTE El trigger no aparece
-'
 Public Enum eTrigger6
 
     TRIGGER6_PERMITE = 1

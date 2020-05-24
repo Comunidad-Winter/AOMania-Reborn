@@ -61,7 +61,7 @@ Sub HandleData2(ByVal rData As String)
         Case "XI"    '>>>>>>> Actualiza icono npc misiones
             rData = Right$(rData, Len(rData) - 2)
            
-            charindex = ReadField(1, rData, 44)
+            charindex = Val(ReadField(1, rData, 44))
             CharList(charindex).Icono = ReadField(2, rData, 44)
             Exit Sub
         
@@ -85,6 +85,15 @@ Sub HandleData2(ByVal rData As String)
     End Select
    
     Select Case UCase$(Left$(rData, 3))
+        
+        Case "RIG"
+           rData = Right$(rData, Len(rData) - 3)
+           
+           charindex = ReadField(1, rData, 44)
+           
+           CharList(charindex).Gm = Val(ReadField(2, rData, 44))
+           
+           Exit Sub
     
         Case "EMC"
 

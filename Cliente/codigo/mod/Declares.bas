@@ -39,7 +39,7 @@ Public CustomKeys          As New clsCustomKeys
 
 '"192.171.19.138"
 '"127.0.0.1"
-Public Const CurServerIp   As String = "192.171.19.138"
+Public Const CurServerIp   As String = "127.0.0.1"
 Public Const CurServerPort As Integer = 9879
 
 Public Centrada            As Boolean
@@ -784,3 +784,13 @@ Public TextoMapa As String
 Public VerMapa As Boolean
 Public MensajeEnvio As String
 Public CountMEC As Integer
+
+Public Enum PlayerType
+
+    User = 0
+    Consejero = 1
+    SemiDios = 2
+    Dios = 3
+    Admin = 4
+
+End Enum

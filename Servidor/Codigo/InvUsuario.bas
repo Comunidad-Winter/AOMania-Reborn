@@ -4,20 +4,22 @@ Option Explicit
 
 Public Function TieneObjetosRobables(ByVal UserIndex As Integer) As Boolean
 
-'17/09/02
-'Agregue que la función se asegure que el objeto no es un barco
-
     On Error Resume Next
 
-    Dim i As Integer
+    Dim i        As Integer
+
     Dim ObjIndex As Integer
 
     For i = 1 To MAX_INVENTORY_SLOTS
         ObjIndex = UserList(UserIndex).Invent.Object(i).ObjIndex
 
         If ObjIndex > 0 Then
-            TieneObjetosRobables = True
-            Exit Function
+            If (ObjData(ObjIndex).ObjType <> eOBJType.otLlaves) And ObjData(ObjIndex).Cae <> 1 And ObjData(ObjIndex).Templ <> 1 And ObjData(ObjIndex).Nemes <> 1 And ObjData(ObjIndex).Real <> 1 And (ObjData(ObjIndex).ObjType <> eOBJType.otMontura) And ObjData(ObjIndex).Caos <> 1 Then
+                TieneObjetosRobables = True
+                Exit Function
+
+            End If
+    
         End If
 
     Next i
@@ -648,29 +650,37 @@ errhandler:
 End Function
 
 Function FaccionPuedeUsarItem(ByVal UserIndex As Integer, ByVal ObjIndex As Integer) As Boolean
-
-    If ObjData(ObjIndex).Real = 1 Then
-        FaccionPuedeUsarItem = (UserList(UserIndex).Faccion.ArmadaReal = 1)
-        Exit Function
-
-    ElseIf ObjData(ObjIndex).Caos = 1 Then
-        FaccionPuedeUsarItem = (UserList(UserIndex).Faccion.FuerzasCaos = 1)
-        Exit Function
-
-    ElseIf ObjData(ObjIndex).Nemes = 1 Then
-        FaccionPuedeUsarItem = (UserList(UserIndex).Faccion.Nemesis = 1)
-        Exit Function
-
-    ElseIf ObjData(ObjIndex).Templ = 1 Then
-        FaccionPuedeUsarItem = (UserList(UserIndex).Faccion.Templario = 1)
-        Exit Function
-
-    Else
-        FaccionPuedeUsarItem = False
-
-    End If
+On Error Resume Next
+If ObjData(ObjIndex).Real = 1 Then
+    'If Not Criminal(UserIndex) Then
+        FaccionPuedeUsarItem = UserList(UserIndex).Faccion.ArmadaReal = 1
+    'Else
+     '   FaccionPuedeUsarItem = False
+    'End If
+ElseIf ObjData(ObjIndex).Caos = 1 Then
+    'If Criminal(UserIndex) Then
+        FaccionPuedeUsarItem = UserList(UserIndex).Faccion.FuerzasCaos = 2
+    'Else
+     '   FaccionPuedeUsarItem = False
+    'End If
+ElseIf ObjData(ObjIndex).Templ = 1 Then
+    'If Not Criminal(UserIndex) Then
+        FaccionPuedeUsarItem = UserList(UserIndex).Faccion.Templario = 3
+    'Else
+     '   FaccionPuedeUsarItem = False
+    'End If
+ElseIf ObjData(ObjIndex).Nemes = 1 Then
+    'If Criminal(UserIndex) Then
+        FaccionPuedeUsarItem = UserList(UserIndex).Faccion.Nemesis = 4
+    'Else
+        'FaccionPuedeUsarItem = False
+    'End If
+Else
+    FaccionPuedeUsarItem = True
+End If
 
 End Function
+
 
 Sub EquiparInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
@@ -1216,11 +1226,14 @@ End Function
 
 Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
-'Usa un item del inventario
-    Dim Obj As ObjData
+    'Usa un item del inventario
+    Dim Obj      As ObjData
+
     Dim ObjIndex As Integer
-    Dim TargObj As ObjData
-    Dim MiObj As Obj
+
+    Dim TargObj  As ObjData
+
+    Dim MiObj    As Obj
 
     If UserList(UserIndex).Invent.Object(Slot).Amount = 0 Then Exit Sub
 
@@ -1229,6 +1242,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
     If Obj.Newbie = 1 And Not EsNewbie(UserIndex) Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Solo los newbies pueden usar este objeto." & FONTTYPE_INFO)
         Exit Sub
+
     End If
 
     If Obj.ObjType = eOBJType.otWeapon Then
@@ -1238,6 +1252,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
             If UserList(UserIndex).Invent.Object(Slot).Equipped = 0 Then
                 'Call SendData(SendTarget.toIndex, UserIndex, 0, "||No has seleccionado o equipado su objeto de combate!" & FONTTYPE_INFO)
                 Exit Sub
+
             End If
 
             'valido para evitar el flood pero no bloqueo. El bloqueo se hace en WLC con proyectiles.
@@ -1272,917 +1287,916 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
     Select Case Obj.ObjType
 
-    Case eOBJType.otPack
+        Case eOBJType.otPack
 
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-        End If
-
-        Call AbrirPack(UserIndex, ObjIndex, Slot)
-
-        Call QuitarUserInvItem(UserIndex, Slot, 1)
-        Call UpdateUserInv(False, UserIndex, Slot)
-
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "TW131")
-
-        Exit Sub
-
-    Case eOBJType.otVales
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).Stats.ELV = STAT_MAXELV Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Ya eres level maximo!" & FONTTYPE_INFO)
-            Exit Sub
-
-        End If
-
-        UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + Obj.Expe
-
-        Call CheckUserLevel(UserIndex)
-        Call EnviarExp(UserIndex)
-        'Quitamos del inv el item
-
-
-        Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-        Call UpdateUserInv(False, UserIndex, Slot)
-
-    Case eOBJType.otUseOnce
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).Stats.MinHam = UserList(UserIndex).Stats.MaxHam Then
-            Exit Sub
-        End If
-
-        'Usa el item
-        UserList(UserIndex).Stats.MinHam = UserList(UserIndex).Stats.MinHam + Obj.MinHam
-
-        If UserList(UserIndex).Stats.MinHam > UserList(UserIndex).Stats.MaxHam Then UserList(UserIndex).Stats.MinHam = UserList( _
-           UserIndex).Stats.MaxHam
-        UserList(UserIndex).flags.Hambre = 0
-        Call EnviarHambreYsed(UserIndex)
-        'Sonido
-
-        If ObjIndex = e_ObjetosCriticos.Manzana Or ObjIndex = e_ObjetosCriticos.Manzana2 Or ObjIndex = e_ObjetosCriticos.ManzanaNewbie Then
-            Call SonidosMapas.ReproducirSonido(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, e_SoundIndex.MORFAR_MANZANA)
-        Else
-            Call SonidosMapas.ReproducirSonido(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, e_SoundIndex.SOUND_COMIDA)
-
-        End If
-
-        'Quitamos del inv el item
-
-        'CRAW; 03/04/2020 --> DESACTIVAMOS ESTO POR AHORA
-        Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-        Call UpdateUserInv(False, UserIndex, Slot)
-
-    Case eOBJType.otGuita
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-
-        End If
-
-        UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD + UserList(UserIndex).Invent.Object(Slot).Amount
-        UserList(UserIndex).Invent.Object(Slot).Amount = 0
-        UserList(UserIndex).Invent.Object(Slot).ObjIndex = 0
-        UserList(UserIndex).Invent.NroItems = UserList(UserIndex).Invent.NroItems - 1
-
-        Call UpdateUserInv(False, UserIndex, Slot)
-        Call EnviarOro(UserIndex)
-
-    Case eOBJType.otWeapon
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-
-        End If
-
-        If ObjData(ObjIndex).proyectil = 1 Then
-
-            If Not UserList(UserIndex).flags.SeguroCombate Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, _
-                              "||No estás en modo de combate, presiona la tecla ""C"" para pasar al modo combate." & FONTTYPE_Motd4)
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
                 Exit Sub
-            End If
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Proyectiles)
-
-            If Obj.ObjetoEspecial > 0 Then
-                UserList(UserIndex).flags.EspecialArco = 1
-                UserList(UserIndex).flags.EspecialObjArco = Obj.ObjetoEspecial
-                'Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Es un Arco Especial" & FONTTYPE_FIGHT)
 
             End If
 
-        Else
+            Call AbrirPack(UserIndex, ObjIndex, Slot)
 
-            If UserList(UserIndex).flags.TargetObj = 0 Then Exit Sub
+            Call QuitarUserInvItem(UserIndex, Slot, 1)
+            Call UpdateUserInv(False, UserIndex, Slot)
 
-            '¿El target-objeto es leña?
-            If UserList(UserIndex).flags.TargetObj = Leña Then
-                If UserList(UserIndex).Invent.Object(Slot).ObjIndex = DAGA Then
-                    Call TratarDeHacerFogata(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList( _
-                                                                                                                           UserIndex).flags.TargetObjY, UserIndex)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "TW131")
+
+            Exit Sub
+
+        Case eOBJType.otVales
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            If UserList(UserIndex).Stats.ELV = STAT_MAXELV Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Ya eres level maximo!" & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+
+            UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + Obj.Expe
+
+            Call CheckUserLevel(UserIndex)
+            Call EnviarExp(UserIndex)
+            'Quitamos del inv el item
+
+            Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+            Call UpdateUserInv(False, UserIndex, Slot)
+
+        Case eOBJType.otUseOnce
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            If UserList(UserIndex).Stats.MinHam = UserList(UserIndex).Stats.MaxHam Then
+                Exit Sub
+
+            End If
+
+            'Usa el item
+            UserList(UserIndex).Stats.MinHam = UserList(UserIndex).Stats.MinHam + Obj.MinHam
+
+            If UserList(UserIndex).Stats.MinHam > UserList(UserIndex).Stats.MaxHam Then UserList(UserIndex).Stats.MinHam = UserList(UserIndex).Stats.MaxHam
+            UserList(UserIndex).flags.Hambre = 0
+            Call EnviarHambreYsed(UserIndex)
+            'Sonido
+
+            If ObjIndex = e_ObjetosCriticos.Manzana Or ObjIndex = e_ObjetosCriticos.Manzana2 Or ObjIndex = e_ObjetosCriticos.ManzanaNewbie Then
+                Call SonidosMapas.ReproducirSonido(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, e_SoundIndex.MORFAR_MANZANA)
+            Else
+                Call SonidosMapas.ReproducirSonido(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, e_SoundIndex.SOUND_COMIDA)
+
+            End If
+
+            'Quitamos del inv el item
+
+            'CRAW; 03/04/2020 --> DESACTIVAMOS ESTO POR AHORA
+            Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+            Call UpdateUserInv(False, UserIndex, Slot)
+
+        Case eOBJType.otGuita
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD + UserList(UserIndex).Invent.Object(Slot).Amount
+            UserList(UserIndex).Invent.Object(Slot).Amount = 0
+            UserList(UserIndex).Invent.Object(Slot).ObjIndex = 0
+            UserList(UserIndex).Invent.NroItems = UserList(UserIndex).Invent.NroItems - 1
+
+            Call UpdateUserInv(False, UserIndex, Slot)
+            Call EnviarOro(UserIndex)
+
+        Case eOBJType.otWeapon
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            If ObjData(ObjIndex).proyectil = 1 Then
+
+                If Not UserList(UserIndex).flags.SeguroCombate Then
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás en modo de combate, presiona la tecla ""C"" para pasar al modo combate." & FONTTYPE_Motd4)
+                    Exit Sub
+
+                End If
+
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Proyectiles)
+
+                If Obj.ObjetoEspecial > 0 Then
+                    UserList(UserIndex).flags.EspecialArco = 1
+                    UserList(UserIndex).flags.EspecialObjArco = Obj.ObjetoEspecial
+                    'Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Es un Arco Especial" & FONTTYPE_FIGHT)
+
+                End If
+
+            Else
+
+                If UserList(UserIndex).flags.TargetObj = 0 Then Exit Sub
+
+                '¿El target-objeto es leña?
+                If UserList(UserIndex).flags.TargetObj = Leña Then
+                    If UserList(UserIndex).Invent.Object(Slot).ObjIndex = DAGA Then
+                        Call TratarDeHacerFogata(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY, UserIndex)
+
+                    End If
 
                 End If
 
             End If
 
-        End If
+        Case eOBJType.otAmuleto
 
-    Case eOBJType.otAmuleto
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Exit Sub
-        End If
-
-        Call AmuTeleport(UserIndex)
-        Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-        Call UpdateUserInv(False, UserIndex, Slot)
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW100")
-
-    Case eOBJType.otRegalos
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Exit Sub
-        End If
-
-        Dim RandomRegalo As Integer
-
-        RandomRegalo = RandomNumber(1, NumRegalos)
-
-        MiObj.ObjIndex = Regalos(RandomRegalo).ObjIndex
-        MiObj.Amount = 1
-        Call MeterItemEnInventario(UserIndex, MiObj)
-        Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-        Call UpdateUserInv(False, UserIndex, Slot)
-
-    Case eOBJType.otPociones
-
-        'If UserList(userindex).Lac.LPociones.Puedo = False Then Exit Sub
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).Counters.TimerAttack > 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Debes esperar un momento para tomar otra poción." & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        Select Case Obj.TipoPocion
-            Dim MXATRIBUTOS As String
-
-        Case 1    'Modif la agilidad
-            UserList(UserIndex).flags.DuracionEfectoAmarillas = Obj.DuracionEfecto
-
-            'Usa el item
-            UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) + _
-                                                                           RandomNumber(Obj.MinModificador, Obj.MaxModificador)
-
-            MXATRIBUTOS = val(MAXATRIBUTOS + UserList(UserIndex).flags.EspecialAgilidad)
-
-            If UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) > MXATRIBUTOS Then UserList(UserIndex).Stats.UserAtributos( _
-               eAtributos.Agilidad) = MXATRIBUTOS
-
-            'Quitamos del inv el item
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            UserList(UserIndex).flags.TomoPocionAmarilla = True
-            Call EnviarAmarillas(UserIndex)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-
-        Case 2    'Modif la fuerza
-            UserList(UserIndex).flags.DuracionEfectoVerdes = Obj.DuracionEfecto
-
-            'Usa el item
-            UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) + _
-                                                                         RandomNumber(Obj.MinModificador, Obj.MaxModificador)
-
-            MXATRIBUTOS = val(MAXATRIBUTOS + UserList(UserIndex).flags.EspecialFuerza)
-
-            If UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) > MXATRIBUTOS Then UserList(UserIndex).Stats.UserAtributos( _
-               eAtributos.Fuerza) = MXATRIBUTOS
-
-            'Quitamos del inv el item
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            UserList(UserIndex).flags.TomoPocionVerde = True
-            Call EnviarVerdes(UserIndex)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-
-        Case 3    'Pocion roja, restaura HP
-
-            If UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP Then
+            If UserList(UserIndex).flags.Muerto = 1 Then
                 Exit Sub
 
             End If
 
-            'Usa el item
-            UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP + RandomNumber(Obj.MinModificador, Obj.MaxModificador)
-
-            If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then UserList(UserIndex).Stats.MinHP = UserList( _
-               UserIndex).Stats.MaxHP
-
-            'Quitamos del inv el item
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-            Call EnviarHP(UserIndex)
-
-        Case 4    'Pocion azul, restaura MANA
-
-            If UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN Then
-                Exit Sub
-
-            End If
-
-            'Usa el item
-            UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MinMAN + Porcentaje(UserList(UserIndex).Stats.MaxMAN, 5)
-
-            If UserList(UserIndex).Stats.MinMAN > UserList(UserIndex).Stats.MaxMAN Then UserList(UserIndex).Stats.MinMAN = UserList( _
-               UserIndex).Stats.MaxMAN
-
-            'Quitamos del inv el item
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-            Call EnviarMn(UserIndex)
-
-        Case 5    ' Pocion violeta
-
-            If UserList(UserIndex).flags.Envenenado = 1 Then
-                UserList(UserIndex).flags.Envenenado = 0
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has curado del envenenamiento." & FONTTYPE_INFO)
-                Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-                Call QuitarUserInvItem(UserIndex, Slot, 1)
-            Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás envenenado!!" & FONTTYPE_INFO)
-            End If
-
-        Case 6    ' Pocion desparalizar
-
-            If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
-                Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & _
-                                                                " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            If UserList(UserIndex).flags.Paralizado = 0 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La pócima no puede funcionar por que no estás paralizado." & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            If UserList(UserIndex).flags.Paralizado = 1 Then
-                UserList(UserIndex).flags.Paralizado = 0
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.X & "," & UserList(UserIndex).pos.Y)
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La pocima surte su efecto y te has desparalizado!" & FONTTYPE_INFO)
-                Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-
-            End If
-
-            'Quitamos del inv el item
+            Call AmuTeleport(UserIndex)
             Call QuitarUserInvItem(UserIndex, Slot, 1)
 
-        Case 7    'Pocion invisibilidad
+            Call UpdateUserInv(False, UserIndex, Slot)
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW100")
 
-            If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
-                Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & _
-                                                                " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+        Case eOBJType.otRegalos
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
                 Exit Sub
 
             End If
 
-            If UserList(UserIndex).pos.Map = mapainvo Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes lanzar invisibilidad en sala de invocaciones!" & FONTTYPE_INFO)
-                Exit Sub
+            Dim RandomRegalo As Integer
 
-            End If
+            RandomRegalo = RandomNumber(1, NumRegalos)
 
-            If UserList(UserIndex).pos.Map = MAPADUELO Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes lanzar invisibilidad en duelo!" & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            If UserList(UserIndex).flags.Invisible = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Ya estás invisible!!" & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            If UserList(UserIndex).flags.Invisible = 0 Then
-                Call QuitarUserInvItem(UserIndex, Slot, 1)
-                UserList(UserIndex).flags.Invisible = 1
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has vuelto invisible." & FONTTYPE_INFO)
-                Call UpdateUserInv(False, UserIndex, Slot)
-                Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-                Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",1," & UserList( _
-                                                                                UserIndex).PartyIndex)
-
-            End If
-
-        Case 8    'Pocion Telepatia
-
-            If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
-                Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & _
-                                                                " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            If UserList(UserIndex).Telepatia = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya tienes aprendida la telepatia!" & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
+            MiObj.ObjIndex = Regalos(RandomRegalo).ObjIndex
+            MiObj.Amount = 1
+            Call MeterItemEnInventario(UserIndex, MiObj)
             Call QuitarUserInvItem(UserIndex, Slot, 1)
 
-            UserList(UserIndex).Telepatia = 1
+            Call UpdateUserInv(False, UserIndex, Slot)
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has aprendido la telepatia!" & FONTTYPE_INFO)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+        Case eOBJType.otPociones
 
-        Case 9    'Teleport a Nix
-
-            If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
-                Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & _
-                                                                " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+            'If UserList(userindex).Lac.LPociones.Puedo = False Then Exit Sub
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
                 Exit Sub
 
             End If
 
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-            Call WarpUserChar(UserIndex, 34, 40, 50, True)
-
-        Case 10    'pocion energia
-
-            If UserList(UserIndex).Stats.MinSta = UserList(UserIndex).Stats.MaxSta Then
+            If UserList(UserIndex).Counters.TimerAttack > 0 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Debes esperar un momento para tomar otra poción." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
+            Select Case Obj.TipoPocion
 
-            UserList(UserIndex).Stats.MinSta = UserList(UserIndex).Stats.MinSta + RandomNumber(Obj.MinModificador, Obj.MaxModificador)
+                    Dim MXATRIBUTOS As String
 
-            If UserList(UserIndex).Stats.MinSta > UserList(UserIndex).Stats.MaxSta Then UserList(UserIndex).Stats.MinSta = UserList( _
-               UserIndex).Stats.MaxSta
-            Call EnviarSta(UserIndex)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+                Case 1    'Modif la agilidad
+                    UserList(UserIndex).flags.DuracionEfectoAmarillas = Obj.DuracionEfecto
 
-        Case 11    'Pocion para remover Ceguera
+                    'Usa el item
+                    UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) + RandomNumber(Obj.MinModificador, Obj.MaxModificador)
 
-            If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
-                Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & _
-                                                                " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
-                Exit Sub
+                    MXATRIBUTOS = val(MAXATRIBUTOS + UserList(UserIndex).flags.EspecialAgilidad)
 
-            End If
+                    If UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) > MXATRIBUTOS Then UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = MXATRIBUTOS
 
-            If UserList(UserIndex).flags.Muerto = 1 Then Exit Sub
-            If UserList(UserIndex).flags.Ceguera = 0 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás ciego" & FONTTYPE_INFO)
-                Call QuitarUserInvItem(UserIndex, Slot, 1)
-                Exit Sub
+                    'Quitamos del inv el item
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    UserList(UserIndex).flags.TomoPocionAmarilla = True
+                    Call EnviarAmarillas(UserIndex)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
 
-            End If
+                Case 2    'Modif la fuerza
+                    UserList(UserIndex).flags.DuracionEfectoVerdes = Obj.DuracionEfecto
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La pocima surte su efecto y recuperas la visión." & FONTTYPE_INFO)
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    'Usa el item
+                    UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) + RandomNumber(Obj.MinModificador, Obj.MaxModificador)
 
-        Case 12    'Pocion para remover Estupidez
+                    MXATRIBUTOS = val(MAXATRIBUTOS + UserList(UserIndex).flags.EspecialFuerza)
 
-            If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
-                Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & _
-                                                                " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
-                Exit Sub
+                    If UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) > MXATRIBUTOS Then UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = MXATRIBUTOS
 
-            End If
+                    'Quitamos del inv el item
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    UserList(UserIndex).flags.TomoPocionVerde = True
+                    Call EnviarVerdes(UserIndex)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
 
-            If UserList(UserIndex).flags.Muerto = 1 Then Exit Sub
-            If UserList(UserIndex).flags.Estupidez = 0 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás estupido." & FONTTYPE_INFO)
-                Exit Sub
+                Case 3    'Pocion roja, restaura HP
 
-            End If
-
-            UserList(UserIndex).flags.Estupidez = 0
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La pocima surte su efecto y recobras la cordura." & FONTTYPE_INFO)
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-
-        Case 13    'Teleport a Ulla
-
-            If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
-                Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & _
-                                                                " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            Call WarpUserChar(UserIndex, 1, 52, 53, True)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-
-        Case 14    'Teleport a Bander
-
-            If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
-                Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & _
-                                                                " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            Call WarpUserChar(UserIndex, 59, 50, 41, True)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-
-        Case 15    'Pocion azul, restaura MANA
-
-            If UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN Then
-                Exit Sub
-
-            End If
-
-            'Usa el item
-            UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MinMAN + Porcentaje(UserList(UserIndex).Stats.MaxMAN, 5)
-
-            If UserList(UserIndex).Stats.MinMAN > UserList(UserIndex).Stats.MaxMAN Then UserList(UserIndex).Stats.MinMAN = UserList( _
-               UserIndex).Stats.MaxMAN
-
-            'Quitamos del inv el item
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-            Call EnviarMn(UserIndex)
-
-        Case 16    'Pocion sistema criatura
-
-            If DiaEspecialExp = True Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, _
-                              "||Los Dioses de AoMania no te permiten usar tu poder para cambiar este día especial." & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            If DiaEspecialOro = True Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, _
-                              "||Los Dioses de AoMania no te permiten usar tu poder para cambiar este día especial." & FONTTYPE_INFO)
-                Exit Sub
-
-            End If
-
-            RandomCase = RandomNumber(1, 15)
-            Call CriaturasNormales(RandomCase)
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
-
-        End Select
-
-        Call UpdateUserInv(False, UserIndex, Slot)
-
-
-    Case eOBJType.otLibromagico
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes usar el item si estás muerto!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
-        
-        If UserList(UserIndex).flags.UsoLibroHP = 15 Then
-            SendData SendTarget.ToIndex, UserIndex, 0, "||¡Ya no puedes ganar más vida!." & FONTTYPE_INFO
-            Exit Sub
-        End If
-        
-        If UserList(UserIndex).Stats.MaxHP > STAT_MAXHP Then UserList(UserIndex).Stats.MaxHP = STAT_MAXHP
-
-        UserList(UserIndex).Stats.MaxHP = UserList(UserIndex).Stats.MaxHP + 1
-        
-'        If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then _
-'           UserList(UserIndex).Stats.MaxHP = UserList(UserIndex).Stats.MaxHP + 1
-
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has ganado 1 punto de vida!" & FONTTYPE_INFO)
-        Call SendUserStatsBox(UserIndex)
-        Call QuitarUserInvItem(UserIndex, Slot, 1)    'te quito el item que ya te hice el efecto
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_CHIRP)            'Plus de sonido escojan el que quieran
-        Call UpdateUserInv(True, UserIndex, 0)
-
-    Case eOBJType.otBebidas
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).Stats.MinAGU = UserList(UserIndex).Stats.MaxAGU Then
-            Exit Sub
-        End If
-
-        UserList(UserIndex).Stats.MinAGU = UserList(UserIndex).Stats.MinAGU + Obj.MinSed
-
-        If UserList(UserIndex).Stats.MinAGU > UserList(UserIndex).Stats.MaxAGU Then UserList(UserIndex).Stats.MinAGU = UserList( _
-           UserIndex).Stats.MaxAGU
-        UserList(UserIndex).flags.Sed = 0
-        Call EnviarHambreYsed(UserIndex)
-
-        'Quitamos del inv el item
-        Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_BEBER)
-
-        Call UpdateUserInv(False, UserIndex, Slot)
-
-    Case eOBJType.otLlaves
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-
-        End If
-
-        If UserList(UserIndex).flags.TargetObj = 0 Then Exit Sub
-        TargObj = ObjData(UserList(UserIndex).flags.TargetObj)
-
-        '¿El objeto clickeado es una puerta?
-        If TargObj.ObjType = eOBJType.otPuertas Then
-
-            '¿Esta cerrada?
-            If TargObj.Cerrada = 1 Then
-
-                '¿Cerrada con llave?
-                If TargObj.Llave > 0 Then
-                    If TargObj.clave = Obj.clave Then
-
-                        MapData(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList( _
-                                                                                                              UserIndex).flags.TargetObjY).OBJInfo.ObjIndex = ObjData(MapData(UserList(UserIndex).flags.TargetObjMap, _
-                                                                                                                                                                              UserList(UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex).IndexCerrada
-                        UserList(UserIndex).flags.TargetObj = MapData(UserList(UserIndex).flags.TargetObjMap, UserList( _
-                                                                                                              UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has abierto la puerta." & FONTTYPE_INFO)
+                    If UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP Then
                         Exit Sub
+
+                    End If
+
+                    'Usa el item
+                    UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP + RandomNumber(Obj.MinModificador, Obj.MaxModificador)
+
+                    If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP
+
+                    'Quitamos del inv el item
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+                    Call EnviarHP(UserIndex)
+
+                Case 4    'Pocion azul, restaura MANA
+
+                    If UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN Then
+                        Exit Sub
+
+                    End If
+
+                    'Usa el item
+                    UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MinMAN + Porcentaje(UserList(UserIndex).Stats.MaxMAN, 5)
+
+                    If UserList(UserIndex).Stats.MinMAN > UserList(UserIndex).Stats.MaxMAN Then UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN
+
+                    'Quitamos del inv el item
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+                    Call EnviarMn(UserIndex)
+
+                Case 5    ' Pocion violeta
+
+                    If UserList(UserIndex).flags.Envenenado = 1 Then
+                        UserList(UserIndex).flags.Envenenado = 0
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has curado del envenenamiento." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+                        Call QuitarUserInvItem(UserIndex, Slot, 1)
                     Else
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La llave no sirve." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás envenenado!!" & FONTTYPE_INFO)
+
+                    End If
+
+                Case 6    ' Pocion desparalizar
+
+                    If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).flags.Paralizado = 0 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La pócima no puede funcionar por que no estás paralizado." & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).flags.Paralizado = 1 Then
+                        UserList(UserIndex).flags.Paralizado = 0
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.X & "," & UserList(UserIndex).pos.Y)
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La pocima surte su efecto y te has desparalizado!" & FONTTYPE_INFO)
+                        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+
+                    End If
+
+                    'Quitamos del inv el item
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+                Case 7    'Pocion invisibilidad
+
+                    If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).pos.Map = mapainvo Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes lanzar invisibilidad en sala de invocaciones!" & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).pos.Map = MAPADUELO Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes lanzar invisibilidad en duelo!" & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).flags.Invisible = 1 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Ya estás invisible!!" & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).flags.Invisible = 0 Then
+                        Call QuitarUserInvItem(UserIndex, Slot, 1)
+                        UserList(UserIndex).flags.Invisible = 1
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has vuelto invisible." & FONTTYPE_INFO)
+                        Call UpdateUserInv(False, UserIndex, Slot)
+                        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+                        Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",1," & UserList(UserIndex).PartyIndex)
+
+                    End If
+
+                Case 8    'Pocion Telepatia
+
+                    If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).Telepatia = 1 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya tienes aprendida la telepatia!" & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+                    UserList(UserIndex).Telepatia = 1
+
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has aprendido la telepatia!" & FONTTYPE_INFO)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+
+                Case 9    'Teleport a Nix
+
+                    If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+                    Call WarpUserChar(UserIndex, 34, 40, 50, True)
+
+                Case 10    'pocion energia
+
+                    If UserList(UserIndex).Stats.MinSta = UserList(UserIndex).Stats.MaxSta Then
+                        Exit Sub
+
+                    End If
+
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+                    UserList(UserIndex).Stats.MinSta = UserList(UserIndex).Stats.MinSta + RandomNumber(Obj.MinModificador, Obj.MaxModificador)
+
+                    If UserList(UserIndex).Stats.MinSta > UserList(UserIndex).Stats.MaxSta Then UserList(UserIndex).Stats.MinSta = UserList(UserIndex).Stats.MaxSta
+                    Call EnviarSta(UserIndex)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+
+                Case 11    'Pocion para remover Ceguera
+
+                    If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).flags.Muerto = 1 Then Exit Sub
+                    If UserList(UserIndex).flags.Ceguera = 0 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás ciego" & FONTTYPE_INFO)
+                        Call QuitarUserInvItem(UserIndex, Slot, 1)
+                        Exit Sub
+
+                    End If
+
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La pocima surte su efecto y recuperas la visión." & FONTTYPE_INFO)
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+                Case 12    'Pocion para remover Estupidez
+
+                    If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If UserList(UserIndex).flags.Muerto = 1 Then Exit Sub
+                    If UserList(UserIndex).flags.Estupidez = 0 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás estupido." & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    UserList(UserIndex).flags.Estupidez = 0
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La pocima surte su efecto y recobras la cordura." & FONTTYPE_INFO)
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+
+                Case 13    'Teleport a Ulla
+
+                    If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    Call WarpUserChar(UserIndex, 1, 52, 53, True)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+
+                Case 14    'Teleport a Bander
+
+                    If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    Call WarpUserChar(UserIndex, 59, 50, 41, True)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+
+                Case 15    'Pocion azul, restaura MANA
+
+                    If UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN Then
+                        Exit Sub
+
+                    End If
+
+                    'Usa el item
+                    UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MinMAN + Porcentaje(UserList(UserIndex).Stats.MaxMAN, 5)
+
+                    If UserList(UserIndex).Stats.MinMAN > UserList(UserIndex).Stats.MaxMAN Then UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN
+
+                    'Quitamos del inv el item
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+                    Call EnviarMn(UserIndex)
+
+                Case 16    'Pocion sistema criatura
+
+                    If DiaEspecialExp = True Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los Dioses de AoMania no te permiten usar tu poder para cambiar este día especial." & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    If DiaEspecialOro = True Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los Dioses de AoMania no te permiten usar tu poder para cambiar este día especial." & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                    RandomCase = RandomNumber(1, 15)
+                    Call CriaturasNormales(RandomCase)
+                    Call QuitarUserInvItem(UserIndex, Slot, 1)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_POTEAR)
+
+            End Select
+
+            Call UpdateUserInv(False, UserIndex, Slot)
+
+        Case eOBJType.otLibromagico
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes usar el item si estás muerto!" & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+        
+            If UserList(UserIndex).flags.UsoLibroHP = 15 Then
+                SendData SendTarget.ToIndex, UserIndex, 0, "||¡Ya no puedes ganar más vida!." & FONTTYPE_INFO
+                Exit Sub
+
+            End If
+        
+            If UserList(UserIndex).Stats.MaxHP > STAT_MAXHP Then UserList(UserIndex).Stats.MaxHP = STAT_MAXHP
+
+            UserList(UserIndex).Stats.MaxHP = UserList(UserIndex).Stats.MaxHP + 1
+        
+            '        If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then _
+            '           UserList(UserIndex).Stats.MaxHP = UserList(UserIndex).Stats.MaxHP + 1
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has ganado 1 punto de vida!" & FONTTYPE_INFO)
+            Call SendUserStatsBox(UserIndex)
+            Call QuitarUserInvItem(UserIndex, Slot, 1)    'te quito el item que ya te hice el efecto
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_CHIRP)            'Plus de sonido escojan el que quieran
+            Call UpdateUserInv(True, UserIndex, 0)
+
+        Case eOBJType.otBebidas
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            If UserList(UserIndex).Stats.MinAGU = UserList(UserIndex).Stats.MaxAGU Then
+                Exit Sub
+
+            End If
+
+            UserList(UserIndex).Stats.MinAGU = UserList(UserIndex).Stats.MinAGU + Obj.MinSed
+
+            If UserList(UserIndex).Stats.MinAGU > UserList(UserIndex).Stats.MaxAGU Then UserList(UserIndex).Stats.MinAGU = UserList(UserIndex).Stats.MaxAGU
+            UserList(UserIndex).flags.Sed = 0
+            Call EnviarHambreYsed(UserIndex)
+
+            'Quitamos del inv el item
+            Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_BEBER)
+
+            Call UpdateUserInv(False, UserIndex, Slot)
+
+        Case eOBJType.otLlaves
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            If UserList(UserIndex).flags.TargetObj = 0 Then Exit Sub
+            TargObj = ObjData(UserList(UserIndex).flags.TargetObj)
+
+            '¿El objeto clickeado es una puerta?
+            If TargObj.ObjType = eOBJType.otPuertas Then
+
+                '¿Esta cerrada?
+                If TargObj.Cerrada = 1 Then
+
+                    '¿Cerrada con llave?
+                    If TargObj.Llave > 0 Then
+                        If TargObj.clave = Obj.clave Then
+
+                            MapData(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex = ObjData(MapData(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex).IndexCerrada
+                            UserList(UserIndex).flags.TargetObj = MapData(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex
+                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has abierto la puerta." & FONTTYPE_INFO)
+                            Exit Sub
+                        Else
+                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La llave no sirve." & FONTTYPE_INFO)
+                            Exit Sub
+
+                        End If
+
+                    Else
+
+                        If TargObj.clave = Obj.clave Then
+                            MapData(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex = ObjData(MapData(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex).IndexCerradaLlave
+                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has cerrado con llave la puerta." & FONTTYPE_INFO)
+                            UserList(UserIndex).flags.TargetObj = MapData(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex
+                            Exit Sub
+                        Else
+                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La llave no sirve." & FONTTYPE_INFO)
+                            Exit Sub
+
+                        End If
+
+                    End If
+
+                Else
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No esta cerrada." & FONTTYPE_INFO)
+                    Exit Sub
+
+                End If
+
+            End If
+
+        Case eOBJType.otCheques
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD + 10000
+
+            'Quitamos del inv el item
+            Call QuitarUserInvItem(UserIndex, Slot, 1)
+            Call UpdateUserInv(False, UserIndex, Slot)
+            Call SendUserStatsBox(UserIndex)
+
+        Case eOBJType.otBotellaVacia
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            If Not HayAgua(UserList(UserIndex).pos.Map, UserList(UserIndex).flags.TargetX, UserList(UserIndex).flags.TargetY) Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay agua allí." & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+
+            MiObj.Amount = 1
+            MiObj.ObjIndex = ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).IndexAbierta
+            Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+            If Not MeterItemEnInventario(UserIndex, MiObj) Then
+                Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+
+            End If
+
+            Call UpdateUserInv(False, UserIndex, Slot)
+
+        Case eOBJType.otBotellaLlena
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            UserList(UserIndex).Stats.MinAGU = UserList(UserIndex).Stats.MinAGU + Obj.MinSed
+
+            If UserList(UserIndex).Stats.MinAGU > UserList(UserIndex).Stats.MaxAGU Then UserList(UserIndex).Stats.MinAGU = UserList(UserIndex).Stats.MaxAGU
+            UserList(UserIndex).flags.Sed = 0
+            Call EnviarHambreYsed(UserIndex)
+            MiObj.Amount = 1
+            MiObj.ObjIndex = ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).IndexCerrada
+            Call QuitarUserInvItem(UserIndex, Slot, 1)
+
+            If Not MeterItemEnInventario(UserIndex, MiObj) Then
+                Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+
+            End If
+
+        Case eOBJType.otherramientas
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            If Not UserList(UserIndex).Stats.MinSta > 0 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas muy cansado" & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+
+            If UserList(UserIndex).Invent.Object(Slot).Equipped = 0 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Antes de usar la herramienta deberias equipartela." & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+
+            UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlProleta
+
+            If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
+
+            Select Case ObjIndex
+
+                Case TIJERA
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Sastreria)
+
+                Case AGUJA
+                    Call EnviarObjSastre(UserIndex)
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ABRS")
+
+                Case HOZ_DE_MANO
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Recolectar)
+
+                Case MORTERO
+                    Call EnviarObjHechiceria(UserIndex)
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ABRH")
+
+                Case CAÑA_PESCA, RED_PESCA
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Pesca)
+
+                Case HACHA_LEÑADOR
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & talar)
+
+                Case PIQUETE_MINERO
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Mineria)
+
+                Case MARTILLO_HERRERO
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Herreria)
+
+                Case MARTILLO_HERRERO_MAGICO
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Herrero)
+
+                Case SERRUCHO_CARPINTERO
+                    Call EnivarObjConstruibles(UserIndex)
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "SFC")
+
+            End Select
+
+        Case eOBJType.otPergaminos
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                ' Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡¡Estas muerto!! Solo puedes usar items cuando estas vivo. " & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+
+            If UserList(UserIndex).Stats.MinHam <= 30 And UserList(UserIndex).Stats.MinAGU <= 30 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas demasiado hambriento y sediento." & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+
+            If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
+
+                If ObjData(ObjIndex).Gm = 1 Then
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Este hechizo solo puede aprenderlos los gamemaster," & FONTTYPE_INFO)
+                    Exit Sub
+
+                End If
+
+                If ObjData(ObjIndex).Real = 1 Or ObjData(ObjIndex).Caos = 1 Or ObjData(ObjIndex).Nemes = 1 Or ObjData(ObjIndex).Templ = 1 Then
+                    If Not FaccionPuedeUsarItem(UserIndex, ObjIndex) Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tu faccion no puede aprender este hechizo." & FONTTYPE_INFO)
+                        Exit Sub
+
+                    End If
+
+                End If
+
+                If UCase$(UserList(UserIndex).Clase) = "GUERRERO" Or UCase(UserList(UserIndex).Clase) = "ARQUERO" Then
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tú clase no puede aprender este hechizo." & FONTTYPE_INFO)
+                    Exit Sub
+
+                End If
+
+                If ClasePuedeUsarItem(UserIndex, ObjIndex) Or FaccionPuedeUsarItem(UserIndex, ObjIndex) Then
+
+                    If UCase$(Len(Hechizos(Obj.HechizoIndex).ExclusivoClase)) > 0 Or UCase$(Hechizos(Obj.HechizoIndex).ExclusivoClase) <> UCase$(UserList(UserIndex).Clase) Then
+
+                        If ClasePuedeLanzarHechizo(UserIndex, Obj.HechizoIndex) = False Then
+                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tú clase no puede aprender este hechizo." & FONTTYPE_INFO)
+                            Exit Sub
+
+                        End If
+
+                        Call AgregarHechizo(UserIndex, Slot)
+                        Call UpdateUserInv(False, UserIndex, Slot)
                         Exit Sub
 
                     End If
 
                 Else
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tú clase no puede aprender este hechizo." & FONTTYPE_INFO)
+                    Exit Sub
 
-                    If TargObj.clave = Obj.clave Then
-                        MapData(UserList(UserIndex).flags.TargetObjMap, UserList(UserIndex).flags.TargetObjX, UserList( _
-                                                                                                              UserIndex).flags.TargetObjY).OBJInfo.ObjIndex = ObjData(MapData(UserList(UserIndex).flags.TargetObjMap, _
-                                                                                                                                                                              UserList(UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex).IndexCerradaLlave
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has cerrado con llave la puerta." & FONTTYPE_INFO)
-                        UserList(UserIndex).flags.TargetObj = MapData(UserList(UserIndex).flags.TargetObjMap, UserList( _
-                                                                                                              UserIndex).flags.TargetObjX, UserList(UserIndex).flags.TargetObjY).OBJInfo.ObjIndex
-                        Exit Sub
-                    Else
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La llave no sirve." & FONTTYPE_INFO)
+                End If
+
+            Else
+                Call AgregarHechizo(UserIndex, Slot)
+                Call UpdateUserInv(False, UserIndex, Slot)
+
+            End If
+
+        Case eOBJType.otMinerales
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & FundirMetal)
+
+        Case eOBJType.otInstrumentos
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
+                Exit Sub
+
+            End If
+
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & Obj.Snd1)
+
+        Case eOBJType.otBarcos
+
+            If UserList(UserIndex).flags.Montado = True Then Exit Sub
+            If UserList(UserIndex).flags.Metamorfosis = 1 Then Exit Sub
+            If UserList(UserIndex).flags.Licantropo = 1 Then Exit Sub
+                                                            
+            If Not FaccionPuedeUsarItem(UserIndex, ObjIndex) Then
+                Call SendData(ToIndex, UserIndex, 0, "||No perteneces a la faccion requerida para usar este barco." & FONTTYPE_INFO)
+            ElseIf ClasePuedeUsarItem(UserIndex, ObjIndex) And ((LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X - 1, UserList(UserIndex).pos.Y, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X + 1, UserList(UserIndex).pos.Y, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1, True)) And UserList(UserIndex).flags.Navegando = 0) Or UserList(UserIndex).flags.Navegando = 1 Then
+                    
+                If HayAgua(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y) And UserList(UserIndex).flags.Navegando = 1 Then
+                    If Not ((LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X - 1, UserList(UserIndex).pos.Y, False) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1, False) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X + 1, UserList(UserIndex).pos.Y, False) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1, False))) Then
+                        Call SendData(ToIndex, UserIndex, 0, "||¡No puedes sacarte el barco si estás en el agua!" & FONTTYPE_INFO)
                         Exit Sub
 
                     End If
 
                 End If
 
+                UserList(UserIndex).Invent.BarcoObjIndex = UserList(UserIndex).Invent.Object(Slot).ObjIndex
+                UserList(UserIndex).Invent.BarcoSlot = Slot
+                Call DoNavega(UserIndex, Obj)
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No esta cerrada." & FONTTYPE_INFO)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Debes aproximarte al agua para usar el barco!" & FONTTYPE_INFO)
+
+            End If
+
+        Case eOBJType.otMontura
+            ObjIndex = UserList(UserIndex).Invent.Object(Slot).ObjIndex
+            Obj = ObjData(ObjIndex)
+
+            If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas muerto!" & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
-        End If
-
-    Case eOBJType.otCheques
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-        End If
-
-        UserList(UserIndex).Stats.GLD = UserList(UserIndex).Stats.GLD + 10000
-
-        'Quitamos del inv el item
-        Call QuitarUserInvItem(UserIndex, Slot, 1)
-        Call UpdateUserInv(False, UserIndex, Slot)
-        Call SendUserStatsBox(UserIndex)
-
-    Case eOBJType.otBotellaVacia
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-        End If
-
-        If Not HayAgua(UserList(UserIndex).pos.Map, UserList(UserIndex).flags.TargetX, UserList(UserIndex).flags.TargetY) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No hay agua allí." & FONTTYPE_INFO)
-            Exit Sub
-
-        End If
-
-        MiObj.Amount = 1
-        MiObj.ObjIndex = ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).IndexAbierta
-        Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-        If Not MeterItemEnInventario(UserIndex, MiObj) Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
-
-        End If
-
-        Call UpdateUserInv(False, UserIndex, Slot)
-
-    Case eOBJType.otBotellaLlena
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-
-        End If
-
-        UserList(UserIndex).Stats.MinAGU = UserList(UserIndex).Stats.MinAGU + Obj.MinSed
-
-        If UserList(UserIndex).Stats.MinAGU > UserList(UserIndex).Stats.MaxAGU Then UserList(UserIndex).Stats.MinAGU = UserList( _
-           UserIndex).Stats.MaxAGU
-        UserList(UserIndex).flags.Sed = 0
-        Call EnviarHambreYsed(UserIndex)
-        MiObj.Amount = 1
-        MiObj.ObjIndex = ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).IndexCerrada
-        Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-        If Not MeterItemEnInventario(UserIndex, MiObj) Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
-
-        End If
-
-    Case eOBJType.otherramientas
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
-
-        End If
-
-        If Not UserList(UserIndex).Stats.MinSta > 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas muy cansado" & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).Invent.Object(Slot).Equipped = 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Antes de usar la herramienta deberias equipartela." & FONTTYPE_INFO)
-            Exit Sub
-
-        End If
-
-        UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlProleta
-
-        If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
-
-        Select Case ObjIndex
-
-        Case TIJERA
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Sastreria)
-
-        Case AGUJA
-            Call EnviarObjSastre(UserIndex)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ABRS")
-
-        Case HOZ_DE_MANO
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Recolectar)
-
-        Case MORTERO
-            Call EnviarObjHechiceria(UserIndex)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ABRH")
-
-        Case CAÑA_PESCA, RED_PESCA
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Pesca)
-
-        Case HACHA_LEÑADOR
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & talar)
-
-        Case PIQUETE_MINERO
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Mineria)
-
-        Case MARTILLO_HERRERO
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Herreria)
-
-        Case MARTILLO_HERRERO_MAGICO
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & Herrero)
-
-        Case SERRUCHO_CARPINTERO
-            Call EnivarObjConstruibles(UserIndex)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "SFC")
-
-        End Select
-
-    Case eOBJType.otPergaminos
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            ' Call SendData(SendTarget.toIndex, UserIndex, 0, "||¡¡Estas muerto!! Solo puedes usar items cuando estas vivo. " & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).Stats.MinHam <= 30 And UserList(UserIndex).Stats.MinAGU <= 30 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas demasiado hambriento y sediento." & FONTTYPE_INFO)
-            Exit Sub
-
-        End If
-
-        If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
-
-            If ObjData(ObjIndex).Gm = 1 Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Este hechizo solo puede aprenderlos los gamemaster," & FONTTYPE_INFO)
-                Exit Sub
-            End If
-
-            If ObjData(ObjIndex).Real = 1 Or ObjData(ObjIndex).Caos = 1 Or ObjData(ObjIndex).Nemes = 1 Or ObjData(ObjIndex).Templ = 1 Then
-                If Not FaccionPuedeUsarItem(UserIndex, ObjIndex) Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tu faccion no puede aprender este hechizo." & FONTTYPE_INFO)
-                    Exit Sub
-                End If
-            End If
-
-
-            If UCase$(UserList(UserIndex).Clase) = "GUERRERO" Or UCase(UserList(UserIndex).Clase) = "ARQUERO" Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tú clase no puede aprender este hechizo." & FONTTYPE_INFO)
-                Exit Sub
-            End If
-
-            If ClasePuedeUsarItem(UserIndex, ObjIndex) Or FaccionPuedeUsarItem(UserIndex, ObjIndex) Then
-
-
-                If UCase$(Len(Hechizos(Obj.HechizoIndex).ExclusivoClase)) > 0 Or UCase$(Hechizos(Obj.HechizoIndex).ExclusivoClase) <> UCase$(UserList(UserIndex).Clase) Then
-
-                    If ClasePuedeLanzarHechizo(UserIndex, Obj.HechizoIndex) = False Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tú clase no puede aprender este hechizo." & FONTTYPE_INFO)
-                        Exit Sub
-                    End If
-
-                    Call AgregarHechizo(UserIndex, Slot)
-                    Call UpdateUserInv(False, UserIndex, Slot)
-                    Exit Sub
-                End If
-
-            Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tú clase no puede aprender este hechizo." & FONTTYPE_INFO)
+            If UserList(UserIndex).flags.Navegando = 1 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas navegando!!" & FONTTYPE_INFO)
                 Exit Sub
 
             End If
-        Else
-            Call AgregarHechizo(UserIndex, Slot)
-            Call UpdateUserInv(False, UserIndex, Slot)
 
-        End If
+            If UserList(UserIndex).pos.Map = 154 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en guerra!!" & FONTTYPE_INFO)
+                Exit Sub
 
-    Case eOBJType.otMinerales
+            End If
 
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
+            If UserList(UserIndex).pos.Map = 162 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en guerra!!" & FONTTYPE_INFO)
+                Exit Sub
 
-        End If
+            End If
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "T01" & FundirMetal)
+            If UserList(UserIndex).pos.Map = 163 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en guerra!!" & FONTTYPE_INFO)
+                Exit Sub
 
-    Case eOBJType.otInstrumentos
+            End If
 
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
-            Exit Sub
+            If UserList(UserIndex).pos.Map = 96 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en guerra!!" & FONTTYPE_INFO)
+                Exit Sub
 
-        End If
+            End If
 
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & Obj.Snd1)
+            If UserList(UserIndex).pos.Map = 98 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
+                Exit Sub
 
-    Case eOBJType.otBarcos
+            End If
 
-        If UserList(UserIndex).flags.Montado = True Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas Montado!" & FONTTYPE_INFO)
-            Exit Sub
+            If UserList(UserIndex).pos.Map = 99 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
+                Exit Sub
 
-        End If
+            End If
 
-        'Verifica si esta aproximado al agua antes de permitirle navegar
-        'If UserList(UserIndex).Stats.ELV < 20 Then
-        '    If UCase$(UserList(UserIndex).Clase) <> "TRABAJADOR" And UCase$(UserList(UserIndex).Clase) <> "PIRATA" Then
-        '        Call SendData(SendTarget.toindex, UserIndex, 0, "||Para recorrer los mares debes ser nivel 20 o superior." & FONTTYPE_INFO)
-        '        Exit Sub
-        '
-        '                End If
-        '
-        '            End If
+            If UserList(UserIndex).pos.Map = 100 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
+                Exit Sub
 
-        If ((LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X - 1, UserList(UserIndex).pos.Y, True) Or LegalPos(UserList( _
-                                                                                                                               UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1, True) Or LegalPos(UserList(UserIndex).pos.Map, _
-                                                                                                                                                                                                                               UserList(UserIndex).pos.X + 1, UserList(UserIndex).pos.Y, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList( _
-                                                                                                                                                                                                                                                                                                                                        UserIndex).pos.X, UserList(UserIndex).pos.Y + 1, True)) And UserList(UserIndex).flags.Navegando = 0) Or UserList( _
-                                                                                                                                                                                                                                                                                                                                        UserIndex).flags.Navegando = 1 Then
-            Call DoNavega(UserIndex, Obj, Slot)
-        Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Debes aproximarte al agua para usar el barco!" & FONTTYPE_INFO)
+            End If
 
-        End If
+            If UserList(UserIndex).pos.Map = 101 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
+                Exit Sub
 
-    Case eOBJType.otMontura
-        ObjIndex = UserList(UserIndex).Invent.Object(Slot).ObjIndex
-        Obj = ObjData(ObjIndex)
+            End If
 
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas muerto!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
+            If UserList(UserIndex).pos.Map = 102 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
+                Exit Sub
 
-        If UserList(UserIndex).flags.Navegando = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas navegando!!" & FONTTYPE_INFO)
-            Exit Sub
+            End If
 
-        End If
+            If UserList(UserIndex).pos.Map = 164 Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en fortaleza fuerte!!" & FONTTYPE_INFO)
+                Exit Sub
 
-        If UserList(UserIndex).pos.Map = 154 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en guerra!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
+            End If
 
-        If UserList(UserIndex).pos.Map = 162 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en guerra!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
+            If UserList(UserIndex).flags.Montado = True Then
+                UserList(UserIndex).char.Body = UserList(UserIndex).flags.NumeroMont
+                '[MaTeO 9]
+                Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
+                '[/MaTeO 9]
+                UserList(UserIndex).flags.Montado = False
+                Exit Sub
 
-        If UserList(UserIndex).pos.Map = 163 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en guerra!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
+            End If
 
-        If UserList(UserIndex).pos.Map = 96 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en guerra!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
+            If UserList(UserIndex).flags.Montado = False Then
+                UserList(UserIndex).flags.NumeroMont = UserList(UserIndex).char.Body
+                UserList(UserIndex).char.Body = Obj.Ropaje
+                '[MaTeO 9]
+                Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
+                '[/MaTeO 9]
+                UserList(UserIndex).flags.Montado = True
 
-        If UserList(UserIndex).pos.Map = 98 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).pos.Map = 99 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).pos.Map = 100 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).pos.Map = 101 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).pos.Map = 102 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en el castillo!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).pos.Map = 164 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes usar tu mascota en fortaleza fuerte!!" & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).flags.Montado = True Then
-            UserList(UserIndex).char.Body = UserList(UserIndex).flags.NumeroMont
-            '[MaTeO 9]
-            Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
-                                                                                                                            UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList( _
-                                                                                                                                                                                                                         UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
-            '[/MaTeO 9]
-            UserList(UserIndex).flags.Montado = False
-            Exit Sub
-
-        End If
-
-        If UserList(UserIndex).flags.Montado = False Then
-            UserList(UserIndex).flags.NumeroMont = UserList(UserIndex).char.Body
-            UserList(UserIndex).char.Body = Obj.Ropaje
-            '[MaTeO 9]
-            Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
-                                                                                                                            UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList( _
-                                                                                                                                                                                                                         UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
-            '[/MaTeO 9]
-            UserList(UserIndex).flags.Montado = True
-
-        End If
+            End If
 
     End Select
 

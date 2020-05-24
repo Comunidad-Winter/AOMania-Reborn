@@ -980,3 +980,383 @@
 23/05/2020 13:06:36 HandleData. CadOri:/TELEP YO 34 16 72 Nom:BassingerUI:1 N: 0 D: 
 23/05/2020 13:06:37 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
 23/05/2020 13:06:37 HandleData. CadOri:/TELEP YO 34 17 69 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:28:01 HandleData. CadOri:/CI 1180 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:28:18 HandleData. CadOri:/telep yo 98 50 50 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:28:19 HandleData. CadOri:/TELEP YO 98 52 56 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:28:20 HandleData. CadOri:/TELEP YO 98 52 62 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:28:20 HandleData. CadOri:/TELEP YO 98 52 68 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:28:21 HandleData. CadOri:/TELEP YO 98 52 73 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:28:21 HandleData. CadOri:/TELEP YO 98 52 77 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:28:53 HandleData. CadOri:/mod yo mana 30000 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:34:14 HandleData. CadOri:/TELEP YO 98 60 51 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:34:15 HandleData. CadOri:/TELEP YO 98 59 43 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:34:21 HandleData. CadOri:/TELEP YO 34 27 43 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:34:22 HandleData. CadOri:/TELEP YO 34 26 34 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:34:22 HandleData. CadOri:/TELEP YO 34 25 26 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:34:23 HandleData. CadOri:/TELEP YO 34 25 17 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:34:34 HandleData. CadOri:/TELEP YO 35 36 74 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:34:36 HandleData. CadOri:/TELEP YO 35 47 69 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:34:37 HandleData. CadOri:/TELEP YO 35 55 69 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:39:48 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:39:49 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:39:49 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:39:50 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:39:50 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:39:50 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:39:51 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 20:39:51 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:57:51 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:57:52 HandleData. CadOri:/TELEP YO 34 35 50 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:57:53 HandleData. CadOri:/TELEP YO 34 30 50 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:57:54 HandleData. CadOri:/TELEP YO 34 29 49 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:58:36 HandleData. CadOri:/SEARCHNPCSH  Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:58:39 HandleData. CadOri:/SEARCHNPCS  Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:58:42 HandleData. CadOri:/ACC 10 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:58:46 HandleData. CadOri:/TELEP YO 34 27 43 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:58:48 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:58:50 HandleData. CadOri:/TELEP YO 34 29 49 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:59:02 HandleData. CadOri:/ACC 22 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 22:59:07 HandleData. CadOri:/ACC 23 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:00:36 HandleData. CadOri:/CI 1350 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:00:41 HandleData. CadOri:/CI 1351 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:00:47 HandleData. CadOri:/CI 1580 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:00:51 HandleData. CadOri:/CI 1117 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:00:57 HandleData. CadOri:/CI 1118 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:01:24 HandleData. CadOri:/TELEP YO 34 27 66 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:12 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:13 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:14 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:14 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:14 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:15 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:15 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:16 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:16 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:16 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:20 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:20 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:20 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:21 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:21 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:27 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:28 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:28 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:34 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:34 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:34 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:35 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:35 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:36 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:36 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:37 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:37 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:37 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:38 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:38 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:38 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:39 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:39 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:51 HandleData. CadOri:/mod yo skills suerte 100 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:55 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:56 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:56 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:56 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:57 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:57 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:57 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:58 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:58 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:58 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:59 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:02:59 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:00 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:00 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:00 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:01 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:01 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:02 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:02 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:02 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:03 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:03 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:04 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:05 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:06 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:06 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:06 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:07 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:07 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:08 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:08 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:08 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:09 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:09 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:10 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:10 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:11 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:11 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:11 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:12 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:12 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:13 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:13 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:13 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:14 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:14 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:15 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:15 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:15 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:16 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:16 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:20 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:20 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:21 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:21 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:21 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:22 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:22 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:22 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:23 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:35 HandleData. CadOri:/mod yo skills robar 100 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:39 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:39 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:40 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:40 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:40 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:41 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:41 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:43 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:43 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:44 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:44 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:44 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:45 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:45 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:45 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:46 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:46 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:47 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:47 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:47 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:48 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:48 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:48 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:49 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:49 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:50 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:03:50 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:01 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:03 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:04 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:04 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:04 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:05 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:05 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:05 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:06 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:06 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:07 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:08 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:08 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:08 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:09 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:09 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:04:10 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:53 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:54 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:54 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:54 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:55 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:55 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:55 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:56 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:56 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:57 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:57 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:57 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:58 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:58 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:59 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:59 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:06:59 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:00 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:00 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:00 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:01 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:01 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:02 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:02 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:03 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:03 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:03 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:04 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:04 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:04 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:05 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:06 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:06 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:07 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:08 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:08 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:09 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:09 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:09 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:10 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:10 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:10 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:11 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:12 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:12 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:13 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:13 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:14 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:14 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:14 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:15 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:15 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:16 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:16 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:16 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:18 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:19 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:20 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:20 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:20 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:21 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:21 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:22 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:22 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:23 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:23 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:24 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:24 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:25 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:25 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:25 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:26 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:26 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:27 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:07:28 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:13:16 HandleData. CadOri:/CI 977 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:33:44 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:33:45 HandleData. CadOri:/TELEP YO 34 37 51 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:33:46 HandleData. CadOri:/TELEP YO 34 31 54 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:33:48 HandleData. CadOri:/TELEP YO 34 28 58 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:34:04 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:36:51 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:36:57 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:38:40 HandleData. CadOri:/CI 607 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:38:49 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:38:54 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:40:29 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:40:40 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:41:46 HandleData. CadOri:/CI 128 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:41:51 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:43:50 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:44:02 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:44:54 HandleData. CadOri:/CI 996 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:45:28 HandleData. CadOri:/CI 623 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:45:38 HandleData. CadOri:/CI 1199 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:46:13 HandleData. CadOri:/CI 1717 1 Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:50:30 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:53:21 Mas de 60 iteraciones en SpawnNpc Mapa:146 Index:640
+23/05/2020 23:54:31 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:54:35 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+23/05/2020 23:55:59 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:00:25 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:00:26 HandleData. CadOri:/TELEP YO 34 35 54 Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:00:26 HandleData. CadOri:/TELEP YO 34 29 59 Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:00:27 HandleData. CadOri:/TELEP YO 34 29 64 Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:00:28 HandleData. CadOri:/TELEP YO 34 29 68 Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:00:29 HandleData. CadOri:/TELEP YO 34 29 68 Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:00:55 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:01:05 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:02:47 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:03:02 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 0:36:00 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 0:36:01 HandleData. CadOri:/TELEP YO 34 36 52 Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 0:36:01 HandleData. CadOri:/TELEP YO 34 33 56 Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 0:36:02 HandleData. CadOri:/TELEP YO 34 31 60 Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 0:36:03 HandleData. CadOri:/TELEP YO 34 29 65 Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 0:36:04 HandleData. CadOri:/TELEP YO 34 27 68 Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 0:36:20 HandleData. CadOri:/invisible Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 0:36:27 HandleData. CadOri:/invisible Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 1:28:29 HandleData. CadOri:/ira keoh Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 1:28:32 HandleData. CadOri:/TELEP YO 34 26 68 Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 1:28:37 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 1:28:43 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 1:30:41 HandleData. CadOri:/TELEP YO 34 33 52 Nom:BassingerUI:3 N: 0 D: 
+24/05/2020 1:30:42 HandleData. CadOri:/TELEP YO 34 32 59 Nom:BassingerUI:3 N: 0 D: 
+24/05/2020 1:30:43 HandleData. CadOri:/TELEP YO 34 29 66 Nom:BassingerUI:3 N: 0 D: 
+24/05/2020 1:30:47 HandleData. CadOri:/invisible Nom:BassingerUI:3 N: 0 D: 
+24/05/2020 1:32:22 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 1:32:26 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 2:26:51 HandleData. CadOri:/invisible Nom:KeoHUI:2 N: 0 D: 
+24/05/2020 2:26:54 HandleData. CadOri:/invisible Nom:KeoHUI:2 N: 0 D: 
+24/05/2020 2:27:00 HandleData. CadOri:/sum keoh Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 2:29:58 HandleData. CadOri:/invisible Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 2:30:02 HandleData. CadOri:/invisible Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 2:33:02 HandleData. CadOri:/invisible Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 2:33:07 HandleData. CadOri:/invisible Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 2:33:18 HandleData. CadOri:/invisible Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 2:44:40 HandleData. CadOri:/invisible Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 2:44:47 HandleData. CadOri:/invisible Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 2:49:01 HandleData. CadOri:/invisible Nom:KeoHUI:2 N: 0 D: 
+24/05/2020 2:49:11 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 2:49:20 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 2:51:36 HandleData. CadOri:/invisible Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 2:56:07 HandleData. CadOri:/invisible Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 2:56:13 HandleData. CadOri:/invisible Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 2:58:02 HandleData. CadOri:/invisible Nom:BassingerUI:2 N: 0 D: 
+24/05/2020 2:58:07 HandleData. CadOri:/invisible Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 2:59:50 HandleData. CadOri:/invisible Nom:KeoHUI:2 N: 0 D: 
+24/05/2020 2:59:56 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 3:00:02 HandleData. CadOri:/invisible Nom:KeoHUI:2 N: 0 D: 
+24/05/2020 3:03:23 HandleData. CadOri:/MOV Nom:KeoHUI:2 N: 0 D: 
+24/05/2020 3:03:30 HandleData. CadOri:/invisible Nom:KeoHUI:2 N: 0 D: 
+24/05/2020 3:03:34 HandleData. CadOri:/invisible Nom:BassingerUI:1 N: 0 D: 
+24/05/2020 3:15:43 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:44 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:48 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:48 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:49 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:49 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:49 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:50 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:54 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:55 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:55 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:56 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:56 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:57 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:58 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:58 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:15:59 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:16:00 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:16:00 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:16:00 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 
+24/05/2020 3:16:01 HandleData. CadOri:/MOV Nom:KeoHUI:1 N: 0 D: 

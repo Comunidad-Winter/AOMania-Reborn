@@ -159,6 +159,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -483,6 +484,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -503,13 +505,15 @@ Begin VB.Form frmMain
       Height          =   225
       Left            =   120
       TabIndex        =   23
+      TabStop         =   0   'False
       Top             =   1800
       Width           =   11100
       _ExtentX        =   19579
       _ExtentY        =   397
       _Version        =   393217
       BorderStyle     =   0
-      Enabled         =   -1  'True
+      Enabled         =   0   'False
+      HideSelection   =   0   'False
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":17E9
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
