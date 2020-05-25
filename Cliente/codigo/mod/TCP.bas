@@ -260,6 +260,7 @@ Sub HandleData(ByVal rData As String)
         frmMain.Visible = False
 
         UserParalizado = False
+        UserInmovilizado = False
         pausa = False
         UserMeditar = False
         UserDescansar = False
@@ -2276,8 +2277,15 @@ Sub HandleData(ByVal rData As String)
         Exit Sub
 
     Case "PARADOW"         ' >>>>> Paralizar OK :: PARADOK
+        UserPos.X = CharList(UserCharIndex).pos.X
+        UserPos.Y = CharList(UserCharIndex).pos.Y
         UserParalizado = Not UserParalizado
+        UserInmovilizado = False
         Exit Sub
+    
+    Case "PARADO2"
+         UserInmovilizado = True
+         Exit Sub
 
     Case "PETICIO"         ' >>>>> Paralizar OK :: PARADOK
         rData = Right$(rData, Len(rData) - 7)
@@ -2543,20 +2551,20 @@ Sub SendData(ByVal sdData As String)
 End Sub
 
 Sub login()
-    Dim Version As String
+    Dim version As String
     
-    Version = App.Major & "." & App.Minor & "." & App.Revision
+    version = App.Major & "." & App.Minor & "." & App.Revision
 
     Select Case EstadoLogin
    
         Case E_MODO.Normal
             
-            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & Version & "," & HDD & "," & "0")
+            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & version & "," & HDD & "," & "0")
           
         Case E_MODO.CrearNuevoPj
             Call SendData("TIRDAD" & UserFuerza & "," & UserAgilidad _
                & "," & UserInteligencia & "," & UserCarisma & "," & UserConstitucion)
-            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & Version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
+            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
                 UserBanco & "," & UserPersonaje & "," & UserEmail & "," & HDD)
 
         Case E_MODO.Dados

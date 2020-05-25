@@ -4476,3 +4476,190 @@
 24/05/2020 15:47:01 Transporto a Mago hacia Mapa34 X:30 Y:50
 24/05/2020 15:47:01 Transporto a Mago hacia Mapa34 X:30 Y:50
 24/05/2020 15:47:28 Dijo: ff
+24/05/2020 19:51:39 Se conecto con ip:127.0.0.1Hora: 24/05/2020 19:51:39
+24/05/2020 19:51:45 Comando: /ira mago
+24/05/2020 19:51:45 /IRA Mago Mapa:84 X:19 Y:
+24/05/2020 19:51:46 Comando: /TELEP YO 84 21 88
+24/05/2020 19:51:46 Transporto a Bassinger hacia Mapa84 X:21 Y:88
+24/05/2020 19:51:48 Comando: /TELEP YO 84 22 87
+24/05/2020 19:51:48 Transporto a Bassinger hacia Mapa84 X:22 Y:87
+24/05/2020 19:52:08 Comando: /panelgm
+24/05/2020 19:52:14 Comando: /SEARCHITEMS estupidez
+24/05/2020 19:52:18 Comando: /CI 542 1
+24/05/2020 19:52:18 Creo: 1 Estupidez
+24/05/2020 19:52:22 Comando: /CI 610 100
+24/05/2020 19:52:22 Creo: 100 Pocion Anti estupidez
+24/05/2020 19:52:33 Comando: /SEARCHITEMS ceguera
+24/05/2020 19:52:37 Comando: /CI 541 1
+24/05/2020 19:52:37 Creo: 1 Ceguera
+24/05/2020 19:52:41 Comando: /CI 609 10
+24/05/2020 19:52:41 Creo: 10 Pocion Anti Ceguera
+24/05/2020 19:52:54  tiró 1 Estupidez
+24/05/2020 19:52:56  tiró 1 Ceguera
+24/05/2020 19:53:01  tiró 8 Pocion Anti Ceguera
+24/05/2020 19:53:04  tiró 100 Pocion Anti estupidez
+24/05/2020 19:58:18 Se conecto con ip:127.0.0.1Hora: 24/05/2020 19:58:18
+24/05/2020 19:58:25 Comando: /telep yo 159 50 50
+24/05/2020 19:58:25 Transporto a Bassinger hacia Mapa159 X:50 Y:50
+24/05/2020 20:51:45 Se conecto con ip:127.0.0.1Hora: 24/05/2020 20:51:45
+24/05/2020 20:51:57 Comando: /ira mago
+24/05/2020 20:51:57 /IRA MAGO Mapa:84 X:53 Y:
+24/05/2020 20:52:01 Comando: /panelgm
+24/05/2020 20:52:07 Comando: /TELEP YO 84 59 88
+24/05/2020 20:52:07 Transporto a Bassinger hacia Mapa84 X:59 Y:88
+24/05/2020 20:52:12 Comando: /SEARCHNPCSH inv
+24/05/2020 20:52:15 Comando: /ACC 575
+24/05/2020 20:52:52 Dijo:  
+24/05/2020 20:53:00 Comando: /revivir mago
+24/05/2020 20:53:05 Dijo:  
+24/05/2020 20:53:08 Dijo:  
+24/05/2020 20:53:11 Dijo:  
+24/05/2020 20:53:21 Dijo:  
+24/05/2020 20:53:38 Dijo:  
+24/05/2020 20:54:18 Comando: /mata
+24/05/2020 20:54:22 Comando: /revivir mago
+24/05/2020 21:06:24 Se conecto con ip:127.0.0.1Hora: 24/05/2020 21:06:24
+24/05/2020 21:06:28 Comando: /revivir mago
+24/05/2020 21:06:49 Comando: /revivir mago
+24/05/2020 21:07:51 Comando: /ira mago
+24/05/2020 21:07:51 /IRA MAGO Mapa:84 X:71 Y:
+24/05/2020 21:07:54 Comando: /panelgm
+24/05/2020 21:08:01 Comando: /SEARCHITEMS roja
+24/05/2020 21:08:09 Comando: /CI 38 1200
+24/05/2020 21:08:09 Creo: 1200 Poción roja
+24/05/2020 21:08:18  tiró 1200 Poción roja
+24/05/2020 21:08:34 Comando: /SEARCHNPCSH inv
+24/05/2020 21:08:35 Comando: /ACC 575
+24/05/2020 21:09:28 Comando: /mata
+24/05/2020 21:52:26 Se conecto con ip:127.0.0.1Hora: 24/05/2020 21:52:26
+24/05/2020 21:52:33 Comando: /TELEP YO 47 62 18
+24/05/2020 21:52:33 Transporto a Bassinger hacia Mapa47 X:62 Y:18
+24/05/2020 21:52:33 Dijo:  
+24/05/2020 21:52:37 Comando: /TELEP YO 34 29 43
+24/05/2020 21:52:37 Transporto a Bassinger hacia Mapa34 X:29 Y:43
+24/05/2020 21:52:37 Comando: /TELEP YO 34 28 36
+24/05/2020 21:52:37 Transporto a Bassinger hacia Mapa34 X:28 Y:36
+24/05/2020 21:52:38 Comando: /TELEP YO 34 27 28
+24/05/2020 21:52:38 Transporto a Bassinger hacia Mapa34 X:27 Y:28
+24/05/2020 21:52:38 Comando: /TELEP YO 34 26 20
+24/05/2020 21:52:38 Transporto a Bassinger hacia Mapa34 X:26 Y:20
+24/05/2020 21:52:39 Comando: /TELEP YO 34 26 13
+24/05/2020 21:52:39 Transporto a Bassinger hacia Mapa34 X:26 Y:13
+24/05/2020 21:52:41 Comando: /TELEP YO 35 23 89
+24/05/2020 21:52:41 Transporto a Bassinger hacia Mapa35 X:23 Y:89
+24/05/2020 21:52:44 Dijo:  
+24/05/2020 21:52:46 Dijo:  
+24/05/2020 21:52:47 Dijo:  
+24/05/2020 21:53:32 Dijo:  
+24/05/2020 22:23:29 Se conecto con ip:127.0.0.1Hora: 24/05/2020 22:23:29
+24/05/2020 22:23:56 Comando: /sum mago 20 57 38
+24/05/2020 22:24:08 Comando: /telep mato 20 57 38
+24/05/2020 22:24:18 Comando: /ira mago
+24/05/2020 22:24:18 /IRA Mago Mapa:1 X:76 Y:
+24/05/2020 22:24:25 Comando: /telep yo 20 30 57
+24/05/2020 22:24:25 Transporto a Bassinger hacia Mapa20 X:30 Y:57
+24/05/2020 22:24:28 Comando: /TELEP YO 20 27 61
+24/05/2020 22:24:28 Transporto a Bassinger hacia Mapa20 X:27 Y:61
+24/05/2020 22:24:38 Comando: /sum mago
+24/05/2020 22:24:38 /SUM Mago Map:20 X:27 Y:61
+24/05/2020 22:25:03 Comando: /mod mago clase mago
+24/05/2020 22:25:18 Comando: /panelgm
+24/05/2020 22:25:26 Comando: /SEARCHITEMS vest
+24/05/2020 22:25:30 Comando: /CI 32 1
+24/05/2020 22:25:30 Creo: 1 Vestimentas comunes
+24/05/2020 22:25:33  tiró 1 Vestimentas comunes
+24/05/2020 22:59:07 Se conecto con ip:127.0.0.1Hora: 24/05/2020 22:59:07
+24/05/2020 22:59:14 Comando: /panelgm
+24/05/2020 22:59:22 Comando: /telep yo 153 50 50
+24/05/2020 22:59:22 Transporto a Bassinger hacia Mapa153 X:50 Y:50
+24/05/2020 22:59:30 Dijo:  
+24/05/2020 22:59:32 Dijo:  
+24/05/2020 22:59:35 Dijo:  
+24/05/2020 22:59:37 Dijo:  
+24/05/2020 22:59:55 Dijo:  
+24/05/2020 23:02:57 Se conecto con ip:127.0.0.1Hora: 24/05/2020 23:02:57
+24/05/2020 23:02:58 Se conecto con ip:127.0.0.1Hora: 24/05/2020 23:02:58
+24/05/2020 23:03:11 Comando: /telep yo 153 50 50
+24/05/2020 23:03:11 Transporto a Bassinger hacia Mapa153 X:50 Y:50
+24/05/2020 23:03:17 Dijo:  
+24/05/2020 23:03:44 Se conecto con ip:127.0.0.1Hora: 24/05/2020 23:03:44
+24/05/2020 23:03:46 Se conecto con ip:127.0.0.1Hora: 24/05/2020 23:03:46
+24/05/2020 23:03:54 Comando: /telep yo 153 50 50
+24/05/2020 23:03:54 Transporto a Bassinger hacia Mapa153 X:50 Y:50
+24/05/2020 23:03:56 Comando: /TELEP YO 153 71 39
+24/05/2020 23:03:56 Transporto a Bassinger hacia Mapa153 X:71 Y:39
+24/05/2020 23:04:01 Dijo:  
+24/05/2020 23:06:09 Se conecto con ip:127.0.0.1Hora: 24/05/2020 23:06:09
+24/05/2020 23:06:10 Se conecto con ip:127.0.0.1Hora: 24/05/2020 23:06:10
+24/05/2020 23:06:17 Comando: /telep yo 153 50 50
+24/05/2020 23:06:17 Transporto a Bassinger hacia Mapa153 X:50 Y:50
+24/05/2020 23:06:21 Dijo:  
+24/05/2020 23:06:24 Dijo:  
+24/05/2020 23:06:38 Dijo:  
+24/05/2020 23:06:40 Dijo:  
+24/05/2020 23:06:42 Dijo:  
+24/05/2020 23:06:46 Dijo:  
+24/05/2020 23:06:49 Dijo:  
+24/05/2020 23:06:51 Dijo:  
+24/05/2020 23:06:53 Dijo:  
+24/05/2020 23:06:56 Dijo:  
+24/05/2020 23:06:58 Dijo:  
+24/05/2020 23:07:00 Dijo:  
+24/05/2020 23:07:03 Dijo:  
+24/05/2020 23:14:26 Se conecto con ip:127.0.0.1Hora: 24/05/2020 23:14:26
+24/05/2020 23:16:40 Se conecto con ip:127.0.0.1Hora: 24/05/2020 23:16:40
+25/05/2020 22:01:22 Se conecto con ip:127.0.0.1Hora: 25/05/2020 22:01:22
+25/05/2020 22:01:26 Comando: /TELEP YO 47 62 18
+25/05/2020 22:01:26 Transporto a Bassinger hacia Mapa47 X:62 Y:18
+25/05/2020 22:01:27 Comando: /TELEP YO 47 62 17
+25/05/2020 22:01:27 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+25/05/2020 22:01:28 Comando: /TELEP YO 34 36 51
+25/05/2020 22:01:28 Transporto a Bassinger hacia Mapa34 X:36 Y:51
+25/05/2020 22:01:29 Comando: /TELEP YO 34 33 50
+25/05/2020 22:01:29 Transporto a Bassinger hacia Mapa34 X:33 Y:50
+25/05/2020 22:01:30 Comando: /TELEP YO 34 31 50
+25/05/2020 22:01:30 Transporto a Bassinger hacia Mapa34 X:31 Y:50
+25/05/2020 22:01:30 Comando: /TELEP YO 34 31 49
+25/05/2020 22:01:30 Transporto a Bassinger hacia Mapa34 X:31 Y:49
+25/05/2020 22:01:35 Comando: /panelgm
+25/05/2020 22:01:39 Comando: /SEARCHNPCS 
+25/05/2020 22:01:48 Comando: /ACC 22
+25/05/2020 22:02:02 Comando: /SEARCHNPCS rey
+25/05/2020 22:02:06 Comando: /ACC 22
+25/05/2020 22:02:14 Comando: /SEARCHITEMS dem
+25/05/2020 22:02:18 Comando: /SEARCHNPCS dem
+25/05/2020 22:02:21 Comando: /ACC 23
+25/05/2020 22:02:32 Comando: /SEARCHNPCS temp
+25/05/2020 22:02:38 Comando: /ACC 109
+25/05/2020 22:02:43 Comando: /SEARCHNPCS nem
+25/05/2020 22:02:46 Comando: /ACC 106
+25/05/2020 22:02:54 Comando: /mata
+25/05/2020 22:02:59 Comando: /sum mago
+25/05/2020 22:03:09 Comando: /mover mago
+25/05/2020 22:07:19 Se conecto con ip:127.0.0.1Hora: 25/05/2020 22:07:19
+25/05/2020 22:07:24 Comando: /panelgm
+25/05/2020 22:07:30 Comando: /SEARCHITEMS nemes
+25/05/2020 22:07:35 Comando: /SEARCHITEMS nem
+25/05/2020 22:07:44 Comando: /SEARCHITEMS arma del
+25/05/2020 22:07:44 Comando: /SEARCHITEMS arma del
+25/05/2020 22:07:46 Comando: /SEARCHITEMS arma de
+25/05/2020 22:07:49 Comando: /SEARCHITEMS arma
+25/05/2020 22:08:02 Comando: /SEARCHITEMS tierra
+25/05/2020 22:08:09 Comando: /CI 1112 1
+25/05/2020 22:08:09 Creo: 1 Bastón de la Tierra
+25/05/2020 22:08:20  tiró 1 Bastón de la Tierra
+25/05/2020 22:21:30 Se conecto con ip:127.0.0.1Hora: 25/05/2020 22:21:30
+25/05/2020 22:21:40 Comando: /panelgm
+25/05/2020 22:21:47 Comando: /SEARCHITEMS element
+25/05/2020 22:22:18 Comando: /CI 536 1
+25/05/2020 22:22:18 Creo: 1 Invocar elemental de fuego
+25/05/2020 22:22:21 Comando: /CI 537 1
+25/05/2020 22:22:21 Creo: 1 Invocar elemental de agua
+25/05/2020 22:22:24 Comando: /CI 538 1
+25/05/2020 22:22:24 Creo: 1 Invocar elemental de tierra
+25/05/2020 22:22:26 Comando: /CI 1766 1
+25/05/2020 22:22:26 Creo: 1 Invocar elemental de Aire
+25/05/2020 22:22:39  tiró 1 Invocar elemental de fuego
+25/05/2020 22:22:41  tiró 1 Invocar elemental de Aire
+25/05/2020 22:22:43  tiró 1 Invocar elemental de tierra
+25/05/2020 22:22:46  tiró 1 Invocar elemental de agua

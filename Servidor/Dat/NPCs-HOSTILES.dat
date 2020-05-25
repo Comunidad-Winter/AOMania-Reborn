@@ -2768,8 +2768,6 @@ Obj1=1240-1
 Obj2=1073-1
 prob1=10
 
-
-
 [NPC618]
 Name=Elemental de agua
 Respawn=1
@@ -2782,9 +2780,9 @@ Comercia=0
 Hostile=1
 MinHP=400
 MaxHP=400
-MaxHIT=120
+MaxHIT=140
 MinHIT=100
-PoderAtaque=200
+PoderAtaque=220
 PoderEvasion=200
 AguaValida=1
 
@@ -2800,9 +2798,9 @@ Comercia=0
 Hostile=1
 MinHP=400
 MaxHP=400
-MaxHIT=120
+MaxHIT=140
 MinHIT=100
-PoderAtaque=200
+PoderAtaque=220
 PoderEvasion=200
 LanzaSpells=1
 Sp1=15
@@ -2819,9 +2817,9 @@ Attackable=1
 Comercia=0
 MinHP=400
 MaxHP=400
-MaxHIT=120
+MaxHIT=140
 MinHIT=100
-PoderAtaque=200
+PoderAtaque=220
 PoderEvasion=200
 LanzaSpells=1
 Sp1=24
@@ -4634,9 +4632,9 @@ Attackable=1
 Comercia=0
 MinHP=400
 MaxHP=400
-MaxHIT=120
+MaxHIT=140
 MinHIT=100
-PoderAtaque=200
+PoderAtaque=220
 PoderEvasion=200
 LanzaSpells=1
 Sp2=09 'Paralisis
@@ -5329,9 +5327,9 @@ GiveEXP=0
 GiveGLD=0
 MinHP=620
 MaxHP=620
-MaxHIT=30
-MinHIT=15
-PoderAtaque=120
+MaxHIT=60
+MinHIT=40
+PoderAtaque=150
 PoderEvasion=10
 
 [NPC722]

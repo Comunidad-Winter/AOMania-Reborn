@@ -11,8 +11,8 @@ Sub HandleData(ByVal rData As String)
     On Error Resume Next
 
     Dim retval As Variant
-    Dim x As Integer
-    Dim y As Integer
+    Dim X As Integer
+    Dim Y As Integer
     Dim charindex As Integer
     Dim TempInt As Integer
     Dim tempstr As String
@@ -221,8 +221,8 @@ Sub HandleData(ByVal rData As String)
 
         Call SetConnected
 
-        bTecho = IIf(MapData(UserPos.x, UserPos.y).Trigger = 1 Or MapData(UserPos.x, UserPos.y).Trigger = 2 Or MapData(UserPos.x, _
-                                                                                                                       UserPos.y).Trigger = 4, True, False)
+        bTecho = IIf(MapData(UserPos.X, UserPos.Y).Trigger = 1 Or MapData(UserPos.X, UserPos.Y).Trigger = 2 Or MapData(UserPos.X, _
+                                                                                                                       UserPos.Y).Trigger = 4, True, False)
         frmMain.lblUserName.Caption = UserName
         frmMain.LvlLbl.Caption = UserLvl
 
@@ -276,13 +276,13 @@ Sub HandleData(ByVal rData As String)
             CharList(i).Invisible = False
         Next i
 
-        For x = 1 To 100
-            For y = 1 To 100
+        For X = 1 To 100
+            For Y = 1 To 100
                 For m = 0 To 3
-                    MapData(x, y).Color(m) = 0
+                    MapData(X, Y).Color(m) = 0
                 Next m
-            Next y
-        Next x
+            Next Y
+        Next X
 
         Call Ambient_SetActual(0, 0, 0)
         
@@ -581,14 +581,14 @@ Sub HandleData(ByVal rData As String)
         rData = Right$(rData, Len(rData) - 1)
 
         charindex = Val(ReadField(1, rData, Asc(",")))
-        x = Val(ReadField(2, rData, Asc(",")))
-        y = Val(ReadField(3, rData, Asc(",")))
+        X = Val(ReadField(2, rData, Asc(",")))
+        Y = Val(ReadField(3, rData, Asc(",")))
 
         With CharList(charindex)
 
             'Esto es solo por si acaso...
-            If InMapBounds(.oldPos.x, .oldPos.y) Then
-                MapData(.oldPos.x, .oldPos.y).charindex = 0
+            If InMapBounds(.oldPos.X, .oldPos.Y) Then
+                MapData(.oldPos.X, .oldPos.Y).charindex = 0
 
             End If
 
@@ -606,7 +606,7 @@ Sub HandleData(ByVal rData As String)
 
             End If
 
-            Call MoveCharbyPos(charindex, x, y)
+            Call MoveCharbyPos(charindex, X, Y)
 
         End With
 
@@ -624,13 +624,13 @@ Sub HandleData(ByVal rData As String)
         rData = Right$(rData, Len(rData) - 1)
 
         charindex = Val(ReadField(1, rData, Asc(",")))
-        x = Val(ReadField(2, rData, Asc(",")))
-        y = Val(ReadField(3, rData, Asc(",")))
+        X = Val(ReadField(2, rData, Asc(",")))
+        Y = Val(ReadField(3, rData, Asc(",")))
 
         With CharList(charindex)
 
-            If InMapBounds(.oldPos.x, .oldPos.y) Then
-                MapData(.oldPos.x, .oldPos.y).charindex = 0
+            If InMapBounds(.oldPos.X, .oldPos.Y) Then
+                MapData(.oldPos.X, .oldPos.Y).charindex = 0
 
             End If
 
@@ -647,7 +647,7 @@ Sub HandleData(ByVal rData As String)
 
             End If
 
-            Call MoveCharbyPos(charindex, x, y)
+            Call MoveCharbyPos(charindex, X, Y)
 
         End With
 
@@ -816,10 +816,11 @@ Sub HandleData(ByVal rData As String)
 
     Case "PU"                 ' >>>>> Actualiza Posición Usuario :: PU
         rData = Right$(rData, Len(rData) - 2)
-        MapData(UserPos.x, UserPos.y).charindex = 0
-        UserPos.x = CInt(ReadField(1, rData, 44))
-        UserPos.y = CInt(ReadField(2, rData, 44))
-        MapData(UserPos.x, UserPos.y).charindex = UserCharIndex
+        Call ActualizaPosicionOld(rData)
+        MapData(UserPos.X, UserPos.Y).charindex = 0
+        UserPos.X = CInt(ReadField(1, rData, 44))
+        UserPos.Y = CInt(ReadField(2, rData, 44))
+        MapData(UserPos.X, UserPos.Y).charindex = UserCharIndex
         CharList(UserCharIndex).pos = UserPos
 
         Call ActualizarShpUserPos
@@ -1003,8 +1004,8 @@ Sub HandleData(ByVal rData As String)
     Case "BC"              ' >>>>> Crear un NPC :: BC
         rData = Right$(rData, Len(rData) - 2)
         charindex = ReadField(4, rData, 44)
-        x = ReadField(5, rData, 44)
-        y = ReadField(6, rData, 44)
+        X = ReadField(5, rData, 44)
+        Y = ReadField(6, rData, 44)
         'Debug.Print "BC"
         'If charlist(CharIndex).Pos.X Or charlist(CharIndex).Pos.Y Then
         '    Debug.Print "CHAR DUPLICADO: " & CharIndex
@@ -1028,7 +1029,7 @@ Sub HandleData(ByVal rData As String)
         End If
 
         '[MaTeO 9]
-        Call MakeChar(charindex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(3, rData, 44), x, y, Val(ReadField(7, rData, 44)), _
+        Call MakeChar(charindex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(3, rData, 44), X, Y, Val(ReadField(7, rData, 44)), _
                       Val(ReadField(8, rData, 44)), Val(ReadField(11, rData, 44)), Val(ReadField(15, rData, 44)))
         '[/MaTeO 9]
         CharList(charindex).BodyNum = ReadField(1, rData, 44)
@@ -1037,8 +1038,8 @@ Sub HandleData(ByVal rData As String)
     Case "CC"              ' >>>>> Crear un Personaje :: CC
         rData = Right$(rData, Len(rData) - 2)
         charindex = ReadField(4, rData, 44)
-        x = ReadField(5, rData, 44)
-        y = ReadField(6, rData, 44)
+        X = ReadField(5, rData, 44)
+        Y = ReadField(6, rData, 44)
         'Debug.Print "CC"
         'If charlist(CharIndex).Pos.X Or charlist(CharIndex).Pos.Y Then
         '    Debug.Print "CHAR DUPLICADO: " & CharIndex
@@ -1066,7 +1067,7 @@ Sub HandleData(ByVal rData As String)
 
         'Call MakeChar(charindex, ReadField(1, Rdata, 44), ReadField(2, Rdata, 44), ReadField(3, Rdata, 44), x, y, Val(ReadField(7, Rdata, 44)), Val(ReadField(8, Rdata, 44)), Val(ReadField(11, Rdata, 44)))
         '[MaTeO 9]
-        Call MakeChar(charindex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(3, rData, 44), x, y, Val(ReadField(7, rData, 44)), _
+        Call MakeChar(charindex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(3, rData, 44), X, Y, Val(ReadField(7, rData, 44)), _
                       Val(ReadField(8, rData, 44)), Val(ReadField(11, rData, 44)), Val(ReadField(15, rData, 44)))
         '[/MaTeO 9]
         Exit Sub
@@ -1075,34 +1076,34 @@ Sub HandleData(ByVal rData As String)
     Case "FG"    '[ANIM ATAK]
         rData = Right$(rData, Len(rData) - 2)
 
-        x = Val(rData)
+        X = Val(rData)
 
-        If CharList(x).Arma.WeaponWalk(CharList(x).Heading).GrhIndex > 0 Then
-            CharList(x).Arma.WeaponWalk(CharList(x).Heading).Started = 1
-            CharList(x).Arma.WeaponAttack = GrhData(CharList(x).Arma.WeaponWalk(CharList(x).Heading).GrhIndex).NumFrames + 1
+        If CharList(X).Arma.WeaponWalk(CharList(X).Heading).GrhIndex > 0 Then
+            CharList(X).Arma.WeaponWalk(CharList(X).Heading).Started = 1
+            CharList(X).Arma.WeaponAttack = GrhData(CharList(X).Arma.WeaponWalk(CharList(X).Heading).GrhIndex).NumFrames + 1
 
         End If
 
     Case "EW"    '[ANIM ATAK]
         rData = Right$(rData, Len(rData) - 2)
 
-        x = Val(rData)
+        X = Val(rData)
 
-        If CharList(x).Escudo.ShieldWalk(CharList(x).Heading).GrhIndex > 0 Then
-            CharList(x).Escudo.ShieldWalk(CharList(x).Heading).Started = 1
-            CharList(x).Escudo.ShieldAttack = GrhData(CharList(x).Escudo.ShieldWalk(CharList(x).Heading).GrhIndex).NumFrames + 1
+        If CharList(X).Escudo.ShieldWalk(CharList(X).Heading).GrhIndex > 0 Then
+            CharList(X).Escudo.ShieldWalk(CharList(X).Heading).Started = 1
+            CharList(X).Escudo.ShieldAttack = GrhData(CharList(X).Escudo.ShieldWalk(CharList(X).Heading).GrhIndex).NumFrames + 1
 
         End If
 
     Case "PP"           ' >>>>> Borrar un Personaje segun su POS:: BP
         rData = Right$(rData, Len(rData) - 2)
         charindex = Val(ReadField(1, rData, Asc("-")))
-        x = Val(ReadField(2, rData, Asc("-")))
-        y = Val(ReadField(3, rData, Asc("-")))
+        X = Val(ReadField(2, rData, Asc("-")))
+        Y = Val(ReadField(3, rData, Asc("-")))
 
-        If InMapBounds(x, y) Then
-            If MapData(x, y).charindex = charindex Then
-                MapData(x, y).charindex = 0
+        If InMapBounds(X, Y) Then
+            If MapData(X, Y).charindex = charindex Then
+                MapData(X, Y).charindex = 0
 
             End If
 
@@ -1121,11 +1122,11 @@ Sub HandleData(ByVal rData As String)
     Case "MW"             ' >>>>> Mover un Personaje :: MP
         rData = Right$(rData, Len(rData) - 2)
         charindex = Val(ReadField(1, rData, 44))
-        x = Val(ReadField(2, rData, Asc(",")))
-        y = Val(ReadField(3, rData, Asc(",")))
+        X = Val(ReadField(2, rData, Asc(",")))
+        Y = Val(ReadField(3, rData, Asc(",")))
 
-        If InMapBounds(CharList(charindex).oldPos.x, CharList(charindex).oldPos.y) Then
-            MapData(CharList(charindex).oldPos.x, CharList(charindex).oldPos.y).charindex = 0
+        If InMapBounds(CharList(charindex).oldPos.X, CharList(charindex).oldPos.Y) Then
+            MapData(CharList(charindex).oldPos.X, CharList(charindex).oldPos.Y).charindex = 0
 
         End If
 
@@ -1139,7 +1140,7 @@ Sub HandleData(ByVal rData As String)
 
         End If
 
-        Call MoveCharbyPos(charindex, x, y)
+        Call MoveCharbyPos(charindex, X, Y)
         Exit Sub
 
     Case "CP"             ' >>>>> Cambiar Apariencia Personaje :: CP
@@ -1173,18 +1174,18 @@ Sub HandleData(ByVal rData As String)
 
     Case "HO"            ' >>>>> Crear un Objeto
         rData = Right$(rData, Len(rData) - 2)
-        x = Val(ReadField(2, rData, 44))
-        y = Val(ReadField(3, rData, 44))
+        X = Val(ReadField(2, rData, 44))
+        Y = Val(ReadField(3, rData, 44))
 
-        MapData(x, y).ObjGrh.GrhIndex = Val(ReadField(1, rData, 44))
-        InitGrh MapData(x, y).ObjGrh, MapData(x, y).ObjGrh.GrhIndex
+        MapData(X, Y).ObjGrh.GrhIndex = Val(ReadField(1, rData, 44))
+        InitGrh MapData(X, Y).ObjGrh, MapData(X, Y).ObjGrh.GrhIndex
         Exit Sub
 
     Case "BO"           ' >>>>> Borrar un Objeto
         rData = Right$(rData, Len(rData) - 2)
-        x = Val(ReadField(1, rData, 44))
-        y = Val(ReadField(2, rData, 44))
-        MapData(x, y).ObjGrh.GrhIndex = 0
+        X = Val(ReadField(1, rData, 44))
+        Y = Val(ReadField(2, rData, 44))
+        MapData(X, Y).ObjGrh.GrhIndex = 0
         Exit Sub
 
     Case "BQ"           ' >>>>> Bloquear Posición
@@ -1241,7 +1242,7 @@ Sub HandleData(ByVal rData As String)
 
         If charindex > 0 Then
 
-            Call Audio.PlayWave(fx & ".wav", CharList(charindex).pos.x, CharList(charindex).pos.y)
+            Call Audio.PlayWave(fx & ".wav", CharList(charindex).pos.X, CharList(charindex).pos.Y)
 
         Else
 
@@ -1341,9 +1342,9 @@ Sub HandleData(ByVal rData As String)
     Case "CLA"  ' Clima Secundario ON
         rData = Right$(rData, Len(rData) - 3)
 
-        If Not InMapBounds(UserPos.x, UserPos.y) Then Exit Sub
-        bTecho = IIf(MapData(UserPos.x, UserPos.y).Trigger = 1 Or MapData(UserPos.x, UserPos.y).Trigger = 2 Or MapData(UserPos.x, _
-                                                                                                                       UserPos.y).Trigger = 4, True, False)
+        If Not InMapBounds(UserPos.X, UserPos.Y) Then Exit Sub
+        bTecho = IIf(MapData(UserPos.X, UserPos.Y).Trigger = 1 Or MapData(UserPos.X, UserPos.Y).Trigger = 2 Or MapData(UserPos.X, _
+                                                                                                                       UserPos.Y).Trigger = 4, True, False)
 
         If bSecondaryAmbient = 0 Then bSecondaryAmbient = Particle_Create(Val(rData), -1, -1, -1)
 
@@ -1752,9 +1753,9 @@ Sub HandleData(ByVal rData As String)
            
            FrmNene.Info.Caption = "Hay " & ReadField(1, rData, 44) & " en el mapa " & ReadField(2, rData, 44) & "."
            
-           x = ReadField(1, rData, 44) + 2
+           X = ReadField(1, rData, 44) + 2
            
-           For LooPC = 3 To x
+           For LooPC = 3 To X
                 
                 FrmNene.Npc.AddItem ReadField(LooPC, rData, 44)
                 
@@ -1924,7 +1925,7 @@ Sub HandleData(ByVal rData As String)
         CANJInventory(CANJInvDim).MinHit = ReadField(6, rData, 44)
         CANJInventory(CANJInvDim).MaxHit = ReadField(7, rData, 44)
         CANJInventory(CANJInvDim).ObjType = ReadField(8, rData, 44)
-        CANJInventory(CANJInvDim).cantidad = ReadField(9, rData, 44)
+        CANJInventory(CANJInvDim).Cantidad = ReadField(9, rData, 44)
         frmCanjes.List1(0).AddItem CANJInventory(CANJInvDim).Name
         Exit Sub
 

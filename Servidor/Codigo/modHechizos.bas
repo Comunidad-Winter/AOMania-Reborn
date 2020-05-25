@@ -16,42 +16,42 @@ Sub NpcLanzaSpellSobreUser(ByVal NpcIndex As Integer, _
     If UserList(UserIndex).flags.Invisible = 1 And Npclist(NpcIndex).flags.Magiainvisible = 0 Then Exit Sub
     Npclist(NpcIndex).CanAttack = 0
 
-    Dim Daño As Integer
+    Dim daño As Integer
 
     If Hechizos(Spell).SubeHP = 1 Then
 
-        Daño = RandomNumber(Hechizos(Spell).MinHP, Hechizos(Spell).MaxHP)
+        daño = RandomNumber(Hechizos(Spell).MinHP, Hechizos(Spell).MaxHP)
         Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & Hechizos(Spell).WAV)
         Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & Hechizos(Spell).FXgrh & "," & Hechizos(Spell).loops)
 
-        UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP + Daño
+        UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP + daño
 
         If UserList(UserIndex).Stats.MinHP > UserList(UserIndex).Stats.MaxHP Then UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Npclist(NpcIndex).Name & " te ha quitado " & Daño & " puntos de vida." & FONTTYPE_Motd4)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Npclist(NpcIndex).Name & " te ha quitado " & daño & " puntos de vida." & FONTTYPE_Motd4)
         Call EnviarHP(val(UserIndex))
 
     ElseIf Hechizos(Spell).SubeHP = 2 Then
 
         If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
 
-            Daño = Daño - Porcentaje(Daño, Int(((UserList(UserIndex).Stats.UserSkills(Resistencia) + 1) / 4) + ResistenciaClase(UserList(UserIndex).Clase)))
+            daño = daño - Porcentaje(daño, Int(((UserList(UserIndex).Stats.UserSkills(Resistencia) + 1) / 4) + ResistenciaClase(UserList(UserIndex).Clase)))
             Call SubirSkill(UserIndex, Resistencia)
 
-            Daño = RandomNumber(Hechizos(Spell).MinHP, Hechizos(Spell).MaxHP)
+            daño = RandomNumber(Hechizos(Spell).MinHP, Hechizos(Spell).MaxHP)
 
             If UserList(UserIndex).Invent.CascoEqpObjIndex > 0 Then
-                Daño = Daño - RandomNumber(ObjData(UserList(UserIndex).Invent.CascoEqpObjIndex).DefensaMagicaMin, ObjData(UserList(UserIndex).Invent.CascoEqpObjIndex).DefensaMagicaMax)
+                daño = daño - RandomNumber(ObjData(UserList(UserIndex).Invent.CascoEqpObjIndex).DefensaMagicaMin, ObjData(UserList(UserIndex).Invent.CascoEqpObjIndex).DefensaMagicaMax)
 
             End If
 
             If UserList(UserIndex).Invent.ArmourEqpObjIndex > 0 Then
-                Daño = Daño - RandomNumber(ObjData(UserList(UserIndex).Invent.ArmourEqpObjIndex).DefensaMagicaMin, ObjData(UserList(UserIndex).Invent.ArmourEqpObjIndex).DefensaMagicaMax)
+                daño = daño - RandomNumber(ObjData(UserList(UserIndex).Invent.ArmourEqpObjIndex).DefensaMagicaMin, ObjData(UserList(UserIndex).Invent.ArmourEqpObjIndex).DefensaMagicaMax)
 
             End If
 
             If UserList(UserIndex).Invent.HerramientaEqpObjIndex > 0 Then
-                Daño = Daño - RandomNumber(ObjData(UserList(UserIndex).Invent.HerramientaEqpObjIndex).DefensaMagicaMin, ObjData(UserList(UserIndex).Invent.HerramientaEqpObjIndex).DefensaMagicaMax)
+                daño = daño - RandomNumber(ObjData(UserList(UserIndex).Invent.HerramientaEqpObjIndex).DefensaMagicaMin, ObjData(UserList(UserIndex).Invent.HerramientaEqpObjIndex).DefensaMagicaMax)
 
             End If
 
@@ -60,20 +60,20 @@ Sub NpcLanzaSpellSobreUser(ByVal NpcIndex As Integer, _
 
                     AmuletoDaño = RandomNumber(1, ObjData(UserList(UserIndex).Invent.AmuletoEqpObjIndex).AmuletoDefensa.Bonifica)
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tu Amuleto te ha protegido de " & AmuletoDaño & " puntos de Daño." & FONTTYPE_TALKMSG)
-                    Daño = Daño - AmuletoDaño
+                    daño = daño - AmuletoDaño
 
                 End If
 
             End If
 
-            If Daño < 0 Then Daño = 0
+            If daño < 0 Then daño = 0
 
             Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & Hechizos(Spell).WAV)
             Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & Hechizos(Spell).FXgrh & "," & Hechizos(Spell).loops)
 
-            UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - Daño
+            UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - daño
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Npclist(NpcIndex).Name & " te ha quitado " & Daño & " puntos de vida." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Npclist(NpcIndex).Name & " te ha quitado " & daño & " puntos de vida." & FONTTYPE_Motd4)
             Call EnviarHP(val(UserIndex))
 
             'Muere
@@ -117,8 +117,52 @@ Sub NpcLanzaSpellSobreUser(ByVal NpcIndex As Integer, _
             UserList(UserIndex).flags.Paralizado = 1
             UserList(UserIndex).Counters.Paralisis = IntervaloParalizado
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
+            
+            If UCase(Hechizos(Spell).nombre) = "PARALIZAR" Then
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADO2")
+            End If
+            
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).pos.X & "," & UserList(UserIndex).pos.Y)
             Call Corr_ActualizarPosicion(UserIndex, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+        End If
+
+    End If
+    
+     If Hechizos(Spell).Ceguera = 1 Then
+        
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & Hechizos(Spell).WAV)
+    
+        If UCase$(UserList(UserIndex).Clase) = "BARDO" And UserList(UserIndex).flags.Angel = False And UserList(UserIndex).flags.Demonio = False Then
+            
+            UserList(UserIndex).flags.Ceguera = 1
+            UserList(UserIndex).Counters.Ceguera = IntervaloCeguera / 4
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "CEGU")
+            
+        Else
+          
+            Call SendData(ToIndex, UserIndex, 0, "|| " & Npclist(NpcIndex).Name & " te ha intentado cegar, pero eres INMUNE!!" & FONTTYPE_FIGHT)
+
+        End If
+
+    End If
+
+    If Hechizos(Spell).Estupidez = 1 Then
+        
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & Hechizos(Spell).WAV)
+        
+        If UCase$(UserList(UserIndex).Clase) = "BARDO" And UserList(UserIndex).flags.Angel = False And UserList(UserIndex).flags.Demonio = False Then
+            
+            UserList(UserIndex).flags.Estupidez = 1
+            UserList(UserIndex).Counters.Ceguera = IntervaloCeguera
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "DUMB")
+
+            
+        Else
+        
+            Call SendData(ToIndex, UserIndex, 0, "|| " & Npclist(NpcIndex).Name & " te ha intentado volver estúpido, pero eres INMUNE!!" & FONTTYPE_FIGHT)
+        
         End If
 
     End If
@@ -131,16 +175,16 @@ Sub NpcLanzaSpellSobreNpc(ByVal NpcIndex As Integer, ByVal TargetNpc As Integer,
     If Npclist(NpcIndex).CanAttack = 0 Then Exit Sub
     Npclist(NpcIndex).CanAttack = 0
 
-    Dim Daño As Integer
+    Dim daño As Integer
 
     If Hechizos(Spell).SubeHP = 2 Then
 
-        Daño = RandomNumber(Hechizos(Spell).MinHP, Hechizos(Spell).MaxHP)
+        daño = RandomNumber(Hechizos(Spell).MinHP, Hechizos(Spell).MaxHP)
         Call SendData(SendTarget.ToNPCArea, TargetNpc, Npclist(TargetNpc).pos.Map, "TW" & Hechizos(Spell).WAV)
         Call SendData(SendTarget.ToNPCArea, TargetNpc, Npclist(TargetNpc).pos.Map, "CFX" & Npclist(TargetNpc).char.CharIndex & "," & Hechizos( _
                                                                                    Spell).FXgrh & "," & Hechizos(Spell).loops)
 
-        Npclist(TargetNpc).Stats.MinHP = Npclist(TargetNpc).Stats.MinHP - Daño
+        Npclist(TargetNpc).Stats.MinHP = Npclist(TargetNpc).Stats.MinHP - daño
 
         'Muere
         If Npclist(TargetNpc).Stats.MinHP < 1 Then
@@ -231,7 +275,7 @@ Sub AgregarHechizo(ByVal UserIndex As Integer, ByVal Slot As Integer)
 
 End Sub
 
-Sub DecirPalabrasMagicas(ByVal S As String, ByVal UserIndex As Integer)
+Sub DecirPalabrasMagicas(ByVal s As String, ByVal UserIndex As Integer)
 
     On Error Resume Next
 
@@ -239,33 +283,33 @@ Sub DecirPalabrasMagicas(ByVal S As String, ByVal UserIndex As Integer)
     ind = UserList(UserIndex).char.CharIndex
 
     If UserList(UserIndex).Faccion.ArmadaReal = 1 Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & S & "°" & ind)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & s & "°" & ind)
         Exit Sub
     End If
 
     If UserList(UserIndex).Faccion.FuerzasCaos = 1 Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbRed & "°" & S & "°" & ind)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbRed & "°" & s & "°" & ind)
         Exit Sub
     End If
 
     If UserList(UserIndex).Faccion.Templario = 1 Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbWhite & "°" & S & "°" & ind)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbWhite & "°" & s & "°" & ind)
         Exit Sub
     End If
 
     If UserList(UserIndex).Faccion.Nemesis = 1 Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & "&H808080" & "°" & S & "°" & ind)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & "&H808080" & "°" & s & "°" & ind)
         Exit Sub
     End If
 
 
     If Criminal(UserIndex) Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbRed & "°" & S & "°" & ind)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbRed & "°" & s & "°" & ind)
         Exit Sub
     End If
 
     If Not Criminal(UserIndex) Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & S & "°" & ind)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & s & "°" & ind)
         Exit Sub
     End If
 
@@ -433,24 +477,27 @@ Function PuedeLanzar(ByVal UserIndex As Integer, ByVal HechizoIndex As Integer) 
 End Function
 
 Function ResistenciaClase(Clase As String) As Integer
-    Dim Cuan As Integer
+   Dim Cuan As Integer
 
     Select Case UCase$(Clase)
 
-    Case "MAGO"
-        Cuan = 1
+        Case "MAGO"
+            Cuan = 6
 
-    Case "DRUIDA"
-        Cuan = 2
+        Case "BRUJO"
+            Cuan = 7
 
-    Case "CLERIGO"
-        Cuan = 1
+        Case "DRUIDA"
+            Cuan = 6 '2
 
-    Case "BARDO"
-        Cuan = 1
+        Case "CLERIGO"
+            Cuan = 1
 
-    Case Else
-        Cuan = 0
+        Case "BARDO"
+            Cuan = 5
+
+        Case Else
+            Cuan = 0
 
     End Select
 
@@ -819,28 +866,32 @@ End Sub
 Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
     Dim h As Integer, TU As Integer
+
     h = UserList(UserIndex).Stats.UserHechizos(UserList(UserIndex).flags.Hechizo)
     TU = UserList(UserIndex).flags.TargetUser
-
 
     If UserList(UserIndex).flags.Demonio = True And UserList(TU).flags.Demonio = True And Not Hechizos(h).RemoverParalisis = 1 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar tu bando!!" & FONTTYPE_INFO)
         Exit Sub
+
     End If
 
     If UserList(UserIndex).flags.Angel = True And UserList(TU).flags.Angel = True And Not Hechizos(h).RemoverParalisis = 1 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar tu bando!!" & FONTTYPE_INFO)
         Exit Sub
+
     End If
 
     If UserList(UserIndex).flags.Corsarios = True And UserList(TU).flags.Corsarios = True And Not Hechizos(h).RemoverParalisis = 1 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar tu bando!!" & FONTTYPE_INFO)
         Exit Sub
+
     End If
 
     If UserList(UserIndex).flags.Piratas = True And UserList(TU).flags.Piratas = True And Not Hechizos(h).RemoverParalisis = 1 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar tu bando!!" & FONTTYPE_INFO)
         Exit Sub
+
     End If
 
     If Hechizos(h).Invisibilidad = 1 Then
@@ -848,16 +899,19 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         If UserList(UserIndex).pos.Map = MAPADUELO Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes echarte invisibilidad en esta sala!." & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         If UserList(UserIndex).pos.Map = MapaMedusa Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes usar este hechizo en este mapa!." & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         If UserList(UserIndex).pos.Map = MapaBan Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No puedes usar este hechizo en este mapa!." & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         If UserList(UserIndex).pos.Map = mapainvo Then
@@ -886,7 +940,7 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
         UserList(TU).flags.Invisible = 1
 
-        Call SendData(SendTarget.tomap, 0, UserList(TU).pos.Map, "NOVER" & UserList(TU).char.CharIndex & ",1," & UserList(TU).PartyIndex)
+        Call SendData(SendTarget.ToMap, 0, UserList(TU).pos.Map, "NOVER" & UserList(TU).char.CharIndex & ",1," & UserList(TU).PartyIndex)
 
         Call InfoHechizo(UserIndex)
         b = True
@@ -940,9 +994,7 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
             .char.ShieldAnim = UserList(TU).char.ShieldAnim
             .char.WeaponAnim = UserList(TU).char.WeaponAnim
 
-            Call ChangeUserChar(SendTarget.tomap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
-                                                                                                                            UserIndex).OrigChar.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList( _
-                                                                                                                                                                                                                             UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
+            Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).OrigChar.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
 
         End With
 
@@ -956,16 +1008,19 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         If UserList(TU).flags.Metamorfosis = 1 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡El Usuario ya está transformado!" & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         If UserList(TU).flags.Mimetizado = 1 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡El Usuario ya está transformado!" & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         If UserList(TU).flags.Muerto = 1 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Esta muerto!!" & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         With UserList(TU)
@@ -987,18 +1042,21 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
                 .Stats.UserAtributos(eAtributos.Fuerza) = .Stats.UserAtributos(eAtributos.Fuerza) - Right(Hechizos(h).Metamorfosis.Fuerza, Len(.Stats.UserAtributos(eAtributos.Fuerza)) - 1)
             Else
                 .Stats.UserAtributos(eAtributos.Fuerza) = .Stats.UserAtributos(eAtributos.Fuerza) + Hechizos(h).Metamorfosis.Fuerza
+
             End If
 
             If Left$(Hechizos(h).Metamorfosis.Agilidad, 1) = "-" Then
                 .Stats.UserAtributos(eAtributos.Agilidad) = .Stats.UserAtributos(eAtributos.Agilidad) - Right(Hechizos(h).Metamorfosis.Agilidad, Len(.Stats.UserAtributos(eAtributos.Agilidad)) - 1)
             Else
                 .Stats.UserAtributos(eAtributos.Agilidad) = .Stats.UserAtributos(eAtributos.Agilidad) + Hechizos(h).Metamorfosis.Agilidad
+
             End If
 
             If Left$(Hechizos(h).Metamorfosis.Inteligencia, 1) = "-" Then
                 .Stats.UserAtributos(eAtributos.Inteligencia) = .Stats.UserAtributos(eAtributos.Inteligencia) - Right(Hechizos(h).Metamorfosis.Inteligencia, Len(.Stats.UserAtributos(eAtributos.Inteligencia)) - 1)
             Else
                 .Stats.UserAtributos(eAtributos.Inteligencia) = .Stats.UserAtributos(eAtributos.Inteligencia) + Hechizos(h).Metamorfosis.Inteligencia
+
             End If
 
             .flags.Metamorfosis = 1
@@ -1009,11 +1067,9 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.tomap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, _
-                                .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
+            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
 
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList( _
-                                                                                       UserIndex).char.CharIndex & "," & 1 & "," & 1)
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
 
             .Counters.Metamorfosis = IntervaloMetamorfosis
 
@@ -1021,12 +1077,14 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
         Call InfoHechizo(UserIndex)
         b = True
+
     End If
 
     If Hechizos(h).Envenena = 2 Then
         If Not PuedeAtacar(UserIndex, TU) Then Exit Sub
         If UserIndex <> TU Then
             Call UsuarioAtacadoPorUsuario(UserIndex, TU)
+
         End If
 
         UserList(TU).flags.HechizoVeneno = 1
@@ -1037,11 +1095,12 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         Call EnviarMn(UserIndex)
         b = True
 
-
     ElseIf Hechizos(h).Envenena = 20 Then
+
         If Not PuedeAtacar(UserIndex, TU) Then Exit Sub
         If UserIndex <> TU Then
             Call UsuarioAtacadoPorUsuario(UserIndex, TU)
+
         End If
 
         UserList(TU).flags.HechizoVeneno = 1
@@ -1058,24 +1117,30 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         If UserList(TU).flags.Muerto = 1 And UserIndex <> TU Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Está muerto!!" & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         If UserList(TU).flags.Envenenado = 0 And UserIndex Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás envenenado!!" & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         If UserList(TU).flags.Envenenado = 0 And UserIndex <> TU Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No está envenenado!!" & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         UserList(TU).flags.Envenenado = 0
+
         If UserList(TU).flags.HechizoVeneno = 1 Then
             UserList(TU).flags.HechizoVeneno = 0
             UserList(TU).TipoVeneno = 0
             UserList(TU).AumentoVeneno = 0
+
         End If
+
         Call InfoHechizo(UserIndex)
         b = True
 
@@ -1109,7 +1174,9 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
     End If
 
     If Hechizos(h).Paraliza = 1 Or Hechizos(h).Inmoviliza = 1 Then
+
         Dim PuedeInmo As Long
+
         If UserList(TU).flags.Paralizado = 0 Then
             If Not PuedeAtacar(UserIndex, TU) Then Exit Sub
 
@@ -1124,9 +1191,10 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
             PuedeInmo = RandomNumber(1, 100)
 
             If UCase$(UserList(TU).Clase) = "DRUIDA" Then
-
-                If PuedeInmo > 65 Then
+                If PuedeInmo > 45 Then
+                    Call SendData(ToIndex, TU, 0, "||Has logrado escapar de la paralisis!" & FONTTYPE_Motd4)
                     Exit Sub
+
                 End If
 
             End If
@@ -1134,8 +1202,15 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
             UserList(TU).flags.Paralizado = 1
             UserList(TU).Counters.Paralisis = IntervaloParalizado
             Call SendData(SendTarget.ToIndex, TU, 0, "PARADOW")
+            
+            If UCase$(Hechizos(h).nombre) = "PARALIZAR" Then
+                Call SendData(SendTarget.ToIndex, TU, 0, "PARADO2")
+
+            End If
+            
             Call SendData(SendTarget.ToIndex, TU, 0, "PU" & UserList(TU).pos.X & "," & UserList(TU).pos.Y)
             Call Corr_ActualizarPosicion(TU, UserList(TU).pos.X, UserList(TU).pos.Y)
+
         End If
 
     End If
@@ -1170,6 +1245,7 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
         If UserList(TU).flags.Muerto = 1 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z6")
+
         End If
 
         If UserList(TU).flags.Muerto = 0 And UserIndex Then
@@ -1178,14 +1254,13 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         ElseIf UserList(TU).flags.Muerto = 0 And UserIndex <> TU Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes resucitar a los vivos!!" & FONTTYPE_INFO)
             Exit Sub
+
         End If
 
         '/Juan Maraxus
         If Not Criminal(TU) Then
             If TU <> UserIndex Then
-                UserList(UserIndex).Reputacion.NobleRep = UserList(UserIndex).Reputacion.NobleRep + 500
-
-                If UserList(UserIndex).Reputacion.NobleRep > MAXREP Then UserList(UserIndex).Reputacion.NobleRep = MAXREP
+                Call AddtoVar(UserList(UserIndex).Reputacion.NobleRep, 500, MAXREP)
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Los Dioses te sonrien, has ganado 500 puntos de nobleza!." & FONTTYPE_INFO)
 
             End If
@@ -1200,12 +1275,12 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         Call InfoHechizo(UserIndex)
         Call RevivirUsuario(TU)
 
-    ElseIf Hechizos(h).Revivir = 3 Then
-        b = True
-        Call InfoHechizo(UserIndex)
-        Call RevivirUsuario(TU)
-    End If
+   ' ElseIf Hechizos(h).Revivir = 3 Then
+   '     b = True
+   '     Call InfoHechizo(UserIndex)
+   '     Call RevivirUsuario(TU)
 
+    End If
 
     If Hechizos(h).Ceguera = 1 Then
         If Not PuedeAtacar(UserIndex, TU) Then Exit Sub
@@ -1213,14 +1288,41 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
             Call UsuarioAtacadoPorUsuario(UserIndex, TU)
 
         End If
+        
+        If UserList(TU).flags.Ceguera = 1 Then
+            Call SendData(ToIndex, UserIndex, 0, "||El usuario ya esta ciego, el hechizo no tendria efecto alguno." & FONTTYPE_INFO)
+            Exit Sub
 
-        UserList(TU).flags.Ceguera = 1
-        UserList(TU).Counters.Ceguera = IntervaloParalizado / 3
+        End If
 
-        Call SendData(SendTarget.ToIndex, TU, 0, "CEGU")
+        If UserList(TU).pos.Map = MAPADUELO Then
+            Call SendData(ToIndex, UserIndex, 0, "||No puedes tirarle el hechizo al usuario estando en Duelo, el hechizo no tendria efecto alguno." & FONTTYPE_FIGHT)
+            Exit Sub
 
-        Call InfoHechizo(UserIndex)
-        b = True
+        End If
+
+        If UserList(TU).pos.Map = CastilloNorte Or UserList(TU).pos.Map = CastilloOeste Or UserList(TU).pos.Map = CastilloEste Or UserList(TU).pos.Map = CastilloSur Or UserList(TU).pos.Map = MapaFortaleza Then
+            Call SendData(ToIndex, UserIndex, 0, "||No puedes tirarle el hechizo al usuario estando en conquista de los castillos, el hechizo no tendria efecto alguno." & FONTTYPE_FIGHT)
+            Exit Sub
+
+        End If
+        
+        If UCase$(UserList(TU).Clase) = "BARDO" And UserList(TU).flags.Angel = False And UserList(TU).flags.Demonio = False Then
+            
+            UserList(TU).flags.Ceguera = 1
+            UserList(TU).Counters.Ceguera = IntervaloCeguera / 4
+
+            Call SendData(SendTarget.ToIndex, TU, 0, "CEGU")
+
+            Call InfoHechizo(UserIndex)
+            b = True
+            
+        Else
+          
+            Call SendData(ToIndex, TU, 0, "|| " & UserList(UserIndex).Name & " te ha intentado cegar, pero eres INMUNE!!" & FONTTYPE_FIGHT)
+            Call SendData(ToIndex, UserIndex, 0, "|| " & UserList(TU).Name & " es INMUNE!!" & FONTTYPE_FIGHT)
+        
+        End If
 
     End If
 
@@ -1230,14 +1332,41 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
             Call UsuarioAtacadoPorUsuario(UserIndex, TU)
 
         End If
+        
+        If UserList(TU).flags.Estupidez = 1 Then
+            Call SendData(ToIndex, UserIndex, 0, "||El usuario ya esta Estupido, el hechizo no tendria efecto alguno." & FONTTYPE_FIGHT)
+            Exit Sub
 
-        UserList(TU).flags.Estupidez = 1
-        UserList(TU).Counters.Ceguera = IntervaloParalizado
+        End If
 
-        Call SendData(SendTarget.ToIndex, TU, 0, "DUMB")
+        If UserList(TU).pos.Map = MAPADUELO Then
+            Call SendData(ToIndex, UserIndex, 0, "||¡No puedes Echar estupidez estando en Duelo!." & FONTTYPE_FIGHT)
+            Exit Sub
 
-        Call InfoHechizo(UserIndex)
-        b = True
+        End If
+
+        If UserList(TU).pos.Map = CastilloNorte Or UserList(TU).pos.Map = CastilloOeste Or UserList(TU).pos.Map = CastilloEste Or UserList(TU).pos.Map = CastilloSur Or UserList(TU).pos.Map = MapaFortaleza Then
+            Call SendData(ToIndex, UserIndex, 0, "||No puedes tirarle el hechizo al usuario estando en conquista de los castillos, el hechizo no tendria efecto alguno." & FONTTYPE_FIGHT)
+            Exit Sub
+
+        End If
+        
+        If UCase$(UserList(TU).Clase) = "BARDO" And UserList(TU).flags.Angel = False And UserList(TU).flags.Demonio = False Then
+            
+            UserList(TU).flags.Estupidez = 1
+            UserList(TU).Counters.Ceguera = IntervaloCeguera
+
+            Call SendData(SendTarget.ToIndex, TU, 0, "DUMB")
+
+            Call InfoHechizo(UserIndex)
+            b = True
+            
+        Else
+        
+            Call SendData(ToIndex, TU, 0, "|| " & UserList(UserIndex).Name & " te ha intentado volver estúpido, pero eres INMUNE!!" & FONTTYPE_FIGHT)
+            Call SendData(ToIndex, UserIndex, 0, "|| " & UserList(TU).Name & " es INMUNE!!" & FONTTYPE_FIGHT)
+        
+        End If
 
     End If
 
@@ -1496,8 +1625,19 @@ End Sub
 
 Sub HechizoPropNPC(ByVal hIndex As Integer, ByVal NpcIndex As Integer, ByVal UserIndex As Integer, ByRef b As Boolean)
 
-    Dim Daño As Long
+    Dim daño As Long
+    
+    Dim Bono           As Integer
 
+    Dim bonificaMinimo As Integer
+
+    bonificaMinimo = 0
+
+    If UserList(UserIndex).Invent.WeaponEqpSlot > 0 Then
+        If ObjData(UserList(UserIndex).Invent.Object(UserList(UserIndex).Invent.WeaponEqpSlot).ObjIndex).Subtipo = 4 Then
+            bonificaMinimo = (Hechizos(hIndex).MaxHP - Hechizos(hIndex).MinHP) / 4
+        End If
+    End If
 
     'Quitamos stamina
     If UserList(UserIndex).Stats.MinSta >= 10 Then
@@ -1591,30 +1731,21 @@ Sub HechizoPropNPC(ByVal hIndex As Integer, ByVal NpcIndex As Integer, ByVal Use
     'Salud
 
     If Hechizos(hIndex).SubeHP = 1 Then
-        Daño = RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)
-        Daño = Daño + Porcentaje(Daño, 3 * UserList(UserIndex).Stats.ELV)
-        ' Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°+ " & Daño & "!" & "°" & str(Npclist( _
-          NpcIndex).char.CharIndex))
-
-        ' If UserList(UserIndex).Invent.WeaponEqpObjIndex > 0 Then
-        '     If ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).VaraDragon = 1 And Npclist( _
-              '             NpcIndex).NPCtype = eNPCType.DRAGON Then
-        '         Daño = Daño * 40
-        '
-        '            End If
-        '
-        '        End If
+        daño = RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)
+        daño = daño + Porcentaje(daño, 3 * UserList(UserIndex).Stats.ELV)
+       
 
         Call InfoHechizo(UserIndex)
-        Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MinHP + Daño
+        Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MinHP + daño
 
         If Npclist(NpcIndex).Stats.MinHP > Npclist(NpcIndex).Stats.MaxHP Then Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MaxHP
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Npclist(NpcIndex).Name & " (" & Npclist(NpcIndex).Stats.MinHP & "/" & Npclist( _
                                                         NpcIndex).Stats.MaxHP & ")." & FONTTYPE_Motd4)
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has curado " & Daño & " puntos de salud a la criatura." & FONTTYPE_Motd4)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has curado " & daño & " puntos de salud a la criatura." & FONTTYPE_Motd4)
         b = True
+        
     ElseIf Hechizos(hIndex).SubeHP = 2 Then
 
         If Npclist(NpcIndex).Attackable = 0 Then
@@ -1637,18 +1768,18 @@ Sub HechizoPropNPC(ByVal hIndex As Integer, ByVal NpcIndex As Integer, ByVal Use
 
         End If
 
-        Daño = RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)
+        daño = RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)
 
         'daño = daño + Porcentaje(daño, 3 * UserList(UserIndex).Stats.ELV)
 
-        If UserList(UserIndex).GranPoder = 1 And GranPoder.TipoAura = hGranPoder.Daño Then
+        If UserList(UserIndex).GranPoder = 1 And GranPoder.TipoAura = hGranPoder.daño Then
 
             If UserList(UserIndex).Invent.WeaponEqpObjIndex = ObjVaraNormal Then
 
-                Daño = (Daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)) * _
+                daño = (daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)) * _
                                        0.8) + 100 * 2
             Else
-                Daño = (Daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)) * _
+                daño = (daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)) * _
                                        0.8) * 2
             End If
 
@@ -1656,23 +1787,23 @@ Sub HechizoPropNPC(ByVal hIndex As Integer, ByVal NpcIndex As Integer, ByVal Use
 
             If UserList(UserIndex).Invent.WeaponEqpObjIndex = ObjVaraNormal Then
 
-                Daño = (Daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)) * _
+                daño = (daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)) * _
                                        0.8) + 100
             Else
-                Daño = (Daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)) * _
+                daño = (daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (RandomNumber(Hechizos(hIndex).MinHP, Hechizos(hIndex).MaxHP)) * _
                                        0.8)
             End If
 
         End If
 
         If Npclist(NpcIndex).DefensaMagica = 1 Then
-            Daño = Daño - RandomNumber(100, 150)
+            daño = daño - RandomNumber(100, 150)
 
         End If
 
         If UserList(UserIndex).Invent.WeaponEqpObjIndex > 0 Then
-            If ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).VaraDragon = 1 And Npclist(NpcIndex).NPCtype = eNPCType.dragon Then
-                Daño = Daño * 40
+            If ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).VaraDragon = 1 And Npclist(NpcIndex).NPCtype = eNPCType.DRAGON Then
+                daño = daño * 40
 
             End If
 
@@ -1681,11 +1812,11 @@ Sub HechizoPropNPC(ByVal hIndex As Integer, ByVal NpcIndex As Integer, ByVal Use
         If Hechizos(hIndex).StaffAffected Then
             If UCase$(UserList(UserIndex).Clase) = "MAGO" Then
                 If UserList(UserIndex).Invent.WeaponEqpObjIndex > 0 Then
-                    Daño = (Daño * (ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).StaffDamageBonus + 70)) / 100
+                    daño = (daño * (ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).StaffDamageBonus + 70)) / 100
                     'Aumenta daño segun el staff-
                     'Daño = (Daño* (80 + BonifBáculo)) / 100
                 Else
-                    Daño = Daño * 0.7    'Baja daño a 80% del original
+                    daño = daño * 0.7    'Baja daño a 80% del original
 
                 End If
 
@@ -1694,7 +1825,7 @@ Sub HechizoPropNPC(ByVal hIndex As Integer, ByVal NpcIndex As Integer, ByVal Use
         End If
 
         If UserList(UserIndex).Invent.HerramientaEqpObjIndex = LAUDMAGICO Then
-            Daño = Daño * 1.04  'laud magico de los bardos
+            daño = daño * 1.04  'laud magico de los bardos
 
         End If
 
@@ -1707,17 +1838,17 @@ Sub HechizoPropNPC(ByVal hIndex As Integer, ByVal NpcIndex As Integer, ByVal Use
 
         '  Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbYellow & "°- " & Daño & "!" & "°" & str(Npclist( _
            NpcIndex).char.CharIndex))
-        Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MinHP - Daño
+        Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MinHP - daño
 
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Le has causado " & Daño & " puntos de daño a la criatura!" & FONTTYPE_Motd4)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Le has causado " & daño & " puntos de daño a la criatura!" & FONTTYPE_Motd4)
 
         If Npclist(NpcIndex).Stats.MinHP < 0 Then
-            Daño = Npclist(NpcIndex).Stats.MinHP + Daño
+            daño = Npclist(NpcIndex).Stats.MinHP + daño
             Npclist(NpcIndex).Stats.MinHP = 0
         End If
 
-        Call CalcularDarExp(UserIndex, NpcIndex, Daño)
+        Call CalcularDarExp(UserIndex, NpcIndex, daño)
 
         If Npclist(NpcIndex).Stats.MinHP < 1 Then
             Npclist(NpcIndex).Stats.MinHP = 0
@@ -1774,7 +1905,7 @@ End Sub
 
 Sub HechizoAreaUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
     Dim h As Integer
-    Dim Daño As Integer
+    Dim daño As Integer
     Dim tempChr As Integer
     Dim TempX As Integer
     Dim TempY As Integer
@@ -1813,11 +1944,11 @@ Sub HechizoAreaUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
                                     Call UserDie(tempChr)
 
                                 Else
-                                    Daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
-                                    UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MinHP - Daño
+                                    daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
+                                    UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MinHP - daño
                                     Call EnviarHP(tempChr)
                                 End If
-                                Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & .Name & " te ha quitado " & Daño & " puntos de vida." & FONTTYPE_Motd4)
+                                Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & .Name & " te ha quitado " & daño & " puntos de vida." & FONTTYPE_Motd4)
                                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Hechizos(h).HechizeroMsg & UserList(tempChr).Name & "." & FONTTYPE_Motd4)
                             End If
                         End If
@@ -1841,22 +1972,22 @@ Sub HechizoAreaUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
                         If UserList(MapData(.pos.Map, TempX, TempY).UserIndex).flags.Muerto = 0 And UserList(MapData(.pos.Map, TempX, TempY).UserIndex).flags.Privilegios = PlayerType.User Then
 
                             If Hechizos(h).SubeHP = 1 Then
-                                Daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
-                                If val(UserList(tempChr).Stats.MinHP + Daño) >= UserList(tempChr).Stats.MaxHP Then
+                                daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
+                                If val(UserList(tempChr).Stats.MinHP + daño) >= UserList(tempChr).Stats.MaxHP Then
                                     UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MaxHP
                                     Call EnviarHP(tempChr)
                                 Else
-                                    UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MinHP + Daño
+                                    UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MinHP + daño
                                     Call EnviarHP(tempChr)
                                 End If
 
                                 If UserIndex <> tempChr Then
-                                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & Daño & " puntos de vida a " & UserList(tempChr).Name & _
+                                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & daño & " puntos de vida a " & UserList(tempChr).Name & _
                                                                                     FONTTYPE_Motd4)
-                                    Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & Daño & " puntos de vida." & _
+                                    Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & daño & " puntos de vida." & _
                                                                                   FONTTYPE_Motd4)
                                 Else
-                                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & Daño & " puntos de vida." & FONTTYPE_Motd4)
+                                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & daño & " puntos de vida." & FONTTYPE_Motd4)
                                 End If
 
                             End If
@@ -1885,39 +2016,46 @@ Sub HechizoAreaUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
 End Sub
 
-
 Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
     Dim h As Integer
-    Dim Daño As Integer
+
+    Dim daño As Integer
+
     Dim tempChr As Integer
+
     Dim AmuletoDaño As Integer
 
     h = UserList(UserIndex).Stats.UserHechizos(UserList(UserIndex).flags.Hechizo)
     tempChr = UserList(UserIndex).flags.TargetUser
+    
+    If UserList(UserIndex).pos.Map = 192 Then
+        If UserList(UserIndex).flags.SuPareja = tempChr Then Exit Sub
+    End If
 
-    If UserList(UserIndex).flags.Demonio = True And UserList(tempChr).flags.Demonio = True And Not Hechizos(h).SubeFuerza = 1 And Not Hechizos( _
-       h).SubeAgilidad = 1 Then
+    If UserList(UserIndex).flags.Demonio = True And UserList(tempChr).flags.Demonio = True And Not Hechizos(h).SubeFuerza = 1 And Not Hechizos(h).SubeAgilidad = 1 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar tu bando!!" & FONTTYPE_INFO)
         Exit Sub
 
     End If
 
-    If UserList(UserIndex).flags.Angel = True And UserList(tempChr).flags.Angel = True And Not Hechizos(h).SubeFuerza = 1 And Not Hechizos( _
-       h).SubeAgilidad = 1 Then
+    If UserList(UserIndex).flags.Angel = True And UserList(tempChr).flags.Angel = True And Not Hechizos(h).SubeFuerza = 1 And Not Hechizos(h).SubeAgilidad = 1 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar tu bando!!" & FONTTYPE_INFO)
         Exit Sub
+
     End If
 
     'Quitamos stamina
     If UserList(UserIndex).Stats.MinSta >= 10 Then
         If Not UserList(UserIndex).flags.SeguroCombate Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, _
-                          "||No estás en modo de combate, presiona la tecla ""C"" para pasar al modo combate." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás en modo de combate, presiona la tecla ""C"" para pasar al modo combate." & FONTTYPE_Motd4)
             Exit Sub
+
         End If
+
     Else
         Exit Sub
+
     End If
 
     'Hambre
@@ -1925,19 +2063,17 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
         Call InfoHechizo(UserIndex)
 
-        Daño = RandomNumber(Hechizos(h).MinHam, Hechizos(h).MaxHam)
+        daño = RandomNumber(Hechizos(h).MinHam, Hechizos(h).MaxHam)
 
-        UserList(tempChr).Stats.MinHam = UserList(tempChr).Stats.MinHam + Daño
+        UserList(tempChr).Stats.MinHam = UserList(tempChr).Stats.MinHam + daño
 
         If UserList(tempChr).Stats.MinHam > UserList(tempChr).Stats.MaxHam Then UserList(tempChr).Stats.MinHam = UserList(tempChr).Stats.MaxHam
 
         If UserIndex <> tempChr Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & Daño & " puntos de hambre a " & UserList(tempChr).Name & _
-                                                            FONTTYPE_Motd4)
-            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & Daño & " puntos de hambre." & _
-                                                          FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & daño & " puntos de hambre a " & UserList(tempChr).Name & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & daño & " puntos de hambre." & FONTTYPE_Motd4)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & Daño & " puntos de hambre." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & daño & " puntos de hambre." & FONTTYPE_Motd4)
 
         End If
 
@@ -1957,19 +2093,17 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
         Call InfoHechizo(UserIndex)
 
-        Daño = RandomNumber(Hechizos(h).MinHam, Hechizos(h).MaxHam)
+        daño = RandomNumber(Hechizos(h).MinHam, Hechizos(h).MaxHam)
 
-        UserList(tempChr).Stats.MinHam = UserList(tempChr).Stats.MinHam - Daño
+        UserList(tempChr).Stats.MinHam = UserList(tempChr).Stats.MinHam - daño
 
         If UserList(tempChr).Stats.MinHam < 0 Then UserList(tempChr).Stats.MinHam = 0
 
         If UserIndex <> tempChr Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has quitado " & Daño & " puntos de hambre a " & UserList(tempChr).Name & _
-                                                            FONTTYPE_Motd4)
-            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha quitado " & Daño & " puntos de hambre." & _
-                                                          FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has quitado " & daño & " puntos de hambre a " & UserList(tempChr).Name & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha quitado " & daño & " puntos de hambre." & FONTTYPE_Motd4)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has quitado " & Daño & " puntos de hambre." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has quitado " & daño & " puntos de hambre." & FONTTYPE_Motd4)
 
         End If
 
@@ -1988,45 +2122,41 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
     'Sed
     If Hechizos(h).SubeSed = 1 Then
 
-        Daño = RandomNumber(Hechizos(h).MinSed, Hechizos(h).MaxSed)
+        daño = RandomNumber(Hechizos(h).MinSed, Hechizos(h).MaxSed)
 
         Call InfoHechizo(UserIndex)
 
-        UserList(tempChr).Stats.MinAGU = UserList(tempChr).Stats.MinAGU + Daño
+        UserList(tempChr).Stats.MinAGU = UserList(tempChr).Stats.MinAGU + daño
 
         If UserList(tempChr).Stats.MinAGU > UserList(tempChr).Stats.MaxAGU Then UserList(tempChr).Stats.MinAGU = UserList(tempChr).Stats.MaxAGU
 
         If UserIndex <> tempChr Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & Daño & " puntos de sed a " & UserList(tempChr).Name & _
-                                                            FONTTYPE_Motd4)
-            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & Daño & " puntos de sed." & _
-                                                          FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & daño & " puntos de sed a " & UserList(tempChr).Name & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & daño & " puntos de sed." & FONTTYPE_Motd4)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & Daño & " puntos de sed." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & daño & " puntos de sed." & FONTTYPE_Motd4)
 
         End If
 
         b = True
         Call EnviarHambreYsed(tempChr)
 
-
     End If
 
     Dim MXATRIBUTOS As String
+
     ' <-------- Agilidad ---------->
     If Hechizos(h).SubeAgilidad = 1 Then
 
         Call InfoHechizo(UserIndex)
-        Daño = RandomNumber(Hechizos(h).MinAgilidad, Hechizos(h).MaxAgilidad)
+        daño = RandomNumber(Hechizos(h).MinAgilidad, Hechizos(h).MaxAgilidad)
 
         UserList(tempChr).flags.DuracionEfectoAmarillas = 4800
-        UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) + _
-                                                                       RandomNumber(3, 4)
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) + RandomNumber(3, 4)
 
         MXATRIBUTOS = val(MAXATRIBUTOS + UserList(UserIndex).flags.EspecialAgilidad)
 
-        If UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) > MXATRIBUTOS Then UserList(UserIndex).Stats.UserAtributos( _
-           eAtributos.Agilidad) = MXATRIBUTOS
+        If UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) > MXATRIBUTOS Then UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = MXATRIBUTOS
         UserList(tempChr).flags.TomoPocionAmarilla = True
         Call EnviarAmarillas(tempChr)
         b = True
@@ -2044,12 +2174,11 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
         UserList(tempChr).flags.TomoPocionAmarilla = True
         Call EnviarAmarillas(tempChr)
-        Daño = RandomNumber(Hechizos(h).MinAgilidad, Hechizos(h).MaxAgilidad)
+        daño = RandomNumber(Hechizos(h).MinAgilidad, Hechizos(h).MaxAgilidad)
         UserList(tempChr).flags.DuracionEfectoAmarillas = 4800
-        UserList(tempChr).Stats.UserAtributos(eAtributos.Agilidad) = UserList(tempChr).Stats.UserAtributos(eAtributos.Agilidad) - Daño
+        UserList(tempChr).Stats.UserAtributos(eAtributos.Agilidad) = UserList(tempChr).Stats.UserAtributos(eAtributos.Agilidad) - daño
 
-        If UserList(tempChr).Stats.UserAtributos(eAtributos.Agilidad) < MINATRIBUTOS Then UserList(tempChr).Stats.UserAtributos( _
-           eAtributos.Agilidad) = MINATRIBUTOS
+        If UserList(tempChr).Stats.UserAtributos(eAtributos.Agilidad) < MINATRIBUTOS Then UserList(tempChr).Stats.UserAtributos(eAtributos.Agilidad) = MINATRIBUTOS
         b = True
 
     End If
@@ -2059,17 +2188,15 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
     If Hechizos(h).SubeFuerza = 1 Then
 
         Call InfoHechizo(UserIndex)
-        Daño = RandomNumber(Hechizos(h).MinFuerza, Hechizos(h).MaxFuerza)
+        daño = RandomNumber(Hechizos(h).MinFuerza, Hechizos(h).MaxFuerza)
 
         UserList(tempChr).flags.DuracionEfectoVerdes = 4800
 
-        UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) + _
-                                                                     RandomNumber(3, 4)
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) + RandomNumber(3, 4)
 
         MXATRIBUTOS = val(MAXATRIBUTOS + UserList(UserIndex).flags.EspecialFuerza)
 
-        If UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) > MXATRIBUTOS Then UserList(UserIndex).Stats.UserAtributos( _
-           eAtributos.Fuerza) = MXATRIBUTOS
+        If UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) > MXATRIBUTOS Then UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = MXATRIBUTOS
 
         UserList(tempChr).flags.TomoPocionVerde = True
         Call EnviarVerdes(tempChr)
@@ -2089,12 +2216,11 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         UserList(tempChr).flags.TomoPocionVerde = True
         Call EnviarVerdes(tempChr)
 
-        Daño = RandomNumber(Hechizos(h).MinFuerza, Hechizos(h).MaxFuerza)
+        daño = RandomNumber(Hechizos(h).MinFuerza, Hechizos(h).MaxFuerza)
         UserList(tempChr).flags.DuracionEfectoVerdes = 4800
-        UserList(tempChr).Stats.UserAtributos(eAtributos.Fuerza) = UserList(tempChr).Stats.UserAtributos(eAtributos.Fuerza) - Daño
+        UserList(tempChr).Stats.UserAtributos(eAtributos.Fuerza) = UserList(tempChr).Stats.UserAtributos(eAtributos.Fuerza) - daño
 
-        If UserList(tempChr).Stats.UserAtributos(eAtributos.Fuerza) < MINATRIBUTOS Then UserList(tempChr).Stats.UserAtributos(eAtributos.Fuerza) = _
-           MINATRIBUTOS
+        If UserList(tempChr).Stats.UserAtributos(eAtributos.Fuerza) < MINATRIBUTOS Then UserList(tempChr).Stats.UserAtributos(eAtributos.Fuerza) = MINATRIBUTOS
         b = True
 
     End If
@@ -2116,31 +2242,28 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
             Exit Sub
         Else
 
-            Daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
-            Daño = Daño + Porcentaje(Daño, 3 * UserList(UserIndex).Stats.ELV)
+            daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
+            daño = daño + Porcentaje(daño, 3 * UserList(UserIndex).Stats.ELV)
 
             Call InfoHechizo(UserIndex)
 
-            UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MinHP + Daño
+            UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MinHP + daño
 
             If UserList(tempChr).Stats.MinHP > UserList(tempChr).Stats.MaxHP Then UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MaxHP
 
             If UserIndex <> tempChr Then
 
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & Daño & " puntos de vida a " & UserList(tempChr).Name & _
-                                                                FONTTYPE_Motd4)
-                Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & Daño & " puntos de vida." & _
-                                                              FONTTYPE_Motd4)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & daño & " puntos de vida a " & UserList(tempChr).Name & FONTTYPE_Motd4)
+                Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & daño & " puntos de vida." & FONTTYPE_Motd4)
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & Daño & " puntos de vida." & FONTTYPE_Motd4)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & daño & " puntos de vida." & FONTTYPE_Motd4)
 
             End If
+
         End If
 
         b = True
     ElseIf Hechizos(h).SubeHP = 2 Then
-
-
 
         'If UserList(UserIndex).flags.SeguroClan Then
         'If Guilds(UserList(tempChr).GuildIndex).GuildName = Guilds(UserList(UserIndex).GuildIndex).GuildName And Guilds(UserList(UserIndex).GuildIndex).GuildName <> "" Then
@@ -2152,26 +2275,28 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         If UserIndex = tempChr Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacarte a ti mismo." & FONTTYPE_Motd4)
             Exit Sub
+
         End If
 
-        Daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
+        daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
         'daño = daño - Porcentaje(daño, Int(((UserList(tempChr).Stats.UserSkills(Resistencia) + 1) / 4) + ResistenciaClase(UserList(tempChr).Clase)))
 
         'Nueva formula
-        If UserList(UserIndex).GranPoder = 1 And GranPoder.TipoAura = hGranPoder.Daño Then
-            Daño = (Daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (Daño) * 0.8) * 2
+        If UserList(UserIndex).GranPoder = 1 And GranPoder.TipoAura = hGranPoder.daño Then
+            daño = (daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (daño) * 0.8) * 2
         Else
-            Daño = (Daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (Daño) * 0.8)
+            daño = (daño * 0.7) + (((UserList(UserIndex).Stats.ELV * 4.2) / 100) * (daño) * 0.8)
+
         End If
 
-        Daño = Daño - (Daño * (((UserList(tempChr).Stats.UserSkills(Resistencia) + ((UserList(UserIndex).Stats.ELV / 55) * 10)) / 5) / 100))
+        daño = daño - (daño * (((UserList(tempChr).Stats.UserSkills(Resistencia) + ((UserList(UserIndex).Stats.ELV / 55) * 10)) / 5) / 100))
 
         If Hechizos(h).StaffAffected Then
             If UCase$(UserList(UserIndex).Clase) = "MAGO" Then
                 If UserList(UserIndex).Invent.WeaponEqpObjIndex > 0 Then
-                    Daño = (Daño * (ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).StaffDamageBonus + 70)) / 100
+                    daño = (daño * (ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).StaffDamageBonus + 70)) / 100
                 Else
-                    Daño = Daño * 0.7    'Baja daño a 70% del original
+                    daño = daño * 0.7    'Baja daño a 70% del original
 
                 End If
 
@@ -2180,29 +2305,26 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         End If
 
         If UserList(UserIndex).Invent.HerramientaEqpObjIndex = LAUDMAGICO Then
-            Daño = Daño * 1.04  'laud magico de los bardos
+            daño = daño * 1.04  'laud magico de los bardos
 
         End If
 
         'cascos antimagia
         If (UserList(tempChr).Invent.CascoEqpObjIndex > 0) Then
-            Daño = Daño - RandomNumber(ObjData(UserList(tempChr).Invent.CascoEqpObjIndex).DefensaMagicaMin, ObjData(UserList( _
-                                                                                                                    tempChr).Invent.CascoEqpObjIndex).DefensaMagicaMax)
+            daño = daño - RandomNumber(ObjData(UserList(tempChr).Invent.CascoEqpObjIndex).DefensaMagicaMin, ObjData(UserList(tempChr).Invent.CascoEqpObjIndex).DefensaMagicaMax)
 
         End If
 
         If UserList(tempChr).Invent.ArmourEqpObjIndex > 0 Then
-            Daño = Daño - RandomNumber(ObjData(UserList(tempChr).Invent.ArmourEqpObjIndex).DefensaMagicaMin, ObjData(UserList( _
-                                                                                                                     tempChr).Invent.ArmourEqpObjIndex).DefensaMagicaMax)
+            daño = daño - RandomNumber(ObjData(UserList(tempChr).Invent.ArmourEqpObjIndex).DefensaMagicaMin, ObjData(UserList(tempChr).Invent.ArmourEqpObjIndex).DefensaMagicaMax)
 
         End If
 
         'anillos
         If (UserList(tempChr).Invent.HerramientaEqpObjIndex > 0) Then
-            Daño = Daño - RandomNumber(ObjData(UserList(tempChr).Invent.HerramientaEqpObjIndex).DefensaMagicaMin, ObjData(UserList( _
-                                                                                                                          tempChr).Invent.HerramientaEqpObjIndex).DefensaMagicaMax)
-        End If
+            daño = daño - RandomNumber(ObjData(UserList(tempChr).Invent.HerramientaEqpObjIndex).DefensaMagicaMin, ObjData(UserList(tempChr).Invent.HerramientaEqpObjIndex).DefensaMagicaMax)
 
+        End If
 
         If (UserList(tempChr).Invent.AmuletoEqpObjIndex > 0) Then
 
@@ -2210,11 +2332,13 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
                 AmuletoDaño = RandomNumber(1, ObjData(UserList(tempChr).Invent.AmuletoEqpObjIndex).AmuletoDefensa.Bonifica)
                 Call SendData(SendTarget.ToIndex, tempChr, 0, "||Tu Amuleto te ha protegido de " & AmuletoDaño & " puntos de Daño." & FONTTYPE_TALKMSG)
-                Daño = Daño - AmuletoDaño
+                daño = daño - AmuletoDaño
+
             End If
+
         End If
 
-        If Daño < 0 Then Daño = 0
+        If daño < 0 Then daño = 0
 
         If Not PuedeAtacar(UserIndex, tempChr) Then Exit Sub
 
@@ -2226,12 +2350,11 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         Call SubirSkill(tempChr, Resistencia)
         Call InfoHechizo(UserIndex)
 
-        UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MinHP - Daño
+        UserList(tempChr).Stats.MinHP = UserList(tempChr).Stats.MinHP - daño
         'Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbRed & "°- " & Daño & "!" & "°" & str(UserList( _
          tempChr).char.CharIndex))
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has quitado " & Daño & " puntos de vida a " & UserList(tempChr).Name & FONTTYPE_Motd4)
-        Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha quitado " & Daño & " puntos de vida." & _
-                                                      FONTTYPE_Motd4)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has quitado " & daño & " puntos de vida a " & UserList(tempChr).Name & FONTTYPE_Motd4)
+        Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha quitado " & daño & " puntos de vida." & FONTTYPE_Motd4)
 
         'Muere
         If UserList(tempChr).Stats.MinHP < 1 Then
@@ -2243,15 +2366,21 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
             LoopSpell = Hechizos(h).loops
 
             Call UserDie(tempChr)
+
         End If
 
         b = True
 
     ElseIf Hechizos(h).SubeHP = 4 And Not MismaParty(UserIndex, tempChr) And Not MismoClan(UserIndex, tempChr) And UserIndex <> tempChr Then
-        Dim Map As Integer
-        Dim X As Integer
-        Dim Y As Integer
+
+        Dim Map   As Integer
+
+        Dim X     As Integer
+
+        Dim Y     As Integer
+
         Dim TempX As Integer
+
         Dim TempY As Integer
 
         Map = UserList(UserIndex).pos.Map
@@ -2265,21 +2394,17 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
                     If MapData(Map, TempX, TempY).UserIndex > 0 And UserIndex <> MapData(Map, TempX, TempY).UserIndex Then
 
                         'hay un user
-                        If UserList(MapData(Map, TempX, TempY).UserIndex).flags.Privilegios = _
-                           PlayerType.User And Not MismaParty(UserIndex, MapData(Map, TempX, TempY).UserIndex) _
-                           And Not MismoClan(UserIndex, MapData(Map, TempX, TempY).UserIndex) Then
+                        If UserList(MapData(Map, TempX, TempY).UserIndex).flags.Privilegios = PlayerType.User And Not MismaParty(UserIndex, MapData(Map, TempX, TempY).UserIndex) And Not MismoClan(UserIndex, MapData(Map, TempX, TempY).UserIndex) Then
 
-                            Daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
+                            daño = RandomNumber(Hechizos(h).MinHP, Hechizos(h).MaxHP)
 
-                            UserList(MapData(Map, TempX, TempY).UserIndex).Stats.MinHP = UserList(MapData(Map, TempX, TempY).UserIndex).Stats.MinHP - Daño
+                            UserList(MapData(Map, TempX, TempY).UserIndex).Stats.MinHP = UserList(MapData(Map, TempX, TempY).UserIndex).Stats.MinHP - daño
                             Call EnviarHP(MapData(Map, TempX, TempY).UserIndex)
 
-                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has quitado " & Daño & " puntos de vida a " & UserList(MapData(Map, TempX, TempY).UserIndex).Name & FONTTYPE_Motd4)
-                            Call SendData(SendTarget.ToIndex, MapData(Map, TempX, TempY).UserIndex, 0, "||" & UserList(UserIndex).Name & " te ha quitado " & Daño & " puntos de vida." & _
-                                                                                                       FONTTYPE_Motd4)
+                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has quitado " & daño & " puntos de vida a " & UserList(MapData(Map, TempX, TempY).UserIndex).Name & FONTTYPE_Motd4)
+                            Call SendData(SendTarget.ToIndex, MapData(Map, TempX, TempY).UserIndex, 0, "||" & UserList(UserIndex).Name & " te ha quitado " & daño & " puntos de vida." & FONTTYPE_Motd4)
 
-                            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(MapData(Map, _
-                                                                                                                                TempX, TempY).UserIndex).char.CharIndex & "," & Hechizos(h).FXgrh & "," & Hechizos(h).loops)
+                            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(MapData(Map, TempX, TempY).UserIndex).char.CharIndex & "," & Hechizos(h).FXgrh & "," & Hechizos(h).loops)
 
                             If UserList(MapData(Map, TempX, TempY).UserIndex).Stats.MinHP < 1 Then
                                 Call ContarMuerte(MapData(Map, TempX, TempY).UserIndex, UserIndex)
@@ -2290,8 +2415,8 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
                                 LoopSpell = Hechizos(h).loops
 
                                 Call UserDie(MapData(Map, TempX, TempY).UserIndex)
-                            End If
 
+                            End If
 
                         End If
 
@@ -2314,20 +2439,17 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
 
         Call InfoHechizo(UserIndex)
 
-        Daño = RandomNumber(Hechizos(h).MinMana, Hechizos(h).ManMana)
+        daño = RandomNumber(Hechizos(h).MinMana, Hechizos(h).ManMana)
 
-        UserList(tempChr).Stats.MinMAN = UserList(tempChr).Stats.MinMAN + Daño
-
+        UserList(tempChr).Stats.MinMAN = UserList(tempChr).Stats.MinMAN + daño
 
         If UserList(tempChr).Stats.MinMAN > UserList(tempChr).Stats.MaxMAN Then UserList(tempChr).Stats.MinMAN = UserList(tempChr).Stats.MaxMAN
 
         If UserIndex <> tempChr Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & Daño & " puntos de mana a " & UserList(tempChr).Name & _
-                                                            FONTTYPE_Motd4)
-            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & Daño & " puntos de mana." & _
-                                                          FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & daño & " puntos de mana a " & UserList(tempChr).Name & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & daño & " puntos de mana." & FONTTYPE_Motd4)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & Daño & " puntos de mana." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & daño & " puntos de mana." & FONTTYPE_Motd4)
 
         End If
 
@@ -2345,16 +2467,14 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         Call InfoHechizo(UserIndex)
 
         If UserIndex <> tempChr Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has quitado " & Daño & " puntos de mana a " & UserList(tempChr).Name & _
-                                                            FONTTYPE_Motd4)
-            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha quitado " & Daño & " puntos de mana." & _
-                                                          FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has quitado " & daño & " puntos de mana a " & UserList(tempChr).Name & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha quitado " & daño & " puntos de mana." & FONTTYPE_Motd4)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has quitado " & Daño & " puntos de mana." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has quitado " & daño & " puntos de mana." & FONTTYPE_Motd4)
 
         End If
 
-        UserList(tempChr).Stats.MinMAN = UserList(tempChr).Stats.MinMAN - Daño
+        UserList(tempChr).Stats.MinMAN = UserList(tempChr).Stats.MinMAN - daño
 
         If UserList(tempChr).Stats.MinMAN < 1 Then UserList(tempChr).Stats.MinMAN = 0
         b = True
@@ -2364,17 +2484,15 @@ Sub HechizoPropUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
     'Stamina
     If Hechizos(h).SubeSta = 1 Then
         Call InfoHechizo(UserIndex)
-        UserList(tempChr).Stats.MinSta = UserList(tempChr).Stats.MinSta + Daño
+        UserList(tempChr).Stats.MinSta = UserList(tempChr).Stats.MinSta + daño
 
         If UserList(tempChr).Stats.MinSta > UserList(tempChr).Stats.MaxSta Then UserList(tempChr).Stats.MinSta = UserList(tempChr).Stats.MaxSta
 
         If UserIndex <> tempChr Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & Daño & " puntos de vitalidad a " & UserList(tempChr).Name & _
-                                                            FONTTYPE_Motd4)
-            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & Daño & " puntos de vitalidad." & _
-                                                          FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Le has restaurado " & daño & " puntos de vitalidad a " & UserList(tempChr).Name & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, tempChr, 0, "||" & UserList(UserIndex).Name & " te ha restaurado " & daño & " puntos de vitalidad." & FONTTYPE_Motd4)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & Daño & " puntos de vitalidad." & FONTTYPE_Motd4)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has restaurado " & daño & " puntos de vitalidad." & FONTTYPE_Motd4)
 
         End If
 

@@ -32,7 +32,10 @@ Public Function esCaos(ByVal UserIndex As Integer) As Boolean
 
 End Function
 
-Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer)
+Public Sub DoTileEvents(ByVal UserIndex As Integer, _
+                        ByVal Map As Integer, _
+                        ByVal X As Integer, _
+                        ByVal Y As Integer)
 
     On Error GoTo errhandler
     
@@ -42,6 +45,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
 
     If UserList(UserIndex).GranPoder = 1 And Not PermiteMapaPoder(UserIndex) Then
         Call mod_GranPoder.QuitarPoder(UserIndex)
+
     End If
 
     'Sonido de pajaritos
@@ -49,13 +53,15 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
     If MapInfo(Map).Zona <> Dungeon Then
 
         Dim SoundPajaro As Integer
-        Dim PorcPajaro As Integer
+
+        Dim PorcPajaro  As Integer
 
         SoundPajaro = RandomNumber(21, 22)
         PorcPajaro = RandomNumber(1, 30000)
 
         If PorcPajaro > 29950 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "PJ" & SoundPajaro)
+
         End If
 
     End If
@@ -64,39 +70,48 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
     If UserList(UserIndex).Pos.Map = MapaCasaAbandonada1 Then
 
         Dim SoundCasa As Integer
-        Dim PorcCasa As Integer
+
+        Dim PorcCasa  As Integer
 
         SoundCasa = RandomNumber(111, 113)
         PorcCasa = RandomNumber(1, 80)
 
         If UserList(UserIndex).Pos.X = 51 And UserList(UserIndex).Pos.Y = 75 Then
             Call SendData(SendTarget.ToMap, 0, MapaCasaAbandonada1, "TW108")
+
         End If
 
         If PorcCasa < 2 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "TW" & SoundCasa)
+
         End If
 
         PorcCasa = RandomNumber(1, 30000)
 
         If PorcCasa < 50 Then
             Call Efecto_CaminoCasaEncantada(UserIndex)
+
         End If
 
     End If
-
 
     If UserList(UserIndex).flags.Angel Or UserList(UserIndex).flags.Demonio Then
         If UserList(UserIndex).Pos.Map = MapaBan Then
             If Not HayAgua(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y) Then
                 If Not UserList(UserIndex).char.Body = 347 And UserList(UserIndex).flags.Angel Then
                     Call Ban_ReloadTransforma(UserIndex)
+
                 End If
+
                 If Not UserList(UserIndex).char.Body = 348 And UserList(UserIndex).flags.Demonio Then
                     Call Ban_ReloadTransforma(UserIndex)
+
                 End If
+
             End If
+
         End If
+
     End If
 
     If UserList(UserIndex).flags.Corsarios = True Or UserList(UserIndex).flags.Piratas = True Then
@@ -104,24 +119,30 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
             If HayAgua(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y) Then
                 If UserList(UserIndex).flags.Muerto = 0 Then
                     Call Med_ReloadTransforma(UserIndex)
+
                 End If
+
             ElseIf Not HayAgua(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y) Then
 
                 Call Med_AguaDestransforma(UserIndex)
+
             End If
+
         End If
+
     End If
 
     If StatusInvo = True Then
-        If MapData(mapainvo, mapainvoX1, mapainvoY1).UserIndex > 0 And MapData(mapainvo, mapainvoX2, mapainvoY2).UserIndex > 0 And MapData( _
-           mapainvo, mapainvoX3, mapainvoY3).UserIndex > 0 And MapData(mapainvo, mapainvoX4, mapainvoY4).UserIndex > 0 And MapInfo( _
-           mapainvo).criatinv = 0 Then
+        If MapData(mapainvo, mapainvoX1, mapainvoY1).UserIndex > 0 And MapData(mapainvo, mapainvoX2, mapainvoY2).UserIndex > 0 And MapData(mapainvo, mapainvoX3, mapainvoY3).UserIndex > 0 And MapData(mapainvo, mapainvoX4, mapainvoY4).UserIndex > 0 And MapInfo(mapainvo).criatinv = 0 Then
 
             Call SendData(SendTarget.ToAll, 0, 0, "||Se ha invocado una criatura en la Sala de Invocaciones." & FONTTYPE_TALK)
             Call SendData(SendTarget.ToMap, 0, "96", "TW160")
             MapInfo(mapainvo).criatinv = 1
+
             Dim criatura As Integer
-            Dim invoca As Integer
+
+            Dim invoca   As Integer
+
             criatura = 661
             invoca = criatura
             Call SpawnNpc(invoca, UserList(MapData(mapainvo, mapainvoX3, mapainvoY3).UserIndex).Pos, True, False)
@@ -130,7 +151,8 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
 
     End If
 
-    Dim nPos As WorldPos
+    Dim nPos   As WorldPos
+
     Dim FxFlag As Boolean
 
     If InMapBounds(Map, X, Y) Then
@@ -142,40 +164,46 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
 
         If MapData(Map, X, Y).TileExit.Map > 0 Then
 
-            'CHOTS | Solo Guerres y Kzas (Restricion telepeort)
-            'If MapData(Map, X, Y).TileExit.Map = 69 Then
-            '    If UCase(UserList(UserIndex).Clase) = "MAGO" Or UCase(UserList(UserIndex).Clase) = "BARDO" Or UCase(UserList(UserIndex).Clase) = _
-                 '            "ASESINO" Or UCase(UserList(UserIndex).Clase) = "CLERIGO" Or UCase(UserList(UserIndex).Clase) = "PALADIN" Then
-            '        Call SendData(SendTarget.toIndex, UserIndex, 0, "||Este mapa es exclusivo para Guerreros y Cazadores." & FONTTYPE_INFO)
-            '        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1)
-            '        Exit Sub
-            '    End If
-            'End If
+            If UserList(UserIndex).MascotasIndex(1) > 0 Or UserList(UserIndex).MascotasIndex(2) > 0 Or UserList(UserIndex).MascotasIndex(3) > 0 Then
+                  If MapInfo(MapData(Map, X, Y).TileExit.Map).Zona = Ciudad Then
+                     Call SendData(ToIndex, UserIndex, 0, "||No puedes entrar en este mapa con mascotas!" & FONTTYPE_INFO)
+                     Call WarpNearestLegalPos(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y, False)
+                      Exit Sub
+                  End If
+            End If
 
             If MapData(Map, X, Y).TileExit.Map = 96 Then
-                If Not UCase(UserList(UserIndex).Stats.ELV) >= 30 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Necesitas ser lvl 30 para poder ingresar a la sala de invocaciones!." & _
-                                                                    FONTTYPE_INFO)
-                    Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y + 1)
-                    Exit Sub
-                End If
+                    If Not UCase(UserList(UserIndex).Stats.ELV) >= 30 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Necesitas ser lvl 30 para poder ingresar a la sala de invocaciones!." & FONTTYPE_INFO)
+                        Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y + 1)
+                        Exit Sub
+
+                    End If
+                
+                    If UserList(UserIndex).flags.Invisible = 1 Or UserList(UserIndex).flags.Oculto = 1 Then
+                       Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y + 1)
+                        Exit Sub
+
+                    End If
+
             End If
 
             If MapData(Map, X, Y).TileExit.Map = 98 Or MapData(Map, X, Y).TileExit.Map = 99 Or MapData(Map, X, Y).TileExit.Map = 100 Or MapData(Map, X, Y).TileExit.Map = 101 Or MapData(Map, X, Y).TileExit.Map = 102 Then
                 If UserList(UserIndex).NroMacotas > 0 Or UserList(UserIndex).flags.Montado = True Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No se permiten entrar al castillo con mascotas!!." & FONTTYPE_INFO)
                     Exit Sub
+
                 End If
+
             End If
 
             If MapData(Map, X, Y).TileExit.Map = MapaCasaAbandonada1 Then
-                If (UserList(UserIndex).Stats.GLD < 30000 Or UserList(UserIndex).Invent.ArmourEqpObjIndex = 0 Or EsNewbie(UserIndex)) Or UserList( _
-                   UserIndex).Stats.ELV < 30 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, _
-                                  "||Los espíritus no te dejan entrar si tienes menos de 30000 Monedas, eres Newbie, eres menor de level 30 o estás Desnudo." _
-                                & FONTTYPE_INFO)
+                If (UserList(UserIndex).Stats.GLD < 30000 Or UserList(UserIndex).Invent.ArmourEqpObjIndex = 0 Or EsNewbie(UserIndex)) Or UserList(UserIndex).Stats.ELV < 30 Then
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los espíritus no te dejan entrar si tienes menos de 30000 Monedas, eres Newbie, eres menor de level 30 o estás Desnudo." & FONTTYPE_INFO)
                     Exit Sub
+
                 End If
+
             End If
 
             'CHOTS | Solo Guerres y Kzas
@@ -185,15 +213,12 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
 
                 '¿El usuario es un newbie?
                 If EsNewbie(UserIndex) Then
-                    If LegalPos(MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, Y).TileExit.Y, PuedeAtravesarAgua( _
-                                                                                                                               UserIndex)) Then
+                    If LegalPos(MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, Y).TileExit.Y, PuedeAtravesarAgua(UserIndex)) Then
 
                         If FxFlag Then    '¿FX?
-                            Call WarpUserChar(UserIndex, MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, _
-                                                                                                                                 Y).TileExit.Y, True)
+                            Call WarpUserChar(UserIndex, MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, Y).TileExit.Y, True)
                         Else
-                            Call WarpUserChar(UserIndex, MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, _
-                                                                                                                                 Y).TileExit.Y)
+                            Call WarpUserChar(UserIndex, MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, Y).TileExit.Y)
 
                         End If
 
@@ -214,7 +239,9 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
 
                 Else    'No es newbie
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Mapa exclusivo para newbies." & FONTTYPE_INFO)
+
                     Dim veces As Byte
+
                     veces = 0
                     Call ClosestStablePos(UserList(UserIndex).Pos, nPos)
 
@@ -227,12 +254,10 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
 
             Else    'No es un mapa de newbies
 
-                If LegalPos(MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, Y).TileExit.Y, PuedeAtravesarAgua( _
-                                                                                                                           UserIndex)) Then
+                If LegalPos(MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, Y).TileExit.Y, PuedeAtravesarAgua(UserIndex)) Then
 
                     If FxFlag Then
-                        Call WarpUserChar(UserIndex, MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, Y).TileExit.Y, _
-                                          True)
+                        Call WarpUserChar(UserIndex, MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, Y).TileExit.Y, True)
                     Else
                         Call WarpUserChar(UserIndex, MapData(Map, X, Y).TileExit.Map, MapData(Map, X, Y).TileExit.X, MapData(Map, X, Y).TileExit.Y)
 
@@ -260,7 +285,8 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal 
     End If
     
     If ((UserList(UserIndex).Pos.Map > 14 And UserList(UserIndex).Pos.Map < 19) Or (UserList(UserIndex).Pos.Map > 21 And UserList(UserIndex).Pos.Map < 25)) And UserList(UserIndex).flags.Muerto = 0 And UserList(UserIndex).flags.Privilegios < 1 Then
-      If TimerTile > 29950 Then Call Gusano(UserIndex)
+        If TimerTile > 29950 Then Call Gusano(UserIndex)
+
     End If
 
     Exit Sub
@@ -411,36 +437,50 @@ Exit Sub
 err:
 End Sub
 
-Sub ClosestLegalPos(Pos As WorldPos, ByRef nPos As WorldPos)
-'*****************************************************************
-'Encuentra la posicion legal mas cercana y la guarda en nPos
-'*****************************************************************
+Sub ClosestLegalPos(Pos As WorldPos, ByRef nPos As WorldPos, Optional navegando As Boolean)
+
+    '*****************************************************************
+    'Encuentra la posicion legal mas cercana y la guarda en nPos
+    '*****************************************************************
+    On Error GoTo err
 
     Dim Notfound As Boolean
+
     Dim LoopC As Integer
-    Dim tx As Long
-    Dim ty As Long
 
-    nPos.Map = Pos.Map
+    Dim tx As Integer
 
-    Do While Not LegalPos(Pos.Map, nPos.X, nPos.Y)
+    Dim ty As Integer
 
-        If LoopC > 12 Then
+    Dim error As Integer
+
+    nPos = Pos
+
+    error = 1
+
+    Do While True 'Not LegalPos(Pos.Map, nPos.X, nPos.Y)
+
+        If LoopC > 100 Then
             Notfound = True
             Exit Do
 
         End If
+    
+        error = 2
 
         For ty = Pos.Y - LoopC To Pos.Y + LoopC
             For tx = Pos.X - LoopC To Pos.X + LoopC
+                error = 3
 
-                If LegalPos(nPos.Map, tx, ty) Then
+                If LegalPos(nPos.Map, tx, ty, navegando) And (MapData(nPos.Map, tx, ty).TileExit.Map = 0) Then
                     nPos.X = tx
                     nPos.Y = ty
+                    error = 4
+                    Exit Sub
                     '¿Hay objeto?
-
-                    tx = Pos.X + LoopC
-                    ty = Pos.Y + LoopC
+                    error = 5
+                    '                tx = Pos.X + LoopC
+                    '                ty = Pos.Y + LoopC
 
                 End If
 
@@ -448,14 +488,19 @@ Sub ClosestLegalPos(Pos As WorldPos, ByRef nPos As WorldPos)
         Next ty
 
         LoopC = LoopC + 1
-
+    
     Loop
+    error = 6
 
     If Notfound = True Then
         nPos.X = 0
         nPos.Y = 0
 
     End If
+
+    Exit Sub
+
+err:
 
 End Sub
 
@@ -1459,3 +1504,29 @@ Public Function MostrarCantidad(ByVal Index As Integer) As Boolean
                       Index).ObjType <> eOBJType.otTELEPORT
 
 End Function
+
+Public Sub WarpNearestLegalPos(UI As Integer, Map As Integer, X As Integer, Y As Integer, Optional FX As Boolean = False)
+    Dim nPos As WorldPos, Pos As WorldPos, userPos As WorldPos
+    
+    userPos.Map = UserList(UI).Pos.Map
+    userPos.X = UserList(UI).Pos.X
+    userPos.Y = UserList(UI).Pos.Y
+    
+    Pos.Map = Map
+    Pos.X = X
+    Pos.Y = Y
+    
+    nPos.Map = Map
+    nPos.X = X
+    nPos.Y = Y
+    
+    Call ClosestLegalPos(Pos, nPos, IIf(UserList(UI).flags.navegando = 1, True, False))
+    
+    If nPos.X <> 0 And nPos.Y <> 0 Then
+        Call WarpUserChar(UI, nPos.Map, nPos.X, nPos.Y, FX)
+    Else
+        Call ClosestLegalPos(userPos, nPos, IIf(UserList(UI).flags.navegando = 1, True, False))
+        Call WarpUserChar(UI, nPos.Map, nPos.X, nPos.Y, FX)
+    End If
+End Sub
+

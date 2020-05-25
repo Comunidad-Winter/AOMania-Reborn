@@ -60,7 +60,7 @@ Public Sub EnlistarTemplarios(ByVal UserIndex As Integer)
         .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
         .Faccion.Templario = 1
         .Faccion.RecompensasTemplaria = 0
-        .Faccion.FEnlistado = now
+        .Faccion.FEnlistado = Now
         .Reputacion.NobleRep = 1000000
         .Reputacion.AsesinoRep = 0
         .Reputacion.BandidoRep = 0
@@ -674,7 +674,7 @@ Public Sub EnlistarNemesis(ByVal UserIndex As Integer)
         .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
         .Faccion.Nemesis = 1
         .Faccion.RecompensasNemesis = 0
-        .Faccion.FEnlistado = now
+        .Faccion.FEnlistado = Now
         .Reputacion.BandidoRep = 1000000
         .Reputacion.NobleRep = 0
         .Reputacion.AsesinoRep = 0

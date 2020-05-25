@@ -704,8 +704,8 @@ Sub Main()
     Libertad.X = 75
     Libertad.Y = 65
 
-    LastBackup = Format(now, "Short Time")
-    Minutos = Format(now, "Short Time")
+    LastBackup = Format(Now, "Short Time")
+    Minutos = Format(Now, "Short Time")
 
     ReDim Npclist(1 To MAXNPCS) As npc    'NPCS
     ReDim CharList(1 To MAXCHARS) As Integer
@@ -1481,19 +1481,8 @@ Public Sub TiempoInvocacion(ByVal UserIndex As Integer)
         If UserList(UserIndex).MascotasIndex(i) > 0 Then
             If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia > 0 Then
                 Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia - 1
-                'Call MuereNpc(UserList(UserIndex).MascotasIndex(i), UserIndex)
 
-                'If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = 0 Then Call MuereNpc(UserList(UserIndex).MascotasIndex(i), 0)
-
-            End If
-            
-            If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = 0 Then
-                Call MuereNpc(UserList(UserIndex).MascotasIndex(i), UserIndex)
-                Npclist(UserList(UserIndex).MascotasIndex(i)).MaestroUser = 0
-                Npclist(UserList(UserIndex).MascotasIndex(i)).Movement = Npclist(UserList(UserIndex).MascotasIndex(i)).flags.OldMovement
-                Npclist(UserList(UserIndex).MascotasIndex(i)).Hostile = Npclist(UserList(UserIndex).MascotasIndex(i)).flags.OldHostil
-                UserList(UserIndex).MascotasIndex(i) = 0
-                UserList(UserIndex).MascotasType(i) = 0
+                If Npclist(UserList(UserIndex).MascotasIndex(i)).Contadores.TiempoExistencia = 0 Then Call QuitarNPC(UserList(UserIndex).MascotasIndex(i))
 
             End If
 
@@ -1591,7 +1580,6 @@ Public Sub EfectoParalisisNpc(ByVal NpcIndex As Integer)
     Else
         Npclist(NpcIndex).flags.Paralizado = 0
         Npclist(NpcIndex).flags.Inmovilizado = 0
-
     End If
 
 End Sub

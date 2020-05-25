@@ -92,7 +92,6 @@ Module=TCP_HandleData3; Codigo\Modulos\TCP_HandleData3.bas
 Module=Sounds; Codigo\Modulos\Sounds.bas
 Form=Codigo\Formularios\FrmCerrar.frm
 Object={248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0; MSWINSCK.OCX
-Module=Mod_Campaign; Codigo\Modulos\Mod_Campaign.bas
 Module=ModGM; Codigo\Modulos\ModGM.bas
 Module=modAsedio; Codigo\Modulos\modAsedio.bas
 Module=Mod_Quest; Codigo\Modulos\Mod_Quest.bas

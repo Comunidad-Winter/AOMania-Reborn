@@ -59,16 +59,21 @@ Function Distance(x1 As Variant, Y1 As Variant, x2 As Variant, Y2 As Variant) As
 
 End Function
 
-Public Function RandomNumber(ByVal LowerBound As Long, ByVal UpperBound As Long) As Long
+Function RandomNumber(ByVal LowerBound As Variant, ByVal UpperBound As Variant) As Single
 
-'**************************************************************
-'Author: Juan Martín Sotuyo Dodero
-'Last Modify Date: 3/06/2006
-'Generates a random number in the range given - recoded to use longs and work properly with ranges
-'**************************************************************
-    Randomize Timer
+'Lo puse en sub Main()
+'Randomize Timer
 
-    RandomNumber = Fix(Rnd * (UpperBound - LowerBound + 1)) + LowerBound
+'RandomNumber = (UpperBound - LowerBound + 1) * Rnd + LowerBound
+'If RandomNumber > UpperBound Then RandomNumber = UpperBound
+
+RandomNumber = Int(Rnd * (UpperBound - LowerBound + 1)) + LowerBound
+
+End Function
+
+Function RandomNumber2(ByVal LowerBound As Variant, ByVal UpperBound As Variant) As Double
+
+    RandomNumber2 = Int(Rnd * (UpperBound - LowerBound + 1)) + LowerBound
 
 End Function
 

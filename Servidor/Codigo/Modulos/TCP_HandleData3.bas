@@ -387,6 +387,7 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             .CharMimetizado.Alas = .char.Alas
 
             .flags.Mimetizado = 1
+            .Metamorfosis.Angel = 1
 
             .char.Body = 347
             .char.Head = 0
@@ -452,6 +453,7 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             .CharMimetizado.Alas = .char.Alas
 
             .flags.Mimetizado = 1
+            .Metamorfosis.Demonio = 1
 
             .char.Body = 348
             .char.Head = 0

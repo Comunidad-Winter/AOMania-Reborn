@@ -223,7 +223,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
                 Exit Sub
             End If
 
-            If UserList(UserIndex).flags.Navegando = 1 Then
+            If UserList(UserIndex).flags.navegando = 1 Then
 
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbYellow & "°" & "No puedes entrar a duelos estando navegando!!!" & "°" _
                                                               & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
@@ -1014,8 +1014,8 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
 
     Case "/ABANDONAR"
         If MapInfo(192).NumUsers = 2 And UserList(UserIndex).flags.EnPareja = True Then    'mapa de duelos 2vs2
-            Call WarpUserChar(Pareja.Jugador1, 35, 30, 50)
-            Call WarpUserChar(Pareja.Jugador2, 35, 30, 50)
+            Call WarpUserChar(Pareja.Jugador1, 34, 32, 30)
+            Call WarpUserChar(Pareja.Jugador2, 34, 33, 30)
             Call SendData(SendTarget.ToAll, 0, 0, "||2 vs 2 > " & UserList(Pareja.Jugador1).Name & " y " & UserList(Pareja.Jugador2).Name & " abandonaron la sala de duelos 2vs2" & FONTTYPE_GUILD)
             UserList(Pareja.Jugador1).flags.EnPareja = False
             UserList(Pareja.Jugador1).flags.EsperaPareja = False
@@ -1963,7 +1963,9 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, rData As String, ByRef Proce
             Exit Sub
 
         End If
-
+        
+        If Len(rData) > 122 Then rData = Left$(rData, 122)
+        
         UserList(UserIndex).Desc = Trim$(rData)
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La descripcion a cambiado." & FONTTYPE_INFO)
         Exit Sub

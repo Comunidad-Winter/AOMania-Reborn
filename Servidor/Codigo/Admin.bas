@@ -40,6 +40,7 @@ Public IntervaloSed As Integer
 Public IntervaloHambre As Integer
 Public IntervaloVeneno As Integer
 Public IntervaloParalizado As Integer
+Public IntervaloCeguera As Integer
 Public IntervaloInvisible As Integer
 Public IntervaloFrio As Integer
 Public IntervaloWavFx As Integer
@@ -465,13 +466,13 @@ Public Sub ActualizaStatsES()
 
             If .BytesEnviadosXSEG > .BytesEnviadosXSEGMax Then
                 .BytesEnviadosXSEGMax = .BytesEnviadosXSEG
-                .BytesEnviadosXSEGCuando = CDate(now)
+                .BytesEnviadosXSEGCuando = CDate(Now)
 
             End If
 
             If .BytesRecibidosXSEG > .BytesRecibidosXSEGMax Then
                 .BytesRecibidosXSEGMax = .BytesRecibidosXSEG
-                .BytesRecibidosXSEGCuando = CDate(now)
+                .BytesRecibidosXSEGCuando = CDate(Now)
 
             End If
 

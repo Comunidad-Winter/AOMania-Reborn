@@ -1183,6 +1183,11 @@ Sub MakeChar(ByVal charindex As Integer, _
 
     'Plot on map
     MapData(X, Y).charindex = charindex
+    
+   ' Techo = IIf(MapData(UserPos.X, UserPos.Y).Trigger = 1 Or MapData(UserPos.X, UserPos.Y).Trigger = 2 Or MapData(UserPos.X, _
+            UserPos.Y).Trigger = 4, True, False)
+
+    'TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.X & " Y: " & CharList(UserCharIndex).pos.Y & ")"
 
 End Sub
 
@@ -2295,6 +2300,11 @@ Private Sub CharRender(ByVal charindex As Integer, _
             If .fx.Started = 0 Then .FxIndex = 0
 
         End If
+        
+        If UserCiego Then
+            Call Draw_Box(0, 0, frmMain.MainViewPic.Width, frmMain.MainViewPic.Height, Black)
+            Call Text_Draw((frmMain.MainViewPic.Width / 2), (frmMain.MainViewPic.Height / 2), "¡ESTÁS CIEGO!", White)
+        End If
 
     End With
 
@@ -2466,7 +2476,7 @@ Public Sub ColoresNick(ByVal charindex As Integer, _
 
                                 If .Criminal = 0 Then
                                     Call Text_Draw(PixelOffSetX - lCenter, PixelOffSetY + 30, Line, NCiudadanos)
-                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, RealClan)
+                                    Call Text_Draw(PixelOffSetX - lCenterClan, PixelOffSetY + 40, sClan, VerdeF)
                                 
                                 ElseIf .Criminal = 1 Then
                                     longToArray Color, ColoresPJ(50)
@@ -4855,6 +4865,37 @@ fin:
 
 End Sub
 
+Public Sub ActualizaPosicionOld(ByRef rData As String)
+
+    On Error GoTo fin
+            
+    Debug.Print "POSICIONOLD"
+            
+    With CharList(UserCharIndex).pos
+            
+        If (InMapBounds(.X, .Y)) Then
+            If (MapData(.X, .Y).charindex = UserCharIndex) Then
+                MapData(.X, .Y).charindex = 0
+
+            End If
+
+        End If
+
+        .X = CInt(ReadField(1, rData, 44))
+        .Y = CInt(ReadField(2, rData, 44))
+        
+        MapData(.X, .Y).charindex = UserCharIndex
+
+    End With
+
+    TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.X & " Y: " & CharList(UserCharIndex).pos.Y & ")"
+    Exit Sub
+    
+fin:
+    Debug.Print "ERROR OLDPOSICION"
+
+End Sub
+
 Public Sub ReiniciarChars()
 
     On Error Resume Next
@@ -4980,3 +5021,5 @@ Sub ResetCharSlot(ByVal charindex As Integer)
     CharList(charindex).Gm = 0
 
 End Sub
+
+

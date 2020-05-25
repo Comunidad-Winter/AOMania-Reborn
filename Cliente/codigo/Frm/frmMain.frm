@@ -163,6 +163,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":76C9E
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -455,6 +456,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -1488,7 +1490,7 @@ Private Sub MainViewPic_MouseMove(Button As Integer, Shift As Integer, X As Sing
                 End If
 
                 'There is already an object in that position?.
-                If Not .CharIndex <> 0 Then
+                If Not .charindex <> 0 Then
                     If .ObjGrh.GrhIndex <> 0 Then
                         
                         Call AddtoRichTextBox(frmMain.RecTxt, "Hay un objeto en esa posición!", 255, 255, 255, True, , True)
@@ -2437,6 +2439,9 @@ Private Sub Socket1_Disconnect()
 
     Dialogos.RemoveAllDialogs
     Inventario.ClearAllSlots
+    
+    Call CleanerPlus
+    Call ReiniciarChars
     
     AoDefResult = 0
 

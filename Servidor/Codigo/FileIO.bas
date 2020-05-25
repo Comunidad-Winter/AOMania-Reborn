@@ -1261,7 +1261,6 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
 
     If UserList(UserIndex).flags.Paralizado = 1 Then
         UserList(UserIndex).Counters.Paralisis = IntervaloParalizado
-
     End If
 
     UserList(UserIndex).flags.navegando = CByte(UserFile.GetValue("FLAGS", "Navegando"))
@@ -1485,7 +1484,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
         For LoopC = 1 To 10
             UserList(UserIndex).Quest.MataNpc(LoopC) = val(UserFile.GetValue("QUEST", "MataNPC" & LoopC))
             UserList(UserIndex).Quest.BuscaObj(LoopC) = val(UserFile.GetValue("QUEST", "BuscaOBJ" & LoopC))
-            UserList(UserIndex).Quest.mapa(LoopC) = val(UserFile.GetValue("QUEST", "Mapa" & LoopC))
+            UserList(UserIndex).Quest.Mapa(LoopC) = val(UserFile.GetValue("QUEST", "Mapa" & LoopC))
             UserList(UserIndex).Quest.DarObjNpc(LoopC) = val(UserFile.GetValue("QUEST", "DarObjNpc" & LoopC))
         Next LoopC
         
@@ -1868,6 +1867,8 @@ Sub LoadSini()
 
     IntervaloParalizado = val(GetVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloParalizado"))
     FrmInterv.txtIntervaloParalizado.Text = IntervaloParalizado
+    
+    IntervaloCeguera = val(GetVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloCeguera"))
 
     IntervaloInvisible = val(GetVar(IniPath & "Server.ini", "INTERVALOS", "IntervaloInvisible"))
     FrmInterv.txtIntervaloInvisible.Text = IntervaloInvisible
@@ -2309,7 +2310,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
             For LoopC = 1 To 10
                 Call Manager.ChangeValue("QUEST", "MataNPC" & LoopC, .Quest.MataNpc(LoopC))
                 Call Manager.ChangeValue("QUEST", "BuscaOBJ" & LoopC, .Quest.BuscaObj(LoopC))
-                Call Manager.ChangeValue("QUEST", "Mapa" & LoopC, .Quest.mapa(LoopC))
+                Call Manager.ChangeValue("QUEST", "Mapa" & LoopC, .Quest.Mapa(LoopC))
                 Call Manager.ChangeValue("QUEST", "DarObjNpc" & LoopC, .Quest.DarObjNpc(LoopC))
             Next LoopC
             
@@ -2437,11 +2438,12 @@ End Sub
 
 Sub CargarNpcBackUp(NpcIndex As Integer, ByVal NPCNumber As Integer)
 
-'Status
+    'Status
     If frmMain.Visible Then frmMain.txStatus.caption = "Cargando backup Npc"
 
     Dim npcfile As String
-    Dim Leer As clsIniManager
+
+    Dim Leer    As clsIniManager
 
     Set Leer = New clsIniManager
 
@@ -2513,7 +2515,9 @@ Sub CargarNpcBackUp(NpcIndex As Integer, ByVal NPCNumber As Integer)
         .Stats.Alineacion = val(Leer.GetValue("NPC" & NPCNumber, "Alineacion"))
 
         Dim LoopC As Long
-        Dim ln As String
+
+        Dim ln    As String
+
         .Invent.NroItems = val(Leer.GetValue("NPC" & NPCNumber, "NROITEMS"))
 
         If .Invent.NroItems > 0 Then

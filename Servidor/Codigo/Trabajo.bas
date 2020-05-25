@@ -133,8 +133,8 @@ Public Sub DoNavega(ByRef UserIndex As Integer, ByRef Barco As ObjData)
             Exit Sub
    End If
    
-   If .flags.Navegando = 0 Then
-            .flags.Navegando = 1
+   If .flags.navegando = 0 Then
+            .flags.navegando = 1
             .char.Head = 0
             .char.Body = IIf(.flags.Muerto = 0, Barco.Ropaje, iFragataFantasmal)
             .char.ShieldAnim = NingunEscudo
@@ -143,7 +143,7 @@ Public Sub DoNavega(ByRef UserIndex As Integer, ByRef Barco As ObjData)
             .char.Alas = NingunAlas
             
         Else
-            .flags.Navegando = 0
+            .flags.navegando = 0
             If .flags.Muerto = 0 Then
                 .char.Head = .OrigChar.Head
                 If .Invent.ArmourEqpObjIndex > 0 Then
@@ -186,17 +186,14 @@ End Sub
 
 Public Sub FundirMineral(ByVal UserIndex As Integer)
 
-'Call LogTarea("Sub FundirMineral")
+    'Call LogTarea("Sub FundirMineral")
 
     If UserList(UserIndex).flags.TargetObjInvIndex > 0 Then
 
-        If ObjData(UserList(UserIndex).flags.TargetObjInvIndex).ObjType = eOBJType.otMinerales And ObjData(UserList( _
-                                                                                                           UserIndex).flags.TargetObjInvIndex).MinSkill <= UserList(UserIndex).Stats.UserSkills(eSkill.Mineria) / ModFundicion(UserList( _
-                                                                                                                                                                                                                               UserIndex).Clase) Then
+        If ObjData(UserList(UserIndex).flags.TargetObjInvIndex).ObjType = eOBJType.otMinerales And ObjData(UserList(UserIndex).flags.TargetObjInvIndex).MinSkill <= UserList(UserIndex).Stats.UserSkills(eSkill.Mineria) / ModFundicion(UserList(UserIndex).Clase) Then
             Call DoLingotes(UserIndex)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes conocimientos de mineria suficientes para trabajar este mineral." & _
-                                                            FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes conocimientos de mineria suficientes para trabajar este mineral." & FONTTYPE_INFO)
 
         End If
 
@@ -801,11 +798,14 @@ End Function
 
 Public Sub DoLingotes(ByVal UserIndex As Integer)
 
-'    Call LogTarea("Sub DoLingotes")
-    Dim Slot As Integer
-    Dim obji As Integer
+    '    Call LogTarea("Sub DoLingotes")
+    Dim Slot   As Integer
+
+    Dim obji   As Integer
+
     Dim Suerte As Byte
-    Dim res As Byte
+
+    Dim res    As Byte
 
     Slot = UserList(UserIndex).flags.TargetObjInvSlot
     obji = UserList(UserIndex).Invent.Object(Slot).ObjIndex
@@ -813,6 +813,7 @@ Public Sub DoLingotes(ByVal UserIndex As Integer)
     If UserList(UserIndex).Invent.Object(Slot).Amount < MineralesParaLingote(obji) Or ObjData(obji).ObjType <> eOBJType.otMinerales Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes suficientes minerales para hacer un lingote." & FONTTYPE_INFO)
         Exit Sub
+
     End If
 
     If UserList(UserIndex).Stats.UserSkills(eSkill.Suerte) <= 10 And UserList(UserIndex).Stats.UserSkills(eSkill.Mineria) >= -1 Then
@@ -835,8 +836,8 @@ Public Sub DoLingotes(ByVal UserIndex As Integer)
         Suerte = 10
     ElseIf UserList(UserIndex).Stats.UserSkills(eSkill.Suerte) <= 100 And UserList(UserIndex).Stats.UserSkills(eSkill.Mineria) >= 91 Then
         Suerte = 7
-    End If
 
+    End If
 
     res = RandomNumber(1, Suerte)
 
@@ -846,15 +847,19 @@ Public Sub DoLingotes(ByVal UserIndex As Integer)
         If UserList(UserIndex).Invent.Object(Slot).Amount < 1 Then
             UserList(UserIndex).Invent.Object(Slot).Amount = 0
             UserList(UserIndex).Invent.Object(Slot).ObjIndex = 0
+
         End If
 
-        Dim nPos As WorldPos
+        Dim nPos  As WorldPos
+
         Dim MiObj As Obj
+
         MiObj.Amount = 1
         MiObj.ObjIndex = ObjData(UserList(UserIndex).flags.TargetObjInvIndex).LingoteIndex
 
         If Not MeterItemEnInventario(UserIndex, MiObj) Then
             Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+
         End If
 
         Call UpdateUserInv(False, UserIndex, Slot)
@@ -867,6 +872,7 @@ Public Sub DoLingotes(ByVal UserIndex As Integer)
         Call UpdateUserInv(False, UserIndex, Slot)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los minerales no eran de buena calidad, no has logrado hacer un lingote." & FONTTYPE_INFO)
+
     End If
 
     Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW119")
@@ -1362,7 +1368,7 @@ Public Sub DoRobar(ByVal LadrOnIndex As Integer, ByVal VictimaIndex As Integer)
         
         Suerte = CSng(CLng(35 - (UserList(LadrOnIndex).Stats.UserSkills(Robar) / 3.333)))
         
-        If RandomNumber(1, Suerte) < 3 Then 'Exito de robo
+        If RandomNumber(1, Suerte) < 3 And UCase(UserList(LadrOnIndex).Clase) = "LADRON" Then 'Exito de robo
             
             If (RandomNumber(1, 50) < 15) Then
                  
@@ -1377,14 +1383,14 @@ Public Sub DoRobar(ByVal LadrOnIndex As Integer, ByVal VictimaIndex As Integer)
                  
                 If UserList(VictimaIndex).Stats.GLD > 0 Then
 
-                    Dim N As Integer
+                    Dim n As Integer
 
-                    N = RandomNumber(2 * UserList(LadrOnIndex).Stats.UserSkills(Robar), 100 * UserList(LadrOnIndex).Stats.UserSkills(Robar))
+                    n = RandomNumber(2 * UserList(LadrOnIndex).Stats.UserSkills(Robar), 100 * UserList(LadrOnIndex).Stats.UserSkills(Robar))
 
-                    If N > UserList(VictimaIndex).Stats.GLD Then N = UserList(VictimaIndex).Stats.GLD
-                    UserList(VictimaIndex).Stats.GLD = UserList(VictimaIndex).Stats.GLD - N
-                    Call AddtoVar(UserList(LadrOnIndex).Stats.GLD, N, MaxOro)
-                    Call SendData(SendTarget.ToIndex, LadrOnIndex, 0, "||Le has robado " & N & " monedas de oro a " & UserList(VictimaIndex).Name & FONTTYPE_INFO)
+                    If n > UserList(VictimaIndex).Stats.GLD Then n = UserList(VictimaIndex).Stats.GLD
+                    UserList(VictimaIndex).Stats.GLD = UserList(VictimaIndex).Stats.GLD - n
+                    Call AddtoVar(UserList(LadrOnIndex).Stats.GLD, n, MaxOro)
+                    Call SendData(SendTarget.ToIndex, LadrOnIndex, 0, "||Le has robado " & n & " monedas de oro a " & UserList(VictimaIndex).Name & FONTTYPE_INFO)
                 Else
                     Call SendData(SendTarget.ToIndex, LadrOnIndex, 0, "||" & UserList(VictimaIndex).Name & " no tiene oro." & FONTTYPE_INFO)
 

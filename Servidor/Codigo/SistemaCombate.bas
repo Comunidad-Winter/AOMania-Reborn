@@ -1,21 +1,21 @@
 Attribute VB_Name = "SistemaCombate"
 Option Explicit
 
-Public Function MinimoInt(ByVal A As Integer, ByVal b As Integer) As Integer
+Public Function MinimoInt(ByVal a As Integer, ByVal b As Integer) As Integer
 
-    If A > b Then
+    If a > b Then
         MinimoInt = b
     Else
-        MinimoInt = A
+        MinimoInt = a
 
     End If
 
 End Function
 
-Public Function MaximoInt(ByVal A As Integer, ByVal b As Integer) As Integer
+Public Function MaximoInt(ByVal a As Integer, ByVal b As Integer) As Integer
 
-    If A > b Then
-        MaximoInt = A
+    If a > b Then
+        MaximoInt = a
     Else
         MaximoInt = b
 
@@ -353,9 +353,9 @@ Public Function CalcularDaño(ByVal UserIndex As Integer, Optional ByVal NpcIndex
     'Debug.Print "FUERZA: " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza)
 End Function
 
-Function Maximo(ByVal A As Long, ByVal b As Long) As Long
-If A > b Then
-    Maximo = A
+Function Maximo(ByVal a As Long, ByVal b As Long) As Long
+If a > b Then
+    Maximo = a
     Else: Maximo = b
 End If
 End Function
@@ -818,17 +818,23 @@ End Function
 
 Public Sub NpcDañoNpc(ByVal Atacante As Integer, ByVal Victima As Integer)
 
-    Dim daño As Integer
+    Dim daño As Long
+
     Dim ANpc As npc, DNpc As npc
+
     ANpc = Npclist(Atacante)
 
     daño = RandomNumber(ANpc.Stats.MinHit, ANpc.Stats.MaxHit)
     Npclist(Victima).Stats.MinHP = Npclist(Victima).Stats.MinHP - daño
-
     Call CalcularDarExp(Npclist(Atacante).MaestroUser, Victima, daño)
 
-    If Npclist(Victima).Stats.MinHP < 1 Then
+    If Npclist(Victima).Stats.MinHP < 1 Then Npclist(Victima).Stats.MinHP = 0
+    Call SendData(ToIndex, Npclist(Atacante).MaestroUser, 0, "||" & Npclist(Victima).Name & " le queda " & Npclist(Victima).Stats.MinHP & "/" & Npclist(Victima).Stats.MaxHP & " de vida." & FONTTYPE_Motd4)
 
+    Npclist(Victima).Stats.MinHP = Npclist(Victima).Stats.MinHP - daño
+
+    If Npclist(Victima).Stats.MinHP < 1 Then
+        
         If Npclist(Atacante).flags.AttackedBy <> "" Then
             Npclist(Atacante).Movement = Npclist(Atacante).flags.OldMovement
             Npclist(Atacante).Hostile = Npclist(Atacante).flags.OldHostil
@@ -836,9 +842,9 @@ Public Sub NpcDañoNpc(ByVal Atacante As Integer, ByVal Victima As Integer)
             Npclist(Atacante).Movement = Npclist(Atacante).flags.OldMovement
 
         End If
-
+        
         Call FollowAmo(Atacante)
-
+        
         Call MuereNpc(Victima, Npclist(Atacante).MaestroUser)
 
     End If
@@ -900,7 +906,7 @@ Public Sub NpcAtacaNpc(ByVal Atacante As Integer, ByVal Victima As Integer, Opti
 
     End If
     
-    Call SendData(SendTarget.ToIndex, Npclist(Atacante).MaestroUser, 0, "||" & Npclist(Victima).Name & " le queda " & Npclist(Victima).Stats.MinHP & " / " & Npclist( _
+   ' Call SendData(SendTarget.ToIndex, Npclist(Atacante).MaestroUser, 0, "||" & Npclist(Victima).Name & " le queda " & Npclist(Victima).Stats.MinHP & " / " & Npclist( _
                                                             Victima).Stats.MaxHP & " de vida." & FONTTYPE_Motd4)
 
 End Sub
@@ -1260,6 +1266,10 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
     daño = CalcularDaño(AtacanteIndex)
     antdaño = daño
+    
+    If UserList(AtacanteIndex).pos.Map = 192 Then
+        If UserList(AtacanteIndex).flags.SuPareja = VictimaIndex Then Exit Sub
+    End If
 
     If UserList(VictimaIndex).Invent.AmuletoEqpObjIndex > 0 Then
         If ObjData(UserList(VictimaIndex).Invent.AmuletoEqpObjIndex).AmuletoDefensa.TipoBonifica = eAmuleto.otFisico Then

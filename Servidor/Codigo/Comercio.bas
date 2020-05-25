@@ -103,7 +103,7 @@ Function UserCompraObj(ByVal UserIndex As Integer, ByVal ObjIndex As Integer, By
 
 
         'tal vez suba el skill comerciar ;-)
-        Call SubirSkill(UserIndex, Comerciar)
+        Call SubirSkill(UserIndex, comerciar)
         Call EnviarOro(UserIndex)
 
         If ObjData(obji).ObjType = eOBJType.otLlaves Then Call logVentaCasa(UserList(UserIndex).Name & " compro " & ObjData(obji).Name)
@@ -222,7 +222,7 @@ Sub NpcCompraObj(ByVal UserIndex As Integer, ByVal ObjIndex As Integer, ByVal Ca
     If UserList(UserIndex).Stats.GLD > MaxOro Then UserList(UserIndex).Stats.GLD = MaxOro
 
     'tal vez suba el skill comerciar ;-)
-    Call SubirSkill(UserIndex, Comerciar)
+    Call SubirSkill(UserIndex, comerciar)
     Call EnviarOro(UserIndex)
     Exit Sub
 
@@ -441,7 +441,7 @@ Function Descuento(ByVal UserIndex As Integer) As String
 
 'Establece el descuento en funcion del skill comercio
 Dim PtsComercio As Integer
-PtsComercio = UserList(UserIndex).Stats.UserSkills(Comerciar)
+PtsComercio = UserList(UserIndex).Stats.UserSkills(comerciar)
 
 If PtsComercio <= 11 And PtsComercio > 5 Then
     UserList(UserIndex).flags.Descuento = 1.1
@@ -481,11 +481,15 @@ End If
 End Function
 
 Sub EnviarNpcInv(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
-'Enviamos el inventario del npc con el cual el user va a comerciar...
-    Dim i As Integer
+
+    'Enviamos el inventario del npc con el cual el user va a comerciar...
+    Dim i     As Integer
+
     Dim infla As Long
-    Dim Desc As String
-    Dim val As Long
+
+    Dim Desc  As String
+
+    Dim val   As Long
 
     Desc = Descuento(UserIndex)
 
@@ -494,22 +498,19 @@ Sub EnviarNpcInv(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
     For i = 1 To MAX_INVENTORY_SLOTS
 
         If Npclist(NpcIndex).Invent.Object(i).ObjIndex > 0 Then
+
             'Calculamos el porc de inflacion del npc
             If Npclist(NpcIndex).Numero = 265 Then
                 val = ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).Valor
             Else
                 infla = (Npclist(NpcIndex).Inflacion * ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).Valor) / 100
                 val = (ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).Valor + infla) / Desc
+
             End If
 
-            SendData SendTarget.ToIndex, UserIndex, 0, "NPCI" & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).Name & "," & Npclist( _
-                                                       NpcIndex).Invent.Object(i).Amount & "," & val & "," & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).GrhIndex & "," & _
-                                                       Npclist(NpcIndex).Invent.Object(i).ObjIndex & "," & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).ObjType & "," & _
-                                                       ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).MaxHit & "," & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).MinHit _
-                                                     & "," & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).MaxDef
+            SendData SendTarget.ToIndex, UserIndex, 0, "NPCI" & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).Name & "," & Npclist(NpcIndex).Invent.Object(i).Amount & "," & val & "," & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).GrhIndex & "," & Npclist(NpcIndex).Invent.Object(i).ObjIndex & "," & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).ObjType & "," & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).MaxHit & "," & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).MinHit & "," & ObjData(Npclist(NpcIndex).Invent.Object(i).ObjIndex).MaxDef
         Else
-            SendData SendTarget.ToIndex, UserIndex, 0, "NPCI" & "Nada" & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," _
-                                                     & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0
+            SendData SendTarget.ToIndex, UserIndex, 0, "NPCI" & "Nada" & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0 & "," & 0
 
         End If
 
