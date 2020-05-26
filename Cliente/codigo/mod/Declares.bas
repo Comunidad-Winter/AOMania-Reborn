@@ -39,7 +39,7 @@ Public CustomKeys          As New clsCustomKeys
 
 '"192.171.19.138"
 '"127.0.0.1"
-Public Const CurServerIp   As String = "192.171.19.138"
+Public Const CurServerIp   As String = "127.0.0.1"
 Public Const CurServerPort As Integer = 9879
 
 Public Centrada            As Boolean

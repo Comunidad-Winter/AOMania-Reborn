@@ -592,7 +592,7 @@ Public Enum eOBJType
     otBotellaLlena = 34
     otMANCHAS = 35
     otPARAA = 36
-    otAlas = 37
+    otalas = 37
     otHierba = 38
     otOveja = 40
     otPasaje = 41
@@ -1062,6 +1062,8 @@ Public Type ObjData
     Pack As tPack
 
     NoRobable As Byte
+    
+    Velocidad As Byte
   
 End Type
 

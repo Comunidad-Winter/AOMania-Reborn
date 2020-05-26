@@ -208,6 +208,7 @@ Sub HandleData(ByVal rData As String)
     Case "LODXXD"
 
         UserCiego = False
+        UserEstupido = False
         EngineRun = True
         UserDescansar = False
         Nombres = True
@@ -1069,6 +1070,15 @@ Sub HandleData(ByVal rData As String)
         Call MakeChar(charindex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(3, rData, 44), X, Y, Val(ReadField(7, rData, 44)), _
                       Val(ReadField(8, rData, 44)), Val(ReadField(11, rData, 44)), Val(ReadField(15, rData, 44)))
         '[/MaTeO 9]
+        
+        If charindex = UserCharIndex Then
+            bTecho = IIf(MapData(UserPos.X, UserPos.Y).Trigger = 1 Or MapData(UserPos.X, UserPos.Y).Trigger = 2 Or MapData(UserPos.X, _
+            UserPos.Y).Trigger = 4, True, False)
+
+           TextoMapa = MapInfo.Name & " (  " & UserMap & "   X: " & CharList(UserCharIndex).pos.X & " Y: " & CharList(UserCharIndex).pos.Y & ")"
+ 
+        End If
+        
         Exit Sub
         'anim helios
 

@@ -1,42 +1,4 @@
 Attribute VB_Name = "Resolution"
-'**************************************************************
-' Resolution.bas - Performs resolution changes.
-'
-' Designed and implemented by Juan Martín Sotuyo Dodero (Maraxus)
-' (juansotuyo@gmail.com)
-'**************************************************************
-     
-'**************************************************************************
-'This program is free software; you can redistribute it and/or modify
-'it under the terms of the Affero General Public License;
-'either version 1 of the License, or any later version.
-'
-'This program is distributed in the hope that it will be useful,
-'but WITHOUT ANY WARRANTY; without even the implied warranty of
-'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'Affero General Public License for more details.
-'
-'You should have received a copy of the Affero General Public License
-'along with this program; if not, you can find it at http://www.affero.org/oagpl.html
-'**************************************************************************
-     
-''
-'Handles all incoming / outgoing packets for client - server communications
-'The binary prtocol here used was designed by Juan Martín Sotuyo Dodero.
-'This is the first time it's used in Alkon, though the second time it's coded.
-'This implementation has several enhacements from the first design.
-'
-' @file     Resolution.bas
-' @author   Juan Martín Sotuyo Dodero (Maraxus) juansotuyo@gmail.com
-' @version  1.1.0
-' @date     20080329
-     
-'**************************************************************************
-' - HISTORY HACETE UNA COPIA DE ESTE MOD POR LAS DUAS
-'       v1.0.0  -   Initial release ( 2007/08/14 - Juan Martín Sotuyo Dodero )
-'       v1.1.0  -   Made it reset original depth and frequency at exit ( 2008/03/29 - Juan Martín Sotuyo Dodero )
-'**************************************************************************
-     
 Option Explicit
      
 Private Const CCDEVICENAME          As Long = 32
@@ -90,18 +52,8 @@ Private Declare Function EnumDisplaySettings Lib "user32" Alias "EnumDisplaySett
     lptypDevMode As Any) As Boolean
 
 Private Declare Function ChangeDisplaySettings Lib "user32" Alias "ChangeDisplaySettingsA" (lptypDevMode As Any, ByVal dwFlags As Long) As Long
-     
-'TODO : Change this to not depend on any external public variable using args instead!
-     
+          
 Public Sub SetResolution()
-
-    '***************************************************
-    'Autor: Unknown
-    'Last Modification: 03/29/08
-    'Changes the display resolution if needed.
-    'Last Modified By: Juan Martín Sotuyo Dodero (Maraxus)
-    ' 03/29/2008: Maraxus - Retrieves current settings storing display depth and frequency for proper restoration.
-    '***************************************************
 
     Dim lRes              As Long
     Dim MidevM            As typDevMODE
@@ -109,7 +61,7 @@ Public Sub SetResolution()
     Dim MainWidth         As Integer
     Dim MainHeight        As Integer
        
-    lRes = EnumDisplaySettings(0, ENUM_CURRENT_SETTINGS, MidevM)
+    lRes = EnumDisplaySettings(0, 0, MidevM)
     
     'MainWidth = frmain.ScaleWidth
    ' MainHeight = frmMain.ScaleHeight
@@ -133,26 +85,16 @@ Public Sub SetResolution()
         NoRes = False
 
         With MidevM
-            'oldDepth = .dmBitsPerPel
-            'oldFrequency = .dmDisplayFrequency
                
-            .dmFields = DM_PELSWIDTH Or DM_PELSHEIGHT 'Or DM_BITSPERPEL
+            .dmFields = DM_PELSWIDTH Or DM_PELSHEIGHT
             .dmPelsWidth = MainWidth
             .dmPelsHeight = MainHeight
-            '.dmBitsPerPel = 32 'MAB: Usando 32 bits, no sirve el AB, pero funca en Windows 8, y Windows 7 no tiene más dramas.
-
+            '.dmBitsPerPel = 32
+  
         End With
            
         lRes = ChangeDisplaySettings(MidevM, CDS_TEST)
-    Else
         
-        NoRes = True
-        bNoResChange = True
-        'MidevM.dmFields = DM_BITSPERPEL
-        'MidevM.dmBitsPerPel = 32 'MAB: Usando 32 bits, no sirve el AB, pero funca en Windows 8, y Windows 7 no tiene más dramas.
-        lRes = ChangeDisplaySettings(MidevM, CDS_TEST)
-        frmMain.WindowState = vbNormal
-
     End If
 
 End Sub
@@ -171,30 +113,15 @@ Public Sub ResetResolution()
 
     Dim lRes    As Long
        
-    If Not bNoResChange Then
+    If AoSetup.bResolucion = 1 Then
        
-        lRes = EnumDisplaySettings(0, ENUM_CURRENT_SETTINGS, typDevM)
+        lRes = EnumDisplaySettings(0, 0, typDevM)
            
         With typDevM
             .dmFields = DM_PELSWIDTH Or DM_PELSHEIGHT 'Or DM_DISPLAYFREQUENCY Or DM_BITSPERPEL
             .dmPelsWidth = oldResWidth
             .dmPelsHeight = oldResHeight
-            '.dmBitsPerPel = oldDepth
-            '.dmDisplayFrequency = oldFrequency
-
-        End With
-           
-        lRes = ChangeDisplaySettings(typDevM, CDS_TEST)
-    Else
-        lRes = EnumDisplaySettings(0, ENUM_CURRENT_SETTINGS, typDevM)
-           
-        With typDevM
-            .dmFields = DM_PELSWIDTH Or DM_PELSHEIGHT 'Or DM_DISPLAYFREQUENCY  Or DM_BITSPERPEL
-            .dmPelsWidth = oldResWidth
-            .dmPelsHeight = oldResHeight
-            '.dmBitsPerPel = oldDepth
-            '.dmDisplayFrequency = oldFrequency
-
+            .dmBitsPerPel = oldDepth
         End With
            
         lRes = ChangeDisplaySettings(typDevM, CDS_TEST)

@@ -961,6 +961,7 @@ Sub LoadOBJData()
             ObjData(Object).Caos = val(Leer.GetValue("OBJ" & Object, "Caos"))
             ObjData(Object).Nemes = val(Leer.GetValue("OBJ" & Object, "Nemes"))
             ObjData(Object).Templ = val(Leer.GetValue("OBJ" & Object, "Templ"))
+            ObjData(Object).Velocidad = val(Leer.GetValue("OBJ" & Object, "Velocidad"))
 
         Case eOBJType.otFlechas
             ObjData(Object).MaxHit = val(Leer.GetValue("OBJ" & Object, "MaxHIT"))
@@ -972,7 +973,7 @@ Sub LoadOBJData()
         Case eOBJType.otPasaje
             ObjData(Object).Zona = val(Leer.GetValue("OBJ" & Object, "Zona"))
 
-        Case eOBJType.otAlas
+        Case eOBJType.otalas
             ObjData(Object).Real = val(Leer.GetValue("OBJ" & Object, "Real"))
             ObjData(Object).Caos = val(Leer.GetValue("OBJ" & Object, "Caos"))
             ObjData(Object).Nemes = val(Leer.GetValue("OBJ" & Object, "Nemes"))
@@ -1263,7 +1264,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
         UserList(UserIndex).Counters.Paralisis = IntervaloParalizado
     End If
 
-    UserList(UserIndex).flags.navegando = CByte(UserFile.GetValue("FLAGS", "Navegando"))
+    UserList(UserIndex).flags.Navegando = CByte(UserFile.GetValue("FLAGS", "Navegando"))
     UserList(UserIndex).flags.Embarcado = CByte(UserFile.GetValue("FLAGS", "Embarcado"))
 
     UserList(UserIndex).Counters.Pena = CLng(UserFile.GetValue("COUNTERS", "Pena"))
@@ -1303,9 +1304,9 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).Pregunta = UserFile.GetValue("INIT", "Pregunta")
     UserList(UserIndex).Respuesta = UserFile.GetValue("INIT", "Respuesta")
 
-    UserList(UserIndex).Pos.Map = CInt(ReadField(1, UserFile.GetValue("INIT", "Position"), 45))
-    UserList(UserIndex).Pos.X = CInt(ReadField(2, UserFile.GetValue("INIT", "Position"), 45))
-    UserList(UserIndex).Pos.Y = CInt(ReadField(3, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).pos.Map = CInt(ReadField(1, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).pos.X = CInt(ReadField(2, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).pos.Y = CInt(ReadField(3, UserFile.GetValue("INIT", "Position"), 45))
 
     UserList(UserIndex).PalabraSecreta = UserFile.GetValue("INIT", "PalabraSecreta")
     UserList(UserIndex).flags.RPasswd = UserFile.GetValue("FLAGS", "RPasswd")
@@ -1730,9 +1731,9 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
                             .NpcIndex = OpenNPC(.NpcIndex)
                         End If
 
-                        Npclist(.NpcIndex).Pos.Map = Map
-                        Npclist(.NpcIndex).Pos.X = X
-                        Npclist(.NpcIndex).Pos.Y = Y
+                        Npclist(.NpcIndex).pos.Map = Map
+                        Npclist(.NpcIndex).pos.X = X
+                        Npclist(.NpcIndex).pos.Y = Y
 
                         'Call MakeNPCChar(True, 0, .NpcIndex, map, X, Y)
                         'Call MakeNPCChar(ToNone, 0, 0, MapData(map, X, Y).NpcIndex, map, X, Y)
@@ -2049,7 +2050,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("FLAGS", "Desnudo", CStr(.flags.Desnudo))
         Call Manager.ChangeValue("FLAGS", "Ban", CStr(.flags.Ban))
         Call Manager.ChangeValue("FLAGS", "Silenciado", CStr(.flags.Silenciado))
-        Call Manager.ChangeValue("FLAGS", "Navegando", CStr(.flags.navegando))
+        Call Manager.ChangeValue("FLAGS", "Navegando", CStr(.flags.Navegando))
         Call Manager.ChangeValue("FLAGS", "Embarcado", CStr(.flags.Embarcado))
 
         Call Manager.ChangeValue("FLAGS", "Envenenado", CStr(.flags.Envenenado))
@@ -2145,7 +2146,7 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("INIT", "Casco", CStr(.char.CascoAnim))
 
         Call Manager.ChangeValue("INIT", "LastIP", .ip)
-        Call Manager.ChangeValue("INIT", "Position", .Pos.Map & "-" & .Pos.X & "-" & .Pos.Y)
+        Call Manager.ChangeValue("INIT", "Position", .pos.Map & "-" & .pos.X & "-" & .pos.Y)
         'soporte
         Call Manager.ChangeValue("INIT", "Pregunta", .Pregunta)
         Call Manager.ChangeValue("INIT", "Respuesta", .Respuesta)

@@ -349,7 +349,13 @@ Public Function CalcularDaño(ByVal UserIndex As Integer, Optional ByVal NpcIndex
     End If
 
     DañoUsuario = RandomNumber(UserList(UserIndex).Stats.MinHit, UserList(UserIndex).Stats.MaxHit)
-    CalcularDaño = (((3 * DañoArma) + ((DañoMaxArma / 5) * Maximo(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) + DañoUsuario) * ModifClase)
+    
+    If UserList(UserIndex).GranPoder = 1 Then
+         CalcularDaño = (((3 * DañoArma) + ((DañoMaxArma / 5) * Maximo(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) + DañoUsuario) * ModifClase) * 2
+         Else
+         CalcularDaño = (((3 * DañoArma) + ((DañoMaxArma / 5) * Maximo(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) + DañoUsuario) * ModifClase)
+    End If
+    
     'Debug.Print "FUERZA: " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza)
 End Function
 
@@ -408,14 +414,14 @@ End Function
 
 Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 
-    Dim daño As Long
+    Dim Daño As Long
     Dim TeCritico As Byte
     Dim Arma As Long
     Dim Municion As Long
 
     TeCritico = RandomNumber(1, 8)
 
-    daño = CalcularDaño(UserIndex, NpcIndex)
+    Daño = CalcularDaño(UserIndex, NpcIndex)
 
     If Npclist(NpcIndex).Numero = 616 Then
         If Npclist(NpcIndex).Stats.MinHP > 14000 Then
@@ -458,24 +464,24 @@ Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 
     'Peto
     'esta navegando? si es asi le sumamos el daño del barco
-    If UserList(UserIndex).flags.Navegando = 1 Then daño = daño + RandomNumber(ObjData(UserList(UserIndex).Invent.BarcoObjIndex).MinHit, ObjData( _
+    If UserList(UserIndex).flags.Navegando = 1 Then Daño = Daño + RandomNumber(ObjData(UserList(UserIndex).Invent.BarcoObjIndex).MinHit, ObjData( _
                                                                                                                                          UserList(UserIndex).Invent.BarcoObjIndex).MaxHit)
 
-    daño = daño - Npclist(NpcIndex).Stats.def
+    Daño = Daño - Npclist(NpcIndex).Stats.def
 
-    If daño < 0 Then daño = 0
+    If Daño < 0 Then Daño = 0
 
     If UserList(UserIndex).pos.Map = MapaCasaAbandonada1 Then
         Call Efecto_AccionCasaEncantada(UserIndex, NpcIndex)
     End If
 
     ' animacion daño sobre 100
-    If daño >= 100 Then
+    If Daño >= 100 Then
         'Call SendData(SendTarget.ToNPCArea, NpcIndex, Npclist(NpcIndex).pos.Map, "CFX" & Npclist(NpcIndex).char.CharIndex & "," & 38 & "," & 0)
     End If
 
     ' animacion daño bajo 100
-    If daño < 100 Then
+    If Daño < 100 Then
         'Call SendData(SendTarget.ToNPCArea, NpcIndex, Npclist(NpcIndex).pos.Map, "CFX" & Npclist(NpcIndex).char.CharIndex & "," & 14 & "," & 0)
     End If
 
@@ -499,25 +505,25 @@ Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
         End If
     End If
 
-    Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MinHP - daño
+    Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MinHP - Daño
 
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Le has pegado a la criatura por " & daño & " !!" & FONTTYPE_Motd4)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Le has pegado a la criatura por " & Daño & " !!" & FONTTYPE_Motd4)
 
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & daño & "°" & CStr(Npclist( _
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & Daño & "°" & CStr(Npclist( _
                                                                                                                        NpcIndex).char.CharIndex))
 
     If Npclist(NpcIndex).Stats.MinHP < 0 Then
-        daño = Npclist(NpcIndex).Stats.MinHP + daño
+        Daño = Npclist(NpcIndex).Stats.MinHP + Daño
         Npclist(NpcIndex).Stats.MinHP = 0
     End If
 
-    Call CalcularDarExp(UserIndex, NpcIndex, daño)
+    Call CalcularDarExp(UserIndex, NpcIndex, Daño)
 
     If Npclist(NpcIndex).Stats.MinHP > 0 Then
 
         'Trata de apuñalar por la espalda al enemigo
         If PuedeApuñalar(UserIndex) Then
-            Call DoApuñalar(UserIndex, NpcIndex, 0, daño)
+            Call DoApuñalar(UserIndex, NpcIndex, 0, Daño)
             Call SubirSkill(UserIndex, Apuñalar)
         End If
 
@@ -558,12 +564,12 @@ End Sub
 
 Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
-    Dim daño As Integer, Lugar As Integer, absorbido As Integer, npcfile As String
+    Dim Daño As Integer, Lugar As Integer, absorbido As Integer, npcfile As String
     Dim antdaño As Integer, defbarco As Integer, defArmadura As Integer, defEscudo As Integer
     Dim Obj As ObjData, AmuletoDaño As Integer
 
-    daño = RandomNumber(Npclist(NpcIndex).Stats.MinHit, Npclist(NpcIndex).Stats.MaxHit)
-    antdaño = daño
+    Daño = RandomNumber(Npclist(NpcIndex).Stats.MinHit, Npclist(NpcIndex).Stats.MaxHit)
+    antdaño = Daño
 
     If UserList(UserIndex).flags.Navegando = 1 Then
         Obj = ObjData(UserList(UserIndex).Invent.BarcoObjIndex)
@@ -582,9 +588,9 @@ Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
             Obj = ObjData(UserList(UserIndex).Invent.CascoEqpObjIndex)
             absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
             absorbido = absorbido + defbarco
-            daño = daño - absorbido
+            Daño = Daño - absorbido
 
-            If daño < 1 Then daño = 1
+            If Daño < 1 Then Daño = 1
 
         End If
 
@@ -620,22 +626,22 @@ Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
             End If
         End If
 
-        daño = (daño - absorbido) - AmuletoDaño
+        Daño = (Daño - absorbido) - AmuletoDaño
 
         Select Case UCase$(UserList(UserIndex).Clase)
         Case "GUERRERO"
-            daño = Porcentaje(daño, "50")
+            Daño = Porcentaje(Daño, "50")
         Case "ARQUERO"
-            daño = Porcentaje(daño, "30")
+            Daño = Porcentaje(Daño, "30")
         End Select
 
-        If daño < 1 Then daño = 1
+        If Daño < 1 Then Daño = 1
 
     End Select
 
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "N2" & Lugar & "," & daño)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "N2" & Lugar & "," & Daño)
 
-    If UserList(UserIndex).flags.Privilegios = PlayerType.User Then UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - daño
+    If UserList(UserIndex).flags.Privilegios = PlayerType.User Then UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - Daño
 
     'Muere el usuario
     If UserList(UserIndex).Stats.MinHP <= 0 Then
@@ -818,20 +824,20 @@ End Function
 
 Public Sub NpcDañoNpc(ByVal Atacante As Integer, ByVal Victima As Integer)
 
-    Dim daño As Long
+    Dim Daño As Long
 
     Dim ANpc As npc, DNpc As npc
 
     ANpc = Npclist(Atacante)
 
-    daño = RandomNumber(ANpc.Stats.MinHit, ANpc.Stats.MaxHit)
-    Npclist(Victima).Stats.MinHP = Npclist(Victima).Stats.MinHP - daño
-    Call CalcularDarExp(Npclist(Atacante).MaestroUser, Victima, daño)
+    Daño = RandomNumber(ANpc.Stats.MinHit, ANpc.Stats.MaxHit)
+    Npclist(Victima).Stats.MinHP = Npclist(Victima).Stats.MinHP - Daño
+    Call CalcularDarExp(Npclist(Atacante).MaestroUser, Victima, Daño)
 
     If Npclist(Victima).Stats.MinHP < 1 Then Npclist(Victima).Stats.MinHP = 0
     Call SendData(ToIndex, Npclist(Atacante).MaestroUser, 0, "||" & Npclist(Victima).Name & " le queda " & Npclist(Victima).Stats.MinHP & "/" & Npclist(Victima).Stats.MaxHP & " de vida." & FONTTYPE_Motd4)
 
-    Npclist(Victima).Stats.MinHP = Npclist(Victima).Stats.MinHP - daño
+    Npclist(Victima).Stats.MinHP = Npclist(Victima).Stats.MinHP - Daño
 
     If Npclist(Victima).Stats.MinHP < 1 Then
         
@@ -1220,6 +1226,10 @@ Public Sub UsuarioAtacaUsuario(ByVal AtacanteIndex As Integer, ByVal VictimaInde
         Exit Sub
 
     End If
+    
+    If UserList(AtacanteIndex).pos.Map = 192 Then
+        If UserList(AtacanteIndex).flags.SuPareja = VictimaIndex Then Exit Sub
+    End If
 
     If Not PuedeAtacar(AtacanteIndex, VictimaIndex) Then Exit Sub
 
@@ -1254,7 +1264,7 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
     On Error GoTo ErrorHandler
 
-    Dim daño As Long, antdaño As Integer
+    Dim Daño As Long, antdaño As Integer
     Dim Lugar As Integer, absorbido As Long
     Dim defbarco As Integer, defArmadura As Integer, defEscudo As Integer
     Dim TeCritico As Byte, AmuletoDaño As Integer
@@ -1264,27 +1274,23 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
     Dim Obj As ObjData
 
-    daño = CalcularDaño(AtacanteIndex)
-    antdaño = daño
-    
-    If UserList(AtacanteIndex).pos.Map = 192 Then
-        If UserList(AtacanteIndex).flags.SuPareja = VictimaIndex Then Exit Sub
-    End If
+    Daño = CalcularDaño(AtacanteIndex)
+    antdaño = Daño
 
     If UserList(VictimaIndex).Invent.AmuletoEqpObjIndex > 0 Then
         If ObjData(UserList(VictimaIndex).Invent.AmuletoEqpObjIndex).AmuletoDefensa.TipoBonifica = eAmuleto.otFisico Then
             AmuletoDaño = RandomNumber(1, ObjData(UserList(VictimaIndex).Invent.AmuletoEqpObjIndex).AmuletoDefensa.Bonifica)
             Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "||Tu Amuleto te ha protegido de " & AmuletoDaño & " puntos de Daño." & FONTTYPE_TALKMSG)
-            daño = daño - AmuletoDaño
+            Daño = Daño - AmuletoDaño
         End If
     End If
 
-    If daño >= 200 Then
+    If Daño >= 200 Then
         If UserList(VictimaIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, VictimaIndex, UserList(VictimaIndex).pos.Map, "CFX" & _
                                                                                                                                             UserList(VictimaIndex).char.CharIndex & "," & 38 & "," & 0)
     End If
 
-    If daño < 200 Then
+    If Daño < 200 Then
         If UserList(VictimaIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, VictimaIndex, UserList(VictimaIndex).pos.Map, "CFX" & _
                                                                                                                                             UserList(VictimaIndex).char.CharIndex & "," & 14 & "," & 0)
 
@@ -1294,7 +1300,7 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
     If UserList(AtacanteIndex).flags.Navegando = 1 Then
         Obj = ObjData(UserList(AtacanteIndex).Invent.BarcoObjIndex)
-        daño = daño + RandomNumber(Obj.MinHit, Obj.MaxHit)
+        Daño = Daño + RandomNumber(Obj.MinHit, Obj.MaxHit)
 
     End If
 
@@ -1334,9 +1340,9 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     Obj = ObjData(UserList(VictimaIndex).Invent.CascoEqpObjIndex)
                     absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
                     absorbido = absorbido + defbarco - Resist
-                    daño = daño - absorbido
+                    Daño = Daño - absorbido
 
-                    If daño < 0 Then daño = 1
+                    If Daño < 0 Then Daño = 1
 
                 End If
 
@@ -1364,24 +1370,24 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     absorbido = defEscudo + defbarco - Resist
                 End If
 
-                daño = daño - absorbido
+                Daño = Daño - absorbido
 
-                If daño < 0 Then daño = 1
+                If Daño < 0 Then Daño = 1
 
             End Select
 
             If TeCritico = 10 Then
                 ' Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Round(Daño * 1.1, 0) & "!" & "°" & _
                   str(UserList(VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Round(daño * 1.1, 0)
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Round(Daño * 1.1, 0)
             Else
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Daño & "!" & "°" & str(UserList( _
                  VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & daño & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Daño & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño
 
             End If
 
@@ -1394,9 +1400,9 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     Obj = ObjData(UserList(VictimaIndex).Invent.CascoEqpObjIndex)
                     absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
                     absorbido = absorbido + defbarco - Resist
-                    daño = daño - absorbido
+                    Daño = Daño - absorbido
 
-                    If daño < 0 Then daño = 1
+                    If Daño < 0 Then Daño = 1
 
                 End If
 
@@ -1424,24 +1430,24 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     absorbido = defEscudo + defbarco - Resist
                 End If
 
-                daño = daño - absorbido
+                Daño = Daño - absorbido
 
-                If daño < 0 Then daño = 1
+                If Daño < 0 Then Daño = 1
 
             End Select
 
             If TeCritico = 10 Then
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Round(Daño * 1.1, 0) & "!" & "°" & _
                  str(UserList(VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Round(daño * 1.1, 0)
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Round(Daño * 1.1, 0)
             Else
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Daño & "!" & "°" & str(UserList( _
                  VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & daño & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Daño & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño
 
             End If
 
@@ -1456,9 +1462,9 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                     Obj = ObjData(UserList(VictimaIndex).Invent.CascoEqpObjIndex)
                     absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
                     absorbido = absorbido + defbarco - Resist
-                    daño = daño - absorbido
+                    Daño = Daño - absorbido
 
-                    If daño < 0 Then daño = 1
+                    If Daño < 0 Then Daño = 1
 
                 End If
 
@@ -1487,24 +1493,24 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
                 End If
 
-                daño = daño - absorbido
+                Daño = Daño - absorbido
 
-                If daño < 0 Then daño = 1
+                If Daño < 0 Then Daño = 1
 
             End Select
 
             If TeCritico = 10 Then
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Round(Daño * 1.1, 0) & "!" & "°" & _
                  str(UserList(VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Round(daño * 1.1, 0) & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño * 1.1
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Round(Daño * 1.1, 0) & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño * 1.1
             Else
                 'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Daño & "!" & "°" & str(UserList( _
                  VictimaIndex).char.CharIndex))
-                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & daño & "," & UserList(VictimaIndex).Name)
-                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
-                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño
+                Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Daño & "," & UserList(VictimaIndex).Name)
+                Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
+                UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño
             End If
 
         End If
@@ -1520,9 +1526,9 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
                 Obj = ObjData(UserList(VictimaIndex).Invent.CascoEqpObjIndex)
                 absorbido = RandomNumber(Obj.MinDef, Obj.MaxDef)
                 absorbido = absorbido + defbarco - Resist
-                daño = daño - absorbido
+                Daño = Daño - absorbido
 
-                If daño < 0 Then daño = 1
+                If Daño < 0 Then Daño = 1
 
             End If
 
@@ -1551,17 +1557,17 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
             End If
 
-            daño = daño - absorbido
+            Daño = Daño - absorbido
 
-            If daño < 0 Then daño = 1
+            If Daño < 0 Then Daño = 1
 
         End Select
 
         'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°- " & Daño & "!" & "°" & str(UserList( _
          VictimaIndex).char.CharIndex))
-        Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & daño & "," & UserList(VictimaIndex).Name)
-        Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & daño & "," & UserList(AtacanteIndex).Name)
-        UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - daño
+        Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "N5" & Lugar & "," & Daño & "," & UserList(VictimaIndex).Name)
+        Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "N4" & Lugar & "," & Daño & "," & UserList(AtacanteIndex).Name)
+        UserList(VictimaIndex).Stats.MinHP = UserList(VictimaIndex).Stats.MinHP - Daño
 
     End If
 
@@ -1580,7 +1586,7 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
 
         'Trata de apuñalar por la espalda al enemigo
         If PuedeApuñalar(AtacanteIndex) Then
-            Call DoApuñalar(AtacanteIndex, 0, VictimaIndex, daño)
+            Call DoApuñalar(AtacanteIndex, 0, VictimaIndex, Daño)
             Call SubirSkill(AtacanteIndex, Apuñalar)
 
         End If

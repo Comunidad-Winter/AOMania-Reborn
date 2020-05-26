@@ -4852,6 +4852,7 @@ Crucial=1
 SkCarpinteria=65
 Madera=20000
 Cae=1
+Velocidad=2
  
 [OBJ476]
 Name=Galeon
@@ -4867,7 +4868,8 @@ Crucial=1
 SkCarpinteria=80
 Madera=30000
 Cae=1
- 
+Velocidad=3
+
 [OBJ477]
 Name=Fragata fantasmal (Solo Piratas)
 GrhIndex=749
@@ -6912,8 +6914,9 @@ Name=Pocion Desparalizar
 GrhIndex=920
 ObjType=11
 TipoPocion=6
-SkHechizeria=100
-ObjHierba=50000
+Valor=75000
+SkHechizeria=90
+ObjHierba=1000
 Valor=75000
  
 [OBJ609]
@@ -7276,9 +7279,9 @@ Name=Poción de invisibilidad
 GrhIndex=16783
 ObjType=11
 TipoPocion=7
-Valor=200000
+Valor=100000
 SkHechizeria=95
-ObjHierba=10000
+ObjHierba=3000
  
 [OBJ631]
 Name=Corona de rey
@@ -9096,9 +9099,9 @@ LingP=20
 LingO=20
 SkHerreria=100
 NumRopaje=216
-MinDef=8
-MaxDef=311
-Valor=38000
+MinDef=35
+MaxDef=30
+Valor=32000
 CP1=MAGO
 CP7=DRUIDA
 CP11=BRUJO
@@ -12858,6 +12861,7 @@ MinDef=3
 MaxDef=10
 Crucial=1
 Cae=1
+Velocidad=1
  
 [OBJ1118]
 Name=Fragata reforzada del agua 2º Jerarquia
@@ -12872,6 +12876,7 @@ NumRopaje=327
 MinDef=6
 MaxDef=16
 Cae=1
+Velocidad=2
  
 [OBJ1119]
 Name=Galeon del agua 3º Jerarquia
@@ -12885,6 +12890,7 @@ NumRopaje=315
 MinDef=9
 MaxDef=20
 Cae=1
+Velocidad=3
  
 [OBJ1120]
 Name=Fragata del fuego 1º Jerarquia
@@ -12900,6 +12906,7 @@ MinDef=3
 MaxDef=10
 Crucial=1
 Cae=1
+Velocidad=1
  
 [OBJ1121]
 Name=Fragata reforzada del fuego 2º Jerarquia
@@ -12914,6 +12921,7 @@ NumRopaje=328
 MinDef=6
 MaxDef=16
 Cae=1
+Velocidad=2
  
 [OBJ1122]
 Name=Galeon del fuego 3º Jerarquia
@@ -12928,6 +12936,7 @@ NumRopaje=316
 MinDef=9
 MaxDef=20
 Cae=1
+Velocidad=3
  
 [OBJ1123]
 Name=Armadura de Gladiador(hombre)
@@ -15515,12 +15524,13 @@ GrhIndex=14290
 ObjType=17
 Newbie=2
 Anim=37
-LingH=390
-LingP=360
-LingO=330
-LingM=300
-Gemas=10
-Diamantes=10
+LingM=100
+LingO=110
+LingP=120
+LingH=130
+SkHerreria=100
+gemas=1
+diamantes=1
 SkHerreria=100
 ObjetoEspecial=10
 Regalo=1
@@ -15541,29 +15551,33 @@ CP13=BANDIDO
 CP14=DOMADOR
  
 [OBJ1307]
-Name=Espada de Cristal (5-7)
+Name=Espada de Ampere
 GrhIndex=930
-ObjType=2
-Newbie=2
+Objtype=2
+MinHIT=31
+MaxHIT=33
+Valor=500000
 Anim=9
-MaxHIT=7
-MinHIT=5
-LingH=150
-LingP=150
-LingO=150
-LingM=150
+Newbie=2 
+CP1="MAGO"
+CP2="CLERIGO"
+'CP3="GUERRERO"
+CP4="ASESINO"
+CP5="LADRON"
+CP6="BARDO"
+CP7="DRUIDA"
+CP8="PALADIN"
+CP9="TRABAJADOR"
+CP10="BRUJO"
+CP11="ARQUERO"
+CP12="BANDIDO"
+CP13="DOMADOR"
+LingO=20
+LingP=25
+LingH=30
 SkHerreria=70
-ObjetoEspecial=55
-Regalo=1
-Valor=50000
-CP1=MAGO
-CP5=LADRON
-CP6=BARDO
-CP7=DRUIDA
-CP9=PIRATA
-CP11=BRUJO
-CP12=ARQUERO
-CP13=BANDIDO
+'nivel=45
+'Vendible=1
  
 [OBJ1308]
 Name=Bastón de Regeneración (8-15)
@@ -16418,6 +16432,7 @@ MinDef=3
 MaxDef=10
 Crucial=1
 Cae=1
+Velocidad=1
  
 [OBJ1351]
 Name=Fragata reforzada del aire
@@ -16431,6 +16446,7 @@ NumRopaje=450
 MinDef=6
 MaxDef=16
 Cae=1
+Velocidad=2
  
 [OBJ1352]
 Name=Galeon del aire
@@ -16444,6 +16460,7 @@ NumRopaje=451
 MinDef=9
 MaxDef=20
 Cae=1
+Velocidad=3
  
 [OBJ1353]
 Name=Casa de Nix n 1
@@ -18993,6 +19010,7 @@ MinDef=3
 MaxDef=10
 Crucial=1
 Cae=1
+Velocidad=1
  
 [OBJ1581]
 Name=Fragata reforzada Tierra
@@ -19006,6 +19024,7 @@ NumRopaje=487
 MinDef=6
 MaxDef=16
 Cae=1
+Velocidad=3
  
 [OBJ1582]
 Name=Galeon Tierra
@@ -19019,6 +19038,7 @@ NumRopaje=488
 MinDef=9
 MaxDef=20
 Cae=1
+Velocidad=3
  
 [OBJ1583]
 Name=Mercurio
@@ -19829,6 +19849,9 @@ CP10=TRABAJADOR
 CP12=ARQUERO
 CP13=BANDIDO
 CP14=DOMADOR
+SkSastreria=100
+Lana=3500
+Lobos=50
  
 [OBJ1630]
 Name=Túnica mago lujo azul Hobbit (+300 Mana)
@@ -20109,6 +20132,9 @@ CP10=TRABAJADOR
 CP12=ARQUERO
 CP13=BANDIDO
 CP14=DOMADOR
+SkSastreria=100
+Lana=3500
+Lobos=50
  
 [OBJ1641]
 Name=Túnica de Lujo Celeste (Hobbit)
@@ -21170,6 +21196,8 @@ CP10=TRABAJADOR
 CP12=ARQUERO
 CP13=BANDIDO
 CP14=DOMADOR
+Lana=5000
+SkSastreria=100
  
 [OBJ1730]
 Name=Sombrero Negro
@@ -21233,6 +21261,8 @@ CP10=TRABAJADOR
 CP12=ARQUERO
 CP13=BANDIDO
 CP14=DOMADOR
+Lana=1000
+SkSastreria=100
  
 [OBJ1733]
 Name=Casco Ejecutor
@@ -22254,6 +22284,7 @@ Crucial=1
 SkCarpinteria=35
 Madera=10000
 Cae=1
+Velocidad=1
  
 [OBJ1984]
 Name=Pack 1 (Mago humano)
@@ -22567,6 +22598,7 @@ Crucial=1
 SkCarpinteria=35
 Madera=10000
 Cae=1
+Velocidad=1
  
 [OBJ2063]
 Name=Fragata Pirata
@@ -22582,4 +22614,5 @@ Crucial=1
 SkCarpinteria=35
 Madera=10000
 Cae=1
+Velocidad=1
  

@@ -282,6 +282,8 @@ Public Type Char
     Icono As Byte
     
     Gm As Byte
+    
+    VelocidadBarco As Byte
 
 End Type
 
@@ -2986,10 +2988,10 @@ End Sub
 
 '[END]'
 Function InitTileEngine(ByVal setDisplayFormhWnd As Long, _
-    ByVal setTilePixelHeight As Integer, _
-    ByVal setTilePixelWidth As Integer, _
-    ByVal setWindowTileHeight As Integer, _
-    ByVal setWindowTileWidth As Integer) As Boolean
+                        ByVal setTilePixelHeight As Integer, _
+                        ByVal setTilePixelWidth As Integer, _
+                        ByVal setWindowTileHeight As Integer, _
+                        ByVal setWindowTileWidth As Integer) As Boolean
                         
     '*****************************************************************
     'InitEngine
@@ -3012,6 +3014,7 @@ Function InitTileEngine(ByVal setDisplayFormhWnd As Long, _
     FramesPerSecCounter = 120
     engineBaseSpeed = 0.017
     ScrollPixelFrame = 7.65
+    
 
     MinXBorder = XMinMapSize + (HalfWindowTileWidth)
     MaxXBorder = XMaxMapSize - (HalfWindowTileWidth)
@@ -3505,11 +3508,12 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
 
           End With
 
-124       If Flags = 0 Then
-126           Flags = D3DCREATE_SOFTWARE_VERTEXPROCESSING
-
-          End If
-
+124       'If Flags = 0 Then
+126       '    Flags = D3DCREATE_SOFTWARE_VERTEXPROCESSING
+              'End If
+              
+              Flags = D3DCREATE_MIXED_VERTEXPROCESSING
+             
           'create device
 128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.hwnd, Flags, DirectD3Dpp)
 

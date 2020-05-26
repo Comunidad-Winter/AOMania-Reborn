@@ -118,6 +118,8 @@ Public Sub DoNavega(ByRef UserIndex As Integer, ByRef Barco As ObjData)
 '        Exit Sub
 '    End If
 
+    Dim TipoVelocidad As Byte
+
     With UserList(UserIndex)
     
       If .flags.Angel = True Or .flags.Demonio Then Exit Sub
@@ -133,17 +135,17 @@ Public Sub DoNavega(ByRef UserIndex As Integer, ByRef Barco As ObjData)
             Exit Sub
    End If
    
-   If .flags.navegando = 0 Then
-            .flags.navegando = 1
+   If .flags.Navegando = 0 Then
+            .flags.Navegando = 1
             .char.Head = 0
             .char.Body = IIf(.flags.Muerto = 0, Barco.Ropaje, iFragataFantasmal)
             .char.ShieldAnim = NingunEscudo
             .char.WeaponAnim = NingunArma
             .char.CascoAnim = NingunCasco
             .char.Alas = NingunAlas
-            
+                    
         Else
-            .flags.navegando = 0
+            .flags.Navegando = 0
             If .flags.Muerto = 0 Then
                 .char.Head = .OrigChar.Head
                 If .Invent.ArmourEqpObjIndex > 0 Then
@@ -167,7 +169,7 @@ Public Sub DoNavega(ByRef UserIndex As Integer, ByRef Barco As ObjData)
                 .char.WeaponAnim = NingunArma
                 .char.CascoAnim = NingunCasco
                 .char.Alas = NingunAlas
-                
+
                 
                 '[GAU]Agregado .Char.Botas = NingunBota
             
@@ -179,7 +181,9 @@ Public Sub DoNavega(ByRef UserIndex As Integer, ByRef Barco As ObjData)
                             .char.CascoAnim, .char.Alas)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "NAVEG")
-
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "TNAVEG" & Barco.Velocidad)
+        
+        
     End With
 
 End Sub
@@ -1570,7 +1574,7 @@ Public Sub DoApuñalar(ByVal UserIndex As Integer, ByVal VictimNpcIndex As Intege
                 tHeading = UserList(VictimUserIndex).char.heading
 
                 DañoApuñalar = CInt(DañoApuñalar * BonoApuñalar(UserIndex, heading, tHeading))
-                DañoTotal = DañoApuñalar + Daño
+                DañoTotal = DañoApuñalar
 
                 UserList(VictimUserIndex).Stats.MinHP = UserList(VictimUserIndex).Stats.MinHP - DañoTotal
 
@@ -1594,7 +1598,7 @@ Public Sub DoApuñalar(ByVal UserIndex As Integer, ByVal VictimNpcIndex As Intege
                 tHeading = Npclist(VictimNpcIndex).char.heading
 
                 DañoApuñalar = CInt(DañoApuñalar * BonoApuñalar(UserIndex, heading, tHeading))
-                DañoTotal = DañoApuñalar + Daño
+                DañoTotal = DañoApuñalar
 
                 Npclist(VictimNpcIndex).Stats.MinHP = Npclist(VictimNpcIndex).Stats.MinHP - DañoTotal
 
@@ -1620,11 +1624,13 @@ Public Sub DoApuñalar(ByVal UserIndex As Integer, ByVal VictimNpcIndex As Intege
 
             Call SubirSkill(UserIndex, Apuñalar)
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No has logrado apuñalar a tu enemigo!" & FONTTYPE_FIGHT)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No has logrado apuñalar a tu enemigo!" & FONTTYPE_Motd4)
 
         End If
 
     End With
+    
+    'Debug.Print "DAÑO APUÑALAMIENTO " & DañoTotal
 
 End Sub
 

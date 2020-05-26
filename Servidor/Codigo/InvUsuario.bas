@@ -14,7 +14,7 @@ Public Function TieneObjetosRobables(ByVal UserIndex As Integer) As Boolean
         ObjIndex = UserList(UserIndex).Invent.Object(i).ObjIndex
 
         If ObjIndex > 0 Then
-            If (ObjData(ObjIndex).ObjType <> eOBJType.otLlaves) And ObjData(ObjIndex).Cae <> 1 And ObjData(ObjIndex).Templ <> 1 And ObjData(ObjIndex).Nemes <> 1 And ObjData(ObjIndex).Real <> 1 And (ObjData(ObjIndex).ObjType <> eOBJType.otMontura) And ObjData(ObjIndex).Caos <> 1 And ObjData(ObjIndex).ObjType <> eOBJType.otalas Then
+            If (ObjData(ObjIndex).ObjType <> eOBJType.otLlaves) And ObjData(ObjIndex).Cae <> 1 And ObjData(ObjIndex).Templ <> 1 And ObjData(ObjIndex).Nemes <> 1 And ObjData(ObjIndex).Real <> 1 And (ObjData(ObjIndex).ObjType <> eOBJType.otMontura) And ObjData(ObjIndex).Caos <> 1 And ObjData(ObjIndex).ObjType <> eOBJType.otalas And ObjData(ObjIndex).NoRobable <> 1 Then
                 
                 If UserList(UserIndex).Invent.EscudoEqpObjIndex <> ObjIndex And UserList(UserIndex).Invent.AlaEqpObjIndex <> ObjIndex And UserList(UserIndex).Invent.AmuletoEqpObjIndex <> ObjIndex And UserList(UserIndex).Invent.ArmourEqpObjIndex <> ObjIndex And UserList(UserIndex).Invent.BarcoObjIndex <> ObjIndex And UserList(UserIndex).Invent.CascoEqpObjIndex <> ObjIndex And UserList(UserIndex).Invent.HerramientaEqpObjIndex <> ObjIndex And UserList(UserIndex).Invent.WeaponEqpObjIndex <> ObjIndex Then
                    
@@ -685,6 +685,8 @@ ElseIf ObjData(ObjIndex).Templ = 1 Then
 ElseIf ObjData(ObjIndex).Nemes = 1 Then
     FaccionPuedeUsarItem = (UserList(UserIndex).Faccion.Nemesis = 1)
     Exit Function
+ Else
+    FaccionPuedeUsarItem = True
 End If
 
 End Function
@@ -992,7 +994,7 @@ Sub EquiparInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
     Case eOBJType.otArmadura
 
-        If UserList(UserIndex).flags.navegando = 1 Then Exit Sub
+        If UserList(UserIndex).flags.Navegando = 1 Then Exit Sub
 
         'Si esta equipado lo quita
         If UserList(UserIndex).Invent.Object(Slot).Equipped Then
@@ -1045,7 +1047,7 @@ Sub EquiparInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
     Case eOBJType.otCASCO
 
-        If UserList(UserIndex).flags.navegando = 1 Then Exit Sub
+        If UserList(UserIndex).flags.Navegando = 1 Then Exit Sub
 
         'Si esta equipado lo quita
         If UserList(UserIndex).Invent.Object(Slot).Equipped Then
@@ -1105,7 +1107,7 @@ Sub EquiparInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
             End If
         End If
 
-        If UserList(UserIndex).flags.navegando = 1 Then Exit Sub
+        If UserList(UserIndex).flags.Navegando = 1 Then Exit Sub
 
         'Si esta equipado lo quita
         If UserList(UserIndex).Invent.Object(Slot).Equipped Then
@@ -1666,6 +1668,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                     If UserList(UserIndex).flags.Ceguera = 0 Then
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás ciego" & FONTTYPE_INFO)
                         Exit Sub
+
                     End If
                     
                     Call SendData(ToIndex, UserIndex, 0, "NSEGUE")
@@ -1684,6 +1687,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                     If UserList(UserIndex).flags.Estupidez = 0 Then
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No estás estupido." & FONTTYPE_INFO)
                         Exit Sub
+
                     End If
 
                     UserList(UserIndex).flags.Estupidez = 0
@@ -2079,9 +2083,9 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                                                             
             If Not FaccionPuedeUsarItem(UserIndex, ObjIndex) Then
                 Call SendData(ToIndex, UserIndex, 0, "||No perteneces a la faccion requerida para usar este barco." & FONTTYPE_INFO)
-            ElseIf ClasePuedeUsarItem(UserIndex, ObjIndex) And ((LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X - 1, UserList(UserIndex).pos.Y, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X + 1, UserList(UserIndex).pos.Y, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1, True)) And UserList(UserIndex).flags.navegando = 0) Or UserList(UserIndex).flags.navegando = 1 Then
+            ElseIf ClasePuedeUsarItem(UserIndex, ObjIndex) And ((LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X - 1, UserList(UserIndex).pos.Y, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X + 1, UserList(UserIndex).pos.Y, True) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1, True)) And UserList(UserIndex).flags.Navegando = 0) Or UserList(UserIndex).flags.Navegando = 1 Then
                     
-                If HayAgua(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y) And UserList(UserIndex).flags.navegando = 1 Then
+                If HayAgua(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y) And UserList(UserIndex).flags.Navegando = 1 Then
                     If Not ((LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X - 1, UserList(UserIndex).pos.Y, False) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y - 1, False) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X + 1, UserList(UserIndex).pos.Y, False) Or LegalPos(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1, False))) Then
                         Call SendData(ToIndex, UserIndex, 0, "||¡No puedes sacarte el barco si estás en el agua!" & FONTTYPE_INFO)
                         Exit Sub
@@ -2108,7 +2112,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
             End If
 
-            If UserList(UserIndex).flags.navegando = 1 Then
+            If UserList(UserIndex).flags.Navegando = 1 Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estas navegando!!" & FONTTYPE_INFO)
                 Exit Sub
 

@@ -87,13 +87,13 @@ Sub HandleData2(ByVal rData As String)
     Select Case UCase$(Left$(rData, 3))
         
         Case "RIG"
-           rData = Right$(rData, Len(rData) - 3)
+            rData = Right$(rData, Len(rData) - 3)
            
-           charindex = ReadField(1, rData, 44)
+            charindex = ReadField(1, rData, 44)
            
-           CharList(charindex).Gm = Val(ReadField(2, rData, 44))
+            CharList(charindex).Gm = Val(ReadField(2, rData, 44))
            
-           Exit Sub
+            Exit Sub
     
         Case "EMC"
 
@@ -307,6 +307,39 @@ Sub HandleData2(ByVal rData As String)
             frmHerreroMagico.Show , frmMain
             Exit Sub
           
+    End Select
+    
+    Select Case UCase$(Left$(rData, 6))
+         
+        Case "TNAVEG"
+            rData = Right$(rData, Len(rData) - 6)
+           
+            CharList(UserCharIndex).VelocidadBarco = Val(rData)
+            Debug.Print "TIPO DE VELOCIDAD DE TU BARCO ES: " & Val(rData)
+           
+            If UserNavegando Then
+                If CharList(UserCharIndex).VelocidadBarco = 2 Then
+                    ScrollPixelFrame = ScrollPixelFrame + 1
+                ElseIf CharList(UserCharIndex).VelocidadBarco = 3 Then
+                    ScrollPixelFrame = ScrollPixelFrame + 2
+
+                End If
+
+            ElseIf Not UserNavegando Then
+
+                If CharList(UserCharIndex).VelocidadBarco = 2 Then
+                    ScrollPixelFrame = ScrollPixelFrame - 1
+                ElseIf CharList(UserCharIndex).VelocidadBarco = 3 Then
+                    ScrollPixelFrame = ScrollPixelFrame - 2
+
+                End If
+
+            End If
+            
+            Debug.Print "ScrollPixelFrame " & ScrollPixelFrame
+           
+            Exit Sub
+         
     End Select
 
 End Sub

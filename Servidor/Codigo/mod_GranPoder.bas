@@ -14,7 +14,7 @@ Public Type tGranPoder
 End Type
 
 Public Enum hGranPoder
-    daño = 1
+    Daño = 1
     Vida = 2
     Mana = 3
     Agilidad = 4
