@@ -1843,6 +1843,8 @@ Sub HechizoPropNPC(ByVal hIndex As Integer, ByVal NpcIndex As Integer, ByVal Use
 
         '  Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbYellow & "°- " & Daño & "!" & "°" & str(Npclist( _
            NpcIndex).char.CharIndex))
+        If Npclist(NpcIndex).NPCtype = eNPCType.DRAGON Then Daño = 1
+           
         Npclist(NpcIndex).Stats.MinHP = Npclist(NpcIndex).Stats.MinHP - Daño
 
 

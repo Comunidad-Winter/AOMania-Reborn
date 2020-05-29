@@ -207,8 +207,8 @@ Sub DarPoderLicantropo(ByVal UserIndex As Integer)
         UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) + "3"
         UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) + "3"
         UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) + "3"
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "BKW")
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Es de noche, tu cuerpo empieza a transformarse y te sientes más poderoso." & FONTTYPE_INFO)
+        Call DoLicantropo(UserIndex)
    End If
    
 End Sub
@@ -222,10 +222,22 @@ Sub QuitarPoderLicantropo(ByVal UserIndex As Integer)
         UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) - "3"
         UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) - "3"
         UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) - "3"
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "BKW")
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ya es de día, vuelves a tu apariencia normal" & FONTTYPE_INFO)
+        Call DoLicantropo(UserIndex)
     End If
     
 End Sub
 
+Sub DesconectaPoderLicantropo(ByVal UserIndex As Integer)
 
+  If UserList(UserIndex).flags.Licantropo = 1 Then
+        UserList(UserIndex).flags.Licantropo = "0"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) - "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) - "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) - "3"
+        UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) - "3"
+        Call DoLicantropo(UserIndex)
+    End If
+      
+End Sub

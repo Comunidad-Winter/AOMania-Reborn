@@ -357,7 +357,12 @@ ElseIf FindWindow(vbNullString, UCase$("CCleaner ")) Then
   AoDefDetect = True
   NameCheats = "CCleaner"
   Exit Function
+ElseIf FindWindow(vbNullString, UCase$("Mouse Recorder Pro - Untitled 3")) Then
+  AoDefDetect = True
+  NameCheats = "Mouse Recorder Pro"
+  Exit Function
 End If
+
 AoDefDetect = False
 End Function
 Public Sub AoDefCheat()

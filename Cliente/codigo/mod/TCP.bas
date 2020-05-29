@@ -817,10 +817,11 @@ Sub HandleData(ByVal rData As String)
 
     Case "PU"                 ' >>>>> Actualiza Posición Usuario :: PU
         rData = Right$(rData, Len(rData) - 2)
-        MapData(UserPos.X, UserPos.Y).charindex = 0
+        Call ActualizaPosicionOld(rData)
+        'MapData(UserPos.X, UserPos.Y).charindex = 0
         UserPos.X = CInt(ReadField(1, rData, 44))
         UserPos.Y = CInt(ReadField(2, rData, 44))
-        MapData(UserPos.X, UserPos.Y).charindex = UserCharIndex
+        'MapData(UserPos.X, UserPos.Y).charindex = UserCharIndex
         CharList(UserCharIndex).pos = UserPos
 
         Call ActualizarShpUserPos
@@ -2561,20 +2562,20 @@ Sub SendData(ByVal sdData As String)
 End Sub
 
 Sub login()
-    Dim version As String
+    Dim Version As String
     
-    version = App.Major & "." & App.Minor & "." & App.Revision
+    Version = App.Major & "." & App.Minor & "." & App.Revision
 
     Select Case EstadoLogin
    
         Case E_MODO.Normal
             
-            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & version & "," & HDD & "," & "0")
+            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & Version & "," & HDD & "," & "0")
           
         Case E_MODO.CrearNuevoPj
             Call SendData("TIRDAD" & UserFuerza & "," & UserAgilidad _
                & "," & UserInteligencia & "," & UserCarisma & "," & UserConstitucion)
-            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
+            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & Version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
                 UserBanco & "," & UserPersonaje & "," & UserEmail & "," & HDD)
 
         Case E_MODO.Dados

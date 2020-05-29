@@ -108,24 +108,14 @@ End Sub
 
 Public Sub DoNavega(ByRef UserIndex As Integer, ByRef Barco As ObjData)
 
-  '  Dim ModNave As Long
-  '  Dim ObjIndex As Integer
-
-    'ObjIndex = UserList(UserIndex).Invent.Object(Slot).ObjIndex
-'
-'    If Not UseRangeFragata(UserIndex, ObjIndex) Then
-'        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Tu rango aún no te permite usar ese item." & FONTTYPE_INFO)
-'        Exit Sub
-'    End If
-
     Dim TipoVelocidad As Byte
 
     With UserList(UserIndex)
     
       If .flags.Angel = True Or .flags.Demonio Then Exit Sub
       
-      If NameDay = "Noche" And UCase$(UserList(UserIndex).Raza) = "LICANTROPO" And .flags.Muerto Then
-            Call SendData(ToIndex, UserIndex, 0, "||No puedes Navegar estando Muerto" & FONTTYPE_INFO)
+      If NameDay = "Noche" And UCase$(UserList(UserIndex).Raza) = "LICANTROPO" And .flags.Muerto = 0 Then
+            Call SendData(ToIndex, UserIndex, 0, "||No puedes navegar transformado." & FONTTYPE_INFO)
             Exit Sub
      End If
     

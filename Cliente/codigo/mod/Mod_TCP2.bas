@@ -10,6 +10,8 @@ Sub HandleData2(ByVal rData As String)
     Dim charindex As Long
 
     Dim X         As Integer
+    
+    Dim i As Integer
    
     Select Case UCase$(Left$(rData, 2))
         
@@ -339,6 +341,29 @@ Sub HandleData2(ByVal rData As String)
             Debug.Print "ScrollPixelFrame " & ScrollPixelFrame
            
             Exit Sub
+         
+    End Select
+    
+    Select Case UCase(Left$(rData, 7))
+         
+         Case "INITSAG"           ' >>>>> Inicia Comerciar /SAGRADO ::
+        i = 1
+
+        Do While i <= MAX_INVENTORY_SLOTS
+
+            If Inventario.ObjIndex(i) <> 0 Then
+                frmComerciar.List1(1).AddItem Inventario.ItemName(i)
+            Else
+                frmComerciar.List1(1).AddItem "Nada"
+
+            End If
+
+            i = i + 1
+        Loop
+        Comerciando = True
+        CanjeSagrado = True
+        frmComerciar.Show , frmMain
+        Exit Sub
          
     End Select
 

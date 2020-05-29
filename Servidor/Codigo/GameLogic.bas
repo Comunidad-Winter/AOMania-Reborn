@@ -67,7 +67,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
     End If
 
     'Sonido al Pasar rayos casa encantada
-    If UserList(UserIndex).Pos.Map = MapaCasaAbandonada1 Then
+    If UserList(UserIndex).pos.Map = MapaCasaAbandonada1 Then
 
         Dim SoundCasa As Integer
 
@@ -76,7 +76,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
         SoundCasa = RandomNumber(111, 113)
         PorcCasa = RandomNumber(1, 80)
 
-        If UserList(UserIndex).Pos.X = 51 And UserList(UserIndex).Pos.Y = 75 Then
+        If (UserList(UserIndex).pos.X = 51 And UserList(UserIndex).pos.Y = 75) Or (UserList(UserIndex).pos.X = 50 And UserList(UserIndex).pos.Y = 75) Then
             Call SendData(SendTarget.ToMap, 0, MapaCasaAbandonada1, "TW108")
 
         End If
@@ -96,8 +96,8 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
     End If
 
     If UserList(UserIndex).flags.Angel Or UserList(UserIndex).flags.Demonio Then
-        If UserList(UserIndex).Pos.Map = MapaBan Then
-            If Not HayAgua(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y) Then
+        If UserList(UserIndex).pos.Map = MapaBan Then
+            If Not HayAgua(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y) Then
                 If Not UserList(UserIndex).char.Body = 347 And UserList(UserIndex).flags.Angel Then
                     Call Ban_ReloadTransforma(UserIndex)
 
@@ -115,14 +115,14 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
     End If
 
     If UserList(UserIndex).flags.Corsarios = True Or UserList(UserIndex).flags.Piratas = True Then
-        If UserList(UserIndex).Pos.Map = MapaMedusa Then
-            If HayAgua(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y) Then
+        If UserList(UserIndex).pos.Map = MapaMedusa Then
+            If HayAgua(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y) Then
                 If UserList(UserIndex).flags.Muerto = 0 Then
                     Call Med_ReloadTransforma(UserIndex)
 
                 End If
 
-            ElseIf Not HayAgua(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y) Then
+            ElseIf Not HayAgua(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y) Then
 
                 Call Med_AguaDestransforma(UserIndex)
 
@@ -145,7 +145,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
 
             criatura = 661
             invoca = criatura
-            Call SpawnNpc(invoca, UserList(MapData(mapainvo, mapainvoX3, mapainvoY3).UserIndex).Pos, True, False)
+            Call SpawnNpc(invoca, UserList(MapData(mapainvo, mapainvoX3, mapainvoY3).UserIndex).pos, True, False)
 
         End If
 
@@ -167,7 +167,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
             If UserList(UserIndex).MascotasIndex(1) > 0 Or UserList(UserIndex).MascotasIndex(2) > 0 Or UserList(UserIndex).MascotasIndex(3) > 0 Then
                   If MapInfo(MapData(Map, X, Y).TileExit.Map).Zona = Ciudad Then
                      Call SendData(ToIndex, UserIndex, 0, "||No puedes entrar en este mapa con mascotas!" & FONTTYPE_INFO)
-                     Call WarpNearestLegalPos(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y, False)
+                     Call WarpNearestLegalPos(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y, False)
                       Exit Sub
                   End If
             End If
@@ -175,13 +175,13 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
             If MapData(Map, X, Y).TileExit.Map = 96 Then
                     If Not UCase(UserList(UserIndex).Stats.ELV) >= 30 Then
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Necesitas ser lvl 30 para poder ingresar a la sala de invocaciones!." & FONTTYPE_INFO)
-                        Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y + 1)
+                        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1)
                         Exit Sub
 
                     End If
                 
                     If UserList(UserIndex).flags.Invisible = 1 Or UserList(UserIndex).flags.Oculto = 1 Then
-                       Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y + 1)
+                       Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y + 1)
                         Exit Sub
 
                     End If
@@ -243,7 +243,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
                     Dim veces As Byte
 
                     veces = 0
-                    Call ClosestStablePos(UserList(UserIndex).Pos, nPos)
+                    Call ClosestStablePos(UserList(UserIndex).pos, nPos)
 
                     If nPos.X <> 0 And nPos.Y <> 0 Then
                         Call WarpUserChar(UserIndex, nPos.Map, nPos.X, nPos.Y)
@@ -284,7 +284,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
 
     End If
     
-    If ((UserList(UserIndex).Pos.Map > 14 And UserList(UserIndex).Pos.Map < 19) Or (UserList(UserIndex).Pos.Map > 21 And UserList(UserIndex).Pos.Map < 25)) And UserList(UserIndex).flags.Muerto = 0 And UserList(UserIndex).flags.Privilegios < 1 Then
+    If ((UserList(UserIndex).pos.Map > 14 And UserList(UserIndex).pos.Map < 19) Or (UserList(UserIndex).pos.Map > 21 And UserList(UserIndex).pos.Map < 25)) And UserList(UserIndex).flags.Muerto = 0 And UserList(UserIndex).flags.Privilegios < 1 Then
         If TimerTile > 29950 Then Call Gusano(UserIndex)
 
     End If
@@ -305,8 +305,8 @@ Public Sub Gusano(ByVal UserIndex As Integer)
     Daño = RandomNumber(5, 20)
     lado = RandomNumber(62, 63)
     
-    Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & 121)
-    Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & lado & "," & 0)
+    Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & 121)
+    Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & lado & "," & 0)
     UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - Daño
     Call SendData(ToIndex, UserIndex, 0, "||¡¡ Un Gusano te causa " & Daño & " de daño!!" & FONTTYPE_Motd4)
     
@@ -318,8 +318,8 @@ End Sub
 
 Function InRangoVision(ByVal UserIndex As Integer, X As Integer, Y As Integer) As Boolean
 
-    If X > UserList(UserIndex).Pos.X - MinXBorder And X < UserList(UserIndex).Pos.X + MinXBorder Then
-        If Y > UserList(UserIndex).Pos.Y - MinYBorder And Y < UserList(UserIndex).Pos.Y + MinYBorder Then
+    If X > UserList(UserIndex).pos.X - MinXBorder And X < UserList(UserIndex).pos.X + MinXBorder Then
+        If Y > UserList(UserIndex).pos.Y - MinYBorder And Y < UserList(UserIndex).pos.Y + MinYBorder Then
             InRangoVision = True
             Exit Function
 
@@ -333,8 +333,8 @@ End Function
 
 Function InRangoVisionNPC(ByVal NpcIndex As Integer, X As Integer, Y As Integer) As Boolean
 
-    If X > Npclist(NpcIndex).Pos.X - MinXBorder And X < Npclist(NpcIndex).Pos.X + MinXBorder Then
-        If Y > Npclist(NpcIndex).Pos.Y - MinYBorder And Y < Npclist(NpcIndex).Pos.Y + MinYBorder Then
+    If X > Npclist(NpcIndex).pos.X - MinXBorder And X < Npclist(NpcIndex).pos.X + MinXBorder Then
+        If Y > Npclist(NpcIndex).pos.Y - MinYBorder And Y < Npclist(NpcIndex).pos.Y + MinYBorder Then
             InRangoVisionNPC = True
             Exit Function
 
@@ -382,18 +382,18 @@ Function InMapBounds(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
 
 End Function
 
-Sub ClosestLegalPosNpc(Pos As WorldPos, ByRef nPos As WorldPos, navegando As Boolean)
+Sub ClosestLegalPosNpc(pos As WorldPos, ByRef nPos As WorldPos, Navegando As Boolean)
 '*****************************************************************
 'Encuentra la posicion legal mas cercana y la guarda en nPos
 '*****************************************************************
 On Error GoTo err
 Dim Notfound As Boolean
 Dim LoopC As Integer
-Dim tx As Integer
-Dim ty As Integer
+Dim Tx As Integer
+Dim Ty As Integer
 Dim error As Integer
 
-nPos = Pos
+nPos = pos
 
 error = 1
 Do While True 'Not LegalPos(Pos.Map, nPos.X, nPos.Y)
@@ -404,12 +404,12 @@ Do While True 'Not LegalPos(Pos.Map, nPos.X, nPos.Y)
     
     
     error = 2
-    For ty = Pos.Y - LoopC To Pos.Y + LoopC
-         For tx = Pos.X - LoopC To Pos.X + LoopC
+    For Ty = pos.Y - LoopC To pos.Y + LoopC
+         For Tx = pos.X - LoopC To pos.X + LoopC
             error = 3
-            If LegalPosNPC(nPos.Map, tx, ty, navegando) And (MapData(nPos.Map, tx, ty).TileExit.Map = 0) Then
-                nPos.X = tx
-                nPos.Y = ty
+            If LegalPosNPC(nPos.Map, Tx, Ty, Navegando) And (MapData(nPos.Map, Tx, Ty).TileExit.Map = 0) Then
+                nPos.X = Tx
+                nPos.Y = Ty
                 error = 4
                 Exit Sub
                 '¿Hay objeto?
@@ -419,8 +419,8 @@ Do While True 'Not LegalPos(Pos.Map, nPos.X, nPos.Y)
 
             End If
 
-        Next tx
-    Next ty
+        Next Tx
+    Next Ty
 
     LoopC = LoopC + 1
     
@@ -437,7 +437,7 @@ Exit Sub
 err:
 End Sub
 
-Sub ClosestLegalPos(Pos As WorldPos, ByRef nPos As WorldPos, Optional navegando As Boolean)
+Sub ClosestLegalPos(pos As WorldPos, ByRef nPos As WorldPos, Optional Navegando As Boolean)
 
     '*****************************************************************
     'Encuentra la posicion legal mas cercana y la guarda en nPos
@@ -448,13 +448,13 @@ Sub ClosestLegalPos(Pos As WorldPos, ByRef nPos As WorldPos, Optional navegando 
 
     Dim LoopC As Integer
 
-    Dim tx As Integer
+    Dim Tx As Integer
 
-    Dim ty As Integer
+    Dim Ty As Integer
 
     Dim error As Integer
 
-    nPos = Pos
+    nPos = pos
 
     error = 1
 
@@ -468,13 +468,13 @@ Sub ClosestLegalPos(Pos As WorldPos, ByRef nPos As WorldPos, Optional navegando 
     
         error = 2
 
-        For ty = Pos.Y - LoopC To Pos.Y + LoopC
-            For tx = Pos.X - LoopC To Pos.X + LoopC
+        For Ty = pos.Y - LoopC To pos.Y + LoopC
+            For Tx = pos.X - LoopC To pos.X + LoopC
                 error = 3
 
-                If LegalPos(nPos.Map, tx, ty, navegando) And (MapData(nPos.Map, tx, ty).TileExit.Map = 0) Then
-                    nPos.X = tx
-                    nPos.Y = ty
+                If LegalPos(nPos.Map, Tx, Ty, Navegando) And (MapData(nPos.Map, Tx, Ty).TileExit.Map = 0) Then
+                    nPos.X = Tx
+                    nPos.Y = Ty
                     error = 4
                     Exit Sub
                     '¿Hay objeto?
@@ -484,8 +484,8 @@ Sub ClosestLegalPos(Pos As WorldPos, ByRef nPos As WorldPos, Optional navegando 
 
                 End If
 
-            Next tx
-        Next ty
+            Next Tx
+        Next Ty
 
         LoopC = LoopC + 1
     
@@ -504,19 +504,19 @@ err:
 
 End Sub
 
-Sub ClosestStablePos(Pos As WorldPos, ByRef nPos As WorldPos)
+Sub ClosestStablePos(pos As WorldPos, ByRef nPos As WorldPos)
 '*****************************************************************
 'Encuentra la posicion legal mas cercana que no sea un portal y la guarda en nPos
 '*****************************************************************
 
     Dim Notfound As Boolean
     Dim LoopC As Integer
-    Dim tx As Long
-    Dim ty As Long
+    Dim Tx As Long
+    Dim Ty As Long
 
-    nPos.Map = Pos.Map
+    nPos.Map = pos.Map
 
-    Do While Not LegalPos(Pos.Map, nPos.X, nPos.Y)
+    Do While Not LegalPos(pos.Map, nPos.X, nPos.Y)
 
         If LoopC > 12 Then
             Notfound = True
@@ -524,21 +524,21 @@ Sub ClosestStablePos(Pos As WorldPos, ByRef nPos As WorldPos)
 
         End If
 
-        For ty = Pos.Y - LoopC To Pos.Y + LoopC
-            For tx = Pos.X - LoopC To Pos.X + LoopC
+        For Ty = pos.Y - LoopC To pos.Y + LoopC
+            For Tx = pos.X - LoopC To pos.X + LoopC
 
-                If LegalPos(nPos.Map, tx, ty) And MapData(nPos.Map, tx, ty).TileExit.Map = 0 Then
-                    nPos.X = tx
-                    nPos.Y = ty
+                If LegalPos(nPos.Map, Tx, Ty) And MapData(nPos.Map, Tx, Ty).TileExit.Map = 0 Then
+                    nPos.X = Tx
+                    nPos.Y = Ty
                     '¿Hay objeto?
 
-                    tx = Pos.X + LoopC
-                    ty = Pos.Y + LoopC
+                    Tx = pos.X + LoopC
+                    Ty = pos.Y + LoopC
 
                 End If
 
-            Next tx
-        Next ty
+            Next Tx
+        Next Ty
 
         LoopC = LoopC + 1
 
@@ -689,7 +689,7 @@ End Function
 '
 'End Sub
 
-Sub HeadtoPos(ByVal Head As eHeading, ByRef Pos As WorldPos)
+Sub HeadtoPos(ByVal Head As eHeading, ByRef pos As WorldPos)
 
     Dim X       As Integer
 
@@ -701,8 +701,8 @@ Sub HeadtoPos(ByVal Head As eHeading, ByRef Pos As WorldPos)
 
     Dim nY      As Integer
 
-    X = Pos.X
-    Y = Pos.Y
+    X = pos.X
+    Y = pos.Y
 
     If Head = NORTH Then
         nX = X
@@ -729,8 +729,8 @@ Sub HeadtoPos(ByVal Head As eHeading, ByRef Pos As WorldPos)
     End If
 
     'Devuelve valores
-    Pos.X = nX
-    Pos.Y = nY
+    pos.X = nX
+    pos.Y = nY
 
 End Sub
 
@@ -905,7 +905,7 @@ Public Sub Expresar(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     If Npclist(NpcIndex).NroExpresiones > 0 Then
         Dim randomi
         randomi = RandomNumber(1, Npclist(NpcIndex).NroExpresiones)
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "||" & vbWhite & "°" & Npclist(NpcIndex).Expresiones(randomi) & _
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbWhite & "°" & Npclist(NpcIndex).Expresiones(randomi) & _
                                                                                    "°" & Npclist(NpcIndex).char.CharIndex & FONTTYPE_INFO)
 
     End If
@@ -1288,13 +1288,13 @@ End Sub
 
 '</EhFooter>
 
-Function FindDirection(Pos As WorldPos, Target As WorldPos) As Byte
+Function FindDirection(pos As WorldPos, Target As WorldPos) As Byte
 
 Dim X As Integer
 Dim Y As Integer
 
-X = Pos.X - Target.X
-Y = Pos.Y - Target.Y
+X = pos.X - Target.X
+Y = pos.Y - Target.Y
 
 If Sgn(X) = -1 And Sgn(Y) = 1 Then
     FindDirection = NORTH
@@ -1506,26 +1506,26 @@ Public Function MostrarCantidad(ByVal Index As Integer) As Boolean
 End Function
 
 Public Sub WarpNearestLegalPos(UI As Integer, Map As Integer, X As Integer, Y As Integer, Optional FX As Boolean = False)
-    Dim nPos As WorldPos, Pos As WorldPos, userPos As WorldPos
+    Dim nPos As WorldPos, pos As WorldPos, userPos As WorldPos
     
-    userPos.Map = UserList(UI).Pos.Map
-    userPos.X = UserList(UI).Pos.X
-    userPos.Y = UserList(UI).Pos.Y
+    userPos.Map = UserList(UI).pos.Map
+    userPos.X = UserList(UI).pos.X
+    userPos.Y = UserList(UI).pos.Y
     
-    Pos.Map = Map
-    Pos.X = X
-    Pos.Y = Y
+    pos.Map = Map
+    pos.X = X
+    pos.Y = Y
     
     nPos.Map = Map
     nPos.X = X
     nPos.Y = Y
     
-    Call ClosestLegalPos(Pos, nPos, IIf(UserList(UI).flags.navegando = 1, True, False))
+    Call ClosestLegalPos(pos, nPos, IIf(UserList(UI).flags.Navegando = 1, True, False))
     
     If nPos.X <> 0 And nPos.Y <> 0 Then
         Call WarpUserChar(UI, nPos.Map, nPos.X, nPos.Y, FX)
     Else
-        Call ClosestLegalPos(userPos, nPos, IIf(UserList(UI).flags.navegando = 1, True, False))
+        Call ClosestLegalPos(userPos, nPos, IIf(UserList(UI).flags.Navegando = 1, True, False))
         Call WarpUserChar(UI, nPos.Map, nPos.X, nPos.Y, FX)
     End If
 End Sub

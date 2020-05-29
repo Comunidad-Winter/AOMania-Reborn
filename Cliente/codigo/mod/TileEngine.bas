@@ -2068,7 +2068,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
         PixelOffSetX = PixelOffSetX + .MoveOffsetX
         PixelOffSetY = PixelOffSetY + .MoveOffsetY
 
-        Velocidad = 0.5
+       ' Velocidad = 0.5
         MismoChar = (UserCharIndex = charindex)
 
         If Not .Invisible Or MismoClan(charindex) Or MismoChar Or MismaParty(charindex) Or EsGm(UserCharIndex) Then
@@ -2267,7 +2267,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
                
         End If
 
-        Velocidad = 1
+        Velocidad = 0.8
 
         Dim i As Long
 

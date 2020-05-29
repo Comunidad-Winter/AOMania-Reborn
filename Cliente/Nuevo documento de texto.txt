@@ -1,2 +1,1 @@
-· Se ha corregido el daño del apuñalar del asesino, ahora quita lo que marca al apuñalar, en total el daño es (DAÑO BASE + DAÑO APUÑALAR)
-· Ahora el aura de poder (DAÑO x2) aumenta el daño a las armas (Daño Base)
+· Sonido crear alas corregido.

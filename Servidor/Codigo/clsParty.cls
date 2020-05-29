@@ -22,7 +22,7 @@ Private p_expTotal As Long
 Private p_Fundador As Integer
 'el creador
 
-Private p_CantMiembros As Integer
+Public p_CantMiembros As Integer
 'cantidad de miembros
 
 'datos en los pjs: | indexParty(indice en p_members), partyLeader(userindex del lider) |
@@ -60,7 +60,7 @@ Public Function MiExperiencia(ByVal UserIndex As Integer) As Long
 
 End Function
 
-Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, x As Integer, Y As Integer)
+Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, X As Integer, Y As Integer)
 'Se produjo un evento que da experiencia en la wp referenciada
     Dim i As Integer
     Dim UI As Integer
@@ -71,7 +71,7 @@ Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, x As Int
         UI = p_members(i).UserIndex
         If UI > 0 Then
             If Mapa = UserList(UI).pos.Map And UserList(UI).flags.Muerto = 0 Then
-                If Distance(UserList(UI).pos.x, UserList(UI).pos.Y, x, Y) <= PARTY_MAXDISTANCIA Then
+                If Distance(UserList(UI).pos.X, UserList(UI).pos.Y, X, Y) <= PARTY_MAXDISTANCIA Then
                     CantidadDistancia = CantidadDistancia + 1
                 End If
             End If
@@ -84,9 +84,9 @@ Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, x As Int
         UI = p_members(i).UserIndex
         If UI > 0 Then
             If Mapa = UserList(UI).pos.Map And UserList(UI).flags.Muerto = 0 Then
-                If Distance(UserList(UI).pos.x, UserList(UI).pos.Y, x, Y) <= PARTY_MAXDISTANCIA Then
+                If Distance(UserList(UI).pos.X, UserList(UI).pos.Y, X, Y) <= PARTY_MAXDISTANCIA Then
                     UserList(p_members(i).UserIndex).Stats.Exp = UserList(p_members(i).UserIndex).Stats.Exp + expPerCapita
-                    Call SendData(SendTarget.ToIndex, (UI), 0, "||¡Has ganado " & expPerCapita & " puntos de experiencia!" & FONTTYPE_Motd4)
+                    Call SendData(SendTarget.toindex, (UI), 0, "||¡Has ganado " & expPerCapita & " puntos de experiencia!" & FONTTYPE_Motd4)
                     ' p_members(i).Experiencia = p_members(i).Experiencia + expPerCapita
                     If expPerCapita < 0 Then
                         expPerCapita = 0
@@ -98,7 +98,7 @@ Public Sub ObtenerExito(ByVal ExpGanada As Long, ByVal Mapa As Integer, x As Int
                     If PARTY_EXPERIENCIAPORGOLPE Then
                         ' UserList(UI).Stats.Exp = UserList(UI).Stats.Exp + expPerCapita
                         UserList(p_members(i).UserIndex).Stats.Exp = UserList(p_members(i).UserIndex).Stats.Exp + expPerCapita
-                        Call SendData(SendTarget.ToIndex, (UI), 0, "||Has ganado " & expPerCapita & " puntos de experiencia." & FONTTYPE_AMARILLON)
+                        Call SendData(SendTarget.toindex, (UI), 0, "||Has ganado " & expPerCapita & " puntos de experiencia." & FONTTYPE_AMARILLON)
                         If UserList(UI).Stats.Exp > MAXEXP Then _
                            UserList(UI).Stats.Exp = MAXEXP
                         Call CheckUserLevel(UI)
@@ -125,7 +125,7 @@ Public Sub MandarMensajeAConsola(ByVal texto As String, ByVal Sender As String)
             If IndexHablaParty(PI) > 0 Then
                 If UserList(IndexHablaParty(PI)).flags.HablanMute = 1 Then
                     If Not EsUserMute(IndexHablaParty(PI), p_members(i).UserIndex) Then
-                        Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "||" & MensajeCensura(texto) & FONTTYPE_TALKMSG)
+                        Call SendData(SendTarget.toindex, p_members(i).UserIndex, 0, "||" & MensajeCensura(texto) & FONTTYPE_TALKMSG)
             
                     End If
 
@@ -133,7 +133,7 @@ Public Sub MandarMensajeAConsola(ByVal texto As String, ByVal Sender As String)
                 
             Else
              
-                Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "||" & MensajeCensura(texto) & FONTTYPE_TALKMSG)
+                Call SendData(SendTarget.toindex, p_members(i).UserIndex, 0, "||" & MensajeCensura(texto) & FONTTYPE_TALKMSG)
              
             End If
 
@@ -223,12 +223,12 @@ Public Function SaleMiembro(ByVal UserIndex As Integer) As Boolean
                 Else
                     Call MandarMensajeAConsola("La party ha sido cerrada.", "Servidor")
                     Call EnviarHP(Leader)
-                    Call SendData(SendTarget.ToIndex, Leader, 0, "NOPRT" & UserList(Leader).char.CharIndex & "," & UserList(Leader).PartyIndex)
+                    Call SendData(SendTarget.toindex, Leader, 0, "NOPRT" & UserList(Leader).char.CharIndex & "," & UserList(Leader).PartyIndex)
 
                 End If
                 UserList(p_members(j).UserIndex).PartyIndex = 0
                 Call EnviarHP(p_members(j).UserIndex)
-                Call SendData(SendTarget.ToIndex, p_members(j).UserIndex, 0, "NOPRT" & UserList(p_members(j).UserIndex).char.CharIndex & "," & UserList(p_members(j).UserIndex).PartyIndex)
+                Call SendData(SendTarget.toindex, p_members(j).UserIndex, 0, "NOPRT" & UserList(p_members(j).UserIndex).char.CharIndex & "," & UserList(p_members(j).UserIndex).PartyIndex)
 
                 p_CantMiembros = p_CantMiembros - 1
                 p_members(j).UserIndex = 0
@@ -244,7 +244,7 @@ Public Function SaleMiembro(ByVal UserIndex As Integer) As Boolean
             UserList(i).PartyIndex = 0
             p_CantMiembros = p_CantMiembros - 1
             Call EnviarHP(p_members(i).UserIndex)
-            Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "NOPRT" & UserList(p_members(i).UserIndex).char.CharIndex & "," & UserList(p_members(i).UserIndex).PartyIndex)
+            Call SendData(SendTarget.toindex, p_members(i).UserIndex, 0, "NOPRT" & UserList(p_members(i).UserIndex).char.CharIndex & "," & UserList(p_members(i).UserIndex).PartyIndex)
 
             p_members(i).UserIndex = 0
             CompactMemberList
@@ -253,7 +253,7 @@ Public Function SaleMiembro(ByVal UserIndex As Integer) As Boolean
                 Call MandarMensajeAConsola("La party ha sido cerrada.", "Servidor")
                 UserList(Leader).PartyIndex = 0
                 Call EnviarHP(Leader)
-                Call SendData(SendTarget.ToIndex, Leader, 0, "NOPRT" & UserList(Leader).char.CharIndex & "," & UserList(Leader).PartyIndex)
+                Call SendData(SendTarget.toindex, Leader, 0, "NOPRT" & UserList(Leader).char.CharIndex & "," & UserList(Leader).PartyIndex)
 
                 p_CantMiembros = p_CantMiembros - 1
                 p_members("1").UserIndex = 0
@@ -284,7 +284,7 @@ Public Function HacerLeader(ByVal UserIndex As Integer) As Boolean
 
             'chequeo la dif entre levels
             If Abs(UserList(UserIndex).Stats.ELV - UserList(p_members(i).UserIndex).Stats.ELV) > MAXPARTYDELTALEVEL Then
-                Call SendData(SendTarget.ToIndex, p_members(i).UserIndex, 0, "|| No se puede hacer líder a " & UserList(UserIndex).Name & _
+                Call SendData(SendTarget.toindex, p_members(i).UserIndex, 0, "|| No se puede hacer líder a " & UserList(UserIndex).Name & _
                                                                            " pues la diferencia entre niveles de los miembros de la party sería mayor a " & MAXPARTYDELTALEVEL & FONTTYPE_PARTY)
                 HacerLeader = False
 
@@ -379,14 +379,14 @@ Public Sub ObtenerVerParty(ByVal IndexU As Integer)
             MinHpUser = UserList(p_members(LoopC).UserIndex).Stats.MinHP
             MaxHpUser = UserList(p_members(LoopC).UserIndex).Stats.MaxHP
 
-            Call SendData(SendTarget.ToIndex, IndexU, 0, "IVP" & i & "," & NameUser & "," & MinHpUser & "," & MaxHpUser)
+            Call SendData(SendTarget.toindex, IndexU, 0, "IVP" & i & "," & NameUser & "," & MinHpUser & "," & MaxHpUser)
 
 
         End If
 
     Next LoopC
 
-    Call SendData(SendTarget.ToIndex, IndexU, 0, "VPA" & "1")
+    Call SendData(SendTarget.toindex, IndexU, 0, "VPA" & "1")
 
 End Sub
 
@@ -481,3 +481,16 @@ Public Function CantMiembros() As Integer
     CantMiembros = p_CantMiembros
 
 End Function
+
+Public Function IDMember(ByVal UI As Integer) As Integer
+     
+     IDMember = p_members(UI).UserIndex
+     
+End Function
+
+Public Sub DeleteMember(ByVal UI As Integer)
+       
+       p_members(UI).UserIndex = 0
+       p_members(UI).Experiencia = 0
+       
+End Sub

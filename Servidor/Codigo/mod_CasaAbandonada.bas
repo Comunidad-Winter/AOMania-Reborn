@@ -45,13 +45,13 @@ Public Sub Efecto_CaminoCasaEncantada(ByVal UserIndex As Integer)
 
     With UserList(UserIndex)
 
-        If EsGmChar(.Name) Then Exit Sub
+        If .flags.Privilegios > 0 Then Exit Sub
 
-        If MapData(MapaCasaAbandonada1, .pos.X, .pos.Y).Graphic(2) >= 260 And MapData(MapaCasaAbandonada1, .pos.X, .pos.Y).Graphic(2) <= 265 And UserList(UserIndex).flags.Muerto = 0 Then
+        If MapData(MapaCasaAbandonada1, .Pos.X, .Pos.Y).Graphic(2) >= 260 And MapData(MapaCasaAbandonada1, .Pos.X, .Pos.Y).Graphic(2) <= 265 And UserList(UserIndex).flags.Muerto = 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los espiritus te han provocado una combustión espontánea." & FONTTYPE_TALKMSG)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los espiritus te han matado." & FONTTYPE_TALKMSG)
             Call UserDie(UserIndex)
-        ElseIf MapData(MapaCasaAbandonada1, .pos.X, .pos.Y).Graphic(2) = 283 Then
+        ElseIf MapData(MapaCasaAbandonada1, .Pos.X, .Pos.Y).Graphic(2) = 283 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los espiritus te han provocado una combustión espontánea." & FONTTYPE_TALKMSG)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los espiritus te han matado." & FONTTYPE_TALKMSG)
             Call UserDie(UserIndex)
@@ -96,7 +96,7 @@ Public Sub Efecto_CaminoCasaEncantada(ByVal UserIndex As Integer)
             .Counters.Paralisis = IntervaloParalizado
 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & .pos.X & "," & .pos.Y)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & .Pos.X & "," & .Pos.Y)
 
         End Select
 
@@ -109,7 +109,7 @@ Public Sub Efecto_AccionCasaEncantada(ByVal UserIndex As Integer, ByVal NpcIndex
 
     With UserList(UserIndex)
 
-        If EsGmChar(.Name) Then Exit Sub
+        If .flags.Privilegios > 0 Then Exit Sub
         If NpcIndex = 0 Then Exit Sub
         If UserList(UserIndex).flags.Muerto = 1 Then Exit Sub
 
@@ -125,9 +125,9 @@ Public Sub Efecto_AccionCasaEncantada(ByVal UserIndex As Integer, ByVal NpcIndex
 
         Case 21 To 45
             Dim MiPos As WorldPos
-            MiPos.Map = .pos.Map
-            MiPos.X = .pos.X - 1
-            MiPos.Y = .pos.Y
+            MiPos.Map = .Pos.Map
+            MiPos.X = .Pos.X - 1
+            MiPos.Y = .Pos.Y
 
             Call SpawnNpc(NpcBruja, MiPos, True, False)
 
@@ -136,6 +136,8 @@ Public Sub Efecto_AccionCasaEncantada(ByVal UserIndex As Integer, ByVal NpcIndex
             Exit Sub
 
         Case 50 To 3000
+        
+             If UserList(UserIndex).flags.Mimetizado = 1 Then Exit Sub
 
             UserList(UserIndex).CharMimetizado.Body = .char.Body
             UserList(UserIndex).CharMimetizado.Head = .char.Head
@@ -154,10 +156,10 @@ Public Sub Efecto_AccionCasaEncantada(ByVal UserIndex As Integer, ByVal NpcIndex
             UserList(UserIndex).char.ShieldAnim = 2
             UserList(UserIndex).char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, _
+            Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, _
                                 UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
 
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList( _
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList( _
                                                                                        UserIndex).char.CharIndex & "," & 1 & "," & 1)
 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los espiritus de la casa te han transformado en cerdo." & FONTTYPE_TALKMSG)
@@ -190,11 +192,11 @@ Public Sub EfectoCerdo(ByVal UserIndex As Integer)
         UserList(UserIndex).Counters.Mimetismo = 0
         UserList(UserIndex).flags.Mimetizado = 0
 
-        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserIndex, _
+        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).Pos.Map, UserIndex, _
                             UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, _
                             UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
 
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & _
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & _
                                                                                    UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
     End If
 End Sub

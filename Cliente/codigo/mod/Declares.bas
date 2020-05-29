@@ -795,3 +795,5 @@ Public Enum PlayerType
     Admin = 4
 
 End Enum
+
+Public CanjeSagrado As Boolean

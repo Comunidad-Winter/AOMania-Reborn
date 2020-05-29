@@ -221,13 +221,13 @@ Public LastIndex2 As Integer
 
 Private Sub cantidad_Change()
 
-    If Val(cantidad.Text) < 1 Then
-        cantidad.Text = 1
+    If Val(Cantidad.Text) < 1 Then
+        Cantidad.Text = 1
 
     End If
     
-    If Val(cantidad.Text) > MAX_INVENTORY_OBJS Then
-        cantidad.Text = 1
+    If Val(Cantidad.Text) > MAX_INVENTORY_OBJS Then
+        Cantidad.Text = 1
 
     End If
 
@@ -248,6 +248,8 @@ End Sub
 Private Sub Command2_Click()
 
     SendData ("FINCOM")
+    
+    If CanjeSagrado Then CanjeSagrado = False
 
 End Sub
 
@@ -267,7 +269,7 @@ Private Sub Form_Load()
 
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
     If Image1(0).Tag = 0 Then
         Set Image1(0).Picture = Interfaces.FrmComerciar_Comprar
@@ -292,50 +294,62 @@ Private Sub Image1_Click(Index As Integer)
     Select Case Index
 
         Case 0
+           
+            If CanjeSagrado Then
+                 SendData ("COMS" & "," & NPCInventory(List1(0).ListIndex + 1).ObjIndex & "," & Cantidad.Text)
+             Else
+             
             frmComerciar.List1(0).SetFocus
             LastIndex1 = List1(0).ListIndex
-
-            If UserGLD >= NPCInventory(List1(0).ListIndex + 1).Valor * Val(cantidad) Then
-                SendData ("COMP" & "," & List1(0).ListIndex + 1 & "," & cantidad.Text)
+             
+            If UserGLD >= NPCInventory(List1(0).ListIndex + 1).Valor * Val(Cantidad) Then
+                SendData ("COMP" & "," & List1(0).ListIndex + 1 & "," & Cantidad.Text)
             Else
                 AddtoRichTextBox frmMain.RecTxt, "No tienes suficiente oro.", 0, 0, 174, 1, 1
                 Exit Sub
-
+            End If
             End If
 
         Case 1
             LastIndex2 = List1(1).ListIndex
-
-            If Not Inventario.Equipped(List1(1).ListIndex + 1) Then
-                SendData ("VEND" & "," & List1(1).ListIndex + 1 & "," & cantidad.Text)
+              
+            If CanjeSagrado Then
+                AddtoRichTextBox frmMain.RecTxt, "No puedes vender este tipo de item.", 2, 51, 223, 1, 1
+                Exit Sub
             Else
-                AddtoRichTextBox frmMain.RecTxt, "No podes vender el item porque lo estas usando.", 2, 51, 223, 1, 1
+            If Not Inventario.Equipped(List1(1).ListIndex + 1) Then
+                SendData ("VEND" & "," & List1(1).ListIndex + 1 & "," & Cantidad.Text)
+            Else
+                AddtoRichTextBox frmMain.RecTxt, "No puedes vender el item porque lo estas usando.", 2, 51, 223, 1, 1
                 Exit Sub
 
             End If
+            End If
                 
     End Select
-
+  
+  If Not CanjeSagrado Then
     List1(0).Clear
     List1(1).Clear
 
     NPCInvDim = 0
-
+ End If
+ 
 End Sub
 
 Private Sub List1_Click(Index As Integer)
 
-    Dim SR As RECT, dr As RECT
+    Dim SR As RECT, DR As RECT
 
     SR.Left = 0
     SR.Top = 0
     SR.Right = 32
-    SR.bottom = 32
+    SR.Bottom = 32
 
-    dr.Left = 0
-    dr.Top = 0
-    dr.Right = 32
-    dr.bottom = 32
+    DR.Left = 0
+    DR.Top = 0
+    DR.Right = 32
+    DR.Bottom = 32
 
     Select Case Index
 
@@ -369,7 +383,7 @@ Private Sub List1_Click(Index As Integer)
 
             End Select
 
-            Call DrawGrhtoHdc(Picture1.hdc, NPCInventory(List1(0).ListIndex + 1).GrhIndex, dr)
+            Call DrawGrhtoHdc(Picture1.hdc, NPCInventory(List1(0).ListIndex + 1).GrhIndex, DR)
 
         Case 1
             Label1(0).Caption = Inventario.ItemName(List1(1).ListIndex + 1)
@@ -401,7 +415,7 @@ Private Sub List1_Click(Index As Integer)
 
             End Select
 
-            Call DrawGrhtoHdc(Picture1.hdc, Inventario.GrhIndex(List1(1).ListIndex + 1), dr)
+            Call DrawGrhtoHdc(Picture1.hdc, Inventario.GrhIndex(List1(1).ListIndex + 1), DR)
 
     End Select
 
@@ -412,7 +426,7 @@ End Sub
 '<-------------------------NUEVO-------------------------->
 '<-------------------------NUEVO-------------------------->
 '<-------------------------NUEVO-------------------------->
-Private Sub List1_MouseMove(Index As Integer, Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub List1_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 
     If Image1(0).Tag = 0 Then
         Set Image1(0).Picture = Interfaces.FrmComerciar_Comprar

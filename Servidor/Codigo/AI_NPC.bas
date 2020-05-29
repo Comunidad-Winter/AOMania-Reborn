@@ -403,12 +403,14 @@ For headingloop = NORTH To WEST
       If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
                 error = 9
                 '?ES del clan del castillo1?
-                    'If Npclist(NpcIndex).pos.Map = CastilloNorte And Guilds(UserList(UI).GuildIndex).GuildName = Norte Then GoTo aqui2
-                  ' If Npclist(NpcIndex).pos.Map = CastilloEste And Guilds(UserList(UI).GuildIndex).GuildName = Este Then GoTo aqui2
-                    'If Npclist(NpcIndex).pos.Map = CastilloOeste And Guilds(UserList(UI).GuildIndex).GuildName = Oeste Then GoTo aqui2
-                   ' If Npclist(NpcIndex).pos.Map = CastilloSur And Guilds(UserList(UI).GuildIndex).GuildName = Sur Then GoTo aqui2
-                   ' If Npclist(NpcIndex).pos.Map = MapaFortaleza And Guilds(UserList(UI).GuildIndex).GuildName = Fortaleza Then GoTo aqui2
+                  If UserList(UI).GuildIndex > 0 Then
+                    If Npclist(NpcIndex).pos.Map = CastilloNorte And Guilds(UserList(UI).GuildIndex).GuildName = Norte Then GoTo aqui2
+                    If Npclist(NpcIndex).pos.Map = CastilloEste And Guilds(UserList(UI).GuildIndex).GuildName = Este Then GoTo aqui2
+                    If Npclist(NpcIndex).pos.Map = CastilloOeste And Guilds(UserList(UI).GuildIndex).GuildName = Oeste Then GoTo aqui2
+                    If Npclist(NpcIndex).pos.Map = CastilloSur And Guilds(UserList(UI).GuildIndex).GuildName = Sur Then GoTo aqui2
+                    If Npclist(NpcIndex).pos.Map = MapaFortaleza And Guilds(UserList(UI).GuildIndex).GuildName = Fortaleza Then GoTo aqui2
                     'If Npclist(NpcIndex).pos.Map = mapa_islapirata And UserList(UI).GuildInfo.GuildName = islapirata Then GoTo aqui2
+                    End If
                     error = 10
                 If Npclist(NpcIndex).flags.LanzaSpells <> 0 Then
                     error = 11
@@ -569,12 +571,14 @@ Private Sub IrUsuarioCercano(ByVal NpcIndex As Integer)
                     error = 5
 
                     'castillo clan
-                    'If Npclist(NpcIndex).pos.Map = CastilloNorte And Guilds(UserList(UI).GuildIndex).GuildName = Norte Then GoTo aqui
-                    'If Npclist(NpcIndex).pos.Map = CastilloEste And Guilds(UserList(UI).GuildIndex).GuildName = Este Then GoTo aqui
-                    'If Npclist(NpcIndex).pos.Map = CastilloOeste And Guilds(UserList(UI).GuildIndex).GuildName = Oeste Then GoTo aqui
-                    'If Npclist(NpcIndex).pos.Map = CastilloSur And Guilds(UserList(UI).GuildIndex).GuildName = Sur Then GoTo aqui
-                    'If Npclist(NpcIndex).pos.Map = MapaFortaleza And Guilds(UserList(UI).GuildIndex).GuildName = Fortaleza Then GoTo aqui
+                    If UserList(UI).GuildIndex > 0 Then
+                    If Npclist(NpcIndex).pos.Map = CastilloNorte And Guilds(UserList(UI).GuildIndex).GuildName = Norte Then GoTo aqui
+                    If Npclist(NpcIndex).pos.Map = CastilloEste And Guilds(UserList(UI).GuildIndex).GuildName = Este Then GoTo aqui
+                    If Npclist(NpcIndex).pos.Map = CastilloOeste And Guilds(UserList(UI).GuildIndex).GuildName = Oeste Then GoTo aqui
+                    If Npclist(NpcIndex).pos.Map = CastilloSur And Guilds(UserList(UI).GuildIndex).GuildName = Sur Then GoTo aqui
+                    If Npclist(NpcIndex).pos.Map = MapaFortaleza And Guilds(UserList(UI).GuildIndex).GuildName = Fortaleza Then GoTo aqui
                     'If Npclist(NpcIndex).pos.Map = mapa_islapirata And UserList(UI).GuildInfo.GuildName = islapirata Then GoTo aqui
+                    End If
                     error = 6
  
                     If UserList(UI).flags.Invisible = 1 And Npclist(NpcIndex).flags.Magiainvisible = 0 Then GoTo aqui
@@ -766,7 +770,7 @@ Private Sub PersigueCriminal(ByVal NpcIndex As Integer)
                 UI = MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex
 
                 If UI > 0 Then
-                    If Criminal(UI) Then
+                    If Criminal(UI) Or Npclist(NpcIndex).Stats.Alineacion <> 0 Then
                         If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 Then
                             If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
                             If Npclist(NpcIndex).flags.LanzaSpells > 0 Then

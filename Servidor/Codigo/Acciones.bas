@@ -63,6 +63,9 @@ Sub Accion(ByVal UserIndex As Integer, _
 
                 Case eOBJType.otFOROS    'Foro
                     Call AccionParaForo(Map, X, Y, UserIndex)
+                
+                Case eOBJType.otTumba
+                     Call AccionParaTumba(Map, X, Y, UserIndex)
 
                 Case eOBJType.otLeña    'Leña
 
@@ -119,7 +122,7 @@ Sub Accion(ByVal UserIndex As Integer, _
 
                 If Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Creditos Then
 
-                    If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).pos, UserList(UserIndex).pos) > 4 Then
+                    If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).Pos, UserList(UserIndex).Pos) > 4 Then
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                         Exit Sub
 
@@ -137,7 +140,7 @@ Sub Accion(ByVal UserIndex As Integer, _
 
                 ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Canjes Then
 
-                    If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).pos, UserList(UserIndex).pos) > 4 Then
+                    If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).Pos, UserList(UserIndex).Pos) > 4 Then
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                         Exit Sub
 
@@ -155,7 +158,7 @@ Sub Accion(ByVal UserIndex As Integer, _
 
                 End If
 
-                If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 3 Then
+                If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 3 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                     Exit Sub
 
@@ -172,7 +175,7 @@ Sub Accion(ByVal UserIndex As Integer, _
 
             ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Banquero Then
 
-                If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).pos, UserList(UserIndex).pos) > 4 Then
+                If Distancia(Npclist(MapData(Map, X, Y).NpcIndex).Pos, UserList(UserIndex).Pos) > 4 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                     Exit Sub
 
@@ -189,7 +192,7 @@ Sub Accion(ByVal UserIndex As Integer, _
 
             ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Revividor Then
 
-                If Distancia(UserList(UserIndex).pos, Npclist(MapData(Map, X, Y).NpcIndex).pos) > 10 Then
+                If Distancia(UserList(UserIndex).Pos, Npclist(MapData(Map, X, Y).NpcIndex).Pos) > 10 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z32")
                     Exit Sub
 
@@ -214,7 +217,7 @@ Sub Accion(ByVal UserIndex As Integer, _
 
             ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.OlvidarHechizo Then
 
-                If Distancia(UserList(UserIndex).pos, Npclist(MapData(Map, X, Y).NpcIndex).pos) > 5 Then
+                If Distancia(UserList(UserIndex).Pos, Npclist(MapData(Map, X, Y).NpcIndex).Pos) > 5 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                     Exit Sub
 
@@ -230,7 +233,7 @@ Sub Accion(ByVal UserIndex As Integer, _
 
             ElseIf Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Cirujia Then
 
-                If Distancia(UserList(UserIndex).pos, Npclist(MapData(Map, X, Y).NpcIndex).pos) > 5 Then
+                If Distancia(UserList(UserIndex).Pos, Npclist(MapData(Map, X, Y).NpcIndex).Pos) > 5 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                     Exit Sub
 
@@ -270,12 +273,12 @@ Sub AccionParaForo(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer,
 
     On Error Resume Next
 
-    Dim pos As WorldPos
-    pos.Map = Map
-    pos.X = X
-    pos.Y = Y
+    Dim Pos As WorldPos
+    Pos.Map = Map
+    Pos.X = X
+    Pos.Y = Y
 
-    If Distancia(pos, UserList(UserIndex).pos) > 2 Then
+    If Distancia(Pos, UserList(UserIndex).Pos) > 2 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
         Exit Sub
 
@@ -290,21 +293,21 @@ Sub AccionParaForo(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer,
         num = val(GetVar(f, "INFO", "CantMSG"))
         base = Left$(f, Len(f) - 4)
         Dim i As Integer
-        Dim n As Integer
+        Dim N As Integer
 
         For i = 1 To num
-            n = FreeFile
+            N = FreeFile
             f = base & i & ".for"
-            Open f For Input Shared As #n
-            Input #n, tit
+            Open f For Input Shared As #N
+            Input #N, tit
             men = ""
             auxcad = ""
 
-            Do While Not EOF(n)
-                Input #n, auxcad
+            Do While Not EOF(N)
+                Input #N, auxcad
                 men = men & vbCrLf & auxcad
             Loop
-            Close #n
+            Close #N
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "FMSG" & tit & Chr(176) & men)
 
         Next
@@ -322,7 +325,7 @@ Sub AccionParaPuerta(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
     Dim MiObj As Obj
     Dim wp As WorldPos
 
-    If Not (Distance(UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y, X, Y) > 2) Then
+    If Not (Distance(UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y, X, Y) > 2) Then
         If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).Llave = 0 Then
             If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).Cerrada = 1 Then
 
@@ -342,7 +345,7 @@ Sub AccionParaPuerta(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
                     Call Bloquear(SendTarget.ToMap, 0, Map, Map, X - 1, Y, 0)
 
                     'Sonido
-                    SendData SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_PUERTA
+                    SendData SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_PUERTA
 
                 Else
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La puerta esta cerrada con llave." & FONTTYPE_INFO)
@@ -361,7 +364,7 @@ Sub AccionParaPuerta(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
                 Call Bloquear(SendTarget.ToMap, 0, Map, Map, X - 1, Y, 1)
                 Call Bloquear(SendTarget.ToMap, 0, Map, Map, X, Y, 1)
 
-                SendData SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_PUERTA
+                SendData SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_PUERTA
 
             End If
 
@@ -405,12 +408,12 @@ Sub AccionParaRamita(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
     Dim Obj As Obj
     Dim raise As Integer
 
-    Dim pos As WorldPos
-    pos.Map = Map
-    pos.X = X
-    pos.Y = Y
+    Dim Pos As WorldPos
+    Pos.Map = Map
+    Pos.X = X
+    Pos.Y = Y
 
-    If Distancia(pos, UserList(UserIndex).pos) > 2 Then
+    If Distancia(Pos, UserList(UserIndex).Pos) > 2 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
         Exit Sub
 
@@ -434,12 +437,12 @@ Sub AccionParaRamita(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
     exito = RandomNumber(1, Suerte)
 
     If exito = 1 Then
-        If MapInfo(UserList(UserIndex).pos.Map).Zona <> Ciudad Then
+        If MapInfo(UserList(UserIndex).Pos.Map).Zona <> Ciudad Then
             Obj.ObjIndex = FOGATA
             Obj.Amount = 1
 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has prendido la fogata." & FONTTYPE_INFO)
-            Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "FO")
+            Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "FO")
 
             Call MakeObj(ToMap, 0, Map, Obj, Map, X, Y)
 
@@ -465,5 +468,213 @@ Sub AccionParaRamita(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Intege
         Call SubirSkill(UserIndex, Supervivencia)
 
     End If
+
+End Sub
+
+Sub AccionParaTumba(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal UserIndex As Integer)
+
+If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).ObjType = eOBJType.otTumba Then
+    
+    If MapData(Map, X, Y).OBJInfo.ObjIndex = 1773 Then
+        Call AccionParaTumbaTotan(Map, X, Y, UserIndex)
+        Exit Sub
+    End If
+    
+    If MapData(Map, X, Y).OBJInfo.ObjIndex = 1774 Then
+        Call AccionParaTumbaSaturos(Map, X, Y, UserIndex)
+        Exit Sub
+    End If
+    
+End If
+
+End Sub
+
+Sub AccionParaTumbaTotan(ByVal Map As Integer, _
+                         ByVal X As Integer, _
+                         ByVal Y As Integer, _
+                         ByVal UserIndex As Integer)
+
+    On Error Resume Next
+
+    Dim texto As String
+
+    Dim Name  As String
+
+    Name = ObjData(objtotan(objetoTotan)).Name
+
+    If quitarObjetoTumba(UserIndex, objtotan(objetoTotan)) Then
+
+        Dim MiObj As Obj
+
+        'titraroro
+        MiObj.ObjIndex = iORO
+
+        Dim N As Integer
+
+        For N = 1 To objetoTotan
+            MiObj.Amount = 10000
+            Call TirarItemAlPiso(posTumbaTotan, MiObj)
+        Next N
+    
+        Call EraseObj(ToMap, 0, posTumbaTotan.Map, 1, posTumbaTotan.Map, posTumbaTotan.X, posTumbaTotan.Y)
+        Call EraseObj(ToMap, 0, posTumbaSatu.Map, 1, posTumbaSatu.Map, posTumbaSatu.X, posTumbaSatu.Y)
+        posTumbaTotan.Map = 0
+        posTumbaSatu.Map = 0
+        TumbaOn = False
+    Else
+        texto = "HOLA VIAJERO SOY TOTAN EL DE LAS TORTUGAS, TRAEME 1 " & Name & " Y TE DARE UNA RECOMPENSA..."
+
+    End If
+
+    If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).ObjType = eOBJType.otTumba Then
+  
+        Call SendData(ToIndex, UserIndex, 0, "MCAR" & texto & Chr(176) & ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).GrhSecundario)
+
+    End If
+
+End Sub
+
+Sub AccionParaTumbaSaturos(ByVal Map As Integer, _
+                           ByVal X As Integer, _
+                           ByVal Y As Integer, _
+                           ByVal UserIndex As Integer)
+
+    On Error Resume Next
+
+    Dim texto As String
+
+    Dim Name  As String
+
+    texto = "COMO OSAS MOLESTARME , NO SABES QUIEN SOY?, SATUROS LA PERSONA MAS VIL Y TRAIDORA DE AOMANIA ...."
+
+    Dim MiObj As Obj
+
+    If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).ObjType = eOBJType.otTumba Then
+  
+        Call SendData(ToIndex, UserIndex, 0, "MCAR" & texto & Chr(176) & ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).GrhSecundario)
+
+    End If
+        
+    If UserList(UserIndex).flags.Muerto = 1 Then Exit Sub
+      
+    If UserList(UserIndex).flags.Paralizado = 0 Then
+
+        Call SendData(ToMap, UserIndex, UserList(UserIndex).Pos.Map, "TW16," & UserList(UserIndex).char.CharIndex)
+        'Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & Hechizos(Spell).WAV)
+        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & ",8,1")
+        
+        UserList(UserIndex).flags.Paralizado = 1
+        UserList(UserIndex).Counters.Paralisis = IntervaloParalizado
+          
+        'Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & Hechizos(Spell).WAV)
+          
+        Call SendData(ToIndex, UserIndex, 0, "PARADOK")
+        Call SendData(ToIndex, UserIndex, 0, "PARADO2")
+           
+        'Call SendData(ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).Pos.X & "," & UserList(UserIndex).Pos.Y)
+        Call Corr_ActualizarPosicion(UserIndex, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
+        
+        Call SendData(ToIndex, UserIndex, 0, "||Saturos te ha paralizado ..." & FONTTYPE_Motd4)
+
+    End If
+            
+    If TieneObjetosRobables(UserIndex) Then
+
+        Call robarObjetoTumba(UserIndex)
+
+    End If
+        
+    UserList(UserIndex).Counters.Veneno = 0
+    UserList(UserIndex).flags.Envenenado = 100
+    Call SendData(ToIndex, UserIndex, 0, "||Saturos te ha envenenado por 100 ..." & FONTTYPE_VERDE)
+
+End Sub
+
+Function quitarObjetoTumba(VictimaIndex As Integer, Obj As Integer)
+
+    quitarObjetoTumba = False
+
+    Dim i As Integer
+
+    i = 1
+
+    Do While i <= MAX_INVENTORY_SLOTS
+
+        'Hay objeto en este slot?
+        If UserList(VictimaIndex).Invent.Object(i).ObjIndex = Obj Then
+            If ObjEsRobable(VictimaIndex, i) Then
+                                 
+                Dim MiObj As Obj
+
+                Dim num   As Byte
+
+                'Cantidad al azar
+                num = 1
+                
+                MiObj.Amount = num
+                MiObj.ObjIndex = UserList(VictimaIndex).Invent.Object(i).ObjIndex
+    
+                UserList(VictimaIndex).Invent.Object(i).Amount = UserList(VictimaIndex).Invent.Object(i).Amount - num
+                
+                If UserList(VictimaIndex).Invent.Object(i).Amount <= 0 Then
+
+                    Call QuitarUserInvItem(VictimaIndex, CByte(i), 1)
+
+                End If
+            
+                Call UpdateUserInv(False, VictimaIndex, CByte(i))
+                Call SendData(ToIndex, VictimaIndex, 0, "||Gracias aqui tienes tu recompensa...." & FONTTYPE_INFO)
+                i = 100
+                quitarObjetoTumba = True
+                    
+            Else
+                'i = 100
+                Call SendData(ToIndex, VictimaIndex, 0, "||No puedes llevar equipado mi objeto...." & FONTTYPE_INFO)
+                i = 100
+
+            End If
+        
+        End If
+
+        i = i + 1
+    Loop
+
+End Function
+
+Sub robarObjetoTumba(VictimaIndex As Integer)
+
+Dim i As Integer
+i = 1
+Do While i <= MAX_INVENTORY_SLOTS
+        'Hay objeto en este slot?
+        If UserList(VictimaIndex).Invent.Object(i).ObjIndex > 0 Then
+           If ObjEsRobable(VictimaIndex, i) Then
+                                 
+                    Dim MiObj As Obj
+                    Dim num As Byte
+                    'Cantidad al azar
+                    num = RandomNumber(1, 5)
+                
+                    If num > UserList(VictimaIndex).Invent.Object(i).Amount Then
+                        num = UserList(VictimaIndex).Invent.Object(i).Amount
+                    End If
+                
+                    MiObj.Amount = num
+                    MiObj.ObjIndex = UserList(VictimaIndex).Invent.Object(i).ObjIndex
+    
+                    UserList(VictimaIndex).Invent.Object(i).Amount = UserList(VictimaIndex).Invent.Object(i).Amount - num
+                
+                    If UserList(VictimaIndex).Invent.Object(i).Amount <= 0 Then
+                            Call QuitarUserInvItem(VictimaIndex, CByte(i), 1)
+                    End If
+            
+                    Call UpdateUserInv(False, VictimaIndex, CByte(i))
+                    Call SendData(ToIndex, VictimaIndex, 0, "||Saturos te ha robado ..." & FONTTYPE_INFO)
+                    'i = 100
+           End If
+        
+        End If
+        i = i + 1
+    Loop
 
 End Sub

@@ -387,6 +387,16 @@ Public Enum eNPCType
 
 End Enum
 
+Public Enum eNumNpc
+     
+     otDragon = 146
+     otSagrado = 266
+     otHechicera = 18
+     
+End Enum
+
+Public Const TicketSagrado As Integer = 518
+
 Public Const MIN_APUÑALAR As Byte = 10
 
 '********** CONSTANTANTES ***********
@@ -600,6 +610,7 @@ Public Enum eOBJType
     otAmuleto = 47
     otVales = 50
     otPack = 51
+    otTumba = 52
     otMontura = 60
     otPLATA = 77
     otLibromagico = 999
@@ -1351,6 +1362,8 @@ Public Type UserFlags
     UsoLibroHP As Byte
     
     HablanMute As Byte
+    
+    MetamorfosisLicantropo As Byte
 
 End Type
 
@@ -1549,7 +1562,7 @@ Public Type User
 
     Invent As Inventario
 
-    pos As WorldPos
+    Pos As WorldPos
 
     ConnIDValida As Boolean
     ConnID As Long    'ID
@@ -1755,7 +1768,7 @@ Public Type npc
 
     Veneno As Byte
 
-    pos As WorldPos    'Posicion
+    Pos As WorldPos    'Posicion
     Orig As WorldPos
     SkillDomar As Integer
 
@@ -2245,3 +2258,22 @@ Public IndexHablaParty(1 To 100) As Integer
 Public PalabrasCensuradas() As String
 
 Public EnvioMensajes() As String
+
+Public NumCanjeSagrado As Integer
+
+Public Type tSagrado
+      Name As String
+      Index As Integer
+      Valor As Long
+End Type
+
+Public CanjeSagrado() As tSagrado
+
+'/////tumbas
+Public ContadorTumba As Integer
+Public TumbaOn As Boolean
+Public posTumbaTotan As WorldPos
+Public posTumbaSatu As WorldPos
+Public MinutosPasadosTumba As Long
+Public HorasPasadasTumba As Long
+Public objetoTotan As Integer
