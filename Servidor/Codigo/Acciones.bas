@@ -256,8 +256,19 @@ Sub Accion(ByVal UserIndex As Integer, _
             If Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.nQuest Then
                 Call IniciarVentanaQuest(UserIndex)
            End If
+           
+           If Npclist(MapData(Map, X, Y).NpcIndex).NPCtype = eNPCType.Subasta Then
+              
+              If UserList(UserIndex).flags.Muerto = 1 Then
+                  Call SendData(ToIndex, UserIndex, 0, "||¡¡Estás muerto!!" & FONTTYPE_INFO)
+                  Exit Sub
+              End If
+               
+                Call IniciarVentanaSubasta(UserIndex)
+           End If
 
         Else
+            
             UserList(UserIndex).flags.TargetNpc = 0
             UserList(UserIndex).flags.TargetNpcTipo = eNPCType.Comun
             UserList(UserIndex).flags.TargetUser = 0
@@ -293,21 +304,21 @@ Sub AccionParaForo(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Integer,
         num = val(GetVar(f, "INFO", "CantMSG"))
         base = Left$(f, Len(f) - 4)
         Dim i As Integer
-        Dim N As Integer
+        Dim n As Integer
 
         For i = 1 To num
-            N = FreeFile
+            n = FreeFile
             f = base & i & ".for"
-            Open f For Input Shared As #N
-            Input #N, tit
+            Open f For Input Shared As #n
+            Input #n, tit
             men = ""
             auxcad = ""
 
-            Do While Not EOF(N)
-                Input #N, auxcad
+            Do While Not EOF(n)
+                Input #n, auxcad
                 men = men & vbCrLf & auxcad
             Loop
-            Close #N
+            Close #n
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "FMSG" & tit & Chr(176) & men)
 
         Next
@@ -509,12 +520,12 @@ Sub AccionParaTumbaTotan(ByVal Map As Integer, _
         'titraroro
         MiObj.ObjIndex = iORO
 
-        Dim N As Integer
+        Dim n As Integer
 
-        For N = 1 To objetoTotan
+        For n = 1 To objetoTotan
             MiObj.Amount = 10000
             Call TirarItemAlPiso(posTumbaTotan, MiObj)
-        Next N
+        Next n
     
         Call EraseObj(ToMap, 0, posTumbaTotan.Map, 1, posTumbaTotan.Map, posTumbaTotan.X, posTumbaTotan.Y)
         Call EraseObj(ToMap, 0, posTumbaSatu.Map, 1, posTumbaSatu.Map, posTumbaSatu.X, posTumbaSatu.Y)

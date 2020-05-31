@@ -364,6 +364,48 @@ Sub HandleData2(ByVal rData As String)
         CanjeSagrado = True
         frmComerciar.Show , frmMain
         Exit Sub
+        
+        Case "RESETSB"
+              
+              rData = Val(Right$(rData, Len(rData) - 7))
+              
+              NumSubasta = rData
+              
+              ReDim Preserve Subasta(1 To NumSubasta) As tSubasta
+              
+              NumSubasta = 0
+              
+        Exit Sub
+              
+        Case "PAQSUBS"
+              
+              rData = Right$(rData, Len(rData) - 7)
+              
+              NumSubasta = NumSubasta + 1
+              
+              Subasta(NumSubasta).IdObjeto = ReadField(1, rData, 44)
+              Subasta(NumSubasta).Objeto = ReadField(2, rData, 44)
+              Subasta(NumSubasta).Cantidad = ReadField(3, rData, 44)
+              Subasta(NumSubasta).Valor = ReadField(4, rData, 44)
+              Subasta(NumSubasta).Subastador = ReadField(5, rData, 44)
+              Subasta(NumSubasta).Timer = ReadField(6, rData, 44)
+              Subasta(NumSubasta).Comprador = ReadField(7, rData, 44)
+              Subasta(NumSubasta).GrhIndex = ReadField(8, rData, 44)
+              
+        Exit Sub
+        
+        Case "INITSUB"
+              frmSubasta.Show , frmMain
+        Exit Sub
+        
+        Case "RELOADS"
+             Unload frmSubastaCrear
+             Call frmSubasta.ReloadVentanaSubasta
+        Exit Sub
+        
+        Case "RLDUSUB"
+             Call frmSubasta.ReloadVentanaSubasta
+        Exit Sub
          
     End Select
 

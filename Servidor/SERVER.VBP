@@ -103,6 +103,7 @@ Module=AoDefenderEncryptServer; Codigo\Modulos\AoDefenderEncryptServer.bas
 Module=ModSincronizaPosicion; Codigo\Modulos\ModSincronizaPosicion.bas
 Module=ModMetamorfosis; Codigo\Modulos\ModMetamorfosis.bas
 Module=Tumbas; Codigo\Modulos\Tumbas.bas
+Module=ModSubasta; Codigo\Modulos\ModSubasta.bas
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""

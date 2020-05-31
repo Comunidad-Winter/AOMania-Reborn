@@ -7,7 +7,7 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
 
     Dim n     As Integer
 
-    Dim LooPc As Integer
+    Dim LoopC As Integer
 
     Dim Rs    As Integer
     
@@ -15,7 +15,7 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
     
     Dim c     As Byte
     
-    Dim TIndex As Integer
+    Dim tIndex As Integer
     
     If UCase$(Left$(rData, 8)) = "/LLEVAME" Then
         Call WarpUserChar(UserIndex, "34", "30", "50", True)
@@ -31,21 +31,21 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
     If UCase$(Left$(rData, 14)) = "/RESETEAARMADA" Then
 
         If UserList(UserIndex).flags.Muerto = 1 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Estás muerto!!" & FONTTYPE_INFO)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||Estás muerto!!" & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype = eNPCType.armada Then
 
-            If Distancia(UserList(UserIndex).pos, Npclist(UserList(UserIndex).flags.TargetNpc).pos) > 4 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||Debes acercarte más." & FONTTYPE_INFO)
+            If Distancia(UserList(UserIndex).Pos, Npclist(UserList(UserIndex).flags.TargetNpc).Pos) > 4 Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||Debes acercarte más." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
             If Not TieneArmada(UserIndex) Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbYellow & "°" & "No perteneces a ninguna armada!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbYellow & "°" & "No perteneces a ninguna armada!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
 
             End If
@@ -53,7 +53,7 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             If PiedraFaccion(UserIndex) > 0 Then
                 n = PiedraFaccion(UserIndex)
             Else
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbYellow & "°" & "No tienes la piedra vuelve cuando la tengas." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbYellow & "°" & "No tienes la piedra vuelve cuando la tengas." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
 
             End If
@@ -62,7 +62,7 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
 
             If Rs < 5 Then
                 Call QuitarObjetos(n, 1, UserIndex)
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbYellow & "°" & "El usuario " & UserList(UserIndex).Name & " ha fallado Cambio de armada." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbYellow & "°" & "El usuario " & UserList(UserIndex).Name & " ha fallado Cambio de armada." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
 
             End If
@@ -112,9 +112,9 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             UserList(UserIndex).Reputacion.NobleRep = 0
             UserList(UserIndex).Reputacion.PlebeRep = 0
 
-            Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+            Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
 
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbYellow & "°" & "El usuario " & UserList(UserIndex).Name & " se ha salido de la armada poniendolo todo a 0." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbYellow & "°" & "El usuario " & UserList(UserIndex).Name & " se ha salido de la armada poniendolo todo a 0." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
 
         End If
 
@@ -125,17 +125,17 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
        c = 0
        Datos = vbNullString
        
-       For LooPc = 1 To UserList(UserIndex).Ignore.NumIgnores
-              Datos = Datos & UserList(UserIndex).Ignore.Usuario(LooPc) & ", "
+       For LoopC = 1 To UserList(UserIndex).Ignore.NumIgnores
+              Datos = Datos & UserList(UserIndex).Ignore.Usuario(LoopC) & ", "
               c = c + 1
-       Next LooPc
+       Next LoopC
        
        If c > 0 Then
            Datos = Left(Datos, Len(Datos) - 2)
-           Call SendData(toindex, UserIndex, 0, "||" & Datos & "." & FONTTYPE_INFO)
-           Call SendData(toindex, UserIndex, 0, "||Número de usuarios en tu lista de ignorados: " & c & FONTTYPE_INFO)
+           Call SendData(Toindex, UserIndex, 0, "||" & Datos & "." & FONTTYPE_INFO)
+           Call SendData(Toindex, UserIndex, 0, "||Número de usuarios en tu lista de ignorados: " & c & FONTTYPE_INFO)
        Else
-            Call SendData(toindex, UserIndex, 0, "||No tienes usuarios en tu lista de ignorados." & FONTTYPE_INFO)
+            Call SendData(Toindex, UserIndex, 0, "||No tienes usuarios en tu lista de ignorados." & FONTTYPE_INFO)
        End If
        
       Exit Sub
@@ -145,52 +145,52 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
         rData = Right$(rData, Len(rData) - 6)
         
         If UserList(UserIndex).Ignore.NumIgnores = UserList(UserIndex).Ignore.MaximoIgnores Then
-            Call SendData(toindex, UserIndex, 0, "||¡Has alcanzado el máximo de ignorar a usuarios! Puedes ignorar mas haciendo una donación https://argentumania.es/donaciones/" & FONTTYPE_INFO)
+            Call SendData(Toindex, UserIndex, 0, "||¡Has alcanzado el máximo de ignorar a usuarios! Puedes ignorar mas haciendo una donación https://argentumania.es/donaciones/" & FONTTYPE_INFO)
             Exit Sub
         End If
         
         If rData = "" Then
-            Call SendData(toindex, UserIndex, 0, "||Necesitamos el nick del usuario al que quieres poner en tu lista de ignore." & FONTTYPE_INFO)
+            Call SendData(Toindex, UserIndex, 0, "||Necesitamos el nick del usuario al que quieres poner en tu lista de ignore." & FONTTYPE_INFO)
             Exit Sub
 
         End If
         
-        TIndex = NameIndex(rData)
+        tIndex = NameIndex(rData)
         
-        If TIndex = 0 Then
-            Call SendData(toindex, UserIndex, 0, "||El usuario al que intentas poner en tu lista de ignore debe estar conectado." & FONTTYPE_INFO)
+        If tIndex = 0 Then
+            Call SendData(Toindex, UserIndex, 0, "||El usuario al que intentas poner en tu lista de ignore debe estar conectado." & FONTTYPE_INFO)
             Exit Sub
 
         End If
         
         If UCase$(UserList(UserIndex).Name) = UCase$(rData) Then
-            Call SendData(toindex, UserIndex, 0, "||No te puedes ponerte un ignore a ti mismo." & FONTTYPE_INFO)
+            Call SendData(Toindex, UserIndex, 0, "||No te puedes ponerte un ignore a ti mismo." & FONTTYPE_INFO)
             Exit Sub
         End If
         
-        If UserList(TIndex).flags.Privilegios > PlayerType.User Then
-            Call SendData(toindex, UserIndex, 0, "||No puedes ignorar a un Game Master." & FONTTYPE_INFO)
+        If UserList(tIndex).flags.Privilegios > PlayerType.User Then
+            Call SendData(Toindex, UserIndex, 0, "||No puedes ignorar a un Game Master." & FONTTYPE_INFO)
             Exit Sub
 
         End If
         
         If UserList(UserIndex).Ignore.NumIgnores > 0 Then
 
-            For LooPc = 1 To UserList(UserIndex).Ignore.NumIgnores
+            For LoopC = 1 To UserList(UserIndex).Ignore.NumIgnores
               
-                If UCase$(UserList(UserIndex).Ignore.Usuario(LooPc)) = UCase$(rData) Then
-                    Call SendData(toindex, UserIndex, 0, "||El usuario " & rData & " ya estaba en tu lista de ignorados." & FONTTYPE_INFO)
+                If UCase$(UserList(UserIndex).Ignore.Usuario(LoopC)) = UCase$(rData) Then
+                    Call SendData(Toindex, UserIndex, 0, "||El usuario " & rData & " ya estaba en tu lista de ignorados." & FONTTYPE_INFO)
                     Exit Sub
 
                 End If
               
-            Next LooPc
+            Next LoopC
 
         End If
         
         UserList(UserIndex).Ignore.NumIgnores = UserList(UserIndex).Ignore.NumIgnores + 1
         UserList(UserIndex).Ignore.Usuario(UserList(UserIndex).Ignore.NumIgnores) = rData
-        Call SendData(toindex, UserIndex, 0, "||El usuario " & rData & " ha sido agregado a tu lista de ignore." & FONTTYPE_INFO)
+        Call SendData(Toindex, UserIndex, 0, "||El usuario " & rData & " ha sido agregado a tu lista de ignore." & FONTTYPE_INFO)
         
         Exit Sub
 
@@ -200,43 +200,43 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
         rData = Right$(rData, Len(rData) - 8)
         
         If rData = "" Then
-            Call SendData(toindex, UserIndex, 0, "||Necesitamos el nick al que intentas quitar de tu lista de ignorados." & FONTTYPE_INFO)
+            Call SendData(Toindex, UserIndex, 0, "||Necesitamos el nick al que intentas quitar de tu lista de ignorados." & FONTTYPE_INFO)
             Exit Sub
 
         End If
         
-        TIndex = NameIndex(rData)
+        tIndex = NameIndex(rData)
         
-        If TIndex = 0 Then
-            Call SendData(toindex, UserIndex, 0, "||El usuario al que intentas quitar de tu lista de ignorados debe estar conectado." & FONTTYPE_INFO)
+        If tIndex = 0 Then
+            Call SendData(Toindex, UserIndex, 0, "||El usuario al que intentas quitar de tu lista de ignorados debe estar conectado." & FONTTYPE_INFO)
             Exit Sub
         End If
         
         If UCase$(UserList(UserIndex).Name) = UCase$(rData) Then
-            Call SendData(toindex, UserIndex, 0, "||No te puedes quitarte un ignore a ti mismo." & FONTTYPE_INFO)
+            Call SendData(Toindex, UserIndex, 0, "||No te puedes quitarte un ignore a ti mismo." & FONTTYPE_INFO)
             Exit Sub
         End If
         
         If UserList(UserIndex).Ignore.NumIgnores = 0 Then
-            Call SendData(toindex, UserIndex, 0, "||No hay ningún usuario en tu lista de ignore." & FONTTYPE_INFO)
+            Call SendData(Toindex, UserIndex, 0, "||No hay ningún usuario en tu lista de ignore." & FONTTYPE_INFO)
             Exit Sub
         ElseIf UserList(UserIndex).Ignore.NumIgnores > 0 Then
             
-            For LooPc = 1 To UserList(UserIndex).Ignore.NumIgnores
+            For LoopC = 1 To UserList(UserIndex).Ignore.NumIgnores
                   
-                If UCase$(UserList(UserIndex).Ignore.Usuario(LooPc)) = UCase$(rData) Then
-                    UserList(UserIndex).Ignore.Usuario(LooPc) = ""
+                If UCase$(UserList(UserIndex).Ignore.Usuario(LoopC)) = UCase$(rData) Then
+                    UserList(UserIndex).Ignore.Usuario(LoopC) = ""
                     c = c + 1
                 Else
-                    Datos = Datos & UserList(UserIndex).Ignore.Usuario(LooPc) & ", "
-                    UserList(UserIndex).Ignore.Usuario(LooPc) = ""
+                    Datos = Datos & UserList(UserIndex).Ignore.Usuario(LoopC) & ", "
+                    UserList(UserIndex).Ignore.Usuario(LoopC) = ""
 
                 End If
                   
-            Next LooPc
+            Next LoopC
             
             If c = 0 Then
-                Call SendData(toindex, UserIndex, 0, "||El usuario " & rData & " no esta en tu lista de ignore." & FONTTYPE_INFO)
+                Call SendData(Toindex, UserIndex, 0, "||El usuario " & rData & " no esta en tu lista de ignore." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
@@ -244,7 +244,7 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             If Datos <> "" Then Datos = Left(Datos, Len(Datos) - 2)
             
             UserList(UserIndex).Ignore.NumIgnores = UserList(UserIndex).Ignore.NumIgnores - 1
-            Call SendData(toindex, UserIndex, 0, "||El usuario " & rData & " ha sido eliminado de tu lista de ignore." & FONTTYPE_INFO)
+            Call SendData(Toindex, UserIndex, 0, "||El usuario " & rData & " ha sido eliminado de tu lista de ignore." & FONTTYPE_INFO)
             
         End If
         
@@ -253,9 +253,9 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
                 UserList(UserIndex).Ignore.Usuario(UserList(UserIndex).Ignore.NumIgnores) = rData
             ElseIf UserList(UserIndex).Ignore.NumIgnores > 1 Then
 
-                For LooPc = 1 To UserList(UserIndex).Ignore.NumIgnores
-                    UserList(UserIndex).Ignore.Usuario(LooPc) = ReadField(LooPc, Datos, 44)
-                Next LooPc
+                For LoopC = 1 To UserList(UserIndex).Ignore.NumIgnores
+                    UserList(UserIndex).Ignore.Usuario(LoopC) = ReadField(LoopC, Datos, 44)
+                Next LoopC
             
             End If
 
@@ -268,43 +268,43 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
     If UCase$(Left$(rData, 6)) = "/PARTY" Then
 
         If UserList(UserIndex).flags.TargetUser = 0 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Antes debes hacer click a un usuario." & FONTTYPE_INFO)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||Antes debes hacer click a un usuario." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
-        If Distancia(UserList(UserList(UserIndex).flags.TargetUser).pos, UserList(UserIndex).pos) > mdParty.MAXDISTANCIAINGRESOPARTY Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Estás demasiado lejos de tu compañero." & FONTTYPE_INFO)
+        If Distancia(UserList(UserList(UserIndex).flags.TargetUser).Pos, UserList(UserIndex).Pos) > mdParty.MAXDISTANCIAINGRESOPARTY Then
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||Estás demasiado lejos de tu compañero." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If UserList(UserIndex).Stats.ELV < mdParty.MINPARTYLEVEL Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Debes ser por lo menos nivel 13 para poder organizar una party." & FONTTYPE_INFO)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||Debes ser por lo menos nivel 13 para poder organizar una party." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If UserList(UserList(UserIndex).flags.TargetUser).Stats.ELV < mdParty.MINACLEVEL Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||El otro usuario debe ser por lo menos nivel " & mdParty.MINACLEVEL & " para poder entrar en una party." & FONTTYPE_INFO)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||El otro usuario debe ser por lo menos nivel " & mdParty.MINACLEVEL & " para poder entrar en una party." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If UserList(UserIndex).flags.Privilegios > PlayerType.User Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||¡¡No puedes!!" & FONTTYPE_INFO)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||¡¡No puedes!!" & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If UserList(UserList(UserIndex).flags.TargetUser).flags.Privilegios > PlayerType.User Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Los GMs no pueden participar en party's" & FONTTYPE_INFO)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||Los GMs no pueden participar en party's" & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If Abs(val(UserList(UserIndex).Stats.ELV - UserList(UserList(UserIndex).flags.TargetUser).Stats.ELV)) > mdParty.MAXPARTYDELTALEVEL Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes meter a " & UserList(UserList(UserIndex).flags.TargetUser).Name & " en tu party porque os lleváis más de " & mdParty.MAXPARTYDELTALEVEL & " niveles de diferencia." & FONTTYPE_INFO)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||No puedes meter a " & UserList(UserList(UserIndex).flags.TargetUser).Name & " en tu party porque os lleváis más de " & mdParty.MAXPARTYDELTALEVEL & " niveles de diferencia." & FONTTYPE_INFO)
             Exit Sub
 
         End If
@@ -348,31 +348,31 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             If Criminal(UserIndex) Then Exit Sub
             If .Faccion.FuerzasCaos = 1 Or .Faccion.Nemesis = 1 Then Exit Sub
             If .flags.Navegando = 1 Then Exit Sub
-            If .pos.Map = 48 Then Exit Sub
+            If .Pos.Map = 48 Then Exit Sub
 
             If .Stats.MinSta < .Stats.MaxSta Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡¡No tienes suficiente energía!!" & FONTTYPE_INFO)
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||¡¡No tienes suficiente energía!!" & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
             If .flags.Invisible = 1 Or .flags.Oculto = 1 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||Si estás invisible no puedes transformarte." & FONTTYPE_INFO)
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||Si estás invisible no puedes transformarte." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
-            If ZonaDuelos(.pos.Map, .pos.X, .pos.Y) Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||Estas en duelos no puedes transformarte." & FONTTYPE_INFO)
+            If ZonaDuelos(.Pos.Map, .Pos.X, .Pos.Y) Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||Estas en duelos no puedes transformarte." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
-            If .pos.Map = CastilloNorte Or .pos.Map = CastilloOeste Or .pos.Map = CastilloEste Or .pos.Map = CastilloSur Or .pos.Map = MapaFortaleza Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes transformarte." & FONTTYPE_INFO)
+            If .Pos.Map = CastilloNorte Or .Pos.Map = CastilloOeste Or .Pos.Map = CastilloEste Or .Pos.Map = CastilloSur Or .Pos.Map = MapaFortaleza Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||No puedes transformarte." & FONTTYPE_INFO)
                 Exit Sub
-            ElseIf .pos.Map = mapainvo Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes convertirte estando en la sala de invocaciones." & FONTTYPE_INFO)
+            ElseIf .Pos.Map = mapainvo Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||No puedes convertirte estando en la sala de invocaciones." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
@@ -395,9 +395,9 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
 
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
 
         End With
 
@@ -415,31 +415,31 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             If Not Criminal(UserIndex) Then Exit Sub
             If .Faccion.ArmadaReal = 1 Or .Faccion.Templario = 1 Then Exit Sub
             If .flags.Navegando = 1 Then Exit Sub
-            If .pos.Map = 48 Then Exit Sub
+            If .Pos.Map = 48 Then Exit Sub
 
             If .Stats.MinSta < .Stats.MaxSta Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡¡No tienes suficiente energía!!" & FONTTYPE_INFO)
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||¡¡No tienes suficiente energía!!" & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
             If .flags.Invisible = 1 Or .flags.Oculto = 1 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||Si estás invisible no puedes transformarte." & FONTTYPE_INFO)
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||Si estás invisible no puedes transformarte." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
-            If ZonaDuelos(.pos.Map, .pos.X, .pos.Y) Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||Estas en duelos no puedes transformarte." & FONTTYPE_INFO)
+            If ZonaDuelos(.Pos.Map, .Pos.X, .Pos.Y) Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||Estas en duelos no puedes transformarte." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
 
-            If .pos.Map = CastilloNorte Or .pos.Map = CastilloOeste Or .pos.Map = CastilloEste Or .pos.Map = CastilloSur Or .pos.Map = MapaFortaleza Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes transformarte." & FONTTYPE_INFO)
+            If .Pos.Map = CastilloNorte Or .Pos.Map = CastilloOeste Or .Pos.Map = CastilloEste Or .Pos.Map = CastilloSur Or .Pos.Map = MapaFortaleza Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||No puedes transformarte." & FONTTYPE_INFO)
                 Exit Sub
-            ElseIf .pos.Map = mapainvo Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes convertirte estando en la sala de invocaciones." & FONTTYPE_INFO)
+            ElseIf .Pos.Map = mapainvo Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||No puedes convertirte estando en la sala de invocaciones." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
@@ -461,36 +461,36 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
 
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
 
         End With
 
     End If
 
     If UCase$(Left$(rData, 8)) = "/OLVIDAR" Then
-        If Not ValidMap(UserList(UserIndex).pos.Map) = 1 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Primero tienes que seleccionar un personaje, hace click izquierdo sobre el." & FONTTYPE_INFO)
+        If Not ValidMap(UserList(UserIndex).Pos.Map) = 1 Then
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||Primero tienes que seleccionar un personaje, hace click izquierdo sobre el." & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
         If Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype = eNPCType.OlvidarHechizo Then
 
-            If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 5 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "Z27")
+            If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 5 Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "Z27")
                 Exit Sub
 
             End If
 
             If OroHechizo > UserList(UserIndex).Stats.GLD Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||No tienes oro suficiente." & FONTTYPE_TALKMSG)
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||No tienes oro suficiente." & FONTTYPE_TALKMSG)
                 Exit Sub
 
             End If
 
-            Call SendData(SendTarget.toindex, UserIndex, 0, "HECA" & FONTTYPE_INFO)
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "HECA" & FONTTYPE_INFO)
 
         End If
 
@@ -506,18 +506,20 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
         
         Dim TicketObj As Obj
     
-       If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 5 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "Z27")
+       If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 5 Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "Z27")
                 Exit Sub
             End If
         
-        If Npclist(UserList(UserIndex).flags.TargetNpc).Numero <> eNumNpc.otHechicera Then
-               Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbBlue & "°" & "No tengo ningun interes en comerciar." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+        If Npclist(UserList(UserIndex).flags.TargetNpc).Hostile = 1 Then Exit Sub
+        
+        If Npclist(UserList(UserIndex).flags.TargetNpc).Numero <> eNumNpc.otHechicera And Npclist(UserList(UserIndex).flags.TargetNpc).Hostile = 0 Then
+               Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbBlue & "°" & "No tengo ningun interes en comerciar." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                Exit Sub
        End If
        
        If Not TieneGemas(UserIndex) Then
-           Call SendData(toindex, UserIndex, 0, "||Aun no tienes las 8 gemas." & FONTTYPE_INFO)
+           Call SendData(Toindex, UserIndex, 0, "||Aun no tienes las 8 gemas." & FONTTYPE_INFO)
            Exit Sub
        End If
        
@@ -531,22 +533,48 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
         Exit Sub
     End If
     
+    If UCase$(Left$(rData, 10)) = "/SUBASTA" Then
+        If Npclist(UserList(UserIndex).flags.TargetNpc).Hostile = 0 Then
+        If Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype <> eNPCType.Subasta Then
+            Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbBlue & "°" & "Te has equivocado de persona, el subastador se encuentra en Nix." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+            Exit Sub
+        End If
+        End If
+        
+        If Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype = eNPCType.Subasta Then
+            If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 5 Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "Z27")
+                Exit Sub
+            End If
+            
+             If UserList(UserIndex).flags.Muerto = 1 Then
+                  Call SendData(Toindex, UserIndex, 0, "||¡¡Estás muerto!!" & FONTTYPE_INFO)
+                  Exit Sub
+              End If
+              
+              Call IniciarVentanaSubasta(UserIndex)
+              
+        End If
+        
+        Exit Sub
+    End If
+    
     If UCase$(Left$(rData, 8)) = "/SAGRADO" Then
         
         If Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype = eNPCType.CambiaCabeza Then
             
-            If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 5 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "Z27")
+            If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 5 Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "Z27")
                 Exit Sub
             End If
             
-            If Npclist(UserList(UserIndex).flags.TargetNpc).Numero <> eNumNpc.otSagrado Then
-               Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbBlue & "°" & "No tengo ningun interes en comerciar." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+            If Npclist(UserList(UserIndex).flags.TargetNpc).Numero <> eNumNpc.otSagrado And Npclist(UserList(UserIndex).flags.TargetNpc).Hostile = 1 Then
+               Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbBlue & "°" & "No tengo ningun interes en comerciar." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                Exit Sub
            End If
            
            If Not TieneObjetos(TicketSagrado, 1, UserIndex) Then
-               Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbYellow & "°" & "Yo solo comercio por vales sagrados. Vuelve cuando tengas." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+               Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbYellow & "°" & "Yo solo comercio por vales sagrados. Vuelve cuando tengas." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                Exit Sub
            End If
             
@@ -565,14 +593,14 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
 
         If Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype = eNPCType.CambiaCabeza Then
 
-            If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 5 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "Z27")
+            If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 5 Then
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "Z27")
                 Exit Sub
 
             End If
             
            If Npclist(UserList(UserIndex).flags.TargetNpc).Numero <> eNumNpc.otDragon Then
-               Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbYellow & "°" & "Ve con el que hace los trueques." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+               Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbYellow & "°" & "Ve con el que hace los trueques." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                Exit Sub
            End If
            
@@ -601,13 +629,13 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
                     Cabeza = CabezaDragon.Azul
 
                 Case Else
-                    Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbCyan & "°" & "No conozco esa armadura que dices." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                    Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & vbCyan & "°" & "No conozco esa armadura que dices." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                     Exit Sub
 
             End Select
 
             If Not TieneObjetos(Cabeza, 10, UserIndex) Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||" & "&H4580FF" & "°" & "¿¿Dónde están esas 10 cabezas??" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Call SendData(SendTarget.Toindex, UserIndex, 0, "||" & "&H4580FF" & "°" & "¿¿Dónde están esas 10 cabezas??" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
 
             End If

@@ -797,3 +797,19 @@ Public Enum PlayerType
 End Enum
 
 Public CanjeSagrado As Boolean
+
+Public NumSubasta As Integer
+
+Public Type tSubasta
+      IdObjeto As Integer
+      Objeto As String
+      Cantidad As Integer
+      Valor As Long
+      Subastador As String
+      Timer As String
+      Comprador As String
+      GrhIndex As Long
+End Type
+
+Public Subasta() As tSubasta
+

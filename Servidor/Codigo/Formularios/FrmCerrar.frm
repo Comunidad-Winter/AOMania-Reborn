@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "COMCTL32.OCX"
 Begin VB.Form FrmCerrar 
    Caption         =   "Form1"
    ClientHeight    =   3135
@@ -51,7 +51,7 @@ Private Sub Form_Load()
             Call QuitarNPC(i)
 
         Case NpcBruja
-            If Npclist(i).pos.Map = MapaCasaAbandonada1 Then
+            If Npclist(i).Pos.Map = MapaCasaAbandonada1 Then
                 Call QuitarNPC(i)
             End If
 
@@ -61,7 +61,8 @@ Private Sub Form_Load()
 
     DoEvents
     ProgressBar1.value = 20
-
+    
+    Call GuardarSubastas
     Call GuardarUsuarios
     DoEvents
     ProgressBar1.value = 40

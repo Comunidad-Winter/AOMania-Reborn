@@ -301,12 +301,12 @@ Function ZonaCura(ByVal UserIndex As Integer) As Boolean
 
     Dim X As Integer, Y As Integer
 
-    For Y = UserList(UserIndex).pos.Y - MinYBorder + 1 To UserList(UserIndex).pos.Y + MinYBorder - 1
-        For X = UserList(UserIndex).pos.X - MinXBorder + 1 To UserList(UserIndex).pos.X + MinXBorder - 1
+    For Y = UserList(UserIndex).Pos.Y - MinYBorder + 1 To UserList(UserIndex).Pos.Y + MinYBorder - 1
+        For X = UserList(UserIndex).Pos.X - MinXBorder + 1 To UserList(UserIndex).Pos.X + MinXBorder - 1
 
-            If MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex > 0 Then
-                If Npclist(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex).NPCtype = 1 Then
-                    If Distancia(UserList(UserIndex).pos, Npclist(MapData(UserList(UserIndex).pos.Map, X, Y).NpcIndex).pos) < 10 Then
+            If MapData(UserList(UserIndex).Pos.Map, X, Y).NpcIndex > 0 Then
+                If Npclist(MapData(UserList(UserIndex).Pos.Map, X, Y).NpcIndex).NPCtype = 1 Then
+                    If Distancia(UserList(UserIndex).Pos, Npclist(MapData(UserList(UserIndex).Pos.Map, X, Y).NpcIndex).Pos) < 10 Then
                         ZonaCura = True
                         Exit Function
 
@@ -890,6 +890,9 @@ Sub Main()
     
     frmCargando.Label1(2).caption = "Cargando Quests.."
     Call Load_Quest
+    
+    frmCargando.Label1(2).caption = "Cargando Subastas.."
+    Call CargarSubastas
 
     'Comentado porque hay worldsave en ese mapa!
     'Call CrearClanPretoriano(MAPA_PRETORIANO, ALCOBA2_X, ALCOBA2_Y)
@@ -992,7 +995,7 @@ Function FileExist(ByVal File As String, Optional FileType As VbFileAttribute = 
 
 End Function
 
-Public Function ReadField(ByVal pos As Long, ByRef Text As String, ByVal SepASCII As Long) As String
+Public Function ReadField(ByVal Pos As Long, ByRef Text As String, ByVal SepASCII As Long) As String
 '*****************************************************************
 'Author: Juan Martín Sotuyo Dodero (Maraxus)
 'Last Modify Date: 11/15/2004
@@ -1003,7 +1006,7 @@ Public Function ReadField(ByVal pos As Long, ByRef Text As String, ByVal SepASCI
     Dim lastPos As Long
     Dim CurrentPos As Long
 
-    For i = 1 To pos
+    For i = 1 To Pos
         lastPos = CurrentPos
         CurrentPos = InStr(lastPos + 1, Text, ChrW$(SepASCII), vbBinaryCompare)
     Next i
@@ -1444,9 +1447,9 @@ Public Function Intemperie(ByVal UserIndex As Integer) As Boolean
 
     With UserList(UserIndex)
 
-        If MapInfo(.pos.Map).Zona <> "DUNGEON" Then
-            If MapData(.pos.Map, .pos.X, .pos.Y).Trigger <> 1 And MapData(.pos.Map, .pos.X, .pos.Y).Trigger <> 2 And MapData(.pos.Map, .pos.X, _
-                                                                                                                             .pos.Y).Trigger <> 4 Then Intemperie = True
+        If MapInfo(.Pos.Map).Zona <> "DUNGEON" Then
+            If MapData(.Pos.Map, .Pos.X, .Pos.Y).Trigger <> 1 And MapData(.Pos.Map, .Pos.X, .Pos.Y).Trigger <> 2 And MapData(.Pos.Map, .Pos.X, _
+                                                                                                                             .Pos.Y).Trigger <> 4 Then Intemperie = True
         Else
             Intemperie = False
 
@@ -1508,7 +1511,7 @@ Public Sub EfectoFrio(ByVal UserIndex As Integer)
         UserList(UserIndex).Counters.Frio = UserList(UserIndex).Counters.Frio + 1
     Else
 
-        If MapInfo(UserList(UserIndex).pos.Map).Terreno = Nieve Then
+        If MapInfo(UserList(UserIndex).Pos.Map).Terreno = Nieve Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Estas muriendo de frio, abrigate o moriras!!." & FONTTYPE_INFO)
             modifi = Porcentaje(UserList(UserIndex).Stats.MaxHP, 5)
             UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - modifi
@@ -1571,7 +1574,7 @@ Public Sub EfectoInvisibilidad(ByVal UserIndex As Integer)
 
         If UserList(UserIndex).flags.Oculto = 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z11")
-            Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",0," & UserList( _
+            Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",0," & UserList( _
                                                                             UserIndex).PartyIndex)
         End If
 
@@ -1619,7 +1622,7 @@ Public Sub EfectoParalisisUser(ByVal UserIndex As Integer)
     Else
         UserList(UserIndex).flags.Paralizado = 0
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
-        Call Corr_ActualizarPosicion(UserIndex, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+        Call Corr_ActualizarPosicion(UserIndex, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
     End If
 
 End Sub
@@ -1627,9 +1630,9 @@ End Sub
 Public Sub RecStamina(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal Intervalo As Integer)
     If UserList(UserIndex).flags.Desnudo = 0 Then
 
-        If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 And MapData(UserList( _
-                                                                                                                              UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And MapData(UserList(UserIndex).pos.Map, UserList( _
-                                                                                                                                                                                                                                                             UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
+        If MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 1 And MapData(UserList( _
+                                                                                                                              UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 2 And MapData(UserList(UserIndex).Pos.Map, UserList( _
+                                                                                                                                                                                                                                                             UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 4 Then Exit Sub
 
         Dim massta As Integer
 
@@ -1663,9 +1666,9 @@ Public Sub EfectoVeneno(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean
     Else
 
         If UserList(UserIndex).TipoVeneno = 0 Or UserList(UserIndex).TipoVeneno = 2 Then
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 37 & "," & 1)
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 37 & "," & 1)
         Else
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 53 & "," & 1)
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 53 & "," & 1)
 
         End If
 
@@ -1712,9 +1715,9 @@ Public Sub EfectoMetamorfosis(ByVal UserIndex As Integer)
         UserList(UserIndex).CharMimetizado.Agilidad = 0
         UserList(UserIndex).CharMimetizado.Inteligencia = 0
 
-        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
+        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).Pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
 
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 1 & "," & 1)
 
     End If
 
@@ -1836,9 +1839,9 @@ Public Sub Sanar(ByVal UserIndex As Integer, ByRef EnviarStats As Boolean, ByVal
         On Error GoTo Sanar_Err
         '</EhHeader>
 
-100     If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 1 And _
-       MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 2 And _
-       MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 4 Then Exit Sub
+100     If MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 1 And _
+       MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 2 And _
+       MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 4 Then Exit Sub
 
         Dim mashit As Integer
 
@@ -1888,7 +1891,7 @@ Sub PasarSegundo()
 
     Dim Saturin As Integer
 
-    Dim pos     As WorldPos
+    Dim Pos     As WorldPos
 
     Dim Posa    As WorldPos
 
@@ -2139,11 +2142,11 @@ Public Sub DuracionAngelyDemonio(ByVal UserIndex As Integer)
                 .Counters.Mimetismo = 0
                 .flags.Mimetizado = 0
 
-                Call ChangeUserChar(SendTarget.ToMap, UserIndex, .pos.Map, UserIndex, _
+                Call ChangeUserChar(SendTarget.ToMap, UserIndex, .Pos.Map, UserIndex, _
                                     .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, _
                                     .char.CascoAnim, .char.Alas)
 
-                Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "CFX" & _
+                Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "CFX" & _
                                                                         .char.CharIndex & "," & 1 & "," & 1)
 
                 If .Metamorfosis.Angel = 1 Then

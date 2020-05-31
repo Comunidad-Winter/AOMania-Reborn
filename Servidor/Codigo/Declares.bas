@@ -376,6 +376,7 @@ Public Enum eNPCType
     Abbadon = 21
     Timbero = 23
     Templario = 26
+    Subasta = 27
     Tiniebla = 29
     Banda = 33
     Medusa = 38

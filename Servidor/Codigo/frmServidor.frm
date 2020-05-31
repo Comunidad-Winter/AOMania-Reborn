@@ -44,7 +44,7 @@ Begin VB.Form frmServidor
       Begin VB.VScrollBar VS1 
          Height          =   4335
          LargeChange     =   50
-         Left            =   4320
+         Left            =   4305
          SmallChange     =   17
          TabIndex        =   26
          Top             =   0
@@ -651,11 +651,11 @@ Private Sub Command21_Click()
 
     If EnPausa = False Then
         EnPausa = True
-        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
+        Call SendData(SendTarget.Toall, 0, 0, "BKW")
         Command21.caption = "Reanudar el servidor"
     Else
         EnPausa = False
-        Call SendData(SendTarget.ToAll, 0, 0, "BKW")
+        Call SendData(SendTarget.Toall, 0, 0, "BKW")
         Command21.caption = "Pausar el servidor"
 
     End If
@@ -680,6 +680,7 @@ Private Sub Command23_Click()
 
 
         'Guardar Pjs
+        Call GuardarSubastas
         Call GuardarUsuarios
 
         'WorldSave
