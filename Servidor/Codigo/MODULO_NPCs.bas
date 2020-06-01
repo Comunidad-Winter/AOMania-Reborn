@@ -85,17 +85,17 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
     MiNPC = Npclist(NpcIndex)
 
-    If MiNPC.Numero = NpcThorn And Npclist(NpcIndex).pos.Map = MapaCasaAbandonada1 Then
+    If MiNPC.Numero = NpcThorn And Npclist(NpcIndex).Pos.Map = MapaCasaAbandonada1 Then
         NpcThornVive = False
 
     End If
 
-    If MiNPC.Numero = NpcDragonAlado And Npclist(NpcIndex).pos.Map = MapaGenios Then
+    If MiNPC.Numero = NpcDragonAlado And Npclist(NpcIndex).Pos.Map = MapaGenios Then
         NpcDragonAladoVive = False
 
     End If
 
-    If MiNPC.Numero = 661 And Npclist(NpcIndex).pos.Map = mapainvo Then
+    If MiNPC.Numero = 661 And Npclist(NpcIndex).Pos.Map = mapainvo Then
         StatusInvo = False
         ConfInvo = 0
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has ganado 250000 puntos de experiencia!" & FONTTYPE_FIGHT)
@@ -103,7 +103,16 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
         UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + 250000
         Call EnviarExp(UserIndex)
         Call CheckUserLevel(UserIndex)
-
+    End If
+    
+    If MiNPC.Numero = 705 And Npclist(NpcIndex).Pos.Map = mapahades Then
+        StatusHades = True
+        ConfHades = 0
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has ganado 250000 puntos de experiencia!" & FONTTYPE_FIGHT)
+        Call SendData(ToAll, 0, 0, "||" & UserList(UserIndex).Name & " ha matado al " & Npclist(NpcIndex).Name & "!! Felicidades!! Gana 250000 de experiencia." & FONTTYPE_GUILD)
+        UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + 250000
+        Call EnviarExp(UserIndex)
+        Call CheckUserLevel(UserIndex)
     End If
 
     If MiNPC.Numero = 253 Then
@@ -152,11 +161,11 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
         For i = 8 To 90
             For j = 8 To 90
 
-                NPCI = MapData(Npclist(NpcIndex).pos.Map, i, j).NpcIndex
+                NPCI = MapData(Npclist(NpcIndex).Pos.Map, i, j).NpcIndex
 
                 If NPCI > 0 Then
                     If esPretoriano(NPCI) > 0 Then
-                        Npclist(NPCI).Invent.ArmourEqpSlot = IIf(Npclist(NpcIndex).pos.X > 50, 1, 5)
+                        Npclist(NPCI).Invent.ArmourEqpSlot = IIf(Npclist(NpcIndex).Pos.X > 50, 1, 5)
 
                     End If
 
@@ -165,13 +174,13 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
             Next j
         Next i
 
-        Call CrearClanPretoriano(MAPA_PRETORIANO, Npclist(NpcIndex).pos.X, Npclist(NpcIndex).pos.Y)
+        Call CrearClanPretoriano(MAPA_PRETORIANO, Npclist(NpcIndex).Pos.X, Npclist(NpcIndex).Pos.Y)
     ElseIf esPretoriano(NpcIndex) > 0 Then
         Npclist(NpcIndex).Invent.ArmourEqpSlot = 0
 
     End If
 
-    If MiNPC.pos.Map = mapainvo Then MapInfo(mapainvo).criatinv = 0
+    If MiNPC.Pos.Map = mapainvo Then MapInfo(mapainvo).criatinv = 0
 
     'Quitamos el npc
     Call QuitarNPC(NpcIndex)
@@ -180,7 +189,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
         Call AccionNpcCastillos(MiNPC.Numero, UserIndex)
 
-        If MiNPC.flags.Snd3 > 0 Then Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & MiNPC.flags.Snd3)
+        If MiNPC.flags.Snd3 > 0 Then Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & MiNPC.flags.Snd3)
 
         UserList(UserIndex).flags.TargetNpc = 0
         UserList(UserIndex).flags.TargetNpcTipo = eNPCType.Comun
@@ -395,9 +404,9 @@ Sub ResetNpcMainInfo(ByVal NpcIndex As Integer)
     Npclist(NpcIndex).Orig.Y = 0
     Npclist(NpcIndex).PoderAtaque = 0
     Npclist(NpcIndex).PoderEvasion = 0
-    Npclist(NpcIndex).pos.Map = 0
-    Npclist(NpcIndex).pos.X = 0
-    Npclist(NpcIndex).pos.Y = 0
+    Npclist(NpcIndex).Pos.Map = 0
+    Npclist(NpcIndex).Pos.X = 0
+    Npclist(NpcIndex).Pos.Y = 0
     Npclist(NpcIndex).SkillDomar = 0
     Npclist(NpcIndex).Target = 0
     Npclist(NpcIndex).TargetNpc = 0
@@ -424,7 +433,7 @@ Sub QuitarNPC(ByVal NpcIndex As Integer)
     With Npclist(NpcIndex)
         .flags.NPCActive = False
 
-        If InMapBounds(.pos.Map, .pos.X, .pos.Y) Then
+        If InMapBounds(.Pos.Map, .Pos.X, .Pos.Y) Then
             Call EraseNPCChar(NpcIndex)
 
         End If
@@ -461,10 +470,10 @@ errhandler:
 
 End Sub
 
-Function TestSpawnTrigger(pos As WorldPos) As Boolean
+Function TestSpawnTrigger(Pos As WorldPos) As Boolean
 
-    If LegalPos(pos.Map, pos.X, pos.Y) Then
-        TestSpawnTrigger = MapData(pos.Map, pos.X, pos.Y).Trigger <> 3 And MapData(pos.Map, pos.X, pos.Y).Trigger <> 2 And MapData(pos.Map, pos.X, pos.Y).Trigger <> 1
+    If LegalPos(Pos.Map, Pos.X, Pos.Y) Then
+        TestSpawnTrigger = MapData(Pos.Map, Pos.X, Pos.Y).Trigger <> 3 And MapData(Pos.Map, Pos.X, Pos.Y).Trigger <> 2 And MapData(Pos.Map, Pos.X, Pos.Y).Trigger <> 1
 
     End If
 
@@ -478,7 +487,7 @@ Sub CrearNPC(NroNPC As Integer, Mapa As Integer, OrigPos As WorldPos)
 
     Dim error          As Integer
 
-    Dim pos            As WorldPos
+    Dim Pos            As WorldPos
 
     Dim newpos         As WorldPos
 
@@ -512,29 +521,29 @@ Sub CrearNPC(NroNPC As Integer, Mapa As Integer, OrigPos As WorldPos)
         X = OrigPos.X
         Y = OrigPos.Y
         Npclist(nIndex).Orig = OrigPos
-        Npclist(nIndex).pos = OrigPos
+        Npclist(nIndex).Pos = OrigPos
    
     Else
         error = 5
   
-        pos.Map = Mapa 'mapa
+        Pos.Map = Mapa 'mapa
     
         Do While Not PosicionValida
             error = 6
             Randomize (Timer)
-            pos.X = CInt(Rnd * 100 + 1) 'Obtenemos posicion al azar en x
-            pos.Y = CInt(Rnd * 100 + 1) 'Obtenemos posicion al azar en y
+            Pos.X = CInt(Rnd * 100 + 1) 'Obtenemos posicion al azar en x
+            Pos.Y = CInt(Rnd * 100 + 1) 'Obtenemos posicion al azar en y
             error = 7
-            Call ClosestLegalPosNpc(pos, newpos, IIf(Npclist(nIndex).flags.AguaValida = 1, True, False)) 'Nos devuelve la posicion valida mas cercana
+            Call ClosestLegalPosNpc(Pos, newpos, IIf(Npclist(nIndex).flags.AguaValida = 1, True, False)) 'Nos devuelve la posicion valida mas cercana
             error = 8
 
             'Si X e Y son iguales a 0 significa que no se encontro posicion valida
             If LegalPosNPC(newpos.Map, newpos.X, newpos.Y, IIf(Npclist(nIndex).flags.AguaValida = 1, True, False)) And Not HayPCarea(newpos) And TestSpawnTrigger(newpos) Then
                 error = 9
                 'Asignamos las nuevas coordenas solo si son validas
-                Npclist(nIndex).pos.Map = newpos.Map
-                Npclist(nIndex).pos.X = newpos.X
-                Npclist(nIndex).pos.Y = newpos.Y
+                Npclist(nIndex).Pos.Map = newpos.Map
+                Npclist(nIndex).Pos.X = newpos.X
+                Npclist(nIndex).Pos.Y = newpos.Y
                 PosicionValida = True
             Else
                 error = 10
@@ -559,8 +568,8 @@ Sub CrearNPC(NroNPC As Integer, Mapa As Integer, OrigPos As WorldPos)
         error = 12
         'asignamos las nuevas coordenas
         Map = newpos.Map
-        X = Npclist(nIndex).pos.X
-        Y = Npclist(nIndex).pos.Y
+        X = Npclist(nIndex).Pos.X
+        Y = Npclist(nIndex).Pos.Y
 
     End If
 
@@ -636,10 +645,10 @@ Sub EraseNPCChar(ByVal NpcIndex As Integer)
     End If
 
     'Quitamos del mapa
-    MapData(Npclist(NpcIndex).pos.Map, Npclist(NpcIndex).pos.X, Npclist(NpcIndex).pos.Y).NpcIndex = 0
+    MapData(Npclist(NpcIndex).Pos.Map, Npclist(NpcIndex).Pos.X, Npclist(NpcIndex).Pos.Y).NpcIndex = 0
 
     'Actualizamos los clientes
-    Call SendData(SendTarget.ToMap, 0, Npclist(NpcIndex).pos.Map, "BP" & Npclist(NpcIndex).char.CharIndex)
+    Call SendData(SendTarget.ToMap, 0, Npclist(NpcIndex).Pos.Map, "BP" & Npclist(NpcIndex).char.CharIndex)
 
     'Update la lista npc
     Npclist(NpcIndex).char.CharIndex = 0
@@ -655,26 +664,26 @@ Sub MoveNPCChar(ByVal NpcIndex As Integer, ByVal nHeading As Byte)
 
     Dim nPos As WorldPos
 
-    nPos = Npclist(NpcIndex).pos
+    nPos = Npclist(NpcIndex).Pos
     Call HeadtoPos(nHeading, nPos)
 
     'Es mascota ????
     If Npclist(NpcIndex).MaestroUser > 0 Then
 
         ' es una posicion legal
-        If LegalPos(Npclist(NpcIndex).pos.Map, nPos.X, nPos.Y, Npclist(NpcIndex).flags.AguaValida = 1, EsElemental(NpcIndex)) Then
+        If LegalPos(Npclist(NpcIndex).Pos.Map, nPos.X, nPos.Y, Npclist(NpcIndex).flags.AguaValida = 1, EsElemental(NpcIndex)) Then
 
-            If Npclist(NpcIndex).flags.AguaValida = 0 And HayAgua(Npclist(NpcIndex).pos.Map, nPos.X, nPos.Y) Then Exit Sub
+            If Npclist(NpcIndex).flags.AguaValida = 0 And HayAgua(Npclist(NpcIndex).Pos.Map, nPos.X, nPos.Y) Then Exit Sub
 
-            If Npclist(NpcIndex).flags.TierraInvalida = 1 And Not HayAgua(Npclist(NpcIndex).pos.Map, nPos.X, nPos.Y) Then Exit Sub
+            If Npclist(NpcIndex).flags.TierraInvalida = 1 And Not HayAgua(Npclist(NpcIndex).Pos.Map, nPos.X, nPos.Y) Then Exit Sub
 
             Call SendToNpcArea(NpcIndex, "*" & Npclist(NpcIndex).char.CharIndex & "," & nPos.X & "," & nPos.Y)
 
             'Update map and user pos
-            MapData(Npclist(NpcIndex).pos.Map, Npclist(NpcIndex).pos.X, Npclist(NpcIndex).pos.Y).NpcIndex = 0
-            Npclist(NpcIndex).pos = nPos
+            MapData(Npclist(NpcIndex).Pos.Map, Npclist(NpcIndex).Pos.X, Npclist(NpcIndex).Pos.Y).NpcIndex = 0
+            Npclist(NpcIndex).Pos = nPos
             Npclist(NpcIndex).char.heading = nHeading
-            MapData(Npclist(NpcIndex).pos.Map, Npclist(NpcIndex).pos.X, Npclist(NpcIndex).pos.Y).NpcIndex = NpcIndex
+            MapData(Npclist(NpcIndex).Pos.Map, Npclist(NpcIndex).Pos.X, Npclist(NpcIndex).Pos.Y).NpcIndex = NpcIndex
             Call CheckUpdateNeededNpc(NpcIndex, nHeading)
 
         End If
@@ -683,11 +692,11 @@ Sub MoveNPCChar(ByVal NpcIndex As Integer, ByVal nHeading As Byte)
 
         ' Controlamos que la posicion sea legal, los npc que
         ' no son mascotas tienen mas restricciones de movimiento.
-        If LegalPosNPC(Npclist(NpcIndex).pos.Map, nPos.X, nPos.Y, Npclist(NpcIndex).flags.AguaValida) Then
+        If LegalPosNPC(Npclist(NpcIndex).Pos.Map, nPos.X, nPos.Y, Npclist(NpcIndex).flags.AguaValida) Then
 
-            If Npclist(NpcIndex).flags.AguaValida = 0 And HayAgua(Npclist(NpcIndex).pos.Map, nPos.X, nPos.Y) Then Exit Sub
+            If Npclist(NpcIndex).flags.AguaValida = 0 And HayAgua(Npclist(NpcIndex).Pos.Map, nPos.X, nPos.Y) Then Exit Sub
 
-            If Npclist(NpcIndex).flags.TierraInvalida = 1 And Not HayAgua(Npclist(NpcIndex).pos.Map, nPos.X, nPos.Y) Then Exit Sub
+            If Npclist(NpcIndex).flags.TierraInvalida = 1 And Not HayAgua(Npclist(NpcIndex).Pos.Map, nPos.X, nPos.Y) Then Exit Sub
 
             '[Alejo-18-5]
             'server
@@ -695,10 +704,10 @@ Sub MoveNPCChar(ByVal NpcIndex As Integer, ByVal nHeading As Byte)
             Call SendToNpcArea(NpcIndex, "*" & Npclist(NpcIndex).char.CharIndex & "," & nPos.X & "," & nPos.Y)
 
             'Update map and user pos
-            MapData(Npclist(NpcIndex).pos.Map, Npclist(NpcIndex).pos.X, Npclist(NpcIndex).pos.Y).NpcIndex = 0
-            Npclist(NpcIndex).pos = nPos
+            MapData(Npclist(NpcIndex).Pos.Map, Npclist(NpcIndex).Pos.X, Npclist(NpcIndex).Pos.Y).NpcIndex = 0
+            Npclist(NpcIndex).Pos = nPos
             Npclist(NpcIndex).char.heading = nHeading
-            MapData(Npclist(NpcIndex).pos.Map, Npclist(NpcIndex).pos.X, Npclist(NpcIndex).pos.Y).NpcIndex = NpcIndex
+            MapData(Npclist(NpcIndex).Pos.Map, Npclist(NpcIndex).Pos.X, Npclist(NpcIndex).Pos.Y).NpcIndex = NpcIndex
 
             Call CheckUpdateNeededNpc(NpcIndex, nHeading)
 
@@ -757,7 +766,7 @@ Sub NpcEnvenenarUser(ByVal UserIndex As Integer)
 End Sub
 
 Function SpawnNpc(ByVal NpcIndex As Integer, _
-                  pos As WorldPos, _
+                  Pos As WorldPos, _
                   ByVal FX As Boolean, _
                   ByVal Respawn As Boolean) As Integer
     'Crea un NPC del tipo Npcindex
@@ -789,14 +798,14 @@ Function SpawnNpc(ByVal NpcIndex As Integer, _
 
     Do While Not PosicionValida
         
-        Call ClosestLegalPosNpc(pos, newpos, IIf(Npclist(nIndex).flags.AguaValida = 1, True, False))  'Nos devuelve la posicion valida mas cercana
+        Call ClosestLegalPosNpc(Pos, newpos, IIf(Npclist(nIndex).flags.AguaValida = 1, True, False))  'Nos devuelve la posicion valida mas cercana
 
         'Si X e Y son iguales a 0 significa que no se encontro posicion valida
         If LegalPosNPC(newpos.Map, newpos.X, newpos.Y, Npclist(nIndex).flags.AguaValida) Then
             'Asignamos las nuevas coordenas solo si son validas
-            Npclist(nIndex).pos.Map = newpos.Map
-            Npclist(nIndex).pos.X = newpos.X
-            Npclist(nIndex).pos.Y = newpos.Y
+            Npclist(nIndex).Pos.Map = newpos.Map
+            Npclist(nIndex).Pos.X = newpos.X
+            Npclist(nIndex).Pos.Y = newpos.Y
             PosicionValida = True
         Else
             newpos.X = 0
@@ -818,8 +827,8 @@ Function SpawnNpc(ByVal NpcIndex As Integer, _
     
     'asignamos las nuevas coordenas
     Map = newpos.Map
-    X = Npclist(nIndex).pos.X
-    Y = Npclist(nIndex).pos.Y
+    X = Npclist(nIndex).Pos.X
+    Y = Npclist(nIndex).Pos.Y
 
     'Crea el NPC
     Call MakeNPCChar(ToMap, 0, Map, nIndex, Map, X, Y)
@@ -838,7 +847,7 @@ End Function
 
 Sub RespawnNPC(MiNPC As npc)
 
-    If (MiNPC.flags.Respawn = 0) Then Call CrearNPC(MiNPC.Numero, MiNPC.pos.Map, MiNPC.Orig)
+    If (MiNPC.flags.Respawn = 0) Then Call CrearNPC(MiNPC.Numero, MiNPC.Pos.Map, MiNPC.Orig)
 
 End Sub
 
@@ -855,7 +864,7 @@ Function NPCHostiles(ByVal Map As Integer) As Integer
     For NpcIndex = 1 To LastNPC
 
         '¿esta vivo?
-        If Npclist(NpcIndex).flags.NPCActive And Npclist(NpcIndex).pos.Map = Map And Npclist(NpcIndex).Hostile = 1 And Npclist(NpcIndex).Stats.Alineacion = 2 Then
+        If Npclist(NpcIndex).flags.NPCActive And Npclist(NpcIndex).Pos.Map = Map And Npclist(NpcIndex).Hostile = 1 And Npclist(NpcIndex).Stats.Alineacion = 2 Then
             cont = cont + 1
 
         End If
@@ -882,14 +891,14 @@ Sub NPCTirarOro(MiNPC As npc, UserIndex As Integer)
         Do While MiAux > MAX_INVENTORY_OBJS
             MiObj.Amount = MAX_INVENTORY_OBJS
             MiObj.ObjIndex = iORO
-            Call TirarItemAlPiso(MiNPC.pos, MiObj)
+            Call TirarItemAlPiso(MiNPC.Pos, MiObj)
             MiAux = MiAux - MAX_INVENTORY_OBJS
         Loop
 
         If MiAux > 0 Then
             MiObj.Amount = MiAux
             MiObj.ObjIndex = iORO
-            Call TirarItemAlPiso(MiNPC.pos, MiObj)
+            Call TirarItemAlPiso(MiNPC.Pos, MiObj)
 
         End If
 
@@ -1173,7 +1182,7 @@ Sub DoFollow(ByVal NpcIndex As Integer, ByVal UserName As String)
             .char.heading = 3
             .MaestroUser = 0
             
-            Call SendData(SendTarget.ToNPCArea, UserList(NameIndex(UserName)).flags.TargetNpc, Npclist(UserList(NameIndex(UserName)).flags.TargetNpc).pos.Map, "||" & vbWhite & "°" & "Aqui me quedo" & "°" & CStr(Npclist(UserList(NameIndex(UserName)).flags.TargetNpc).char.CharIndex))
+            Call SendData(SendTarget.ToNPCArea, UserList(NameIndex(UserName)).flags.TargetNpc, Npclist(UserList(NameIndex(UserName)).flags.TargetNpc).Pos.Map, "||" & vbWhite & "°" & "Aqui me quedo" & "°" & CStr(Npclist(UserList(NameIndex(UserName)).flags.TargetNpc).char.CharIndex))
 
             For i = 1 To LastUser
                 Call UpdateUserMap(i)
@@ -1187,7 +1196,7 @@ Sub DoFollow(ByVal NpcIndex As Integer, ByVal UserName As String)
             .Hostile = 0
             .MaestroUser = 1
             
-            Call SendData(SendTarget.ToNPCArea, UserList(NameIndex(UserName)).flags.TargetNpc, Npclist(UserList(NameIndex(UserName)).flags.TargetNpc).pos.Map, "||" & vbWhite & "°" & "Te sigo " & UserName & "°" & CStr(Npclist(UserList(NameIndex(UserName)).flags.TargetNpc).char.CharIndex))
+            Call SendData(SendTarget.ToNPCArea, UserList(NameIndex(UserName)).flags.TargetNpc, Npclist(UserList(NameIndex(UserName)).flags.TargetNpc).Pos.Map, "||" & vbWhite & "°" & "Te sigo " & UserName & "°" & CStr(Npclist(UserList(NameIndex(UserName)).flags.TargetNpc).char.CharIndex))
 
         End If
 

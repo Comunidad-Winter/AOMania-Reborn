@@ -6024,3 +6024,160 @@
 29/05/2020 19:45:00 Transporto a Bassinger hacia Mapa47 X:64 Y:19
 29/05/2020 19:45:51 Se conecto con ip:127.0.0.1Hora: 29/05/2020 19:45:51
 29/05/2020 19:46:11 Se conecto con ip:127.0.0.1Hora: 29/05/2020 19:46:11
+31/05/2020 17:19:36 Se conecto con ip:127.0.0.1Hora: 31/05/2020 17:19:36
+31/05/2020 17:19:47 Comando: /panelgm
+31/05/2020 17:19:53 Comando: /SEARCHITEMS resuc
+31/05/2020 17:19:58 Comando: /CI 990 1000
+31/05/2020 17:19:58 Creo: 1000 Poción resucitadora
+31/05/2020 17:28:05 Comando: /panelgm
+31/05/2020 17:28:09 Comando: /SEARCHITEMS desp
+31/05/2020 17:28:14 Comando: /CI 608 1000
+31/05/2020 17:28:14 Creo: 1000 Pocion Desparalizar
+31/05/2020 17:48:30 Se conecto con ip:127.0.0.1Hora: 31/05/2020 17:48:30
+31/05/2020 18:47:49 Se conecto con ip:127.0.0.1Hora: 31/05/2020 18:47:49
+31/05/2020 18:47:52 Se conecto con ip:127.0.0.1Hora: 31/05/2020 18:47:52
+31/05/2020 18:47:53 Se conecto con ip:127.0.0.1Hora: 31/05/2020 18:47:53
+31/05/2020 18:48:00 Comando: /TELEP YO 34 47 47
+31/05/2020 18:48:00 Transporto a Bassinger hacia Mapa34 X:47 Y:47
+31/05/2020 18:48:00 Comando: /TELEP YO 34 53 45
+31/05/2020 18:48:00 Transporto a Bassinger hacia Mapa34 X:53 Y:45
+31/05/2020 18:48:01 Comando: /TELEP YO 34 61 47
+31/05/2020 18:48:01 Transporto a Bassinger hacia Mapa34 X:61 Y:47
+31/05/2020 23:49:42 Se conecto con ip:127.0.0.1Hora: 31/05/2020 23:49:42
+31/05/2020 23:49:46 Comando: /TELEP YO 47 62 17
+31/05/2020 23:49:46 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+31/05/2020 23:49:48 Comando: /TELEP YO 34 47 46
+31/05/2020 23:49:48 Transporto a Bassinger hacia Mapa34 X:47 Y:46
+31/05/2020 23:49:48 Comando: /TELEP YO 34 55 45
+31/05/2020 23:49:48 Transporto a Bassinger hacia Mapa34 X:55 Y:45
+31/05/2020 23:49:49 Comando: /TELEP YO 34 60 46
+31/05/2020 23:49:49 Transporto a Bassinger hacia Mapa34 X:60 Y:46
+31/05/2020 23:49:50 Comando: /TELEP YO 34 66 46
+31/05/2020 23:49:50 Transporto a Bassinger hacia Mapa34 X:66 Y:46
+31/05/2020 23:49:51 Comando: /TELEP YO 34 68 45
+31/05/2020 23:49:51 Transporto a Bassinger hacia Mapa34 X:68 Y:45
+31/05/2020 23:51:57 Se conecto con ip:127.0.0.1Hora: 31/05/2020 23:51:57
+31/05/2020 23:52:01 Comando: /TELEP YO 47 62 17
+31/05/2020 23:52:01 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+31/05/2020 23:52:02 Comando: /TELEP YO 34 48 49
+31/05/2020 23:52:02 Transporto a Bassinger hacia Mapa34 X:48 Y:49
+31/05/2020 23:52:02 Comando: /TELEP YO 34 56 48
+31/05/2020 23:52:02 Transporto a Bassinger hacia Mapa34 X:56 Y:48
+31/05/2020 23:52:03 Comando: /TELEP YO 34 63 47
+31/05/2020 23:52:03 Transporto a Bassinger hacia Mapa34 X:63 Y:47
+31/05/2020 23:52:04 Comando: /TELEP YO 34 67 46
+31/05/2020 23:52:04 Transporto a Bassinger hacia Mapa34 X:67 Y:46
+31/05/2020 23:52:45 Comando: /TELEP YO 34 68 48
+31/05/2020 23:52:45 Transporto a Bassinger hacia Mapa34 X:68 Y:48
+31/05/2020 23:52:56 Comando: /panelgm
+31/05/2020 23:53:01 Comando: /SEARCHITEMS sagrada
+31/05/2020 23:53:04 Comando: /CI 651 1
+31/05/2020 23:53:04 Creo: 1 Tunica Sagrada
+31/05/2020 23:54:00 Comando: /TELEP YO 34 30 59
+31/05/2020 23:54:00 Transporto a Bassinger hacia Mapa34 X:30 Y:59
+31/05/2020 23:54:01 Comando: /TELEP YO 34 30 67
+31/05/2020 23:54:01 Transporto a Bassinger hacia Mapa34 X:30 Y:67
+31/05/2020 23:54:10 Comando: /telep yo 154 50 50
+31/05/2020 23:54:10 Transporto a Bassinger hacia Mapa154 X:50 Y:50
+31/05/2020 23:54:20 Comando: /panelgm
+31/05/2020 23:54:27 Comando: /SEARCHITEMS invisibilidad
+31/05/2020 23:54:33 Comando: /CI 630 1000
+31/05/2020 23:54:33 Creo: 1000 Poción de invisibilidad
+31/05/2020 23:56:36 Comando: /telep yo 160 50 50
+31/05/2020 23:56:36 Transporto a Bassinger hacia Mapa160 X:50 Y:50
+31/05/2020 23:58:50 Se conecto con ip:127.0.0.1Hora: 31/05/2020 23:58:50
+31/05/2020 23:58:51 Se conecto con ip:127.0.0.1Hora: 31/05/2020 23:58:51
+31/05/2020 23:58:57 Comando: /telep yo 150 50 50
+31/05/2020 23:58:57 Transporto a Bassinger hacia Mapa150 X:50 Y:50
+31/05/2020 23:58:59 Comando: /TELEP YO 150 45 45
+31/05/2020 23:58:59 Transporto a Bassinger hacia Mapa150 X:45 Y:45
+31/05/2020 23:59:00 Comando: /TELEP YO 150 41 42
+31/05/2020 23:59:00 Transporto a Bassinger hacia Mapa150 X:41 Y:42
+31/05/2020 23:59:01 Comando: /TELEP YO 150 39 38
+31/05/2020 23:59:01 Transporto a Bassinger hacia Mapa150 X:39 Y:38
+01/06/2020 0:00:06 Se conecto con ip:127.0.0.1Hora: 01/06/2020 0:00:06
+01/06/2020 0:00:07 Se conecto con ip:127.0.0.1Hora: 01/06/2020 0:00:07
+01/06/2020 0:00:14 Comando: /telep yo 150 50 50
+01/06/2020 0:00:14 Transporto a Bassinger hacia Mapa150 X:50 Y:50
+01/06/2020 0:00:16 Comando: /TELEP YO 150 45 43
+01/06/2020 0:00:16 Transporto a Bassinger hacia Mapa150 X:45 Y:43
+01/06/2020 0:00:16 Comando: /TELEP YO 150 40 38
+01/06/2020 0:00:16 Transporto a Bassinger hacia Mapa150 X:40 Y:38
+01/06/2020 0:00:16 Comando: /TELEP YO 150 36 32
+01/06/2020 0:00:16 Transporto a Bassinger hacia Mapa150 X:36 Y:32
+01/06/2020 0:00:26 Comando: /telep yo 161 50 50
+01/06/2020 0:00:26 Transporto a Bassinger hacia Mapa161 X:50 Y:50
+01/06/2020 0:01:43 Comando: /telep yo 164 50 50
+01/06/2020 0:01:43 Transporto a Bassinger hacia Mapa164 X:50 Y:50
+01/06/2020 0:01:50 Comando: /telep yo 162 50 50
+01/06/2020 0:01:50 Transporto a Bassinger hacia Mapa162 X:50 Y:50
+01/06/2020 0:03:02 Comando: /telep yo 163 50 50
+01/06/2020 0:03:02 Transporto a Bassinger hacia Mapa163 X:50 Y:50
+01/06/2020 0:06:44 Dijo:  
+01/06/2020 0:16:17 Se conecto con ip:127.0.0.1Hora: 01/06/2020 0:16:17
+01/06/2020 0:16:57 Comando: /sum mago
+01/06/2020 0:16:57 /SUM Mago Map:47 X:62 Y:22
+01/06/2020 0:17:13  tiró 12 Poción de invisibilidad
+01/06/2020 0:17:22 Dijo:  
+01/06/2020 0:20:32 Comando: /reloadobj
+01/06/2020 0:21:05 Comando: /revivir mago
+01/06/2020 0:21:17  tiró 120 Poción resucitadora
+01/06/2020 0:53:43 Se conecto con ip:127.0.0.1Hora: 01/06/2020 0:53:43
+01/06/2020 0:53:59 Comando: /telep yo 107 50 50
+01/06/2020 0:53:59 Transporto a Bassinger hacia Mapa107 X:50 Y:50
+01/06/2020 0:54:03 Comando: /TELEP YO 107 43 47
+01/06/2020 0:54:03 Transporto a Bassinger hacia Mapa107 X:43 Y:47
+01/06/2020 0:54:04 Comando: /TELEP YO 107 34 42
+01/06/2020 0:54:04 Transporto a Bassinger hacia Mapa107 X:34 Y:42
+01/06/2020 0:54:08 Comando: /TELEP YO 181 51 83
+01/06/2020 0:54:08 Transporto a Bassinger hacia Mapa181 X:51 Y:83
+01/06/2020 0:54:08 Comando: /TELEP YO 181 49 78
+01/06/2020 0:54:08 Transporto a Bassinger hacia Mapa181 X:49 Y:78
+01/06/2020 0:54:11 Comando: /TELEP YO 181 49 72
+01/06/2020 0:54:11 Transporto a Bassinger hacia Mapa181 X:49 Y:72
+01/06/2020 0:54:11 Comando: /TELEP YO 181 48 68
+01/06/2020 0:54:11 Transporto a Bassinger hacia Mapa181 X:48 Y:68
+01/06/2020 0:54:11 Comando: /TELEP YO 181 47 64
+01/06/2020 0:54:11 Transporto a Bassinger hacia Mapa181 X:47 Y:64
+01/06/2020 0:54:12 Comando: /TELEP YO 181 46 60
+01/06/2020 0:54:12 Transporto a Bassinger hacia Mapa181 X:46 Y:60
+01/06/2020 0:54:12 Comando: /TELEP YO 181 45 56
+01/06/2020 0:54:12 Transporto a Bassinger hacia Mapa181 X:45 Y:56
+01/06/2020 0:54:12 Comando: /TELEP YO 181 45 52
+01/06/2020 0:54:12 Transporto a Bassinger hacia Mapa181 X:45 Y:52
+01/06/2020 0:54:13 Comando: /TELEP YO 181 45 47
+01/06/2020 0:54:13 Transporto a Bassinger hacia Mapa181 X:45 Y:47
+01/06/2020 0:54:13 Comando: /TELEP YO 181 46 41
+01/06/2020 0:54:13 Transporto a Bassinger hacia Mapa181 X:46 Y:41
+01/06/2020 0:54:13 Comando: /TELEP YO 181 47 36
+01/06/2020 0:54:13 Transporto a Bassinger hacia Mapa181 X:47 Y:36
+01/06/2020 0:54:13 Comando: /TELEP YO 181 48 29
+01/06/2020 0:54:13 Transporto a Bassinger hacia Mapa181 X:48 Y:29
+01/06/2020 0:54:14 Comando: /TELEP YO 181 49 23
+01/06/2020 0:54:14 Transporto a Bassinger hacia Mapa181 X:49 Y:23
+01/06/2020 0:54:14 Comando: /TELEP YO 181 50 17
+01/06/2020 0:54:14 Transporto a Bassinger hacia Mapa181 X:50 Y:17
+01/06/2020 0:54:14 Comando: /TELEP YO 181 50 12
+01/06/2020 0:54:14 Transporto a Bassinger hacia Mapa181 X:50 Y:12
+01/06/2020 0:54:15 Comando: /TELEP YO 182 50 85
+01/06/2020 0:54:15 Transporto a Bassinger hacia Mapa182 X:50 Y:85
+01/06/2020 0:54:16 Comando: /TELEP YO 182 51 80
+01/06/2020 0:54:16 Transporto a Bassinger hacia Mapa182 X:51 Y:80
+01/06/2020 0:54:16 Comando: /TELEP YO 182 53 75
+01/06/2020 0:54:16 Transporto a Bassinger hacia Mapa182 X:53 Y:75
+01/06/2020 0:54:16 Comando: /TELEP YO 182 55 70
+01/06/2020 0:54:16 Transporto a Bassinger hacia Mapa182 X:55 Y:70
+01/06/2020 0:54:16 Comando: /TELEP YO 182 57 65
+01/06/2020 0:54:16 Transporto a Bassinger hacia Mapa182 X:57 Y:65
+01/06/2020 0:54:17 Comando: /TELEP YO 182 59 60
+01/06/2020 0:54:17 Transporto a Bassinger hacia Mapa182 X:59 Y:60
+01/06/2020 0:54:17 Comando: /TELEP YO 182 61 53
+01/06/2020 0:54:17 Transporto a Bassinger hacia Mapa182 X:61 Y:53
+01/06/2020 0:54:17 Comando: /TELEP YO 182 63 47
+01/06/2020 0:54:17 Transporto a Bassinger hacia Mapa182 X:63 Y:47
+01/06/2020 0:54:17 Comando: /TELEP YO 182 65 41
+01/06/2020 0:54:17 Transporto a Bassinger hacia Mapa182 X:65 Y:41
+01/06/2020 0:54:18 Comando: /TELEP YO 182 67 35
+01/06/2020 0:54:18 Transporto a Bassinger hacia Mapa182 X:67 Y:35
+01/06/2020 2:00:28 Se conecto con ip:127.0.0.1Hora: 01/06/2020 2:00:28
+01/06/2020 2:00:39 Se conecto con ip:127.0.0.1Hora: 01/06/2020 2:00:39

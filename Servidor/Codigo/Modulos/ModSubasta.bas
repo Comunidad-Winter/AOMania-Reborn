@@ -55,6 +55,7 @@ Public Sub GuardarSubastas()
      Dim Cant As Integer
      Dim LoopC As Long
      Dim Leer As clsIniManager
+     Dim Round As Integer
      
      Set Leer = New clsIniManager
      
@@ -62,7 +63,9 @@ Public Sub GuardarSubastas()
      
      For LoopC = 1 To Max_Subasta
         
-        If Subasta(LoopC).Subastador <> "" Then
+        If Subasta(LoopC).Subastador <> "" And Cant_Subasta > 0 Then
+            Round = Cant + 1
+            If Cant_Subasta >= Round Then
             Cant = Cant + 1
             Call Leer.ChangeValue("INIT", "NumSubasta", Cant)
             Call Leer.ChangeValue("Subasta" & Cant, "Subastador", Subasta(LoopC).Subastador)
@@ -71,6 +74,7 @@ Public Sub GuardarSubastas()
             Call Leer.ChangeValue("Subasta" & Cant, "Valor", Subasta(LoopC).Valor)
             Call Leer.ChangeValue("Subasta" & Cant, "Timer", Subasta(LoopC).Timer)
             Call Leer.ChangeValue("Subasta" & Cant, "Comprador", Subasta(LoopC).Comprador)
+            End If
         End If
         
      Next LoopC
@@ -91,7 +95,7 @@ Public Sub IniciarVentanaSubasta(ByVal UserIndex As Integer)
 
     Call EnviaListSubasta(UserIndex)
     
-    Call SendData(Toindex, UserIndex, 0, "INITSUB")
+    Call SendData(ToIndex, UserIndex, 0, "INITSUB")
        
 End Sub
 
@@ -99,13 +103,13 @@ Public Sub EnviaListSubasta(ByVal UserIndex As Integer)
      
      Dim LoopC As Long
      
-     Call SendData(Toindex, UserIndex, 0, "RESETSB" & Cant_Subasta)
+     Call SendData(ToIndex, UserIndex, 0, "RESETSB" & Cant_Subasta)
      
      If Cant_Subasta > 0 Then
          
          For LoopC = 1 To Cant_Subasta
                 
-                Call SendData(Toindex, UserIndex, 0, "PAQSUBS" & Subasta(LoopC).Objeto & "," & ObjData(Subasta(LoopC).Objeto).Name & "," & Subasta(LoopC).Cantidad & "," & Subasta(LoopC).Valor & "," & _
+                Call SendData(ToIndex, UserIndex, 0, "PAQSUBS" & Subasta(LoopC).Objeto & "," & ObjData(Subasta(LoopC).Objeto).Name & "," & Subasta(LoopC).Cantidad & "," & Subasta(LoopC).Valor & "," & _
                          Subasta(LoopC).Subastador & "," & VerTimerSubasta(Subasta(LoopC).Timer) & "," & Subasta(LoopC).Comprador & "," & ObjData(Subasta(LoopC).Objeto).GrhIndex)
                 
          Next LoopC
@@ -117,18 +121,23 @@ End Sub
 Public Sub CrearSubasta(ByVal UserIndex As Integer, ByVal Objeto As Integer, ByVal Cantidad As Integer, ByVal Precio As Long, ByVal Timer As String)
         
         If UserList(UserIndex).Stats.GLD < OroCrearSubasta Then
-             Call SendData(Toindex, UserIndex, 0, "||No tienes suficiente oro para poder crear una subasta." & FONTTYPE_INFO)
+             Call SendData(ToIndex, UserIndex, 0, "||No tienes suficiente oro para poder crear una subasta." & FONTTYPE_INFO)
              Exit Sub
         End If
         
         If Not TieneObjetos(Objeto, Cantidad, UserIndex) Then
-            Call SendData(Toindex, UserIndex, 0, "||No tienes suficiente objeto para poder crear una subasta." & FONTTYPE_INFO)
+            Call SendData(ToIndex, UserIndex, 0, "||No tienes suficiente objeto para poder crear una subasta." & FONTTYPE_INFO)
             Exit Sub
         End If
         
         If ObjData(Objeto).Real = 1 Or ObjData(Objeto).Caos = 1 Or ObjData(Objeto).Nemes = 1 Or ObjData(Objeto).Templ = 1 Then
-             Call SendData(Toindex, UserIndex, 0, "||No puedes subastar un objeto de la faccion." & FONTTYPE_INFO)
+             Call SendData(ToIndex, UserIndex, 0, "||No puedes subastar un objeto de la faccion." & FONTTYPE_INFO)
              Exit Sub
+        End If
+        
+        If ObjData(Objeto).sagrado = 1 Then
+            Call SendData(ToIndex, UserIndex, 0, "||No puedes subastar un objeto sagrado." & FONTTYPE_INFO)
+            Exit Sub
         End If
         
         If UserList(UserIndex).Invent.EscudoEqpObjIndex = Objeto Or UserList(UserIndex).Invent.AlaEqpObjIndex = Objeto Or _
@@ -136,7 +145,7 @@ Public Sub CrearSubasta(ByVal UserIndex As Integer, ByVal Objeto As Integer, ByV
             UserList(UserIndex).Invent.CascoEqpObjIndex = Objeto Or _
             UserList(UserIndex).Invent.CascoEqpObjIndex = Objeto Or UserList(UserIndex).Invent.HerramientaEqpObjIndex = Objeto Or _
             UserList(UserIndex).Invent.MunicionEqpObjIndex = Objeto Or UserList(UserIndex).Invent.WeaponEqpObjIndex = Objeto Then
-            Call SendData(Toindex, UserIndex, 0, "||Debes desequiparte el objeto para poder subastarlo." & FONTTYPE_INFO)
+            Call SendData(ToIndex, UserIndex, 0, "||Debes desequiparte el objeto para poder subastarlo." & FONTTYPE_INFO)
             Exit Sub
         End If
         
@@ -153,117 +162,141 @@ Public Sub CrearSubasta(ByVal UserIndex As Integer, ByVal Objeto As Integer, ByV
         
         Call EnviaListSubasta(UserIndex)
         
-        Call SendData(Toindex, UserIndex, 0, "RELOADS")
+        Call SendData(ToIndex, UserIndex, 0, "RELOADS")
         
         Call QuitarObjetos(Objeto, Cantidad, UserIndex)
         
-        Call SendData(Toall, 0, 0, "||" & UserList(UserIndex).Name & " está subastando: " & ObjData(Objeto).Name & " (Cantidad: " & Cantidad & ") con un precio inicial de " & Precio & " monedas de oro. Ve al NPC para ofertar si deseas participar." & FONTTYPE_VENENO)
+        Call SendData(ToAll, 0, 0, "||" & UserList(UserIndex).Name & " está subastando: " & ObjData(Objeto).Name & " (Cantidad: " & Cantidad & ") con un precio inicial de " & Precio & " monedas de oro. Ve al NPC para ofertar si deseas participar." & FONTTYPE_GUERRA)
 End Sub
 
-Public Sub IntervaloSubasta(ByVal ID As Integer)
+Public Sub IntervaloSubasta(ByVal Id As Integer)
      
-     If Subasta(ID).Timer >= 0 Then
-         Subasta(ID).Timer = Subasta(ID).Timer - 1
+     If Subasta(Id).Timer >= 0 Then
+         Subasta(Id).Timer = Subasta(Id).Timer - 1
      End If
      
-     If Subasta(ID).Timer < 0 Then
-         Call SubastaFinalizada(ID)
+     If Subasta(Id).Timer < 0 Then
+         SavingSubasta = True
+         Call SubastaFinalizada(Id)
      End If
      
 End Sub
 
-Public Sub SubastaFinalizada(ID)
+Public Sub SubastaFinalizada(Id)
        
-       Dim tIndex As Integer
+       Dim TIndex As Integer
        Dim Obj As Obj
        
-       If Subasta(ID).Comprador = "" Then
+       If Subasta(Id).Comprador = "" Then
        
-           Call SendData(Toall, 0, 0, "||La subasta de " & Subasta(ID).Subastador & " ha finalizado sin ofertantes." & FONTTYPE_VENENO)
+           Call SendData(ToAll, 0, 0, "||La subasta de " & Subasta(Id).Subastador & " ha finalizado sin ofertantes." & FONTTYPE_GUERRA)
                
-           tIndex = NameIndex(Subasta(ID).Subastador)
+           TIndex = NameIndex(Subasta(Id).Subastador)
            
-           If tIndex > 0 Then
+           If TIndex > 0 Then
            
-               Obj.ObjIndex = Subasta(ID).Objeto
-               Obj.Amount = Subasta(ID).Cantidad
-               Call MeterItemEnInventario(tIndex, Obj)
+               Obj.ObjIndex = Subasta(Id).Objeto
+               Obj.Amount = Subasta(Id).Cantidad
+               Call MeterItemEnInventario(TIndex, Obj)
                
            Else
                 
-               Call DepositarItemOffline(UCase$(Subasta(ID).Subastador), Subasta(ID).Objeto, Subasta(ID).Cantidad)
+               Call DepositarItemOffline(UCase$(Subasta(Id).Subastador), Subasta(Id).Objeto, Subasta(Id).Cantidad)
                 
            End If
            
            Else
            
-           Call SendData(Toall, 0, 0, "||La Subasta de " & Subasta(ID).Subastador & " ha terminado, y ha vendido " & ObjData(Subasta(ID).Objeto).Name & " al personaje " & Subasta(ID).Comprador & "." & FONTTYPE_VENENO)
+           Call SendData(ToAll, 0, 0, "||La Subasta de " & Subasta(Id).Subastador & " ha terminado, y ha vendido " & ObjData(Subasta(Id).Objeto).Name & " al personaje " & Subasta(Id).Comprador & "." & FONTTYPE_GUERRA)
            
-           tIndex = NameIndex(Subasta(ID).Comprador)
+           TIndex = NameIndex(Subasta(Id).Comprador)
            
-           If tIndex > 0 Then
+           If TIndex > 0 Then
            
-               Obj.ObjIndex = Subasta(ID).Objeto
-               Obj.Amount = Subasta(ID).Cantidad
-               Call MeterItemEnInventario(tIndex, Obj)
+               Obj.ObjIndex = Subasta(Id).Objeto
+               Obj.Amount = Subasta(Id).Cantidad
+               Call MeterItemEnInventario(TIndex, Obj)
                
            Else
                 
-               Call DepositarItemOffline(UCase$(Subasta(ID).Comprador), Subasta(ID).Objeto, Subasta(ID).Cantidad)
+               Call DepositarItemOffline(UCase$(Subasta(Id).Comprador), Subasta(Id).Objeto, Subasta(Id).Cantidad)
                 
            End If
+           
+           Call EntregarOroSubastador(Subasta(Id).Subastador, Subasta(Id).Valor)
            
        End If
        
        
-       Subasta(ID).Cantidad = 0
-       Subasta(ID).Comprador = ""
-       Subasta(ID).Objeto = 0
-       Subasta(ID).Subastador = ""
-       Subasta(ID).Timer = -1
-       Subasta(ID).Valor = -1
+       Subasta(Id).Cantidad = 0
+       Subasta(Id).Comprador = ""
+       Subasta(Id).Objeto = 0
+       Subasta(Id).Subastador = ""
+       Subasta(Id).Timer = -1
+       Subasta(Id).Valor = -1
        
-       SavingSubasta = True
+       Cant_Subasta = Cant_Subasta - 1
        
 End Sub
 
-Public Sub OfertaSubasta(ByVal UserIndex As Integer, ByVal ID As Integer, ByVal Subastador As String, ByVal Objeto As Integer, ByVal Oferta As Integer)
+Public Sub OfertaSubasta(ByVal UserIndex As Integer, ByVal Id As Integer, ByVal Subastador As String, ByVal Objeto As Integer, ByVal Oferta As Integer)
      
-     If Subasta(ID).Subastador <> Subastador Or Subasta(ID).Objeto <> Objeto Then
-         Call SendData(Toindex, UserIndex, 0, "||Hubo un problema en subasta! Actualiza la subasta!" & FONTTYPE_INFO)
+     If Subasta(Id).Subastador <> Subastador Or Subasta(Id).Objeto <> Objeto Then
+         Call SendData(ToIndex, UserIndex, 0, "||Hubo un problema en subasta! Actualiza la subasta!" & FONTTYPE_INFO)
          Exit Sub
      End If
      
-     If UCase$(Subasta(ID).Subastador) = UCase$(UserList(UserIndex).Name) Then
-         Call SendData(Toindex, UserIndex, 0, "||No puedes hacerte una auto oferta a tu propia subasta." & FONTTYPE_INFO)
+     If UCase$(Subasta(Id).Subastador) = UCase$(UserList(UserIndex).Name) Then
+         Call SendData(ToIndex, UserIndex, 0, "||No puedes hacerte una auto oferta a tu propia subasta." & FONTTYPE_INFO)
          Exit Sub
      End If
      
-     If UCase$(Subasta(ID).Comprador) = UCase$(UserList(UserIndex).Name) Then
-         Call SendData(Toindex, UserIndex, 0, "||Actualmente, hay una oferta tuya sobre esta subasta." & FONTTYPE_INFO)
+     If UCase$(Subasta(Id).Comprador) = UCase$(UserList(UserIndex).Name) Then
+         Call SendData(ToIndex, UserIndex, 0, "||Actualmente, hay una oferta tuya sobre esta subasta." & FONTTYPE_INFO)
          Exit Sub
      End If
      
-     If Subasta(ID).Valor >= Oferta Then
-          Call SendData(Toindex, UserIndex, 0, "||La oferta debe ser superior de los " & Subasta(ID).Valor & " oro." & FONTTYPE_INFO)
+     If Subasta(Id).Valor >= Oferta Then
+          Call SendData(ToIndex, UserIndex, 0, "||La oferta debe ser superior de los " & Subasta(Id).Valor & " oro." & FONTTYPE_INFO)
           Exit Sub
      End If
      
-     If Subasta(ID).Comprador <> "" And UCase$(Subasta(ID).Comprador) <> UCase$(UserList(UserIndex).Name) Then
-         Call SendData(Toall, 0, 0, "||La oferta de " & Subasta(ID).Comprador & ", con el objeto: " & ObjData(Subasta(ID).Objeto).Name & ", fue superada por " & UserList(UserIndex).Name & "." & FONTTYPE_TALK)
+     If Subasta(Id).Comprador <> "" And UCase$(Subasta(Id).Comprador) <> UCase$(UserList(UserIndex).Name) Then
+         Call SendData(ToAll, 0, 0, "||La oferta de " & Subasta(Id).Comprador & ", con el objeto: " & ObjData(Subasta(Id).Objeto).Name & ", fue superada por " & UserList(UserIndex).Name & "." & FONTTYPE_TALK)
      End If
      
-     Call SendData(Toall, 0, 0, "||" & UserList(UserIndex).Name & " ha Ofertado la Cantidad: " & Oferta & " monedas de oro. por el " & ObjData(Subasta(ID).Objeto).Name & " del Usuario: " & Subasta(ID).Subastador & FONTTYPE_VENENO)
+     Call SendData(ToAll, 0, 0, "||" & UserList(UserIndex).Name & " ha Ofertado la Cantidad: " & Oferta & " monedas de oro. por el " & ObjData(Subasta(Id).Objeto).Name & " del Usuario: " & Subasta(Id).Subastador & FONTTYPE_GUERRA)
      
-     Subasta(ID).Comprador = UserList(UserIndex).Name
-     Subasta(ID).Valor = Oferta
+     Subasta(Id).Comprador = UserList(UserIndex).Name
+     Subasta(Id).Valor = Oferta
      
 End Sub
 
-
-
-'La subasta de nautilus, con el objeto: Fragata, fue superada por eLYAnki.
-'eLYAnki ha Ofertado la Cantidad: 600200 monedas de oro. por el Objeto Fragata del Usuario: Jenchido
+Public Sub EntregarOroSubastador(ByVal Subastador As String, ByVal Oro As Long)
+       
+       Dim TIndex As Integer
+       Dim Valor As Long
+       
+       TIndex = NameIndex(Subastador)
+       
+       If TIndex > 0 Then
+           
+           UserList(TIndex).Stats.GLD = UserList(TIndex).Stats.GLD + Oro
+           Call EnviarOro(TIndex)
+           
+       Else
+            
+            Subastador = UCase$(Subastador)
+            
+            Valor = GetVar(App.Path & "\Charfile\" & Subastador & ".chr", "STATS", "GLD")
+            
+            Valor = Valor + Oro
+            
+            Call WriteVar(App.Path & "\Charfile\" & Subastador & ".chr", "STATS", "GLD", Valor)
+            
+       End If
+       
+End Sub
 
 Function DarTimerSubasta(ByVal Timer As Integer) As Long
       
@@ -378,7 +411,7 @@ Sub ItemLastPos(ByVal PJ As String, sCant As Integer, objndX As Integer)
 
     Dim DameLastPos As String
 
-    Dim LastPos     As WorldPos
+    Dim lastPos     As WorldPos
 
     Dim MiObj       As Obj
 
@@ -387,11 +420,11 @@ Sub ItemLastPos(ByVal PJ As String, sCant As Integer, objndX As Integer)
 
     DameLastPos = GetVar(App.Path & "\Charfile\" & PJ & ".chr", "INIT", "Position")
 
-    LastPos.Map = CInt(ReadField(1, DameLastPos, 45))
-    LastPos.X = CInt(ReadField(2, DameLastPos, 45))
-    LastPos.Y = CInt(ReadField(3, DameLastPos, 45))
+    lastPos.Map = CInt(ReadField(1, DameLastPos, 45))
+    lastPos.X = CInt(ReadField(2, DameLastPos, 45))
+    lastPos.Y = CInt(ReadField(3, DameLastPos, 45))
 
-    Call TirarItemAlPiso(LastPos, MiObj)
+    Call TirarItemAlPiso(lastPos, MiObj)
 
 End Sub
 

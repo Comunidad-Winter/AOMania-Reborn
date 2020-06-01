@@ -159,6 +159,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       Appearance      =   0
       TextRTF         =   $"frmMain.frx":1594
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -483,6 +484,7 @@ Begin VB.Form frmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -2386,53 +2388,42 @@ Private Sub Socket1_Disconnect()
 
     Dim i As Long
     
-    Second.Enabled = False
-    Connected = False
-    
-    Socket1.Cleanup
+   Second.Enabled = False
+   Connected = False
+   
+   Socket1.Cleanup
     
     frmConnect.MousePointer = vbNormal
     
     If frmPasswdSinPadrinos.Visible = True Then frmPasswdSinPadrinos.Visible = False
-    frmCrearPersonaje.Visible = False
+    Unload frmCrearPersonaje
     frmConnect.Visible = True
-    
-    On Local Error Resume Next
-
-    For i = 1 To Forms.Count
-
-        If Forms(i).Name <> Me.Name And Forms(i).Name <> frmConnect.Name Then
-            Unload Forms(i)
-
-        End If
-
-    Next i
-
-    On Local Error GoTo 0
-    
     frmMain.Visible = False
-
-    pausa = False
-    UserMeditar = False
-
-    UserClase = vbNullString
-    UserSexo = vbNullString
-    UserRaza = vbNullString
-    UserEmail = vbNullString
     
-    For i = 1 To NUMSKILLS
-        UserSkills(i) = 0
-    Next i
-
-    For i = 1 To NUMATRIBUTOS
-        UserAtributos(i) = 0
-    Next i
-
-    SkillPoints = 0
-    Alocados = 0
+    pausa = False
+   UserMeditar = False
+   
+   UserClase = ""
+   UserSexo = ""
+   UserRaza = ""
+   UserEmail = ""
+   
+   For i = 1 To NUMSKILLS
+      UserSkills(i) = 0
+   Next i
+   
+   For i = 1 To NUMATRIBUTOS
+      UserAtributos(i) = 0
+   Next i
+   
+   SkillPoints = 0
+   Alocados = 0
 
     Dialogos.RemoveAllDialogs
     Inventario.ClearAllSlots
+    
+    Call CleanerPlus
+    Call ReiniciarChars
     
     AoDefResult = 0
 

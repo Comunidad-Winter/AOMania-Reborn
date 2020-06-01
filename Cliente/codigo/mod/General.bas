@@ -827,7 +827,9 @@ Sub MoveTo(ByVal Direccion As E_Heading)
 
     Dim now      As Long
 
-    now = (GetTickCount() And &H7FFFFFFF)
+    'now = (GetTickCount() And &H7FFFFFFF)
+    now = (GetTickCount())
+
     userTick = TickCountServer + (now - TickCountClient)
     
     If Cartel Then Cartel = False

@@ -2125,6 +2125,7 @@ ObjType=24
 HechizoIndex=11
 Valor=15300
 Crucial=1
+Cae=1
  
 [OBJ209]
 Name=Cartel
@@ -7282,6 +7283,7 @@ TipoPocion=7
 Valor=100000
 SkHechizeria=95
 ObjHierba=3000
+Cae=1
  
 [OBJ631]
 Name=Corona de rey

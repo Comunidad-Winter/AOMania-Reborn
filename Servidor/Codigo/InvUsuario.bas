@@ -911,27 +911,6 @@ Sub EquiparInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
         End If
 
-    Case eOBJType.otPARAA
-
-        If UserList(UserIndex).flags.Muerto = 1 Then
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).flags.Paralizado = 0 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡No estás Paralizado!! " & FONTTYPE_INFO)
-            Exit Sub
-        End If
-
-        If UserList(UserIndex).flags.Paralizado = 1 Then
-            UserList(UserIndex).flags.Paralizado = 0
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & UserList(UserIndex).Pos.X & "," & UserList(UserIndex).Pos.Y)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Te has quitado la paralisis." & FONTTYPE_INFO)
-
-            Call QuitarUserInvItem(UserIndex, Slot, 1)
-            Call UpdateUserInv(False, UserIndex, Slot)
-        End If
-
     Case eOBJType.otAmuletoDefensa
         If UserList(UserIndex).flags.Muerto = 1 Then
             Exit Sub
@@ -1424,8 +1403,24 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
         Case eOBJType.otAmuleto
 
             If UserList(UserIndex).flags.Muerto = 1 Then
+                Call SendData(ToIndex, UserIndex, 0, "||¡¡Estás muerto!!" & FONTTYPE_INFO)
                 Exit Sub
-
+            End If
+            
+            If UserList(UserIndex).flags.Ceguera = 1 Or UserList(UserIndex).flags.Paralizado = 1 Or UserList(UserIndex).flags.Estupidez = 1 Then
+                Call SendData(ToIndex, UserIndex, 0, "||No puedes teleportarte porque estas afectado por un hechizo que te lo impide." & FONTTYPE_INFO)
+                Exit Sub
+            End If
+            
+            If UserList(UserIndex).Pos.Map = 150 Or UserList(UserIndex).Pos.Map = 154 Or UserList(UserIndex).Pos.Map = 160 Or UserList(UserIndex).Pos.Map = 161 Or _
+                UserList(UserIndex).Pos.Map = 48 Or UserList(UserIndex).Pos.Map = 162 Or UserList(UserIndex).Pos.Map = 163 Or UserList(UserIndex).Pos.Map = 192 Then
+                Call SendData(ToIndex, UserIndex, 0, "||El amuleto de teletransporte no tiene fuerza en esta zona." & FONTTYPE_INFO)
+                Exit Sub
+            End If
+            
+            If UserList(UserIndex).Stats.MinHP < UserList(UserIndex).Stats.MaxHP Then
+                Call SendData(ToIndex, UserIndex, 0, "||Antes de teletransportarte debes curarte todas las heridas." & FONTTYPE_INFO)
+                Exit Sub
             End If
 
             Call AmuTeleport(UserIndex)
@@ -1451,20 +1446,45 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
             Call QuitarUserInvItem(UserIndex, Slot, 1)
 
             Call UpdateUserInv(False, UserIndex, Slot)
+        
+        Case eOBJType.otPocionResu
+             
+             If UserList(UserIndex).flags.Muerto = 0 Then
+                 Call SendData(ToIndex, UserIndex, 0, "||¡¡Estas vivo!! Solo puedes usar este item cuando estas muerto." & FONTTYPE_INFO)
+                 Exit Sub
+             End If
+             
+             If NameDay = "Noche" And UCase$(UserList(UserIndex).Raza) = "LICANTROPO" And UserList(UserIndex).flags.Navegando = 1 Then
+                 Call SendData(ToIndex, UserIndex, 0, "||No puedes resucitar de noche, la oscuridad te lo impide." & FONTTYPE_INFO)
+                 Exit Sub
+             End If
+             
+             If UserList(UserIndex).Stats.UserSkills(Navegacion) < 60 Then
+                 Call SendData(ToIndex, UserIndex, 0, "||No tienes suficientes conocimientos para usar esta pocion." & FONTTYPE_INFO)
+                 Call SendData(ToIndex, UserIndex, 0, "||Necesitaras 60 Skills en Navegacion para utilizarlo." & FONTTYPE_INFO)
+                 Exit Sub
+             End If
+             
+             Call RevivirUsuario(UserIndex)
+             UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP
+             Call QuitarUserInvItem(UserIndex, Slot, 1)
+             Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_BEBER)
+             Call SendUserStatsBox(UserIndex)
+             If UserList(UserIndex).PartyIndex > 0 Then Call Parties(UserList(UserIndex).PartyIndex).EnviarBarra
 
         Case eOBJType.otPociones
 
-            'If UserList(userindex).Lac.LPociones.Puedo = False Then Exit Sub
+            'If UserList(UserIndex).Lac.LPociones.Puedo = False Then Exit Sub
+            
             If UserList(UserIndex).flags.Muerto = 1 Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
                 Exit Sub
-
+            
             End If
 
             If UserList(UserIndex).Counters.TimerAttack > 0 Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Debes esperar un momento para tomar otra poción." & FONTTYPE_INFO)
                 Exit Sub
-
             End If
 
             Select Case Obj.TipoPocion
@@ -1509,7 +1529,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                         Exit Sub
 
                     End If
-
+                    
                     'Usa el item
                     UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP + RandomNumber(Obj.MinModificador, Obj.MaxModificador)
 
@@ -1519,6 +1539,8 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                     Call QuitarUserInvItem(UserIndex, Slot, 1)
                     Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_POTEAR)
                     Call EnviarHP(UserIndex)
+                    
+                    If UserList(UserIndex).PartyIndex > 0 Then Call Parties(UserList(UserIndex).PartyIndex).EnviarBarra
 
                 Case 4    'Pocion azul, restaura MANA
 
@@ -1576,29 +1598,55 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                     Call QuitarUserInvItem(UserIndex, Slot, 1)
 
                 Case 7    'Pocion invisibilidad
+                
+                   If UserList(UserIndex).flags.Muerto = 1 Then
+                       Call SendData(ToIndex, UserIndex, 0, "||¡¡Estás muerto!!" & FONTTYPE_INFO)
+                       Exit Sub
+                    End If
 
                     If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
                         Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
                         Exit Sub
-
                     End If
 
                     If UserList(UserIndex).Pos.Map = mapainvo Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes lanzar invisibilidad en sala de invocaciones!" & FONTTYPE_INFO)
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes tomar la poción de invisibilidad en sala de invocaciones!" & FONTTYPE_INFO)
                         Exit Sub
-
                     End If
 
                     If UserList(UserIndex).Pos.Map = MAPADUELO Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes lanzar invisibilidad en duelo!" & FONTTYPE_INFO)
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes tomar la poción de invisibilidad en duelo!" & FONTTYPE_INFO)
                         Exit Sub
-
+                    End If
+                    
+                    If UserList(UserIndex).Pos.Map = 150 Or UserList(UserIndex).Pos.Map = 161 Then
+                        Call SendData(ToIndex, UserIndex, 0, "||No puedes tomar la poción de invisibilidad en sala de torneos!" & FONTTYPE_INFO)
+                        Exit Sub
+                    End If
+                    
+                    If UserList(UserIndex).Pos.Map = 162 Then
+                        Call SendData(ToIndex, UserIndex, 0, "||No puedes tomar la poción de invisibilidad en guerra de banda!" & FONTTYPE_INFO)
+                        Exit Sub
+                    End If
+                    
+                    If UserList(UserIndex).Pos.Map = 163 Then
+                        Call SendData(ToIndex, UserIndex, 0, "||No puedes tomar la poción de invisibilidad en guerra de medusas!" & FONTTYPE_INFO)
+                        Exit Sub
+                    End If
+                    
+                    If UserList(UserIndex).Pos.Map = 160 Then
+                         Call SendData(ToIndex, UserIndex, 0, "||No puedes tomar la poción de invisibilidad en sala de torneos!" & FONTTYPE_INFO)
+                         Exit Sub
+                    End If
+                    
+                    If UserList(UserIndex).Pos.Map = 192 Then
+                        Call SendData(ToIndex, UserIndex, 0, "||No puedes tomar la poción de invisibilidad en duelos de pareja!" & FONTTYPE_INFO)
+                        Exit Sub
                     End If
 
                     If UserList(UserIndex).flags.Invisible = 1 Then
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Ya estás invisible!!" & FONTTYPE_INFO)
                         Exit Sub
-
                     End If
 
                     If UserList(UserIndex).flags.Invisible = 0 Then
@@ -1637,7 +1685,11 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                     If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
                         Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
                         Exit Sub
-
+                    End If
+                    
+                    If MapInfo(UserList(UserIndex).Pos.Map).Zona = Ciudad Then
+                        Call SendData(ToIndex, UserIndex, 0, "||No puedes teleportarte porque estas afectado por un hechizo que te lo impide." & FONTTYPE_INFO)
+                        Exit Sub
                     End If
 
                     Call QuitarUserInvItem(UserIndex, Slot, 1)
@@ -1704,9 +1756,13 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                     If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
                         Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
                         Exit Sub
-
                     End If
-
+                    
+                    If MapInfo(UserList(UserIndex).Pos.Map).Zona = Ciudad Then
+                        Call SendData(ToIndex, UserIndex, 0, "||No puedes teleportarte porque estas afectado por un hechizo que te lo impide." & FONTTYPE_INFO)
+                        Exit Sub
+                    End If
+                    
                     Call QuitarUserInvItem(UserIndex, Slot, 1)
                     Call WarpUserChar(UserIndex, 1, 52, 53, True)
                     Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_POTEAR)
@@ -1716,7 +1772,11 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                     If Obj.MinSkill > UserList(UserIndex).Stats.UserSkills(eSkill.Navegacion) Then
                         Call SendData(SendTarget.ToIndex, UserIndex, "0", "||Necesitarás " & Obj.MinSkill & " Skills en Navegación para utilizarlo. " & FONTTYPE_INFO)
                         Exit Sub
-
+                    End If
+                    
+                    If MapInfo(UserList(UserIndex).Pos.Map).Zona = Ciudad Then
+                        Call SendData(ToIndex, UserIndex, 0, "||No puedes teleportarte porque estas afectado por un hechizo que te lo impide." & FONTTYPE_INFO)
+                        Exit Sub
                     End If
 
                     Call QuitarUserInvItem(UserIndex, Slot, 1)
@@ -1727,7 +1787,6 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
                     If UserList(UserIndex).Stats.MinMAN = UserList(UserIndex).Stats.MaxMAN Then
                         Exit Sub
-
                     End If
 
                     'Usa el item
@@ -1745,7 +1804,6 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                     If DiaEspecialExp = True Then
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los Dioses de AoMania no te permiten usar tu poder para cambiar este día especial." & FONTTYPE_INFO)
                         Exit Sub
-
                     End If
 
                     If DiaEspecialOro = True Then

@@ -1737,33 +1737,10 @@ Sub HandleData(ByVal rData As String)
         Exit Sub
 
     Case "ERR"
-        rData = Right$(rData, Len(rData) - 3)
-        frmPasswdSinPadrinos.MousePointer = 1
-
-        If Not frmCrearPersonaje.Visible Then
-
-            frmMain.Socket1.Disconnect
-            AoDefResult = 0
-
-        End If
-
-        If frmConnect.Visible = True Then
-            MsgBox rData
-
-            frmMain.Socket1.Disconnect
-            frmMain.Socket1.Cleanup
-
-            frmMain.Socket1.Disconnect
-           AoDefResult = 0
-        Else
-            MsgBox (rData)
-            frmMain.Socket1.Disconnect
-            frmMain.Socket1.Cleanup
-           AoDefResult = 0
-        End If
-
-        frmConnect.MousePointer = 1
-        Exit Sub
+         rData = Right$(rData, Len(rData) - 3)
+         If Not frmCrearPersonaje.Visible Then frmMain.Socket1.Disconnect
+         MsgBox rData
+         Exit Sub
 
     End Select
 

@@ -18,6 +18,7 @@ Begin VB.Form frmSubastaCrear
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
+   MousePointer    =   99  'Custom
    Picture         =   "frmSubastaCrear.frx":0000
    ScaleHeight     =   273
    ScaleMode       =   3  'Pixel
@@ -27,6 +28,7 @@ Begin VB.Form frmSubastaCrear
    Begin VB.ComboBox listDuration 
       Height          =   315
       Left            =   2985
+      MousePointer    =   99  'Custom
       TabIndex        =   4
       Text            =   "listDuration"
       Top             =   2565
@@ -38,6 +40,7 @@ Begin VB.Form frmSubastaCrear
       ForeColor       =   &H0000FFFF&
       Height          =   330
       Left            =   3015
+      MousePointer    =   99  'Custom
       TabIndex        =   3
       Top             =   1560
       Width           =   2670
@@ -49,6 +52,7 @@ Begin VB.Form frmSubastaCrear
       ForeColor       =   &H0000FFFF&
       Height          =   285
       Left            =   960
+      MousePointer    =   99  'Custom
       TabIndex        =   2
       Top             =   675
       Width           =   1500
@@ -70,6 +74,7 @@ Begin VB.Form frmSubastaCrear
       ForeColor       =   &H00FFFFFF&
       Height          =   2790
       Left            =   120
+      MousePointer    =   99  'Custom
       TabIndex        =   0
       Top             =   1200
       Width           =   2415
@@ -77,12 +82,14 @@ Begin VB.Form frmSubastaCrear
    Begin VB.Image cmdCancelar 
       Height          =   450
       Left            =   2925
+      MousePointer    =   99  'Custom
       Top             =   3615
       Width           =   1320
    End
    Begin VB.Image cmdAceptar 
       Height          =   450
       Left            =   4620
+      MousePointer    =   99  'Custom
       Top             =   3615
       Width           =   1320
    End
@@ -95,16 +102,28 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdAceptar_Click()
-        Dim i As Integer
         
-        i = List1.ListIndex + 1
+    Call Audio.PlayWave(SND_CLICK)
+        
+    Dim i As Integer
+        
+    i = List1.ListIndex + 1
          
-         Call SendData("CRSUB" & Inventario.ObjIndex(i) & "," & txtCantidad.Text & "," & txtPrecioInicial.Text & "," & listDuration.Text)
+    Call SendData("CRSUB" & Inventario.ObjIndex(i) & "," & txtCantidad.Text & "," & txtPrecioInicial.Text & "," & listDuration.Text)
          
 End Sub
 
+Private Sub cmdAceptar_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+     cmdAceptar.MouseIcon = Iconos.Mano
+End Sub
+
 Private Sub cmdCancelar_Click()
+      Call Audio.PlayWave(SND_CLICK)
       Unload Me
+End Sub
+
+Private Sub cmdCancelar_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    cmdCancelar.MouseIcon = Iconos.Mano
 End Sub
 
 Private Sub Form_Load()
@@ -138,6 +157,10 @@ Private Sub Form_Load()
         
 End Sub
 
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+     Me.MouseIcon = Iconos.Diablo
+End Sub
+
 Private Sub List1_Click()
     
     Dim SR As RECT, DR As RECT
@@ -153,4 +176,16 @@ Private Sub List1_Click()
     DR.Bottom = 32
     
     Call DrawGrhtoHdc(Picture1.hdc, Inventario.GrhIndex(List1.ListIndex + 1), DR)
+End Sub
+
+Private Sub List1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+      List1.MouseIcon = Iconos.Diablo
+End Sub
+
+Private Sub txtCantidad_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+     txtCantidad.MouseIcon = Iconos.Mano
+End Sub
+
+Private Sub txtPrecioInicial_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+      txtPrecioInicial.MouseIcon = Iconos.Mano
 End Sub

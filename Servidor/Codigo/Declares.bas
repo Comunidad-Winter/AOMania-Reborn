@@ -84,19 +84,30 @@ Public bandasqls As Integer
 'invocaciones
 'Mapa
 Public tukiql As Integer
+'Mapa Invocaciones:
 Public Const mapainvo = 96
-' posi 1
 Public Const mapainvoX1 = 27
 Public Const mapainvoY1 = 21
-' posi 2
 Public Const mapainvoX2 = 21
 Public Const mapainvoY2 = 27
-'posi 3
 Public Const mapainvoX3 = 33
 Public Const mapainvoY3 = 27
-'posi 4
 Public Const mapainvoX4 = 27
 Public Const mapainvoY4 = 33
+'Mapa Hades:
+Public Const mapahades = 187
+Public Const mapahadesX1 = 62
+Public Const mapahadesY1 = 24
+Public Const mapahadesX2 = 64
+Public Const mapahadesY2 = 26
+Public Const mapahadesX3 = 66
+Public Const mapahadesY3 = 24
+Public Const mapahadesX4 = 68
+Public Const mapahadesY4 = 26
+Public Const mapahadesX5 = 70
+Public Const mapahadesY5 = 24
+Public StatusHades As Boolean
+
 
 Public YaHayPlante As Boolean
 Public denuncias As Boolean
@@ -602,7 +613,7 @@ Public Enum eOBJType
     otBotellaVacia = 33
     otBotellaLlena = 34
     otMANCHAS = 35
-    otPARAA = 36
+    otPocionResu = 36
     otalas = 37
     otHierba = 38
     otOveja = 40
@@ -2184,6 +2195,7 @@ Public levelELU(1 To STAT_MAXELV) As Long
 
 Public StatusInvo As Boolean
 Public ConfInvo As Long
+Public ConfHades As Long
 Public OnMin As Long
 Public OnHor As Long
 Public OnDay As Long
