@@ -12,62 +12,38 @@ Public Sub EnlistarArmadaReal(ByVal UserIndex As Integer)
     With UserList(UserIndex)
 
         If .Faccion.ArmadaReal = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & _
                                                             "Ya perteneces a la Armada del Credo!!! Ve a combatir otras amardas!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
 
         If .Faccion.FuerzasCaos = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
                                                             "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
 
         If .Faccion.Templario = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
                                                             "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
 
         End If
 
         If .Faccion.Nemesis = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
                                                             "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
 
         End If
 
-        'If Criminal(UserIndex) Then
-        '    Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbWhite & "°" & "No se permiten criminales en el ejercito imperial!!!" & "°" & _
-             '            CStr(Npclist(.flags.TargetNpc).char.CharIndex))
-        '    Exit Sub
-        'End If
-
-        'If .Faccion.CriminalesMatados < 10 Then
-        '    Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbWhite & "°" & _
-             '            "Para unirte a nuestras fuerzas debes matar al menos 10 criminales, solo has matado " & .Faccion.CriminalesMatados & "°" & CStr( _
-             '            Npclist(.flags.TargetNpc).char.CharIndex))
-        '    Exit Sub
-        'End If
 
         If .Stats.ELV < 25 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & _
                                                             "Para unirte a nuestras fuerzas debes ser al menos de nivel 25!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
 
-        'If .Faccion.CiudadanosMatados > 0 Then
-        '    Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbWhite & "°" & _
-             '            "Has asesinado gente inocente, no aceptamos asesinos en las tropas reales!" & "°" & CStr(Npclist( _
-             '            .flags.TargetNpc).char.CharIndex))
-        '    Exit Sub
-        '  End If
-
-        'If .Faccion.Reenlistadas > 4 Then
-        '    Call SendData(SendTarget.toindex, UserIndex, 0, "||" & vbWhite & "°" & "Has sido expulsado de las fuerzas reales demasiadas veces!" & _
-             '            "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
-        '    Exit Sub
-        ' End If
 
         .Faccion.ArmadaReal = "1"
         .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
@@ -81,7 +57,7 @@ Public Sub EnlistarArmadaReal(ByVal UserIndex As Integer)
 
         Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & _
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & _
                                                         "Bienvenido a las Armada del Credo!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 niveles que subas te dare una recompensa, buena suerte soldado!" _
                                                       & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
 
@@ -187,7 +163,7 @@ Public Sub EnlistarArmadaReal(ByVal UserIndex As Integer)
             .Stats.Exp = .Stats.Exp + ExpAlUnirse
 
             If .Stats.Exp > MAXEXP Then .Stats.Exp = MAXEXP
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_FIGHT)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_FIGHT)
             .Faccion.RecibioExpInicialReal = 1
             Call CheckUserLevel(UserIndex)
 
@@ -206,7 +182,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
     With UserList(UserIndex)
 
         If .Faccion.RecompensasReal = 10 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya tienes el mayor rango posible, no puedes subir más!!!" & "°" & CStr(Npclist( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya tienes el mayor rango posible, no puedes subir más!!!" & "°" & CStr(Npclist( _
                                                                                                                                                           .flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
@@ -218,7 +194,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 27 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -227,7 +203,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 29 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -236,7 +212,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 31 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -245,7 +221,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 33 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -254,7 +230,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 35 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -263,7 +239,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 37 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -272,7 +248,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 39 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -281,7 +257,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 41 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -290,7 +266,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 43 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -299,7 +275,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If .Stats.ELV >= 45 Then
                 .Faccion.RecompensasReal = .Faccion.RecompensasReal + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                             .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -324,7 +300,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             If (.Faccion.RecompensasReal + 1) = SegundoRango Then
 
                 If .Stats.ELV < 35 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & _
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & _
                                                                     "No tienes el suficiente nivel para tu recompensa vuelve cuando seas nivel 35 y tengas " & CStr( _
                                                                     .Faccion.NextRecompensas) & " matados o más!!!." & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
                     Exit Sub
@@ -409,7 +385,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             Else
 
                 If .Stats.ELV < 45 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & _
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & _
                                                                     "No tienes el suficiente nivel para tu recompensa vuelve cuando seas nivel 45 y tengas " & CStr( _
                                                                     .Faccion.NextRecompensas) & " matados o más!!!." & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
                     Exit Sub
@@ -504,12 +480,12 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
 
         End If
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Has subido al rango " & .Faccion.RecompensasReal & " en nuestra tropas!!! " & "°" & CStr(Npclist( _
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Has subido al rango " & .Faccion.RecompensasReal & " en nuestra tropas!!! " & "°" & CStr(Npclist( _
                                                                                                                                                                         .flags.TargetNpc).char.CharIndex))
 
         .Stats.Exp = .Stats.Exp + ExpX100
         If .Stats.Exp > MAXEXP Then .Stats.Exp = MAXEXP
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_FIGHT)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_FIGHT)
         Call CheckUserLevel(UserIndex)
 
 
@@ -643,25 +619,25 @@ Public Sub EnlistarCaos(ByVal UserIndex As Integer)
         'End If
 
         If .Faccion.FuerzasCaos = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya perteneces a los Demonios de Abbadon!!! Ve a combatir otras amardas!!!" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya perteneces a los Demonios de Abbadon!!! Ve a combatir otras amardas!!!" & _
                                                             "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
 
         If .Faccion.ArmadaReal = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
                                                             "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
 
         If .Faccion.Templario = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
                                                             "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
 
         If .Faccion.Nemesis = 1 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & _
                                                             "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
@@ -688,7 +664,7 @@ Public Sub EnlistarCaos(ByVal UserIndex As Integer)
         'End If
 
         If .Stats.ELV < 25 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & _
                                                             "Para unirte a nuestras fuerzas debes ser al menos de nivel 25!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
@@ -717,7 +693,7 @@ Public Sub EnlistarCaos(ByVal UserIndex As Integer)
 
         Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & _
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & _
                                                         "Bienvenido a los Demonios de Abbadon!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 niveles que subas te dare una recompensa, buena suerte soldado!" _
                                                       & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
 
@@ -825,7 +801,7 @@ Public Sub EnlistarCaos(ByVal UserIndex As Integer)
             .Stats.Exp = .Stats.Exp + ExpAlUnirse
 
             If .Stats.Exp > MAXEXP Then .Stats.Exp = MAXEXP
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_FIGHT)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_FIGHT)
             .Faccion.RecibioExpInicialCaos = 1
             Call CheckUserLevel(UserIndex)
 
@@ -844,7 +820,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
     With UserList(UserIndex)
 
         If .Faccion.RecompensasCaos = 10 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya te di la ultima recompensa!!!" & "°" & CStr(Npclist( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya te di la ultima recompensa!!!" & "°" & CStr(Npclist( _
                                                                                                                                  .flags.TargetNpc).char.CharIndex))
             Exit Sub
         End If
@@ -855,7 +831,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 27 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -864,7 +840,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 29 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -873,7 +849,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 31 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -882,7 +858,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 33 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -891,7 +867,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 35 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -900,7 +876,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 37 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -909,7 +885,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 39 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -918,7 +894,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 41 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -927,7 +903,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 43 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -936,7 +912,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If .Stats.ELV >= 45 Then
                 .Faccion.RecompensasCaos = .Faccion.RecompensasCaos + 1
             Else
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa, sube mas niveles para subir de rango!!!" & "°" & CStr(Npclist( _
                                                                                                                                                                            .flags.TargetNpc).char.CharIndex))
                 Exit Sub
             End If
@@ -960,7 +936,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             If (.Faccion.RecompensasCaos + 1) = SegundoRango Then    ' 2Da Jerarquia
 
                 If .Stats.ELV < 35 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & _
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & _
                                                                     "No tienes el suficiente nivel para tu recompensa vuelve cuando seas nivel 35 y tengas " & .Faccion.NextRecompensas _
                                                                   & " matados o más!!!." & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
 
@@ -1047,7 +1023,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             Else
 
                 If .Stats.ELV < 45 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & _
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & _
                                                                     "No tienes el suficiente nivel para tu recompensa vuelve cuando seas nivel 45 y tengas " & .Faccion.RecompensasCaos _
                                                                   & " matados o más!!!." & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
 
@@ -1144,12 +1120,12 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
 
         End If
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Has subido al rango " & .Faccion.RecompensasCaos & " en nuestra tropas!!! " & "°" & CStr(Npclist( _
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Has subido al rango " & .Faccion.RecompensasCaos & " en nuestra tropas!!! " & "°" & CStr(Npclist( _
                                                                                                                                                                        .flags.TargetNpc).char.CharIndex))
 
         .Stats.Exp = .Stats.Exp + ExpX100
         If .Stats.Exp > MAXEXP Then .Stats.Exp = MAXEXP
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_FIGHT)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_FIGHT)
         Call CheckUserLevel(UserIndex)
 
     End With
@@ -1281,79 +1257,79 @@ Public Sub CambiarBarcoClero(ByVal Tipo As Integer, ByVal UserIndex As Integer)
 
     Case 1
         If Not TieneObjetos(1983, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(1983, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 1117
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 2
         If Not TieneObjetos(475, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(475, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 1118
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 3
         If Not TieneObjetos(476, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(476, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 1119
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 4
         If Not TieneObjetos(1117, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(1117, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 1983
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 5
         If Not TieneObjetos(1118, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(1118, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 475
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 6
         If Not TieneObjetos(1119, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(1119, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 476
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
@@ -1369,79 +1345,79 @@ Public Sub CambiarBarcoAbbadon(ByVal Tipo As Integer, ByVal UserIndex As Integer
 
     Case 1
         If Not TieneObjetos(1983, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(1983, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 1120
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 2
         If Not TieneObjetos(475, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(475, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 1121
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 3
         If Not TieneObjetos(476, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(476, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 1122
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 4
         If Not TieneObjetos(1120, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(1120, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 1983
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 5
         If Not TieneObjetos(1121, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(1121, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 475
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
     Case 6
         If Not TieneObjetos(1122, 1, UserIndex) Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Se puede saber donde esta el barco? :P" & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         Else
             Call QuitarObjetos(1122, 1, UserIndex)
             Objeto.Amount = 1
             Objeto.ObjIndex = 476
             Call MeterItemEnInventario(UserIndex, Objeto)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbRed & "°" & "Ahí tienes." & "°" & CStr( _
                                                             Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
         End If
 
@@ -1449,80 +1425,3 @@ Public Sub CambiarBarcoAbbadon(ByVal Tipo As Integer, ByVal UserIndex As Integer
 
 End Sub
 
-Function UseRangeFragata(ByVal UserIndex As Integer, ByVal ObjIndex As Integer) As Boolean
-
-    If ObjIndex = 1117 And UserList(UserIndex).Stats.ELV < 25 Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1118 And UserList(UserIndex).Faccion.RecompensasReal < SegundoRango Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1119 And UserList(UserIndex).Faccion.RecompensasReal < TercerRango Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1120 And UserList(UserIndex).Stats.ELV < 25 Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1121 And UserList(UserIndex).Faccion.RecompensasCaos < SegundoRango Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1122 And UserList(UserIndex).Faccion.RecompensasCaos < TercerRango Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1350 And UserList(UserIndex).Stats.ELV < 25 Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1351 And UserList(UserIndex).Faccion.RecompensasTemplaria < SegundoRango Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1352 And UserList(UserIndex).Faccion.RecompensasTemplaria < TercerRango Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1580 And UserList(UserIndex).Stats.ELV < 25 Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1581 And UserList(UserIndex).Faccion.RecompensasNemesis < SegundoRango Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    If ObjIndex = 1582 And UserList(UserIndex).Faccion.RecompensasNemesis < TercerRango Then
-        UseRangeFragata = False
-        Exit Function
-
-    End If
-
-    UseRangeFragata = True
-
-End Function

@@ -1446,15 +1446,14 @@ Public Type tFacciones
 
     RecibioExpInicialReal As Byte
     RecibioExpInicialCaos As Byte
-
     RecibioExpInicialTemplaria As Byte
     RecibioExpInicialNemesis As Byte
 
-    RecibioArmaduraReal As Byte
-    RecibioArmaduraCaos As Byte
-
-    RecibioArmaduraNemesis As Byte
-    RecibioArmaduraTemplaria As Byte
+'    RecibioArmaduraReal As Byte
+'    RecibioArmaduraCaos As Byte
+'
+'    RecibioArmaduraNemesis As Byte
+'    RecibioArmaduraTemplaria As Byte
 
     Reenlistadas As Byte
     ArmaduraFaccionaria As Integer
@@ -1872,10 +1871,10 @@ Public ULTIMAVERSION As String
 Public BackUp As Boolean            ' TODO: Se usa esta variable ?
 
 Public ListaRazas(1 To NUMRAZAS) As String
-Public Torneo_Clases_Validas(1 To 8) As String
-Public Torneo_Alineacion_Validas(1 To 8) As String
-Public Torneo_Clases_Validas2(1 To 8) As Integer
-Public Torneo_Alineacion_Validas2(1 To 4) As Integer
+'Public Torneo_Clases_Validas(1 To 8) As String
+'Public Torneo_Alineacion_Validas(1 To 8) As String
+'Public Torneo_Clases_Validas2(1 To 8) As Integer
+'Public Torneo_Alineacion_Validas2(1 To 4) As Integer
 Public SkillsNames(1 To NUMSKILLS) As String
 Public ListaClases(1 To NUMCLASES) As String
 

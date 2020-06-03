@@ -60,7 +60,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
         PorcPajaro = RandomNumber(1, 30000)
 
         If PorcPajaro > 29950 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PJ" & SoundPajaro)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "PJ" & SoundPajaro)
 
         End If
 
@@ -82,7 +82,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
         End If
 
         If PorcCasa < 2 Then
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "TW" & SoundCasa)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "TW" & SoundCasa)
 
         End If
 
@@ -180,7 +180,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
 
             If UserList(UserIndex).MascotasIndex(1) > 0 Or UserList(UserIndex).MascotasIndex(2) > 0 Or UserList(UserIndex).MascotasIndex(3) > 0 Then
                   If MapInfo(MapData(Map, X, Y).TileExit.Map).Zona = Ciudad Then
-                     Call SendData(ToIndex, UserIndex, 0, "||No puedes entrar en este mapa con mascotas!" & FONTTYPE_INFO)
+                     Call SendData(toIndex, UserIndex, 0, "||No puedes entrar en este mapa con mascotas!" & FONTTYPE_INFO)
                      Call WarpNearestLegalPos(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y, False)
                       Exit Sub
                   End If
@@ -188,7 +188,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
 
             If MapData(Map, X, Y).TileExit.Map = 96 Then
                     If Not UCase(UserList(UserIndex).Stats.ELV) >= 30 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Necesitas ser lvl 30 para poder ingresar a la sala de invocaciones!." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "||Necesitas ser lvl 30 para poder ingresar a la sala de invocaciones!." & FONTTYPE_INFO)
                         Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y + 1)
                         Exit Sub
 
@@ -204,7 +204,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
 
             If MapData(Map, X, Y).TileExit.Map = 98 Or MapData(Map, X, Y).TileExit.Map = 99 Or MapData(Map, X, Y).TileExit.Map = 100 Or MapData(Map, X, Y).TileExit.Map = 101 Or MapData(Map, X, Y).TileExit.Map = 102 Then
                 If UserList(UserIndex).NroMacotas > 0 Or UserList(UserIndex).flags.Montado = True Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No se permiten entrar al castillo con mascotas!!." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "||No se permiten entrar al castillo con mascotas!!." & FONTTYPE_INFO)
                     Exit Sub
 
                 End If
@@ -213,7 +213,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
 
             If MapData(Map, X, Y).TileExit.Map = MapaCasaAbandonada1 Then
                 If (UserList(UserIndex).Stats.GLD < 30000 Or UserList(UserIndex).Invent.ArmourEqpObjIndex = 0 Or EsNewbie(UserIndex)) Or UserList(UserIndex).Stats.ELV < 30 Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Los espíritus no te dejan entrar si tienes menos de 30000 Monedas, eres Newbie, eres menor de level 30 o estás Desnudo." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "||Los espíritus no te dejan entrar si tienes menos de 30000 Monedas, eres Newbie, eres menor de level 30 o estás Desnudo." & FONTTYPE_INFO)
                     Exit Sub
 
                 End If
@@ -252,7 +252,7 @@ Public Sub DoTileEvents(ByVal UserIndex As Integer, _
                     End If
 
                 Else    'No es newbie
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Mapa exclusivo para newbies." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "||Mapa exclusivo para newbies." & FONTTYPE_INFO)
 
                     Dim veces As Byte
 
@@ -322,7 +322,7 @@ Public Sub Gusano(ByVal UserIndex As Integer)
     Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & 121)
     Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & lado & "," & 0)
     UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MinHP - Daño
-    Call SendData(ToIndex, UserIndex, 0, "||¡¡ Un Gusano te causa " & Daño & " de daño!!" & FONTTYPE_Motd4)
+    Call SendData(toIndex, UserIndex, 0, "||¡¡ Un Gusano te causa " & Daño & " de daño!!" & FONTTYPE_Motd4)
     
     Call SendUserStatsBox(UserIndex)
 
@@ -909,7 +909,7 @@ Sub SendHelp(ByVal Index As Integer)
     NumHelpLines = val(GetVar(DatPath & "Help.dat", "INIT", "NumLines"))
 
     For LoopC = 1 To NumHelpLines
-        Call SendData(SendTarget.ToIndex, Index, 0, "||" & GetVar(DatPath & "Help.dat", "Help", "Line" & LoopC) & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, Index, 0, "||" & GetVar(DatPath & "Help.dat", "Help", "Line" & LoopC) & FONTTYPE_INFO)
     Next LoopC
 
 End Sub
@@ -1019,10 +1019,10 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                 .flags.TargetObj = MapData(Map, .flags.TargetObjX, .flags.TargetObjY).OBJInfo.ObjIndex
 
                 If MostrarCantidad(.flags.TargetObj) Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & ObjData(.flags.TargetObj).Name & " - " & MapData(.flags.TargetObjMap, _
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & ObjData(.flags.TargetObj).Name & " - " & MapData(.flags.TargetObjMap, _
                                                                                                                             .flags.TargetObjX, .flags.TargetObjY).OBJInfo.Amount & vbNullString & FONTTYPE_INFO)
                 Else
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & ObjData(.flags.TargetObj).Name & FONTTYPE_INFO)
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & ObjData(.flags.TargetObj).Name & FONTTYPE_INFO)
 
                 End If
 
@@ -1181,7 +1181,7 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
 
                     End If
 
-                    If Len(Stat) > 0 Then Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & Stat)
+                    If Len(Stat) > 0 Then Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & Stat)
 
                     FoundSomething = 1
                     .flags.TargetUser = TempCharIndex
@@ -1225,13 +1225,13 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                         ElseIf .Quest.ValidHablarNpc > 0 Then
                              Call CambiaDescQuest(UserIndex, .Quest.Quest, TempCharIndex)
                           Else
-                          Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
+                          Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
                                                                   & FONTTYPE_INFO)
                          End If
                     
                     Else
                     
-                            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
+                            Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbWhite & "°" & Npclist(TempCharIndex).Desc & "°" & tNpc.char.CharIndex _
                                                                   & FONTTYPE_INFO)
                                                                   
                      End If
@@ -1242,10 +1242,10 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                 Else
 
                     If tNpc.MaestroUser > 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & tNpc.Name & " es mascota de " & UserList(tNpc.MaestroUser).Name & _
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "|| " & tNpc.Name & " es mascota de " & UserList(tNpc.MaestroUser).Name & _
                                                                         estatus & "." & FONTTYPE_INFO)
                     Else
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & tNpc.Name & estatus & "." & FONTTYPE_INFO)
+                        Call SendData(SendTarget.toIndex, UserIndex, 0, "|| " & tNpc.Name & estatus & "." & FONTTYPE_INFO)
 
                     End If
 

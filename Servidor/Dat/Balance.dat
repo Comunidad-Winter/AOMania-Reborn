@@ -1,3 +1,21 @@
+'    ListaClases(1) = "MAGO"
+'    ListaClases(2) = "CLERIGO"
+'    ListaClases(3) = "GUERRERO"
+'    ListaClases(4) = "ASESINO"
+'    ListaClases(5) = "LADRON"
+'    ListaClases(6) = "BARDO"
+'    ListaClases(7) = "DRUIDA"
+'    ListaClases(8) = "TRABAJADOR"
+'    ListaClases(9) = "PALADIN"
+'    ListaClases(10) = "CAZADOR"
+'    ListaClases(11) = "PIRATA"
+'    ListaClases(12) = "BRUJO"
+'    ListaClases(13) = "ARQUERO"
+'    ListaClases(14) = "DIOS"
+' =====> EL MODULO DE BALANCE CADA RANGO, SE DEBE RESPETAR
+' =====> EL ORDEN DE LA LISTA DE CLASES PARA RECOGER LOS DATOS
+' =====> CORRECTAMENTE.
+
 [MODEVASION]
 MAGO=0.3
 CLERIGO=0.6

@@ -366,51 +366,82 @@ If a > b Then
 End If
 End Function
 
+'Function modDañoArma(ByVal Clase As String) As Single
+'    Select Case UCase$(Clase)
+'        Case "GUERRERO", "GLADIADOR MAGICO"
+'            modDañoArma = 1.1
+'        Case "ASESINO"
+'            modDañoArma = 0.9
+'        Case "PALADIN"
+'            modDañoArma = 0.88
+'        Case "PIRATA", "HERRERO MAGICO"
+'            modDañoArma = 0.8
+'        Case "LADRON", "THESAUROS", "CLERIGO"
+'            modDañoArma = 0.75
+'        Case "CAZADOR", "BARDO", "DRUIDA", "ARQUERO"
+'            modDañoArma = 0.7
+'        Case "HERRERO"
+'            modDañoArma = 0.65
+'        Case "MAGO", "BRUJO"
+'            modDañoArma = 0.6
+'        Case Else
+'            modDañoArma = 0.5
+'    End Select
+'End Function
+
+
 Function modDañoArma(ByVal Clase As String) As Single
-    Select Case UCase$(Clase)
-        Case "GUERRERO", "GLADIADOR MAGICO"
-            modDañoArma = 1.1
-        Case "ASESINO"
-            modDañoArma = 0.9
-        Case "PALADIN"
-            modDañoArma = 0.88
-        Case "PIRATA", "HERRERO MAGICO"
-            modDañoArma = 0.8
-        Case "LADRON", "THESAUROS", "CLERIGO"
-            modDañoArma = 0.75
-        Case "CAZADOR", "BARDO", "DRUIDA", "ARQUERO"
-            modDañoArma = 0.7
-        Case "HERRERO"
-            modDañoArma = 0.65
-        Case "MAGO", "BRUJO"
-            modDañoArma = 0.6
-        Case Else
-            modDañoArma = 0.5
-    End Select
+         
+         Dim i As Integer
+         
+         For i = 1 To NUMCLASES
+              
+              If UCase$(ListaClases(i)) = UCase$(Clase) Then
+                   modDañoArma = ModClase(i).DañoArmas
+                   Exit Function
+              End If
+              
+         Next i
+         
 End Function
 
 Function modDañoProyectil(ByVal Clase As String) As Single
-    Select Case UCase$(Clase)
-        Case "ARQUERO"
-            modDañoProyectil = 1.5
-        Case "CAZADOR", "GLADIADOR MAGICO"
-            modDañoProyectil = 1.2
-        Case "GUERRERO"
-            modDañoProyectil = 0.9
-        Case "PALADIN"
-            modDañoProyectil = 0.8
-        Case "ASESINO", "PIRATA", "HERRERO MAGICO"
-            modDañoProyectil = 0.75
-        Case "CLERIGO", "BARDO", "LADRON", "THESAUROS"
-            modDañoProyectil = 0.7
-        Case "HERRERO", "MINERO"
-            modDañoProyectil = 0.65
-        Case "MAGO", "BRUJO", "DRUIDA"
-            modDañoProyectil = 0.6
-        Case Else
-            modDañoProyectil = 0.5
-    End Select
+            
+        Dim i As Integer
+        
+        For i = 1 To NUMCLASES
+             
+             If UCase$(ListaClases(i)) = UCase$(Clase) Then
+                  modDañoProyectil = ModClase(i).DañoProyectiles
+                  Exit Function
+             End If
+             
+        Next i
+            
 End Function
+
+'Function modDañoProyectil(ByVal Clase As String) As Single
+'    Select Case UCase$(Clase)
+'        Case "ARQUERO"
+'            modDañoProyectil = 1.5
+'        Case "CAZADOR", "GLADIADOR MAGICO"
+'            modDañoProyectil = 1.2
+'        Case "GUERRERO"
+'            modDañoProyectil = 0.9
+'        Case "PALADIN"
+'            modDañoProyectil = 0.8
+'        Case "ASESINO", "PIRATA", "HERRERO MAGICO"
+'            modDañoProyectil = 0.75
+'        Case "CLERIGO", "BARDO", "LADRON", "THESAUROS"
+'            modDañoProyectil = 0.7
+'        Case "HERRERO", "MINERO"
+'            modDañoProyectil = 0.65
+'        Case "MAGO", "BRUJO", "DRUIDA"
+'            modDañoProyectil = 0.6
+'        Case Else
+'            modDañoProyectil = 0.5
+'    End Select
+'End Function
 
 Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 

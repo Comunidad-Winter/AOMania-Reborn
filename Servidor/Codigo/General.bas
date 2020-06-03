@@ -94,7 +94,7 @@ Public Sub LoadBalance()
 
     'Modificadores de Clase
     For i = 1 To NUMCLASES
-
+        
         With ModClase(i)
             .Evasion = val(GetVar(DatPath & "Balance.dat", "MODEVASION", ListaClases(i)))
             .AtaqueArmas = val(GetVar(DatPath & "Balance.dat", "MODATAQUEARMAS", ListaClases(i)))
@@ -745,20 +745,6 @@ Sub Main()
 
     Next i
 
-    'CP1="MAGO"
-    'CP2="CLERIGO"
-    'CP3="GUERRERO"
-    'CP4="ASESINO"
-    'CP5="LADRON"
-    'CP6="BARDO"
-    'CP7="DRUIDA"
-    'CP8="TRABAJADOR"
-    'CP9="PALADIN"
-    'CP10="CAZADOR"
-    'CP11="PIRATA"
-    'CP12="BRUJO"
-    'CP13="ARQUERO"
-
     ListaClases(1) = "MAGO"
     ListaClases(2) = "CLERIGO"
     ListaClases(3) = "GUERRERO"
@@ -774,19 +760,19 @@ Sub Main()
     ListaClases(13) = "ARQUERO"
     ListaClases(14) = "DIOS"
 
-    Torneo_Clases_Validas(1) = "Guerrero"
-    Torneo_Clases_Validas(2) = "Mago"
-    Torneo_Clases_Validas(3) = "Paladin"
-    Torneo_Clases_Validas(4) = "Clerigo"
-    Torneo_Clases_Validas(5) = "Bardo"
-    Torneo_Clases_Validas(6) = "Asesino"
-    Torneo_Clases_Validas(7) = "Druida"
-    Torneo_Clases_Validas(8) = "Cazador"
-
-    Torneo_Alineacion_Validas(1) = "Criminal"
-    Torneo_Alineacion_Validas(2) = "Ciudadano"
-    Torneo_Alineacion_Validas(3) = "Armada CAOS"
-    Torneo_Alineacion_Validas(4) = "Armada REAL"
+'    Torneo_Clases_Validas(1) = "Guerrero"
+'    Torneo_Clases_Validas(2) = "Mago"
+'    Torneo_Clases_Validas(3) = "Paladin"
+'    Torneo_Clases_Validas(4) = "Clerigo"
+'    Torneo_Clases_Validas(5) = "Bardo"
+'    Torneo_Clases_Validas(6) = "Asesino"
+'    Torneo_Clases_Validas(7) = "Druida"
+'    Torneo_Clases_Validas(8) = "Cazador"
+'
+'    Torneo_Alineacion_Validas(1) = "Criminal"
+'    Torneo_Alineacion_Validas(2) = "Ciudadano"
+'    Torneo_Alineacion_Validas(3) = "Armada CAOS"
+'    Torneo_Alineacion_Validas(4) = "Armada REAL"
 
     SkillsNames(1) = "Suerte"
     SkillsNames(2) = "Magia"
@@ -853,6 +839,9 @@ Sub Main()
 
     frmCargando.Label1(2).caption = "Cargando Objetos.."
     Call LoadOBJData
+    
+    frmCargando.Label1(2).caption = "Cargando Armaduras de facciones.."
+    Call CargarJerarquias
     
     frmCargando.Label1(2).caption = "Cargando Objetos Canjes Sagrados."
     Call LoadCanjeSagrados

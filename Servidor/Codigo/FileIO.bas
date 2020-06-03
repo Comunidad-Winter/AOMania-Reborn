@@ -1224,11 +1224,11 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).Faccion.CiudadanosMatados = CDbl(UserFile.GetValue("FACCIONES", "CiudMatados"))
     UserList(UserIndex).Faccion.CriminalesMatados = CDbl(UserFile.GetValue("FACCIONES", "CrimMatados"))
 
-    UserList(UserIndex).Faccion.RecibioArmaduraCaos = CByte(UserFile.GetValue("FACCIONES", "rArCaos"))
-    UserList(UserIndex).Faccion.RecibioArmaduraReal = CByte(UserFile.GetValue("FACCIONES", "rArReal"))
-
-    UserList(UserIndex).Faccion.RecibioArmaduraNemesis = CByte(UserFile.GetValue("FACCIONES", "rArNemesis"))
-    UserList(UserIndex).Faccion.RecibioArmaduraTemplaria = CByte(UserFile.GetValue("FACCIONES", "rArTemplaria"))
+'    UserList(UserIndex).Faccion.RecibioArmaduraCaos = CByte(UserFile.GetValue("FACCIONES", "rArCaos"))
+'    UserList(UserIndex).Faccion.RecibioArmaduraReal = CByte(UserFile.GetValue("FACCIONES", "rArReal"))
+'
+'    UserList(UserIndex).Faccion.RecibioArmaduraNemesis = CByte(UserFile.GetValue("FACCIONES", "rArNemesis"))
+'    UserList(UserIndex).Faccion.RecibioArmaduraTemplaria = CByte(UserFile.GetValue("FACCIONES", "rArTemplaria"))
 
     UserList(UserIndex).Faccion.RecibioExpInicialCaos = CByte(UserFile.GetValue("FACCIONES", "rExCaos"))
     UserList(UserIndex).Faccion.RecibioExpInicialReal = CByte(UserFile.GetValue("FACCIONES", "rExReal"))
@@ -2076,11 +2076,11 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("FACCIONES", "CiudMatados", CStr(.Faccion.CiudadanosMatados))
         Call Manager.ChangeValue("FACCIONES", "CrimMatados", CStr(.Faccion.CriminalesMatados))
 
-        Call Manager.ChangeValue("FACCIONES", "rArCaos", CStr(.Faccion.RecibioArmaduraCaos))
-        Call Manager.ChangeValue("FACCIONES", "rArReal", CStr(.Faccion.RecibioArmaduraReal))
-
-        Call Manager.ChangeValue("FACCIONES", "rArNemesis", CStr(.Faccion.RecibioArmaduraNemesis))
-        Call Manager.ChangeValue("FACCIONES", "rArTemplaria", CStr(.Faccion.RecibioArmaduraTemplaria))
+'        Call Manager.ChangeValue("FACCIONES", "rArCaos", CStr(.Faccion.RecibioArmaduraCaos))
+'        Call Manager.ChangeValue("FACCIONES", "rArReal", CStr(.Faccion.RecibioArmaduraReal))
+'
+'        Call Manager.ChangeValue("FACCIONES", "rArNemesis", CStr(.Faccion.RecibioArmaduraNemesis))
+'        Call Manager.ChangeValue("FACCIONES", "rArTemplaria", CStr(.Faccion.RecibioArmaduraTemplaria))
 
         Call Manager.ChangeValue("FACCIONES", "rExCaos", CStr(.Faccion.RecibioExpInicialCaos))
         Call Manager.ChangeValue("FACCIONES", "rExReal", CStr(.Faccion.RecibioExpInicialReal))
@@ -2649,3 +2649,329 @@ Public Sub LoadCanjeSagrados()
       
 End Sub
 
+Public Sub CargarJerarquias()
+     
+    Dim Leer As New clsIniManager
+    
+    Call Leer.Initialize(DatPath & "Armadas.dat")
+    
+    MAX_ARMADURAS_ARMADA = 0
+    
+    '#####LOADING 1ª Jerarquia
+     
+    ArmaduraPaladinClero = val(Leer.GetValue("JerarquiaIClero", "ArmaduraPaladinClero"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraPaladinClero
+    
+    ArmaduraClerigoClero = val(Leer.GetValue("JerarquiaIClero", "ArmaduraClerigoClero"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraClerigoClero
+    
+    ArmaduraEnanoClero = val(Leer.GetValue("JerarquiaIClero", "ArmaduraEnanoClero"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraEnanoClero
+    
+    ArmaduraEnanoCleroMujer = val(Leer.GetValue("JerarquiaIClero", "ArmaduraEnanoCleroMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraEnanoCleroMujer
+    
+    ArmaduraCleroMujer = val(Leer.GetValue("JerarquiaIClero", "ArmaduraCleroMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraCleroMujer
+    
+    ArmaduraCleroHobbit = val(Leer.GetValue("JerarquiaIClero", "ArmaduraCleroHobbit"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraCleroHobbit
+    
+    ArmaduraCleroHobbitMujer = val(Leer.GetValue("JerarquiaIClero", "ArmaduraCleroHobbitMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraCleroHobbitMujer
+     
+    TunicaMagoClero = val(Leer.GetValue("JerarquiaIClero", "TunicaMagoClero"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoClero
+    
+    TunicaMagoCleroEnano = val(Leer.GetValue("JerarquiaIClero", "TunicaMagoCleroEnano"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoCleroEnano
+    
+    TunicaMagoCleroEnanoMujer = val(Leer.GetValue("JerarquiaIClero", "TunicaMagoCleroEnanoMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoCleroEnanoMujer
+    
+    TunicaMagoCleroHobbit = val(Leer.GetValue("JerarquiaIClero", "TunicaMagoCleroHobbit"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoCleroHobbit
+    
+    TunicaMagoCleroHobbitMujer = val(Leer.GetValue("JerarquiaIClero", "TunicaMagoCleroHobbitMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoCleroHobbitMujer
+    
+    TunicaMagoCleroMujer = val(Leer.GetValue("JerarquiaIClero", "TunicaMagoCleroMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoCleroMujer
+  
+    ArmaduraPaladinTiniebla = val(Leer.GetValue("JerarquiaITiniebla", "ArmaduraPaladinTiniebla"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraPaladinTiniebla
+    
+    ArmaduraEnanoTiniebla = val(Leer.GetValue("JerarquiaITiniebla", "ArmaduraEnanoTiniebla"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraEnanoTiniebla
+    
+    ArmaduraEnanoTinieblaMujer = val(Leer.GetValue("JerarquiaITiniebla", "ArmaduraTinieblaEnanoMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraEnanoTinieblaMujer
+    
+    ArmaduraTinieblaMujer = val(Leer.GetValue("JerarquiaITiniebla", "ArmaduraTinieblaMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraTinieblaMujer
+    
+    ArmaduraTinieblaHobbit = val(Leer.GetValue("JerarquiaITiniebla", "ArmaduraTinieblaHobbit"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraTinieblaHobbit
+    
+    ArmaduraTinieblaHobbitMujer = val(Leer.GetValue("JerarquiaITiniebla", "ArmaduraTinieblaHobbitMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraTinieblaHobbitMujer
+
+    TunicaMagoTiniebla = val(Leer.GetValue("JerarquiaITiniebla", "TunicaMagoTiniebla"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTiniebla
+    
+    TunicaMagoTinieblaEnano = val(Leer.GetValue("JerarquiaITiniebla", "TunicaMagoTinieblaEnano"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTinieblaEnano
+    
+    TunicaMagoTinieblaEnanoMujer = val(Leer.GetValue("JerarquiaITiniebla", "TunicaMagoTinieblaEnanoMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTinieblaEnanoMujer
+    
+    TunicaMagoTinieblaHobbit = val(Leer.GetValue("JerarquiaITiniebla", "TunicaMagoTinieblaHobbit"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTinieblaHobbit
+    
+    TunicaMagoTinieblaMujer = val(Leer.GetValue("JerarquiaITiniebla", "TunicaMagoTinieblaMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTinieblaMujer
+    
+    ArmaduraPaladinTemplario = val(Leer.GetValue("JerarquiaITemplario", "ArmaduraPaladinTemplario"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraPaladinTemplario
+    
+    ArmaduraEnanoTemplario = val(Leer.GetValue("JerarquiaITemplario", "ArmaduraEnanoTemplario"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraEnanoTemplario
+    
+    ArmaduraEnanoTemplarioMujer = val(Leer.GetValue("JerarquiaITemplario", "ArmaduraTemplarioEnanoMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraEnanoTemplarioMujer
+    
+    ArmaduraTemplarioMujer = val(Leer.GetValue("JerarquiaITemplario", "ArmaduraTemplarioMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraTemplarioMujer
+    
+    ArmaduraTemplarioHobbit = val(Leer.GetValue("JerarquiaITemplario", "ArmaduraTemplarioHobbit"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraTemplarioHobbit
+    
+    ArmaduraTemplarioHobbitMujer = val(Leer.GetValue("JerarquiaITemplario", "ArmaduraTemplarioHobbitMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraTemplarioHobbitMujer
+    
+    TunicaMagoTemplario = val(Leer.GetValue("JerarquiaITemplario", "TunicaMagoTemplario"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTemplario
+    
+    TunicaMagoTemplarioEnano = val(Leer.GetValue("JerarquiaITemplario", "TunicaMagoTemplarioEnano"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTemplarioEnano
+    
+    TunicaMagoTemplarioEnanoMujer = val(Leer.GetValue("JerarquiaITemplario", "TunicaMagoTemplarioEnanoMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTemplarioEnanoMujer
+    
+    TunicaMagoTemplarioHobbit = val(Leer.GetValue("JerarquiaITemplario", "TunicaMagoTemplarioHobbit"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTemplarioHobbit
+    
+    TunicaMagoTemplarioMujer = val(Leer.GetValue("JerarquiaITemplario", "TunicaMagoTemplarioMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoTemplarioMujer
+    
+    ArmaduraPaladinAbaddon = val(Leer.GetValue("JerarquiaIAbaddon", "ArmaduraPaladinAbaddon"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraPaladinAbaddon
+    
+    ArmaduraEnanoAbaddon = val(Leer.GetValue("JerarquiaIAbaddon", "ArmaduraEnanoAbaddon"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraEnanoAbaddon
+    
+    ArmaduraEnanoAbaddonMujer = val(Leer.GetValue("JerarquiaIAbaddon", "ArmaduraEnanoAbaddonMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraEnanoAbaddonMujer
+    
+    ArmaduraAbaddonMujer = val(Leer.GetValue("JerarquiaIAbaddon", "ArmaduraAbaddonMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraAbaddonMujer
+    
+    ArmaduraGnomoAbaddon = val(Leer.GetValue("JerarquiaIAbaddon", "ArmaduraGnomoAbaddon"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraGnomoAbaddon
+    
+    ArmaduraAbaddonHobbitMujer = val(Leer.GetValue("JerarquiaIAbaddon", "ArmaduraPaladinAbaddonMujerHobbit"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraAbaddonHobbitMujer
+    
+    ArmaduraPaladinAbaddonHobbit = val(Leer.GetValue("JerarquiaIAbaddon", "ArmaduraPaladinAbaddonHobbit"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = ArmaduraPaladinAbaddonHobbit
+    
+    TunicaMagoAbaddon = val(Leer.GetValue("JerarquiaIAbaddon", "TunicaMagoAbaddon"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoAbaddon
+    
+    TunicaMagoAbaddonEnano = val(Leer.GetValue("JerarquiaIAbaddon", "TunicaMagoAbaddonEnano"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoAbaddonEnano
+    
+    TunicaMagoAbaddonEnanoMujer = val(Leer.GetValue("JerarquiaIAbaddon", "TunicaMagoAbaddonEnanoMujer"))
+   MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoAbaddonEnanoMujer
+    
+   TunicaMagoAbaddonHobbit = val(Leer.GetValue("JerarquiaIAbaddon", "TunicaMagoAbaddonHobbit"))
+   MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoAbaddonHobbit
+    
+    TunicaMagoAbaddonHobbitMujer = val(Leer.GetValue("JerarquiaIAbaddon", "TunicaMagoAbaddonMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoAbaddonHobbitMujer
+    
+    TunicaMagoAbaddonMujer = val(Leer.GetValue("JerarquiaIAbaddon", "TunicaMagoAbaddonMujer"))
+    MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
+    Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoAbaddonMujer
+    
+    '#####LOADING 2ª Jerarquia
+     
+    ArmaduraPaladinClero2 = val(Leer.GetValue("JerarquiaIIClero", "ArmaduraPaladinClero2"))
+    ArmaduraClerigoClero2 = val(Leer.GetValue("JerarquiaIIClero", "ArmaduraClerigoClero2"))
+    ArmaduraEnanoClero2 = val(Leer.GetValue("JerarquiaIIClero", "ArmaduraEnanoClero2"))
+    ArmaduraEnanoCleroMujer2 = val(Leer.GetValue("JerarquiaIIClero", "ArmaduraEnanoCleroMujer2"))
+    ArmaduraCleroMujer2 = val(Leer.GetValue("JerarquiaIIClero", "ArmaduraCleroMujer2"))
+    ArmaduraCleroHobbit2 = val(Leer.GetValue("JerarquiaIIClero", "ArmaduraCleroHobbit2"))
+    ArmaduraCleroHobbitMujer2 = val(Leer.GetValue("JerarquiaIIClero", "ArmaduraCleroHobbitMujer2"))
+
+    TunicaMagoClero2 = val(Leer.GetValue("JerarquiaIIClero", "TunicaMagoClero2"))
+    TunicaMagoCleroEnano2 = val(Leer.GetValue("JerarquiaIIClero", "TunicaMagoCleroEnano2"))
+    TunicaMagoCleroEnanoMujer2 = val(Leer.GetValue("JerarquiaIIClero", "TunicaMagoCleroEnanoMujer2"))
+    TunicaMagoCleroHobbit2 = val(Leer.GetValue("JerarquiaIIClero", "TunicaMagoCleroHobbit2"))
+    TunicaMagoCleroHobbitMujer2 = val(Leer.GetValue("JerarquiaIIClero", "TunicaMagoCleroHobbitMujer2"))
+    TunicaMagoCleroMujer2 = val(Leer.GetValue("JerarquiaIIClero", "TunicaMagoCleroMujer2"))
+    
+    ArmaduraPaladinTiniebla2 = val(Leer.GetValue("JerarquiaIITiniebla", "ArmaduraPaladinTiniebla2"))
+    ArmaduraEnanoTiniebla2 = val(Leer.GetValue("JerarquiaIITiniebla", "ArmaduraEnanoTiniebla2"))
+    ArmaduraEnanoTinieblaMujer2 = val(Leer.GetValue("JerarquiaIITiniebla", "ArmaduraEnanoTiniebla2"))
+    ArmaduraTinieblaMujer2 = val(Leer.GetValue("JerarquiaIITiniebla", "ArmaduraTinieblaMujer2"))
+    ArmaduraTinieblaHobbit2 = val(Leer.GetValue("JerarquiaIITiniebla", "ArmaduraTinieblaHobbit2"))
+    ArmaduraTinieblaHobbitMujer2 = val(Leer.GetValue("JerarquiaIITiniebla", "ArmaduraTinieblaHobbitMujer2"))
+
+    TunicaMagoTiniebla2 = val(Leer.GetValue("JerarquiaIITiniebla", "TunicaMagoTiniebla2"))
+    TunicaMagoTinieblaEnano2 = val(Leer.GetValue("JerarquiaIITiniebla", "TunicaMagoTinieblaEnano2"))
+    TunicaMagoTinieblaEnanoMujer2 = val(Leer.GetValue("JerarquiaIITiniebla", "TunicaMagoTinieblaMujerEnano2"))
+    TunicaMagoTinieblaHobbit2 = val(Leer.GetValue("JerarquiaIITiniebla", "TunicaMagoTinieblaHobbit2"))
+    TunicaMagoTinieblaMujer2 = val(Leer.GetValue("JerarquiaIITiniebla", "TunicaMagoTinieblaHobbit2"))
+    TunicaMagoTinieblaMujerHobbit2 = val(Leer.GetValue("JerarquiaIITiniebla", "TunicaMagoTinieblaMujerHobbit2"))
+    
+    ArmaduraPaladinTemplario2 = val(Leer.GetValue("JerarquiaIITemplario", "ArmaduraPaladinTemplario2"))
+    ArmaduraEnanoTemplario2 = val(Leer.GetValue("JerarquiaIITemplario", "ArmaduraEnanoTemplario2"))
+    ArmaduraEnanoTemplarioMujer2 = val(Leer.GetValue("JerarquiaIITemplario", "ArmaduraEnanoTemplario2"))
+    ArmaduraTemplarioMujer2 = val(Leer.GetValue("JerarquiaIITemplario", "ArmaduraTemplarioMujer2"))
+    ArmaduraTemplarioHobbit2 = val(Leer.GetValue("JerarquiaIITemplario", "ArmaduraTemplarioHobbit2"))
+    ArmaduraTemplarioHobbitMujer2 = val(Leer.GetValue("JerarquiaIITemplario", "ArmaduraTemplarioHobbitMujer2"))
+ 
+    TunicaMagoTemplario2 = val(Leer.GetValue("JerarquiaIITemplario", "TunicaMagoTemplario2"))
+    TunicaMagoTemplarioMujer2 = val(Leer.GetValue("JerarquiaIITemplario", "TunicaMagoTemplarioMujer2"))
+    TunicaMagoTemplarioEnano2 = val(Leer.GetValue("JerarquiaIITemplario", "TunicaMagoTemplarioEnano2"))
+    TunicaMagoTemplarioEnanoMujer2 = val(Leer.GetValue("JerarquiaIITemplario", "TunicaMagoTemplarioMujerEnano2"))
+    TunicaMagoTemplarioHobbit2 = val(Leer.GetValue("JerarquiaIITemplario", "TunicaMagoTemplarioHobbit2"))
+    TunicaMagoTemplarioMujerHobbit2 = val(Leer.GetValue("JerarquiaIITemplario", "TunicaMagoTemplarioMujerHobbit2"))
+    
+    ArmaduraPaladinAbaddon2 = val(Leer.GetValue("JerarquiaIIAbaddon", "ArmaduraPaladinAbaddon2"))
+    ArmaduraEnanoAbaddon2 = val(Leer.GetValue("JerarquiaIIAbaddon", "ArmaduraEnanoAbaddon2"))
+    ArmaduraEnanoAbaddonMujer2 = val(Leer.GetValue("JerarquiaIIAbaddon", "ArmaduraEnanoAbaddonMujer2"))
+    ArmaduraAbaddonMujer2 = val(Leer.GetValue("JerarquiaIIAbaddon", "ArmaduraAbaddonMujer2"))
+    ArmaduraAbaddonHobbit2 = val(Leer.GetValue("JerarquiaIIAbaddon", "ArmaduraHobbitAbaddon2"))
+    ArmaduraAbaddonHobbitMujer2 = val(Leer.GetValue("JerarquiaIIAbaddon", "ArmaduraPaladinAbaddonMujerHobbit2"))
+    ArmaduraGnomoAbaddon2 = val(Leer.GetValue("JerarquiaIIAbaddon", "ArmaduraGnomoAbaddon2"))
+
+    TunicaMagoAbaddon2 = val(Leer.GetValue("JerarquiaIIAbaddon", "TunicaMagoAbaddon2"))
+    TunicaMagoAbaddonEnano2 = val(Leer.GetValue("JerarquiaIIAbaddon", "TunicaMagoAbaddonEnano2"))
+    TunicaMagoAbaddonEnanoMujer2 = val(Leer.GetValue("JerarquiaIIAbaddon", "TunicaMagoAbaddonEnanoMujer2"))
+    TunicaMagoAbaddonHobbit2 = val(Leer.GetValue("JerarquiaIIAbaddon", "TunicaMagoAbaddonHobbit2"))
+    TunicaMagoAbaddonHobbitMujer2 = val(Leer.GetValue("JerarquiaIIAbaddon", "TunicaMagoAbaddonMujer2"))
+    TunicaMagoAbaddonMujer2 = val(Leer.GetValue("JerarquiaIIAbaddon", "TunicaMagoAbaddonMujer2"))
+    
+    '#####LOADING 3ª Jerarquia
+    
+    ArmaduraPaladinClero3 = val(Leer.GetValue("JerarquiaIIIClero", "ArmaduraPaladinClero3"))
+    ArmaduraClerigoClero3 = val(Leer.GetValue("JerarquiaIIIClero", "ArmaduraClerigoClero3"))
+    ArmaduraEnanoClero3 = val(Leer.GetValue("JerarquiaIIIClero", "ArmaduraEnanoClero3"))
+    ArmaduraEnanoCleroMujer3 = val(Leer.GetValue("JerarquiaIIIClero", "ArmaduraEnanoCleroMujer3"))
+    ArmaduraCleroMujer3 = val(Leer.GetValue("JerarquiaIIIClero", "ArmaduraCleroMujer3"))
+    ArmaduraCleroHobbit3 = val(Leer.GetValue("JerarquiaIIIClero", "ArmaduraCleroHobbit3"))
+    ArmaduraCleroHobbitMujer3 = val(Leer.GetValue("JerarquiaIIIClero", "ArmaduraCleroHobbitMujer3"))
+
+    TunicaMagoClero3 = val(Leer.GetValue("JerarquiaIIIClero", "TunicaMagoClero3"))
+    TunicaMagoCleroEnano3 = val(Leer.GetValue("JerarquiaIIIClero", "TunicaMagoCleroEnano3"))
+    TunicaMagoCleroEnanoMujer3 = val(Leer.GetValue("JerarquiaIIIClero", "TunicaMagoCleroEnanoMujer3"))
+    TunicaMagoCleroHobbit3 = val(Leer.GetValue("JerarquiaIIIClero", "TunicaMagoCleroHobbit3"))
+    TunicaMagoCleroHobbitMujer3 = val(Leer.GetValue("JerarquiaIIIClero", "TunicaMagoCleroHobbitMujer3"))
+    TunicaMagoCleroMujer3 = val(Leer.GetValue("JerarquiaIIIClero", "TunicaMagoCleroMujer3"))
+    
+    ArmaduraPaladinTiniebla3 = val(Leer.GetValue("JerarquiaIIITiniebla", "ArmaduraPaladinTiniebla3"))
+    ArmaduraEnanoTiniebla3 = val(Leer.GetValue("JerarquiaIIITiniebla", "ArmaduraEnanoTiniebla3"))
+    ArmaduraEnanoTinieblaMujer3 = val(Leer.GetValue("JerarquiaIIITiniebla", "ArmaduraTinieblaEnanoMujer3"))
+    ArmaduraTinieblaMujer3 = val(Leer.GetValue("JerarquiaIIITiniebla", "ArmaduraTinieblaMujer3"))
+    ArmaduraTinieblaHobbit3 = val(Leer.GetValue("JerarquiaIIITiniebla", "ArmaduraTinieblaHobbit3"))
+    ArmaduraTinieblaHobbitMujer3 = val(Leer.GetValue("JerarquiaIIITiniebla", "ArmaduraTinieblaHobbitMujer3"))
+
+    TunicaMagoTiniebla3 = val(Leer.GetValue("JerarquiaIIITiniebla", "TunicaMagoTiniebla3"))
+    TunicaMagoTinieblaEnano3 = val(Leer.GetValue("JerarquiaIIITiniebla", "TunicaMagoTinieblaEnano3"))
+    TunicaMagoTinieblaEnanoMujer3 = val(Leer.GetValue("JerarquiaIIITiniebla", "TunicaMagoTinieblaMujerEnano3"))
+    TunicaMagoTinieblaHobbit3 = val(Leer.GetValue("JerarquiaIIITiniebla", "TunicaMagoTinieblaHobbit3"))
+    TunicaMagoTinieblaMujer3 = val(Leer.GetValue("JerarquiaIIITiniebla", "TunicaMagoTinieblaMujer3"))
+    TunicaMagoTinieblaMujerHobbit3 = val(Leer.GetValue("JerarquiaIIITiniebla", "TunicaMagoTinieblaMujerHobbit3"))
+    
+    ArmaduraPaladinTemplario3 = val(Leer.GetValue("JerarquiaIIITemplario", "ArmaduraPaladinTemplario3"))
+    ArmaduraEnanoTemplario3 = val(Leer.GetValue("JerarquiaIIITemplario", "ArmaduraEnanoTemplario3"))
+    ArmaduraEnanoTemplarioMujer3 = val(Leer.GetValue("JerarquiaIIITemplario", "ArmaduraTemplarioEnanoMujer3"))
+    ArmaduraTemplarioMujer3 = val(Leer.GetValue("JerarquiaIIITemplario", "ArmaduraTemplarioMujer3"))
+    ArmaduraTemplarioHobbit3 = val(Leer.GetValue("JerarquiaIIITemplario", "ArmaduraTemplarioHobbit3"))
+    ArmaduraTemplarioHobbitMujer3 = val(Leer.GetValue("JerarquiaIIITemplario", "ArmaduraTemplarioHobbitMujer3"))
+
+    TunicaMagoTemplario3 = val(Leer.GetValue("JerarquiaIIITemplario", "TunicaMagoTemplario3"))
+    TunicaMagoTemplarioEnano3 = val(Leer.GetValue("JerarquiaIIITemplario", "TunicaMagoTemplarioEnano3"))
+    TunicaMagoTemplarioEnanoMujer3 = val(Leer.GetValue("JerarquiaIIITemplario", "TunicaMagoTemplarioMujerEnano3"))
+    TunicaMagoTemplarioHobbit3 = val(Leer.GetValue("JerarquiaIIITemplario", "TunicaMagoTemplarioHobbit3"))
+    TunicaMagoTemplarioMujer3 = val(Leer.GetValue("JerarquiaIIITemplario", "TunicaMagoTemplarioMujer3"))
+    TunicaMagoTemplarioMujerHobbit3 = val(Leer.GetValue("JerarquiaIIITemplario", "TunicaMagoTemplarioMujerHobbit3"))
+    
+    ArmaduraPaladinAbaddon3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "ArmaduraPaladinAbaddon3"))
+    ArmaduraEnanoAbaddon3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "ArmaduraEnanoAbaddon3"))
+    ArmaduraEnanoAbaddonMujer3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "ArmaduraEnanoAbaddonMujer3"))
+    ArmaduraAbaddonMujer3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "ArmaduraAbaddonMujer3"))
+    ArmaduraAbaddonHobbit3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "ArmaduraHobbitAbaddon3"))
+    ArmaduraAbaddonHobbitMujer3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "ArmaduraPaladinAbaddonMujerHobbit3"))
+    ArmaduraGnomoAbaddon3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "ArmaduraGnomoAbaddon3"))
+
+    TunicaMagoAbaddon3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "TunicaMagoAbaddon3"))
+    TunicaMagoAbaddonEnano3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "TunicaMagoAbaddonEnano3"))
+    TunicaMagoAbaddonEnanoMujer3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "TunicaMagoAbaddonEnanoMujer3"))
+    TunicaMagoAbaddonHobbit3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "TunicaMagoAbaddonHobbit3"))
+    TunicaMagoAbaddonHobbitMujer3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "TunicaMagoAbaddonHobbitMujer3"))
+    TunicaMagoAbaddonMujer3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "TunicaMagoAbaddonMujer3"))
+     
+    Set Leer = Nothing
+
+End Sub
+ 

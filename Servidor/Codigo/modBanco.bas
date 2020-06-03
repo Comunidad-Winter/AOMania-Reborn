@@ -14,7 +14,7 @@ Sub IniciarDeposito(ByVal UserIndex As Integer)
     'Atcualizamos el dinero
     Call EnviarOro(UserIndex)
     'Mostramos la ventana pa' comerciar y ver ladear la osamenta. jajaja
-    SendData SendTarget.ToIndex, UserIndex, 0, "INITBANCO"
+    SendData SendTarget.toIndex, UserIndex, 0, "INITBANCO"
     UserList(UserIndex).flags.Comerciando = True
 
 errhandler:
@@ -27,14 +27,14 @@ Sub SendBanObj(UserIndex As Integer, Slot As Byte, Object As UserOBJ)
 
     If Object.ObjIndex > 0 Then
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "SBO" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "SBO" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
                                                         Object.Amount & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & ObjData( _
                                                         Object.ObjIndex).MaxHit & "," & ObjData(Object.ObjIndex).MinHit & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
                                                         Object.ObjIndex).MinDef)
 
     Else
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "SBO" & Slot & ",0," & "(Vacío)" & ",0,0,0")
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "SBO" & Slot & ",0," & "(Vacío)" & ",0,0,0")
 
     End If
 
@@ -131,7 +131,7 @@ Sub UserReciveObj(ByVal UserIndex As Integer, ByVal ObjIndex As Integer, ByVal C
             Slot = Slot + 1
 
             If Slot > MAX_INVENTORY_SLOTS Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes tener mas objetos." & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||No puedes tener mas objetos." & FONTTYPE_INFO)
                 Exit Sub
 
             End If
@@ -150,7 +150,7 @@ Sub UserReciveObj(ByVal UserIndex As Integer, ByVal ObjIndex As Integer, ByVal C
 
         Call QuitarBancoInvItem(UserIndex, CByte(ObjIndex), Cantidad)
     Else
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes tener mas objetos." & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "||No puedes tener mas objetos." & FONTTYPE_INFO)
 
     End If
 
@@ -176,7 +176,7 @@ End Sub
 
 Sub UpdateVentanaBanco(ByVal Slot As Integer, ByVal NpcInv As Byte, ByVal UserIndex As Integer)
 
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "BANCOOK" & Slot & "," & NpcInv)
+    Call SendData(SendTarget.toIndex, UserIndex, 0, "BANCOOK" & Slot & "," & NpcInv)
 
 End Sub
 
@@ -236,7 +236,7 @@ Sub UserDejaObj(ByVal UserIndex As Integer, ByVal ObjIndex As Integer, ByVal Can
             Slot = Slot + 1
 
             If Slot > MAX_BANCOINVENTORY_SLOTS Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No tienes mas espacio en el banco!!" & FONTTYPE_INFO)
+                Call SendData(SendTarget.toIndex, UserIndex, 0, "||No tienes mas espacio en el banco!!" & FONTTYPE_INFO)
                 Exit Sub
                 Exit Do
 
@@ -260,7 +260,7 @@ Sub UserDejaObj(ByVal UserIndex As Integer, ByVal ObjIndex As Integer, ByVal Can
             Call QuitarUserInvItem(UserIndex, CByte(ObjIndex), Cantidad)
 
         Else
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El banco no puede cargar tantos objetos." & FONTTYPE_INFO)
+            Call SendData(SendTarget.toIndex, UserIndex, 0, "||El banco no puede cargar tantos objetos." & FONTTYPE_INFO)
 
         End If
 
@@ -276,12 +276,12 @@ Sub SendUserBovedaTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
     On Error Resume Next
 
     Dim j As Integer
-    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||" & UserList(UserIndex).Name & " Tiene " & UserList(UserIndex).BancoInvent.NroItems & " objetos." & FONTTYPE_INFO)
+    Call SendData(SendTarget.toIndex, sendIndex, 0, "||" & UserList(UserIndex).Name & " Tiene " & UserList(UserIndex).BancoInvent.NroItems & " objetos." & FONTTYPE_INFO)
 
     For j = 1 To MAX_BANCOINVENTORY_SLOTS
 
         If UserList(UserIndex).BancoInvent.Object(j).ObjIndex > 0 Then
-            Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| Objeto " & j & ":  """ & ObjData(UserList(UserIndex).BancoInvent.Object( _
+            Call SendData(SendTarget.toIndex, sendIndex, 0, "|| Objeto " & j & ":  """ & ObjData(UserList(UserIndex).BancoInvent.Object( _
                                                                                                  j).ObjIndex).Name & """ (ObjIndex: " & UserList(UserIndex).BancoInvent.Object(j).ObjIndex & ")" & " Cantidad: " & UserList(UserIndex).BancoInvent.Object(j).Amount & FONTTYPE_INFO)
 
         End If
@@ -301,8 +301,8 @@ Sub SendUserBovedaTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As Stri
     CharFile = CharPath & CharName & ".chr"
 
     If FileExist(CharFile, vbNormal) Then
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "BancoInventory", "CantidadItems") & " objetos." & _
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "BancoInventory", "CantidadItems") & " objetos." & _
                                                         FONTTYPE_INFO)
 
         For j = 1 To MAX_BANCOINVENTORY_SLOTS
@@ -311,14 +311,14 @@ Sub SendUserBovedaTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As Stri
             ObjCant = ReadField(2, Tmp, Asc("-"))
 
             If ObjInd > 0 Then
-                Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| Objeto " & j & " " & ObjData(ObjInd).Name & " Cantidad:" & ObjCant & _
+                Call SendData(SendTarget.toIndex, sendIndex, 0, "|| Objeto " & j & " " & ObjData(ObjInd).Name & " Cantidad:" & ObjCant & _
                                                                 FONTTYPE_INFO)
 
             End If
 
         Next
     Else
-        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.toIndex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
 
     End If
 

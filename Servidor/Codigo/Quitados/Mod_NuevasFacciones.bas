@@ -61,9 +61,9 @@ Public Sub EnlistarTemplarios(ByVal UserIndex As Integer)
         .Faccion.Templario = 1
         .Faccion.RecompensasTemplaria = 0
         .Faccion.FEnlistado = Now
-        .Reputacion.BandidoRep = 1000000
+       ' .Reputacion.BandidoRep = 1000000
         
-        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+        Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
         
         Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & vbWhite & "°" & _
             "Bienvenido a la Orden Templaria!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 niveles que subas te dare una recompensa, buena suerte soldado!" _
@@ -160,7 +160,7 @@ Public Sub EnlistarTemplarios(ByVal UserIndex As Integer)
             End Select
 
             If Not MeterItemEnInventario(UserIndex, MiObj) Then
-                Call TirarItemAlPiso(.pos, MiObj)
+                Call TirarItemAlPiso(.Pos, MiObj)
 
             End If
             
@@ -496,7 +496,7 @@ Public Sub RecompensaTemplario(ByVal UserIndex As Integer)
             Call PerderItemsFaccionarios(UserIndex, .Faccion.ArmaduraFaccionaria)
                 
             If Not MeterItemEnInventario(UserIndex, MiObj) Then
-                Call TirarItemAlPiso(.pos, MiObj)
+                Call TirarItemAlPiso(.Pos, MiObj)
 
             End If
                 
@@ -630,7 +630,7 @@ Public Sub EnlistarNemesis(ByVal UserIndex As Integer)
         .Faccion.FEnlistado = Now
         .Reputacion.AsesinoRep = 1000000
         
-        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+        Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
         
         Call SendData(SendTarget.toIndex, UserIndex, 0, "||" & "&H808080" & "°" & _
             "Bienvenido a los Caballeros de la Tiniebla!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 niveles que subas te dare una recompensa, buena suerte soldado!" _
@@ -730,7 +730,7 @@ Public Sub EnlistarNemesis(ByVal UserIndex As Integer)
             .Faccion.ArmaduraFaccionaria = MiObj.ObjIndex
 
             If Not MeterItemEnInventario(UserIndex, MiObj) Then
-                Call TirarItemAlPiso(.pos, MiObj)
+                Call TirarItemAlPiso(.Pos, MiObj)
 
             End If
 
@@ -1063,7 +1063,7 @@ Public Sub RecompensaNemesis(ByVal UserIndex As Integer)
             Call PerderItemsFaccionarios(UserIndex, .Faccion.ArmaduraFaccionaria)
                 
             If Not MeterItemEnInventario(UserIndex, MiObj) Then
-                Call TirarItemAlPiso(.pos, MiObj)
+                Call TirarItemAlPiso(.Pos, MiObj)
 
             End If
                 

@@ -1,4 +1,5 @@
 Attribute VB_Name = "ModAreas"
+
 '************************************************
 '*   Sistema de areas refactorizado por WyroX   *
 '*       Menos brujeria, mas comentarios.       *
@@ -265,19 +266,19 @@ Public Sub CheckUpdateNeededUser(ByVal UserIndex As Integer, ByVal heading As By
     With UserList(UserIndex)
 
         ' Comprobamos si cambio de area
-        If .AreasInfo.AreaPerteneceX = .pos.X \ AREAS_X And _
-           .AreasInfo.AreaPerteneceY = .pos.Y \ AREAS_Y Then _
+        If .AreasInfo.AreaPerteneceX = .Pos.X \ AREAS_X And _
+           .AreasInfo.AreaPerteneceY = .Pos.Y \ AREAS_Y Then _
            Exit Sub
 
         Dim MinX As Integer, MaxX As Integer, MinY As Integer, MaxY As Integer, X As Integer, Y As Integer, CurUser As Integer, CurObj As Integer, Map As Integer
 
         ' Calculamos segun la direccion del usuario el area nueva que tenemos que mandarle
-        Call CalcularNuevaArea(.pos.X, .pos.Y, heading, MinX, MaxX, MinY, MaxY)
+        Call CalcularNuevaArea(.Pos.X, .Pos.Y, heading, MinX, MaxX, MinY, MaxY)
 
         ' Avisamos al cliente para que borre todo lo que esta fuera del area
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "CA" & .pos.X & "," & .pos.Y)
+        Call SendData(SendTarget.toIndex, UserIndex, 0, "CA" & .Pos.X & "," & .Pos.Y)
 
-        Map = .pos.Map
+        Map = .Pos.Map
 
         For X = MinX To MaxX
             For Y = MinY To MaxY
@@ -292,7 +293,7 @@ Public Sub CheckUpdateNeededUser(ByVal UserIndex As Integer, ByVal heading As By
 
                         ' No vemos admins invisibles
                         If Not (UserList(CurUser).flags.AdminInvisible = 1) Then
-                            Call MakeUserChar(SendTarget.ToIndex, UserIndex, 0, CurUser, Map, X, Y)
+                            Call MakeUserChar(SendTarget.toIndex, UserIndex, 0, CurUser, Map, X, Y)
 
                             ' Enviamos la invisibilidad de ser necesario
                             If UserList(CurUser).flags.Invisible Or UserList(CurUser).flags.Oculto Then
@@ -305,7 +306,7 @@ Public Sub CheckUpdateNeededUser(ByVal UserIndex As Integer, ByVal heading As By
                         ' Si no somos un admin invisible
                         If Not (UserList(UserIndex).flags.AdminInvisible = 1) Then
                             ' Enviamos nuestro char al usuario
-                            Call MakeUserChar(SendTarget.ToIndex, CurUser, 0, UserIndex, .pos.Map, .pos.X, .pos.Y)
+                            Call MakeUserChar(SendTarget.toIndex, CurUser, 0, UserIndex, .Pos.Map, .Pos.X, .Pos.Y)
 
                             ' Enviamos la invisibilidad de ser necesario
                             If UserList(UserIndex).flags.Invisible Or UserList(UserIndex).flags.Oculto Then
@@ -317,20 +318,20 @@ Public Sub CheckUpdateNeededUser(ByVal UserIndex As Integer, ByVal heading As By
 
                         '... excepto que nos hayamos warpeado al mapa
                     ElseIf heading = USER_NUEVO And Not ButIndex Then
-                        Call MakeUserChar(SendTarget.ToIndex, UserIndex, 0, UserIndex, Map, X, Y)
+                        Call MakeUserChar(SendTarget.toIndex, UserIndex, 0, UserIndex, Map, X, Y)
                
                     End If
                 End If
 
                 '<<< Npc >>>
                 If MapData(Map, X, Y).NpcIndex Then
-                    Call MakeNPCChar(SendTarget.ToIndex, UserIndex, 0, MapData(Map, X, Y).NpcIndex, Map, X, Y)
+                    Call MakeNPCChar(SendTarget.toIndex, UserIndex, 0, MapData(Map, X, Y).NpcIndex, Map, X, Y)
                 End If
 
                 '<<< Item >>>
                 If MapData(Map, X, Y).OBJInfo.ObjIndex Then
                     CurObj = MapData(Map, X, Y).OBJInfo.ObjIndex
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "HO" & ObjData(CurObj).GrhIndex & "," & X & "," & Y)
+                    Call SendData(SendTarget.toIndex, UserIndex, 0, "HO" & ObjData(CurObj).GrhIndex & "," & X & "," & Y)
 
                     If ObjData(CurObj).ObjType = eOBJType.otPuertas Then
                         If CurObj = ObjData(CurObj).IndexAbierta Then
@@ -339,14 +340,14 @@ Public Sub CheckUpdateNeededUser(ByVal UserIndex As Integer, ByVal heading As By
                             MapData(Map, X, Y).Blocked = 0
                             MapData(Map, X - 1, Y).Blocked = 0
 
-                            Call Bloquear(SendTarget.ToIndex, UserIndex, 0, Map, X, Y, 0)
-                            Call Bloquear(SendTarget.ToIndex, UserIndex, 0, Map, X - 1, Y, 0)
+                            Call Bloquear(SendTarget.toIndex, UserIndex, 0, Map, X, Y, 0)
+                            Call Bloquear(SendTarget.toIndex, UserIndex, 0, Map, X - 1, Y, 0)
 
                         End If
 
                         If ObjData(CurObj).Cerrada = 1 Then
-                            Call Bloquear(SendTarget.ToIndex, UserIndex, 0, Map, X, Y, MapData(Map, X, Y).Blocked)
-                            Call Bloquear(SendTarget.ToIndex, UserIndex, 0, Map, X - 1, Y, MapData(Map, X - 1, Y).Blocked)
+                            Call Bloquear(SendTarget.toIndex, UserIndex, 0, Map, X, Y, MapData(Map, X, Y).Blocked)
+                            Call Bloquear(SendTarget.toIndex, UserIndex, 0, Map, X - 1, Y, MapData(Map, X - 1, Y).Blocked)
                         End If
 
                     End If
@@ -356,8 +357,8 @@ Public Sub CheckUpdateNeededUser(ByVal UserIndex As Integer, ByVal heading As By
             Next Y
         Next X
 
-        .AreasInfo.AreaPerteneceX = .pos.X \ AREAS_X
-        .AreasInfo.AreaPerteneceY = .pos.Y \ AREAS_Y
+        .AreasInfo.AreaPerteneceX = .Pos.X \ AREAS_X
+        .AreasInfo.AreaPerteneceY = .Pos.Y \ AREAS_Y
 
     End With
 End Sub
@@ -370,30 +371,30 @@ Public Sub CheckUpdateNeededNpc(ByVal NpcIndex As Integer, ByVal heading As Byte
     With Npclist(NpcIndex)
 
         ' Comprobamos si cambio de area
-        If .AreasInfo.AreaPerteneceX = .pos.X \ AREAS_X And _
-           .AreasInfo.AreaPerteneceY = .pos.Y \ AREAS_Y Then _
+        If .AreasInfo.AreaPerteneceX = .Pos.X \ AREAS_X And _
+           .AreasInfo.AreaPerteneceY = .Pos.Y \ AREAS_Y Then _
            Exit Sub
 
         Dim MinX As Integer, MaxX As Integer, MinY As Integer, MaxY As Integer, X As Integer, Y As Integer, UserIndex As Long
 
         ' Calculamos el area nueva segun la direccion del NPC
-        Call CalcularNuevaArea(.pos.X, .pos.Y, heading, MinX, MaxX, MinY, MaxY)
+        Call CalcularNuevaArea(.Pos.X, .Pos.Y, heading, MinX, MaxX, MinY, MaxY)
 
         ' Si no hay usuarios en el mapa ahorramos tiempo y salimos
-        If MapInfo(.pos.Map).NumUsers <> 0 Then
+        If MapInfo(.Pos.Map).NumUsers <> 0 Then
 
             For X = MinX To MaxX
                 For Y = MinY To MaxY
                     ' Si hay un usuario le enviamos el NPC
-                    If MapData(.pos.Map, X, Y).UserIndex Then _
-                       Call MakeNPCChar(SendTarget.ToIndex, MapData(.pos.Map, X, Y).UserIndex, 0, NpcIndex, .pos.Map, .pos.X, .pos.Y)
+                    If MapData(.Pos.Map, X, Y).UserIndex Then _
+                       Call MakeNPCChar(SendTarget.toIndex, MapData(.Pos.Map, X, Y).UserIndex, 0, NpcIndex, .Pos.Map, .Pos.X, .Pos.Y)
                 Next Y
             Next X
 
         End If
 
-        .AreasInfo.AreaPerteneceX = .pos.X \ AREAS_X
-        .AreasInfo.AreaPerteneceY = .pos.Y \ AREAS_Y
+        .AreasInfo.AreaPerteneceX = .Pos.X \ AREAS_X
+        .AreasInfo.AreaPerteneceY = .Pos.Y \ AREAS_Y
 
     End With
 End Sub
@@ -498,7 +499,7 @@ Public Sub SendToUserArea(ByVal UserIndex As Integer, ByVal sdData As String)
 
     Dim Map As Integer
 
-    Map = UserList(UserIndex).pos.Map
+    Map = UserList(UserIndex).Pos.Map
     If Not MapaValido(Map) Then Exit Sub
 
     sdData = sdData & ENDC
@@ -530,7 +531,7 @@ Public Sub SendToUserAreaButindex(ByVal UserIndex As Integer, ByVal sdData As St
 
     sdData = sdData & ENDC
 
-    Map = UserList(UserIndex).pos.Map
+    Map = UserList(UserIndex).Pos.Map
     If Not MapaValido(Map) Then Exit Sub
 
     For LoopC = 1 To ConnGroups(Map).CountEntrys
@@ -562,7 +563,7 @@ Public Sub SendToNpcArea(ByVal NpcIndex As Long, ByVal sdData As String)
 
     sdData = sdData & ENDC
 
-    Map = Npclist(NpcIndex).pos.Map
+    Map = Npclist(NpcIndex).Pos.Map
     If Not MapaValido(Map) Then Exit Sub
 
     For LoopC = 1 To ConnGroups(Map).CountEntrys
