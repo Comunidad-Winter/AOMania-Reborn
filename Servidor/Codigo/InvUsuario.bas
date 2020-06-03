@@ -1367,6 +1367,8 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
                 Exit Sub
 
             End If
+            
+            If UserList(UserIndex).Lac.LUsar.Puedo = False Then Exit Sub
 
             If ObjData(ObjIndex).proyectil = 1 Then
 
@@ -1401,7 +1403,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
             End If
 
         Case eOBJType.otAmuleto
-
+                        
             If UserList(UserIndex).flags.Muerto = 1 Then
                 Call SendData(ToIndex, UserIndex, 0, "||¡¡Estás muerto!!" & FONTTYPE_INFO)
                 Exit Sub
@@ -1425,8 +1427,6 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
             Call AmuTeleport(UserIndex)
             Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-            Call UpdateUserInv(False, UserIndex, Slot)
             Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW100")
 
         Case eOBJType.otRegalos
@@ -1444,10 +1444,9 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
             MiObj.Amount = 1
             Call MeterItemEnInventario(UserIndex, MiObj)
             Call QuitarUserInvItem(UserIndex, Slot, 1)
-
-            Call UpdateUserInv(False, UserIndex, Slot)
         
         Case eOBJType.otPocionResu
+
              
              If UserList(UserIndex).flags.Muerto = 0 Then
                  Call SendData(ToIndex, UserIndex, 0, "||¡¡Estas vivo!! Solo puedes usar este item cuando estas muerto." & FONTTYPE_INFO)
@@ -1474,7 +1473,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
         Case eOBJType.otPociones
 
-            'If UserList(UserIndex).Lac.LPociones.Puedo = False Then Exit Sub
+            If UserList(UserIndex).Lac.LPociones.Puedo = False Then Exit Sub
             
             If UserList(UserIndex).flags.Muerto = 1 Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z12")
@@ -1482,7 +1481,7 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
             
             End If
 
-            If UserList(UserIndex).Counters.TimerAttack > 0 Then
+            If Not IntervaloPermiteAtacar(UserIndex, False) Then
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Debes esperar un momento para tomar otra poción." & FONTTYPE_INFO)
                 Exit Sub
             End If
@@ -2010,9 +2009,9 @@ Sub UseInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
 
             End If
 
-            UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlProleta
-
-            If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
+'            UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlProleta
+'
+'            If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
 
             Select Case ObjIndex
 

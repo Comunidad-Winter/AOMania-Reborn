@@ -72,14 +72,14 @@ Public Sub EnlistarArmadaReal(ByVal UserIndex As Integer)
         .Faccion.ArmadaReal = "1"
         .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
         .Faccion.RecompensasReal = 0
-        .Faccion.FEnlistado = now
-        .Reputacion.NobleRep = 1000000
-        .Reputacion.AsesinoRep = 0
-        .Reputacion.BandidoRep = 0
-        .Reputacion.BurguesRep = 0
-        .Reputacion.PlebeRep = 0
+        .Faccion.FEnlistado = Now
+'        .Reputacion.NobleRep = 1000000
+'        .Reputacion.AsesinoRep = 0
+'        .Reputacion.BandidoRep = 0
+'        .Reputacion.BurguesRep = 0
+'        .Reputacion.PlebeRep = 0
 
-        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+        Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & _
                                                         "Bienvenido a las Armada del Credo!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 niveles que subas te dare una recompensa, buena suerte soldado!" _
@@ -175,7 +175,7 @@ Public Sub EnlistarArmadaReal(ByVal UserIndex As Integer)
             End Select
 
             If Not MeterItemEnInventario(UserIndex, MiObj) Then
-                Call TirarItemAlPiso(.pos, MiObj)
+                Call TirarItemAlPiso(.Pos, MiObj)
             End If
 
             .Faccion.RecibioArmaduraReal = 1
@@ -496,7 +496,7 @@ Public Sub RecompensaArmadaReal(ByVal UserIndex As Integer)
             Call PerderItemsFaccionarios(UserIndex, .Faccion.ArmaduraFaccionaria)
 
             If Not MeterItemEnInventario(UserIndex, MiObj) Then
-                Call TirarItemAlPiso(.pos, MiObj)
+                Call TirarItemAlPiso(.Pos, MiObj)
 
             End If
 
@@ -708,14 +708,14 @@ Public Sub EnlistarCaos(ByVal UserIndex As Integer)
         .Faccion.FuerzasCaos = 1
         .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
         .Faccion.RecompensasCaos = 0
-        .Faccion.FEnlistado = now
-        .Reputacion.BandidoRep = 1000000
-        .Reputacion.NobleRep = 0
-        .Reputacion.AsesinoRep = 0
-        .Reputacion.BurguesRep = 0
-        .Reputacion.PlebeRep = 0
+        .Faccion.FEnlistado = Now
+'        .Reputacion.BandidoRep = 1000000
+'        .Reputacion.NobleRep = 0
+'        .Reputacion.AsesinoRep = 0
+'        .Reputacion.BurguesRep = 0
+'        .Reputacion.PlebeRep = 0
 
-        Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+        Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & _
                                                         "Bienvenido a los Demonios de Abbadon!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 niveles que subas te dare una recompensa, buena suerte soldado!" _
@@ -812,7 +812,7 @@ Public Sub EnlistarCaos(ByVal UserIndex As Integer)
             End Select
 
             If Not MeterItemEnInventario(UserIndex, MiObj) Then
-                Call TirarItemAlPiso(.pos, MiObj)
+                Call TirarItemAlPiso(.Pos, MiObj)
 
             End If
 
@@ -1136,7 +1136,7 @@ Public Sub RecompensaCaos(ByVal UserIndex As Integer)
             Call PerderItemsFaccionarios(UserIndex, .Faccion.ArmaduraFaccionaria)
 
             If Not MeterItemEnInventario(UserIndex, MiObj) Then
-                Call TirarItemAlPiso(.pos, MiObj)
+                Call TirarItemAlPiso(.Pos, MiObj)
 
             End If
 

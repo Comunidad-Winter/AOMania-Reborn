@@ -264,14 +264,14 @@ Sub ConnectNewUser(UserIndex As Integer, _
     UserList(UserIndex).flags.Muerto = 0
     UserList(UserIndex).flags.Escondido = 0
 
-    UserList(UserIndex).Reputacion.AsesinoRep = 0
-    UserList(UserIndex).Reputacion.BandidoRep = 0
-    UserList(UserIndex).Reputacion.BurguesRep = 0
-    UserList(UserIndex).Reputacion.LadronesRep = 0
-    UserList(UserIndex).Reputacion.NobleRep = 1000
-    UserList(UserIndex).Reputacion.PlebeRep = 30
+'    UserList(UserIndex).Reputacion.AsesinoRep = 0
+'    UserList(UserIndex).Reputacion.BandidoRep = 0
+'    UserList(UserIndex).Reputacion.BurguesRep = 0
+'    UserList(UserIndex).Reputacion.LadronesRep = 0
+'    UserList(UserIndex).Reputacion.NobleRep = 1000
+'    UserList(UserIndex).Reputacion.PlebeRep = 30
 
-    UserList(UserIndex).Reputacion.Promedio = 30 / 6
+   ' UserList(UserIndex).Reputacion.Promedio = 30 / 6
 
     UserList(UserIndex).Name = Name
     UserList(UserIndex).Clase = UserClase
@@ -496,10 +496,6 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
     
     'Este sub, pondremos los sistemas, que X eventos deba realizar dicha operación, antes de salir.
     
-    error = 1
-    
-    Call RestCriCi(UserIndex)
-    
     error = 2
     
     If UserList(UserIndex).GranPoder = 1 Then
@@ -518,7 +514,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
      
     If (UserList(UserIndex).Name <> "") And UserList(UserIndex).flags.Privilegios > PlayerType.User And (UserList(UserIndex).flags.Privilegios < PlayerType.Dios Or UserList(UserIndex).flags.Privilegios >= PlayerType.Dios) Then
     
-        If Not UserList(UserIndex).pos.Map = 47 Then
+        If Not UserList(UserIndex).Pos.Map = 47 Then
             Call WarpUserChar(UserIndex, 47, RandomNumber(58, 73), RandomNumber(18, 24), True)
 
         End If
@@ -526,7 +522,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
     End If
     
     If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
-        If UserList(UserIndex).pos.Map = 47 Then
+        If UserList(UserIndex).Pos.Map = 47 Then
             Call WarpUserChar(UserIndex, 34, 30, 50, True)
 
         End If
@@ -535,7 +531,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
     
     error = 5
     
-    If UserList(UserIndex).pos.Map = 79 And UserList(UserIndex).flags.automatico = False Then
+    If UserList(UserIndex).Pos.Map = 79 And UserList(UserIndex).flags.automatico = False Then
         Call WarpUserChar(UserIndex, 1, 45, 49, True)
 
     End If
@@ -566,7 +562,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
     If UserList(UserIndex).flags.Montado = True Then
         UserList(UserIndex).char.Body = UserList(UserIndex).flags.NumeroMont
    
-        Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
+        Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
 
         UserList(UserIndex).flags.NumeroMont = 0
         UserList(UserIndex).flags.Montado = False
@@ -575,7 +571,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
     
     error = 11
      
-    If UserList(UserIndex).pos.Map = MAPADUELO And UserIndex = duelosespera Then
+    If UserList(UserIndex).Pos.Map = MAPADUELO And UserIndex = duelosespera Then
         Call WarpUserChar(UserIndex, 34, 30, 50, True)
         Call SendData(SendTarget.ToAllButIndex, 0, 0, "||Duelos: " & UserList(UserIndex).Name & " ha salido de la sala de torneos." & FONTTYPE_TALK)
         duelosespera = duelosreta
@@ -583,7 +579,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
 
     End If
 
-    If UserList(UserIndex).pos.Map = MAPADUELO And UserIndex = duelosreta Then
+    If UserList(UserIndex).Pos.Map = MAPADUELO And UserIndex = duelosreta Then
         Call WarpUserChar(UserIndex, 34, 30, 50, True)
         Call SendData(SendTarget.ToAllButIndex, 0, 0, "||Duelos: " & UserList(UserIndex).Name & " ha salido de la sala de torneos." & FONTTYPE_TALK)
 
@@ -596,7 +592,7 @@ Sub Proceso_Desconexion(ByVal UserIndex As Integer)
     
     error = 12
     
-    If UserList(UserIndex).pos.Map = 76 Then
+    If UserList(UserIndex).Pos.Map = 76 Then
         Call WarpUserChar(UserIndex, 34, 30, 50, True)
 
     End If
@@ -827,8 +823,8 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
     Case SendTarget.ToPCArea
 
-        For Y = UserList(sndIndex).pos.Y - MinYBorder + 1 To UserList(sndIndex).pos.Y + MinYBorder - 1
-            For X = UserList(sndIndex).pos.X - MinXBorder + 1 To UserList(sndIndex).pos.X + MinXBorder - 1
+        For Y = UserList(sndIndex).Pos.Y - MinYBorder + 1 To UserList(sndIndex).Pos.Y + MinYBorder - 1
+            For X = UserList(sndIndex).Pos.X - MinXBorder + 1 To UserList(sndIndex).Pos.X + MinXBorder - 1
 
                 If InMapBounds(sndMap, X, Y) Then
                     If MapData(sndMap, X, Y).UserIndex > 0 Then
@@ -919,7 +915,7 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
             If (UserList(LoopC).ConnID <> -1) Then
                 If UserList(LoopC).flags.UserLogged Then
-                    If UserList(LoopC).pos.Map = sndMap Then
+                    If UserList(LoopC).Pos.Map = sndMap Then
                         Call EnviarDatosASlot(LoopC, sndData)
 
                     End If
@@ -937,7 +933,7 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
         For LoopC = 1 To LastUser
 
             If (UserList(LoopC).ConnID <> -1) And LoopC <> sndIndex Then
-                If UserList(LoopC).pos.Map = sndMap Then
+                If UserList(LoopC).Pos.Map = sndMap Then
                     Call EnviarDatosASlot(LoopC, sndData)
 
                 End If
@@ -969,8 +965,8 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
     Case SendTarget.ToDeadArea
 
-        For Y = UserList(sndIndex).pos.Y - MinYBorder + 1 To UserList(sndIndex).pos.Y + MinYBorder - 1
-            For X = UserList(sndIndex).pos.X - MinXBorder + 1 To UserList(sndIndex).pos.X + MinXBorder - 1
+        For Y = UserList(sndIndex).Pos.Y - MinYBorder + 1 To UserList(sndIndex).Pos.Y + MinYBorder - 1
+            For X = UserList(sndIndex).Pos.X - MinXBorder + 1 To UserList(sndIndex).Pos.X + MinXBorder - 1
 
                 If InMapBounds(sndMap, X, Y) Then
                     If MapData(sndMap, X, Y).UserIndex > 0 Then
@@ -996,8 +992,8 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
         '[Alejo-18-5]
     Case SendTarget.ToPCAreaButIndex
 
-        For Y = UserList(sndIndex).pos.Y - MinYBorder + 1 To UserList(sndIndex).pos.Y + MinYBorder - 1
-            For X = UserList(sndIndex).pos.X - MinXBorder + 1 To UserList(sndIndex).pos.X + MinXBorder - 1
+        For Y = UserList(sndIndex).Pos.Y - MinYBorder + 1 To UserList(sndIndex).Pos.Y + MinYBorder - 1
+            For X = UserList(sndIndex).Pos.X - MinXBorder + 1 To UserList(sndIndex).Pos.X + MinXBorder - 1
 
                 If InMapBounds(sndMap, X, Y) Then
                     If (MapData(sndMap, X, Y).UserIndex > 0) And (MapData(sndMap, X, Y).UserIndex <> sndIndex) Then
@@ -1018,8 +1014,8 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
     Case SendTarget.ToClanArea
 
-        For Y = UserList(sndIndex).pos.Y - MinYBorder + 1 To UserList(sndIndex).pos.Y + MinYBorder - 1
-            For X = UserList(sndIndex).pos.X - MinXBorder + 1 To UserList(sndIndex).pos.X + MinXBorder - 1
+        For Y = UserList(sndIndex).Pos.Y - MinYBorder + 1 To UserList(sndIndex).Pos.Y + MinYBorder - 1
+            For X = UserList(sndIndex).Pos.X - MinXBorder + 1 To UserList(sndIndex).Pos.X + MinXBorder - 1
 
                 If InMapBounds(sndMap, X, Y) Then
                     If (MapData(sndMap, X, Y).UserIndex > 0) Then
@@ -1043,8 +1039,8 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
     Case SendTarget.ToPartyArea
 
-        For Y = UserList(sndIndex).pos.Y - MinYBorder + 1 To UserList(sndIndex).pos.Y + MinYBorder - 1
-            For X = UserList(sndIndex).pos.X - MinXBorder + 1 To UserList(sndIndex).pos.X + MinXBorder - 1
+        For Y = UserList(sndIndex).Pos.Y - MinYBorder + 1 To UserList(sndIndex).Pos.Y + MinYBorder - 1
+            For X = UserList(sndIndex).Pos.X - MinXBorder + 1 To UserList(sndIndex).Pos.X + MinXBorder - 1
 
                 If InMapBounds(sndMap, X, Y) Then
                     If (MapData(sndMap, X, Y).UserIndex > 0) Then
@@ -1069,8 +1065,8 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
         '[CDT 17-02-2004]
     Case SendTarget.ToAdminsAreaButConsejeros
 
-        For Y = UserList(sndIndex).pos.Y - MinYBorder + 1 To UserList(sndIndex).pos.Y + MinYBorder - 1
-            For X = UserList(sndIndex).pos.X - MinXBorder + 1 To UserList(sndIndex).pos.X + MinXBorder - 1
+        For Y = UserList(sndIndex).Pos.Y - MinYBorder + 1 To UserList(sndIndex).Pos.Y + MinYBorder - 1
+            For X = UserList(sndIndex).Pos.X - MinXBorder + 1 To UserList(sndIndex).Pos.X + MinXBorder - 1
 
                 If InMapBounds(sndMap, X, Y) Then
                     If (MapData(sndMap, X, Y).UserIndex > 0) And (MapData(sndMap, X, Y).UserIndex <> sndIndex) Then
@@ -1095,8 +1091,8 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
     Case SendTarget.ToNPCArea
 
-        For Y = Npclist(sndIndex).pos.Y - MinYBorder + 1 To Npclist(sndIndex).pos.Y + MinYBorder - 1
-            For X = Npclist(sndIndex).pos.X - MinXBorder + 1 To Npclist(sndIndex).pos.X + MinXBorder - 1
+        For Y = Npclist(sndIndex).Pos.Y - MinYBorder + 1 To Npclist(sndIndex).Pos.Y + MinYBorder - 1
+            For X = Npclist(sndIndex).Pos.X - MinXBorder + 1 To Npclist(sndIndex).Pos.X + MinXBorder - 1
 
                 If InMapBounds(sndMap, X, Y) Then
                     If MapData(sndMap, X, Y).UserIndex > 0 Then
@@ -1208,37 +1204,37 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
         Exit Sub
 
-    Case SendTarget.ToCiudadanos
+'    Case SendTarget.ToCiudadanos
+'
+'        For LoopC = 1 To LastUser
+'
+'            If (UserList(LoopC).ConnID <> -1) Then
+'                If Not Criminal(LoopC) Then
+'                    Call EnviarDatosASlot(LoopC, sndData)
+'
+'                End If
+'
+'            End If
+'
+'        Next LoopC
+'
+'        Exit Sub
 
-        For LoopC = 1 To LastUser
-
-            If (UserList(LoopC).ConnID <> -1) Then
-                If Not Criminal(LoopC) Then
-                    Call EnviarDatosASlot(LoopC, sndData)
-
-                End If
-
-            End If
-
-        Next LoopC
-
-        Exit Sub
-
-    Case SendTarget.ToCriminales
-
-        For LoopC = 1 To LastUser
-
-            If (UserList(LoopC).ConnID <> -1) Then
-                If Criminal(LoopC) Then
-                    Call EnviarDatosASlot(LoopC, sndData)
-
-                End If
-
-            End If
-
-        Next LoopC
-
-        Exit Sub
+'    Case SendTarget.ToCriminales
+'
+'        For LoopC = 1 To LastUser
+'
+'            If (UserList(LoopC).ConnID <> -1) Then
+'                If Criminal(LoopC) Then
+'                    Call EnviarDatosASlot(LoopC, sndData)
+'
+'                End If
+'
+'            End If
+'
+'        Next LoopC
+'
+'        Exit Sub
 
     Case SendTarget.ToReal
 
@@ -1272,37 +1268,37 @@ Sub SendData(ByVal sndRoute As SendTarget, ByVal sndIndex As Integer, ByVal sndM
 
         Exit Sub
 
-    Case ToCiudadanosYRMs
+'    Case ToCiudadanosYRMs
+'
+'        For LoopC = 1 To LastUser
+'
+'            If (UserList(LoopC).ConnID <> -1) Then
+'                If Not Criminal(LoopC) Or UserList(LoopC).flags.EsRolesMaster Then
+'                    Call EnviarDatosASlot(LoopC, sndData)
+'
+'                End If
+'
+'            End If
+'
+'        Next LoopC
+'
+'        Exit Sub
 
-        For LoopC = 1 To LastUser
-
-            If (UserList(LoopC).ConnID <> -1) Then
-                If Not Criminal(LoopC) Or UserList(LoopC).flags.EsRolesMaster Then
-                    Call EnviarDatosASlot(LoopC, sndData)
-
-                End If
-
-            End If
-
-        Next LoopC
-
-        Exit Sub
-
-    Case ToCriminalesYRMs
-
-        For LoopC = 1 To LastUser
-
-            If (UserList(LoopC).ConnID <> -1) Then
-                If Criminal(LoopC) Or UserList(LoopC).flags.EsRolesMaster Then
-                    Call EnviarDatosASlot(LoopC, sndData)
-
-                End If
-
-            End If
-
-        Next LoopC
-
-        Exit Sub
+'    Case ToCriminalesYRMs
+'
+'        For LoopC = 1 To LastUser
+'
+'            If (UserList(LoopC).ConnID <> -1) Then
+'                If Criminal(LoopC) Or UserList(LoopC).flags.EsRolesMaster Then
+'                    Call EnviarDatosASlot(LoopC, sndData)
+'
+'                End If
+'
+'            End If
+'
+'        Next LoopC
+'
+'        Exit Sub
 
     Case ToRealYRMs
 
@@ -1344,10 +1340,10 @@ Function EstaPCarea(Index As Integer, Index2 As Integer) As Boolean
 
     Dim X As Integer, Y As Integer
 
-    For Y = UserList(Index).pos.Y - MinYBorder + 1 To UserList(Index).pos.Y + MinYBorder - 1
-        For X = UserList(Index).pos.X - MinXBorder + 1 To UserList(Index).pos.X + MinXBorder - 1
+    For Y = UserList(Index).Pos.Y - MinYBorder + 1 To UserList(Index).Pos.Y + MinYBorder - 1
+        For X = UserList(Index).Pos.X - MinXBorder + 1 To UserList(Index).Pos.X + MinXBorder - 1
 
-            If MapData(UserList(Index).pos.Map, X, Y).UserIndex = Index2 Then
+            If MapData(UserList(Index).Pos.Map, X, Y).UserIndex = Index2 Then
                 EstaPCarea = True
                 Exit Function
 
@@ -1360,15 +1356,15 @@ Function EstaPCarea(Index As Integer, Index2 As Integer) As Boolean
 
 End Function
 
-Function HayPCarea(pos As WorldPos) As Boolean
+Function HayPCarea(Pos As WorldPos) As Boolean
 
     Dim X As Integer, Y As Integer
 
-    For Y = pos.Y - MinYBorder + 1 To pos.Y + MinYBorder - 1
-        For X = pos.X - MinXBorder + 1 To pos.X + MinXBorder - 1
+    For Y = Pos.Y - MinYBorder + 1 To Pos.Y + MinYBorder - 1
+        For X = Pos.X - MinXBorder + 1 To Pos.X + MinXBorder - 1
 
             If X > 0 And Y > 0 And X < 101 And Y < 101 Then
-                If MapData(pos.Map, X, Y).UserIndex > 0 Then
+                If MapData(Pos.Map, X, Y).UserIndex > 0 Then
                     HayPCarea = True
                     Exit Function
 
@@ -1383,14 +1379,14 @@ Function HayPCarea(pos As WorldPos) As Boolean
 
 End Function
 
-Function HayOBJarea(pos As WorldPos, ObjIndex As Integer) As Boolean
+Function HayOBJarea(Pos As WorldPos, ObjIndex As Integer) As Boolean
 
     Dim X As Integer, Y As Integer
 
-    For Y = pos.Y - MinYBorder + 1 To pos.Y + MinYBorder - 1
-        For X = pos.X - MinXBorder + 1 To pos.X + MinXBorder - 1
+    For Y = Pos.Y - MinYBorder + 1 To Pos.Y + MinYBorder - 1
+        For X = Pos.X - MinXBorder + 1 To Pos.X + MinXBorder - 1
 
-            If MapData(pos.Map, X, Y).OBJInfo.ObjIndex = ObjIndex Then
+            If MapData(Pos.Map, X, Y).OBJInfo.ObjIndex = ObjIndex Then
                 HayOBJarea = True
                 Exit Function
 
@@ -1568,7 +1564,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         End If
 
-        Call LoadUserReputacion(UserIndex, Leer)
+        'Call LoadUserReputacion(UserIndex, Leer)
 
         Set Leer = Nothing
 
@@ -1600,29 +1596,29 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         If .flags.Estupidez = 0 Then Call SendData(SendTarget.ToIndex, UserIndex, 0, "NESTUP")
 
         'Posicion de comienzo
-        If .pos.Map = 0 Then
+        If .Pos.Map = 0 Then
             If .Stats.ELV < 13 Then
-                .pos.Map = "37"
-                .pos.X = "35"
-                .pos.Y = "69"
+                .Pos.Map = "37"
+                .Pos.X = "35"
+                .Pos.Y = "69"
             Else
-                .pos.Map = "34"
-                .pos.X = "30"
-                .pos.Y = "50"
+                .Pos.Map = "34"
+                .Pos.X = "30"
+                .Pos.Y = "50"
 
             End If
 
         Else
 
             'Anti Pisadas
-            If MapData(.pos.Map, .pos.X, .pos.Y).UserIndex <> 0 Then
+            If MapData(.Pos.Map, .Pos.X, .Pos.Y).UserIndex <> 0 Then
                 Dim nPos As WorldPos
-                Call ClosestStablePos(.pos, nPos)
+                Call ClosestStablePos(.Pos, nPos)
 
                 If nPos.X <> 0 And nPos.Y <> 0 Then
-                    .pos.Map = nPos.Map
-                    .pos.X = nPos.X
-                    .pos.Y = nPos.Y
+                    .Pos.Map = nPos.Map
+                    .Pos.X = nPos.X
+                    .Pos.Y = nPos.Y
 
                 End If
 
@@ -1666,9 +1662,9 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
             If .flags.Embarcado = 1 Then
                 If Barcos.TiempoRest > 60 Then
                     If .Zona <= NumZonas Then
-                        .pos.Map = Zonas(.Zona).Map
-                        .pos.Y = Zonas(.Zona).Y
-                        .pos.X = Zonas(.Zona).X
+                        .Pos.Map = Zonas(.Zona).Map
+                        .Pos.Y = Zonas(.Zona).Y
+                        .Pos.X = Zonas(.Zona).X
                         .flags.Embarcado = 0
 
                     End If
@@ -1679,7 +1675,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         End If
 
-        If Not MapaValido(.pos.Map) Then
+        If Not MapaValido(.Pos.Map) Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERREL PJ se encuenta en un mapa invalido.")
             Call CloseSocket(UserIndex)
             Exit Sub
@@ -1697,9 +1693,9 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         'Info
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "IU" & UserIndex)    'Enviamos el User index
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "CM" & .pos.Map & "," & MapInfo(.pos.Map).MapVersion)    'Carga el mapa
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "TM" & MapInfo(.pos.Map).Music)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "N~" & MapInfo(.pos.Map).Name)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "CM" & .Pos.Map & "," & MapInfo(.Pos.Map).MapVersion)    'Carga el mapa
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "TM" & MapInfo(.Pos.Map).Music)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "N~" & MapInfo(.Pos.Map).Name)
 
         'Vemos que clase de user es (se lo usa para setear los privilegios alcrear el PJ)
         .flags.EsRolesMaster = EsRolesMaster(Name)
@@ -1725,7 +1721,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         .Counters.IdleCount = 0
 
         'Crea  el personaje del usuario
-        Call MakeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .pos.Map, .pos.X, .pos.Y)
+        Call MakeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .Pos.Map, .Pos.X, .Pos.Y)
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "IP" & .char.CharIndex)
         ''[/el oso]
 
@@ -1790,7 +1786,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         Call WriteVar(CharPath & .Name & ".chr", "INIT", "Logged", "1")
 
         'Call SendData(ToAll, 0, 0, "³" & NumUsers)
-        MapInfo(.pos.Map).NumUsers = MapInfo(.pos.Map).NumUsers + 1
+        MapInfo(.Pos.Map).NumUsers = MapInfo(.Pos.Map).NumUsers + 1
 
         If .Stats.SkillPts > 0 Then
             Call EnviarSkills(UserIndex)
@@ -1813,7 +1809,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
             For i = 1 To MAXMASCOTAS
 
                 If .MascotasType(i) > 0 Then
-                    .MascotasIndex(i) = SpawnNpc(.MascotasType(i), .pos, True, True)
+                    .MascotasIndex(i) = SpawnNpc(.MascotasType(i), .Pos, True, True)
 
                     If .MascotasIndex(i) > 0 Then
                         Npclist(.MascotasIndex(i)).MaestroUser = UserIndex
@@ -1831,15 +1827,15 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         If .flags.Navegando = 1 Then Call SendData(SendTarget.ToIndex, UserIndex, 0, "NAVEG")
 
-        If Criminal(UserIndex) Then
-            'Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Miembro de las fuerzas del caos > Seguro desactivado <" & FONTTYPE_FIGHT)
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "OFFOFS")
-            .flags.Seguro = False
-        Else
-            .flags.Seguro = True
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ONONS")
-
-        End If
+'        If Criminal(UserIndex) Then
+'            'Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Miembro de las fuerzas del caos > Seguro desactivado <" & FONTTYPE_FIGHT)
+'            Call SendData(SendTarget.ToIndex, UserIndex, 0, "OFFOFS")
+'            .flags.Seguro = False
+'        Else
+'            .flags.Seguro = True
+'            Call SendData(SendTarget.ToIndex, UserIndex, 0, "ONONS")
+'
+'        End If
 
         .flags.SeguroClan = False
         .flags.SeguroCombate = False
@@ -1876,7 +1872,7 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         End If
 
-        Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "CFX" & .char.CharIndex & "," & FXIDs.FXWARP & "," & 0)
+        Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "CFX" & .char.CharIndex & "," & FXIDs.FXWARP & "," & 0)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "LODXXD")
 
@@ -1904,11 +1900,11 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         Print #n, Time; Date & " " & .Name & " ha entrado al juego. UserIndex: " & UserIndex & " IP: " & .ip & " HDD: " & .hd_String
         Close #n
 
-        If .pos.Map = MAPADUELO Then
+        If .Pos.Map = MAPADUELO Then
             Call WarpUserChar(UserIndex, 34, 30, 50, True)
         End If
 
-        If .pos.Map = MapaFuerte Then
+        If .Pos.Map = MapaFuerte Then
             Call ConnectFuerte(UserIndex)
         End If
 
@@ -1919,10 +1915,6 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
             End If
         End If
 
-        Call CriCiuMaxLvl(UserIndex)
-        Call CountCriCi(UserIndex)
-        Call MaxOroRank(UserIndex)
-        Call OroConnectRank(UserIndex)
         Call ConnectQuest(UserIndex)
 
         #If MYSQL = 1 Then
@@ -2151,9 +2143,9 @@ Sub ResetBasicUserInfo(ByVal UserIndex As Integer)
         .Zona = 0
         .Pareja = vbNullString
         .DescRM = vbNullString
-        .pos.Map = 0
-        .pos.X = 0
-        .pos.Y = 0
+        .Pos.Map = 0
+        .Pos.X = 0
+        .Pos.Y = 0
         .ip = vbNullString
         .RDBuffer = vbNullString
         .Clase = vbNullString
@@ -2201,27 +2193,27 @@ Sub ResetBasicUserInfo(ByVal UserIndex As Integer)
 
 End Sub
 
-Sub ResetReputacion(ByVal UserIndex As Integer)
-
-'*************************************************
-'Author: Unknown
-'Last modified: 03/15/2006
-'Resetea todos los valores generales y las stats
-'03/15/2006 Maraxus - Uso de With para mayor performance y claridad.
-'*************************************************
-    With UserList(UserIndex).Reputacion
-        .AsesinoRep = 0
-        .BandidoRep = 0
-        .BurguesRep = 0
-        .LadronesRep = 0
-        .NobleRep = 0
-        .PlebeRep = 0
-        .NobleRep = 0
-        .Promedio = 0
-
-    End With
-
-End Sub
+'Sub ResetReputacion(ByVal UserIndex As Integer)
+'
+''*************************************************
+''Author: Unknown
+''Last modified: 03/15/2006
+''Resetea todos los valores generales y las stats
+''03/15/2006 Maraxus - Uso de With para mayor performance y claridad.
+''*************************************************
+'    With UserList(UserIndex).Reputacion
+'        .AsesinoRep = 0
+'        .BandidoRep = 0
+'        .BurguesRep = 0
+'        .LadronesRep = 0
+'        .NobleRep = 0
+'        .PlebeRep = 0
+'        .NobleRep = 0
+'        .Promedio = 0
+'
+'    End With
+'
+'End Sub
 
 Sub ResetGuildInfo(ByVal UserIndex As Integer)
 
@@ -2518,7 +2510,7 @@ Sub ResetUserSlot(ByVal UserIndex As Integer)
     Call ResetContadores(UserIndex)
     Call ResetCharInfo(UserIndex)
     Call ResetBasicUserInfo(UserIndex)
-    Call ResetReputacion(UserIndex)
+    'Call ResetReputacion(UserIndex)
     Call ResetGuildInfo(UserIndex)
     Call ResetUserFlags(UserIndex)
     Call LimpiarInventario(UserIndex)
@@ -2579,16 +2571,16 @@ Sub CloseUser(ByVal UserIndex As Integer)
 
     UserList(UserIndex).flags.AtacadoPorNpc = 0
 
-    Map = UserList(UserIndex).pos.Map
-    X = UserList(UserIndex).pos.X
-    Y = UserList(UserIndex).pos.Y
+    Map = UserList(UserIndex).Pos.Map
+    X = UserList(UserIndex).Pos.X
+    Y = UserList(UserIndex).Pos.Y
     Name = UCase$(UserList(UserIndex).Name)
     Raza = UserList(UserIndex).Raza
     Clase = UserList(UserIndex).Clase
 
     UserList(UserIndex).char.FX = 0
     UserList(UserIndex).char.loops = 0
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 0 & "," & 0)
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 0 & "," & 0)
 
     UserList(UserIndex).flags.UserLogged = False
     UserList(UserIndex).Counters.Saliendo = False
@@ -3336,7 +3328,7 @@ ExitErr1:
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 3)
 
-        If val(rData) > 0 And val(rData) < UBound(SpawnList) + 1 Then Call SpawnNpc(SpawnList(val(rData)).NpcIndex, UserList(UserIndex).pos, True, False)
+        If val(rData) > 0 And val(rData) < UBound(SpawnList) + 1 Then Call SpawnNpc(SpawnList(val(rData)).NpcIndex, UserList(UserIndex).Pos, True, False)
         Call LogGM(UserList(UserIndex).Name, "Sumoneo " & SpawnList(val(rData)).NpcName)
 
         Exit Sub
@@ -3378,8 +3370,8 @@ End Sub
 
 Public Sub EnviarNoche(ByVal UserIndex As Integer)
 
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "NOC" & IIf(DeNoche And (MapInfo(UserList(UserIndex).pos.Map).Zona = Campo Or MapInfo(UserList( _
-                                                                                                                                          UserIndex).pos.Map).Zona = Ciudad), "1", "0"))
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "NOC" & IIf(DeNoche And (MapInfo(UserList(UserIndex).Pos.Map).Zona = Campo Or MapInfo(UserList( _
+                                                                                                                                          UserIndex).Pos.Map).Zona = Ciudad), "1", "0"))
     Call SendData(SendTarget.ToIndex, UserIndex, 0, "NOC" & IIf(DeNoche, "1", "0"))
 
 End Sub

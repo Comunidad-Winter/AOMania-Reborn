@@ -692,9 +692,6 @@ Sub Main()
         Call Add_DataBase("0", "Status")
     #End If
 
-
-    Call Load_Rank
-
     Call LoadMotd
     Call BanIpCargar
 
@@ -845,6 +842,7 @@ Sub Main()
     frmCargando.Label1(2).caption = "Cargando configuraciones del Servidor."
     MaxUsers = 0
     Call LoadSini
+    Call LoadAntiCheat
 
     frmCargando.Label1(2).caption = "Cargando apuestas.."
     Call CargaApuestas
@@ -898,13 +896,13 @@ Sub Main()
     'Call CrearClanPretoriano(MAPA_PRETORIANO, ALCOBA2_X, ALCOBA2_Y)
     '¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
 
-    Dim LooPc As Integer
+    Dim LoopC As Integer
 
     'Resetea las conexiones de los usuarios
-    For LooPc = 1 To MaxUsers
-        UserList(LooPc).ConnID = -1
-        UserList(LooPc).ConnIDValida = False
-    Next LooPc
+    For LoopC = 1 To MaxUsers
+        UserList(LoopC).ConnID = -1
+        UserList(LoopC).ConnIDValida = False
+    Next LoopC
 
     '¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
 
@@ -1393,7 +1391,7 @@ Sub Restart()
 
     If frmMain.Visible Then frmMain.txStatus.caption = "Reiniciando."
 
-    Dim LooPc As Integer
+    Dim LoopC As Integer
 
     'Cierra el socket de escucha
     If SockListen >= 0 Then Call apiclosesocket(SockListen)
@@ -1401,16 +1399,16 @@ Sub Restart()
     'Inicia el socket de escucha
     SockListen = ListenForConnect(Puerto, hWndMsg, "")
 
-    For LooPc = 1 To MaxUsers
-        Call CloseSocket(LooPc)
+    For LoopC = 1 To MaxUsers
+        Call CloseSocket(LoopC)
     Next
 
     ReDim UserList(1 To MaxUsers)
 
-    For LooPc = 1 To MaxUsers
-        UserList(LooPc).ConnID = -1
-        UserList(LooPc).ConnIDValida = False
-    Next LooPc
+    For LoopC = 1 To MaxUsers
+        UserList(LoopC).ConnID = -1
+        UserList(LoopC).ConnIDValida = False
+    Next LoopC
 
     LastUser = 0
     NumUsers = 0
@@ -2039,15 +2037,15 @@ Sub GuardarUsuarios(Optional ByVal DoBackUp As Boolean = True)
 End Sub
 
 Sub ActSlot()
-    Dim LooPc As Integer
+    Dim LoopC As Integer
 
-    For LooPc = 1 To MaxUsers
+    For LoopC = 1 To MaxUsers
 
-        If UserList(LooPc).ConnID <> -1 And Not UserList(LooPc).flags.UserLogged Then
-            Call CloseSocket(LooPc)
+        If UserList(LoopC).ConnID <> -1 And Not UserList(LoopC).flags.UserLogged Then
+            Call CloseSocket(LoopC)
         End If
 
-    Next LooPc
+    Next LoopC
 End Sub
 
 Public Sub LoadAntiCheat()

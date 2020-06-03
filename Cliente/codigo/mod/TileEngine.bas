@@ -1375,31 +1375,36 @@ Sub DoPasosFx(ByVal charindex As Integer)
 
     If Not UserNavegando Then
         If Not CharList(charindex).Muerto And EstaPCarea(charindex) Then
+
             CharList(charindex).Pie = Not CharList(charindex).Pie
             
-            
-            
             'CRAW; 18/03/2020 --> ARREGLO SONIDO 3D
-              If MapData(CharList(charindex).pos.X, CharList(charindex).pos.Y).Graphic(1).GrhIndex >= 6000 And MapData(CharList(charindex).pos.X, CharList(charindex).pos.Y).Graphic(1).GrhIndex <= 6303 Then
-               If CharList(charindex).Pie Then
-                Call Audio.PlayWave(SND_PASOS3, CharList(charindex).pos.X, CharList(charindex).pos.Y)
-            Else
-                Call Audio.PlayWave(SND_PASOS4, CharList(charindex).pos.X, CharList(charindex).pos.Y)
-            End If
+            If MapData(CharList(charindex).pos.X, CharList(charindex).pos.Y).Graphic(1).GrhIndex >= 6000 And MapData(CharList(charindex).pos.X, CharList(charindex).pos.Y).Graphic(1).GrhIndex <= 6303 Then
+                If CharList(charindex).Pie Then
+
+                    Call Audio.PlayWave(SND_PASOS3, CharList(charindex).pos.X, CharList(charindex).pos.Y)
+                Else
+                    Call Audio.PlayWave(SND_PASOS4, CharList(charindex).pos.X, CharList(charindex).pos.Y)
+
+                End If
             
             Else
 
-            If CharList(charindex).Pie Then
-                Call Audio.PlayWave(SND_PASOS1, CharList(charindex).pos.X, CharList(charindex).pos.Y)
-            Else
-                Call Audio.PlayWave(SND_PASOS2, CharList(charindex).pos.X, CharList(charindex).pos.Y)
+                If CharList(charindex).Pie Then
+
+                    Call Audio.PlayWave(SND_PASOS1, CharList(charindex).pos.X, CharList(charindex).pos.Y)
+                Else
+                    Call Audio.PlayWave(SND_PASOS2, CharList(charindex).pos.X, CharList(charindex).pos.Y)
+
+                End If
+
             End If
-         End If
 
         End If
-        
 
     Else
+
+        CharList(charindex).Pie = Not CharList(charindex).Pie
         Call Audio.PlayWave(SND_NAVEGANDO, CharList(charindex).pos.X, CharList(charindex).pos.Y)
 
     End If

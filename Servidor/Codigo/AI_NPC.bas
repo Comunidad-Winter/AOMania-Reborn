@@ -84,295 +84,295 @@ End Enum
 '?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
 '?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿?¿
 
-Private Sub HandleAlineacion(ByVal NpcIndex As Integer)
-
-    Dim Al          As e_Alineacion
-
-    Dim Pe          As e_Personalidad
-
-    Dim TargetPJ    As Integer
-
-    Dim TargetNpc   As Integer
-
-    Dim TieneTarget As Boolean
-
-    Dim EsNpc       As Boolean
-
-    TieneTarget = False
-    Al = Npclist(NpcIndex).flags.AIAlineacion
-    TargetPJ = Npclist(NpcIndex).flags.AtacaAPJ
-    TargetNpc = Npclist(NpcIndex).flags.AtacaANPC
-
-    Select Case Al
-
-        Case e_Alineacion.Caos
-
-            If TargetPJ > 0 Then
-                If InRangoVisionNPC(NpcIndex, UserList(TargetPJ).pos.X, UserList(TargetPJ).pos.Y) Then
-                    If Not Criminal(TargetPJ) Then
-                        TieneTarget = True
-                    Else
-                        Npclist(NpcIndex).flags.AtacaAPJ = 0
-
-                    End If
-
-                Else
-                    Npclist(NpcIndex).flags.AtacaAPJ = 0
-
-                End If
-
-            End If
-
-            If TargetNpc > 0 Then
-                If InRangoVisionNPC(NpcIndex, Npclist(TargetNpc).pos.X, Npclist(TargetNpc).pos.Y) Then
-                    TieneTarget = True
-                Else
-                    Npclist(NpcIndex).flags.AtacaANPC = 0
-
-                End If
-
-            End If
-
-        Case e_Alineacion.Neutro
-
-            If TargetPJ > 0 Then
-                If InRangoVisionNPC(NpcIndex, UserList(TargetPJ).pos.X, UserList(TargetPJ).pos.Y) Then
-                    TieneTarget = True
-                Else
-                    Npclist(NpcIndex).flags.AtacaAPJ = 0
-
-                End If
-
-            End If
-
-            If TargetNpc > 0 Then
-                If InRangoVisionNPC(NpcIndex, Npclist(TargetNpc).pos.X, Npclist(TargetNpc).pos.Y) Then
-                    TieneTarget = True
-                Else
-                    Npclist(NpcIndex).flags.AtacaANPC = 0
-
-                End If
-
-            End If
-
-        Case e_Alineacion.ninguna
-            Exit Sub
-
-        Case e_Alineacion.Real
-
-            If TargetPJ > 0 Then
-                If InRangoVisionNPC(NpcIndex, UserList(TargetPJ).pos.X, UserList(TargetPJ).pos.Y) Then
-                    If Criminal(TargetPJ) Then
-                        TieneTarget = True
-                    Else
-                        Npclist(NpcIndex).flags.AtacaAPJ = 0
-
-                    End If
-
-                Else
-                    Npclist(NpcIndex).flags.AtacaAPJ = 0
-
-                End If
-
-            End If
-
-            If TargetNpc > 0 Then
-                If InRangoVisionNPC(NpcIndex, Npclist(TargetNpc).pos.X, Npclist(TargetNpc).pos.Y) Then
-                    TieneTarget = True
-                Else
-                    Npclist(NpcIndex).flags.AtacaANPC = 0
-
-                End If
-
-            End If
-
-    End Select
-
-    If Not TieneTarget Then
-
-    End If
-
-End Sub
-
-Private Function AcquireNewTargetForAlignment(ByVal NpcIndex As Integer, _
-                                              ByRef EsNpc As Boolean) As Integer
-
-    Dim r             As Byte
-
-    Dim NPCPosX       As Byte
-
-    Dim NPCPosY       As Byte
-
-    Dim NpcBestTarget As Integer
-
-    Dim PJBestTarget  As Integer
-
-    Dim PJ            As Integer
-
-    Dim npc           As Integer
-
-    Dim X             As Integer
-
-    Dim Y             As Integer
-
-    Dim m             As Integer
-
-    NPCPosX = Npclist(NpcIndex).pos.X
-    NPCPosY = Npclist(NpcIndex).pos.Y
-    m = Npclist(NpcIndex).pos.Map
-
-    For r = 1 To MinYBorder
-        For X = NPCPosX - r To NPCPosX + r
-            For Y = NPCPosY - r To NPCPosY + r
-                PJ = MapData(m, X, Y).UserIndex
-                npc = MapData(m, X, Y).NpcIndex
-
-                If PJ > 0 Then
-
-                    Select Case Npclist(NpcIndex).flags.AIAlineacion
-
-                        Case e_Alineacion.Caos
-
-                            If Not Criminal(PJ) And Not UserList(PJ).flags.Muerto And Not UserList(PJ).flags.Invisible And Not UserList(PJ).flags.Oculto And UserList(PJ).flags.Privilegios = PlayerType.User Then
-                                PJBestTarget = PJ
-
-                            End If
-
-                        Case e_Alineacion.Real
-
-                        Case e_Alineacion.Neutro
-
-                    End Select
-
-                End If
-
-                If MapData(m, X, Y).NpcIndex > 0 Then
-
-                End If
-
-            Next Y
-        Next X
-
-        If PJBestTarget > 0 Then
-            EsNpc = False
-            AcquireNewTargetForAlignment = PJBestTarget
-            Exit Function
-
-        End If
-
-        If NpcBestTarget > 0 Then
-            EsNpc = True
-            AcquireNewTargetForAlignment = NpcBestTarget
-            Exit Function
-
-        End If
-
-    Next r
-
-End Function
-
-Private Sub GuardiasAI(ByVal NpcIndex As Integer)
-
-    On Error GoTo erra:
-
-    Dim nPos        As WorldPos
-
-    Dim headingloop As Byte
-
-    Dim tHeading    As Byte
-
-    Dim Y           As Integer
-
-    Dim X           As Integer
-
-    Dim UI          As Integer
-
-    For headingloop = NORTH To WEST
-        nPos = Npclist(NpcIndex).pos
-        Call HeadtoPos(headingloop, nPos)
-
-        If InMapBounds(nPos.Map, nPos.X, nPos.Y) Then
-            UI = MapData(nPos.Map, nPos.X, nPos.Y).UserIndex
-
-            If UI > 0 Then
-                If UserList(UI).flags.Privilegios >= 1 Then Exit Sub
-                If UserList(UI).flags.Muerto = 0 Then
-
-                    '?ES CRIMINAL?
-                    If Criminal(UI) Then
-                        Call ChangeNPCChar(ToMap, 0, nPos.Map, NpcIndex, Npclist(NpcIndex).char.Body, Npclist(NpcIndex).char.Head, headingloop)
-                        Call NpcAtacaUser(NpcIndex, UI)
-                        Exit Sub
-                    ElseIf Npclist(NpcIndex).flags.AttackedBy = UserList(UI).Name And Not Npclist(NpcIndex).flags.Follow Then
-                        Call ChangeNPCChar(ToMap, 0, nPos.Map, NpcIndex, Npclist(NpcIndex).char.Body, Npclist(NpcIndex).char.Head, headingloop)
-                        Call NpcAtacaUser(NpcIndex, UI)
-                        Exit Sub
-
-                    End If
-
-                End If
-
-            End If
-
-        End If
-
-    Next headingloop
-
-    Call RestoreOldMovement(NpcIndex)
-    Exit Sub
-erra:
-    Call LogError("Error en GuardiasAI")
-
-End Sub
-
-Private Sub GuardiasCaosAI(ByVal NpcIndex As Integer)
-
-    Dim nPos        As WorldPos
-
-    Dim headingloop As Byte
-
-    Dim tHeading    As Byte
-
-    Dim Y           As Integer
-
-    Dim X           As Integer
-
-    Dim UI          As Integer
- 
-    For headingloop = NORTH To WEST
-        nPos = Npclist(NpcIndex).pos
-        Call HeadtoPos(headingloop, nPos)
-
-        If InMapBounds(nPos.Map, nPos.X, nPos.Y) Then
-            UI = MapData(nPos.Map, nPos.X, nPos.Y).UserIndex
-
-            If UI > 0 Then
-                If UserList(UI).flags.Privilegios >= 1 Then Exit Sub
-                If UserList(UI).flags.Muerto = 0 Then
-
-                    '?ES CIUDADANO?
-                    If Not Criminal(UI) Then
-                        Call ChangeNPCChar(ToMap, 0, nPos.Map, NpcIndex, Npclist(NpcIndex).char.Body, Npclist(NpcIndex).char.Head, headingloop)
-                        Call NpcAtacaUser(NpcIndex, UI)
-                        Exit Sub
-                    ElseIf Npclist(NpcIndex).flags.AttackedBy = UserList(UI).Name And Not Npclist(NpcIndex).flags.Follow Then
-                        Call ChangeNPCChar(ToMap, 0, nPos.Map, NpcIndex, Npclist(NpcIndex).char.Body, Npclist(NpcIndex).char.Head, headingloop)
-                        Call NpcAtacaUser(NpcIndex, UI)
-                        Exit Sub
-
-                    End If
-
-                End If
-
-            End If
-
-        End If
-
-    Next headingloop
- 
-    Call RestoreOldMovement(NpcIndex)
- 
-End Sub
+'Private Sub HandleAlineacion(ByVal NpcIndex As Integer)
+'
+'    Dim Al          As e_Alineacion
+'
+'    Dim Pe          As e_Personalidad
+'
+'    Dim TargetPJ    As Integer
+'
+'    Dim TargetNpc   As Integer
+'
+'    Dim TieneTarget As Boolean
+'
+'    Dim EsNpc       As Boolean
+'
+'    TieneTarget = False
+'    Al = Npclist(NpcIndex).flags.AIAlineacion
+'    TargetPJ = Npclist(NpcIndex).flags.AtacaAPJ
+'    TargetNpc = Npclist(NpcIndex).flags.AtacaANPC
+'
+'    Select Case Al
+'
+'        Case e_Alineacion.Caos
+'
+'            If TargetPJ > 0 Then
+'                If InRangoVisionNPC(NpcIndex, UserList(TargetPJ).Pos.X, UserList(TargetPJ).Pos.Y) Then
+'                    If Not Criminal(TargetPJ) Then
+'                        TieneTarget = True
+'                    Else
+'                        Npclist(NpcIndex).flags.AtacaAPJ = 0
+'
+'                    End If
+'
+'                Else
+'                    Npclist(NpcIndex).flags.AtacaAPJ = 0
+'
+'                End If
+'
+'            End If
+'
+'            If TargetNpc > 0 Then
+'                If InRangoVisionNPC(NpcIndex, Npclist(TargetNpc).Pos.X, Npclist(TargetNpc).Pos.Y) Then
+'                    TieneTarget = True
+'                Else
+'                    Npclist(NpcIndex).flags.AtacaANPC = 0
+'
+'                End If
+'
+'            End If
+'
+'        Case e_Alineacion.Neutro
+'
+'            If TargetPJ > 0 Then
+'                If InRangoVisionNPC(NpcIndex, UserList(TargetPJ).Pos.X, UserList(TargetPJ).Pos.Y) Then
+'                    TieneTarget = True
+'                Else
+'                    Npclist(NpcIndex).flags.AtacaAPJ = 0
+'
+'                End If
+'
+'            End If
+'
+'            If TargetNpc > 0 Then
+'                If InRangoVisionNPC(NpcIndex, Npclist(TargetNpc).Pos.X, Npclist(TargetNpc).Pos.Y) Then
+'                    TieneTarget = True
+'                Else
+'                    Npclist(NpcIndex).flags.AtacaANPC = 0
+'
+'                End If
+'
+'            End If
+'
+'        Case e_Alineacion.ninguna
+'            Exit Sub
+'
+'        Case e_Alineacion.Real
+'
+'            If TargetPJ > 0 Then
+'                If InRangoVisionNPC(NpcIndex, UserList(TargetPJ).Pos.X, UserList(TargetPJ).Pos.Y) Then
+'                    If Criminal(TargetPJ) Then
+'                        TieneTarget = True
+'                    Else
+'                        Npclist(NpcIndex).flags.AtacaAPJ = 0
+'
+'                    End If
+'
+'                Else
+'                    Npclist(NpcIndex).flags.AtacaAPJ = 0
+'
+'                End If
+'
+'            End If
+'
+'            If TargetNpc > 0 Then
+'                If InRangoVisionNPC(NpcIndex, Npclist(TargetNpc).Pos.X, Npclist(TargetNpc).Pos.Y) Then
+'                    TieneTarget = True
+'                Else
+'                    Npclist(NpcIndex).flags.AtacaANPC = 0
+'
+'                End If
+'
+'            End If
+'
+'    End Select
+'
+'    If Not TieneTarget Then
+'
+'    End If
+'
+'End Sub
+'
+'Private Function AcquireNewTargetForAlignment(ByVal NpcIndex As Integer, _
+'                                              ByRef EsNpc As Boolean) As Integer
+'
+'    Dim r             As Byte
+'
+'    Dim NPCPosX       As Byte
+'
+'    Dim NPCPosY       As Byte
+'
+'    Dim NpcBestTarget As Integer
+'
+'    Dim PJBestTarget  As Integer
+'
+'    Dim PJ            As Integer
+'
+'    Dim npc           As Integer
+'
+'    Dim X             As Integer
+'
+'    Dim Y             As Integer
+'
+'    Dim m             As Integer
+'
+'    NPCPosX = Npclist(NpcIndex).Pos.X
+'    NPCPosY = Npclist(NpcIndex).Pos.Y
+'    m = Npclist(NpcIndex).Pos.Map
+'
+'    For r = 1 To MinYBorder
+'        For X = NPCPosX - r To NPCPosX + r
+'            For Y = NPCPosY - r To NPCPosY + r
+'                PJ = MapData(m, X, Y).UserIndex
+'                npc = MapData(m, X, Y).NpcIndex
+'
+'                If PJ > 0 Then
+'
+'                    Select Case Npclist(NpcIndex).flags.AIAlineacion
+'
+'                        Case e_Alineacion.Caos
+'
+'                            If Not Criminal(PJ) And Not UserList(PJ).flags.Muerto And Not UserList(PJ).flags.Invisible And Not UserList(PJ).flags.Oculto And UserList(PJ).flags.Privilegios = PlayerType.User Then
+'                                PJBestTarget = PJ
+'
+'                            End If
+'
+'                        Case e_Alineacion.Real
+'
+'                        Case e_Alineacion.Neutro
+'
+'                    End Select
+'
+'                End If
+'
+'                If MapData(m, X, Y).NpcIndex > 0 Then
+'
+'                End If
+'
+'            Next Y
+'        Next X
+'
+'        If PJBestTarget > 0 Then
+'            EsNpc = False
+'            AcquireNewTargetForAlignment = PJBestTarget
+'            Exit Function
+'
+'        End If
+'
+'        If NpcBestTarget > 0 Then
+'            EsNpc = True
+'            AcquireNewTargetForAlignment = NpcBestTarget
+'            Exit Function
+'
+'        End If
+'
+'    Next r
+'
+'End Function
+
+'Private Sub GuardiasAI(ByVal NpcIndex As Integer)
+'
+'    On Error GoTo erra:
+'
+'    Dim nPos        As WorldPos
+'
+'    Dim headingloop As Byte
+'
+'    Dim tHeading    As Byte
+'
+'    Dim Y           As Integer
+'
+'    Dim X           As Integer
+'
+'    Dim UI          As Integer
+'
+'    For headingloop = NORTH To WEST
+'        nPos = Npclist(NpcIndex).Pos
+'        Call HeadtoPos(headingloop, nPos)
+'
+'        If InMapBounds(nPos.Map, nPos.X, nPos.Y) Then
+'            UI = MapData(nPos.Map, nPos.X, nPos.Y).UserIndex
+'
+'            If UI > 0 Then
+'                If UserList(UI).flags.Privilegios >= 1 Then Exit Sub
+'                If UserList(UI).flags.Muerto = 0 Then
+'
+'                    '?ES CRIMINAL?
+'                    If Criminal(UI) Then
+'                        Call ChangeNPCChar(ToMap, 0, nPos.Map, NpcIndex, Npclist(NpcIndex).char.Body, Npclist(NpcIndex).char.Head, headingloop)
+'                        Call NpcAtacaUser(NpcIndex, UI)
+'                        Exit Sub
+'                    ElseIf Npclist(NpcIndex).flags.AttackedBy = UserList(UI).Name And Not Npclist(NpcIndex).flags.Follow Then
+'                        Call ChangeNPCChar(ToMap, 0, nPos.Map, NpcIndex, Npclist(NpcIndex).char.Body, Npclist(NpcIndex).char.Head, headingloop)
+'                        Call NpcAtacaUser(NpcIndex, UI)
+'                        Exit Sub
+'
+'                    End If
+'
+'                End If
+'
+'            End If
+'
+'        End If
+'
+'    Next headingloop
+'
+'    Call RestoreOldMovement(NpcIndex)
+'    Exit Sub
+'erra:
+'    Call LogError("Error en GuardiasAI")
+'
+'End Sub
+'
+'Private Sub GuardiasCaosAI(ByVal NpcIndex As Integer)
+'
+'    Dim nPos        As WorldPos
+'
+'    Dim headingloop As Byte
+'
+'    Dim tHeading    As Byte
+'
+'    Dim Y           As Integer
+'
+'    Dim X           As Integer
+'
+'    Dim UI          As Integer
+'
+'    For headingloop = NORTH To WEST
+'        nPos = Npclist(NpcIndex).Pos
+'        Call HeadtoPos(headingloop, nPos)
+'
+'        If InMapBounds(nPos.Map, nPos.X, nPos.Y) Then
+'            UI = MapData(nPos.Map, nPos.X, nPos.Y).UserIndex
+'
+'            If UI > 0 Then
+'                If UserList(UI).flags.Privilegios >= 1 Then Exit Sub
+'                If UserList(UI).flags.Muerto = 0 Then
+'
+'                    '?ES CIUDADANO?
+'                    If Not Criminal(UI) Then
+'                        Call ChangeNPCChar(ToMap, 0, nPos.Map, NpcIndex, Npclist(NpcIndex).char.Body, Npclist(NpcIndex).char.Head, headingloop)
+'                        Call NpcAtacaUser(NpcIndex, UI)
+'                        Exit Sub
+'                    ElseIf Npclist(NpcIndex).flags.AttackedBy = UserList(UI).Name And Not Npclist(NpcIndex).flags.Follow Then
+'                        Call ChangeNPCChar(ToMap, 0, nPos.Map, NpcIndex, Npclist(NpcIndex).char.Body, Npclist(NpcIndex).char.Head, headingloop)
+'                        Call NpcAtacaUser(NpcIndex, UI)
+'                        Exit Sub
+'
+'                    End If
+'
+'                End If
+'
+'            End If
+'
+'        End If
+'
+'    Next headingloop
+'
+'    Call RestoreOldMovement(NpcIndex)
+'
+'End Sub
 
 Private Sub HostilMalvadoAI(ByVal NpcIndex As Integer)
 On Error GoTo err
@@ -387,7 +387,7 @@ Dim error As Integer
 error = 1
 For headingloop = NORTH To WEST
     error = 2
-    nPos = Npclist(NpcIndex).pos
+    nPos = Npclist(NpcIndex).Pos
     error = 3
     Call HeadtoPos(headingloop, nPos)
     error = 4
@@ -404,11 +404,11 @@ For headingloop = NORTH To WEST
                 error = 9
                 '?ES del clan del castillo1?
                   If UserList(UI).GuildIndex > 0 Then
-                    If Npclist(NpcIndex).pos.Map = CastilloNorte And Guilds(UserList(UI).GuildIndex).GuildName = Norte Then GoTo aqui2
-                    If Npclist(NpcIndex).pos.Map = CastilloEste And Guilds(UserList(UI).GuildIndex).GuildName = Este Then GoTo aqui2
-                    If Npclist(NpcIndex).pos.Map = CastilloOeste And Guilds(UserList(UI).GuildIndex).GuildName = Oeste Then GoTo aqui2
-                    If Npclist(NpcIndex).pos.Map = CastilloSur And Guilds(UserList(UI).GuildIndex).GuildName = Sur Then GoTo aqui2
-                    If Npclist(NpcIndex).pos.Map = MapaFortaleza And Guilds(UserList(UI).GuildIndex).GuildName = Fortaleza Then GoTo aqui2
+                    If Npclist(NpcIndex).Pos.Map = CastilloNorte And Guilds(UserList(UI).GuildIndex).GuildName = Norte Then GoTo aqui2
+                    If Npclist(NpcIndex).Pos.Map = CastilloEste And Guilds(UserList(UI).GuildIndex).GuildName = Este Then GoTo aqui2
+                    If Npclist(NpcIndex).Pos.Map = CastilloOeste And Guilds(UserList(UI).GuildIndex).GuildName = Oeste Then GoTo aqui2
+                    If Npclist(NpcIndex).Pos.Map = CastilloSur And Guilds(UserList(UI).GuildIndex).GuildName = Sur Then GoTo aqui2
+                    If Npclist(NpcIndex).Pos.Map = MapaFortaleza And Guilds(UserList(UI).GuildIndex).GuildName = Fortaleza Then GoTo aqui2
                     'If Npclist(NpcIndex).pos.Map = mapa_islapirata And UserList(UI).GuildInfo.GuildName = islapirata Then GoTo aqui2
                     End If
                     error = 10
@@ -460,7 +460,7 @@ Private Sub HostilBuenoAI(ByVal NpcIndex As Integer)
     Dim UI          As Integer
 
     For headingloop = NORTH To WEST
-        nPos = Npclist(NpcIndex).pos
+        nPos = Npclist(NpcIndex).Pos
         Call HeadtoPos(headingloop, nPos)
 
         If InMapBounds(nPos.Map, nPos.X, nPos.Y) Then
@@ -553,15 +553,15 @@ Private Sub IrUsuarioCercano(ByVal NpcIndex As Integer)
 
     error = 1
 
-    For Y = Npclist(NpcIndex).pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).pos.Y + RANGO_VISION_NPC_Y
+    For Y = Npclist(NpcIndex).Pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).Pos.Y + RANGO_VISION_NPC_Y
         error = 2
 
-        For X = Npclist(NpcIndex).pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).pos.X + RANGO_VISION_NPC_X
+        For X = Npclist(NpcIndex).Pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).Pos.X + RANGO_VISION_NPC_X
             error = 3
 
             If X >= MinXBorder And X <= MaxXBorder And Y >= MinYBorder And Y <= MaxYBorder Then
                 error = 4
-                UI = MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex
+                UI = MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex
 
                 If UI > 0 Then
                     If UserList(UI).flags.Muerto = 1 Then GoTo aqui
@@ -572,11 +572,11 @@ Private Sub IrUsuarioCercano(ByVal NpcIndex As Integer)
 
                     'castillo clan
                     If UserList(UI).GuildIndex > 0 Then
-                    If Npclist(NpcIndex).pos.Map = CastilloNorte And Guilds(UserList(UI).GuildIndex).GuildName = Norte Then GoTo aqui
-                    If Npclist(NpcIndex).pos.Map = CastilloEste And Guilds(UserList(UI).GuildIndex).GuildName = Este Then GoTo aqui
-                    If Npclist(NpcIndex).pos.Map = CastilloOeste And Guilds(UserList(UI).GuildIndex).GuildName = Oeste Then GoTo aqui
-                    If Npclist(NpcIndex).pos.Map = CastilloSur And Guilds(UserList(UI).GuildIndex).GuildName = Sur Then GoTo aqui
-                    If Npclist(NpcIndex).pos.Map = MapaFortaleza And Guilds(UserList(UI).GuildIndex).GuildName = Fortaleza Then GoTo aqui
+                    If Npclist(NpcIndex).Pos.Map = CastilloNorte And Guilds(UserList(UI).GuildIndex).GuildName = Norte Then GoTo aqui
+                    If Npclist(NpcIndex).Pos.Map = CastilloEste And Guilds(UserList(UI).GuildIndex).GuildName = Este Then GoTo aqui
+                    If Npclist(NpcIndex).Pos.Map = CastilloOeste And Guilds(UserList(UI).GuildIndex).GuildName = Oeste Then GoTo aqui
+                    If Npclist(NpcIndex).Pos.Map = CastilloSur And Guilds(UserList(UI).GuildIndex).GuildName = Sur Then GoTo aqui
+                    If Npclist(NpcIndex).Pos.Map = MapaFortaleza And Guilds(UserList(UI).GuildIndex).GuildName = Fortaleza Then GoTo aqui
                     'If Npclist(NpcIndex).pos.Map = mapa_islapirata And UserList(UI).GuildInfo.GuildName = islapirata Then GoTo aqui
                     End If
                     error = 6
@@ -594,7 +594,7 @@ Private Sub IrUsuarioCercano(ByVal NpcIndex As Integer)
                     'pluto:2.4.1
                     If UserList(UI).flags.Muerto = 0 And Npclist(NpcIndex).flags.Paralizado = 0 And Npclist(NpcIndex).Movement <> 10 Then
                         error = 10
-                        tHeading = FindDirection(Npclist(NpcIndex).pos, UserList(MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex).pos)
+                        tHeading = FindDirection(Npclist(NpcIndex).Pos, UserList(MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex).Pos)
                         error = 11
                         Call MoveNPCChar(NpcIndex, tHeading)
                         Exit Sub
@@ -635,11 +635,11 @@ Private Sub SeguirAgresor(ByVal NpcIndex As Integer)
 
     Dim UI          As Integer
 
-    For Y = Npclist(NpcIndex).pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).pos.Y + RANGO_VISION_NPC_Y
-        For X = Npclist(NpcIndex).pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).pos.X + RANGO_VISION_NPC_X
+    For Y = Npclist(NpcIndex).Pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).Pos.Y + RANGO_VISION_NPC_Y
+        For X = Npclist(NpcIndex).Pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).Pos.X + RANGO_VISION_NPC_X
 
             If X >= MinXBorder And X <= MaxXBorder And Y >= MinYBorder And Y <= MaxYBorder Then
-                UI = MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex
+                UI = MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex
 
                 If UI > 0 Then
                     If UserList(UI).Name = Npclist(NpcIndex).flags.AttackedBy Then
@@ -655,7 +655,7 @@ Private Sub SeguirAgresor(ByVal NpcIndex As Integer)
 
                             End If
 
-                            tHeading = FindDirection(Npclist(NpcIndex).pos, UserList(MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex).pos)
+                            tHeading = FindDirection(Npclist(NpcIndex).Pos, UserList(MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex).Pos)
                             Call MoveNPCChar(NpcIndex, tHeading)
                             Exit Sub
 
@@ -689,126 +689,126 @@ Private Sub RestoreOldMovement(ByVal NpcIndex As Integer)
 
 End Sub
 
-Private Sub PersigueCiudadano(ByVal NpcIndex As Integer)
-
-    Dim UI          As Integer
-
-    Dim nPos        As WorldPos
-
-    Dim headingloop As Byte
-
-    Dim tHeading    As Byte
-
-    Dim Y           As Integer
-
-    Dim X           As Integer
-
-    For Y = Npclist(NpcIndex).pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).pos.Y + RANGO_VISION_NPC_Y
-        For X = Npclist(NpcIndex).pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).pos.X + RANGO_VISION_NPC_X
-
-            If X >= MinXBorder And X <= MaxXBorder And Y >= MinYBorder And Y <= MaxYBorder Then
-                UI = MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex
-
-                If UI > 0 Then
-                    If Not Criminal(UI) Then
-                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 Then
-                            If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
-                            If Npclist(NpcIndex).flags.LanzaSpells > 0 Then
-
-                                Dim k As Integer
-
-                                k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
-                                Call NpcLanzaUnSpell(NpcIndex, UI)
-
-                            End If
-
-                            tHeading = FindDirectionEAO(Npclist(NpcIndex).pos, UserList(MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex).pos)
-                            Call MoveNPCChar(NpcIndex, tHeading)
-                            Exit Sub
-
-                        End If
-
-                    End If
-
-                End If
-
-            End If
-
-aqui2:
-        Next X
-    Next Y
-
-    If Npclist(NpcIndex).NPCtype = eNPCType.Guardiascaos Then
-        Call AI_Volver(NpcIndex)
-
-    End If
-
-    Call RestoreOldMovement(NpcIndex)
-
-End Sub
-
-Private Sub PersigueCriminal(ByVal NpcIndex As Integer)
-
-    On Error GoTo erra:
-
-    Dim UI          As Integer
-
-    Dim nPos        As WorldPos
-
-    Dim headingloop As Byte
-
-    Dim tHeading    As Byte
-
-    Dim Y           As Integer
-
-    Dim X           As Integer
-
-    For Y = Npclist(NpcIndex).pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).pos.Y + RANGO_VISION_NPC_Y
-        For X = Npclist(NpcIndex).pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).pos.X + RANGO_VISION_NPC_X
-
-            If X >= MinXBorder And X <= MaxXBorder And Y >= MinYBorder And Y <= MaxYBorder Then
-                UI = MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex
-
-                If UI > 0 Then
-                    If Criminal(UI) Or Npclist(NpcIndex).Stats.Alineacion <> 0 Then
-                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 Then
-                            If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
-                            If Npclist(NpcIndex).flags.LanzaSpells > 0 Then
-
-                                Dim k As Integer
-
-                                k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
-                                Call NpcLanzaUnSpell(NpcIndex, UI)
-
-                            End If
-
-                            tHeading = FindDirectionEAO(Npclist(NpcIndex).pos, UserList(MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex).pos)
-                            Call MoveNPCChar(NpcIndex, tHeading)
-                            Exit Sub
-
-                        End If
-
-                    End If
-
-                End If
-
-            End If
-
-aqui2:
-        Next X
-    Next Y
-    
-    If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-        Call AI_Volver(NpcIndex)
-
-    End If
- 
-    Call RestoreOldMovement(NpcIndex)
-    Exit Sub
-erra:
-    Call LogError("Error en PersigueCriminal")
-
-End Sub
+'Private Sub PersigueCiudadano(ByVal NpcIndex As Integer)
+'
+'    Dim UI          As Integer
+'
+'    Dim nPos        As WorldPos
+'
+'    Dim headingloop As Byte
+'
+'    Dim tHeading    As Byte
+'
+'    Dim Y           As Integer
+'
+'    Dim X           As Integer
+'
+'    For Y = Npclist(NpcIndex).Pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).Pos.Y + RANGO_VISION_NPC_Y
+'        For X = Npclist(NpcIndex).Pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).Pos.X + RANGO_VISION_NPC_X
+'
+'            If X >= MinXBorder And X <= MaxXBorder And Y >= MinYBorder And Y <= MaxYBorder Then
+'                UI = MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex
+'
+'                If UI > 0 Then
+'                    If Not Criminal(UI) Then
+'                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 Then
+'                            If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
+'                            If Npclist(NpcIndex).flags.LanzaSpells > 0 Then
+'
+'                                Dim k As Integer
+'
+'                                k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
+'                                Call NpcLanzaUnSpell(NpcIndex, UI)
+'
+'                            End If
+'
+'                            tHeading = FindDirectionEAO(Npclist(NpcIndex).Pos, UserList(MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex).Pos)
+'                            Call MoveNPCChar(NpcIndex, tHeading)
+'                            Exit Sub
+'
+'                        End If
+'
+'                    End If
+'
+'                End If
+'
+'            End If
+'
+'aqui2:
+'        Next X
+'    Next Y
+'
+'    If Npclist(NpcIndex).NPCtype = eNPCType.Guardiascaos Then
+'        Call AI_Volver(NpcIndex)
+'
+'    End If
+'
+'    Call RestoreOldMovement(NpcIndex)
+'
+'End Sub
+'
+'Private Sub PersigueCriminal(ByVal NpcIndex As Integer)
+'
+'    On Error GoTo erra:
+'
+'    Dim UI          As Integer
+'
+'    Dim nPos        As WorldPos
+'
+'    Dim headingloop As Byte
+'
+'    Dim tHeading    As Byte
+'
+'    Dim Y           As Integer
+'
+'    Dim X           As Integer
+'
+'    For Y = Npclist(NpcIndex).Pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).Pos.Y + RANGO_VISION_NPC_Y
+'        For X = Npclist(NpcIndex).Pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).Pos.X + RANGO_VISION_NPC_X
+'
+'            If X >= MinXBorder And X <= MaxXBorder And Y >= MinYBorder And Y <= MaxYBorder Then
+'                UI = MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex
+'
+'                If UI > 0 Then
+'                    If Criminal(UI) Or Npclist(NpcIndex).Stats.Alineacion <> 0 Then
+'                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 Then
+'                            If UserList(UI).flags.Privilegios > 0 Then GoTo aqui2
+'                            If Npclist(NpcIndex).flags.LanzaSpells > 0 Then
+'
+'                                Dim k As Integer
+'
+'                                k = RandomNumber(1, Npclist(NpcIndex).flags.LanzaSpells)
+'                                Call NpcLanzaUnSpell(NpcIndex, UI)
+'
+'                            End If
+'
+'                            tHeading = FindDirectionEAO(Npclist(NpcIndex).Pos, UserList(MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex).Pos)
+'                            Call MoveNPCChar(NpcIndex, tHeading)
+'                            Exit Sub
+'
+'                        End If
+'
+'                    End If
+'
+'                End If
+'
+'            End If
+'
+'aqui2:
+'        Next X
+'    Next Y
+'
+'    If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
+'        Call AI_Volver(NpcIndex)
+'
+'    End If
+'
+'    Call RestoreOldMovement(NpcIndex)
+'    Exit Sub
+'erra:
+'    Call LogError("Error en PersigueCriminal")
+'
+'End Sub
 
 Private Sub NpcDragonAI(ByVal NpcIndex As Integer)
 
@@ -824,12 +824,12 @@ Private Sub NpcDragonAI(ByVal NpcIndex As Integer)
 
     Dim UI          As Integer
 
-    For Y = Npclist(NpcIndex).pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).pos.Y + RANGO_VISION_NPC_Y
-        For X = Npclist(NpcIndex).pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).pos.X + RANGO_VISION_NPC_X
+    For Y = Npclist(NpcIndex).Pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).Pos.Y + RANGO_VISION_NPC_Y
+        For X = Npclist(NpcIndex).Pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).Pos.X + RANGO_VISION_NPC_X
 
             If X >= MinXBorder And X <= MaxXBorder And Y >= MinYBorder And Y <= MaxYBorder Then
 
-                UI = MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex
+                UI = MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex
 
                 If UI > 0 Then
 
@@ -843,7 +843,7 @@ Private Sub NpcDragonAI(ByVal NpcIndex As Integer)
                         Else
 
                             If RandomNumber(1, 10) > 3 Then
-                                Call MoveNPCChar(NpcIndex, FindDirectionEAO(Npclist(NpcIndex).pos, UserList(UI).pos, (Npclist(NpcIndex).flags.AguaValida)))
+                                Call MoveNPCChar(NpcIndex, FindDirectionEAO(Npclist(NpcIndex).Pos, UserList(UI).Pos, (Npclist(NpcIndex).flags.AguaValida)))
 
                             End If
 
@@ -891,16 +891,16 @@ Private Sub SeguirAmo(ByVal NpcIndex As Integer)
 
     Dim UI          As Integer
 
-    For Y = Npclist(NpcIndex).pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).pos.Y + RANGO_VISION_NPC_Y
-        For X = Npclist(NpcIndex).pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).pos.X + RANGO_VISION_NPC_X
+    For Y = Npclist(NpcIndex).Pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).Pos.Y + RANGO_VISION_NPC_Y
+        For X = Npclist(NpcIndex).Pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).Pos.X + RANGO_VISION_NPC_X
 
             If X >= MinXBorder And X <= MaxXBorder And Y >= MinYBorder And Y <= MaxYBorder Then
                 If Npclist(NpcIndex).Target = 0 And Npclist(NpcIndex).TargetNpc = 0 Then
-                    UI = MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex
+                    UI = MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex
 
                     If UI > 0 Then
-                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 And UI = Npclist(NpcIndex).MaestroUser And Distancia(Npclist(NpcIndex).pos, UserList(UI).pos) > 3 Then
-                            tHeading = FindDirection(Npclist(NpcIndex).pos, UserList(MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex).pos)
+                        If UserList(UI).flags.Muerto = 0 And UserList(UI).flags.Invisible = 0 And UserList(UI).flags.Oculto = 0 And UI = Npclist(NpcIndex).MaestroUser And Distancia(Npclist(NpcIndex).Pos, UserList(UI).Pos) > 3 Then
+                            tHeading = FindDirection(Npclist(NpcIndex).Pos, UserList(MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex).Pos)
                             Call MoveNPCChar(NpcIndex, tHeading)
                             Exit Sub
 
@@ -940,16 +940,16 @@ Private Sub AiNpcAtacaNpc(ByVal NpcIndex As Integer)
 
     Dim bNoEsta     As Boolean
 
-    For Y = Npclist(NpcIndex).pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).pos.Y + RANGO_VISION_NPC_Y
-        For X = Npclist(NpcIndex).pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).pos.X + RANGO_VISION_NPC_X
+    For Y = Npclist(NpcIndex).Pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).Pos.Y + RANGO_VISION_NPC_Y
+        For X = Npclist(NpcIndex).Pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).Pos.X + RANGO_VISION_NPC_X
 
             If X >= MinXBorder And X <= MaxXBorder And Y >= MinYBorder And Y <= MaxYBorder Then
-                NI = MapData(Npclist(NpcIndex).pos.Map, X, Y).NpcIndex
+                NI = MapData(Npclist(NpcIndex).Pos.Map, X, Y).NpcIndex
 
                 If NI > 0 Then
                     If Npclist(NpcIndex).TargetNpc = NI Then
                         bNoEsta = True
-                        tHeading = FindDirection(Npclist(NpcIndex).pos, Npclist(MapData(Npclist(NpcIndex).pos.Map, X, Y).NpcIndex).pos)
+                        tHeading = FindDirection(Npclist(NpcIndex).Pos, Npclist(MapData(Npclist(NpcIndex).Pos.Map, X, Y).NpcIndex).Pos)
                         Call MoveNPCChar(NpcIndex, tHeading)
                         Call SistemaCombate.NpcAtacaNpc(NpcIndex, NI)
                         Exit Sub
@@ -990,9 +990,9 @@ Function NPCAI(ByVal NpcIndex As Integer)
         'Busca a alguien para atacar
         '¿Es un guardia?
         If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-            Call GuardiasAI(NpcIndex)
+            'Call GuardiasAI(NpcIndex)
         ElseIf Npclist(NpcIndex).NPCtype = eNPCType.Guardiascaos Then
-            Call GuardiasCaosAI(NpcIndex)
+            'Call GuardiasCaosAI(NpcIndex)
         ElseIf Npclist(NpcIndex).Hostile And Npclist(NpcIndex).Stats.Alineacion <> 0 Then
             Call HostilMalvadoAI(NpcIndex)
         ElseIf Npclist(NpcIndex).Hostile And Npclist(NpcIndex).Stats.Alineacion = 0 Then
@@ -1021,7 +1021,7 @@ Function NPCAI(ByVal NpcIndex As Integer)
 
                 End If
                     
-                Call PersigueCriminal(NpcIndex)
+                'Call PersigueCriminal(NpcIndex)
                     
             ElseIf Npclist(NpcIndex).NPCtype = eNPCType.Guardiascaos Then
 
@@ -1030,7 +1030,7 @@ Function NPCAI(ByVal NpcIndex As Integer)
 
                 End If
                     
-                Call PersigueCiudadano(NpcIndex)
+                'Call PersigueCiudadano(NpcIndex)
 
             End If
 
@@ -1044,10 +1044,10 @@ Function NPCAI(ByVal NpcIndex As Integer)
 
             'Persigue criminales
         Case TipoAI.GuardiasAtacanCriminales
-            Call PersigueCriminal(NpcIndex)
+            'Call PersigueCriminal(NpcIndex)
 
         Case TipoAI.GuardiasAtacanCiudadanos
-            Call PersigueCiudadano(NpcIndex)
+            'Call PersigueCiudadano(NpcIndex)
 
         Case TipoAI.SigueAmo
 
@@ -1094,7 +1094,7 @@ Function NPCAI(ByVal NpcIndex As Integer)
     Exit Function
 
 ErrorHandler:
-    Call LogError("NPCAI " & Npclist(NpcIndex).Name & " " & Npclist(NpcIndex).MaestroUser & " " & Npclist(NpcIndex).MaestroNpc & " mapa:" & Npclist(NpcIndex).pos.Map & " x:" & Npclist(NpcIndex).pos.X & " y:" & Npclist(NpcIndex).pos.Y & " Mov:" & Npclist(NpcIndex).Movement & " TargU:" & Npclist(NpcIndex).Target & " TargN:" & Npclist(NpcIndex).TargetNpc)
+    Call LogError("NPCAI " & Npclist(NpcIndex).Name & " " & Npclist(NpcIndex).MaestroUser & " " & Npclist(NpcIndex).MaestroNpc & " mapa:" & Npclist(NpcIndex).Pos.Map & " x:" & Npclist(NpcIndex).Pos.X & " y:" & Npclist(NpcIndex).Pos.Y & " Mov:" & Npclist(NpcIndex).Movement & " TargU:" & Npclist(NpcIndex).Target & " TargN:" & Npclist(NpcIndex).TargetNpc)
 
     Dim MiNPC As npc
 
@@ -1108,7 +1108,7 @@ Function UserNear(ByVal NpcIndex As Integer) As Boolean
 '#################################################################
 'Returns True if there is an user adjacent to the npc position.
 '#################################################################
-UserNear = Not Int(Distance(Npclist(NpcIndex).pos.X, Npclist(NpcIndex).pos.Y, UserList(Npclist(NpcIndex).PFINFO.TargetUser).pos.X, UserList(Npclist(NpcIndex).PFINFO.TargetUser).pos.Y)) > 1
+UserNear = Not Int(Distance(Npclist(NpcIndex).Pos.X, Npclist(NpcIndex).Pos.Y, UserList(Npclist(NpcIndex).PFINFO.TargetUser).Pos.X, UserList(Npclist(NpcIndex).PFINFO.TargetUser).Pos.Y)) > 1
 End Function
 
 Function ReCalculatePath(ByVal NpcIndex As Integer) As Boolean
@@ -1137,20 +1137,20 @@ Function SimpleAI(ByVal NpcIndex As Integer) As Boolean
 
     Dim X           As Integer
 
-    For Y = Npclist(NpcIndex).pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).pos.Y + RANGO_VISION_NPC_Y        'Makes a loop that looks at
-        For X = Npclist(NpcIndex).pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).pos.X + RANGO_VISION_NPC_X    '5 tiles in every direction
+    For Y = Npclist(NpcIndex).Pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).Pos.Y + RANGO_VISION_NPC_Y        'Makes a loop that looks at
+        For X = Npclist(NpcIndex).Pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).Pos.X + RANGO_VISION_NPC_X    '5 tiles in every direction
 
             'Make sure tile is legal
             If X > MinXBorder And X < MaxXBorder And Y > MinYBorder And Y < MaxYBorder Then
 
                 'look for a user
-                If MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex > 0 Then
+                If MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex > 0 Then
                     'Move towards user
-                    tHeading = FindDirection(Npclist(NpcIndex).pos, UserList(MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex).pos)
+                    tHeading = FindDirection(Npclist(NpcIndex).Pos, UserList(MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex).Pos)
 
                     'MoveNPCChar NpcIndex, tHeading
                     'Leave
-                    If Not Npclist(NpcIndex).PFINFO.PathLenght > 0 Then tHeading = FindDirection(Npclist(NpcIndex).pos, UserList(MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex).pos)
+                    If Not Npclist(NpcIndex).PFINFO.PathLenght > 0 Then tHeading = FindDirection(Npclist(NpcIndex).Pos, UserList(MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex).Pos)
 
                     If tHeading = 0 Then
                         If ReCalculatePath(NpcIndex) Then
@@ -1211,13 +1211,13 @@ Function FollowPath(ByVal NpcIndex As Integer) As Boolean
 
     Dim tHeading As Byte
 
-    tmpPos.Map = Npclist(NpcIndex).pos.Map
+    tmpPos.Map = Npclist(NpcIndex).Pos.Map
     tmpPos.X = Npclist(NpcIndex).PFINFO.Path(Npclist(NpcIndex).PFINFO.CurPos).Y    ' invertí las coordenadas
     tmpPos.Y = Npclist(NpcIndex).PFINFO.Path(Npclist(NpcIndex).PFINFO.CurPos).X
 
     'Debug.Print "(" & tmpPos.X & "," & tmpPos.Y & ")"
 
-    tHeading = FindDirection(Npclist(NpcIndex).pos, tmpPos)
+    tHeading = FindDirection(Npclist(NpcIndex).Pos, tmpPos)
     MoveNPCChar NpcIndex, tHeading
 
     Npclist(NpcIndex).PFINFO.CurPos = Npclist(NpcIndex).PFINFO.CurPos + 1
@@ -1245,26 +1245,26 @@ Function PathFindingAI(ByVal NpcIndex As Integer) As Boolean
 
     Dim X           As Integer
 
-    For Y = Npclist(NpcIndex).pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).pos.Y + RANGO_VISION_NPC_Y   'Makes a loop that looks at
-        For X = Npclist(NpcIndex).pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).pos.X + RANGO_VISION_NPC_X   '5 tiles in every direction
+    For Y = Npclist(NpcIndex).Pos.Y - RANGO_VISION_NPC_Y To Npclist(NpcIndex).Pos.Y + RANGO_VISION_NPC_Y   'Makes a loop that looks at
+        For X = Npclist(NpcIndex).Pos.X - RANGO_VISION_NPC_X To Npclist(NpcIndex).Pos.X + RANGO_VISION_NPC_X   '5 tiles in every direction
 
             'Make sure tile is legal
          If X > MinXBorder And X < MaxXBorder And Y > MinYBorder And Y < MaxYBorder Then
          
              'look for a user
              
-             If MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex > 0 Then
+             If MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex > 0 Then
                  
 
                  'Move towards user
                   Dim tmpUserIndex As Integer
-                  tmpUserIndex = MapData(Npclist(NpcIndex).pos.Map, X, Y).UserIndex
+                  tmpUserIndex = MapData(Npclist(NpcIndex).Pos.Map, X, Y).UserIndex
                   If UserList(tmpUserIndex).flags.Privilegios >= 1 Or UserList(tmpUserIndex).flags.Muerto = 1 Then GoTo aqui 'Exit Function
                   'We have to invert the coordinates, this is because
                   'ORE refers to maps in converse way of my pathfinding
                   'routines.
-                  Npclist(NpcIndex).PFINFO.Target.X = UserList(tmpUserIndex).pos.Y
-                  Npclist(NpcIndex).PFINFO.Target.Y = UserList(tmpUserIndex).pos.X 'ops!
+                  Npclist(NpcIndex).PFINFO.Target.X = UserList(tmpUserIndex).Pos.Y
+                  Npclist(NpcIndex).PFINFO.Target.Y = UserList(tmpUserIndex).Pos.X 'ops!
                   Npclist(NpcIndex).PFINFO.TargetUser = tmpUserIndex
                   Call SeekPath(NpcIndex)
                   Exit Function
@@ -1314,14 +1314,14 @@ Public Sub AI_Volver(ByVal NpcIndex As Integer)
 
     With Npclist(NpcIndex)
 
-        If .pos.X = .Orig.X And .pos.Y = .Orig.Y Then
+        If .Pos.X = .Orig.X And .Pos.Y = .Orig.Y Then
             .char.heading = eHeading.SOUTH
-            Call SendToNpcArea(NpcIndex, "*" & Npclist(NpcIndex).char.CharIndex & "," & .pos.X & "," & .pos.Y)
+            Call SendToNpcArea(NpcIndex, "*" & Npclist(NpcIndex).char.CharIndex & "," & .Pos.X & "," & .Pos.Y)
             Exit Sub
 
         End If
 
-        Call MoveNPCChar(NpcIndex, FindDirectionEAO(.pos, .Orig, (Npclist(NpcIndex).flags.AguaValida)))
+        Call MoveNPCChar(NpcIndex, FindDirectionEAO(.Pos, .Orig, (Npclist(NpcIndex).flags.AguaValida)))
 
     End With
 

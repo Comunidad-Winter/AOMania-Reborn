@@ -5584,3 +5584,448 @@
 01/06/2020 0:54:17 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
 01/06/2020 0:54:18 HandleData. CadOri:/TELEP YO 182 67 35 Nom:BassingerUI:1 N: 0 D: 
 01/06/2020 2:00:34 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+01/06/2020 3:55:59 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 3:55:59 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 3:56:00 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 3:56:00 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 3:58:51 HandleData. CadOri:/telep yo 153 50 50 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 4:00:34 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:26:35 HandleData. CadOri:/telep yo 153 50 50 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:26:42 HandleData. CadOri:/TELEP YO 153 24 53 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:26:43 HandleData. CadOri:/TELEP YO 153 24 57 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:26:43 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:26:44 HandleData. CadOri:/TELEP YO 153 33 64 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:26:47 HandleData. CadOri:/TELEP YO 153 22 64 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:30:28 HandleData. CadOri:/telep yo 153 50 50 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:30:35 HandleData. CadOri:/TELEP YO 153 22 47 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:30:36 HandleData. CadOri:/TELEP YO 153 22 42 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:30:36 HandleData. CadOri:/TELEP YO 153 24 37 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:30:37 HandleData. CadOri:/TELEP YO 153 25 30 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 12:30:37 HandleData. CadOri:/TELEP YO 153 25 25 Nom:BassingerUI:1 N: 0 D: 
+01/06/2020 13:10:50 HandleData. CadOri:/telep yo 153 50 50 Nom:BassingerUI:1 N: 0 D: 
+02/06/2020 0:17:07 HandleData. CadOri:/TELEP YO 47 62 17 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:09 HandleData. CadOri:/TELEP YO 34 37 60 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:10 HandleData. CadOri:/TELEP YO 34 36 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:12 HandleData. CadOri:/TELEP YO 34 26 83 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:19 HandleData. CadOri:/TELEP YO 34 13 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:22 HandleData. CadOri:/TELEP YO 34 9 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:22 HandleData. CadOri:/TELEP YO 34 10 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:23 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:24 HandleData. CadOri:/TELEP YO 34 12 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:24 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:24 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:25 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:25 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:17:25 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:34 HandleData. CadOri:/TELEP YO 34 31 57 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:34 HandleData. CadOri:/TELEP YO 34 30 61 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:35 HandleData. CadOri:/TELEP YO 34 29 66 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:35 HandleData. CadOri:/TELEP YO 34 28 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:35 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:35 HandleData. CadOri:/TELEP YO 34 27 73 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:36 HandleData. CadOri:/TELEP YO 34 26 77 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:36 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:37 HandleData. CadOri:/TELEP YO 34 23 81 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:42 HandleData. CadOri:/TELEP YO 34 13 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:43 HandleData. CadOri:/TELEP YO 34 13 84 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:18:44 HandleData. CadOri:/TELEP YO 34 13 83 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:02 HandleData. CadOri:/telep yo 94 50 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:06 HandleData. CadOri:/TELEP YO 97 35 65 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:07 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:07 HandleData. CadOri:/TELEP YO 97 42 61 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:07 HandleData. CadOri:/TELEP YO 97 49 56 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:07 HandleData. CadOri:/TELEP YO 97 56 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:08 HandleData. CadOri:/TELEP YO 97 63 44 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:08 HandleData. CadOri:/TELEP YO 97 70 39 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:08 HandleData. CadOri:/TELEP YO 97 77 35 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:08 HandleData. CadOri:/TELEP YO 97 84 31 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:09 HandleData. CadOri:/TELEP YO 97 89 24 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:10 HandleData. CadOri:/TELEP YO 97 92 19 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:11 HandleData. CadOri:/TELEP YO 97 92 18 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:11 HandleData. CadOri:/TELEP YO 97 92 17 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:11 HandleData. CadOri:/TELEP YO 97 87 19 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:12 HandleData. CadOri:/TELEP YO 97 87 14 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:13 HandleData. CadOri:/TELEP YO 97 87 9 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:13 HandleData. CadOri:/TELEP YO 97 87 4 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:14 HandleData. CadOri:/TELEP YO 97 86 4 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:14 HandleData. CadOri:/TELEP YO 97 87 3 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:14 HandleData. CadOri:/TELEP YO 97 86 2 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:15 HandleData. CadOri:/TELEP YO 97 86 1 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:15 HandleData. CadOri:/TELEP YO 97 86 1 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:15 HandleData. CadOri:/TELEP YO 97 86 1 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:15 HandleData. CadOri:/TELEP YO 97 85 2 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:16 HandleData. CadOri:/TELEP YO 97 84 3 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:17 HandleData. CadOri:/TELEP YO 97 79 6 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:17 HandleData. CadOri:/TELEP YO 97 79 6 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:17 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:17 HandleData. CadOri:/TELEP YO 97 79 9 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:21 HandleData. CadOri:/TELEP YO 97 82 3 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:21 HandleData. CadOri:/TELEP YO 97 83 2 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:21 HandleData. CadOri:/TELEP YO 97 81 2 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:22 HandleData. CadOri:/TELEP YO 97 78 3 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:22 HandleData. CadOri:/TELEP YO 97 77 4 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:22 HandleData. CadOri:/TELEP YO 97 76 6 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:22 HandleData. CadOri:/TELEP YO 97 75 8 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:22 HandleData. CadOri:/TELEP YO 97 74 11 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:23 HandleData. CadOri:/TELEP YO 97 69 14 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:35 HandleData. CadOri:/TELEP YO 97 88 11 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:38 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:47 HandleData. CadOri:/TELEP YO 97 89 11 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:51 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:19:59 HandleData. CadOri:/TELEP YO 97 90 11 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:00 HandleData. CadOri:/TELEP YO 97 90 11 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:05 HandleData. CadOri:/telep yo 34 30 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:08 HandleData. CadOri:/TELEP YO 34 28 64 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:09 HandleData. CadOri:/TELEP YO 34 27 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:09 HandleData. CadOri:/TELEP YO 34 25 81 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:15 HandleData. CadOri:/TELEP YO 34 13 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:18 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:24 HandleData. CadOri:/TELEP YO 34 12 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:27 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:29 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:30 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:30 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:38 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:39 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:39 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:39 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:40 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:54 HandleData. CadOri:/TELEP YO 34 13 84 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:20:58 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:02 HandleData. CadOri:/TELEP YO 34 13 83 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:07 HandleData. CadOri:/TELEP YO 45 13 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:09 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:12 HandleData. CadOri:/TELEP YO 45 12 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:14 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:17 HandleData. CadOri:/TELEP YO 45 11 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:17 HandleData. CadOri:/TELEP YO 45 11 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:18 HandleData. CadOri:/TELEP YO 45 11 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:22 HandleData. CadOri:/TELEP YO 45 11 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:22 HandleData. CadOri:/TELEP YO 45 10 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:21:22 HandleData. CadOri:/TELEP YO 45 10 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:16 HandleData. CadOri:/TELEP YO 34 31 53 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:16 HandleData. CadOri:/TELEP YO 34 25 56 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:17 HandleData. CadOri:/TELEP YO 34 21 60 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:17 HandleData. CadOri:/TELEP YO 34 17 67 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:18 HandleData. CadOri:/TELEP YO 34 11 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:18 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:19 HandleData. CadOri:/TELEP YO 34 10 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:19 HandleData. CadOri:/TELEP YO 34 11 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:19 HandleData. CadOri:/TELEP YO 34 11 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:20 HandleData. CadOri:/TELEP YO 34 13 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:20 HandleData. CadOri:/TELEP YO 34 12 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:21 HandleData. CadOri:/TELEP YO 34 10 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:21 HandleData. CadOri:/TELEP YO 34 10 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:21 HandleData. CadOri:/TELEP YO 34 10 76 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:21 HandleData. CadOri:/TELEP YO 34 10 76 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:22 HandleData. CadOri:/TELEP YO 34 10 76 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:22 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:25 HandleData. CadOri:/TELEP YO 34 13 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:26 HandleData. CadOri:/TELEP YO 34 12 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:27 HandleData. CadOri:/TELEP YO 34 11 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:27 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:23:27 HandleData. CadOri:/TELEP YO 34 11 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:25:56 HandleData. CadOri:/TELEP YO 34 30 53 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:25:56 HandleData. CadOri:/TELEP YO 34 28 58 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:25:57 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:25:57 HandleData. CadOri:/TELEP YO 34 27 64 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:25:58 HandleData. CadOri:/TELEP YO 34 19 69 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:02 HandleData. CadOri:/TELEP YO 34 13 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:03 HandleData. CadOri:/TELEP YO 34 12 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:04 HandleData. CadOri:/TELEP YO 34 11 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:04 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:05 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:06 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:06 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:06 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:06 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:06 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:06 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:07 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:07 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:07 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:08 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:08 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:08 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:08 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:08 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:09 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:09 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:09 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:09 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:09 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:56 HandleData. CadOri:/TELEP YO 47 62 17 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:57 HandleData. CadOri:/TELEP YO 34 34 54 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:57 HandleData. CadOri:/TELEP YO 34 30 57 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:57 HandleData. CadOri:/TELEP YO 34 26 61 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:58 HandleData. CadOri:/TELEP YO 34 23 65 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:26:59 HandleData. CadOri:/TELEP YO 34 15 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:00 HandleData. CadOri:/TELEP YO 34 11 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:00 HandleData. CadOri:/TELEP YO 34 11 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:02 HandleData. CadOri:/TELEP YO 34 14 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:03 HandleData. CadOri:/TELEP YO 34 13 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:03 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:03 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:03 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:03 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:04 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:04 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:04 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:04 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:04 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:04 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:05 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:05 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:05 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:05 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:05 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:06 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:06 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:06 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:06 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:06 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:06 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:07 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:07 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:07 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:07 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:07 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:07 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:07 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:07 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:08 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:08 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:08 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:08 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:27:08 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:28:52 HandleData. CadOri:/TELEP YO 34 33 52 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:28:52 HandleData. CadOri:/TELEP YO 34 29 56 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:28:53 HandleData. CadOri:/TELEP YO 34 27 61 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:28:53 HandleData. CadOri:/TELEP YO 34 26 69 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:00 HandleData. CadOri:/TELEP YO 34 13 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:00 HandleData. CadOri:/TELEP YO 34 12 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:01 HandleData. CadOri:/TELEP YO 34 13 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:01 HandleData. CadOri:/TELEP YO 34 13 78 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:02 HandleData. CadOri:/TELEP YO 34 15 82 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:24 HandleData. CadOri:/TELEP YO 34 11 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:25 HandleData. CadOri:/TELEP YO 34 12 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:25 HandleData. CadOri:/TELEP YO 34 12 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:25 HandleData. CadOri:/TELEP YO 34 12 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 0:29:25 HandleData. CadOri:/TELEP YO 34 12 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:31:26 HandleData. CadOri:/TELEP YO 34 26 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:35 HandleData. CadOri:/TELEP YO 34 28 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:36 HandleData. CadOri:/TELEP YO 34 19 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:40 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:41 HandleData. CadOri:/TELEP YO 34 13 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:41 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:41 HandleData. CadOri:/TELEP YO 34 12 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:42 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:42 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:42 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:42 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:43 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:43 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:44 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:44 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:44 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:44 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:45 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:45 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:45 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:45 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:45 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:50 HandleData. CadOri:/TELEP YO 34 14 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:53 HandleData. CadOri:/TELEP YO 34 13 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:54 HandleData. CadOri:/TELEP YO 34 12 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:56 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:56 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:33:57 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:36:07 HandleData. CadOri:/TELEP YO 34 14 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:03 HandleData. CadOri:/TELEP YO 34 26 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:08 HandleData. CadOri:/TELEP YO 34 13 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:10 HandleData. CadOri:/TELEP YO 34 12 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:11 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:12 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:12 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:12 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:12 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:13 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:13 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:18 HandleData. CadOri:/TELEP YO 34 17 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:21 HandleData. CadOri:/TELEP YO 34 26 44 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:21 HandleData. CadOri:/TELEP YO 34 26 40 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:21 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:22 HandleData. CadOri:/TELEP YO 34 26 35 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:22 HandleData. CadOri:/TELEP YO 34 26 31 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:22 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:22 HandleData. CadOri:/TELEP YO 34 26 27 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:22 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:23 HandleData. CadOri:/TELEP YO 34 26 23 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:41:23 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:07 HandleData. CadOri:/TELEP YO 47 62 17 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:09 HandleData. CadOri:/TELEP YO 34 30 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:12 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:13 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:13 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:16 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:16 HandleData. CadOri:/TELEP YO 34 12 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:27 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:27 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:28 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:28 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:28 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:28 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:29 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:29 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:29 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:29 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:29 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:30 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:30 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:30 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:30 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:30 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:31 HandleData. CadOri:/TELEP YO 34 10 52 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:31 HandleData. CadOri:/TELEP YO 34 11 54 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:32 HandleData. CadOri:/TELEP YO 34 12 55 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:32 HandleData. CadOri:/TELEP YO 34 12 59 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:33 HandleData. CadOri:/TELEP YO 34 12 63 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:34 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:35 HandleData. CadOri:/TELEP YO 34 12 66 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:36 HandleData. CadOri:/TELEP YO 34 12 68 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:39 HandleData. CadOri:/TELEP YO 34 12 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:40 HandleData. CadOri:/TELEP YO 34 12 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:40 HandleData. CadOri:/TELEP YO 34 12 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:40 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:41 HandleData. CadOri:/TELEP YO 34 12 76 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:41 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:41 HandleData. CadOri:/TELEP YO 34 12 78 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:42 HandleData. CadOri:/TELEP YO 34 12 80 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:42 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:43 HandleData. CadOri:/TELEP YO 34 12 82 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:43 HandleData. CadOri:/TELEP YO 34 12 84 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:42:44 HandleData. CadOri:/TELEP YO 34 12 85 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:46:23 HandleData. CadOri:/TELEP YO 34 20 48 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:49:39 HandleData. CadOri:/TELEP YO 34 26 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:49:40 HandleData. CadOri:/TELEP YO 34 18 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:49:42 HandleData. CadOri:/TELEP YO 34 9 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:49:43 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:49:43 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:49:44 HandleData. CadOri:/TELEP YO 34 12 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:27 HandleData. CadOri:/TELEP YO 47 62 16 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:30 HandleData. CadOri:/TELEP YO 34 28 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:30 HandleData. CadOri:/TELEP YO 34 19 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:33 HandleData. CadOri:/TELEP YO 34 12 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:34 HandleData. CadOri:/TELEP YO 34 11 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:34 HandleData. CadOri:/TELEP YO 34 11 48 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:34 HandleData. CadOri:/TELEP YO 34 11 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:34 HandleData. CadOri:/TELEP YO 34 11 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:35 HandleData. CadOri:/TELEP YO 34 10 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:35 HandleData. CadOri:/TELEP YO 34 10 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:35 HandleData. CadOri:/TELEP YO 34 10 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:35 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:35 HandleData. CadOri:/TELEP YO 34 10 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:35 HandleData. CadOri:/TELEP YO 34 10 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:36 HandleData. CadOri:/TELEP YO 34 10 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:36 HandleData. CadOri:/TELEP YO 34 10 49 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:36 HandleData. CadOri:/TELEP YO 34 10 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:36 HandleData. CadOri:/TELEP YO 34 11 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:36 HandleData. CadOri:/TELEP YO 34 12 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:37 HandleData. CadOri:/TELEP YO 34 13 54 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:37 HandleData. CadOri:/TELEP YO 34 15 58 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:37 HandleData. CadOri:/TELEP YO 34 17 63 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:37 HandleData. CadOri:/TELEP YO 34 19 67 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 1:59:37 HandleData. CadOri:/TELEP YO 34 21 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:12 HandleData. CadOri:/TELEP YO 47 62 17 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:13 HandleData. CadOri:/TELEP YO 34 30 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:19 HandleData. CadOri:/TELEP YO 34 13 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:20 HandleData. CadOri:/TELEP YO 34 11 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:21 HandleData. CadOri:/TELEP YO 34 10 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:24 HandleData. CadOri:/TELEP YO 34 9 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:29 HandleData. CadOri:/TELEP YO 34 7 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:31 HandleData. CadOri:/TELEP YO 34 5 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:32 HandleData. CadOri:/TELEP YO 34 5 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:33 HandleData. CadOri:/TELEP YO 34 12 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:34 HandleData. CadOri:/TELEP YO 34 17 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:43 HandleData. CadOri:/TELEP YO 34 27 58 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:44 HandleData. CadOri:/TELEP YO 34 28 65 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:49 HandleData. CadOri:/TELEP YO 34 9 67 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 2:57:53 HandleData. CadOri:/TELEP YO 34 15 67 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:40 HandleData. CadOri:/TELEP YO 34 31 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:41 HandleData. CadOri:/TELEP YO 34 22 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:45 HandleData. CadOri:/TELEP YO 34 9 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:49 HandleData. CadOri:/TELEP YO 34 7 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:50 HandleData. CadOri:/TELEP YO 34 5 51 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:52 HandleData. CadOri:/TELEP YO 34 10 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:53 HandleData. CadOri:/TELEP YO 34 14 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:53 HandleData. CadOri:/TELEP YO 34 20 50 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:58 HandleData. CadOri:/TELEP YO 34 28 59 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:00:59 HandleData. CadOri:/TELEP YO 34 28 64 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:02 HandleData. CadOri:/TELEP YO 34 17 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:03 HandleData. CadOri:/TELEP YO 34 13 83 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:10 HandleData. CadOri:/TELEP YO 45 13 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:14 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:16 HandleData. CadOri:/TELEP YO 45 12 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:19 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:20 HandleData. CadOri:/TELEP YO 45 11 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:23 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:28 HandleData. CadOri:/TELEP YO 45 14 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:31 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:37 HandleData. CadOri:/TELEP YO 45 14 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:40 HandleData. CadOri:/TELEP YO 45 14 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:43 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:52 HandleData. CadOri:/TELEP YO 45 10 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:01:55 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:06 HandleData. CadOri:/TELEP YO 45 9 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:09 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:11 HandleData. CadOri:/TELEP YO 45 8 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:14 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:15 HandleData. CadOri:/TELEP YO 45 7 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:18 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:20 HandleData. CadOri:/TELEP YO 45 6 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:21 HandleData. CadOri:/TELEP YO 45 6 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:22 HandleData. CadOri:/TELEP YO 45 6 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:22 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:22 HandleData. CadOri:/TELEP YO 45 6 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:22 HandleData. CadOri:/TELEP YO 45 6 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:22 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:23 HandleData. CadOri:/TELEP YO 45 6 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:23 HandleData. CadOri:/TELEP YO 45 6 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:23 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:23 HandleData. CadOri:/TELEP YO 45 6 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:23 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:27 HandleData. CadOri:/TELEP YO 45 13 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:30 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:46 HandleData. CadOri:/TELEP YO 45 13 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:49 HandleData. CadOri:/bloq Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:54 HandleData. CadOri:/TELEP YO 45 6 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:55 HandleData. CadOri:/TELEP YO 45 7 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:56 HandleData. CadOri:/TELEP YO 45 2 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:56 HandleData. CadOri:/TELEP YO 45 3 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:56 HandleData. CadOri:/TELEP YO 45 4 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:57 HandleData. CadOri:/TELEP YO 45 4 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:57 HandleData. CadOri:/TELEP YO 45 4 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:57 HandleData. CadOri:/TELEP YO 45 4 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:57 HandleData. CadOri:/TELEP YO 45 4 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:57 HandleData. CadOri:/MOV Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:58 HandleData. CadOri:/TELEP YO 45 4 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:58 HandleData. CadOri:/TELEP YO 45 6 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:58 HandleData. CadOri:/TELEP YO 45 6 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:58 HandleData. CadOri:/TELEP YO 45 5 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:58 HandleData. CadOri:/TELEP YO 45 5 75 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:59 HandleData. CadOri:/TELEP YO 45 5 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:59 HandleData. CadOri:/TELEP YO 45 5 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:02:59 HandleData. CadOri:/TELEP YO 45 6 74 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:00 HandleData. CadOri:/TELEP YO 45 7 73 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:00 HandleData. CadOri:/TELEP YO 45 7 71 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:00 HandleData. CadOri:/TELEP YO 45 7 69 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:01 HandleData. CadOri:/TELEP YO 45 6 68 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:01 HandleData. CadOri:/TELEP YO 45 6 68 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:01 HandleData. CadOri:/TELEP YO 45 6 68 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:01 HandleData. CadOri:/TELEP YO 45 5 69 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:02 HandleData. CadOri:/TELEP YO 45 4 70 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:02 HandleData. CadOri:/TELEP YO 45 4 72 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:02 HandleData. CadOri:/TELEP YO 45 2 73 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:02 HandleData. CadOri:/TELEP YO 45 2 73 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:02 HandleData. CadOri:/TELEP YO 45 1 73 Nom:bassingerUI:1 N: 0 D: 
+02/06/2020 3:03:03 HandleData. CadOri:/TELEP YO 45 1 73 Nom:bassingerUI:1 N: 0 D: 

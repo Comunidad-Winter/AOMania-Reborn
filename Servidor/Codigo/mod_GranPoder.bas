@@ -64,8 +64,8 @@ Public Sub DarGranPoder(ByVal UserIndex As Integer)
             GranPoder.Timer = 0
             Exit Sub
         End If
-        Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & UserList(UserIndex).Name & " poseedor del Aura de los Heroes!!!. En el mapa " & UserList(UserIndex).pos.Map & "." & FONTTYPE_GUERRA)
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & FX_Poder & "," & 1)
+        Call SendData(SendTarget.ToAll, UserIndex, 0, "||" & UserList(UserIndex).Name & " poseedor del Aura de los Heroes!!!. En el mapa " & UserList(UserIndex).Pos.Map & "." & FONTTYPE_GUERRA)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & FX_Poder & "," & 1)
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "TW" & Sound_Poder)
         GranPoder.Status = 1
         GranPoder.UserIndex = UserIndex
@@ -77,9 +77,9 @@ End Sub
 
 Public Function PermiteMapaPoder(ByVal UserIndex As Integer) As Boolean
 
-    Select Case UserList(UserIndex).pos.Map
+    Select Case UserList(UserIndex).Pos.Map
 
-    Case 1, 20, 34, 37, 59, 60, 62, 64, 84, 86, 95, 98, 99, 100, 101, 102, 132, 149, 150, _
+    Case 1, 20, 34, 37, 48, 59, 60, 62, 64, 84, 86, 95, 98, 99, 100, 101, 102, 132, 149, 150, _
              154, 159, 160, 161, 162, 163, 164, 192
         PermiteMapaPoder = False
         Exit Function

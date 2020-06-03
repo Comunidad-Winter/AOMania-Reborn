@@ -80,10 +80,10 @@ Sub NpcLanzaSpellSobreUser(ByVal NpcIndex As Integer, _
             If UserList(UserIndex).Stats.MinHP < 1 Then
                 UserList(UserIndex).Stats.MinHP = 0
 
-                If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-                    RestarCriminalidad (UserIndex)
-
-                End If
+'                If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
+'                    RestarCriminalidad (UserIndex)
+'
+'                End If
 
                 MuereSpell = Hechizos(Spell).FXgrh
                 LoopSpell = Hechizos(Spell).loops
@@ -303,15 +303,17 @@ Sub DecirPalabrasMagicas(ByVal s As String, ByVal UserIndex As Integer)
     End If
 
 
-    If Criminal(UserIndex) Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "||" & vbRed & "°" & s & "°" & ind)
-        Exit Sub
-    End If
+'    If Criminal(UserIndex) Then
+'        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "||" & vbRed & "°" & s & "°" & ind)
+'        Exit Sub
+'    End If
+'
+'    If Not Criminal(UserIndex) Then
+'        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "||" & vbCyan & "°" & s & "°" & ind)
+'        Exit Sub
+'    End If
 
-    If Not Criminal(UserIndex) Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "||" & vbCyan & "°" & s & "°" & ind)
-        Exit Sub
-    End If
+Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "||" & vbCyan & "°" & s & "°" & ind)
 
 End Sub
 
@@ -961,18 +963,18 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         '    Exit Sub
         ' End If
 
-        If Criminal(TU) And Not Criminal(UserIndex) Then
-            If UserList(UserIndex).flags.Seguro Then
-
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z6")
-                Exit Sub
-            Else
-                'Aqui se hace criminales ciudadano vs ciudadano cuando pegan con hechizos.
-                Call VolverCriminal(UserIndex)
-
-            End If
-
-        End If
+'        If Criminal(TU) And Not Criminal(UserIndex) Then
+'            If UserList(UserIndex).flags.Seguro Then
+'
+'                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z6")
+'                Exit Sub
+'            Else
+'                'Aqui se hace criminales ciudadano vs ciudadano cuando pegan con hechizos.
+'                Call VolverCriminal(UserIndex)
+'
+'            End If
+'
+'        End If
 
         UserList(TU).flags.Invisible = 1
 
@@ -1320,15 +1322,15 @@ Sub HechizoEstadoUsuario(ByVal UserIndex As Integer, ByRef b As Boolean)
         End If
 
         '/Juan Maraxus
-        If Not Criminal(TU) Then
-            If TU <> UserIndex Then
-
-                Call AddtoVar(UserList(UserIndex).Reputacion.NobleRep, 500, MAXREP)
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Los Dioses te sonrien, has ganado 500 puntos de nobleza!." & FONTTYPE_INFO)
-
-            End If
-
-        End If
+'        If Not Criminal(TU) Then
+'            If TU <> UserIndex Then
+'
+'                Call AddtoVar(UserList(UserIndex).Reputacion.NobleRep, 500, MAXREP)
+'                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Los Dioses te sonrien, has ganado 500 puntos de nobleza!." & FONTTYPE_INFO)
+'
+'            End If
+'
+'        End If
 
         'UserList(TU).Stats.MinMAN = 0
         Call EnviarMn(UserIndex)
@@ -1498,20 +1500,20 @@ Sub HechizoEstadoNPC(ByVal NpcIndex As Integer, ByVal hIndex As Integer, ByRef b
 
         End If
 
-        If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-            If UserList(UserIndex).flags.Seguro Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z8")
-                Exit Sub
-            Else
-                UserList(UserIndex).Reputacion.NobleRep = 0
-                UserList(UserIndex).Reputacion.PlebeRep = 0
-                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 200
-
-                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
-
-            End If
-
-        End If
+'        If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
+'            If UserList(UserIndex).flags.Seguro Then
+'                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z8")
+'                Exit Sub
+'            Else
+'                UserList(UserIndex).Reputacion.NobleRep = 0
+'                UserList(UserIndex).Reputacion.PlebeRep = 0
+'                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 200
+'
+'                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
+'
+'            End If
+'
+'        End If
 
         Call InfoHechizo(UserIndex)
         Npclist(NpcIndex).flags.Envenenado = 1
@@ -1575,20 +1577,20 @@ Sub HechizoEstadoNPC(ByVal NpcIndex As Integer, ByVal hIndex As Integer, ByRef b
 
         End If
 
-        If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-            If UserList(UserIndex).flags.Seguro Then
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z8")
-                Exit Sub
-            Else
-                UserList(UserIndex).Reputacion.NobleRep = 0
-                UserList(UserIndex).Reputacion.PlebeRep = 0
-                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 200
-
-                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
-
-            End If
-
-        End If
+'        If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
+'            If UserList(UserIndex).flags.Seguro Then
+'                Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z8")
+'                Exit Sub
+'            Else
+'                UserList(UserIndex).Reputacion.NobleRep = 0
+'                UserList(UserIndex).Reputacion.PlebeRep = 0
+'                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 200
+'
+'                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
+'
+'            End If
+'
+'        End If
 
         Call InfoHechizo(UserIndex)
         Npclist(NpcIndex).flags.Maldicion = 1
@@ -1618,20 +1620,20 @@ Sub HechizoEstadoNPC(ByVal NpcIndex As Integer, ByVal hIndex As Integer, ByRef b
         End If
 
         If Npclist(NpcIndex).flags.AfectaParalisis = 0 Then
-            If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-                If UserList(UserIndex).flags.Seguro Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z8")
-                    Exit Sub
-                Else
-                    UserList(UserIndex).Reputacion.NobleRep = 0
-                    UserList(UserIndex).Reputacion.PlebeRep = 0
-                    UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 500
-
-                    If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
-
-                End If
-
-            End If
+'            If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
+'                If UserList(UserIndex).flags.Seguro Then
+'                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z8")
+'                    Exit Sub
+'                Else
+'                    UserList(UserIndex).Reputacion.NobleRep = 0
+'                    UserList(UserIndex).Reputacion.PlebeRep = 0
+'                    UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 500
+'
+'                    If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
+'
+'                End If
+'
+'            End If
 
             Call InfoHechizo(UserIndex)
             Npclist(NpcIndex).flags.Paralizado = 1
@@ -1665,20 +1667,20 @@ Sub HechizoEstadoNPC(ByVal NpcIndex As Integer, ByVal hIndex As Integer, ByRef b
 
     If Hechizos(hIndex).Inmoviliza = 1 Then
         If Npclist(NpcIndex).flags.AfectaParalisis = 0 Then
-            If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-                If UserList(UserIndex).flags.Seguro Then
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z8")
-                    Exit Sub
-                Else
-                    UserList(UserIndex).Reputacion.NobleRep = 0
-                    UserList(UserIndex).Reputacion.PlebeRep = 0
-                    UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 500
-
-                    If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
-
-                End If
-
-            End If
+'            If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
+'                If UserList(UserIndex).flags.Seguro Then
+'                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z8")
+'                    Exit Sub
+'                Else
+'                    UserList(UserIndex).Reputacion.NobleRep = 0
+'                    UserList(UserIndex).Reputacion.PlebeRep = 0
+'                    UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 500
+'
+'                    If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
+'
+'                End If
+'
+'            End If
 
             Npclist(NpcIndex).flags.Inmovilizado = 1
             Npclist(NpcIndex).flags.Paralizado = 0
@@ -2758,18 +2760,18 @@ Public Sub DisNobAuBan(ByVal UserIndex As Integer, NoblePts As Long, BandidoPts 
     If MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 6 Then Exit Sub
 
     'pierdo nobleza...
-    UserList(UserIndex).Reputacion.NobleRep = UserList(UserIndex).Reputacion.NobleRep - NoblePts
-
-    If UserList(UserIndex).Reputacion.NobleRep < 0 Then
-        UserList(UserIndex).Reputacion.NobleRep = 0
-
-    End If
+'    UserList(UserIndex).Reputacion.NobleRep = UserList(UserIndex).Reputacion.NobleRep - NoblePts
+'
+'    If UserList(UserIndex).Reputacion.NobleRep < 0 Then
+'        UserList(UserIndex).Reputacion.NobleRep = 0
+'
+'    End If
 
     'gano bandido...
-    UserList(UserIndex).Reputacion.BandidoRep = UserList(UserIndex).Reputacion.BandidoRep + BandidoPts
-
-    If UserList(UserIndex).Reputacion.BandidoRep > MAXREP Then UserList(UserIndex).Reputacion.BandidoRep = MAXREP
-    Call SendData(SendTarget.ToIndex, UserIndex, 0, "PN")
+'    UserList(UserIndex).Reputacion.BandidoRep = UserList(UserIndex).Reputacion.BandidoRep + BandidoPts
+'
+'    If UserList(UserIndex).Reputacion.BandidoRep > MAXREP Then UserList(UserIndex).Reputacion.BandidoRep = MAXREP
+   ' Call SendData(SendTarget.ToIndex, UserIndex, 0, "PN")
 
     'If Criminal(UserIndex) Then
     '    If UserList(UserIndex).Faccion.ArmadaReal = 1 Then

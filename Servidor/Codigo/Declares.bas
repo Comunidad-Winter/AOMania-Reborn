@@ -1136,17 +1136,17 @@ End Type
 '*********************************************************
 '*********************************************************
 
-Public Type tReputacion    'Fama del usuario
-
-    NobleRep As Double
-    BurguesRep As Double
-    PlebeRep As Double
-    LadronesRep As Double
-    BandidoRep As Double
-    AsesinoRep As Double
-    Promedio As Double
-
-End Type
+'Public Type tReputacion    'Fama del usuario
+'
+'    NobleRep As Double
+'    BurguesRep As Double
+'    PlebeRep As Double
+'    LadronesRep As Double
+'    BandidoRep As Double
+'    AsesinoRep As Double
+'    Promedio As Double
+'
+'End Type
 
 'Estadisticas de los usuarios
 Public Type UserStats
@@ -1595,7 +1595,7 @@ Public Type User
     BytesTransmitidosUser As Long
     BytesTransmitidosSvr As Long
 
-    Reputacion As tReputacion
+    'Reputacion As tReputacion
     Faccion As tFacciones
 
     ip As String

@@ -19,7 +19,7 @@ Public Sub DoPermanecerOculto(ByVal UserIndex As Integer)
 
             If .flags.Invisible = 0 Then
                 'no hace falta encriptar este (se jode el gil que bypassea esto)
-                Call SendData(SendTarget.ToMap, 0, .pos.Map, "NOVER" & .char.CharIndex & ",0," & .PartyIndex)
+                Call SendData(SendTarget.ToMap, 0, .Pos.Map, "NOVER" & .char.CharIndex & ",0," & .PartyIndex)
 
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z11")
 
@@ -51,7 +51,7 @@ Public Sub DoOcultarse(ByVal UserIndex As Integer)
         Exit Sub
     End If
 
-    If UserList(UserIndex).pos.Map = 154 Or UserList(UserIndex).pos.Map = 96 Then
+    If UserList(UserIndex).Pos.Map = 154 Or UserList(UserIndex).Pos.Map = 96 Then
         Exit Sub
     End If
 
@@ -81,7 +81,7 @@ Public Sub DoOcultarse(ByVal UserIndex As Integer)
 
             .Counters.Ocultando = SegOculto    'CInt(Suerte)
 
-            Call SendData(SendTarget.ToMap, 0, .pos.Map, "NOVER" & .char.CharIndex & ",1," & .PartyIndex)
+            Call SendData(SendTarget.ToMap, 0, .Pos.Map, "NOVER" & .char.CharIndex & ",1," & .PartyIndex)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Te has escondido entre las sombras!" & FONTTYPE_INFO)
 
             Call SubirSkill(UserIndex, eSkill.Ocultarse)
@@ -148,13 +148,16 @@ Public Sub DoNavega(ByRef UserIndex As Integer, ByRef Barco As ObjData)
                 If .Invent.CascoEqpObjIndex > 0 Then .char.CascoAnim = ObjData(.Invent.CascoEqpObjIndex).CascoAnim
                 If .Invent.AlaEqpObjIndex > 0 Then .char.Alas = ObjData(.Invent.AlaEqpObjIndex).Ropaje
                 Else
-                If .Reputacion.Promedio < 0 Then
-                    .char.Body = iCuerpoMuertoCrimi
-                    .char.Head = iCabezaMuertoCrimi
-                Else
-                    .char.Body = iCuerpoMuerto
-                    .char.Head = iCabezaMuerto
-                End If
+'                If .Reputacion.Promedio < 0 Then
+'                    .char.Body = iCuerpoMuertoCrimi
+'                    .char.Head = iCabezaMuertoCrimi
+'                Else
+'                    .char.Body = iCuerpoMuerto
+'                    .char.Head = iCabezaMuerto
+'                End If
+                'Si es de una armada es una, si es de otra, otra.
+                .char.Body = iCuerpoMuerto
+               .char.Head = iCabezaMuerto
                 .char.ShieldAnim = NingunEscudo
                 .char.WeaponAnim = NingunArma
                 .char.CascoAnim = NingunCasco
@@ -167,7 +170,7 @@ Public Sub DoNavega(ByRef UserIndex As Integer, ByRef Barco As ObjData)
 
         End If
 
-        Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, _
+        Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, .char.heading, .char.WeaponAnim, .char.ShieldAnim, _
                             .char.CascoAnim, .char.Alas)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "NAVEG")
@@ -420,7 +423,7 @@ Function CarpinteroTieneMateriales(ByVal UserIndex As Integer, ByVal ItemIndex A
     End If
 
     CarpinteroTieneMateriales = True
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW42")
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW42")
 
 End Function
 
@@ -604,7 +607,7 @@ Public Sub SastreConstruirItem(ByVal UserIndex, ByVal ItemIndex As Integer)
         Obj.Amount = 1
 
         If Not MeterItemEnInventario(UserIndex, Obj) Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, Obj)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, Obj)
         End If
 
         UserList(UserIndex).Counters.Trabajando = UserList(UserIndex).Counters.Trabajando + 1
@@ -636,12 +639,12 @@ Public Sub HerreroMagicoConstruirItem(ByVal UserIndex As Integer, ByVal ItemInde
         MiObj.ObjIndex = ItemIndex
 
         If Not MeterItemEnInventario(UserIndex, MiObj) Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
         End If
 
         Call SubirSkill(UserIndex, eSkill.Herrero)
         Call UpdateUserInv(True, UserIndex, 0)
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & MARTILLOHERRERO)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & MARTILLOHERRERO)
 
     End If
 
@@ -655,6 +658,7 @@ Public Sub HerreroConstruirItem(ByVal UserIndex As Integer, ByVal ItemIndex As I
 
 'Call LogTarea("Sub HerreroConstruirItem")
     If PuedeConstruir(UserIndex, ItemIndex) And PuedeConstruirHerreria(ItemIndex) Then
+    
         Call HerreroQuitarMateriales(UserIndex, ItemIndex)
 
         If ObjData(ItemIndex).ObjType = eOBJType.otWeapon Then
@@ -672,13 +676,13 @@ Public Sub HerreroConstruirItem(ByVal UserIndex As Integer, ByVal ItemIndex As I
         MiObj.ObjIndex = ItemIndex
 
         If Not MeterItemEnInventario(UserIndex, MiObj) Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
 
         End If
 
         Call SubirSkill(UserIndex, eSkill.Herreria)
         Call UpdateUserInv(True, UserIndex, 0)
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & MARTILLOHERRERO)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & MARTILLOHERRERO)
 
     End If
 
@@ -728,7 +732,7 @@ Public Sub HechizeriaConstruirItem(ByVal UserIndex As Integer, ByVal ItemIndex A
         Obj.Amount = Cantidad
 
         If Not MeterItemEnInventario(UserIndex, Obj) Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, Obj)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, Obj)
         End If
 
         Call SubirSkill(UserIndex, eSkill.Hechiceria)
@@ -755,7 +759,7 @@ Public Sub CarpinteroConstruirItem(ByVal UserIndex As Integer, ByVal ItemIndex A
 
 
         If Not MeterItemEnInventario(UserIndex, MiObj) Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
         End If
 
         Call SubirSkill(UserIndex, eSkill.Carpinteria)
@@ -852,7 +856,7 @@ Public Sub DoLingotes(ByVal UserIndex As Integer)
         MiObj.ObjIndex = ObjData(UserList(UserIndex).flags.TargetObjInvIndex).LingoteIndex
 
         If Not MeterItemEnInventario(UserIndex, MiObj) Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
 
         End If
 
@@ -869,7 +873,7 @@ Public Sub DoLingotes(ByVal UserIndex As Integer)
 
     End If
 
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW119")
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW119")
 
 End Sub
 
@@ -1064,7 +1068,7 @@ Sub DoAdminInvisible(ByVal UserIndex As Integer)
             .char.Alas = NingunAlas
             .char.CascoAnim = NingunCasco
             .char.ShieldAnim = NingunEscudo
-            Call SendData(SendTarget.ToMap, 0, .pos.Map, "NOVER" & .char.CharIndex & ",1," & .PartyIndex)
+            Call SendData(SendTarget.ToMap, 0, .Pos.Map, "NOVER" & .char.CharIndex & ",1," & .PartyIndex)
         Else
             .flags.AdminInvisible = 0
             .flags.Invisible = 0
@@ -1074,10 +1078,10 @@ Sub DoAdminInvisible(ByVal UserIndex As Integer)
              If .Invent.CascoEqpObjIndex > 0 Then .char.CascoAnim = ObjData(.Invent.CascoEqpObjIndex).CascoAnim
              If .Invent.EscudoEqpObjIndex > 0 Then .char.ShieldAnim = ObjData(.Invent.CascoEqpObjIndex).ShieldAnim
              If .Invent.AlaEqpObjIndex > 0 Then .char.Alas = ObjData(.Invent.AlaEqpObjIndex).Ropaje
-             Call SendData(SendTarget.ToMap, 0, .pos.Map, "NOVER" & .char.CharIndex & ",0," & .PartyIndex)
+             Call SendData(SendTarget.ToMap, 0, .Pos.Map, "NOVER" & .char.CharIndex & ",0," & .PartyIndex)
         End If
     '[GAU] Agregamo UserList(UserIndex).Char.Botas
-   Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
+   Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
                                                                                                                             UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList( _
                                                                                                                                                                            UserIndex).char.ShieldAnim, UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
    
@@ -1101,7 +1105,7 @@ Sub TratarDeHacerFogata(ByVal Map As Integer, ByVal X As Integer, ByVal Y As Int
 
     End With
 
-    If Distancia(posMadera, UserList(UserIndex).pos) > 2 Then
+    If Distancia(posMadera, UserList(UserIndex).Pos) > 2 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estás demasiado lejos para prender la fogata." & FONTTYPE_INFO)
         Exit Sub
 
@@ -1205,7 +1209,7 @@ Public Sub DoPescar(ByVal UserIndex As Integer)
         MiObj.ObjIndex = Pescado
 
         If Not MeterItemEnInventario(UserIndex, MiObj) Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
 
         End If
 
@@ -1325,7 +1329,7 @@ Public Sub DoPescarRed(ByVal UserIndex As Integer)
             End If
 
             If Not MeterItemEnInventario(UserIndex, MiObj) Then
-                Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+                Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
 
             End If
 
@@ -1351,12 +1355,18 @@ Public Sub DoRobar(ByVal LadrOnIndex As Integer, ByVal VictimaIndex As Integer)
   
     On Error GoTo errhandler
 
-    If Not MapInfo(UserList(VictimaIndex).pos.Map).Pk Then Exit Sub
+    If Not MapInfo(UserList(VictimaIndex).Pos.Map).Pk Then Exit Sub
+    
     If TriggerZonaPelea(LadrOnIndex, VictimaIndex) <> TRIGGER6_AUSENTE Then Exit Sub
     
-    If UserList(LadrOnIndex).pos.Map = MapaBan Or UserList(LadrOnIndex).pos.Map = MapaMedusa Then Exit Sub
+    If UserList(LadrOnIndex).Pos.Map = MapaBan Or UserList(LadrOnIndex).Pos.Map = MapaMedusa Then Exit Sub
 
     If UserList(VictimaIndex).flags.Privilegios = PlayerType.User Then
+    
+     If UserList(LadrOnIndex).Stats.MinSta = 0 Then
+          Call SendData(ToIndex, LadrOnIndex, 0, "||Necesitas energia para poder robar." & FONTTYPE_INFO)
+          Exit Sub
+     End If
 
         Dim Suerte As Integer
         
@@ -1399,12 +1409,12 @@ Public Sub DoRobar(ByVal LadrOnIndex As Integer, ByVal VictimaIndex As Integer)
             
         End If
             
-        If Not Criminal(LadrOnIndex) Then
-            Call VolverCriminal(LadrOnIndex)
-
-        End If
+'        If Not Criminal(LadrOnIndex) Then
+'            Call VolverCriminal(LadrOnIndex)
+'
+'        End If
             
-        Call AddtoVar(UserList(LadrOnIndex).Reputacion.LadronesRep, vlLadron, MAXREP)
+'        Call AddtoVar(UserList(LadrOnIndex).Reputacion.LadronesRep, vlLadron, MAXREP)
             
     End If
         
@@ -1496,7 +1506,7 @@ Public Sub RobarObjeto(ByVal LadrOnIndex As Integer, ByVal VictimaIndex As Integ
         Call UpdateUserInv(False, VictimaIndex, CByte(i))
 
         If Not MeterItemEnInventario(LadrOnIndex, MiObj) Then
-            Call TirarItemAlPiso(UserList(LadrOnIndex).pos, MiObj)
+            Call TirarItemAlPiso(UserList(LadrOnIndex).Pos, MiObj)
 
         End If
 
@@ -1575,12 +1585,12 @@ Public Sub DoApuñalar(ByVal UserIndex As Integer, ByVal VictimNpcIndex As Intege
 
                     Call SendData(SendTarget.ToIndex, VictimUserIndex, 0, "||Te ha apuñalado " & .Name & " por " & DañoApuñalar & FONTTYPE_APU)
 
-                    Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "TW10")
+                    Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "TW10")
 
-                    Call SendData(SendTarget.ToPCArea, VictimUserIndex, UserList(VictimUserIndex).pos.Map, "CFX" & UserList( _
+                    Call SendData(SendTarget.ToPCArea, VictimUserIndex, UserList(VictimUserIndex).Pos.Map, "CFX" & UserList( _
                                                                                                            VictimUserIndex).char.CharIndex & "," & 17 & "," & 1)
 
-                    Call SendData(ToPCArea, UserIndex, .pos.Map, "||" & vbCyan & "°Apu! + " & DañoApuñalar & "!°" & CStr(.char.CharIndex))
+                    Call SendData(ToPCArea, UserIndex, .Pos.Map, "||" & vbCyan & "°Apu! + " & DañoApuñalar & "!°" & CStr(.char.CharIndex))
                 Else
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡No has logrado apuñalar a tu enemigo!" & FONTTYPE_FIGHT)
                 End If
@@ -1596,12 +1606,12 @@ Public Sub DoApuñalar(ByVal UserIndex As Integer, ByVal VictimNpcIndex As Intege
 
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has apuñalado la criatura por " & DañoApuñalar & FONTTYPE_APU)
 
-                    Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "TW12")
+                    Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "TW12")
 
                     ' Call SendData(SendTarget.ToNPCArea, VictimNpcIndex, Npclist(VictimNpcIndex).pos.Map, "CFX" & Npclist(VictimNpcIndex).char.CharIndex _
                       & "," & 17 & "," & 1)
 
-                    Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "||" & vbCyan & "°Apu! + " & DañoApuñalar & "!°" & CStr(.char.CharIndex))
+                    Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "||" & vbCyan & "°Apu! + " & DañoApuñalar & "!°" & CStr(.char.CharIndex))
 
                     '[Alejo]
                     Call CalcularDarExp(UserIndex, VictimNpcIndex, DañoTotal)
@@ -1749,7 +1759,7 @@ Public Sub DoTalar(ByVal UserIndex As Integer)
 
         If Not MeterItemEnInventario(UserIndex, MiObj) Then
 
-            Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
 
         End If
 
@@ -1833,7 +1843,7 @@ Public Sub DoTalarHierba(ByVal UserIndex As Integer)
 
         If Not MeterItemEnInventario(UserIndex, MiObj) Then
 
-            Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
 
         End If
 
@@ -1858,74 +1868,82 @@ errhandler:
 
 End Sub
 
-Sub VolverCriminal(ByVal UserIndex As Integer)
+'Sub VolverCriminal(ByVal UserIndex As Integer)
+'
+'    If UserList(UserIndex).Pos.Map = "154" Then
+'        Exit Sub
+'    End If
+'
+'    If UserList(UserIndex).Faccion.Templario = "1" Or UserList(UserIndex).Faccion.ArmadaReal = "1" Then
+'        Exit Sub
+'    End If
+'
+'    If MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 6 Then Exit Sub
+'
+'    If UserList(UserIndex).flags.Privilegios < PlayerType.SemiDios Then
+'        UserList(UserIndex).Reputacion.BurguesRep = 0
+'        UserList(UserIndex).Reputacion.NobleRep = 0
+'        UserList(UserIndex).Reputacion.PlebeRep = 0
+'        UserList(UserIndex).Reputacion.BandidoRep = UserList(UserIndex).Reputacion.BandidoRep + vlASALTO
+'
+'        If UserList(UserIndex).Reputacion.BandidoRep > MAXREP Then UserList(UserIndex).Reputacion.BandidoRep = MAXREP
+'
+'        'If UserList(UserIndex).Faccion.ArmadaReal = 1 Then
+'        '    Call ExpulsarFaccionReal(UserIndex)
+'        'End If
+'
+'        'If UserList(UserIndex).Faccion.Templario = 1 Then
+'        '    Call ExpulsarFaccionTemplario(UserIndex)
+'        'End If
+'
+'    End If
+'
+'    If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
+'        OnlineCriminal = OnlineCriminal + 1
+'        If OnlineCiudadano > 0 Then
+'        OnlineCiudadano = OnlineCiudadano - 1
+'        End If
+'    End If
+'
+'    #If MYSQL = 1 Then
+'        DoEvents
+'        Call Add_DataBase(UserIndex, "Ranking")
+'    #End If
+'
+'End Sub
 
-    If UserList(UserIndex).pos.Map = "154" Then
-        Exit Sub
-    End If
-
-    If UserList(UserIndex).Faccion.Templario = "1" Or UserList(UserIndex).Faccion.ArmadaReal = "1" Then
-        Exit Sub
-    End If
-
-    If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 6 Then Exit Sub
-
-    If UserList(UserIndex).flags.Privilegios < PlayerType.SemiDios Then
-        UserList(UserIndex).Reputacion.BurguesRep = 0
-        UserList(UserIndex).Reputacion.NobleRep = 0
-        UserList(UserIndex).Reputacion.PlebeRep = 0
-        UserList(UserIndex).Reputacion.BandidoRep = UserList(UserIndex).Reputacion.BandidoRep + vlASALTO
-
-        If UserList(UserIndex).Reputacion.BandidoRep > MAXREP Then UserList(UserIndex).Reputacion.BandidoRep = MAXREP
-
-        'If UserList(UserIndex).Faccion.ArmadaReal = 1 Then
-        '    Call ExpulsarFaccionReal(UserIndex)
-        'End If
-
-        'If UserList(UserIndex).Faccion.Templario = 1 Then
-        '    Call ExpulsarFaccionTemplario(UserIndex)
-        'End If
-
-    End If
-
-    OnlineCriminal = OnlineCriminal + 1
-    OnlineCiudadano = OnlineCiudadano - 1
-
-    #If MYSQL = 1 Then
-        DoEvents
-        Call Add_DataBase(UserIndex, "Ranking")
-    #End If
-
-End Sub
-
-Sub VolverCiudadano(ByVal UserIndex As Integer)
-
-    If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).Trigger = 6 Then Exit Sub
-
-    UserList(UserIndex).Reputacion.LadronesRep = 0
-    UserList(UserIndex).Reputacion.BandidoRep = 0
-    UserList(UserIndex).Reputacion.AsesinoRep = 0
-    UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlASALTO
-
-    If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
-
-    'If UserList(UserIndex).Faccion.FuerzasCaos = 1 Then
-    '    Call ExpulsarFaccionCaos(UserIndex)
-    'End If
-
-    'If UserList(UserIndex).Faccion.Nemesis = 1 Then
-    '    Call ExpulsarFaccionNemesis(UserIndex)
-    'End If
-
-    OnlineCiudadano = OnlineCiudadano + 1
-    OnlineCriminal = OnlineCriminal - 1
-
-    #If MYSQL = 1 Then
-        DoEvents
-        Call Add_DataBase(UserIndex, "Ranking")
-    #End If
-
-End Sub
+'Sub VolverCiudadano(ByVal UserIndex As Integer)
+'
+'    If MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).Trigger = 6 Then Exit Sub
+'
+'    UserList(UserIndex).Reputacion.LadronesRep = 0
+'    UserList(UserIndex).Reputacion.BandidoRep = 0
+'    UserList(UserIndex).Reputacion.AsesinoRep = 0
+'    UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlASALTO
+'
+'    If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
+'
+'    'If UserList(UserIndex).Faccion.FuerzasCaos = 1 Then
+'    '    Call ExpulsarFaccionCaos(UserIndex)
+'    'End If
+'
+'    'If UserList(UserIndex).Faccion.Nemesis = 1 Then
+'    '    Call ExpulsarFaccionNemesis(UserIndex)
+'    'End If
+'
+'   If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
+'    OnlineCiudadano = OnlineCiudadano + 1
+'     If OnlineCriminal > 0 Then
+'        OnlineCriminal = OnlineCriminal - 1
+'     End If
+'    End If
+'
+'    #If MYSQL = 1 Then
+'        DoEvents
+'        Call Add_DataBase(UserIndex, "Ranking")
+'    #End If
+'
+'End Sub
 
 Public Sub DoMineria(ByVal UserIndex As Integer)
 
@@ -1983,7 +2001,7 @@ Public Sub DoMineria(ByVal UserIndex As Integer)
 
         End If
 
-        If Not MeterItemEnInventario(UserIndex, MiObj) Then Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+        If Not MeterItemEnInventario(UserIndex, MiObj) Then Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has extraido " & CtdMineria & " minerales!" & FONTTYPE_INFO)
 
@@ -1997,7 +2015,7 @@ Public Sub DoMineria(ByVal UserIndex As Integer)
 
             MiObj.ObjIndex = Diamante
             MiObj.Amount = 1
-            If Not MeterItemEnInventario(UserIndex, MiObj) Then Call TirarItemAlPiso(UserList(UserIndex).pos, MiObj)
+            If Not MeterItemEnInventario(UserIndex, MiObj) Then Call TirarItemAlPiso(UserList(UserIndex).Pos, MiObj)
 
         End If
 
@@ -2062,7 +2080,7 @@ Public Sub DoOveja(ByVal UserIndex As Integer)
 
     If Rs <= 5 Then
 
-        If Not MeterItemEnInventario(UserIndex, Obj) Then Call TirarItemAlPiso(UserList(UserIndex).pos, Obj)
+        If Not MeterItemEnInventario(UserIndex, Obj) Then Call TirarItemAlPiso(UserList(UserIndex).Pos, Obj)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has conseguido de lana!" & FONTTYPE_INFO)
 
@@ -2076,7 +2094,7 @@ Public Sub DoOveja(ByVal UserIndex As Integer)
 
     Call SubirSkill(UserIndex, eSkill.Sastreria)
     UserList(UserIndex).Counters.Trabajando = UserList(UserIndex).Counters.Trabajando + 1
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW61")
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW61")
 
 End Sub
 
@@ -2116,7 +2134,7 @@ Public Sub DoMeditar(ByVal UserIndex As Integer)
         UserList(UserIndex).flags.Meditando = False
         UserList(UserIndex).char.FX = 0
         UserList(UserIndex).char.loops = 0
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 0 & "," & 0)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 0 & "," & 0)
         Exit Sub
 
     End If

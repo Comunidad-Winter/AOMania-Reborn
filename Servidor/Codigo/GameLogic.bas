@@ -1139,11 +1139,11 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                                 Stat = Stat & " [Consejo de las Sombras]" & FONTTYPE_CONSEJOCAOSVesA
                             Else
 
-                                If Criminal(TempCharIndex) Then
-                                    Stat = Stat & " <CRIMINAL>"
-                                Else
-                                    Stat = Stat & " <CIUDADANO>"
-                                End If
+'                                If Criminal(TempCharIndex) Then
+'                                    Stat = Stat & " <CRIMINAL>"
+'                                Else
+'                                    Stat = Stat & " <CIUDADANO>"
+'                                End If
 
                                 If UserList(TempCharIndex).Faccion.ArmadaReal = 1 Then
                                     Stat = Stat & "~0~0~200~1~0"
@@ -1158,12 +1158,14 @@ Sub LookatTile(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As Inte
                                 If UserList(TempCharIndex).Faccion.ArmadaReal = 0 And UserList(TempCharIndex).Faccion.FuerzasCaos = 0 And _
                                    UserList(TempCharIndex).Faccion.Nemesis = 0 And UserList(TempCharIndex).Faccion.Templario = 0 Then
 
-                                    If Criminal(TempCharIndex) Then
-                                        Stat = Stat & "~255~0~0~1~0"
-                                    Else
-                                        Stat = Stat & "~0~0~200~1~0"
-                                    End If
-
+'                                    If Criminal(TempCharIndex) Then
+'                                        Stat = Stat & "~255~0~0~1~0"
+'                                    Else
+'                                        Stat = Stat & "~0~0~200~1~0"
+'                                    End If
+                                     
+                                     Stat = Stat & "~0~0~200~1~0"
+                                     
                                 End If
 
 

@@ -395,37 +395,37 @@ Public Sub UserMataQuest(ByVal UserIndex As Integer, ByVal Victima As Integer, B
                   c = 0
              End If
              
-             If QuestList(Quest).MataUser.Alineacion > 0 Then
-                  
-                  If QuestList(Quest).MataUser.Alineacion = 1 Then
-                      
-                      If Criminal(Victima) Then
-                         c = 0
-                      Else
-                         c = c + 1
-                      End If
-                      
-                      If c = 0 Then
-                          Exit Sub
-                      End If
-                       c = 0
-                  End If
-                  
-                  If QuestList(Quest).Alineacion = 2 Then
-                      
-                      If Criminal(Victima) Then
-                         c = c + 1
-                         Else
-                         c = 0
-                      End If
-                      
-                      If c = 0 Then
-                          Exit Sub
-                      End If
-                      c = 0
-                  End If
-              
-              End If
+'             If QuestList(Quest).MataUser.Alineacion > 0 Then
+'
+'                  If QuestList(Quest).MataUser.Alineacion = 1 Then
+'
+'                      If Criminal(Victima) Then
+'                         c = 0
+'                      Else
+'                         c = c + 1
+'                      End If
+'
+'                      If c = 0 Then
+'                          Exit Sub
+'                      End If
+'                       c = 0
+'                  End If
+'
+'                  If QuestList(Quest).Alineacion = 2 Then
+'
+'                      If Criminal(Victima) Then
+'                         c = c + 1
+'                         Else
+'                         c = 0
+'                      End If
+'
+'                      If c = 0 Then
+'                          Exit Sub
+'                      End If
+'                      c = 0
+'                  End If
+'
+'              End If
               
               If QuestList(Quest).MataUser.Faccion > 0 Then
                   If QuestList(Quest).MataUser.Faccion = 1 Then
@@ -466,228 +466,286 @@ End Sub
 
 Public Sub IniciarMisionQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
        
-       Dim LoopC As Integer
-       Dim n As Integer
-       Dim c As Integer
-       Dim Datos As String
+    Dim LoopC As Integer
+
+    Dim n     As Integer
+
+    Dim c     As Integer
+
+    Dim Datos As String
         
-        With UserList(UserIndex)
+    With UserList(UserIndex)
         
-              If .Quest.Start > 0 Then
-                  Call SendData(ToIndex, UserIndex, 0, "||Ya tienes una misión iniciada!! Acabala antes de volver a empezar otra." & FONTTYPE_INFO)
-                  Exit Sub
-              End If
+        If .Quest.Start > 0 Then
+
+            Call SendData(ToIndex, UserIndex, 0, "||Ya tienes una misión iniciada!! Acabala antes de volver a empezar otra." & FONTTYPE_INFO)
+            Exit Sub
+
+        End If
               
-              If CompruebaIniciarQuest(UserIndex, Quest) = 1 Then
-                  Call SendData(ToIndex, UserIndex, 0, "||Tienes otras misiones que realizar, antes que esta!! Revise la lista de misiones!!" & FONTTYPE_INFO)
-                  Exit Sub
-              ElseIf CompruebaIniciarQuest(UserIndex, Quest) = 2 Then
-                  Call SendData(ToIndex, UserIndex, 0, "||Debes completar todas las misiones, para poder repetir esta mision!!" & FONTTYPE_INFO)
-                  Exit Sub
-               ElseIf CompruebaIniciarQuest(UserIndex, Quest) = 3 Then
-                  Call SendData(ToIndex, UserIndex, 0, "||Esta mision no se puede rehacer, intente con otra!!" & FONTTYPE_INFO)
-                  Exit Sub
-              End If
+        If CompruebaIniciarQuest(UserIndex, Quest) = 1 Then
+
+            Call SendData(ToIndex, UserIndex, 0, "||Tienes otras misiones que realizar, antes que esta!! Revise la lista de misiones!!" & FONTTYPE_INFO)
+            Exit Sub
+        ElseIf CompruebaIniciarQuest(UserIndex, Quest) = 2 Then
+            Call SendData(ToIndex, UserIndex, 0, "||Debes completar todas las misiones, para poder repetir esta mision!!" & FONTTYPE_INFO)
+            Exit Sub
+        ElseIf CompruebaIniciarQuest(UserIndex, Quest) = 3 Then
+            Call SendData(ToIndex, UserIndex, 0, "||Esta mision no se puede rehacer, intente con otra!!" & FONTTYPE_INFO)
+            Exit Sub
+
+        End If
                             
-              If QuestList(Quest).MinNivel > 0 Then
-                  If .Stats.ELV < QuestList(Quest).MinNivel Then
-                      Call SendData(ToIndex, UserIndex, 0, "||Para hacer esta quest, necesitas tener como minimo nivel " & QuestList(Quest).MinNivel & "." & FONTTYPE_INFO)
-                      Exit Sub
-                  End If
-              End If
+        If QuestList(Quest).MinNivel > 0 Then
+            If .Stats.ELV < QuestList(Quest).MinNivel Then
+
+                Call SendData(ToIndex, UserIndex, 0, "||Para hacer esta quest, necesitas tener como minimo nivel " & QuestList(Quest).MinNivel & "." & FONTTYPE_INFO)
+                Exit Sub
+
+            End If
+
+        End If
               
-              If QuestList(Quest).MaxNivel > 0 Then
-                  If .Stats.ELV > QuestList(Quest).MaxNivel Then
-                       Call SendData(ToIndex, UserIndex, 0, "||Has alcansado el nivel maximo para realizar esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
-                       .Quest.UserQuest(Quest) = 1
-                       .Quest.Quest = Quest
-                      Exit Sub
-                  End If
-              End If
+        If QuestList(Quest).MaxNivel > 0 Then
+            If .Stats.ELV > QuestList(Quest).MaxNivel Then
+
+                Call SendData(ToIndex, UserIndex, 0, "||Has alcansado el nivel maximo para realizar esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
+                .Quest.UserQuest(Quest) = 1
+                .Quest.Quest = Quest
+                Exit Sub
+
+            End If
+
+        End If
               
-              If QuestList(Quest).NUMCLASES > 0 Then
+        If QuestList(Quest).NUMCLASES > 0 Then
                   
-                  n = QuestList(Quest).NUMCLASES
+            n = QuestList(Quest).NUMCLASES
                   
-                  For LoopC = 1 To n
-                         Debug.Print UCase$(QuestList(Quest).Clases(LoopC))
-                         If UCase$(QuestList(Quest).Clases(LoopC)) = UCase$(.Clase) Then
-                             c = c + 1
-                         End If
+            For LoopC = 1 To n
+                Debug.Print UCase$(QuestList(Quest).Clases(LoopC))
+
+                If UCase$(QuestList(Quest).Clases(LoopC)) = UCase$(.Clase) Then
+
+                    c = c + 1
+
+                End If
                          
-                  Next LoopC
+            Next LoopC
                   
-                  If c = 0 Then
-                     Call SendData(ToIndex, UserIndex, 0, "||Tu clase no esta permitida para realizar esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
-                     .Quest.UserQuest(Quest) = 1
-                     .Quest.Quest = Quest
-                     Exit Sub
-                  End If
+            If c = 0 Then
+
+                Call SendData(ToIndex, UserIndex, 0, "||Tu clase no esta permitida para realizar esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
+                .Quest.UserQuest(Quest) = 1
+                .Quest.Quest = Quest
+                Exit Sub
+
+            End If
                   
-                  c = 0
-              End If
+            c = 0
+
+        End If
               
-              If QuestList(Quest).NUMRAZAS > 0 Then
+        If QuestList(Quest).NUMRAZAS > 0 Then
                   
-                  n = QuestList(Quest).NUMRAZAS
+            n = QuestList(Quest).NUMRAZAS
                   
-                  For LoopC = 1 To n
-                     If UCase$(QuestList(Quest).Razas(LoopC)) = UCase$(.Raza) Then
-                         c = c + 1
-                     End If
-                  Next LoopC
+            For LoopC = 1 To n
+
+                If UCase$(QuestList(Quest).Razas(LoopC)) = UCase$(.Raza) Then
+
+                    c = c + 1
+
+                End If
+
+            Next LoopC
                   
-                  If c = 0 Then
-                     Call SendData(ToIndex, UserIndex, 0, "||Tu raza no esta permitida para realizar esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
-                     .Quest.UserQuest(Quest) = 1
-                     .Quest.Quest = Quest
-                     Exit Sub
-                  End If
+            If c = 0 Then
+
+                Call SendData(ToIndex, UserIndex, 0, "||Tu raza no esta permitida para realizar esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
+                .Quest.UserQuest(Quest) = 1
+                .Quest.Quest = Quest
+                Exit Sub
+
+            End If
                   
-                  c = 0
-             End If
+            c = 0
+
+        End If
               
-              If QuestList(Quest).Alineacion > 0 Then
-                  
-                  If QuestList(Quest).Alineacion = 1 Then
-                      
-                      If Criminal(UserIndex) Then
-                         c = 0
-                      Else
-                         c = c + 1
-                      End If
-                      
-                      If c = 0 Then
-                          Call SendData(ToIndex, UserIndex, 0, "||No se permiten criminales en esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
-                          .Quest.UserQuest(Quest) = 1
-                          .Quest.Quest = Quest
-                          Exit Sub
-                      End If
-                       c = 0
-                  End If
-                  
-                  If QuestList(Quest).Alineacion = 2 Then
-                      
-                      If Criminal(UserIndex) Then
-                         c = c + 1
-                         Else
-                         c = 0
-                      End If
-                      
-                      If c = 0 Then
-                          Call SendData(ToIndex, UserIndex, 0, "||No se permiten ciudadanos en esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
-                          .Quest.UserQuest(Quest) = 1
-                          .Quest.Quest = Quest
-                          Exit Sub
-                      End If
-                      c = 0
-                  End If
+'        If QuestList(Quest).Alineacion > 0 Then
+'
+'            If QuestList(Quest).Alineacion = 1 Then
+'
+'                If Criminal(UserIndex) Then
+'
+'                    c = 0
+'                Else
+'                    c = c + 1
+'
+'                End If
+'
+'                If c = 0 Then
+'
+'                    Call SendData(ToIndex, UserIndex, 0, "||No se permiten criminales en esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
+'                    .Quest.UserQuest(Quest) = 1
+'                    .Quest.Quest = Quest
+'                    Exit Sub
+'
+'                End If
+'
+'                c = 0
+'
+'            End If
+'
+'            If QuestList(Quest).Alineacion = 2 Then
+'
+'                If Criminal(UserIndex) Then
+'
+'                    c = c + 1
+'                Else
+'                    c = 0
+'
+'                End If
+'
+'                If c = 0 Then
+'
+'                    Call SendData(ToIndex, UserIndex, 0, "||No se permiten ciudadanos en esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
+'                    .Quest.UserQuest(Quest) = 1
+'                    .Quest.Quest = Quest
+'                    Exit Sub
+'
+'                End If
+'
+'                c = 0
+'
+'            End If
+'
+'        End If
               
-              End If
+        If QuestList(Quest).Faccion > 0 Then
+            If QuestList(Quest).Faccion = 1 Then
+                If Not TieneFaccion(UserIndex) Then
+
+                    Call SendData(ToIndex, UserIndex, 0, "||Solo se permiten usuarios con faccion en esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
+                    .Quest.UserQuest(Quest) = 1
+                    .Quest.Quest = Quest
+                    Exit Sub
+
+                End If
+
+            End If
+
+        End If
               
-              If QuestList(Quest).Faccion > 0 Then
-                  If QuestList(Quest).Faccion = 1 Then
-                      If Not TieneFaccion(UserIndex) Then
-                          Call SendData(ToIndex, UserIndex, 0, "||Solo se permiten usuarios con faccion en esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
-                           .Quest.UserQuest(Quest) = 1
-                           .Quest.Quest = Quest
-                           Exit Sub
-                      End If
-                  End If
-              End If
+        If QuestList(Quest).RangoFaccion > 0 Then
+            If TieneFaccion(UserIndex) Then
+                If RangoFaccion(UserIndex) < QuestList(Quest).RangoFaccion Then
+
+                    Call SendData(ToIndex, UserIndex, 0, "||Necesitas la " & QuestList(Quest).RangoFaccion & " rango de tu faccion para esta misión!" & FONTTYPE_INFO)
+                    Exit Sub
+
+                End If
+
+            Else
+                Call SendData(ToIndex, UserIndex, 0, "||Solo se permiten usuarios con faccion en esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
+                .Quest.UserQuest(Quest) = 1
+                .Quest.Quest = Quest
+                Exit Sub
+
+            End If
+
+        End If
               
-              If QuestList(Quest).RangoFaccion > 0 Then
-                   If TieneFaccion(UserIndex) Then
-                        If RangoFaccion(UserIndex) < QuestList(Quest).RangoFaccion Then
-                            Call SendData(ToIndex, UserIndex, 0, "||Necesitas la " & QuestList(Quest).RangoFaccion & " rango de tu faccion para esta misión!" & FONTTYPE_INFO)
-                             Exit Sub
-                        End If
-                   Else
-                        Call SendData(ToIndex, UserIndex, 0, "||Solo se permiten usuarios con faccion en esta misión, puedes pasar a la siguiente!" & FONTTYPE_INFO)
-                        .Quest.UserQuest(Quest) = 1
-                        .Quest.Quest = Quest
-                        Exit Sub
-                   End If
-              End If
+        Call SendData(ToIndex, UserIndex, 0, "||Has iniciado nueva misión: " & QuestList(Quest).nombre & FONTTYPE_QUEST)
+        .Quest.Start = 1
+        .Quest.Quest = Quest
               
-              Call SendData(ToIndex, UserIndex, 0, "||Has iniciado nueva misión: " & QuestList(Quest).nombre & FONTTYPE_QUEST)
-              .Quest.Start = 1
-              .Quest.Quest = Quest
+        Datos = "Objetivo: "
               
-              Datos = "Objetivo: "
-              
-              If QuestList(Quest).NumNpc > 0 Then
+        If QuestList(Quest).NumNpc > 0 Then
                   
-                  For LoopC = 1 To QuestList(Quest).NumNpc
-                         Datos = Datos & "Mata " & QuestList(Quest).MataNpc(LoopC).Cantidad & " " & Npclist(BuscoNpcQuest(QuestList(Quest).MataNpc(LoopC).NpcIndex)).Name & " || "
-                  Next LoopC
+            For LoopC = 1 To QuestList(Quest).NumNpc
+                Datos = Datos & "Mata " & QuestList(Quest).MataNpc(LoopC).Cantidad & " " & Npclist(BuscoNpcQuest(QuestList(Quest).MataNpc(LoopC).NpcIndex)).Name & " || "
+            Next LoopC
                   
-                  .Quest.NumNpc = QuestList(Quest).NumNpc
+            .Quest.NumNpc = QuestList(Quest).NumNpc
                   
-              End If
+        End If
               
-              If QuestList(Quest).NumObjs > 0 Then
+        If QuestList(Quest).NumObjs > 0 Then
                   
-                  For LoopC = 1 To QuestList(Quest).NumObjs
-                         Datos = Datos & "Traeme " & QuestList(Quest).BuscaObj(LoopC).Amount & " " & ObjData(QuestList(Quest).BuscaObj(LoopC).ObjIndex).Name & " || "
-                  Next LoopC
+            For LoopC = 1 To QuestList(Quest).NumObjs
+                Datos = Datos & "Traeme " & QuestList(Quest).BuscaObj(LoopC).Amount & " " & ObjData(QuestList(Quest).BuscaObj(LoopC).ObjIndex).Name & " || "
+            Next LoopC
                   
-                  .Quest.NumObj = QuestList(Quest).NumObjs
+            .Quest.NumObj = QuestList(Quest).NumObjs
                   
-              End If
+        End If
               
-              If QuestList(Quest).NumMapas > 0 Then
+        If QuestList(Quest).NumMapas > 0 Then
                 
-                For LoopC = 1 To QuestList(Quest).NumMapas
-                       Datos = Datos & "Encuentra el mapa " & QuestList(Quest).Mapas(LoopC) & " || "
-                Next LoopC
+            For LoopC = 1 To QuestList(Quest).NumMapas
+                Datos = Datos & "Encuentra el mapa " & QuestList(Quest).Mapas(LoopC) & " || "
+            Next LoopC
                 
-                .Quest.NumMap = QuestList(Quest).NumMapas
+            .Quest.NumMap = QuestList(Quest).NumMapas
                 
-              End If
+        End If
               
-              If QuestList(Quest).NumNpcDD > 0 Then
-                     Datos = Datos & "Busca/encuentra al npc y dale doble click. || "
-                     .Quest.ValidNpcDD = QuestList(Quest).NumNpcDD
-                     .Quest.Icono = 1
-                     Call IconoNpcQuest(UserIndex, Quest)
-              End If
+        If QuestList(Quest).NumNpcDD > 0 Then
+
+            Datos = Datos & "Busca/encuentra al npc y dale doble click. || "
+            .Quest.ValidNpcDD = QuestList(Quest).NumNpcDD
+            .Quest.Icono = 1
+            Call IconoNpcQuest(UserIndex, Quest)
+
+        End If
               
-              If QuestList(Quest).NumDescubre > 0 Then
-                   Datos = Datos & "Busca/encuentra al npc y responde su pregunta. || "
-                    .Quest.ValidNpcDescubre = QuestList(Quest).NumDescubre
-                    .Quest.Icono = 1
-                    Call IconoNpcQuest(UserIndex, Quest)
-              End If
+        If QuestList(Quest).NumDescubre > 0 Then
+
+            Datos = Datos & "Busca/encuentra al npc y responde su pregunta. || "
+            .Quest.ValidNpcDescubre = QuestList(Quest).NumDescubre
+            .Quest.Icono = 1
+            Call IconoNpcQuest(UserIndex, Quest)
+
+        End If
               
-              If QuestList(Quest).NumObjsNpc > 0 Then
-                 For LoopC = 1 To QuestList(Quest).NumObjsNpc
-                        Datos = Datos & "Llevale " & QuestList(Quest).ObjsNpc(LoopC).Amount & " " & ObjData(QuestList(Quest).ObjsNpc(LoopC).ObjIndex).Name & " al npc de mision escondido. || "
-                 Next LoopC
-                  .Quest.NumObjNpc = QuestList(Quest).NumObjsNpc
-                  .Quest.Icono = 1
-                  Call IconoNpcQuest(UserIndex, Quest)
-              End If
+        If QuestList(Quest).NumObjsNpc > 0 Then
+
+            For LoopC = 1 To QuestList(Quest).NumObjsNpc
+                Datos = Datos & "Llevale " & QuestList(Quest).ObjsNpc(LoopC).Amount & " " & ObjData(QuestList(Quest).ObjsNpc(LoopC).ObjIndex).Name & " al npc de mision escondido. || "
+            Next LoopC
+
+            .Quest.NumObjNpc = QuestList(Quest).NumObjsNpc
+            .Quest.Icono = 1
+            Call IconoNpcQuest(UserIndex, Quest)
+
+        End If
               
-              If QuestList(Quest).NumHablarNpc > 0 Then
-                  Datos = Datos & "Busca y habla con el npc de misiones del mapa " & QuestList(Quest).MapaHablaNpc & " || "
-                  .Quest.ValidHablarNpc = QuestList(Quest).NumHablarNpc
-                  .Quest.Icono = 1
-                  Call IconoNpcQuest(UserIndex, Quest)
-              End If
+        If QuestList(Quest).NumHablarNpc > 0 Then
+
+            Datos = Datos & "Busca y habla con el npc de misiones del mapa " & QuestList(Quest).MapaHablaNpc & " || "
+            .Quest.ValidHablarNpc = QuestList(Quest).NumHablarNpc
+            .Quest.Icono = 1
+            Call IconoNpcQuest(UserIndex, Quest)
+
+        End If
               
-              If QuestList(Quest).NumUser > 0 Then
-                  Datos = Datos & "Debes matar a " & QuestList(Quest).CantidadMataUser & " usuarios. || "
-                  .Quest.ValidMatarUser = QuestList(Quest).NumUser
-              End If
+        If QuestList(Quest).NumUser > 0 Then
+
+            Datos = Datos & "Debes matar a " & QuestList(Quest).CantidadMataUser & " usuarios. || "
+            .Quest.ValidMatarUser = QuestList(Quest).NumUser
+
+        End If
               
-              Datos = Left$(Datos, Len(Datos) - 4)
+        Datos = Left$(Datos, Len(Datos) - 4)
               
-              Call SendData(ToIndex, UserIndex, 0, "||" & Datos & FONTTYPE_GUILD)
+        Call SendData(ToIndex, UserIndex, 0, "||" & Datos & FONTTYPE_GUILD)
               
-              Call SendData(ToIndex, UserIndex, 0, "XP" & UserList(UserIndex).char.CharIndex & "," & "1")
+        Call SendData(ToIndex, UserIndex, 0, "XP" & UserList(UserIndex).char.CharIndex & "," & "1")
               
-        End With
+    End With
         
 End Sub
 
@@ -1001,7 +1059,7 @@ Public Sub EncuentraMapaQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
      
      With UserList(UserIndex)
           
-          Map = .pos.Map
+          Map = .Pos.Map
      
           For LoopC = 1 To QuestList(Quest).NumMapas
                 If .Quest.Mapa(LoopC) = 0 Then
@@ -1052,7 +1110,7 @@ Public Sub DobleClickNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
        
        With UserList(UserIndex)
          
-         Map = .pos.Map
+         Map = .Pos.Map
          
          If QuestList(Quest).NumNpcDD > 0 Then
              If QuestList(Quest).NpcDD = Map Then
@@ -1079,7 +1137,7 @@ Public Sub DescubreNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
       
       With UserList(UserIndex)
            
-           Map = .pos.Map
+           Map = .Pos.Map
            
            If QuestList(Quest).NumDescubre > 0 Then
                 If QuestList(Quest).DescubrePalabra.Mapa = Map Then
@@ -1089,7 +1147,7 @@ Public Sub DescubreNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                                
                                If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                                     
-                                   If Npclist(LoopC).pos.Map = Map Then
+                                   If Npclist(LoopC).Pos.Map = Map Then
                                       
                                        Call SendData(ToIndex, UserIndex, 0, "||" & vbCyan & "°" & QuestList(Quest).DescubrePalabra.Pregunta & "°" & CStr(Npclist(LoopC).char.CharIndex))
                                       
@@ -1119,14 +1177,14 @@ Public Sub RespuestaNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer,
           
           If QuestList(Quest).NumDescubre > 0 Then
               
-              Map = .pos.Map
+              Map = .Pos.Map
               
               If QuestList(Quest).DescubrePalabra.Mapa = Map Then
               
                   If Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype = eNPCType.Misiones Then
                       If .Quest.PreguntaDescubre = 0 Then
                           
-                          If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 10 Then
+                          If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 10 Then
                               Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                               Exit Sub
                            End If
@@ -1204,7 +1262,7 @@ Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                    
                 If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                        
-                    If Npclist(LoopC).pos.Map = Map Then
+                    If Npclist(LoopC).Pos.Map = Map Then
                            
                         If .Quest.Icono = 0 Then
                             Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 0)
@@ -1229,7 +1287,7 @@ Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                        
                 If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                               
-                    If Npclist(LoopC).pos.Map = Map Then
+                    If Npclist(LoopC).Pos.Map = Map Then
                               
                         If .Quest.Icono = 0 Then
                             Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 0)
@@ -1254,7 +1312,7 @@ Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                            
                 If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                                
-                    If Npclist(LoopC).pos.Map = Map Then
+                    If Npclist(LoopC).Pos.Map = Map Then
                                    
                         If .Quest.Icono = 0 Then
                             Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 0)
@@ -1279,7 +1337,7 @@ Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                               
                 If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                                   
-                    If Npclist(LoopC).pos.Map = Map Then
+                    If Npclist(LoopC).Pos.Map = Map Then
                                       
                         If .Quest.Icono = 0 Then
                             Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 0)
@@ -1316,7 +1374,7 @@ Public Sub CambiaDescQuest(ByVal UserIndex As Integer, ByVal Quest As Integer, B
                End If
                
                If Npclist(TempCharIndex).NPCtype = eNPCType.Misiones Then
-                  If Npclist(TempCharIndex).pos.Map = QuestList(Quest).NpcDD Then
+                  If Npclist(TempCharIndex).Pos.Map = QuestList(Quest).NpcDD Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & QuestDesc.DobleClick & "°" & Npclist(TempCharIndex).char.CharIndex _
                                                                   & FONTTYPE_INFO)
                   Else
@@ -1333,7 +1391,7 @@ Public Sub CambiaDescQuest(ByVal UserIndex As Integer, ByVal Quest As Integer, B
               End If
               
               If Npclist(TempCharIndex).NPCtype = eNPCType.Misiones Then
-                  If Npclist(TempCharIndex).pos.Map = QuestList(Quest).DescubrePalabra.Mapa Then
+                  If Npclist(TempCharIndex).Pos.Map = QuestList(Quest).DescubrePalabra.Mapa Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & QuestDesc.Descubridor & "°" & Npclist(TempCharIndex).char.CharIndex _
                                                                   & FONTTYPE_INFO)
                   Else
@@ -1350,7 +1408,7 @@ Public Sub CambiaDescQuest(ByVal UserIndex As Integer, ByVal Quest As Integer, B
               End If
                  
               If Npclist(TempCharIndex).NPCtype = eNPCType.Misiones Then
-                  If Npclist(TempCharIndex).pos.Map = QuestList(Quest).MapaObjsNpc Then
+                  If Npclist(TempCharIndex).Pos.Map = QuestList(Quest).MapaObjsNpc Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & QuestDesc.DarObjNpc & "°" & Npclist(TempCharIndex).char.CharIndex _
                                                                   & FONTTYPE_INFO)
                   Else
@@ -1367,7 +1425,7 @@ Public Sub CambiaDescQuest(ByVal UserIndex As Integer, ByVal Quest As Integer, B
               End If
                  
               If Npclist(TempCharIndex).NPCtype = eNPCType.Misiones Then
-                  If Npclist(TempCharIndex).pos.Map = QuestList(Quest).MapaHablaNpc Then
+                  If Npclist(TempCharIndex).Pos.Map = QuestList(Quest).MapaHablaNpc Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & QuestDesc.Hablador & "°" & Npclist(TempCharIndex).char.CharIndex _
                                                                   & FONTTYPE_INFO)
                   Else
@@ -1398,11 +1456,11 @@ Public Sub EntregaObjNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
              
              If QuestList(Quest).NumObjsNpc > 0 Then
                  
-                 Map = .pos.Map
+                 Map = .Pos.Map
                  
                 If QuestList(Quest).MapaObjsNpc = Map Then
                 
-                    If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 10 Then
+                    If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 10 Then
                               Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                               Exit Sub
                     End If

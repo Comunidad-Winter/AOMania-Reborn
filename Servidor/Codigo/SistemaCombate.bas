@@ -204,8 +204,8 @@ Public Function NpcImpacto(ByVal NpcIndex As Integer, ByVal UserIndex As Integer
 
                 If Rechazo = True Then
                     'Se rechazo el ataque con el escudo
-                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_ESCUDO)
-                    Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "EW" & UserList(UserIndex).char.CharIndex)
+                    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_ESCUDO)
+                    Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "EW" & UserList(UserIndex).char.CharIndex)
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "7")
                     Call SubirSkill(UserIndex, Defensa)
 
@@ -471,7 +471,7 @@ Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 
     If Daño < 0 Then Daño = 0
 
-    If UserList(UserIndex).pos.Map = MapaCasaAbandonada1 Then
+    If UserList(UserIndex).Pos.Map = MapaCasaAbandonada1 Then
         Call Efecto_AccionCasaEncantada(UserIndex, NpcIndex)
     End If
 
@@ -509,7 +509,7 @@ Public Sub UserDañoNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 
     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Le has pegado a la criatura por " & Daño & " !!" & FONTTYPE_Motd4)
 
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbCyan & "°" & Daño & "°" & CStr(Npclist( _
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "||" & vbCyan & "°" & Daño & "°" & CStr(Npclist( _
                                                                                                                        NpcIndex).char.CharIndex))
 
     If Npclist(NpcIndex).Stats.MinHP < 0 Then
@@ -649,20 +649,20 @@ Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "6")    ' Le informamos que ha muerto ;)
 
         'Si lo mato un guardia
-        If Criminal(UserIndex) And Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-            Call RestarCriminalidad(UserIndex)
-
-            'If Not Criminal(UserIndex) Then
-            '    If UserList(UserIndex).Faccion.FuerzasCaos = 1 Then
-            '        Call ExpulsarFaccionCaos(UserIndex)
-            '    End If
-
-            '    If UserList(UserIndex).Faccion.Nemesis = 1 Then
-            '        Call ExpulsarFaccionNemesis(UserIndex)
-            '    End If
-            'End If
-
-        End If
+'        If Criminal(UserIndex) And Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
+'            Call RestarCriminalidad(UserIndex)
+'
+'            If Not Criminal(UserIndex) Then
+'                If UserList(UserIndex).Faccion.FuerzasCaos = 1 Then
+'                    Call ExpulsarFaccionCaos(UserIndex)
+'                End If
+'
+'                If UserList(UserIndex).Faccion.Nemesis = 1 Then
+'                    Call ExpulsarFaccionNemesis(UserIndex)
+'                End If
+'            End If
+'
+'        End If
 
         If Npclist(NpcIndex).MaestroUser > 0 Then
             Call AllFollowAmo(Npclist(NpcIndex).MaestroUser)
@@ -684,22 +684,22 @@ Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
 End Sub
 
-Public Sub RestarCriminalidad(ByVal UserIndex As Integer)
-
-    If UserList(UserIndex).Reputacion.AsesinoRep > 0 Then
-        UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep - vlASESINO
-        If UserList(UserIndex).Reputacion.AsesinoRep < 0 Then UserList(UserIndex).Reputacion.AsesinoRep = 0
-
-    ElseIf UserList(UserIndex).Reputacion.BandidoRep > 0 Then
-        UserList(UserIndex).Reputacion.BandidoRep = UserList(UserIndex).Reputacion.BandidoRep - vlASALTO
-        If UserList(UserIndex).Reputacion.BandidoRep < 0 Then UserList(UserIndex).Reputacion.BandidoRep = 0
-
-    ElseIf UserList(UserIndex).Reputacion.LadronesRep > 0 Then
-        UserList(UserIndex).Reputacion.LadronesRep = UserList(UserIndex).Reputacion.LadronesRep - (vlCAZADOR * 10)
-        If UserList(UserIndex).Reputacion.LadronesRep < 0 Then UserList(UserIndex).Reputacion.LadronesRep = 0
-    End If
-
-End Sub
+'Public Sub RestarCriminalidad(ByVal UserIndex As Integer)
+'
+'    If UserList(UserIndex).Reputacion.AsesinoRep > 0 Then
+'        UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep - vlASESINO
+'        If UserList(UserIndex).Reputacion.AsesinoRep < 0 Then UserList(UserIndex).Reputacion.AsesinoRep = 0
+'
+'    ElseIf UserList(UserIndex).Reputacion.BandidoRep > 0 Then
+'        UserList(UserIndex).Reputacion.BandidoRep = UserList(UserIndex).Reputacion.BandidoRep - vlASALTO
+'        If UserList(UserIndex).Reputacion.BandidoRep < 0 Then UserList(UserIndex).Reputacion.BandidoRep = 0
+'
+'    ElseIf UserList(UserIndex).Reputacion.LadronesRep > 0 Then
+'        UserList(UserIndex).Reputacion.LadronesRep = UserList(UserIndex).Reputacion.LadronesRep - (vlCAZADOR * 10)
+'        If UserList(UserIndex).Reputacion.LadronesRep < 0 Then UserList(UserIndex).Reputacion.LadronesRep = 0
+'    End If
+'
+'End Sub
 
 Public Sub CheckPets(ByVal NpcIndex As Integer, ByVal UserIndex As Integer, Optional ByVal CheckElementales As Boolean = True)
 
@@ -774,14 +774,14 @@ Public Function NpcAtacaUser(ByVal NpcIndex As Integer, ByVal UserIndex As Integ
 
     Npclist(NpcIndex).CanAttack = 0
 
-    If Npclist(NpcIndex).flags.Snd1 > 0 Then Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & Npclist( _
+    If Npclist(NpcIndex).flags.Snd1 > 0 Then Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & Npclist( _
                                                                                                                         NpcIndex).flags.Snd1)
 
     If NpcImpacto(NpcIndex, UserIndex) Then
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_IMPACTO)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_IMPACTO)
 
         If UserList(UserIndex).flags.Meditando = False Then
-            If UserList(UserIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & _
+            If UserList(UserIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & _
                                                                                                                                        UserList(UserIndex).char.CharIndex & "," & FXSANGRE & "," & 0)
 
         End If
@@ -880,22 +880,22 @@ Public Sub NpcAtacaNpc(ByVal Atacante As Integer, ByVal Victima As Integer, Opti
         Exit Sub
     End If
 
-    If Npclist(Atacante).flags.Snd1 > 0 Then Call SendData(SendTarget.ToNPCArea, Atacante, Npclist(Atacante).pos.Map, "TW" & Npclist( _
+    If Npclist(Atacante).flags.Snd1 > 0 Then Call SendData(SendTarget.ToNPCArea, Atacante, Npclist(Atacante).Pos.Map, "TW" & Npclist( _
                                                                                                                       Atacante).flags.Snd1)
 
     If NpcImpactoNpc(Atacante, Victima) Then
 
         If Npclist(Victima).flags.Snd2 > 0 Then
-            Call SendData(ToMap, Victima, Npclist(Victima).pos.Map, "TW" & Npclist(Victima).flags.Snd2)
+            Call SendData(ToMap, Victima, Npclist(Victima).Pos.Map, "TW" & Npclist(Victima).flags.Snd2)
         Else
-            Call SendData(ToMap, Victima, Npclist(Victima).pos.Map, "TW" & SND_IMPACTO2)
+            Call SendData(ToMap, Victima, Npclist(Victima).Pos.Map, "TW" & SND_IMPACTO2)
 
         End If
 
         If Npclist(Atacante).MaestroUser > 0 Then
-            Call SendData(ToMap, Atacante, Npclist(Atacante).pos.Map, "TW" & SND_IMPACTO)
+            Call SendData(ToMap, Atacante, Npclist(Atacante).Pos.Map, "TW" & SND_IMPACTO)
         Else
-            Call SendData(ToMap, Victima, Npclist(Victima).pos.Map, "TW" & SND_IMPACTO)
+            Call SendData(ToMap, Victima, Npclist(Victima).Pos.Map, "TW" & SND_IMPACTO)
 
         End If
 
@@ -904,9 +904,9 @@ Public Sub NpcAtacaNpc(ByVal Atacante As Integer, ByVal Victima As Integer, Opti
     Else
 
         If Npclist(Atacante).MaestroUser > 0 Then
-            Call SendData(ToMap, Atacante, Npclist(Atacante).pos.Map, "TW" & SND_SWING)
+            Call SendData(ToMap, Atacante, Npclist(Atacante).Pos.Map, "TW" & SND_SWING)
         Else
-            Call SendData(ToMap, Victima, Npclist(Victima).pos.Map, "TW" & SND_SWING)
+            Call SendData(ToMap, Victima, Npclist(Victima).Pos.Map, "TW" & SND_SWING)
 
         End If
 
@@ -919,11 +919,11 @@ End Sub
 
 Public Sub UsuarioAtacaNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
 
-    Call RestarCriminalidad(UserIndex)
+'    Call RestarCriminalidad(UserIndex)
 
     If UserList(UserIndex).flags.Privilegios = PlayerType.Consejero Then Exit Sub
 
-    If Abs(Npclist(NpcIndex).pos.X - UserList(UserIndex).pos.X) > RANGO_VISION_X Or Abs(Npclist(NpcIndex).pos.Y - UserList(UserIndex).pos.Y) > RANGO_VISION_Y Then
+    If Abs(Npclist(NpcIndex).Pos.X - UserList(UserIndex).Pos.X) > RANGO_VISION_X Or Abs(Npclist(NpcIndex).Pos.Y - UserList(UserIndex).Pos.Y) > RANGO_VISION_Y Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Estás muy lejos para disparar." & FONTTYPE_INFO)
         Exit Sub
 
@@ -969,21 +969,21 @@ Public Sub UsuarioAtacaNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer
     If UserImpactoNpc(UserIndex, NpcIndex) Then
 
         If Npclist(NpcIndex).flags.Snd2 > 0 Then
-            Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & Npclist(NpcIndex).flags.Snd2)
+            Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & Npclist(NpcIndex).flags.Snd2)
 
         Else
-            Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_IMPACTO2)
+            Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_IMPACTO2)
 
         End If
 
-        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "SFX" & Npclist(NpcIndex).char.CharIndex & "-1") ' kalii
+        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "SFX" & Npclist(NpcIndex).char.CharIndex & "-1") ' kalii
 
         Call UserDañoNpc(UserIndex, NpcIndex)
 
     Else
-        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_SWING)
-        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
+        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_SWING)
+        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "U1")
         'Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "||" & vbRed & "°" & "Fallé" & "!" & "°" & str(UserList( _
@@ -1063,13 +1063,13 @@ Public Sub UsuarioAtaca(ByVal UserIndex As Integer)
         'UserList(UserIndex).flags.PuedeAtacar = 0
 
         Dim AttackPos As WorldPos
-        AttackPos = UserList(UserIndex).pos
+        AttackPos = UserList(UserIndex).Pos
         Call HeadtoPos(UserList(UserIndex).char.heading, AttackPos)
 
         'Exit if not legal
         If AttackPos.X < XMinMapSize Or AttackPos.X > XMaxMapSize Or AttackPos.Y <= YMinMapSize Or AttackPos.Y > YMaxMapSize Then
-            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_SWING)
-            Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
+            Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_SWING)
+            Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
             Exit Sub
 
         End If
@@ -1091,7 +1091,7 @@ Public Sub UsuarioAtaca(ByVal UserIndex As Integer)
             If Npclist(MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).NpcIndex).Attackable Then
 
                 If Npclist(MapData(AttackPos.Map, AttackPos.X, AttackPos.Y).NpcIndex).MaestroUser > 0 And MapInfo(Npclist(MapData(AttackPos.Map, _
-                                                                                                                                  AttackPos.X, AttackPos.Y).NpcIndex).pos.Map).Pk = False Then
+                                                                                                                                  AttackPos.X, AttackPos.Y).NpcIndex).Pos.Map).Pk = False Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes atacar mascotas en zonas seguras" & FONTTYPE_INFO)
                     Exit Sub
 
@@ -1108,8 +1108,8 @@ Public Sub UsuarioAtaca(ByVal UserIndex As Integer)
 
         End If
 
-        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW" & SND_SWING)
-        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
+        Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW" & SND_SWING)
+        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "FG" & UserList(UserIndex).char.CharIndex)
 
     End If
 
@@ -1183,8 +1183,8 @@ Public Function UsuarioImpacto(ByVal AtacanteIndex As Integer, ByVal VictimaInde
 
             If Rechazo = True Then
                 'Se rechazo el ataque con el escudo
-                Call SendData(SendTarget.ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "TW" & SND_ESCUDO)
-                Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "EW" & UserList(VictimaIndex).char.CharIndex)
+                Call SendData(SendTarget.ToPCArea, AtacanteIndex, UserList(AtacanteIndex).Pos.Map, "TW" & SND_ESCUDO)
+                Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).Pos.Map, "EW" & UserList(VictimaIndex).char.CharIndex)
                 Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "8")
                 Call SendData(SendTarget.ToIndex, VictimaIndex, 0, "7")
                 Call SubirSkill(VictimaIndex, Defensa)
@@ -1227,13 +1227,13 @@ Public Sub UsuarioAtacaUsuario(ByVal AtacanteIndex As Integer, ByVal VictimaInde
 
     End If
     
-    If UserList(AtacanteIndex).pos.Map = 192 Then
+    If UserList(AtacanteIndex).Pos.Map = 192 Then
         If UserList(AtacanteIndex).flags.SuPareja = VictimaIndex Then Exit Sub
     End If
 
     If Not PuedeAtacar(AtacanteIndex, VictimaIndex) Then Exit Sub
 
-    If Abs(UserList(AtacanteIndex).pos.X - UserList(VictimaIndex).pos.X) > RANGO_VISION_X Or Abs(UserList(AtacanteIndex).pos.Y - UserList(VictimaIndex).pos.Y) > RANGO_VISION_Y Then
+    If Abs(UserList(AtacanteIndex).Pos.X - UserList(VictimaIndex).Pos.X) > RANGO_VISION_X Or Abs(UserList(AtacanteIndex).Pos.Y - UserList(VictimaIndex).Pos.Y) > RANGO_VISION_Y Then
         Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "||Estás muy lejos para disparar." & FONTTYPE_INFO)
         Exit Sub
 
@@ -1242,11 +1242,11 @@ Public Sub UsuarioAtacaUsuario(ByVal AtacanteIndex As Integer, ByVal VictimaInde
     Call UsuarioAtacadoPorUsuario(AtacanteIndex, VictimaIndex)
 
     If UsuarioImpacto(AtacanteIndex, VictimaIndex) Then
-        Call SendData(SendTarget.ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "TW" & SND_IMPACTO)
+        Call SendData(SendTarget.ToPCArea, AtacanteIndex, UserList(AtacanteIndex).Pos.Map, "TW" & SND_IMPACTO)
 
         Call UserDañoUser(AtacanteIndex, VictimaIndex)
     Else
-        Call SendData(SendTarget.ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "TW" & SND_SWING)
+        Call SendData(SendTarget.ToPCArea, AtacanteIndex, UserList(AtacanteIndex).Pos.Map, "TW" & SND_SWING)
         Call SendData(SendTarget.ToIndex, AtacanteIndex, 0, "U1")
         'Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "||" & vbRed & "°" & "Fallé" & "!" & "°" & str(UserList( _
          AtacanteIndex).char.CharIndex))
@@ -1254,7 +1254,7 @@ Public Sub UsuarioAtacaUsuario(ByVal AtacanteIndex As Integer, ByVal VictimaInde
 
     End If
 
-    Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).pos.Map, "FG" & UserList(AtacanteIndex).char.CharIndex)
+    Call SendData(ToPCArea, AtacanteIndex, UserList(AtacanteIndex).Pos.Map, "FG" & UserList(AtacanteIndex).char.CharIndex)
 
     If UCase$(UserList(AtacanteIndex).Clase) = "LADRON" Then Call Desarmar(AtacanteIndex, VictimaIndex)
 
@@ -1286,12 +1286,12 @@ Public Sub UserDañoUser(ByVal AtacanteIndex As Integer, ByVal VictimaIndex As In
     End If
 
     If Daño >= 200 Then
-        If UserList(VictimaIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, VictimaIndex, UserList(VictimaIndex).pos.Map, "CFX" & _
+        If UserList(VictimaIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, VictimaIndex, UserList(VictimaIndex).Pos.Map, "CFX" & _
                                                                                                                                             UserList(VictimaIndex).char.CharIndex & "," & 38 & "," & 0)
     End If
 
     If Daño < 200 Then
-        If UserList(VictimaIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, VictimaIndex, UserList(VictimaIndex).pos.Map, "CFX" & _
+        If UserList(VictimaIndex).flags.Navegando = 0 Then Call SendData(SendTarget.ToPCArea, VictimaIndex, UserList(VictimaIndex).Pos.Map, "CFX" & _
                                                                                                                                             UserList(VictimaIndex).char.CharIndex & "," & 14 & "," & 0)
 
     End If
@@ -1653,25 +1653,25 @@ Sub UsuarioAtacadoPorUsuario(ByVal AttackerIndex As Integer, ByVal VictimIndex A
 
     If TriggerZonaPelea(AttackerIndex, VictimIndex) = TRIGGER6_PERMITE Then Exit Sub
 
-    If Not Criminal(AttackerIndex) And Not Criminal(VictimIndex) Then
-        Call VolverCriminal(AttackerIndex)
+'    If Not Criminal(AttackerIndex) And Not Criminal(VictimIndex) Then
+'        Call VolverCriminal(AttackerIndex)
+'
+'    End If
 
-    End If
-
-    If UserList(VictimIndex).pos.Map = "154" Or UserList(AttackerIndex).Faccion.ArmadaReal = "1" Or UserList(AttackerIndex).Faccion.Templario = "1" Then
-        Exit Sub
-    Else
-        If Not Criminal(VictimIndex) Then
-            UserList(AttackerIndex).Reputacion.BandidoRep = UserList(AttackerIndex).Reputacion.BandidoRep + vlASALTO
-
-            If UserList(AttackerIndex).Reputacion.BandidoRep > MAXREP Then UserList(AttackerIndex).Reputacion.BandidoRep = MAXREP
-        Else
-            UserList(AttackerIndex).Reputacion.NobleRep = UserList(AttackerIndex).Reputacion.NobleRep + vlNoble
-
-            If UserList(AttackerIndex).Reputacion.NobleRep > MAXREP Then UserList(AttackerIndex).Reputacion.NobleRep = MAXREP
-
-        End If
-    End If
+'    If UserList(VictimIndex).Pos.Map = "154" Or UserList(AttackerIndex).Faccion.ArmadaReal = "1" Or UserList(AttackerIndex).Faccion.Templario = "1" Then
+'        Exit Sub
+'    Else
+'        If Not Criminal(VictimIndex) Then
+'            UserList(AttackerIndex).Reputacion.BandidoRep = UserList(AttackerIndex).Reputacion.BandidoRep + vlASALTO
+'
+'            If UserList(AttackerIndex).Reputacion.BandidoRep > MAXREP Then UserList(AttackerIndex).Reputacion.BandidoRep = MAXREP
+'        Else
+'            UserList(AttackerIndex).Reputacion.NobleRep = UserList(AttackerIndex).Reputacion.NobleRep + vlNoble
+'
+'            If UserList(AttackerIndex).Reputacion.NobleRep > MAXREP Then UserList(AttackerIndex).Reputacion.NobleRep = MAXREP
+'
+'        End If
+'    End If
 
     Call AllMascotasAtacanUser(AttackerIndex, VictimIndex)
     Call AllMascotasAtacanUser(VictimIndex, AttackerIndex)
@@ -2076,11 +2076,11 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
         Exit Function
     End If
 
-    If ProhibidoAtacar(UserList(AttackerIndex).pos.Map, UserList(AttackerIndex).pos.X, UserList(AttackerIndex).pos.Y) Then
+    If ProhibidoAtacar(UserList(AttackerIndex).Pos.Map, UserList(AttackerIndex).Pos.X, UserList(AttackerIndex).Pos.Y) Then
         Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||Atacar en esta zona está prohibido." & FONTTYPE_WARNING)
         PuedeAtacar = False
         Exit Function
-    ElseIf ProhibidoAtacar(UserList(VictimIndex).pos.Map, UserList(VictimIndex).pos.X, UserList(VictimIndex).pos.Y) Then
+    ElseIf ProhibidoAtacar(UserList(VictimIndex).Pos.Map, UserList(VictimIndex).Pos.X, UserList(VictimIndex).Pos.Y) Then
         Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||Atacar en esta zona está prohibido." & FONTTYPE_WARNING)
         PuedeAtacar = False
         Exit Function
@@ -2094,12 +2094,12 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
     '     Exit Function
     ' End If
 
-    If UserList(AttackerIndex).flags.Seguro Then
-        If Not Criminal(VictimIndex) Then
-            Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||No puedes atacar ciudadanos con el seguro activado." & FONTTYPE_WARNING)
-            Exit Function
-        End If
-    End If
+'    If UserList(AttackerIndex).flags.Seguro Then
+'        If Not Criminal(VictimIndex) Then
+'            Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||No puedes atacar ciudadanos con el seguro activado." & FONTTYPE_WARNING)
+'            Exit Function
+'        End If
+'    End If
 
     'Se asegura que la victima no es un GM
     If UserList(VictimIndex).flags.Privilegios >= PlayerType.Consejero Then
@@ -2137,10 +2137,10 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
 
     End If
 
-    If MapInfo(UserList(VictimIndex).pos.Map).Pk = False And Not MapData(UserList(AttackerIndex).pos.Map, UserList(AttackerIndex).pos.X, UserList(AttackerIndex).pos.Y).Trigger = 2 Then
+    If MapInfo(UserList(VictimIndex).Pos.Map).Pk = False And Not MapData(UserList(AttackerIndex).Pos.Map, UserList(AttackerIndex).Pos.X, UserList(AttackerIndex).Pos.Y).Trigger = 2 Then
 
         If esTemplario(AttackerIndex) Then
-            Select Case UserList(VictimIndex).pos.Map
+            Select Case UserList(VictimIndex).Pos.Map
             Case "95"
                 PuedeAtacar = True
                 Exit Function
@@ -2148,7 +2148,7 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
         End If
 
         If esNemesis(AttackerIndex) Then
-            Select Case UserList(VictimIndex).pos.Map
+            Select Case UserList(VictimIndex).Pos.Map
             Case "84"
                 PuedeAtacar = True
                 Exit Function
@@ -2160,7 +2160,7 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
         End If
 
         If esArmada(AttackerIndex) Then
-            Select Case UserList(VictimIndex).pos.Map
+            Select Case UserList(VictimIndex).Pos.Map
             Case "58"
                 PuedeAtacar = True
                 Exit Function
@@ -2178,7 +2178,7 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
         End If
 
         If esCaos(AttackerIndex) Then
-            Select Case UserList(VictimIndex).pos.Map
+            Select Case UserList(VictimIndex).Pos.Map
             Case "132"
                 PuedeAtacar = True
                 Exit Function
@@ -2186,28 +2186,28 @@ Public Function PuedeAtacar(ByVal AttackerIndex As Integer, ByVal VictimIndex As
         End If
 
         If esTemplario(AttackerIndex) Or esNemesis(AttackerIndex) Then
-            Select Case UserList(VictimIndex).pos.Map
+            Select Case UserList(VictimIndex).Pos.Map
             Case "86"
                 PuedeAtacar = True
                 Exit Function
             End Select
         End If
 
-        If Not Criminal(AttackerIndex) And Criminal(VictimIndex) Then
-            Select Case UserList(VictimIndex).pos.Map
-            Case "1"
-                PuedeAtacar = True
-                Exit Function
-            End Select
-        End If
+'        If Not Criminal(AttackerIndex) And Criminal(VictimIndex) Then
+'            Select Case UserList(VictimIndex).Pos.Map
+'            Case "1"
+'                PuedeAtacar = True
+'                Exit Function
+'            End Select
+'        End If
 
         Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||En zona segura no se pueden atacar otros usuarios." & FONTTYPE_WARNING)
         PuedeAtacar = False
         Exit Function
     End If
 
-    If MapData(UserList(VictimIndex).pos.Map, UserList(VictimIndex).pos.X, UserList(VictimIndex).pos.Y).Trigger = eTrigger.ZONASEGURA Or MapData( _
-       UserList(AttackerIndex).pos.Map, UserList(AttackerIndex).pos.X, UserList(AttackerIndex).pos.Y).Trigger = eTrigger.ZONASEGURA Then
+    If MapData(UserList(VictimIndex).Pos.Map, UserList(VictimIndex).Pos.X, UserList(VictimIndex).Pos.Y).Trigger = eTrigger.ZONASEGURA Or MapData( _
+       UserList(AttackerIndex).Pos.Map, UserList(AttackerIndex).Pos.X, UserList(AttackerIndex).Pos.Y).Trigger = eTrigger.ZONASEGURA Then
         Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||No puedes pelear aqui." & FONTTYPE_WARNING)
         PuedeAtacar = False
         Exit Function
@@ -2278,15 +2278,15 @@ Public Function PuedeAtacarNPC(ByVal AttackerIndex As Integer, ByVal NpcIndex As
         Exit Function
     End If
 
-    If Npclist(NpcIndex).MaestroUser > 0 Then
-        If Not Criminal(AttackerIndex) And Not Criminal(Npclist(NpcIndex).MaestroUser) Then
-            If UserList(AttackerIndex).flags.Seguro Then
-                Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||Para atacar mascotas de ciudadanos debes quitarte el seguro" & FONTTYPE_FIGHT)
-                PuedeAtacarNPC = False
-                Exit Function
-            End If
-        End If
-    End If
+'    If Npclist(NpcIndex).MaestroUser > 0 Then
+'        If Not Criminal(AttackerIndex) And Not Criminal(Npclist(NpcIndex).MaestroUser) Then
+'            If UserList(AttackerIndex).flags.Seguro Then
+'                Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||Para atacar mascotas de ciudadanos debes quitarte el seguro" & FONTTYPE_FIGHT)
+'                PuedeAtacarNPC = False
+'                Exit Function
+'            End If
+'        End If
+'    End If
 
     If NpcIndex = ReyIndex And ReyTeam = UserList(AttackerIndex).Asedio.Team Then
         Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||¡No puedes atacar a tu propio Rey!" & FONTTYPE_FIGHT)
@@ -2371,7 +2371,7 @@ Sub CalcularDarExp(ByVal UserIndex As Integer, ByVal NpcIndex As Integer, ByVal 
         If ExpaDar <> 0 Then
 
             If UserList(UserIndex).PartyIndex > 0 Then
-                Call mdParty.ObtenerExito(UserIndex, ExpaDar, .pos.Map, .pos.X, .pos.Y)
+                Call mdParty.ObtenerExito(UserIndex, ExpaDar, .Pos.Map, .Pos.X, .Pos.Y)
             Else
                 UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + ExpaDar
 
@@ -2393,11 +2393,11 @@ End Sub
 Public Function TriggerZonaPelea(ByVal Origen As Integer, ByVal Destino As Integer) As eTrigger6
 
     If Origen > 0 And Destino > 0 And Origen <= UBound(UserList) And Destino <= UBound(UserList) Then
-        If MapData(UserList(Origen).pos.Map, UserList(Origen).pos.X, UserList(Origen).pos.Y).Trigger = eTrigger.ZONAPELEA Or MapData(UserList( _
-                                                                                                                                     Destino).pos.Map, UserList(Destino).pos.X, UserList(Destino).pos.Y).Trigger = eTrigger.ZONAPELEA Then
+        If MapData(UserList(Origen).Pos.Map, UserList(Origen).Pos.X, UserList(Origen).Pos.Y).Trigger = eTrigger.ZONAPELEA Or MapData(UserList( _
+                                                                                                                                     Destino).Pos.Map, UserList(Destino).Pos.X, UserList(Destino).Pos.Y).Trigger = eTrigger.ZONAPELEA Then
 
-            If (MapData(UserList(Origen).pos.Map, UserList(Origen).pos.X, UserList(Origen).pos.Y).Trigger = MapData(UserList(Destino).pos.Map, _
-                                                                                                                    UserList(Destino).pos.X, UserList(Destino).pos.Y).Trigger) Then
+            If (MapData(UserList(Origen).Pos.Map, UserList(Origen).Pos.X, UserList(Origen).Pos.Y).Trigger = MapData(UserList(Destino).Pos.Map, _
+                                                                                                                    UserList(Destino).Pos.X, UserList(Destino).Pos.Y).Trigger) Then
                 TriggerZonaPelea = TRIGGER6_PERMITE
             Else
                 TriggerZonaPelea = TRIGGER6_PROHIBE

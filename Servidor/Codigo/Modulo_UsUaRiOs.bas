@@ -18,27 +18,27 @@ Sub ActStats(ByVal VictimIndex As Integer, ByVal AttackerIndex As Integer)
     If UserList(AttackerIndex).Stats.Exp > MAXEXP Then UserList(AttackerIndex).Stats.Exp = MAXEXP
 
     'Lo mata
-    Call SendData(SendTarget.toindex, AttackerIndex, 0, "||Has matado a " & UserList(VictimIndex).Name & "!" & FONTTYPE_Motd4)
-    Call SendData(SendTarget.toindex, AttackerIndex, 0, "||Has ganado " & DaExp & " puntos de experiencia." & FONTTYPE_Motd4)
+    Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||Has matado a " & UserList(VictimIndex).Name & "!" & FONTTYPE_Motd4)
+    Call SendData(SendTarget.ToIndex, AttackerIndex, 0, "||Has ganado " & DaExp & " puntos de experiencia." & FONTTYPE_Motd4)
 
-    Call SendData(SendTarget.toindex, VictimIndex, 0, "||" & UserList(AttackerIndex).Name & " te ha matado!" & FONTTYPE_Motd4)
+    Call SendData(SendTarget.ToIndex, VictimIndex, 0, "||" & UserList(AttackerIndex).Name & " te ha matado!" & FONTTYPE_Motd4)
 
-    If TriggerZonaPelea(VictimIndex, AttackerIndex) <> TRIGGER6_PERMITE Then
-        If (Not Criminal(VictimIndex)) Then
-            UserList(AttackerIndex).Reputacion.AsesinoRep = UserList(AttackerIndex).Reputacion.AsesinoRep + vlASESINO * 2
-
-            If UserList(AttackerIndex).Reputacion.AsesinoRep > MAXREP Then UserList(AttackerIndex).Reputacion.AsesinoRep = MAXREP
-            UserList(AttackerIndex).Reputacion.BurguesRep = 0
-            UserList(AttackerIndex).Reputacion.NobleRep = 0
-            UserList(AttackerIndex).Reputacion.PlebeRep = 0
-        Else
-            UserList(AttackerIndex).Reputacion.NobleRep = UserList(AttackerIndex).Reputacion.NobleRep + vlNoble
-
-            If UserList(AttackerIndex).Reputacion.NobleRep > MAXREP Then UserList(AttackerIndex).Reputacion.NobleRep = MAXREP
-
-        End If
-
-    End If
+'    If TriggerZonaPelea(VictimIndex, AttackerIndex) <> TRIGGER6_PERMITE Then
+'        If (Not Criminal(VictimIndex)) Then
+'            UserList(AttackerIndex).Reputacion.AsesinoRep = UserList(AttackerIndex).Reputacion.AsesinoRep + vlASESINO * 2
+'
+'            If UserList(AttackerIndex).Reputacion.AsesinoRep > MAXREP Then UserList(AttackerIndex).Reputacion.AsesinoRep = MAXREP
+'            UserList(AttackerIndex).Reputacion.BurguesRep = 0
+'            UserList(AttackerIndex).Reputacion.NobleRep = 0
+'            UserList(AttackerIndex).Reputacion.PlebeRep = 0
+'        Else
+'            UserList(AttackerIndex).Reputacion.NobleRep = UserList(AttackerIndex).Reputacion.NobleRep + vlNoble
+'
+'            If UserList(AttackerIndex).Reputacion.NobleRep > MAXREP Then UserList(AttackerIndex).Reputacion.NobleRep = MAXREP
+'
+'        End If
+'
+'    End If
 
     If UserList(VictimIndex).GranPoder = 1 Then
         Call mod_GranPoder.UserMataPoder(VictimIndex, AttackerIndex)
@@ -77,7 +77,7 @@ End Sub
 Sub RevivirUsuario(ByVal UserIndex As Integer)
      
     If NameDay = "Noche" And UCase$(UserList(UserIndex).Raza) = "LICANTROPO" And UserList(UserIndex).flags.Navegando = 1 Then
-        Call SendData(toindex, UserIndex, 0, "||No puedes resucitar navegando, la oscuridad te lo impide" & FONTTYPE_INFO)
+        Call SendData(ToIndex, UserIndex, 0, "||No puedes resucitar navegando, la oscuridad te lo impide" & FONTTYPE_INFO)
         Exit Sub
 
     End If
@@ -103,7 +103,7 @@ Sub RevivirUsuario(ByVal UserIndex As Integer)
 
     End If
 
-   Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
+   Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
             UserIndex).OrigChar.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, _
             UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
             
@@ -225,7 +225,7 @@ Sub ChangeUserChar(ByVal sndRoute As Byte, _
 End Sub
 
 Sub EnviarSubirNivel(ByVal UserIndex As Integer, ByVal Puntos As Integer)
-    Call SendData(SendTarget.toindex, UserIndex, 0, "SUNI" & Puntos)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "SUNI" & Puntos)
 
 End Sub
 
@@ -237,57 +237,57 @@ Sub EnviarSkills(ByVal UserIndex As Integer)
         cad = cad & UserList(UserIndex).Stats.UserSkills(i) & ","
     Next i
 
-    SendData SendTarget.toindex, UserIndex, 0, "SKILLS" & cad$
+    SendData SendTarget.ToIndex, UserIndex, 0, "SKILLS" & cad$
 
 End Sub
 
-Sub EnviarFama(ByVal UserIndex As Integer)
-    Dim cad As String
+'Sub EnviarFama(ByVal UserIndex As Integer)
+'    Dim cad As String
+'
+'    cad = cad & UserList(UserIndex).Reputacion.AsesinoRep & ","
+'    cad = cad & UserList(UserIndex).Reputacion.BandidoRep & ","
+'    cad = cad & UserList(UserIndex).Reputacion.BurguesRep & ","
+'    cad = cad & UserList(UserIndex).Reputacion.LadronesRep & ","
+'    cad = cad & UserList(UserIndex).Reputacion.NobleRep & ","
+'    cad = cad & UserList(UserIndex).Reputacion.PlebeRep & ","
+'
+'    Dim L As Long
+'
+'    L = (-UserList(UserIndex).Reputacion.AsesinoRep) + (-UserList(UserIndex).Reputacion.BandidoRep) + UserList(UserIndex).Reputacion.BurguesRep + ( _
+'        -UserList(UserIndex).Reputacion.LadronesRep) + UserList(UserIndex).Reputacion.NobleRep + UserList(UserIndex).Reputacion.PlebeRep
+'    L = L / 6
+'
+'    UserList(UserIndex).Reputacion.Promedio = L
+'
+'    cad = cad & UserList(UserIndex).Reputacion.Promedio
+'
+'    SendData SendTarget.ToIndex, UserIndex, 0, "FAMA" & cad
+'
+'End Sub
 
-    cad = cad & UserList(UserIndex).Reputacion.AsesinoRep & ","
-    cad = cad & UserList(UserIndex).Reputacion.BandidoRep & ","
-    cad = cad & UserList(UserIndex).Reputacion.BurguesRep & ","
-    cad = cad & UserList(UserIndex).Reputacion.LadronesRep & ","
-    cad = cad & UserList(UserIndex).Reputacion.NobleRep & ","
-    cad = cad & UserList(UserIndex).Reputacion.PlebeRep & ","
-
-    Dim L As Long
-
-    L = (-UserList(UserIndex).Reputacion.AsesinoRep) + (-UserList(UserIndex).Reputacion.BandidoRep) + UserList(UserIndex).Reputacion.BurguesRep + ( _
-        -UserList(UserIndex).Reputacion.LadronesRep) + UserList(UserIndex).Reputacion.NobleRep + UserList(UserIndex).Reputacion.PlebeRep
-    L = L / 6
-
-    UserList(UserIndex).Reputacion.Promedio = L
-
-    cad = cad & UserList(UserIndex).Reputacion.Promedio
-
-    SendData SendTarget.toindex, UserIndex, 0, "FAMA" & cad
-
-End Sub
-
-Sub EnviarFamaGM(ByVal UserIndex As Integer, ByVal rData As Integer)
-    Dim cad As String
-
-    cad = cad & UserList(rData).Reputacion.AsesinoRep & ","
-    cad = cad & UserList(rData).Reputacion.BandidoRep & ","
-    cad = cad & UserList(rData).Reputacion.BurguesRep & ","
-    cad = cad & UserList(rData).Reputacion.LadronesRep & ","
-    cad = cad & UserList(rData).Reputacion.NobleRep & ","
-    cad = cad & UserList(rData).Reputacion.PlebeRep & ","
-
-    Dim L As Long
-
-    L = (-UserList(rData).Reputacion.AsesinoRep) + (-UserList(rData).Reputacion.BandidoRep) + UserList(rData).Reputacion.BurguesRep + ( _
-        -UserList(rData).Reputacion.LadronesRep) + UserList(rData).Reputacion.NobleRep + UserList(rData).Reputacion.PlebeRep
-    L = L / 6
-
-    UserList(rData).Reputacion.Promedio = L
-
-    cad = cad & UserList(rData).Reputacion.Promedio
-
-    SendData SendTarget.toindex, UserIndex, 0, "FAMA" & cad
-
-End Sub
+'Sub EnviarFamaGM(ByVal UserIndex As Integer, ByVal rData As Integer)
+'    Dim cad As String
+'
+'    cad = cad & UserList(rData).Reputacion.AsesinoRep & ","
+'    cad = cad & UserList(rData).Reputacion.BandidoRep & ","
+'    cad = cad & UserList(rData).Reputacion.BurguesRep & ","
+'    cad = cad & UserList(rData).Reputacion.LadronesRep & ","
+'    cad = cad & UserList(rData).Reputacion.NobleRep & ","
+'    cad = cad & UserList(rData).Reputacion.PlebeRep & ","
+'
+'    Dim L As Long
+'
+'    L = (-UserList(rData).Reputacion.AsesinoRep) + (-UserList(rData).Reputacion.BandidoRep) + UserList(rData).Reputacion.BurguesRep + ( _
+'        -UserList(rData).Reputacion.LadronesRep) + UserList(rData).Reputacion.NobleRep + UserList(rData).Reputacion.PlebeRep
+'    L = L / 6
+'
+'    UserList(rData).Reputacion.Promedio = L
+'
+'    cad = cad & UserList(rData).Reputacion.Promedio
+'
+'    SendData SendTarget.ToIndex, UserIndex, 0, "FAMA" & cad
+'
+'End Sub
 
 Sub EnviarAtrib(ByVal UserIndex As Integer)
     Dim i As Integer
@@ -296,7 +296,7 @@ Sub EnviarAtrib(ByVal UserIndex As Integer)
     For i = 1 To NUMATRIBUTOS
         cad = cad & UserList(UserIndex).Stats.UserAtributos(i) & ","
     Next
-    Call SendData(SendTarget.toindex, UserIndex, 0, "ATR" & cad)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ATR" & cad)
 
 End Sub
 
@@ -307,7 +307,7 @@ Sub EnviarAtribGM(ByVal UserIndex As Integer, ByVal rData As Integer)
     For i = 1 To NUMATRIBUTOS
         cad = cad & UserList(rData).Stats.UserAtributos(i) & ","
     Next
-    Call SendData(SendTarget.toindex, UserIndex, 0, "ATR" & cad)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ATR" & cad)
 
 End Sub
 
@@ -328,11 +328,11 @@ Public Sub EnviarMiniEstadisticasGM(ByVal UserIndex As Integer, ByVal rData As I
 
 
     With UserList(rData)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "MEST" & .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "MEST" & .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & _
                                                         .Stats.UsuariosMatados & "," & .Stats.NPCsMuertos & "," & .Clase & "," & .Counters.Pena & "," & .Raza & "," & .Clan.PuntosClan & "," & .Name & "," & _
                                                         .Genero & "," & .Stats.PuntosRetos & "," & .Stats.PuntosTorneo & "," & .Stats.PuntosDuelos & "," & .Stats.ELV & "," & .Stats.ELU & "," & .Stats.Exp & "," & _
                                                         .Stats.MinHP & "," & .Stats.MaxHP & "," & .Stats.MinMAN & "," & .Stats.MaxMAN & "," & .Stats.MinSta & "," & .Stats.MaxSta & "," & .Stats.GLD & "," & _
-                                                        .Stats.Banco & "," & .pos.Map & "," & .pos.X & "," & .pos.Y & "," & .Stats.SkillPts & "," & .Clan.ParticipoClan & "," & .Stats.AbbadonMatados & "," & .Stats.CleroMatados & "," & _
+                                                        .Stats.Banco & "," & .Pos.Map & "," & .Pos.X & "," & .Pos.Y & "," & .Stats.SkillPts & "," & .Clan.ParticipoClan & "," & .Stats.AbbadonMatados & "," & .Stats.CleroMatados & "," & _
                                                         .Stats.TinieblaMatados & "," & .Stats.TemplarioMatados & "," & UserArmada & "," & .Faccion.Reenlistadas & "," & UserRecompensas & "," & _
                                                         .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & .Faccion.FEnlistado)
     Debug.Print .Genero
@@ -359,11 +359,11 @@ Public Sub EnviarMiniEstadisticas(ByVal UserIndex As Integer)
 
 
     With UserList(UserIndex)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "MEST" & .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "MEST" & .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & _
                                                         .Stats.UsuariosMatados & "," & .Stats.NPCsMuertos & "," & .Clase & "," & .Counters.Pena & "," & .Raza & "," & .Clan.PuntosClan & "," & .Name & "," & _
                                                         .Genero & "," & .Stats.PuntosRetos & "," & .Stats.PuntosTorneo & "," & .Stats.PuntosDuelos & "," & .Stats.ELV & "," & .Stats.ELU & "," & .Stats.Exp & "," & _
                                                         .Stats.MinHP & "," & .Stats.MaxHP & "," & .Stats.MinMAN & "," & .Stats.MaxMAN & "," & .Stats.MinSta & "," & .Stats.MaxSta & "," & .Stats.GLD & "," & _
-                                                        .Stats.Banco & "," & .pos.Map & "," & .pos.X & "," & .pos.Y & "," & .Stats.SkillPts & "," & .Clan.ParticipoClan & "," & .Stats.AbbadonMatados & "," & .Stats.CleroMatados & "," & _
+                                                        .Stats.Banco & "," & .Pos.Map & "," & .Pos.X & "," & .Pos.Y & "," & .Stats.SkillPts & "," & .Clan.ParticipoClan & "," & .Stats.AbbadonMatados & "," & .Stats.CleroMatados & "," & _
                                                         .Stats.TinieblaMatados & "," & .Stats.TemplarioMatados & "," & UserArmada & "," & .Faccion.Reenlistadas & "," & UserRecompensas & "," & _
                                                         .Faccion.CiudadanosMatados & "," & .Faccion.CriminalesMatados & "," & .Faccion.FEnlistado)
     End With
@@ -389,7 +389,7 @@ Sub EraseUserChar(sndRoute As Byte, _
 
     End If
     
-    MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).UserIndex = 0
+    MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).UserIndex = 0
     
     'binmode: grrrrr.. para algo esta sndroute, sndindex, sndmap...
     Call SendData(sndRoute, sndIndex, sndMap, "BP" & UserList(UserIndex).char.CharIndex)
@@ -416,14 +416,16 @@ Sub MakeUserChar(ByVal sndRoute As SendTarget, _
     On Local Error GoTo hayerror
     
     If UserList(UserIndex).flags.MetamorfosisLicantropo = 1 Then
+
         UserList(UserIndex).char.Body = 173
-       UserList(UserIndex).char.Head = 0
-       UserList(UserIndex).char.heading = UserList(UserIndex).char.heading
-       UserList(UserIndex).char.WeaponAnim = NingunArma
-       UserList(UserIndex).char.ShieldAnim = NingunEscudo
-       UserList(UserIndex).char.CascoAnim = NingunCasco
-       UserList(UserIndex).char.Alas = NingunAlas
-  End If
+        UserList(UserIndex).char.Head = 0
+        UserList(UserIndex).char.heading = UserList(UserIndex).char.heading
+        UserList(UserIndex).char.WeaponAnim = NingunArma
+        UserList(UserIndex).char.ShieldAnim = NingunEscudo
+        UserList(UserIndex).char.CascoAnim = NingunCasco
+        UserList(UserIndex).char.Alas = NingunAlas
+
+    End If
   
     Dim CharIndex As Integer
 
@@ -433,6 +435,7 @@ Sub MakeUserChar(ByVal sndRoute As SendTarget, _
 
             'If needed make a new character in list
             If .char.CharIndex = 0 Then
+
                 CharIndex = NextOpenCharIndex
                 .char.CharIndex = CharIndex
                 CharList(CharIndex) = UserIndex
@@ -446,58 +449,53 @@ Sub MakeUserChar(ByVal sndRoute As SendTarget, _
             Dim klan As String
 
             If .GuildIndex > 0 Then
+
                 klan = Guilds(.GuildIndex).GuildName
 
             End If
 
-            Dim bCr As Byte
+            Dim bCr             As Byte
+
             Dim SendPrivilegios As Byte
 
-            If Criminal(UserIndex) Then
-                bCr = 1
+            '            If Criminal(UserIndex) Then
+            '                bCr = 1
+            '            Else
+            '                bCr = 0
+            '
+            '            End If
+
+            If .Faccion.FuerzasCaos = 1 Then
+                bCr = 2
+            ElseIf .Faccion.Templario = 1 Then
+                bCr = 3
+            ElseIf .Faccion.ArmadaReal = 1 Then
+                bCr = 4
+            ElseIf .Faccion.Nemesis = 1 Then
+                bCr = 5
             Else
                 bCr = 0
 
             End If
-
-            If .Faccion.FuerzasCaos = 1 Then
-                bCr = 2
-            End If
-
-            If .Faccion.Templario = 1 Then
-                bCr = 3
-            End If
-
-            If .Faccion.ArmadaReal = 1 Then
-                bCr = 4
-            End If
-
-            If .Faccion.Nemesis = 1 Then
-                bCr = 5
-            End If
-            Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "CVB" & UserList(UserIndex).char.CharIndex & "," & UserList(UserIndex).flags.CvcBlue)
-            Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "CVR" & UserList(UserIndex).char.CharIndex & "," & UserList(UserIndex).flags.CvcRed)
+            
+            Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, "CVB" & UserList(UserIndex).char.CharIndex & "," & UserList(UserIndex).flags.CvcBlue)
+            Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, "CVR" & UserList(UserIndex).char.CharIndex & "," & UserList(UserIndex).flags.CvcRed)
 
             If Len(klan) <> 0 Then
-                If sndRoute = SendTarget.toindex Then
+                If sndRoute = SendTarget.ToIndex Then
 
                     Dim code As String
 
                     If .flags.Privilegios > PlayerType.User Then
                         If .showName Then
 
-                            code = .char.Body & "," & .char.Head & "," & .char.heading & "," & .char.CharIndex & "," & X & "," & Y & "," & _
-                                   .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 & "," & .char.CascoAnim & "," & .Name & _
-                                 " <" & klan & ">" & "" & "," & bCr & "," & IIf(.flags.EsRolesMaster, 5, .flags.Privilegios) & "," & .char.Alas _
-                                 & "," & .PartyIndex
+                            code = .char.Body & "," & .char.Head & "," & .char.heading & "," & .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 & "," & .char.CascoAnim & "," & .Name & " <" & klan & ">" & "" & "," & bCr & "," & IIf(.flags.EsRolesMaster, 5, .flags.Privilegios) & "," & .char.Alas & "," & .PartyIndex
 
                             Call SendData(sndRoute, sndIndex, sndMap, "CC" & code)
                         Else
 
                             'Hide the name and clan
-                            code = .char.Body & "," & .char.Head & "," & .char.heading & "," & .char.CharIndex & "," & X & "," & Y & "," & _
-                                   .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 & "," & .char.CascoAnim & ",," & bCr & _
-                                   "," & IIf(.flags.EsRolesMaster, 5, .flags.Privilegios) & "," & .char.Alas & "," & .PartyIndex
+                            code = .char.Body & "," & .char.Head & "," & .char.heading & "," & .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 & "," & .char.CascoAnim & ",," & bCr & "," & IIf(.flags.EsRolesMaster, 5, .flags.Privilegios) & "," & .char.Alas & "," & .PartyIndex
 
                             Call SendData(sndRoute, sndIndex, sndMap, "CC" & code)
 
@@ -505,50 +503,40 @@ Sub MakeUserChar(ByVal sndRoute As SendTarget, _
 
                     Else
 
-                        code = .char.Body & "," & .char.Head & "," & .char.heading & "," & .char.CharIndex & "," & X & "," & Y & "," & _
-                               .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 & "," & .char.CascoAnim & "," & .Name & " <" _
-                             & klan & ">" & "" & "," & bCr & "," & IIf(.flags.PertAlCons = 1, 4, IIf(.flags.PertAlConsCaos = 1, 6, 0)) & "," & _
-                               .char.Alas & "," & .PartyIndex
+                        code = .char.Body & "," & .char.Head & "," & .char.heading & "," & .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 & "," & .char.CascoAnim & "," & .Name & " <" & klan & ">" & "" & "," & bCr & "," & IIf(.flags.PertAlCons = 1, 4, IIf(.flags.PertAlConsCaos = 1, 6, 0)) & "," & .char.Alas & "," & .PartyIndex
 
                         Call SendData(sndRoute, sndIndex, sndMap, "CC" & code)
 
                     End If
-                 'Paquete envio de quest
-                 Call SendData(sndRoute, sndIndex, sndMap, "XC" & 1)
+
+                    'Paquete envio de quest
+                    Call SendData(sndRoute, sndIndex, sndMap, "XC" & 1)
                  
                 ElseIf sndRoute = SendTarget.ToMap Then
-                    Call AgregarUser(UserIndex, .pos.Map)
+                    Call AgregarUser(UserIndex, .Pos.Map)
 
                 End If
 
             Else    'if tiene clan
 
-                If sndRoute = SendTarget.toindex Then
+                If sndRoute = SendTarget.ToIndex Then
 
                     If .flags.Privilegios > PlayerType.User Then
                         If .showName Then
-                            Call SendData(SendTarget.toindex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & _
-                                                                                .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & _
-                                                                                999 & "," & .char.CascoAnim & "," & .Name & "" & "," & bCr & "," & IIf(.flags.EsRolesMaster, 5, _
-                                                                                                                                                       .flags.Privilegios) & "," & .char.Alas)
+
+                            Call SendData(SendTarget.ToIndex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 & "," & .char.CascoAnim & "," & .Name & "" & "," & bCr & "," & IIf(.flags.EsRolesMaster, 5, .flags.Privilegios) & "," & .char.Alas)
                         Else
-                            Call SendData(SendTarget.toindex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & _
-                                                                                .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & _
-                                                                                999 & "," & .char.CascoAnim & ",," & bCr & "," & IIf(.flags.EsRolesMaster, 5, .flags.Privilegios) & "," & _
-                                                                                .char.Alas)
+                            Call SendData(SendTarget.ToIndex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 & "," & .char.CascoAnim & ",," & bCr & "," & IIf(.flags.EsRolesMaster, 5, .flags.Privilegios) & "," & .char.Alas)
 
                         End If
 
                     Else
-                        Call SendData(SendTarget.toindex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & _
-                                                                            .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 _
-                                                                          & "," & .char.CascoAnim & "," & .Name & "" & "," & bCr & "," & IIf(.flags.PertAlCons = 1, 4, IIf( _
-                                                                                                                                                                         .flags.PertAlConsCaos = 1, 6, 0)) & "," & .char.Alas)
+                        Call SendData(SendTarget.ToIndex, sndIndex, sndMap, "BC" & .char.Body & "," & .char.Head & "," & .char.heading & "," & .char.CharIndex & "," & X & "," & Y & "," & .char.WeaponAnim & "," & .char.ShieldAnim & "," & .char.FX & "," & 999 & "," & .char.CascoAnim & "," & .Name & "" & "," & bCr & "," & IIf(.flags.PertAlCons = 1, 4, IIf(.flags.PertAlConsCaos = 1, 6, 0)) & "," & .char.Alas)
 
                     End If
 
                 ElseIf sndRoute = SendTarget.ToMap Then
-                    Call AgregarUser(UserIndex, .pos.Map)
+                    Call AgregarUser(UserIndex, .Pos.Map)
 
                 End If
 
@@ -710,14 +698,14 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
         If AumentoLVL > 0 Then
 
             If .Stats.ELV = STAT_MAXELV Then
-                If Criminal(UserIndex) Then
-                    Call AgregarHechizoEspecial(UserIndex, H_Demonio)
-                    Call AgregarHechizoEspecial(UserIndex, H_DemonioII)
-                Else
-                    Call AgregarHechizoEspecial(UserIndex, H_Angel)
-                    Call AgregarHechizoEspecial(UserIndex, H_AngelII)
-
-                End If
+            'Dar hechizos cuando llegas maximo nivel a angeles/demonios.
+'                If Criminal(UserIndex) Then
+'                    Call AgregarHechizoEspecial(UserIndex, H_Demonio)
+'                    Call AgregarHechizoEspecial(UserIndex, H_DemonioII)
+'                Else
+'                    Call AgregarHechizoEspecial(UserIndex, H_Angel)
+'                    Call AgregarHechizoEspecial(UserIndex, H_AngelII)
+'                End If
 
             End If
 
@@ -729,13 +717,13 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
             .Stats.MinHP = .Stats.MaxHP
             .Stats.MinMAN = .Stats.MaxMAN
 
-            Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "TW" & SND_NIVEL)
-            Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "||" & vbCyan & "°" & "Has pasado al nivel " & .Stats.ELV & "°" & CStr(.char.CharIndex))
+            Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "TW" & SND_NIVEL)
+            Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "||" & vbCyan & "°" & "Has pasado al nivel " & .Stats.ELV & "°" & CStr(.char.CharIndex))
 
             If AumentoLVL = 1 Then
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has subido de nivel!" & FONTTYPE_INFO)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has subido de nivel!" & FONTTYPE_INFO)
             Else
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||¡Has subido " & AumentoLVL & " Niveles!." & FONTTYPE_INFO)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has subido " & AumentoLVL & " Niveles!." & FONTTYPE_INFO)
 
             End If
             
@@ -749,23 +737,23 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
 
             'Notificamos al user
             If AumentoHP > 0 Then
-                SendData SendTarget.toindex, UserIndex, 0, "||Has ganado " & AumentoHP & " puntos de vida." & FONTTYPE_INFO
+                SendData SendTarget.ToIndex, UserIndex, 0, "||Has ganado " & AumentoHP & " puntos de vida." & FONTTYPE_INFO
 
             End If
 
             If AumentoSTA > 0 Then
-                SendData SendTarget.toindex, UserIndex, 0, "||Has ganado " & AumentoSTA & " puntos de stamina." & FONTTYPE_INFO
+                SendData SendTarget.ToIndex, UserIndex, 0, "||Has ganado " & AumentoSTA & " puntos de stamina." & FONTTYPE_INFO
 
             End If
 
             If AumentoMANA > 0 Then
-                SendData SendTarget.toindex, UserIndex, 0, "||Has ganado " & AumentoMANA & " puntos de mana." & FONTTYPE_INFO
+                SendData SendTarget.ToIndex, UserIndex, 0, "||Has ganado " & AumentoMANA & " puntos de mana." & FONTTYPE_INFO
 
             End If
 
             If AumentoHIT > 0 Then
-                SendData SendTarget.toindex, UserIndex, 0, "||Tu golpe maximo aumento en " & AumentoHIT & " puntos." & FONTTYPE_INFO
-                SendData SendTarget.toindex, UserIndex, 0, "||Tu golpe minimo aumento en " & AumentoHIT & " puntos." & FONTTYPE_INFO
+                SendData SendTarget.ToIndex, UserIndex, 0, "||Tu golpe maximo aumento en " & AumentoHIT & " puntos." & FONTTYPE_INFO
+                SendData SendTarget.ToIndex, UserIndex, 0, "||Tu golpe minimo aumento en " & AumentoHIT & " puntos." & FONTTYPE_INFO
 
             End If
 
@@ -782,16 +770,14 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
 
                 End If
 
-                Call CriCiuMaxLvl(UserIndex)
-
             End If
 
             If .Stats.ELV > 13 Then
                 ExPromedio = Round((.Stats.MaxHP - AumentoHP) / (.Stats.ELV - 1), 2)
                 Promedio = Round(.Stats.MaxHP / .Stats.ELV, 2)
 
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||El Promedio de vida de tu Personaje era de " & CStr(ExPromedio) & FONTTYPE_ORO)
-                Call SendData(SendTarget.toindex, UserIndex, 0, "||Ahora el Promedio es de " & CStr(Promedio) & FONTTYPE_ORO)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El Promedio de vida de tu Personaje era de " & CStr(ExPromedio) & FONTTYPE_ORO)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Ahora el Promedio es de " & CStr(Promedio) & FONTTYPE_ORO)
 
             End If
 
@@ -802,7 +788,7 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
         If Not EsNewbie(UserIndex) And WasNewbie Then
             Call QuitarNewbieObj(UserIndex)
 
-            If UCase$(MapInfo(.pos.Map).Restringir) = "SI" Then
+            If UCase$(MapInfo(.Pos.Map).Restringir) = "SI" Then
                 Call WarpUserChar(UserIndex, 34, 45, 50, True)
                 '  Call SendData(SendTarget.toindex, UserIndex, 0, "||Debes abandonar el Dungeon Newbie." & _
                    FONTTYPE_WARNING)
@@ -817,7 +803,7 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
 
             .Stats.SkillPts = .Stats.SkillPts + Pts
 
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Has ganado un total de " & CStr(Pts) & " skillpoints." & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Has ganado un total de " & CStr(Pts) & " skillpoints." & FONTTYPE_INFO)
 
         End If
 
@@ -902,7 +888,7 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
             
         sailing = PuedeAtravesarAgua(UserIndex)
 
-        nPos = .pos
+        nPos = .Pos
         Call HeadtoPos(nHeading, nPos)
 
         isAdminInvi = (.flags.AdminInvisible = 1)
@@ -913,12 +899,12 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
         'End If
         'End If
 
-        If MoveToLegalPos(.pos.Map, nPos.X, nPos.Y, sailing, Not sailing) Then
+        If MoveToLegalPos(.Pos.Map, nPos.X, nPos.Y, sailing, Not sailing) Then
         
           Call Corr_MandaPosicion(UserIndex, SuX, SuY, codigo, 1)
 
             'si no estoy solo en el mapa...
-            If MapInfo(.pos.Map).NumUsers > 1 Then
+            If MapInfo(.Pos.Map).NumUsers > 1 Then
 
                 CasperIndex = MapData(nPos.Map, nPos.X, nPos.Y).UserIndex
 
@@ -929,7 +915,7 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
                     If Not isAdminInvi Then
 
                         CasperHeading = InvertHeading(nHeading)
-                        CasPerPos = UserList(CasperIndex).pos
+                        CasPerPos = UserList(CasperIndex).Pos
                         Call HeadtoPos(CasperHeading, CasPerPos)
 
                         With UserList(CasperIndex)
@@ -940,12 +926,12 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
 
                             End If
 
-                            Call SendData(SendTarget.toindex, CasperIndex, 0, "$" & CasperHeading)
+                            Call SendData(SendTarget.ToIndex, CasperIndex, 0, "$" & CasperHeading)
 
                             'Update map and user pos
-                            .pos = CasPerPos
+                            .Pos = CasPerPos
                             .char.heading = CasperHeading
-                            MapData(.pos.Map, CasPerPos.X, CasPerPos.Y).UserIndex = CasperIndex
+                            MapData(.Pos.Map, CasPerPos.X, CasPerPos.Y).UserIndex = CasperIndex
 
                         End With
                         
@@ -970,18 +956,18 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
 
                 Dim oldUserIndex As Integer
 
-                oldUserIndex = MapData(.pos.Map, .pos.X, .pos.Y).UserIndex
+                oldUserIndex = MapData(.Pos.Map, .Pos.X, .Pos.Y).UserIndex
 
                 ' Si no hay intercambio de pos con nadie
                 If oldUserIndex = UserIndex Then
-                    MapData(.pos.Map, .pos.X, .pos.Y).UserIndex = 0
+                    MapData(.Pos.Map, .Pos.X, .Pos.Y).UserIndex = 0
 
                 End If
 
                 'Update map and user pos
-                .pos = nPos
+                .Pos = nPos
                 .char.heading = nHeading
-                MapData(.pos.Map, .pos.X, .pos.Y).UserIndex = UserIndex
+                MapData(.Pos.Map, .Pos.X, .Pos.Y).UserIndex = UserIndex
 
                 If ZonaCura(UserIndex) Then Call AutoCuraUser(UserIndex)
 
@@ -990,7 +976,7 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
                 Call ModAreas.CheckUpdateNeededUser(UserIndex, nHeading)
 
             Else
-                Call SendData(SendTarget.toindex, UserIndex, 0, "PU" & .pos.X & "," & .pos.Y)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & .Pos.X & "," & .Pos.Y)
         
 
                 .Counters.validInputs = (GetTickCount() And &H7FFFFFFF) + .char.delay + 20
@@ -998,7 +984,7 @@ Sub MoveUserChar(ByVal UserIndex As Integer, ByVal nHeading As Byte, codigo As B
             End If
 
         Else
-            Call SendData(SendTarget.toindex, UserIndex, 0, "PU" & .pos.X & "," & .pos.Y)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "PU" & .Pos.X & "," & .Pos.Y)
 
             .Counters.validInputs = (GetTickCount() And &H7FFFFFFF) + .char.delay + 20
 
@@ -1029,9 +1015,9 @@ Public Sub EnviaPosClan(ByVal UserIndex As Integer)
         If UCase$(UserList(i).Name) <> UCase$(UserList(UserIndex).Name) Then
            If UserList(i).GuildIndex > 0 Then
             If UCase$(Guilds(UserList(i).GuildIndex).GuildName) = UCase$(Guilds(UserList(UserIndex).GuildIndex).GuildName) Then
-                If UserList(i).pos.Map = UserList(UserIndex).pos.Map Then
+                If UserList(i).Pos.Map = UserList(UserIndex).Pos.Map Then
                     IDUser = IDUser + 1
-                    Call SendData(toindex, UserIndex, 0, "PO" & UserList(i).pos.X & "," & UserList(i).pos.Y & "," & IDUser)
+                    Call SendData(ToIndex, UserIndex, 0, "PO" & UserList(i).Pos.X & "," & UserList(i).Pos.Y & "," & IDUser)
                     'Call SendData(ToIndex, i, 0, "PO" & UserList(UserIndex).pos.x & "," & UserList(UserIndex).pos.Y & "," & IDUser)
 
                 End If
@@ -1077,18 +1063,18 @@ Sub AutoCuraUser(ByVal UserIndex As Integer)
     If UserList(UserIndex).flags.Muerto = 1 Then
         Call RevivirUsuario(UserIndex)
         UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||El sacerdote te ha resucitado y curado." & FONTTYPE_INFO)
-        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 9 & "," & 1)
-        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW106")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El sacerdote te ha resucitado y curado." & FONTTYPE_INFO)
+        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 9 & "," & 1)
+        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW106")
         Call SendUserStatsBox(UserIndex)
 
     End If
 
     If UserList(UserIndex).Stats.MinHP < UserList(UserIndex).Stats.MaxHP Then
         UserList(UserIndex).Stats.MinHP = UserList(UserIndex).Stats.MaxHP
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||El sacerdote te ha curado." & FONTTYPE_INFO)
-        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 9 & "," & 1)
-        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "TW106")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El sacerdote te ha curado." & FONTTYPE_INFO)
+        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & 9 & "," & 1)
+        Call SendData(ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "TW106")
         Call SendUserStatsBox(UserIndex)
 
     End If
@@ -1118,13 +1104,13 @@ Sub ChangeUserInv(UserIndex As Integer, Slot As Byte, Object As UserOBJ)
                  
                  Ver = ViewSagradaHit(UserIndex, Object.ObjIndex)
                  
-                 Call SendData(SendTarget.toindex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
                                                         Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & _
                                                         Ver & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
                                                         Object.ObjIndex).MinDef & "," & ObjData(Object.ObjIndex).Valor \ PrecioQl)
               
               ElseIf ObjData(Object.ObjIndex).sagrado = 0 Then
-                  Call SendData(SendTarget.toindex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
+                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
                                                         Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & _
                                                         ObjData(Object.ObjIndex).MaxHit & "," & ObjData(Object.ObjIndex).MinHit & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
                                                         Object.ObjIndex).MinDef & "," & ObjData(Object.ObjIndex).Valor \ PrecioQl)
@@ -1147,7 +1133,7 @@ Sub ChangeUserInv(UserIndex As Integer, Slot As Byte, Object As UserOBJ)
           
           Else
           
-        Call SendData(SendTarget.toindex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & _
                                                         Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," & ObjData(Object.ObjIndex).ObjType & "," & _
                                                         ObjData(Object.ObjIndex).MaxHit & "," & ObjData(Object.ObjIndex).MinHit & "," & ObjData(Object.ObjIndex).MaxDef & "," & ObjData( _
                                                         Object.ObjIndex).MinDef & "," & ObjData(Object.ObjIndex).Valor \ PrecioQl)
@@ -1155,7 +1141,7 @@ Sub ChangeUserInv(UserIndex As Integer, Slot As Byte, Object As UserOBJ)
 
     Else
         'Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & ",0," & "(Vacío)" & ",0,0,0")
-        Call SendData(SendTarget.toindex, UserIndex, 0, "CSI" & Slot & "," & "0" & "," & "(None)" & "," & "0" & "," & "0")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "CSI" & Slot & "," & "0" & "," & "(None)" & "," & "0" & "," & "0")
 
     End If
 
@@ -1163,28 +1149,28 @@ End Sub
 
 Function NextOpenCharIndex() As Integer
 
-Dim LooPc As Integer
+Dim LoopC As Integer
 
-For LooPc = 1 To LastChar + 1
-    If CharList(LooPc) = 0 Then
-        NextOpenCharIndex = LooPc
+For LoopC = 1 To LastChar + 1
+    If CharList(LoopC) = 0 Then
+        NextOpenCharIndex = LoopC
         NumChars = NumChars + 1
-        If LooPc > LastChar Then LastChar = LooPc
+        If LoopC > LastChar Then LastChar = LoopC
         Exit Function
     End If
-Next LooPc
+Next LoopC
 
 End Function
 
 Function NextOpenUser() As Integer
-    Dim LooPc As Long
+    Dim LoopC As Long
     
-    For LooPc = 1 To MaxUsers + 1
-        If LooPc > MaxUsers Then Exit For
-        If (UserList(LooPc).ConnID = -1 And UserList(LooPc).flags.UserLogged = False) Then Exit For
-    Next LooPc
+    For LoopC = 1 To MaxUsers + 1
+        If LoopC > MaxUsers Then Exit For
+        If (UserList(LoopC).ConnID = -1 And UserList(LoopC).flags.UserLogged = False) Then Exit For
+    Next LoopC
     
-    NextOpenUser = LooPc
+    NextOpenUser = LoopC
 End Function
 
 Sub SendUserHitBox(ByVal UserIndex As Integer)
@@ -1267,8 +1253,8 @@ End Sub
 Sub EnviarVerdes(ByVal UserIndex As Integer)
 
     With UserList(UserIndex)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "VTG" & .flags.DuracionEfectoVerdes)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "VRG" & .Stats.UserAtributos(eAtributos.Fuerza))
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "VTG" & .flags.DuracionEfectoVerdes)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "VRG" & .Stats.UserAtributos(eAtributos.Fuerza))
 
     End With
 
@@ -1277,8 +1263,8 @@ End Sub
 Sub EnviarAmarillas(ByVal UserIndex As Integer)
 
     With UserList(UserIndex)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ATG" & .flags.DuracionEfectoAmarillas)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ARG" & .Stats.UserAtributos(eAtributos.Agilidad))
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ATG" & .flags.DuracionEfectoAmarillas)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ARG" & .Stats.UserAtributos(eAtributos.Agilidad))
 
     End With
 
@@ -1286,10 +1272,8 @@ End Sub
 
 Sub SendUserStatsBox(ByVal UserIndex As Integer)
 
-    Call CompruebaOroRank(UserIndex)
 
-
-    Call SendData(SendTarget.toindex, UserIndex, 0, "EST" & UserList(UserIndex).Stats.MaxHP & "," & UserList(UserIndex).Stats.MinHP & "," & _
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "EST" & UserList(UserIndex).Stats.MaxHP & "," & UserList(UserIndex).Stats.MinHP & "," & _
                                                     UserList(UserIndex).Stats.MaxMAN & "," & UserList(UserIndex).Stats.MinMAN & "," & UserList(UserIndex).Stats.MaxSta & "," & UserList( _
                                                     UserIndex).Stats.MinSta & "," & UserList(UserIndex).Stats.GLD & "," & UserList(UserIndex).Stats.ELV & "," & UserList( _
                                                     UserIndex).Stats.ELU & "," & UserList(UserIndex).Stats.Exp & "," & UserList(UserIndex).AoMCreditos & "," & UserList(UserIndex).AoMCanjes)
@@ -1301,14 +1285,14 @@ Sub EnviarHP(ByVal UserIndex As Integer)
     With UserList(UserIndex)
 
         If .Stats.MinHP < 0 Then .Stats.MinHP = 0
-        Call SendData(SendTarget.toindex, UserIndex, 0, "VID" & .Stats.MinHP)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "VID" & .Stats.MinHP)
 
 
         If .PartyIndex <> 0 Then
 
             If .Stats.MinHP <> 0 And .Stats.MaxHP <> 0 Then
 
-                Call SendData(SendTarget.ToPartyArea, UserIndex, .pos.Map, "VPT" & .char.CharIndex & "," & .Stats.MinHP & "," & .Stats.MaxHP & "," & .PartyIndex)
+                Call SendData(SendTarget.ToPartyArea, UserIndex, .Pos.Map, "VPT" & .char.CharIndex & "," & .Stats.MinHP & "," & .Stats.MaxHP & "," & .PartyIndex)
 
             End If
 
@@ -1321,29 +1305,28 @@ End Sub
 Sub EnviarMn(ByVal UserIndex As Integer)
 
     If UserList(UserIndex).Stats.MinMAN < 0 Then UserList(UserIndex).Stats.MinMAN = 0
-    Call SendData(SendTarget.toindex, UserIndex, 0, "MN" & UserList(UserIndex).Stats.MinMAN)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "MN" & UserList(UserIndex).Stats.MinMAN)
 
 End Sub
 
 Sub EnviarSta(ByVal UserIndex As Integer)
 
     If UserList(UserIndex).Stats.MinSta < 0 Then UserList(UserIndex).Stats.MinSta = 0
-    Call SendData(SendTarget.toindex, UserIndex, 0, "STA" & UserList(UserIndex).Stats.MinSta)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "STA" & UserList(UserIndex).Stats.MinSta)
 
 End Sub
 
 Sub EnviarOro(ByVal UserIndex As Integer)
 
     If UserList(UserIndex).Stats.GLD < 0 Then UserList(UserIndex).Stats.GLD = 0
-    Call SendData(SendTarget.toindex, UserIndex, 0, "ORO" & UserList(UserIndex).Stats.GLD)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ORO" & UserList(UserIndex).Stats.GLD)
 
-    Call CompruebaOroRank(UserIndex)
 End Sub
 
 Sub EnviarExp(ByVal UserIndex As Integer)
 
     If UserList(UserIndex).Stats.Exp < 0 Then UserList(UserIndex).Stats.Exp = 0
-    Call SendData(SendTarget.toindex, UserIndex, 0, "EXP" & UserList(UserIndex).Stats.Exp)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "EXP" & UserList(UserIndex).Stats.Exp)
 
 End Sub
 
@@ -1352,53 +1335,53 @@ Sub EnviarHambreYsed(ByVal UserIndex As Integer)
     If UserList(UserIndex).Stats.MinAGU < 0 Then UserList(UserIndex).Stats.MinAGU = 0
     If UserList(UserIndex).Stats.MinHam < 0 Then UserList(UserIndex).Stats.MinHam = 0
 
-    Call SendData(SendTarget.toindex, UserIndex, 0, "EHYS" & UserList(UserIndex).Stats.MinAGU & "," & UserList(UserIndex).Stats.MinHam)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "EHYS" & UserList(UserIndex).Stats.MinAGU & "," & UserList(UserIndex).Stats.MinHam)
 
 End Sub
 
 Sub SendUserStatsTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
     Dim GuildI As Integer
 
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Estadisticas de: " & UserList(UserIndex).Name & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Nivel: " & UserList(UserIndex).Stats.ELV & "  EXP: " & UserList(UserIndex).Stats.Exp & "/" & _
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Estadisticas de: " & UserList(UserIndex).Name & FONTTYPE_INFO)
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Nivel: " & UserList(UserIndex).Stats.ELV & "  EXP: " & UserList(UserIndex).Stats.Exp & "/" & _
                                                     UserList(UserIndex).Stats.ELU & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Salud: " & UserList(UserIndex).Stats.MinHP & "/" & UserList(UserIndex).Stats.MaxHP & _
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Salud: " & UserList(UserIndex).Stats.MinHP & "/" & UserList(UserIndex).Stats.MaxHP & _
                                                   "  Mana: " & UserList(UserIndex).Stats.MinMAN & "/" & UserList(UserIndex).Stats.MaxMAN & "  Vitalidad: " & UserList( _
                                                     UserIndex).Stats.MinSta & "/" & UserList(UserIndex).Stats.MaxSta & FONTTYPE_INFO)
 
     If UserList(UserIndex).Invent.WeaponEqpObjIndex > 0 Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & UserList(UserIndex).Stats.MinHit & "/" & UserList( _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & UserList(UserIndex).Stats.MinHit & "/" & UserList( _
                                                         UserIndex).Stats.MaxHit & " (" & ObjData(UserList(UserIndex).Invent.WeaponEqpObjIndex).MinHit & "/" & ObjData(UserList( _
                                                                                                                                                                       UserIndex).Invent.WeaponEqpObjIndex).MaxHit & ")" & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & UserList(UserIndex).Stats.MinHit & "/" & UserList( _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & UserList(UserIndex).Stats.MinHit & "/" & UserList( _
                                                         UserIndex).Stats.MaxHit & FONTTYPE_INFO)
 
     End If
 
     If UserList(UserIndex).Invent.ArmourEqpObjIndex > 0 Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||(CUERPO) Min Def/Max Def: " & ObjData(UserList( _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||(CUERPO) Min Def/Max Def: " & ObjData(UserList( _
                                                                                                  UserIndex).Invent.ArmourEqpObjIndex).MinDef & "/" & ObjData(UserList(UserIndex).Invent.ArmourEqpObjIndex).MaxDef & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||(CUERPO) Min Def/Max Def: 0" & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||(CUERPO) Min Def/Max Def: 0" & FONTTYPE_INFO)
 
     End If
 
     If UserList(UserIndex).Invent.CascoEqpObjIndex > 0 Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||(CABEZA) Min Def/Max Def: " & ObjData(UserList( _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||(CABEZA) Min Def/Max Def: " & ObjData(UserList( _
                                                                                                  UserIndex).Invent.CascoEqpObjIndex).MinDef & "/" & ObjData(UserList(UserIndex).Invent.CascoEqpObjIndex).MaxDef & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||(CABEZA) Min Def/Max Def: 0" & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||(CABEZA) Min Def/Max Def: 0" & FONTTYPE_INFO)
 
     End If
 
     GuildI = UserList(UserIndex).GuildIndex
 
     If GuildI > 0 Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Clan: " & Guilds(GuildI).GuildName & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Clan: " & Guilds(GuildI).GuildName & FONTTYPE_INFO)
 
         If UCase$(Guilds(GuildI).GetLeader) = UCase$(UserList(sendIndex).Name) Then
-            Call SendData(SendTarget.toindex, sendIndex, 0, "||Status: Lider" & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Status: Lider" & FONTTYPE_INFO)
 
         End If
 
@@ -1406,28 +1389,28 @@ Sub SendUserStatsTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
         'Call SendData(SendTarget.ToIndex, sendIndex, 0, "||User GuildPoints: " & UserList(UserIndex).GuildInfo.GuildPoints & FONTTYPE_INFO)
     End If
 
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Oro: " & UserList(UserIndex).Stats.GLD & "  Posicion: " & UserList(UserIndex).pos.X & "," & _
-                                                    UserList(UserIndex).pos.Y & " en mapa " & UserList(UserIndex).pos.Map & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Dados: " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) & ", " & UserList( _
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Oro: " & UserList(UserIndex).Stats.GLD & "  Posicion: " & UserList(UserIndex).Pos.X & "," & _
+                                                    UserList(UserIndex).Pos.Y & " en mapa " & UserList(UserIndex).Pos.Map & FONTTYPE_INFO)
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Dados: " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) & ", " & UserList( _
                                                     UserIndex).Stats.UserAtributos(eAtributos.Agilidad) & ", " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) & ", " & _
                                                     UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) & ", " & UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) & _
                                                     FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Oro: " & UserList(UserIndex).Stats.TrofOro & "~255~255~6~0~0~")
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Plata: " & UserList(UserIndex).Stats.TrofPlata & "~255~255~251~0~0~")
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Bronce: " & UserList(UserIndex).Stats.TrofBronce & "~187~0~0~0~0~")
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||Amuletos de Madera: " & UserList(UserIndex).Stats.TrofMadera & "~237~207~139~0~0~")
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Oro: " & UserList(UserIndex).Stats.TrofOro & "~255~255~6~0~0~")
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Plata: " & UserList(UserIndex).Stats.TrofPlata & "~255~255~251~0~0~")
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Bronce: " & UserList(UserIndex).Stats.TrofBronce & "~187~0~0~0~0~")
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Amuletos de Madera: " & UserList(UserIndex).Stats.TrofMadera & "~237~207~139~0~0~")
 
 End Sub
 
 Sub SendUserMiniStatsTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
 
     With UserList(UserIndex)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pj: " & .Name & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||CiudadanosMatados: " & .Faccion.CiudadanosMatados & " CriminalesMatados: " & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Pj: " & .Name & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||CiudadanosMatados: " & .Faccion.CiudadanosMatados & " CriminalesMatados: " & _
                                                         .Faccion.CriminalesMatados & " UsuariosMatados: " & .Stats.UsuariosMatados & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||NPCsMuertos: " & .Stats.NPCsMuertos & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Clase: " & .Clase & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pena: " & .Counters.Pena & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||NPCsMuertos: " & .Stats.NPCsMuertos & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Clase: " & .Clase & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Pena: " & .Counters.Pena & FONTTYPE_INFO)
 
     End With
 
@@ -1442,25 +1425,25 @@ Sub SendUserMiniStatsTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As S
     CharFile = CharPath & CharName & ".chr"
 
     If FileExist(CharFile) Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pj: " & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Pj: " & CharName & FONTTYPE_INFO)
         ' 3 en uno :p
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||CiudadanosMatados: " & GetVar(CharFile, "FACCIONES", "CiudMatados") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||CiudadanosMatados: " & GetVar(CharFile, "FACCIONES", "CiudMatados") & _
                                                       " CriminalesMatados: " & GetVar(CharFile, "FACCIONES", "CrimMatados") & " UsuariosMatados: " & GetVar(CharFile, "MUERTES", _
                                                                                                                                                             "UserMuertes") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||NPCsMuertos: " & GetVar(CharFile, "MUERTES", "NpcsMuertes") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Clase: " & GetVar(CharFile, "INIT", "Clase") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pena: " & GetVar(CharFile, "COUNTERS", "PENA") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||NPCsMuertos: " & GetVar(CharFile, "MUERTES", "NpcsMuertes") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Clase: " & GetVar(CharFile, "INIT", "Clase") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Pena: " & GetVar(CharFile, "COUNTERS", "PENA") & FONTTYPE_INFO)
         Ban = GetVar(CharFile, "FLAGS", "Ban")
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Ban: " & Ban & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Ban: " & Ban & FONTTYPE_INFO)
 
         If Ban = "1" Then
-            Call SendData(SendTarget.toindex, sendIndex, 0, "||Baneado por: " & GetVar(CharFile, CharName, "BannedBy") & " El Motivo Fue: " & _
+            Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Baneado por: " & GetVar(CharFile, CharName, "BannedBy") & " El Motivo Fue: " & _
                                                             GetVar(BanDetailPath, CharName, "Reason") & FONTTYPE_INFO)
 
         End If
 
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||El pj no existe: " & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||El pj no existe: " & CharName & FONTTYPE_INFO)
 
     End If
 
@@ -1472,13 +1455,13 @@ Sub SendUserInvTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
 
     Dim j As Long
 
-    Call SendData(SendTarget.toindex, sendIndex, 0, "|| " & UserList(UserIndex).Name & FONTTYPE_INFO)
-    Call SendData(SendTarget.toindex, sendIndex, 0, "|| Tiene " & UserList(UserIndex).Invent.NroItems & " objetos." & FONTTYPE_INFO)
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| " & UserList(UserIndex).Name & FONTTYPE_INFO)
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| Tiene " & UserList(UserIndex).Invent.NroItems & " objetos." & FONTTYPE_INFO)
 
     For j = 1 To MAX_INVENTORY_SLOTS
 
         If UserList(UserIndex).Invent.Object(j).ObjIndex > 0 Then
-            Call SendData(SendTarget.toindex, sendIndex, 0, "|| Objeto " & j & "  (Indice " & UserList(UserIndex).Invent.Object(j).ObjIndex & ") " & ObjData(UserList(UserIndex).Invent.Object(j).ObjIndex).Name & _
+            Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| Objeto " & j & "  (Indice " & UserList(UserIndex).Invent.Object(j).ObjIndex & ") " & ObjData(UserList(UserIndex).Invent.Object(j).ObjIndex).Name & _
                                                           " Cantidad: " & UserList(UserIndex).Invent.Object(j).Amount & FONTTYPE_INFO)
 
         End If
@@ -1498,8 +1481,8 @@ Sub SendUserInvTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As String)
     CharFile = CharPath & CharName & ".chr"
 
     If FileExist(CharFile, vbNormal) Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "Inventory", "CantidadItems") & " objetos." & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "Inventory", "CantidadItems") & " objetos." & FONTTYPE_INFO)
 
         For j = 1 To MAX_INVENTORY_SLOTS
             Tmp = GetVar(CharFile, "Inventory", "Obj" & j)
@@ -1507,7 +1490,7 @@ Sub SendUserInvTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As String)
             ObjCant = ReadField(2, Tmp, Asc("-"))
 
             If ObjInd > 0 Then
-                Call SendData(SendTarget.toindex, sendIndex, 0, "|| Objeto " & j & " " & ObjData(ObjInd).Name & " Cantidad:" & ObjCant & _
+                Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| Objeto " & j & " " & ObjData(ObjInd).Name & " Cantidad:" & ObjCant & _
                                                                 FONTTYPE_INFO)
 
             End If
@@ -1515,7 +1498,7 @@ Sub SendUserInvTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As String)
         Next j
 
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
 
     End If
 
@@ -1526,22 +1509,22 @@ Sub SendUserSkillsTxt(ByVal sendIndex As Integer, ByVal UserIndex As Integer)
     On Error Resume Next
 
     Dim j As Integer
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||" & UserList(UserIndex).Name & FONTTYPE_INFO)
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||" & UserList(UserIndex).Name & FONTTYPE_INFO)
 
     For j = 1 To NUMSKILLS
-        Call SendData(SendTarget.toindex, sendIndex, 0, "|| " & SkillsNames(j) & " = " & UserList(UserIndex).Stats.UserSkills(j) & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| " & SkillsNames(j) & " = " & UserList(UserIndex).Stats.UserSkills(j) & FONTTYPE_INFO)
     Next
-    Call SendData(SendTarget.toindex, sendIndex, 0, "|| SkillLibres:" & UserList(UserIndex).Stats.SkillPts & FONTTYPE_INFO)
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| SkillLibres:" & UserList(UserIndex).Stats.SkillPts & FONTTYPE_INFO)
 
 End Sub
 
 Function EsMascotaCiudadano(ByVal NpcIndex As Integer, ByVal UserIndex As Integer) As Boolean
 
     If Npclist(NpcIndex).MaestroUser > 0 Then
-        EsMascotaCiudadano = Not Criminal(Npclist(NpcIndex).MaestroUser)
-
-        If EsMascotaCiudadano Then Call SendData(SendTarget.toindex, Npclist(NpcIndex).MaestroUser, 0, "||¡¡" & UserList(UserIndex).Name & _
-                                                                                                     " esta atacando tu mascota!!" & FONTTYPE_FIGHT)
+'        EsMascotaCiudadano = Not Criminal(Npclist(NpcIndex).MaestroUser)
+'
+'        If EsMascotaCiudadano Then Call SendData(SendTarget.ToIndex, Npclist(NpcIndex).MaestroUser, 0, "||¡¡" & UserList(UserIndex).Name & _
+'                                                                                                     " esta atacando tu mascota!!" & FONTTYPE_FIGHT)
 
     End If
 
@@ -1555,21 +1538,21 @@ Sub NpcAtacado(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     If Npclist(NpcIndex).MaestroUser > 0 Then Call AllMascotasAtacanUser(UserIndex, Npclist(NpcIndex).MaestroUser)
 
     If EsMascotaCiudadano(NpcIndex, UserIndex) Then
-            Call VolverCriminal(UserIndex)
+'            Call VolverCriminal(UserIndex)
             ' Npclist(NpcIndex).flags.AttackedBy
             Npclist(NpcIndex).Movement = NPCDEFENSA
             Npclist(NpcIndex).Hostile = 1
 Else
     'Reputacion
-    If Npclist(NpcIndex).Stats.Alineacion = 0 Then
-       If Npclist(NpcIndex).NPCtype = 1 Then
-                Call VolverCriminal(UserIndex)
-       Else
-               Call AddtoVar(UserList(UserIndex).Reputacion.BandidoRep, vlASALTO, MAXREP)
-       End If
-    ElseIf Npclist(NpcIndex).Stats.Alineacion = 1 Then
-             Call AddtoVar(UserList(UserIndex).Reputacion.PlebeRep, vlCAZADOR / 2, MAXREP)
-    End If
+'    If Npclist(NpcIndex).Stats.Alineacion = 0 Then
+'       If Npclist(NpcIndex).NPCtype = 1 Then
+'                Call VolverCriminal(UserIndex)
+'       Else
+'               Call AddtoVar(UserList(UserIndex).Reputacion.BandidoRep, vlASALTO, MAXREP)
+'       End If
+'    ElseIf Npclist(NpcIndex).Stats.Alineacion = 1 Then
+'             Call AddtoVar(UserList(UserIndex).Reputacion.PlebeRep, vlCAZADOR / 2, MAXREP)
+'    End If
 
         'hacemos que el npc se defienda
         Npclist(NpcIndex).Movement = TipoAI.NPCDEFENSA
@@ -1622,14 +1605,14 @@ Sub SubirSkill(ByVal UserIndex As Integer, ByVal Skill As Integer)
     
     If Aumenta = 7 And UserList(UserIndex).Stats.UserSkills(Skill) < LevelSkill(lvl).LevelValue Then
         Call AddtoVar(UserList(UserIndex).Stats.UserSkills(Skill), 1, MAXSKILLPOINTS)
-        Call SendData(toindex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & " en un punto!. Ahora tienes " & UserList(UserIndex).Stats.UserSkills(Skill) & " pts." & FONTTYPE_INFO)
+        Call SendData(ToIndex, UserIndex, 0, "||¡Has mejorado tu skill " & SkillsNames(Skill) & " en un punto!. Ahora tienes " & UserList(UserIndex).Stats.UserSkills(Skill) & " pts." & FONTTYPE_INFO)
 
         If lvl < 15 Then
             Call AddtoVar(UserList(UserIndex).Stats.Exp, lvl * 10, MAXEXP)
-            Call SendData(toindex, UserIndex, 0, "||¡Has ganado " & lvl * 10 & " puntos de experiencia!" & FONTTYPE_FIGHT)
+            Call SendData(ToIndex, UserIndex, 0, "||¡Has ganado " & lvl * 10 & " puntos de experiencia!" & FONTTYPE_FIGHT)
         Else
             Call AddtoVar(UserList(UserIndex).Stats.Exp, 50, MAXEXP)
-            Call SendData(toindex, UserIndex, 0, "||¡Has ganado 50 puntos de experiencia!" & FONTTYPE_FIGHT)
+            Call SendData(ToIndex, UserIndex, 0, "||¡Has ganado 50 puntos de experiencia!" & FONTTYPE_FIGHT)
 
         End If
 
@@ -1654,16 +1637,16 @@ Sub UserDie(ByVal UserIndex As Integer)
 
     'Sonido
     If UCase$(UserList(UserIndex).Genero) = "MUJER" Then
-        Call SonidosMapas.ReproducirSonido(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, e_SoundIndex.MUERTE_MUJER)
+        Call SonidosMapas.ReproducirSonido(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, e_SoundIndex.MUERTE_MUJER)
     Else
-        Call SonidosMapas.ReproducirSonido(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, e_SoundIndex.MUERTE_HOMBRE)
+        Call SonidosMapas.ReproducirSonido(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, e_SoundIndex.MUERTE_HOMBRE)
     End If
 
     'Quitar el dialogo del user muerto
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "QDL" & UserList(UserIndex).char.CharIndex)
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "QDL" & UserList(UserIndex).char.CharIndex)
     
     'enviar efecto de sangre
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "SFX" & UserList(UserIndex).char.CharIndex & "-0")
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "SFX" & UserList(UserIndex).char.CharIndex & "-0")
     
     For i = 1 To MAXMASCOTAS
     
@@ -1742,43 +1725,43 @@ Sub UserDie(ByVal UserIndex As Integer)
     If UserList(UserIndex).flags.DuracionEfectoVerdes > 0 Then
         UserList(UserIndex).flags.DuracionEfectoVerdes = 0
         UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = UserList(UserIndex).Stats.UserAtributosBackUP(eAtributos.Fuerza)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "VTG" & UserList(UserIndex).flags.DuracionEfectoVerdes)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "VRG" & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza))
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "VTG" & UserList(UserIndex).flags.DuracionEfectoVerdes)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "VRG" & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza))
     End If
 
     '<<<< Amarillas >>>>
     If UserList(UserIndex).flags.DuracionEfectoAmarillas > 0 Then
         UserList(UserIndex).flags.DuracionEfectoAmarillas = 0
         UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = UserList(UserIndex).Stats.UserAtributosBackUP(eAtributos.Agilidad)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ATG" & UserList(UserIndex).flags.DuracionEfectoAmarillas)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "ARG" & UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad))
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ATG" & UserList(UserIndex).flags.DuracionEfectoAmarillas)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "ARG" & UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad))
     End If
 
     '<<<< Paralisis >>>>
     If UserList(UserIndex).flags.Paralizado = 1 Then
         UserList(UserIndex).flags.Paralizado = 0
-        Call SendData(SendTarget.toindex, UserIndex, 0, "PARADOW")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "PARADOW")
 
     End If
 
     '<<< Estupidez >>>
     If UserList(UserIndex).flags.Estupidez = 1 Then
         UserList(UserIndex).flags.Estupidez = 0
-        Call SendData(SendTarget.toindex, UserIndex, 0, "NESTUP")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "NESTUP")
 
     End If
 
     '<<<< Descansando >>>>
     If UserList(UserIndex).flags.Descansar Then
         UserList(UserIndex).flags.Descansar = False
-        Call SendData(SendTarget.toindex, UserIndex, 0, "DOK")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "DOK")
 
     End If
 
     '<<<< Meditando >>>>
     If UserList(UserIndex).flags.Meditando Then
         UserList(UserIndex).flags.Meditando = False
-        Call SendData(SendTarget.toindex, UserIndex, 0, "MEDOK")
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "MEDOK")
 
     End If
 
@@ -1789,14 +1772,14 @@ Sub UserDie(ByVal UserIndex As Integer)
         UserList(UserIndex).flags.Invisible = 0
 
         'no hace falta encriptar este NOVER
-        Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",0," & UserList( _
+        Call SendData(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, "NOVER" & UserList(UserIndex).char.CharIndex & ",0," & UserList( _
                                                                         UserIndex).PartyIndex)
 
         If UserList(UserIndex).PartyIndex <> 0 Then
 
             If UserList(UserIndex).Stats.MinHP <> 0 And UserList(UserIndex).Stats.MaxHP <> 0 Then
 
-                Call SendData(SendTarget.ToPartyArea, UserIndex, UserList(UserIndex).pos.Map, "VPT" & UserList(UserIndex).char.CharIndex & "," & UserList(UserIndex).Stats.MinHP & "," & UserList(UserIndex).Stats.MaxHP & "," & UserList(UserIndex).PartyIndex)
+                Call SendData(SendTarget.ToPartyArea, UserIndex, UserList(UserIndex).Pos.Map, "VPT" & UserList(UserIndex).char.CharIndex & "," & UserList(UserIndex).Stats.MinHP & "," & UserList(UserIndex).Stats.MaxHP & "," & UserList(UserIndex).PartyIndex)
 
             End If
 
@@ -1807,7 +1790,8 @@ Sub UserDie(ByVal UserIndex As Integer)
     If TriggerZonaPelea(UserIndex, UserIndex) <> TRIGGER6_PERMITE Then
 
         ' << Si es newbie no pierde el inventario >>
-        If Not EsNewbie(UserIndex) Or Criminal(UserIndex) Then
+        'If Not EsNewbie(UserIndex) Or Criminal(UserIndex) Then
+        If Not EsNewbie(UserIndex) Then
             Call TirarTodo(UserIndex)
         Else
 
@@ -1917,7 +1901,7 @@ Sub UserDie(ByVal UserIndex As Integer)
     End If
 
     ' <<Si pierde el duelo se va>>
-    If UserList(UserIndex).pos.Map = MAPADUELO And UserIndex = duelosespera Then
+    If UserList(UserIndex).Pos.Map = MAPADUELO And UserIndex = duelosespera Then
         Call WarpUserChar(UserIndex, 34, 30, 50, True)
         Call SendData(SendTarget.ToAll, 0, 0, "||Duelos: el perdedor " & UserList(duelosespera).Name & " a salido de duelos." & FONTTYPE_TALK)
         duelosespera = duelosreta
@@ -1925,7 +1909,7 @@ Sub UserDie(ByVal UserIndex As Integer)
 
     End If
 
-    If UserList(UserIndex).pos.Map = MAPADUELO And UserIndex = duelosreta Then
+    If UserList(UserIndex).Pos.Map = MAPADUELO And UserIndex = duelosreta Then
         Call WarpUserChar(UserIndex, 34, 30, 50, True)
         numduelos = numduelos + 1
         UserList(duelosespera).Stats.PuntosDuelos = UserList(duelosespera).Stats.PuntosDuelos + 1
@@ -1992,7 +1976,7 @@ Sub UserDie(ByVal UserIndex As Integer)
 
     '<< Actualizamos clientes >>
     '[MaTeO 9]
-    Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, val(UserIndex), UserList(UserIndex).char.Body, UserList( _
+    Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, val(UserIndex), UserList(UserIndex).char.Body, UserList( _
                                                                                                                          UserIndex).char.Head, UserList(UserIndex).char.heading, NingunArma, NingunEscudo, NingunCasco, NingunAlas)
     '[/MaTeO 9]
 
@@ -2008,7 +1992,7 @@ Sub UserDie(ByVal UserIndex As Integer)
     '
     '    End If
 
-    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & MuereSpell & "," _
+    Call SendData(SendTarget.ToPCArea, UserIndex, UserList(UserIndex).Pos.Map, "CFX" & UserList(UserIndex).char.CharIndex & "," & MuereSpell & "," _
                                                                              & LoopSpell)
 
     'Reset Spell
@@ -2046,56 +2030,56 @@ Sub ContarMuerte(ByVal Muerto As Integer, ByVal Atacante As Integer)
 
     If TriggerZonaPelea(Muerto, Atacante) = TRIGGER6_PERMITE Then Exit Sub
 
-    If Criminal(Muerto) Then
-        If UserList(Atacante).flags.LastCrimMatado <> UserList(Muerto).Name Then
-            UserList(Atacante).flags.LastCrimMatado = UserList(Muerto).Name
-
-            If UserList(Atacante).Faccion.CriminalesMatados < 65000 Then UserList(Atacante).Faccion.CriminalesMatados = UserList( _
-               Atacante).Faccion.CriminalesMatados + 1
-
-        End If
-
-        If UserList(Atacante).Faccion.CriminalesMatados > MAXUSERMATADOS Then
-            UserList(Atacante).Faccion.CriminalesMatados = 0
-            UserList(Atacante).Faccion.RecompensasReal = 0
-
-        End If
-
-        If UserList(Atacante).Faccion.RecibioExpInicialCaos = 1 And UserList(Muerto).Faccion.FuerzasCaos = 1 Then
-            UserList(Atacante).Faccion.Reenlistadas = 200  'jaja que trucho
-
-            'con esto evitamos que se vuelva a reenlistar
-        End If
-
-    Else
-
-        If UserList(Atacante).flags.LastCiudMatado <> UserList(Muerto).Name Then
-            UserList(Atacante).flags.LastCiudMatado = UserList(Muerto).Name
-
-            If UserList(Atacante).Faccion.CiudadanosMatados < 65000 Then UserList(Atacante).Faccion.CiudadanosMatados = UserList( _
-               Atacante).Faccion.CiudadanosMatados + 1
-
-        End If
-
-        If UserList(Atacante).Faccion.CiudadanosMatados > MAXUSERMATADOS Then
-            UserList(Atacante).Faccion.CiudadanosMatados = 0
-            UserList(Atacante).Faccion.RecompensasCaos = 0
-
-        End If
-
-    End If
+'    If Criminal(Muerto) Then
+'        If UserList(Atacante).flags.LastCrimMatado <> UserList(Muerto).Name Then
+'            UserList(Atacante).flags.LastCrimMatado = UserList(Muerto).Name
+'
+'            If UserList(Atacante).Faccion.CriminalesMatados < 65000 Then UserList(Atacante).Faccion.CriminalesMatados = UserList( _
+'               Atacante).Faccion.CriminalesMatados + 1
+'
+'        End If
+'
+'        If UserList(Atacante).Faccion.CriminalesMatados > MAXUSERMATADOS Then
+'            UserList(Atacante).Faccion.CriminalesMatados = 0
+'            UserList(Atacante).Faccion.RecompensasReal = 0
+'
+'        End If
+'
+'        If UserList(Atacante).Faccion.RecibioExpInicialCaos = 1 And UserList(Muerto).Faccion.FuerzasCaos = 1 Then
+'            UserList(Atacante).Faccion.Reenlistadas = 200  'jaja que trucho
+'
+'            'con esto evitamos que se vuelva a reenlistar
+'        End If
+'
+'    Else
+'
+'        If UserList(Atacante).flags.LastCiudMatado <> UserList(Muerto).Name Then
+'            UserList(Atacante).flags.LastCiudMatado = UserList(Muerto).Name
+'
+'            If UserList(Atacante).Faccion.CiudadanosMatados < 65000 Then UserList(Atacante).Faccion.CiudadanosMatados = UserList( _
+'               Atacante).Faccion.CiudadanosMatados + 1
+'
+'        End If
+'
+'        If UserList(Atacante).Faccion.CiudadanosMatados > MAXUSERMATADOS Then
+'            UserList(Atacante).Faccion.CiudadanosMatados = 0
+'            UserList(Atacante).Faccion.RecompensasCaos = 0
+'
+'        End If
+'
+'    End If
 
 ErrorHandler:
     '  Call LogError("Error en SUB CONTARMUERTE. Error: " & Err.Number & " Descripción: " & Err.Description)
 
 End Sub
 
-Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos)
+Sub Tilelibre(ByRef Pos As WorldPos, ByRef nPos As WorldPos)
     'Call LogTarea("Sub Tilelibre")
 
     Dim Notfound As Boolean
 
-    Dim LooPc    As Integer
+    Dim LoopC    As Integer
 
     Dim Tx       As Integer
 
@@ -2104,18 +2088,18 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos)
     Dim hayobj   As Boolean
 
     hayobj = False
-    nPos.Map = pos.Map
+    nPos.Map = Pos.Map
 
-    Do While Not LegalPos(pos.Map, nPos.X, nPos.Y) Or hayobj
+    Do While Not LegalPos(Pos.Map, nPos.X, nPos.Y) Or hayobj
     
-        If LooPc > 15 Then
+        If LoopC > 15 Then
             Notfound = True
             Exit Do
 
         End If
     
-        For Ty = pos.Y - LooPc To pos.Y + LooPc
-            For Tx = pos.X - LooPc To pos.X + LooPc
+        For Ty = Pos.Y - LoopC To Pos.Y + LoopC
+            For Tx = Pos.X - LoopC To Pos.X + LoopC
         
                 If LegalPos(nPos.Map, Tx, Ty) = True Then
                     hayobj = (MapData(nPos.Map, Tx, Ty).OBJInfo.ObjIndex > 0)
@@ -2123,8 +2107,8 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos)
                     If Not hayobj And MapData(nPos.Map, Tx, Ty).TileExit.Map = 0 Then
                         nPos.X = Tx
                         nPos.Y = Ty
-                        Tx = pos.X + LooPc
-                        Ty = pos.Y + LooPc
+                        Tx = Pos.X + LoopC
+                        Ty = Pos.Y + LoopC
 
                     End If
 
@@ -2133,7 +2117,7 @@ Sub Tilelibre(ByRef pos As WorldPos, ByRef nPos As WorldPos)
             Next Tx
         Next Ty
     
-        LooPc = LooPc + 1
+        LoopC = LoopC + 1
     
     Loop
 
@@ -2154,7 +2138,7 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
 
     With UserList(UserIndex)
 
-        If .pos.Map = MAPADUELO Then
+        If .Pos.Map = MAPADUELO Then
             If MapInfo(MAPADUELO).NumUsers > 0 Then
                 If .flags.Privilegios = PlayerType.Dios Or .flags.Privilegios = PlayerType.SemiDios Or .flags.Privilegios = PlayerType.Consejero Then
 
@@ -2175,18 +2159,18 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
 
         'Quitar el dialogo
         Call SendToUserArea(UserIndex, "QDL" & .char.CharIndex)
-        Call SendData(SendTarget.toindex, UserIndex, .pos.Map, "QTDL")
+        Call SendData(SendTarget.ToIndex, UserIndex, .Pos.Map, "QTDL")
 
-        OldMap = .pos.Map
-        OldX = .pos.X
-        OldY = .pos.Y
+        OldMap = .Pos.Map
+        OldX = .Pos.X
+        OldY = .Pos.Y
 
         Call EraseUserChar(SendTarget.ToMap, 0, OldMap, UserIndex)
 
         If OldMap <> Map Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "CM" & Map & "," & MapInfo(.pos.Map).MapVersion)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "TM" & MapInfo(Map).Music)
-            Call SendData(SendTarget.toindex, UserIndex, 0, "N~" & MapInfo(Map).Name)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "CM" & Map & "," & MapInfo(.Pos.Map).MapVersion)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "TM" & MapInfo(Map).Music)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "N~" & MapInfo(Map).Name)
 
             'Update new Map Users
             MapInfo(Map).NumUsers = MapInfo(Map).NumUsers + 1
@@ -2203,19 +2187,19 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
 
         End If
 
-        .pos.X = X
-        .pos.Y = Y
-        .pos.Map = Map
+        .Pos.X = X
+        .Pos.Y = Y
+        .Pos.Map = Map
 
         'Anti Pisadas
-        If MapData(.pos.Map, .pos.X, .pos.Y).UserIndex <> 0 Then
+        If MapData(.Pos.Map, .Pos.X, .Pos.Y).UserIndex <> 0 Then
             Dim nPos As WorldPos
-            Call ClosestStablePos(.pos, nPos)
+            Call ClosestStablePos(.Pos, nPos)
 
             If nPos.X <> 0 And nPos.Y <> 0 Then
-                .pos.Map = nPos.Map
-                .pos.X = nPos.X
-                .pos.Y = nPos.Y
+                .Pos.Map = nPos.Map
+                .Pos.X = nPos.X
+                .Pos.Y = nPos.Y
 
             End If
 
@@ -2223,8 +2207,8 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
 
         'Anti Pisadas
 
-        Call MakeUserChar(SendTarget.ToMap, 0, Map, UserIndex, .pos.Map, .pos.X, .pos.Y)
-        Call SendData(SendTarget.toindex, UserIndex, 0, "IP" & .char.CharIndex)
+        Call MakeUserChar(SendTarget.ToMap, 0, Map, UserIndex, .Pos.Map, .Pos.X, .Pos.Y)
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "IP" & .char.CharIndex)
 
         'Seguis invisible al pasar de mapa
         If (.flags.Invisible = 1 Or .flags.Oculto = 1) And (Not .flags.AdminInvisible = 1) Then
@@ -2244,8 +2228,8 @@ Sub WarpUserChar(ByVal UserIndex As Integer, ByVal Map As Integer, ByVal X As In
         End If
 
         If FX And .flags.AdminInvisible = 0 Then    'FX
-            Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "TW" & SND_WARP & "," & .char.CharIndex)
-            Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "CFX" & .char.CharIndex & "," & FXIDs.FXWARP & ",0")
+            Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "TW" & SND_WARP & "," & .char.CharIndex)
+            Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "CFX" & .char.CharIndex & "," & FXIDs.FXWARP & ",0")
 
         End If
 
@@ -2279,33 +2263,33 @@ Sub UpdateUserMap(ByVal UserIndex As Integer)
 
     On Error GoTo 0
 
-    Map = UserList(UserIndex).pos.Map
-    Call SendData(toindex, UserIndex, 0, "SMN" & UCase$(MapInfo(UserList(UserIndex).pos.Map).Name))
+    Map = UserList(UserIndex).Pos.Map
+    Call SendData(ToIndex, UserIndex, 0, "SMN" & UCase$(MapInfo(UserList(UserIndex).Pos.Map).Name))
 
     For Y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
 
             If MapData(Map, X, Y).UserIndex > 0 And UserIndex <> MapData(Map, X, Y).UserIndex Then
-                Call MakeUserChar(SendTarget.toindex, UserIndex, 0, MapData(Map, X, Y).UserIndex, Map, X, Y)
+                Call MakeUserChar(SendTarget.ToIndex, UserIndex, 0, MapData(Map, X, Y).UserIndex, Map, X, Y)
 
                 If UserList(MapData(Map, X, Y).UserIndex).flags.Invisible = 1 Or UserList(MapData(Map, X, Y).UserIndex).flags.Oculto = 1 Then Call _
-                   SendData(SendTarget.toindex, UserIndex, 0, "NOVER" & UserList(MapData(Map, X, Y).UserIndex).char.CharIndex & ",1," & _
+                   SendData(SendTarget.ToIndex, UserIndex, 0, "NOVER" & UserList(MapData(Map, X, Y).UserIndex).char.CharIndex & ",1," & _
                                                               UserList(MapData(Map, X, Y).UserIndex).PartyIndex)
 
             End If
 
             If MapData(Map, X, Y).NpcIndex > 0 Then
-                Call MakeNPCChar(SendTarget.toindex, UserIndex, 0, MapData(Map, X, Y).NpcIndex, Map, X, Y)
+                Call MakeNPCChar(SendTarget.ToIndex, UserIndex, 0, MapData(Map, X, Y).NpcIndex, Map, X, Y)
 
             End If
 
             If MapData(Map, X, Y).OBJInfo.ObjIndex > 0 Then
                 If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).ObjType <> eOBJType.otArboles Then
-                    Call MakeObj(SendTarget.toindex, UserIndex, 0, MapData(Map, X, Y).OBJInfo, Map, X, Y)
+                    Call MakeObj(SendTarget.ToIndex, UserIndex, 0, MapData(Map, X, Y).OBJInfo, Map, X, Y)
 
                     If ObjData(MapData(Map, X, Y).OBJInfo.ObjIndex).ObjType = eOBJType.otPuertas Then
-                        Call Bloquear(SendTarget.toindex, UserIndex, 0, Map, X, Y, MapData(Map, X, Y).Blocked)
-                        Call Bloquear(SendTarget.toindex, UserIndex, 0, Map, X - 1, Y, MapData(Map, X - 1, Y).Blocked)
+                        Call Bloquear(SendTarget.ToIndex, UserIndex, 0, Map, X, Y, MapData(Map, X, Y).Blocked)
+                        Call Bloquear(SendTarget.ToIndex, UserIndex, 0, Map, X - 1, Y, MapData(Map, X - 1, Y).Blocked)
 
                     End If
 
@@ -2350,7 +2334,7 @@ Sub WarpMascotas(ByVal UserIndex As Integer)
     For i = 1 To MAXMASCOTAS
 
         If PetTypes(i) > 0 Then
-            UserList(UserIndex).MascotasIndex(i) = SpawnNpc(PetTypes(i), UserList(UserIndex).pos, False, PetRespawn(i))
+            UserList(UserIndex).MascotasIndex(i) = SpawnNpc(PetTypes(i), UserList(UserIndex).Pos, False, PetRespawn(i))
             UserList(UserIndex).MascotasType(i) = PetTypes(i)
 
             'Controlamos que se sumoneo OK
@@ -2399,7 +2383,7 @@ Sub Cerrar_Usuario(ByVal UserIndex As Integer, Optional ByVal Tiempo As Integer 
         If UserList(UserIndex).flags.UserLogged And Not UserList(UserIndex).Counters.Saliendo Then
             UserList(UserIndex).Counters.Saliendo = True
             UserList(UserIndex).Counters.Salir = IIf(UserList(UserIndex).flags.Privilegios > PlayerType.User Or Not MapInfo(UserList( _
-                                                                                                                            UserIndex).pos.Map).Pk, 0, Tiempo)
+                                                                                                                            UserIndex).Pos.Map).Pk, 0, Tiempo)
 
         End If
 
@@ -2408,9 +2392,9 @@ Sub Cerrar_Usuario(ByVal UserIndex As Integer, Optional ByVal Tiempo As Integer 
         If UserList(UserIndex).flags.UserLogged And Not UserList(UserIndex).Counters.Saliendo Then
             UserList(UserIndex).Counters.Saliendo = True
             UserList(UserIndex).Counters.Salir = IIf(UserList(UserIndex).flags.Privilegios > PlayerType.User Or Not MapInfo(UserList( _
-                                                                                                                            UserIndex).pos.Map).Pk, IntervaloCerrarConexion, Tiempo)
+                                                                                                                            UserIndex).Pos.Map).Pk, IntervaloCerrarConexion, Tiempo)
 
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||Cerrando...Se cerrará el juego en " & UserList(UserIndex).Counters.Salir & _
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Cerrando...Se cerrará el juego en " & UserList(UserIndex).Counters.Salir & _
                                                           " segundos..." & FONTTYPE_INFO)
 
         End If
@@ -2447,7 +2431,7 @@ End Sub
 
 Public Sub Empollando(ByVal UserIndex As Integer)
 
-    If MapData(UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y).OBJInfo.ObjIndex > 0 Then
+    If MapData(UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y).OBJInfo.ObjIndex > 0 Then
         UserList(UserIndex).flags.EstaEmpo = 1
     Else
         UserList(UserIndex).flags.EstaEmpo = 0
@@ -2460,29 +2444,29 @@ End Sub
 Sub SendUserStatsTxtOFF(ByVal sendIndex As Integer, ByVal nombre As String)
 
     If FileExist(CharPath & nombre & ".chr", vbArchive) = False Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Pj Inexistente" & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Pj Inexistente" & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Estadisticas de: " & nombre & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Nivel: " & GetVar(CharPath & nombre & ".chr", "stats", "elv") & "  EXP: " & GetVar( _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Estadisticas de: " & nombre & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Nivel: " & GetVar(CharPath & nombre & ".chr", "stats", "elv") & "  EXP: " & GetVar( _
                                                         CharPath & nombre & ".chr", "stats", "Exp") & "/" & GetVar(CharPath & nombre & ".chr", "stats", "elu") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Vitalidad: " & GetVar(CharPath & nombre & ".chr", "stats", "minsta") & "/" & GetVar( _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Vitalidad: " & GetVar(CharPath & nombre & ".chr", "stats", "minsta") & "/" & GetVar( _
                                                         CharPath & nombre & ".chr", "stats", "maxSta") & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Salud: " & GetVar(CharPath & nombre & ".chr", "stats", "MinHP") & "/" & GetVar(CharPath _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Salud: " & GetVar(CharPath & nombre & ".chr", "stats", "MinHP") & "/" & GetVar(CharPath _
                                                                                                                                         & nombre & ".chr", "Stats", "MaxHP") & "  Mana: " & GetVar(CharPath & nombre & ".chr", "Stats", "MinMAN") & "/" & GetVar(CharPath & _
                                                                                                                                                                                                                                                                    nombre & ".chr", "Stats", "MaxMAN") & FONTTYPE_INFO)
 
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & GetVar(CharPath & nombre & ".chr", "stats", "MaxHIT") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Menor Golpe/Mayor Golpe: " & GetVar(CharPath & nombre & ".chr", "stats", "MaxHIT") & _
                                                         FONTTYPE_INFO)
 
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "GLD") & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "GLD") & FONTTYPE_INFO)
 
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofOro") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Oro: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofOro") & _
                                                         "~255~255~6~0~0~")
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Plata: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofPlata") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Plata: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofPlata") & _
                                                         "~255~255~251~0~0~")
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Trofeos de Bronce: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofBronce") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Trofeos de Bronce: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofBronce") & _
                                                         "~187~0~0~0~0~")
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Amuletos de Madera: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofMadera") & _
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Amuletos de Madera: " & GetVar(CharPath & nombre & ".chr", "stats", "TrofMadera") & _
                                                         "~237~207~139~0~0~")
 
     End If
@@ -2502,10 +2486,10 @@ Sub SendUserOROTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As String)
     CharFile = CharPath & CharName & ".chr"
 
     If FileExist(CharFile, vbNormal) Then
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
-        Call SendData(SendTarget.toindex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "STATS", "BANCO") & " en el banco." & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||" & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| Tiene " & GetVar(CharFile, "STATS", "BANCO") & " en el banco." & FONTTYPE_INFO)
     Else
-        Call SendData(SendTarget.toindex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
+        Call SendData(SendTarget.ToIndex, sendIndex, 0, "||Usuario inexistente: " & CharName & FONTTYPE_INFO)
 
     End If
 
@@ -2524,7 +2508,7 @@ Public Sub FxDoMeditar(ByVal UserIndex As Integer)
 
         If EsGmChar(.Name) Then
             Fxs = 17
-            Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "CFX" & .char.CharIndex & "," & Fxs & "," & LoopAdEternum)
+            Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "CFX" & .char.CharIndex & "," & Fxs & "," & LoopAdEternum)
 
             .char.FX = Fxs
             Exit Sub
@@ -2613,54 +2597,64 @@ Public Sub FxDoMeditar(ByVal UserIndex As Integer)
                 Fxs = 26
             ElseIf esNivel < 15 Then
 
-                If Criminal(UserIndex) Then
-                    Fxs = 4
-                Else
-                    Fxs = 48
-
-                End If
+'                If Criminal(UserIndex) Then
+'                    Fxs = 4
+'                Else
+'                    Fxs = 48
+'
+'                End If
+                
+                Fxs = 48
 
             ElseIf esNivel < 20 Then
 
-                If Criminal(UserIndex) Then
-                    Fxs = 6
-                Else
-                    Fxs = 5
+'                If Criminal(UserIndex) Then
+'                    Fxs = 6
+'                Else
+'                    Fxs = 5
+'
+'                End If
 
-                End If
+                   Fxs = 5
 
             ElseIf esNivel < 35 Then
 
-                If Criminal(UserIndex) Then
-                    Fxs = 16
-                Else
-                    Fxs = 49
-
-                End If
+'                If Criminal(UserIndex) Then
+'                    Fxs = 16
+'                Else
+'                    Fxs = 49
+'
+'                End If
+               
+               Fxs = 49
 
             ElseIf esNivel < 45 Then
 
-                If Criminal(UserIndex) Then
-                    Fxs = 50
-                Else
-                    Fxs = 23
+'                If Criminal(UserIndex) Then
+'                    Fxs = 50
+'                Else
+'                    Fxs = 23
+'
+'                End If
 
-                End If
+               Fxs = 23
 
             ElseIf esNivel <= 55 Then
 
-                If Criminal(UserIndex) Then
-                    Fxs = 51
-                Else
-                    Fxs = 18
-
-                End If
+'                If Criminal(UserIndex) Then
+'                    Fxs = 51
+'                Else
+'                    Fxs = 18
+'
+'                End If
+                
+                Fxs = 18
 
             End If
 
         End If
 
-        Call SendData(SendTarget.ToPCArea, UserIndex, .pos.Map, "CFX" & .char.CharIndex & "," & Fxs & "," & LoopAdEternum)
+        Call SendData(SendTarget.ToPCArea, UserIndex, .Pos.Map, "CFX" & .char.CharIndex & "," & Fxs & "," & LoopAdEternum)
 
         .char.FX = Fxs
 
@@ -3448,7 +3442,7 @@ Public Sub SetearInv(ByVal UserIndex As Integer, ByVal Clase As String, ByVal Ra
         End If
 
         '[MaTeO 9]
-        Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
+        Call ChangeUserChar(SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, UserIndex, UserList(UserIndex).char.Body, UserList( _
                                                                                                                         UserIndex).char.Head, UserList(UserIndex).char.heading, UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, _
                             UserList(UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
 
@@ -3470,7 +3464,7 @@ Public Sub DragToUser(ByVal UserIndex As Integer, ByVal TIndex As Integer, ByVal
     Dim Espacio As Boolean
 
     ' Puede dragear ?
-    If Not CanDragObj(UserList(UserIndex).pos.Map, UserList(UserIndex).flags.Navegando, UserList(UserIndex).flags.Muerto, errorFound) Then
+    If Not CanDragObj(UserList(UserIndex).Pos.Map, UserList(UserIndex).flags.Navegando, UserList(UserIndex).flags.Muerto, errorFound) Then
         WriteConsoleMsg UserIndex, errorFound, FONTTYPE_INFOBOLD
 
         Exit Sub
@@ -3478,7 +3472,7 @@ Public Sub DragToUser(ByVal UserIndex As Integer, ByVal TIndex As Integer, ByVal
     End If
 
     ' Puede dragear ?
-    If Not CanDragObj(UserList(TIndex).pos.Map, UserList(TIndex).flags.Navegando, UserList(TIndex).flags.Muerto, errorFound) Then
+    If Not CanDragObj(UserList(TIndex).Pos.Map, UserList(TIndex).flags.Navegando, UserList(TIndex).flags.Muerto, errorFound) Then
         WriteConsoleMsg UserIndex, errorFound, FONTTYPE_INFOBOLD
 
         Exit Sub
@@ -3559,7 +3553,7 @@ Public Sub DragToNPC(ByVal UserIndex As Integer, ByVal tNpc As Integer, ByVal Sl
     TeniaObj = UserList(UserIndex).Invent.Object(Slot).Amount
 
     ' Puede dragear ?
-    If Not CanDragObj(UserList(UserIndex).pos.Map, UserList(UserIndex).flags.Navegando, UserList(UserIndex).flags.Muerto, errorFound) Then
+    If Not CanDragObj(UserList(UserIndex).Pos.Map, UserList(UserIndex).flags.Navegando, UserList(UserIndex).flags.Muerto, errorFound) Then
         WriteConsoleMsg UserIndex, errorFound, FONTTYPE_INFOBOLD
 
         Exit Sub
@@ -3627,26 +3621,26 @@ Public Sub DragToPos(ByVal UserIndex As Integer, ByVal X As Byte, ByVal Y As Byt
     'No puede dragear en esa pos?
 
     If Not UserList(UserIndex).flags.SeguroObjetos Then
-        Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes tirar. Tienes el seguro de objetos activados!!!" & _
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes tirar. Tienes el seguro de objetos activados!!!" & _
                                                         FONTTYPE_Motd4)
         Exit Sub
     End If
 
     If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
         If ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Newbie = 1 And EsNewbie(UserIndex) Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes tirar el objeto." & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes tirar el objeto." & FONTTYPE_INFO)
             Exit Sub
         End If
 
         If ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Caos = 1 Or ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Real = 1 Or ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Templ = 1 Or ObjData(UserList(UserIndex).Invent.Object(Slot).ObjIndex).Nemes = 1 Then
-            Call SendData(SendTarget.toindex, UserIndex, 0, "||No puedes tirar el objeto." & FONTTYPE_INFO)
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes tirar el objeto." & FONTTYPE_INFO)
             Exit Sub
         End If
     End If
 
 
     ' Puede dragear ?
-    If Not CanDragObj(UserList(UserIndex).pos.Map, UserList(UserIndex).flags.Navegando, UserList(UserIndex).flags.Muerto, errorFound) Then
+    If Not CanDragObj(UserList(UserIndex).Pos.Map, UserList(UserIndex).flags.Navegando, UserList(UserIndex).flags.Muerto, errorFound) Then
         WriteConsoleMsg UserIndex, errorFound, FONTTYPE_INFOBOLD
 
         Exit Sub
@@ -3664,7 +3658,7 @@ Public Sub DragToPos(ByVal UserIndex As Integer, ByVal X As Byte, ByVal Y As Byt
     End If
 
     'Agrego el objeto a la posición.
-    MakeObj SendTarget.ToMap, 0, UserList(UserIndex).pos.Map, tObj, UserList(UserIndex).pos.Map, X, Y
+    MakeObj SendTarget.ToMap, 0, UserList(UserIndex).Pos.Map, tObj, UserList(UserIndex).Pos.Map, X, Y
 
     'Quito el objeto.
     QuitarUserInvItem UserIndex, Slot, Amount
@@ -3737,7 +3731,7 @@ End Function
 
 Public Sub WriteConsoleMsg(ByVal sendIndex As Integer, ByVal PacketId As String, ByVal Font As String)
 
-    Call SendData(SendTarget.toindex, sendIndex, 0, "||" & PacketId & Font)
+    Call SendData(SendTarget.ToIndex, sendIndex, 0, "||" & PacketId & Font)
 
 End Sub
 
@@ -3996,7 +3990,7 @@ Sub IniciarChangeHead(ByVal UserIndex As Integer)
 
     End Select
 
-    Call SendData(SendTarget.toindex, UserIndex, 0, "ABRC" & CantHead & "@" & Heads)
+    Call SendData(SendTarget.ToIndex, UserIndex, 0, "ABRC" & CantHead & "@" & Heads)
 
 End Sub
 
@@ -4047,13 +4041,13 @@ Sub LlevarUsuarios()
 
     For ijaji = 1 To LastUser
 
-        If UserList(ijaji).pos.Map = 8 And UserList(ijaji).EnCvc = True Then
+        If UserList(ijaji).Pos.Map = 8 And UserList(ijaji).EnCvc = True Then
             Call WarpUserChar(ijaji, UserList(ijaji).ViejaPos.Map, UserList(ijaji).ViejaPos.X, UserList(ijaji).ViejaPos.Y, True)
             UserList(ijaji).EnCvc = False
             UserList(ijaji).flags.CvcBlue = 0
             UserList(ijaji).flags.CvcRed = 0
-            Call SendData(SendTarget.ToMap, 0, UserList(ijaji).pos.Map, "CVB" & UserList(ijaji).char.CharIndex & "," & UserList(ijaji).flags.CvcBlue)
-            Call SendData(SendTarget.ToMap, 0, UserList(ijaji).pos.Map, "CVR" & UserList(ijaji).char.CharIndex & "," & UserList(ijaji).flags.CvcRed)
+            Call SendData(SendTarget.ToMap, 0, UserList(ijaji).Pos.Map, "CVB" & UserList(ijaji).char.CharIndex & "," & UserList(ijaji).flags.CvcBlue)
+            Call SendData(SendTarget.ToMap, 0, UserList(ijaji).Pos.Map, "CVR" & UserList(ijaji).char.CharIndex & "," & UserList(ijaji).flags.CvcRed)
 
         End If
 
@@ -4063,7 +4057,7 @@ End Sub
 
 Public Function EsUserMute(ByVal IndexHabla As Integer, ByVal IndexRecibe As Integer) As Boolean
         
-        Dim LooPc As Integer
+        Dim LoopC As Integer
         
         If IndexHabla = IndexRecibe Then
             EsUserMute = False
@@ -4072,14 +4066,14 @@ Public Function EsUserMute(ByVal IndexHabla As Integer, ByVal IndexRecibe As Int
         
         If UserList(IndexRecibe).Ignore.NumIgnores > 0 Then
              
-             For LooPc = 1 To UserList(IndexRecibe).Ignore.NumIgnores
+             For LoopC = 1 To UserList(IndexRecibe).Ignore.NumIgnores
                   
-                  If UCase$(UserList(IndexRecibe).Ignore.Usuario(LooPc)) = UCase$(UserList(IndexHabla).Name) Then
+                  If UCase$(UserList(IndexRecibe).Ignore.Usuario(LoopC)) = UCase$(UserList(IndexHabla).Name) Then
                       EsUserMute = True
                       Exit Function
                   End If
                   
-             Next LooPc
+             Next LoopC
              
         End If
         

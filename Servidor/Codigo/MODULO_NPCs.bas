@@ -249,37 +249,37 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
         If UserList(UserIndex).Stats.NPCsMuertos < 32000 Then UserList(UserIndex).Stats.NPCsMuertos = UserList(UserIndex).Stats.NPCsMuertos + 1
 
-        If MiNPC.Stats.Alineacion = 0 Then
-            If MiNPC.Numero = Guardias Then
-                UserList(UserIndex).Reputacion.NobleRep = 0
-                UserList(UserIndex).Reputacion.PlebeRep = 0
-                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 500
-
-                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
-
-            End If
-
-            If MiNPC.MaestroUser = 0 Then
-                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + vlASESINO
-
-                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
-
-            End If
-
-        ElseIf MiNPC.Stats.Alineacion = 1 Then
-            UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlCAZADOR
-
-            If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
-        ElseIf MiNPC.Stats.Alineacion = 2 Then
-            UserList(UserIndex).Reputacion.NobleRep = UserList(UserIndex).Reputacion.NobleRep + vlASESINO / 2
-
-            If UserList(UserIndex).Reputacion.NobleRep > MAXREP Then UserList(UserIndex).Reputacion.NobleRep = MAXREP
-        ElseIf MiNPC.Stats.Alineacion = 4 Then
-            UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlCAZADOR
-
-            If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
-
-        End If
+'        If MiNPC.Stats.Alineacion = 0 Then
+'            If MiNPC.Numero = Guardias Then
+'                UserList(UserIndex).Reputacion.NobleRep = 0
+'                UserList(UserIndex).Reputacion.PlebeRep = 0
+'                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 500
+'
+'                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
+'
+'            End If
+'
+'            If MiNPC.MaestroUser = 0 Then
+'                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + vlASESINO
+'
+'                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
+'
+'            End If
+'
+'        ElseIf MiNPC.Stats.Alineacion = 1 Then
+'            UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlCAZADOR
+'
+'            If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
+'        ElseIf MiNPC.Stats.Alineacion = 2 Then
+'            UserList(UserIndex).Reputacion.NobleRep = UserList(UserIndex).Reputacion.NobleRep + vlASESINO / 2
+'
+'            If UserList(UserIndex).Reputacion.NobleRep > MAXREP Then UserList(UserIndex).Reputacion.NobleRep = MAXREP
+'        ElseIf MiNPC.Stats.Alineacion = 4 Then
+'            UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlCAZADOR
+'
+'            If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
+'
+'        End If
 
         'If Not Criminal(UserIndex) And UserList(UserIndex).Faccion.FuerzasCaos = 1 Then 'Call ExpulsarFaccionCaos(UserIndex)
 
