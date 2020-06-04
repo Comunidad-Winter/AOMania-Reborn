@@ -3737,6 +3737,11 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
             End If
 
         Case 18    '<<<<<<<<<<<<<Comandos 18>>>>>>>>>>>>>>
+            
+            If UCase(Left(rData, 14)) = "/EVENTOFACCION" Then
+                Call IniciarEventoFaccion
+                Exit Sub
+            End If
 
             If UCase(Left(rData, 3)) = "/CI" Then
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)

@@ -5400,3 +5400,23 @@ Snd2=172
 afectaparalisis=1
 diaespecial=1
 LogroTipo=7
+
+[NPC725] 'NPC Rey de Ciudades 
+Name=Rey de ciudades
+Head=5
+Body=15
+Heading=3
+Movement=15
+Attackable=1
+Hostile=1
+magiainvisible=1
+LanzaSpells=3
+GiveExp=0
+GiveGLD=0
+MinHp=40000
+MaxHp=40000
+MaxHit=450
+MinHit=350
+Sp1=24 'paraliza
+Sp2=32 'nuclear
+sp3=60

@@ -88,6 +88,15 @@ Sub HandleData2(ByVal rData As String)
    
     Select Case UCase$(Left$(rData, 3))
         
+        Case "CNN"
+            rData = Right$(rData, Len(rData) - 3)
+            
+            charindex = ReadField(1, rData, 44)
+            
+            CharList(charindex).NombreNpc = ReadField(2, rData, 44)
+            
+            Exit Sub
+            
         Case "RIG"
             rData = Right$(rData, Len(rData) - 3)
            
