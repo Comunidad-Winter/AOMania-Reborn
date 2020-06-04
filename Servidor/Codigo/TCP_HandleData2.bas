@@ -1380,17 +1380,15 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, _
             Select Case Npclist(UserList(UserIndex).flags.TargetNpc).flags.Faccion
 
                 Case 0
-                    'Call EnlistarArmadaReal(UserIndex)
                      Call EnlistarArmadaClero(UserIndex)
 
                 Case 1
                     'Call EnlistarCaos(UserIndex)
 
                 Case 3
-                    'Call EnlistarTemplarios(UserIndex)
+                    Call EnlistarArmadaTemplario(UserIndex)
 
                 Case 5
-                    'Call EnlistarNemesis(UserIndex)
                     Call EnlistarArmadaTiniebla(UserIndex)
 
             End Select
@@ -1456,13 +1454,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, _
 
                 Case 3
 
-                    If UserList(UserIndex).Faccion.Templario = 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "No perteneces a la Orden Templaria, vete de aquí o volaras al vacio de tu ignorancia!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-                        Exit Sub
-
-                    End If
-
-                    'Call RecompensaTemplario(UserIndex)
+                    Call RecompensaArmadaTemplario(UserIndex)
                     Exit Sub
 
                 Case 5

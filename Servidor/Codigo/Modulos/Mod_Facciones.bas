@@ -279,6 +279,290 @@ Public Sub EnlistarArmadaTiniebla(ByVal UserIndex As Integer)
       
 End Sub
 
+Public Sub EnlistarArmadaCaos(ByVal UserIndex As Integer)
+      
+      Dim MiObj As Obj
+      
+      Dim usuario As Integer
+      
+      With UserList(UserIndex)
+          
+          usuario = UserIndex
+          
+          If .Faccion.ArmadaReal = 1 Or .Faccion.Templario = 1 Then
+              Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Exit Sub
+          End If
+          
+          If .Faccion.Nemesis = 0 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Para unirte a nuestra armada, debes unirte ante a la Armada de los Caballeros de la Tiniebla!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Exit Sub
+          End If
+          
+          If .Stats.ELV < 40 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Para unirte a nuestras fuerzas debes ser al menos de nivel 40!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Exit Sub
+           End If
+           
+           If .Stats.ELV < 45 Then
+           ElseIf .Stats.ELV >= 45 Then
+           End If
+           
+        .Faccion.Nemesis = 0
+        .Faccion.FuerzasCaos = 1
+        .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
+        .Faccion.RecompensasCaos = .Faccion.RecompensasNemesis
+        .Faccion.RecompensasNemesis = 0
+        
+        Call WarpUserChar(UserIndex, .Pos.Map, .Pos.X, .Pos.Y, False)
+        
+        If .Faccion.RecibioExpInicialCaos = 0 Then
+
+            Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpAlUnirse, MAXEXP)
+            Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_Motd4)
+            .Faccion.RecibioExpInicialCaos = 1
+            .Faccion.RecibioExpInicialNemesis = 0
+            Call CheckUserLevel(UserIndex)
+
+        End If
+           
+        Call LogArmada("TEMPLARIO " & UserList(UserIndex).Name)
+          
+      End With
+      
+End Sub
+
+Public Sub EnlistarArmadaTemplario(ByVal UserIndex As Integer)
+
+    Dim MiObj   As Obj
+
+    Dim usuario As Integer
+    
+    With UserList(UserIndex)
+         
+        usuario = UserIndex
+           
+        If .Faccion.Nemesis = 1 Or .Faccion.FuerzasCaos = 1 Then
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Exit Sub
+
+        End If
+           
+        If .Faccion.ArmadaReal = 0 Then
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Para unirte a nuestra armada, debes unirte ante a la Armada del Credo!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Exit Sub
+
+        End If
+           
+        If .Stats.ELV < 40 Then
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Para unirte a nuestras fuerzas debes ser al menos de nivel 40!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Exit Sub
+
+        End If
+           
+        If .Stats.ELV < 45 Then
+        
+            MiObj.Amount = 1
+    
+            If UCase$(UserList(usuario).Genero) = "HOMBRE" Then
+                If UCase(UserList(usuario).Clase) = "MAGO" Or UCase$(UserList(usuario).Clase) = "BRUJO" Or UCase$(UserList(usuario).Clase) = "DRUIDA" Then
+                                  
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = TunicaMagoTemplarioEnano2
+                    ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = TunicaMagoTemplarioHobbit2
+                    Else
+                        MiObj.ObjIndex = TunicaMagoTemplario2
+
+                    End If
+                                                                     
+                ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or UCase(UserList(usuario).Clase) = "CAZADOR" Or UCase(UserList(usuario).Clase) = "BARDO" Or UCase(UserList(usuario).Clase) = "DRUIDA" Or UCase(UserList(usuario).Clase) = "PIRATA" Or UCase(UserList(usuario).Clase) = "ARQUERO" Or UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(usuario).Clase) = "CLERIGO" Or UCase(UserList(usuario).Clase) = "PALADIN" Or UCase(UserList(usuario).Clase) = "ASESINO" Then
+
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                  
+                        MiObj.ObjIndex = ArmaduraEnanoTemplario2
+                    ElseIf UCase(UserList(usuario).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = ArmaduraTemplarioHobbit2
+                    Else
+                        MiObj.ObjIndex = ArmaduraPaladinTemplario2
+
+                    End If
+
+                Else
+
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = ArmaduraEnanoTemplario2
+                    Else
+                        MiObj.ObjIndex = ArmaduraPaladinTemplario2
+
+                    End If
+
+                End If
+
+            Else
+
+                If UCase(UserList(usuario).Clase) = "MAGO" Or UCase$(UserList(usuario).Clase) = "BRUJO" Or UCase$(UserList(usuario).Clase) = "DRUIDA" Then
+                                 
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = TunicaMagoAbaddonEnanoMujer2
+                    ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = TunicaMagoTemplarioHobbit2
+                    Else
+                        MiObj.ObjIndex = TunicaMagoTemplarioMujer2
+                                 
+                    End If
+
+                ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or UCase(UserList(usuario).Clase) = "CAZADOR" Or UCase(UserList(usuario).Clase) = "BARDO" Or UCase(UserList(usuario).Clase) = "DRUIDA" Or UCase(UserList(usuario).Clase) = "PIRATA" Or UCase(UserList(usuario).Clase) = "ARQUERO" Or UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(usuario).Clase) = "CLERIGO" Or UCase(UserList(usuario).Clase) = "PALADIN" Or UCase(UserList(usuario).Clase) = "ASESINO" Then
+
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                 
+                        MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer2
+                    ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = ArmaduraTemplarioHobbitMujer2
+                    Else
+                        MiObj.ObjIndex = ArmaduraTemplarioMujer2
+
+                    End If
+
+                Else
+
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer2
+                    Else
+                        MiObj.ObjIndex = ArmaduraTemplarioMujer2
+
+                    End If
+
+                End If
+
+            End If
+                                                                     
+            If Not MeterItemEnInventarioArmadas(usuario, MiObj) Then
+            
+                LogError ("error en EnlistarArmadaTemplario" & UserList(usuario).Name)
+
+            End If
+           
+        ElseIf .Stats.ELV >= 45 Then
+        
+            MiObj.Amount = 1
+                                                                     
+            If UCase$(UserList(usuario).Genero) = "HOMBRE" Then
+                If UCase(UserList(usuario).Clase) = "MAGO" Or UCase$(UserList(usuario).Clase) = "BRUJO" Or UCase$(UserList(usuario).Clase) = "DRUIDA" Then
+                                  
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = TunicaMagoTemplarioEnano3
+                    ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = TunicaMagoTemplarioHobbit3
+                    Else
+                        MiObj.ObjIndex = TunicaMagoTemplario3
+                                  
+                    End If
+                                                                     
+                ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or UCase(UserList(usuario).Clase) = "CAZADOR" Or UCase(UserList(usuario).Clase) = "BARDO" Or UCase(UserList(usuario).Clase) = "DRUIDA" Or UCase(UserList(usuario).Clase) = "PIRATA" Or UCase(UserList(usuario).Clase) = "ARQUERO" Or UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(usuario).Clase) = "CLERIGO" Or UCase(UserList(usuario).Clase) = "PALADIN" Or UCase(UserList(usuario).Clase) = "ASESINO" Then
+
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                 
+                        MiObj.ObjIndex = ArmaduraEnanoTemplario3
+                    ElseIf UCase(UserList(usuario).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = ArmaduraTemplarioHobbit3
+                    Else
+                        MiObj.ObjIndex = ArmaduraPaladinTemplario3
+
+                    End If
+
+                Else
+
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = ArmaduraEnanoTemplario3
+                    Else
+                        MiObj.ObjIndex = ArmaduraPaladinTemplario3
+
+                    End If
+
+                End If
+
+            Else
+
+                If UCase(UserList(usuario).Clase) = "MAGO" Or UCase$(UserList(usuario).Clase) = "BRUJO" Or UCase$(UserList(usuario).Clase) = "DRUIDA" Then
+                                  
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer3
+                    ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = TunicaMagoTemplarioHobbit3
+                    Else
+                        MiObj.ObjIndex = TunicaMagoTemplarioMujer3
+                                 
+                    End If
+
+                ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or UCase(UserList(usuario).Clase) = "CAZADOR" Or UCase(UserList(usuario).Clase) = "BARDO" Or UCase(UserList(usuario).Clase) = "DRUIDA" Or UCase(UserList(usuario).Clase) = "PIRATA" Or UCase(UserList(usuario).Clase) = "ARQUERO" Or UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(usuario).Clase) = "CLERIGO" Or UCase(UserList(usuario).Clase) = "PALADIN" Or UCase(UserList(usuario).Clase) = "ASESINO" Then
+
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                  
+                        MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer3
+                    ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = ArmaduraTemplarioHobbitMujer3
+                    Else
+                        MiObj.ObjIndex = ArmaduraTemplarioMujer3
+
+                    End If
+
+                Else
+
+                    If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer3
+                    Else
+                        MiObj.ObjIndex = ArmaduraTemplarioMujer3
+
+                    End If
+
+                End If
+
+            End If
+                                                                     
+            If Not MeterItemEnInventarioArmadas(usuario, MiObj) Then
+           
+                LogError ("error en EnlistarArmadaTemplario " & UserList(usuario).Name)
+
+            End If
+
+        End If
+        
+        .Faccion.ArmadaReal = 0
+        .Faccion.Templario = 1
+        .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
+        .Faccion.RecompensasTemplaria = .Faccion.RecompensasReal
+        .Faccion.RecompensasReal = 0
+        
+        Call WarpUserChar(UserIndex, .Pos.Map, .Pos.X, .Pos.Y, False)
+        
+        If .Faccion.RecibioExpInicialTemplaria = 0 Then
+
+            Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpAlUnirse, MAXEXP)
+            Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_Motd4)
+            .Faccion.RecibioExpInicialTemplaria = 1
+            .Faccion.RecibioExpInicialReal = 0
+            Call CheckUserLevel(UserIndex)
+
+        End If
+           
+        Call LogArmada("TEMPLARIO " & UserList(UserIndex).Name)
+           
+    End With
+      
+End Sub
+
 Public Sub RecompensaArmadaNemesis(ByVal UserIndex As Integer)
       
     With UserList(UserIndex)
@@ -290,7 +574,7 @@ Public Sub RecompensaArmadaNemesis(ByVal UserIndex As Integer)
 
         End If
          
-        If .Faccion.Nemesis = 0 And .Faccion.FuerzasCaos Then
+        If .Faccion.Nemesis = 0 And .Faccion.FuerzasCaos = 0 Then
 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "No perteneces a los Caballeros de la Tiniebla, vete de aquí o te ahogaras en tu insolencia!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
             Exit Sub
@@ -304,8 +588,8 @@ Public Sub RecompensaArmadaNemesis(ByVal UserIndex As Integer)
 
         End If
         
-        If .Faccion.RecompensasNemesis > 0 And .Faccion.RecompensasNemesis < 15 Then
-            If (.Stats.ELV - 25) \ 2 <= .Faccion.RecompensasNemesis Then
+        If .Faccion.RecompensasNemesis > 0 Then
+            If (.Stats.ELV - 25) \ 2 <= .Faccion.RecompensasNemesis Or .Faccion.RecompensasNemesis = 10 Then
 
                 Call SendData(ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Ya has recibido tu recompensa,sube más nivel para subir de rango.!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
@@ -317,7 +601,6 @@ Public Sub RecompensaArmadaNemesis(ByVal UserIndex As Integer)
                 Call CheckUserLevel(UserIndex)
 
             End If
-
         End If
         
         If .Faccion.RecompensasNemesis = 0 Then
@@ -403,34 +686,38 @@ Public Sub RecompensaArmadaNemesis(ByVal UserIndex As Integer)
 
             End If
             
-             If Not MeterItemEnInventarioArmadas(UserIndex, MiObj) Then
+            If Not MeterItemEnInventarioArmadas(UserIndex, MiObj) Then
 
-                    Call SendData(ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Necesitas tener el utlimo slot libre en tu inventario." & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-                    Exit Sub
-
-                End If
-                
-                UserList(UserIndex).Faccion.RecompensasNemesis = UserList(UserIndex).Faccion.RecompensasNemesis + 1
-                Call SendData(ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasNemesis & "en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-                Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpX100, MAXEXP)
-                Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_Motd4)
-                Call CheckUserLevel(UserIndex)
-                
+                Call SendData(ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Necesitas tener el utlimo slot libre en tu inventario." & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
-            
+
             End If
+                
+            UserList(UserIndex).Faccion.RecompensasNemesis = UserList(UserIndex).Faccion.RecompensasNemesis + 1
+            Call SendData(ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasNemesis & "en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+            Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpX100, MAXEXP)
+            Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_Motd4)
+            Call CheckUserLevel(UserIndex)
+                
+            Exit Sub
             
-            If .Faccion.RecompensasNemesis = 5 Then
-                Call DarArmaduraJIIN(UserIndex)
-            End If
+        End If
             
-            If .Faccion.RecompensasNemesis = 10 Then
-                Call DarArmaduraJIIIN(UserIndex)
-            End If
+        If .Faccion.RecompensasNemesis = 5 Then
+
+            Call DarArmaduraJIIN(UserIndex)
+
+        End If
+            
+        If .Faccion.RecompensasNemesis = 10 Then
+
+            Call DarArmaduraJIIIN(UserIndex)
+
+        End If
          
-        End With
+    End With
       
-    End Sub
+End Sub
 
 Public Sub RecompensaArmadaClero(ByVal UserIndex As Integer)
      
@@ -438,7 +725,7 @@ Public Sub RecompensaArmadaClero(ByVal UserIndex As Integer)
      
         If .Faccion.Templario = 1 Then
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Debes pedirle la recompensa a la armada de la Orden Templaria!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Debes pedirle la recompensa a la armada de la Orden Templaria." & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
 
         End If
@@ -458,7 +745,7 @@ Public Sub RecompensaArmadaClero(ByVal UserIndex As Integer)
         End If
         
         If .Faccion.RecompensasReal > 0 Then
-            If (.Stats.ELV - 25) \ 2 <= .Faccion.RecompensasReal And .Faccion.RecompensasReal = 15 Then
+            If (.Stats.ELV - 25) \ 2 <= .Faccion.RecompensasReal Or .Faccion.RecompensasReal = 10 Then
 
                 Call SendData(ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa,sube más nivel para subir de rango.!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
@@ -554,6 +841,57 @@ Public Sub RecompensaArmadaClero(ByVal UserIndex As Integer)
      
     End With
      
+End Sub
+
+Public Sub RecompensaArmadaTemplario(ByVal UserIndex As Integer)
+       
+    With UserList(UserIndex)
+               
+        If .Faccion.ArmadaReal = 1 Then
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Debes pedirle la recompensa a la armada de la Orden Templaria!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Exit Sub
+
+        End If
+        
+        If .Faccion.ArmadaReal = 0 And .Faccion.Templario = 0 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "No perteneces a la Armada del Credo, vete de aquí o te ahogaras en tu insolencia!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+            Exit Sub
+        End If
+        
+        If .Stats.ELV < 25 Then
+
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Para recibir la recompensa debes ser al menos de nivel 25" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Exit Sub
+
+        End If
+        
+        If .Faccion.RecompensasTemplaria > 0 Then
+            If (.Stats.ELV - 25) \ 2 <= .Faccion.RecompensasTemplaria Or .Faccion.RecompensasTemplaria = 10 Then
+
+                Call SendData(ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Ya has recibido tu recompensa,sube más nivel para subir de rango.!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Exit Sub
+            Else
+                UserList(UserIndex).Faccion.RecompensasTemplaria = UserList(UserIndex).Faccion.RecompensasTemplaria + 1
+                Call SendData(ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasTemplaria & "en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpX100, MAXEXP)
+                Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_Motd4)
+                Call CheckUserLevel(UserIndex)
+
+            End If
+
+        End If
+        
+        If .Faccion.RecompensasTemplaria = 5 Then
+            Call DarArmaduraJIIT(UserIndex)
+        End If
+        
+        If .Faccion.RecompensasTemplaria = 10 Then
+            Call DarArmaduraJIIIT(UserIndex)
+        End If
+               
+    End With
+        
 End Sub
 
 Public Sub DarArmaduraJII(ByVal usuario As Integer)
@@ -654,107 +992,191 @@ End Sub
 
 Public Sub DarArmaduraJIIN(ByVal usuario As Integer)
                                                                      
-Dim MiObj As Obj
+    Dim MiObj As Obj
                                                                      
-If UserList(usuario).Faccion.RecompensasNemesis = 5 Then
-    MiObj.Amount = 1
+    If UserList(usuario).Faccion.RecompensasNemesis = 5 Then
+
+        MiObj.Amount = 1
                                                                      
-    If UCase$(UserList(usuario).Genero) = "HOMBRE" Then
-        If UCase(UserList(usuario).Clase) = "MAGO" Or _
-        UCase$(UserList(usuario).Clase) = "BRUJO" Or _
-        UCase$(UserList(usuario).Clase) = "DRUIDA" Then
-                                                                     
+        If UCase$(UserList(usuario).Genero) = "HOMBRE" Then
+            If UCase(UserList(usuario).Clase) = "MAGO" Or UCase$(UserList(usuario).Clase) = "BRUJO" Or UCase$(UserList(usuario).Clase) = "DRUIDA" Then
                                   
-              If UCase(UserList(usuario).Raza) = "ENANO" Or _
-                  UCase(UserList(usuario).Raza) = "GNOMO" Then
-                      MiObj.ObjIndex = TunicaMagoTinieblaEnano2
-               ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
-                  MiObj.ObjIndex = TunicaMagoTinieblaHobbit2
-               Else
-                      MiObj.ObjIndex = TunicaMagoTiniebla2
-            End If
-                                                                     
-                                                                     
-        ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or _
-               UCase(UserList(usuario).Clase) = "CAZADOR" Or _
-               UCase(UserList(usuario).Clase) = "BARDO" Or _
-               UCase(UserList(usuario).Clase) = "DRUIDA" Or _
-               UCase(UserList(usuario).Clase) = "PIRATA" Or _
-               UCase(UserList(usuario).Clase) = "ARQUERO" Or _
-               UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or _
-               UCase(UserList(usuario).Clase) = "CLERIGO" Or _
-               UCase(UserList(usuario).Clase) = "PALADIN" Or _
-               UCase(UserList(usuario).Clase) = "ASESINO" Then
-                  If UCase(UserList(usuario).Raza) = "ENANO" Or _
-                     UCase(UserList(usuario).Raza) = "GNOMO" Then
-                                                                     
-                                  
-           MiObj.ObjIndex = ArmaduraEnanoTiniebla2
-        ElseIf UCase(UserList(usuario).Raza) = "HOBBIT" Then
-                     MiObj.ObjIndex = ArmaduraTinieblaHobbit2
-                 Else
-                      MiObj.ObjIndex = ArmaduraPaladinTiniebla2
-                  End If
-             Else
-                  If UCase(UserList(usuario).Raza) = "ENANO" Or _
-                     UCase(UserList(usuario).Raza) = "GNOMO" Then
-                      MiObj.ObjIndex = ArmaduraEnanoTiniebla2
-                  Else
-                      MiObj.ObjIndex = ArmaduraPaladinTiniebla2
-                  End If
-    End If
-        Else
-        If UCase(UserList(usuario).Clase) = "MAGO" Or _
-        UCase$(UserList(usuario).Clase) = "BRUJO" Or _
-       UCase$(UserList(usuario).Clase) = "DRUIDA" Then
-                                                                     
-                                  
-        If UCase(UserList(usuario).Raza) = "ENANO" Or _
-                  UCase(UserList(usuario).Raza) = "GNOMO" Then
-                      MiObj.ObjIndex = ArmaduraEnanoTinieblaMujer2
-               ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
-                  MiObj.ObjIndex = TunicaMagoTinieblaHobbit2
-               Else
-                      MiObj.ObjIndex = TunicaMagoTinieblaMujer2
-                                                                     
-                                  
-               End If
-        ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or _
-               UCase(UserList(usuario).Clase) = "CAZADOR" Or _
-               UCase(UserList(usuario).Clase) = "BARDO" Or _
-               UCase(UserList(usuario).Clase) = "DRUIDA" Or _
-               UCase(UserList(usuario).Clase) = "PIRATA" Or _
-               UCase(UserList(usuario).Clase) = "ARQUERO" Or _
-               UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or _
-               UCase(UserList(usuario).Clase) = "CLERIGO" Or _
-               UCase(UserList(usuario).Clase) = "PALADIN" Or _
-               UCase(UserList(usuario).Clase) = "ASESINO" Then
-                  If UCase(UserList(usuario).Raza) = "ENANO" Or _
-                     UCase(UserList(usuario).Raza) = "GNOMO" Then
-                                                                     
-                                  
-            MiObj.ObjIndex = ArmaduraEnanoTinieblaMujer2
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = TunicaMagoTinieblaEnano2
                 ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
-                  MiObj.ObjIndex = ArmaduraTinieblaHobbitMujer2
+                    MiObj.ObjIndex = TunicaMagoTinieblaHobbit2
                 Else
-                      MiObj.ObjIndex = ArmaduraTinieblaMujer2
-                  End If
+                    MiObj.ObjIndex = TunicaMagoTiniebla2
+
+                End If
+                                                                     
+            ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or UCase(UserList(usuario).Clase) = "CAZADOR" Or UCase(UserList(usuario).Clase) = "BARDO" Or UCase(UserList(usuario).Clase) = "DRUIDA" Or UCase(UserList(usuario).Clase) = "PIRATA" Or UCase(UserList(usuario).Clase) = "ARQUERO" Or UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(usuario).Clase) = "CLERIGO" Or UCase(UserList(usuario).Clase) = "PALADIN" Or UCase(UserList(usuario).Clase) = "ASESINO" Then
+
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                  
+                    MiObj.ObjIndex = ArmaduraEnanoTiniebla2
+                ElseIf UCase(UserList(usuario).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = ArmaduraTinieblaHobbit2
                 Else
-                  If UCase(UserList(usuario).Raza) = "ENANO" Or _
-                     UCase(UserList(usuario).Raza) = "GNOMO" Then
-                      MiObj.ObjIndex = ArmaduraEnanoTinieblaMujer2
-                  Else
-                      MiObj.ObjIndex = ArmaduraTinieblaMujer2
-                  End If
+                    MiObj.ObjIndex = ArmaduraPaladinTiniebla2
+
+                End If
+
+            Else
+
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = ArmaduraEnanoTiniebla2
+                Else
+                    MiObj.ObjIndex = ArmaduraPaladinTiniebla2
+
+                End If
+
+            End If
+
+        Else
+
+            If UCase(UserList(usuario).Clase) = "MAGO" Or UCase$(UserList(usuario).Clase) = "BRUJO" Or UCase$(UserList(usuario).Clase) = "DRUIDA" Then
+                                  
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = ArmaduraEnanoTinieblaMujer2
+                ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = TunicaMagoTinieblaHobbit2
+                Else
+                    MiObj.ObjIndex = TunicaMagoTinieblaMujer2
+                                  
+                End If
+
+            ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or UCase(UserList(usuario).Clase) = "CAZADOR" Or UCase(UserList(usuario).Clase) = "BARDO" Or UCase(UserList(usuario).Clase) = "DRUIDA" Or UCase(UserList(usuario).Clase) = "PIRATA" Or UCase(UserList(usuario).Clase) = "ARQUERO" Or UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(usuario).Clase) = "CLERIGO" Or UCase(UserList(usuario).Clase) = "PALADIN" Or UCase(UserList(usuario).Clase) = "ASESINO" Then
+
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                  
+                    MiObj.ObjIndex = ArmaduraEnanoTinieblaMujer2
+                ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = ArmaduraTinieblaHobbitMujer2
+                Else
+                    MiObj.ObjIndex = ArmaduraTinieblaMujer2
+
+                End If
+
+            Else
+
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = ArmaduraEnanoTinieblaMujer2
+                Else
+                    MiObj.ObjIndex = ArmaduraTinieblaMujer2
+
+                End If
+
+            End If
+
         End If
-    End If
                                                                      
-    If Not MeterItemEnInventarioArmadas(usuario, MiObj) Then
+        If Not MeterItemEnInventarioArmadas(usuario, MiObj) Then
            
-        LogError ("error en armaduraJIIN " & UserList(usuario).Name)
-    End If
+            LogError ("error en armaduraJIIN " & UserList(usuario).Name)
+
+        End If
                                                                      
-End If
+    End If
+
+End Sub
+
+Public Sub DarArmaduraJIIT(ByVal usuario As Integer)
+                                                                     
+    Dim MiObj As Obj
+                                                                     
+    If UserList(usuario).Faccion.RecompensasTemplaria = 5 Then
+
+        MiObj.Amount = 1
+    
+        If UCase$(UserList(usuario).Genero) = "HOMBRE" Then
+            If UCase(UserList(usuario).Clase) = "MAGO" Or UCase$(UserList(usuario).Clase) = "BRUJO" Or UCase$(UserList(usuario).Clase) = "DRUIDA" Then
+                                  
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = TunicaMagoTemplarioEnano2
+                ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = TunicaMagoTemplarioHobbit2
+                Else
+                    MiObj.ObjIndex = TunicaMagoTemplario2
+
+                End If
+                                                                     
+            ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or UCase(UserList(usuario).Clase) = "CAZADOR" Or UCase(UserList(usuario).Clase) = "BARDO" Or UCase(UserList(usuario).Clase) = "DRUIDA" Or UCase(UserList(usuario).Clase) = "PIRATA" Or UCase(UserList(usuario).Clase) = "ARQUERO" Or UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(usuario).Clase) = "CLERIGO" Or UCase(UserList(usuario).Clase) = "PALADIN" Or UCase(UserList(usuario).Clase) = "ASESINO" Then
+
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                  
+                    MiObj.ObjIndex = ArmaduraEnanoTemplario2
+                ElseIf UCase(UserList(usuario).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = ArmaduraTemplarioHobbit2
+                Else
+                    MiObj.ObjIndex = ArmaduraPaladinTemplario2
+
+                End If
+
+            Else
+
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = ArmaduraEnanoTemplario2
+                Else
+                    MiObj.ObjIndex = ArmaduraPaladinTemplario2
+
+                End If
+
+            End If
+
+        Else
+
+            If UCase(UserList(usuario).Clase) = "MAGO" Or UCase$(UserList(usuario).Clase) = "BRUJO" Or UCase$(UserList(usuario).Clase) = "DRUIDA" Then
+                                 
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = TunicaMagoAbaddonEnanoMujer2
+                ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = TunicaMagoTemplarioHobbit2
+                Else
+                    MiObj.ObjIndex = TunicaMagoTemplarioMujer2
+                                 
+                End If
+
+            ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or UCase(UserList(usuario).Clase) = "CAZADOR" Or UCase(UserList(usuario).Clase) = "BARDO" Or UCase(UserList(usuario).Clase) = "DRUIDA" Or UCase(UserList(usuario).Clase) = "PIRATA" Or UCase(UserList(usuario).Clase) = "ARQUERO" Or UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(usuario).Clase) = "CLERIGO" Or UCase(UserList(usuario).Clase) = "PALADIN" Or UCase(UserList(usuario).Clase) = "ASESINO" Then
+
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                 
+                    MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer2
+                ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = ArmaduraTemplarioHobbitMujer2
+                Else
+                    MiObj.ObjIndex = ArmaduraTemplarioMujer2
+
+                End If
+
+            Else
+
+                If UCase(UserList(usuario).Raza) = "ENANO" Or UCase(UserList(usuario).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer2
+                Else
+                    MiObj.ObjIndex = ArmaduraTemplarioMujer2
+
+                End If
+
+            End If
+
+        End If
+                                                                     
+        If Not MeterItemEnInventarioArmadas(usuario, MiObj) Then
+            
+            LogError ("error en armaduraJIIT " & UserList(usuario).Name)
+
+        End If
+                                                                     
+    End If
 
 End Sub
 
@@ -851,6 +1273,114 @@ Public Sub DarArmaduraJIII(ByVal usuario As Integer)
         End If
 
     End If
+
+End Sub
+
+Public Sub DarArmaduraJIIIT(ByVal usuario As Integer)
+                                                                     
+Dim MiObj As Obj
+                                                                     
+If UserList(usuario).Faccion.RecompensasTemplaria = 10 Then
+    MiObj.Amount = 1
+                                                                     
+    If UCase$(UserList(usuario).Genero) = "HOMBRE" Then
+        If UCase(UserList(usuario).Clase) = "MAGO" Or _
+        UCase$(UserList(usuario).Clase) = "BRUJO" Or _
+        UCase$(UserList(usuario).Clase) = "DRUIDA" Then
+                                                                     
+                                  
+               If UCase(UserList(usuario).Raza) = "ENANO" Or _
+                  UCase(UserList(usuario).Raza) = "GNOMO" Then
+                      MiObj.ObjIndex = TunicaMagoTemplarioEnano3
+               ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                  MiObj.ObjIndex = TunicaMagoTemplarioHobbit3
+               Else
+                      MiObj.ObjIndex = TunicaMagoTemplario3
+                                                                     
+                                  
+          End If
+                                                                     
+                                                                     
+        ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or _
+               UCase(UserList(usuario).Clase) = "CAZADOR" Or _
+               UCase(UserList(usuario).Clase) = "BARDO" Or _
+               UCase(UserList(usuario).Clase) = "DRUIDA" Or _
+               UCase(UserList(usuario).Clase) = "PIRATA" Or _
+               UCase(UserList(usuario).Clase) = "ARQUERO" Or _
+               UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or _
+               UCase(UserList(usuario).Clase) = "CLERIGO" Or _
+               UCase(UserList(usuario).Clase) = "PALADIN" Or _
+               UCase(UserList(usuario).Clase) = "ASESINO" Then
+                  If UCase(UserList(usuario).Raza) = "ENANO" Or _
+                     UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                                                     
+                                 
+         MiObj.ObjIndex = ArmaduraEnanoTemplario3
+        ElseIf UCase(UserList(usuario).Raza) = "HOBBIT" Then
+                     MiObj.ObjIndex = ArmaduraTemplarioHobbit3
+                 Else
+                      MiObj.ObjIndex = ArmaduraPaladinTemplario3
+                  End If
+             Else
+                  If UCase(UserList(usuario).Raza) = "ENANO" Or _
+                     UCase(UserList(usuario).Raza) = "GNOMO" Then
+                      MiObj.ObjIndex = ArmaduraEnanoTemplario3
+                  Else
+                      MiObj.ObjIndex = ArmaduraPaladinTemplario3
+                  End If
+    End If
+        Else
+        If UCase(UserList(usuario).Clase) = "MAGO" Or _
+        UCase$(UserList(usuario).Clase) = "BRUJO" Or _
+       UCase$(UserList(usuario).Clase) = "DRUIDA" Then
+                                                                     
+                                  
+ If UCase(UserList(usuario).Raza) = "ENANO" Or _
+                  UCase(UserList(usuario).Raza) = "GNOMO" Then
+                      MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer3
+               ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                  MiObj.ObjIndex = TunicaMagoTemplarioHobbit3
+               Else
+                      MiObj.ObjIndex = TunicaMagoTemplarioMujer3
+                                                                     
+                                 
+     End If
+        ElseIf UCase(UserList(usuario).Clase) = "GUERRERO" Or _
+               UCase(UserList(usuario).Clase) = "CAZADOR" Or _
+               UCase(UserList(usuario).Clase) = "BARDO" Or _
+               UCase(UserList(usuario).Clase) = "DRUIDA" Or _
+               UCase(UserList(usuario).Clase) = "PIRATA" Or _
+               UCase(UserList(usuario).Clase) = "ARQUERO" Or _
+               UCase(UserList(usuario).Clase) = "GLADIADOR MAGICO" Or _
+               UCase(UserList(usuario).Clase) = "CLERIGO" Or _
+               UCase(UserList(usuario).Clase) = "PALADIN" Or _
+               UCase(UserList(usuario).Clase) = "ASESINO" Then
+                  If UCase(UserList(usuario).Raza) = "ENANO" Or _
+                     UCase(UserList(usuario).Raza) = "GNOMO" Then
+                                                                     
+                                  
+  MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer3
+                ElseIf UCase$(UserList(usuario).Raza) = "HOBBIT" Then
+                  MiObj.ObjIndex = ArmaduraTemplarioHobbitMujer3
+                Else
+                      MiObj.ObjIndex = ArmaduraTemplarioMujer3
+                  End If
+                Else
+                  If UCase(UserList(usuario).Raza) = "ENANO" Or _
+                     UCase(UserList(usuario).Raza) = "GNOMO" Then
+                      MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer3
+                  Else
+                      MiObj.ObjIndex = ArmaduraTemplarioMujer3
+                  End If
+        End If
+    End If
+                                                                     
+    If Not MeterItemEnInventarioArmadas(usuario, MiObj) Then
+           
+        LogError ("error en armaduraJIIIT " & UserList(usuario).Name)
+    End If
+                                                                     
+End If
 
 End Sub
 

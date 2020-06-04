@@ -6865,3 +6865,46 @@
 04/06/2020 3:43:08 Se conecto con ip:127.0.0.1Hora: 04/06/2020 3:43:08
 04/06/2020 3:43:15 Comando: /subir n 10
 04/06/2020 3:43:43 Comando: /subir n 10
+04/06/2020 4:39:12 Se conecto con ip:127.0.0.1Hora: 04/06/2020 4:39:12
+04/06/2020 4:39:15 Comando: /TELEP YO 47 63 17
+04/06/2020 4:39:15 Transporto a Bassinger hacia Mapa47 X:63 Y:17
+04/06/2020 4:39:16 Comando: /TELEP YO 47 62 17
+04/06/2020 4:39:16 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+04/06/2020 4:39:17 Comando: /TELEP YO 34 35 50
+04/06/2020 4:39:17 Transporto a Bassinger hacia Mapa34 X:35 Y:50
+04/06/2020 4:39:19 Comando: /TELEP YO 34 35 49
+04/06/2020 4:39:19 Transporto a Bassinger hacia Mapa34 X:35 Y:49
+04/06/2020 4:39:22 Comando: /panelgm
+04/06/2020 4:39:37 Comando: /SEARCHNPCS temp
+04/06/2020 4:39:42 Comando: /ACC 109
+04/06/2020 4:42:42 Comando: /sum real
+04/06/2020 4:42:42 /SUM real Map:34 X:36 Y:52
+04/06/2020 5:20:21 Se conecto con ip:127.0.0.1Hora: 04/06/2020 5:20:21
+04/06/2020 5:20:23 Comando: /TELEP YO 47 62 17
+04/06/2020 5:20:23 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+04/06/2020 5:20:24 Comando: /TELEP YO 34 31 51
+04/06/2020 5:20:24 Transporto a Bassinger hacia Mapa34 X:31 Y:51
+04/06/2020 5:20:31 Comando: /sum re
+04/06/2020 5:20:31 /SUM REALTWO Map:34 X:31 Y:51
+04/06/2020 5:20:57 Comando: /subir r 11
+04/06/2020 5:21:31 Comando: /subir r 10
+04/06/2020 5:22:26 Comando: /subir r 4
+04/06/2020 5:22:48 Comando: /subir r 1
+04/06/2020 5:23:45 Comando: /subir real 10
+04/06/2020 5:25:40 Comando: /ci 1337 1
+04/06/2020 5:25:40 Creo: 1 Túnica del aire 3ª jerarquia (Hobbit)
+04/06/2020 5:26:19 Comando: /ci 1379 1
+04/06/2020 5:26:19 Creo: 1 Casa de Nix n 27
+04/06/2020 5:26:23  tiró 1 Casa de Nix n 27
+04/06/2020 5:26:26 Comando: /dest
+04/06/2020 5:26:33 Comando: /ci 1349 1
+04/06/2020 5:26:33 Creo: 1 Armadura del aire 3ª jerarquia (Hobbit/Mujer)
+04/06/2020 5:26:35  tiró 1 Armadura del aire 3ª jerarquia (Hobbit/Mujer)
+04/06/2020 5:26:40 Comando: /dest
+04/06/2020 5:29:49 Comando: /ci 133 1
+04/06/2020 5:29:49 Creo: 1 Escudo Imperial
+04/06/2020 5:29:50  tiró 1 Escudo Imperial
+04/06/2020 5:29:55 Comando: /panelgm
+04/06/2020 5:30:02 Comando: /SEARCHITEMS templ
+04/06/2020 5:30:08 Comando: /SEARCHITEMS aire
+04/06/2020 5:35:02 Se conecto con ip:127.0.0.1Hora: 04/06/2020 5:35:02
