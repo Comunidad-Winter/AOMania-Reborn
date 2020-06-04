@@ -1,5 +1,0 @@
-Línea 103: la clase MSWinsockLib.Winsock del control wsScreen no era una clase de control cargada.
-Línea 155: la clase RichTextLib.RichTextBox del control SendCMSTXT no era una clase de control cargada.
-Línea 445: la clase RichTextLib.RichTextBox del control RecTxt no era una clase de control cargada.
-Línea 476: la clase RichTextLib.RichTextBox del control EnvioMsj no era una clase de control cargada.
-Línea 542: la clase ComctlLib.ImageList del control ImageList1 no era una clase de control cargada.

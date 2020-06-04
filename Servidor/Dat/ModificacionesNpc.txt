@@ -1,7 +1,0 @@
-[NPCs.dat]
-22-04-2019
-Se modifico el texto de Tipo de Npc's del archivo parte de arriba (Bassinger)
-
-[NPCs-HOSTILES.dat]
-22-04-2019
-Agrege texto de aviso arriba, de que ese .dat solo se usa para World Editor. (Bassinger)

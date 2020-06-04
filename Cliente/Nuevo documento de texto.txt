@@ -1,2 +1,0 @@
- · Se denegaron el uso de pociones/hechizos invisibilidad en dichos mapas que no se pueden usar.
-· Se ha implementado el sistema de hades.
