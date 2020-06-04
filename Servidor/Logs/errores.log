@@ -6029,3 +6029,30 @@
 02/06/2020 3:03:02 HandleData. CadOri:/TELEP YO 45 2 73 Nom:bassingerUI:1 N: 0 D: 
 02/06/2020 3:03:02 HandleData. CadOri:/TELEP YO 45 1 73 Nom:bassingerUI:1 N: 0 D: 
 02/06/2020 3:03:03 HandleData. CadOri:/TELEP YO 45 1 73 Nom:bassingerUI:1 N: 0 D: 
+04/06/2020 1:41:04 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 1:41:07 HandleData. CadOri:/TELEP YO 34 32 51 Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 1:41:08 HandleData. CadOri:/TELEP YO 34 30 51 Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 1:41:12 HandleData. CadOri:/sum real Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 1:44:11 HandleData. CadOri:/subir real 11 Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 1:45:25 HandleData. CadOri:/recompensas Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 1:45:54 HandleData. CadOri:/masskill Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 1:46:13 HandleData. CadOri:/SEARCHNPCS  Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 1:46:17 HandleData. CadOri:/ACC 22 Nom:BassingerUI:2 N: 9 D: El subíndice está fuera del intervalo
+04/06/2020 2:18:55 HandleData. CadOri:/subir real 10 Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 2:26:46 HandleData. CadOri:/subir real 10 Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 2:28:02 HandleData. CadOri:/subir real 10 Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 2:58:37 HandleData. CadOri:/telep 84 50 50 Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 2:58:43 HandleData. CadOri:/telep yo 84 50 50 Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 2:58:48 HandleData. CadOri:/TELEP YO 84 51 42 Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 3:04:01 HandleData. CadOri:/ira neme Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 3:04:14 HandleData. CadOri:/SEARCHNPCS  Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 3:04:22 HandleData. CadOri:/SEARCHNPCS rey Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 3:04:30 HandleData. CadOri:/SEARCHNPCS guardia Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 3:04:34 HandleData. CadOri:/ACC 271 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+04/06/2020 3:04:43 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 3:04:50 HandleData. CadOri:/SEARCHNPCS nemes Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 3:04:51 HandleData. CadOri:/ACC 106 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+04/06/2020 3:07:16 HandleData. CadOri:/sum nemesis Nom:BassingerUI:1 N: 0 D: 
+04/06/2020 3:25:17 HandleData. CadOri:/subir n 11 Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 3:43:15 HandleData. CadOri:/subir n 10 Nom:BassingerUI:2 N: 0 D: 
+04/06/2020 3:43:43 HandleData. CadOri:/subir n 10 Nom:BassingerUI:2 N: 0 D: 

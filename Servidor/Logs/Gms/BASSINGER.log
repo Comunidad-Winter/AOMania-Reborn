@@ -6821,3 +6821,47 @@
 02/06/2020 3:03:02 Comando: /TELEP YO 45 2 73
 02/06/2020 3:03:02 Comando: /TELEP YO 45 1 73
 02/06/2020 3:03:03 Comando: /TELEP YO 45 1 73
+04/06/2020 1:40:53 Se conecto con ip:127.0.0.1Hora: 04/06/2020 1:40:53
+04/06/2020 1:40:56 Se conecto con ip:127.0.0.1Hora: 04/06/2020 1:40:56
+04/06/2020 1:41:04 Comando: /TELEP YO 47 62 17
+04/06/2020 1:41:04 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+04/06/2020 1:41:07 Comando: /TELEP YO 34 32 51
+04/06/2020 1:41:07 Transporto a Bassinger hacia Mapa34 X:32 Y:51
+04/06/2020 1:41:08 Comando: /TELEP YO 34 30 51
+04/06/2020 1:41:08 Transporto a Bassinger hacia Mapa34 X:30 Y:51
+04/06/2020 1:41:12 Comando: /sum real
+04/06/2020 1:41:12 /SUM real Map:34 X:30 Y:51
+04/06/2020 1:44:11 Comando: /subir real 11
+04/06/2020 1:45:54 Comando: /masskill
+04/06/2020 1:46:07 Comando: /panelgm
+04/06/2020 1:46:12 Comando: /SEARCHNPCS 
+04/06/2020 1:46:17 Comando: /ACC 22
+04/06/2020 2:18:48 Se conecto con ip:127.0.0.1Hora: 04/06/2020 2:18:48
+04/06/2020 2:18:55 Comando: /subir real 10
+04/06/2020 2:26:36 Se conecto con ip:127.0.0.1Hora: 04/06/2020 2:26:36
+04/06/2020 2:26:46 Comando: /subir real 10
+04/06/2020 2:28:02 Comando: /subir real 10
+04/06/2020 2:58:25 Se conecto con ip:127.0.0.1Hora: 04/06/2020 2:58:25
+04/06/2020 2:58:37 Comando: /telep 84 50 50
+04/06/2020 2:58:43 Comando: /telep yo 84 50 50
+04/06/2020 2:58:43 Transporto a Bassinger hacia Mapa84 X:50 Y:50
+04/06/2020 2:58:48 Comando: /TELEP YO 84 51 42
+04/06/2020 2:58:48 Transporto a Bassinger hacia Mapa84 X:51 Y:42
+04/06/2020 3:04:01 Comando: /ira neme
+04/06/2020 3:04:01 /IRA NEMESIS Mapa:34 X:31 Y:
+04/06/2020 3:04:07 Comando: /panelgm
+04/06/2020 3:04:13 Comando: /SEARCHNPCS 
+04/06/2020 3:04:20 Comando: /SEARCHNPCS rey
+04/06/2020 3:04:28 Comando: /SEARCHNPCS guardia
+04/06/2020 3:04:34 Comando: /ACC 271
+04/06/2020 3:04:43 Comando: /mata
+04/06/2020 3:04:48 Comando: /SEARCHNPCS nemes
+04/06/2020 3:04:51 Comando: /ACC 106
+04/06/2020 3:07:16 Comando: /sum nemesis
+04/06/2020 3:07:16 /SUM NEMESIS Map:34 X:32 Y:52
+04/06/2020 3:25:12 Se conecto con ip:127.0.0.1Hora: 04/06/2020 3:25:12
+04/06/2020 3:25:17 Comando: /subir n 11
+04/06/2020 3:43:06 Se conecto con ip:127.0.0.1Hora: 04/06/2020 3:43:06
+04/06/2020 3:43:08 Se conecto con ip:127.0.0.1Hora: 04/06/2020 3:43:08
+04/06/2020 3:43:15 Comando: /subir n 10
+04/06/2020 3:43:43 Comando: /subir n 10
