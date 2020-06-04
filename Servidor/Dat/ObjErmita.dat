@@ -1,0 +1,56 @@
+[INIT]
+NumObjs=18
+
+[Obj1] ' Arco Mágico (33% ahorro flechas)
+Index=1275
+
+[Obj2] ' flecha de los dioses
+Index=1312
+
+[Obj3] ' Flecha Diablo
+Index=1313
+
+[Obj4] ' Flecha Envenenada
+Index=1314
+
+[Obj5] ' Espada ensangrentada (+300 Mana)
+Index=1295
+
+[Obj6] ' Casco completo (+300 Mana)
+Index=1303
+
+[Obj7] ' Arco Mágico (50% ahorro flechas)
+Index=1310
+
+[Obj8] ' Arco Mágico (75% ahorro flechas)
+Index=1311
+
+[Obj9] ' Espada de Cristal (40-50)
+Index=1306
+
+[Obj10] ' Casco Cubierto (+5 Agilidad)
+Index=1301
+
+[Obj11] ' Espada Dorada (+5 fuerza)
+Index=1297
+
+[Obj12] ' Espada ensangrentada (+300 Mana)
+Index=1295
+
+[Obj13] ' Escudo Colores (+5 Agilidad)
+Index=1292
+
+[Obj14] ' Escudo Cruz (+5 Fuerza)
+Index=1286
+
+[Obj15] ' Báculo de la Magia (2-8)
+Index=1309
+
+[Obj16] ' Flecha De Heken
+Index=1312
+
+[Obj17] ' Flecha De Isis
+Index=1313
+
+[Obj18] ' Flecha Envenenada
+Index=1314

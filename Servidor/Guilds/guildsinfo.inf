@@ -1,0 +1,33 @@
+[INIT]
+NroGuilds=2
+[GUILD1]
+Founder=Bassinger
+GuildName=Game Master
+Date=20/05/2020
+Antifaccion=0
+Codex1=1234
+Codex2=Game Master
+Codex3=Game Master
+Codex4=Game Master
+Desc=Aomania.Net
+GuildNews=Clan iniciado.
+Leader=Bassinger
+URL=www.AoMania.Net
+Password=1234
+Rep=26
+[GUILD2]
+Founder=KeoH
+GuildName=ZeroPinG
+Date=20/05/2020
+Antifaccion=0
+Codex1=sadsadsad
+Codex2=sadsadsad
+Codex3=sadsadsa
+Codex4=sdsd
+Codex5=dsddsa
+Desc=sadsad
+GuildNews=Clan iniciado.
+Leader=KeoH
+URL=aaaaaaaaa
+Password=sadsadsad
+Rep=4

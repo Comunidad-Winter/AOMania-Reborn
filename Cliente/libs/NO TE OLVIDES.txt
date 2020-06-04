@@ -1,0 +1,3 @@
+cliente/servidor cambiar... aamd532.dll
+
+mirar po si acaso también... zlib.dll y unzip32.dll
