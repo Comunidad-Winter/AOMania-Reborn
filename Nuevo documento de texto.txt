@@ -1,3 +1,0 @@
- · Ahora cuando estas navegando, y te quedas quieto, no debería de sonar el sonido de navegar.
- · Ahora estando en la carcel no recibes el aure de poder.
- · No existen criminales y tampoco ciudadanos. (Los pj's son neutrales.) 

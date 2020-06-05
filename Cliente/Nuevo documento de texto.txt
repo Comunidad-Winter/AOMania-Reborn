@@ -1,0 +1,4 @@
+· Ahora cuando estás quieto navegando, no debería sonar el sonido como si estuvieras navegando.
+· Ahora estando en carcel no recibes el gran poder.
+· Se dio con la solución del enter.
+· Las armadas han sido mejorado.

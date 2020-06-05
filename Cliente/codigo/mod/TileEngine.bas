@@ -1400,6 +1400,7 @@ Sub DoPasosFx(ByVal charindex As Integer)
         
 
     Else
+        CharList(charindex).Pie = Not CharList(charindex).Pie
         Call Audio.PlayWave(SND_NAVEGANDO, CharList(charindex).pos.X, CharList(charindex).pos.Y)
 
     End If
@@ -3512,7 +3513,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
 126       '    Flags = D3DCREATE_SOFTWARE_VERTEXPROCESSING
               'End If
               
-              Flags = D3DCREATE_MIXED_VERTEXPROCESSING
+              Flags = D3DCREATE_SOFTWARE_VERTEXPROCESSING
              
           'create device
 128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.hwnd, Flags, DirectD3Dpp)

@@ -1437,45 +1437,20 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, _
 
                 Case 0
 
-                    If UserList(UserIndex).Faccion.ArmadaReal = 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "No perteneces a la Armada del Credo, vete de aquí o te ahogaras en tu insolencia!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-                        Exit Sub
-
-                    End If
-
                     Call RecompensaArmadaClero(UserIndex)
                     Exit Sub
 
                 Case 1
 
-                    If UserList(UserIndex).Faccion.FuerzasCaos = 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "No perteneces a la legión oscura!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-                        Exit Sub
-
-                    End If
-
                     Call RecompensaArmadaAbaddon(UserIndex)
-
                     Exit Sub
 
                 Case 3
-
-                    If UserList(UserIndex).Faccion.Templario = 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "No perteneces a la Orden Templaria, vete de aquí o volaras al vacio de tu ignorancia!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-                        Exit Sub
-
-                    End If
 
                     Call RecompensaArmadaTemplario(UserIndex)
                     Exit Sub
 
                 Case 5
-
-                    If UserList(UserIndex).Faccion.Nemesis = 0 Then
-                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "No perteneces a los Caballeros de las Tinieblas, vete de aquí o te enterraremos vivo!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-                        Exit Sub
-
-                    End If
 
                     Call RecompensaArmadaNemesis(UserIndex)
                     Exit Sub

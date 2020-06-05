@@ -1885,14 +1885,6 @@ Sub VolverCriminal(ByVal UserIndex As Integer)
 
         If UserList(UserIndex).Reputacion.BandidoRep > MAXREP Then UserList(UserIndex).Reputacion.BandidoRep = MAXREP
 
-        'If UserList(UserIndex).Faccion.ArmadaReal = 1 Then
-        '    Call ExpulsarFaccionReal(UserIndex)
-        'End If
-
-        'If UserList(UserIndex).Faccion.Templario = 1 Then
-        '    Call ExpulsarFaccionTemplario(UserIndex)
-        'End If
-
     End If
     
     If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
@@ -1919,14 +1911,6 @@ Sub VolverCiudadano(ByVal UserIndex As Integer)
     UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlASALTO
 
     If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
-
-    'If UserList(UserIndex).Faccion.FuerzasCaos = 1 Then
-    '    Call ExpulsarFaccionCaos(UserIndex)
-    'End If
-
-    'If UserList(UserIndex).Faccion.Nemesis = 1 Then
-    '    Call ExpulsarFaccionNemesis(UserIndex)
-    'End If
     
    If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
     OnlineCiudadano = OnlineCiudadano + 1

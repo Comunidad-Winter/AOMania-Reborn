@@ -2771,13 +2771,5 @@ Public Sub DisNobAuBan(ByVal UserIndex As Integer, NoblePts As Long, BandidoPts 
     If UserList(UserIndex).Reputacion.BandidoRep > MAXREP Then UserList(UserIndex).Reputacion.BandidoRep = MAXREP
     Call SendData(SendTarget.ToIndex, UserIndex, 0, "PN")
 
-    'If Criminal(UserIndex) Then
-    '    If UserList(UserIndex).Faccion.ArmadaReal = 1 Then
-    '        Call ExpulsarFaccionReal(UserIndex)
-    '    End If
-    '    If UserList(UserIndex).Faccion.Templario = 1 Then
-    '        Call ExpulsarFaccionTemplario(UserIndex)
-    '    End If
-    'End If
 
 End Sub

@@ -281,10 +281,6 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
         End If
 
-        'If Not Criminal(UserIndex) And UserList(UserIndex).Faccion.FuerzasCaos = 1 Then 'Call ExpulsarFaccionCaos(UserIndex)
-
-        'If Not Criminal(UserIndex) And UserList(UserIndex).Faccion.Nemesis = 1 Then 'Call ExpulsarFaccionNemesis(UserIndex)
-
         Call CheckUserLevel(UserIndex)
     End If    ' Userindex > 0
 

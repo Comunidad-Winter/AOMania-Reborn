@@ -6126,3 +6126,35 @@
 02/06/2020 15:52:58 HandleData. CadOri:/TELEP YO 34 21 51 Nom:bassingerUI:1 N: 0 D: 
 02/06/2020 15:53:48 HandleData. CadOri:/TELEP YO 34 23 75 Nom:bassingerUI:1 N: 0 D: 
 02/06/2020 15:53:49 HandleData. CadOri:/TELEP YO 34 23 83 Nom:bassingerUI:1 N: 0 D: 
+05/06/2020 1:55:42 HandleData. CadOri:/acc 18 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+05/06/2020 1:55:47 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 1:55:49 HandleData. CadOri:/acc 19 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+05/06/2020 1:55:52 HandleData. CadOri:/acc 20 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+05/06/2020 1:55:55 HandleData. CadOri:/acc 21 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+05/06/2020 1:55:59 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 1:56:04 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 1:56:11 HandleData. CadOri:/mata Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 1:56:45 HandleData. CadOri:/SEARCHNPCS  Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 1:56:52 HandleData. CadOri:/ACC 22 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+05/06/2020 1:57:47 HandleData. CadOri:/subir real 10 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 1:57:59 HandleData. CadOri:/subir real 1 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 1:58:22 HandleData. CadOri:/subir real 10 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 2:10:57 HandleData. CadOri:/subir real 50 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 2:18:36 HandleData. CadOri:/SEARCHNPCS nem Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 2:18:37 HandleData. CadOri:/ACC 106 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+05/06/2020 2:18:56 HandleData. CadOri:/echar real Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 2:41:04 HandleData. CadOri:/SEARCHNPCS dem Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 2:41:06 HandleData. CadOri:/ACC 23 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+05/06/2020 2:43:41 HandleData. CadOri:/subir r 20 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 2:54:33 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 2:54:45 HandleData. CadOri:/SEARCHNPCS  Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 2:54:48 HandleData. CadOri:/SEARCHNPCS temp Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 2:54:49 HandleData. CadOri:/ACC 109 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+05/06/2020 3:22:26 HandleData. CadOri:/subir r 5 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 3:22:30 HandleData. CadOri:/subir real 5 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 3:22:39 HandleData. CadOri:/subir real Nom:BassingerUI:1 N: 13 D: No coinciden los tipos
+05/06/2020 3:22:45 HandleData. CadOri:/subir r 5 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 3:23:09 HandleData. CadOri:/subir r 1 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 3:24:45 HandleData. CadOri:/subir r 4 Nom:BassingerUI:1 N: 0 D: 
+05/06/2020 3:28:06 HandleData. CadOri:/subir r 5 Nom:BassingerUI:2 N: 0 D: 
+05/06/2020 3:28:49 HandleData. CadOri:/subir r 5 Nom:BassingerUI:2 N: 0 D: 

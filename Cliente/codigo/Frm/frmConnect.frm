@@ -237,17 +237,10 @@ End Sub
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 
     If KeyCode = 27 Then prgRun = False
+    If KeyCode = 13 Then Call Image2_Click
 
 End Sub
 
-Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
-
-    If KeyCode = 13 Then
-        Call Image2_Click
-
-    End If
-
-End Sub
 
 Private Sub Form_Load()
     '[CODE 002]:MatuX
@@ -372,8 +365,8 @@ Private Sub Image6_Click()
 
 End Sub
 
-Private Sub PasswordTxt_KeyDown(KeyCode As Integer, Shift As Integer)
-
-    If KeyCode = vbKeyReturn Then Call Image2_Click
-
-End Sub
+'Private Sub PasswordTxt_KeyDown(KeyCode As Integer, Shift As Integer)
+'
+'    If KeyCode = vbKeyReturn Then Call Image2_Click
+'
+'End Sub

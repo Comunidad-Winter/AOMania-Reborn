@@ -339,10 +339,8 @@ Public Sub EnlistarArmadaClero(ByVal UserIndex As Integer)
     With UserList(UserIndex)
              
         If .Faccion.ArmadaReal = 1 Then
-
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "¡Ya perteneces a la armada del Clero, ve a combatir contra los enemigos!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
-
         End If
              
         If .Faccion.FuerzasCaos = 1 Or .Faccion.Nemesis = 1 Or .Faccion.Templario = 1 Then
@@ -352,21 +350,11 @@ Public Sub EnlistarArmadaClero(ByVal UserIndex As Integer)
 
         End If
              
-        If .Stats.ELV < 25 Then
+        If .Stats.ELV < 35 Then
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Para unirte a nuestras fuerzas debes ser al menos de nivel 25!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Para unirte a nuestras fuerzas debes ser al menos de nivel 35!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
 
-        End If
-             
-        .Faccion.ArmadaReal = 1
-        .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
-             
-        If .Faccion.RecibioExpInicialReal = 0 Then
-            Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpAlUnirse, MAXEXP)
-            Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_Motd4)
-            .Faccion.RecibioExpInicialReal = 1
-            Call CheckUserLevel(UserIndex)
         End If
         
         If .Faccion.RecompensasReal = 0 Then
@@ -432,9 +420,22 @@ Public Sub EnlistarArmadaClero(ByVal UserIndex As Integer)
              
         End If
              
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Bienvenido a las Armada del Credo!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 Niveles q subas te dare un recompensa, buena suerte soldado!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
-             
+        .Faccion.ArmadaReal = 1
+        .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
+        .Faccion.RecompensasReal = 1
+        
         Call WarpUserChar(UserIndex, .Pos.Map, .Pos.X, .Pos.Y, False)
+             
+        If .Faccion.RecibioExpInicialReal = 0 Then
+            Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpAlUnirse, MAXEXP)
+            Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_Motd4)
+            .Faccion.RecibioExpInicialReal = 1
+            Call CheckUserLevel(UserIndex)
+        End If
+    
+             
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Bienvenido a las Armada del Credo!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 Niveles q subas te dare un recompensa, buena suerte soldado!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+        
         Call LogArmada("CLERO " & UserList(UserIndex).Name)
              
     End With
@@ -446,36 +447,18 @@ Public Sub EnlistarArmadaTiniebla(ByVal UserIndex As Integer)
     With UserList(UserIndex)
       
         If .Faccion.Nemesis = 1 Then
-
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "¡Ya perteneces a la armada de los Caballeros de la Tiniebla, ve a combatir contra los enemigos!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
-
         End If
          
         If .Faccion.ArmadaReal = 1 Or .Faccion.Templario = 1 Or .Faccion.FuerzasCaos = 1 Then
-
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
-
         End If
          
         If .Stats.ELV < 25 Then
-
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Para unirte a nuestras fuerzas debes ser al menos de nivel 25!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
-
-        End If
-        
-        .Faccion.Nemesis = 1
-        .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
-        
-        If .Faccion.RecibioExpInicialNemesis = 0 Then
-
-            Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpAlUnirse, MAXEXP)
-            Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_Motd4)
-            .Faccion.RecibioExpInicialNemesis = 1
-            Call CheckUserLevel(UserIndex)
-
         End If
         
         If .Faccion.RecompensasNemesis = 0 Then
@@ -569,6 +552,20 @@ Public Sub EnlistarArmadaTiniebla(ByVal UserIndex As Integer)
             End If
             
         End If
+        
+        .Faccion.Nemesis = 1
+        .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
+        .Faccion.RecompensasNemesis = 1
+        
+        Call WarpUserChar(UserIndex, .Pos.Map, .Pos.X, .Pos.Y, False)
+        
+        If .Faccion.RecibioExpInicialNemesis = 0 Then
+            Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpAlUnirse, MAXEXP)
+            Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_Motd4)
+            .Faccion.RecibioExpInicialNemesis = 1
+            Call CheckUserLevel(UserIndex)
+        End If
+        
              
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Bienvenido a los Caballeros de la Tiniebla!!! , aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 Niveles q subas te dare un recompensa, buena suerte soldado!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
              
@@ -580,54 +577,109 @@ End Sub
 
 Public Sub EnlistarArmadaAbaddon(ByVal UserIndex As Integer)
       
-    Dim MiObj   As Obj
-      
-    Dim Usuario As Integer
-      
     With UserList(UserIndex)
-          
-        Usuario = UserIndex
-          
-        If .Faccion.ArmadaReal = 1 Or .Faccion.Templario = 1 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+    
+        If .Faccion.FuerzasCaos = 1 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "¡Ya perteneces a la armada del Abaddon, ve a combatir contra los enemigos!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
-
         End If
           
-        If .Faccion.Nemesis = 0 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Para unirte a nuestra armada, debes unirte ante a la Armada de los Caballeros de la Tiniebla!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+        If .Faccion.ArmadaReal = 1 Or .Faccion.Templario = 1 Or .Faccion.Nemesis = 1 Then
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
-
         End If
           
         If .Stats.ELV < 25 Then
-
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Para unirte a nuestras fuerzas debes ser al menos de nivel 25!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
+        End If
+        
+        If .Faccion.RecompensasCaos = 0 Then
+
+            Dim MiObj As Obj
+
+            MiObj.Amount = 1
+
+            If UCase$(UserList(UserIndex).Clase) = "MAGO" Or UCase$(UserList(UserIndex).Clase) = "BRUJO" Or UCase$(UserList(UserIndex).Clase) = "DRUIDA" Then
+
+                If UCase$(UserList(UserIndex).Genero) = "MUJER" And (UCase$(UserList(UserIndex).Raza) = "ENANO" Or UCase$(UserList(UserIndex).Raza) = "GNOMO") Then
+
+                    MiObj.ObjIndex = TunicaMagoAbaddonEnanoMujer
+                ElseIf UCase$(UserList(UserIndex).Raza) = "ENANO" Or UCase$(UserList(UserIndex).Raza) = "GNOMO" Then
+                    MiObj.ObjIndex = TunicaMagoAbaddonEnano
+                ElseIf UCase$(UserList(UserIndex).Genero) = "MUJER" And UCase$(UserList(UserIndex).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = TunicaMagoAbaddonHobbitMujer
+                ElseIf UCase$(UserList(UserIndex).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = TunicaMagoAbaddonHobbit
+                ElseIf UCase$(UserList(UserIndex).Genero) = "MUJER" Then
+                    MiObj.ObjIndex = TunicaMagoAbaddonMujer
+                Else
+                    MiObj.ObjIndex = TunicaMagoAbaddon
+
+                End If
+
+            ElseIf UCase$(UserList(UserIndex).Clase) = "GUERRERO" Or UCase$(UserList(UserIndex).Clase) = "CAZADOR" Or UCase$(UserList(UserIndex).Clase) = "PALADIN" Or UCase$(UserList(UserIndex).Clase) = "THESAUROS" Or UCase$(UserList(UserIndex).Clase) = "ASESINO" Then
+
+                If UCase$(UserList(UserIndex).Genero) = "MUJER" And UCase$(UserList(UserIndex).Raza) = "ENANO" Or UCase$(UserList(UserIndex).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = ArmaduraEnanoAbaddonMujer
+                ElseIf UCase$(UserList(UserIndex).Raza) = "ENANO" Or UCase$(UserList(UserIndex).Raza) = "GNOMO" Then
+                    MiObj.ObjIndex = ArmaduraEnanoAbaddon
+                ElseIf UCase$(UserList(UserIndex).Genero) = "MUJER" And UCase$(UserList(UserIndex).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = ArmaduraAbaddonHobbitMujer
+                ElseIf UCase$(UserList(UserIndex).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = ArmaduraPaladinAbaddonHobbit
+                Else
+                    MiObj.ObjIndex = ArmaduraPaladinAbaddon
+
+                End If
+
+            Else
+
+                If UCase$(UserList(UserIndex).Genero) = "MUJER" And UCase$(UserList(UserIndex).Raza) = "ENANO" Or UCase$(UserList(UserIndex).Raza) = "GNOMO" Then
+
+                    MiObj.ObjIndex = ArmaduraEnanoAbaddonMujer
+                ElseIf UCase$(UserList(UserIndex).Raza) = "ENANO" Or UCase$(UserList(UserIndex).Raza) = "GNOMO" Then
+                    MiObj.ObjIndex = ArmaduraEnanoAbaddon
+                ElseIf UCase$(UserList(UserIndex).Genero) = "MUJER" And UCase$(UserList(UserIndex).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = ArmaduraAbaddonHobbitMujer
+                ElseIf UCase$(UserList(UserIndex).Raza) = "HOBBIT" Then
+                    MiObj.ObjIndex = ArmaduraPaladinAbaddonHobbit 'amon
+                ElseIf UCase$(UserList(UserIndex).Genero) = "MUJER" Then
+                    MiObj.ObjIndex = ArmaduraAbaddonMujer
+                Else
+                    MiObj.ObjIndex = ArmaduraPaladinAbaddon
+
+                End If
+
+            End If
+
+            If Not MeterItemEnInventarioArmadas(UserIndex, MiObj) Then
+
+                Call SendData(ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Necesitas tener el utlimo slot libre en tu inventario." & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Exit Sub
+                
+            End If
 
         End If
            
-        .Faccion.Nemesis = 0
         .Faccion.FuerzasCaos = 1
         .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
-        .Faccion.RecompensasCaos = .Faccion.RecompensasNemesis
-        .Faccion.RecompensasNemesis = 0
+        .Faccion.RecompensasCaos = 1
         
         Call WarpUserChar(UserIndex, .Pos.Map, .Pos.X, .Pos.Y, False)
         
         If .Faccion.RecibioExpInicialCaos = 0 Then
-
             Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpAlUnirse, MAXEXP)
             Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_Motd4)
             .Faccion.RecibioExpInicialCaos = 1
             .Faccion.RecibioExpInicialNemesis = 0
             Call CheckUserLevel(UserIndex)
-
         End If
            
         Call LogArmada("ABADDON " & UserList(UserIndex).Name)
+        Call SendData(ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Bienvenido a las Armada de Abaddon!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 Niveles q subas te dare un recompensa, buena suerte soldado!" & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+
           
     End With
 
@@ -928,30 +980,24 @@ Public Sub DarArmaduraJIIC(ByVal Usuario As Integer)
 
     End If
       
-    Call SendData(ToIndex, Usuario, 0, "||Enhorabuena has conseguido el ropaje de 3ª Jerarquia !!!" & FONTTYPE_Motd4)
+    Call SendData(ToIndex, Usuario, 0, "||Enhorabuena has conseguido el ropaje de 2ª Jerarquia !!!" & FONTTYPE_Motd4)
       
 End Sub
 
 Public Sub EnlistarArmadaTemplario(ByVal UserIndex As Integer)
-
-    Dim MiObj   As Obj
-
-    Dim Usuario As Integer
     
     With UserList(UserIndex)
          
-        Usuario = UserIndex
-           
-        If .Faccion.Nemesis = 1 Or .Faccion.FuerzasCaos = 1 Then
+        If .Faccion.Templario = 1 Then
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "¡Ya perteneces a la armada de la Orden Templaria, ve a combatir contra los enemigos!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
 
         End If
            
-        If .Faccion.ArmadaReal = 0 Then
+        If .Faccion.Nemesis = 1 Or .Faccion.FuerzasCaos = 1 Or .Faccion.ArmadaReal = 1 Then
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Para unirte a nuestra armada, debes unirte ante a la Armada del Credo!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
 
         End If
@@ -963,8 +1009,101 @@ Public Sub EnlistarArmadaTemplario(ByVal UserIndex As Integer)
 
         End If
         
+        If .Faccion.RecompensasTemplaria = 0 Then
+
+            Dim MiObj As Obj
+
+            MiObj.Amount = 1
+
+            If UCase$(UserList(UserIndex).Genero) = "HOMBRE" Then
+                If UCase(UserList(UserIndex).Clase) = "MAGO" Or UCase$(UserList(UserIndex).Clase) = "BRUJO" Or UCase$(UserList(UserIndex).Clase) = "DRUIDA" Then
+
+                    If UCase(UserList(UserIndex).Raza) = "ENANO" Or UCase(UserList(UserIndex).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = TunicaMagoTemplarioEnano
+                    ElseIf UCase$(UserList(UserIndex).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = TunicaMagoTemplarioHobbit
+                    Else
+                        MiObj.ObjIndex = TunicaMagoTemplario
+
+                    End If
+
+                ElseIf UCase(UserList(UserIndex).Clase) = "GUERRERO" Or UCase(UserList(UserIndex).Clase) = "CAZADOR" Or UCase(UserList(UserIndex).Clase) = "BARDO" Or UCase(UserList(UserIndex).Clase) = "DRUIDA" Or UCase(UserList(UserIndex).Clase) = "PIRATA" Or UCase(UserList(UserIndex).Clase) = "ARQUERO" Or UCase(UserList(UserIndex).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(UserIndex).Clase) = "CLERIGO" Or UCase(UserList(UserIndex).Clase) = "PALADIN" Or UCase(UserList(UserIndex).Clase) = "ASESINO" Then
+
+                    If UCase(UserList(UserIndex).Raza) = "ENANO" Or UCase(UserList(UserIndex).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = ArmaduraEnanoTemplario
+                    ElseIf UCase(UserList(UserIndex).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = ArmaduraTemplarioHobbit
+                    Else
+                        MiObj.ObjIndex = ArmaduraPaladinTemplario
+
+                    End If
+
+                Else
+
+                    If UCase(UserList(UserIndex).Raza) = "ENANO" Or UCase(UserList(UserIndex).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = ArmaduraEnanoTemplario
+                    Else
+                        MiObj.ObjIndex = ArmaduraPaladinTemplario
+
+                    End If
+
+                End If
+
+            Else
+
+                If UCase(UserList(UserIndex).Clase) = "MAGO" Or UCase$(UserList(UserIndex).Clase) = "BRUJO" Or UCase$(UserList(UserIndex).Clase) = "DRUIDA" Then
+
+                    If UCase(UserList(UserIndex).Raza) = "ENANO" Or UCase(UserList(UserIndex).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = TunicaMagoTemplarioEnanoMujer
+                    ElseIf UCase$(UserList(UserIndex).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = TunicaMagoTemplarioHobbit
+                    Else
+                        MiObj.ObjIndex = TunicaMagoTemplarioMujer
+
+                    End If
+
+                ElseIf UCase(UserList(UserIndex).Clase) = "GUERRERO" Or UCase(UserList(UserIndex).Clase) = "CAZADOR" Or UCase(UserList(UserIndex).Clase) = "BARDO" Or UCase(UserList(UserIndex).Clase) = "DRUIDA" Or UCase(UserList(UserIndex).Clase) = "PIRATA" Or UCase(UserList(UserIndex).Clase) = "ARQUERO" Or UCase(UserList(UserIndex).Clase) = "GLADIADOR MAGICO" Or UCase(UserList(UserIndex).Clase) = "CLERIGO" Or UCase(UserList(UserIndex).Clase) = "PALADIN" Or UCase(UserList(UserIndex).Clase) = "ASESINO" Then
+
+                    If UCase(UserList(UserIndex).Raza) = "ENANO" Or UCase(UserList(UserIndex).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer
+                    ElseIf UCase$(UserList(UserIndex).Raza) = "HOBBIT" Then
+                        MiObj.ObjIndex = ArmaduraTemplarioHobbitMujer
+                    Else
+                        MiObj.ObjIndex = ArmaduraTemplarioMujer
+
+                    End If
+
+                Else
+
+                    If UCase(UserList(UserIndex).Raza) = "ENANO" Or UCase(UserList(UserIndex).Raza) = "GNOMO" Then
+
+                        MiObj.ObjIndex = ArmaduraEnanoTemplarioMujer
+                    Else
+                        MiObj.ObjIndex = ArmaduraTemplarioMujer
+
+                    End If
+
+                End If
+
+            End If
+   
+            If Not MeterItemEnInventarioArmadas(UserIndex, MiObj) Then
+                Call SendData(ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Necesitas tener el utlimo slot libre en tu inventario." & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Exit Sub
+            End If
+        
+        End If
+        
         .Faccion.Templario = 1
         .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
+        .Faccion.RecompensasTemplaria = 1
+        
+        Call WarpUserChar(UserIndex, .Pos.Map, .Pos.X, .Pos.Y, False)
         
         If .Faccion.RecibioExpInicialTemplaria = 0 Then
 
@@ -976,9 +1115,8 @@ Public Sub EnlistarArmadaTemplario(ByVal UserIndex As Integer)
 
         End If
         
-        
-        Call WarpUserChar(UserIndex, .Pos.Map, .Pos.X, .Pos.Y, False)
         Call LogArmada("TEMPLARIO " & UserList(UserIndex).Name)
+        Call SendData(ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Bienvenido a las Orden Templaria!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 Niveles q subas te dare un recompensa, buena suerte soldado!" & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
            
     End With
       
@@ -988,18 +1126,9 @@ Public Sub RecompensaArmadaNemesis(ByVal UserIndex As Integer)
       
     With UserList(UserIndex)
          
-        If .Faccion.FuerzasCaos = 1 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Debes pedirle la recompensa a la armada del Abaddon!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
-            Exit Sub
-
-        End If
-         
-        If .Faccion.Nemesis = 0 And .Faccion.FuerzasCaos = 0 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "No perteneces a los Caballeros de la Tiniebla, vete de aquí o te ahogaras en tu insolencia!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-            Exit Sub
-
+        If UserList(UserIndex).Faccion.Nemesis = 0 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "No perteneces a los Caballeros de las Tinieblas, vete de aquí o te enterraremos vivo!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                        Exit Sub
         End If
          
         If .Stats.ELV < 25 Then
@@ -1016,7 +1145,7 @@ Public Sub RecompensaArmadaNemesis(ByVal UserIndex As Integer)
                 Exit Sub
             Else
                 UserList(UserIndex).Faccion.RecompensasNemesis = UserList(UserIndex).Faccion.RecompensasNemesis + 1
-                Call SendData(ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasNemesis & "en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Call SendData(ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasNemesis & " en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpX100, MAXEXP)
                 Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_Motd4)
                 Call CheckUserLevel(UserIndex)
@@ -1045,35 +1174,19 @@ Public Sub RecompensaArmadaClero(ByVal UserIndex As Integer)
      
     With UserList(UserIndex)
      
-        If .Faccion.Templario = 1 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Debes pedirle la recompensa a la armada de la Orden Templaria." & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
-            Exit Sub
-
-        End If
-        
-        If .Faccion.ArmadaReal = 0 And .Faccion.Templario = 0 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "No perteneces a la Armada del Credo, vete de aquí o te ahogaras en tu insolencia!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-            Exit Sub
-
-        End If
-        
-        If .Stats.ELV < 25 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Para recibir la recompensa debes ser al menos de nivel 25" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
-            Exit Sub
-
+        If UserList(UserIndex).Faccion.ArmadaReal = 0 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "No perteneces a la Armada del Credo, vete de aquí o te ahogaras en tu insolencia!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                        Exit Sub
         End If
         
         If .Faccion.RecompensasReal > 0 Then
-            If (.Stats.ELV - 25) \ 2 <= .Faccion.RecompensasReal Or .Faccion.RecompensasReal = 10 Then
+            If (.Stats.ELV - 35) <= .Faccion.RecompensasReal Or .Faccion.RecompensasReal = 10 Then
 
                 Call SendData(ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Ya has recibido tu recompensa,sube más nivel para subir de rango.!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
             Else
                 UserList(UserIndex).Faccion.RecompensasReal = UserList(UserIndex).Faccion.RecompensasReal + 1
-                Call SendData(ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasReal & "en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Call SendData(ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasReal & " en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpX100, MAXEXP)
                 Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_Motd4)
                 Call CheckUserLevel(UserIndex)
@@ -1102,35 +1215,26 @@ Public Sub RecompensaArmadaAbaddon(ByVal UserIndex As Integer)
         
     With UserList(UserIndex)
             
-        If .Faccion.Nemesis = 1 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Debes pedirle la recompensa a la armada de los Caballeros de la Tiniebla!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
-            Exit Sub
-
-        End If
+        If UserList(UserIndex).Faccion.FuerzasCaos = 0 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "No perteneces a la legión oscura!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                        Exit Sub
+       End If
         
-        If .Faccion.Nemesis = 0 And .Faccion.FuerzasCaos = 0 Then
+        If .Stats.ELV < 35 Then
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "No perteneces a la Armada del Abaddon, vete de aquí o te ahogaras en tu insolencia!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-            Exit Sub
-
-        End If
-        
-        If .Stats.ELV < 25 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Para recibir la recompensa debes ser al menos de nivel 25" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Para recibir la recompensa debes ser al menos de nivel 35" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
 
         End If
         
         If .Faccion.RecompensasCaos > 0 Then
-            If (.Stats.ELV - 25) \ 2 <= .Faccion.RecompensasCaos Or .Faccion.RecompensasCaos = 10 Then
+            If (.Stats.ELV - 25) <= .Faccion.RecompensasCaos Or .Faccion.RecompensasCaos = 10 Then
 
                 Call SendData(ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Ya has recibido tu recompensa,sube más nivel para subir de rango.!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
             Else
                 UserList(UserIndex).Faccion.RecompensasCaos = UserList(UserIndex).Faccion.RecompensasCaos + 1
-                Call SendData(ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasCaos & "en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Call SendData(ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasCaos & " en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpX100, MAXEXP)
                 Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_Motd4)
                 Call CheckUserLevel(UserIndex)
@@ -1159,23 +1263,14 @@ Public Sub RecompensaArmadaTemplario(ByVal UserIndex As Integer)
        
     With UserList(UserIndex)
                
-        If .Faccion.ArmadaReal = 1 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Debes pedirle la recompensa a la armada de la Orden Templaria!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
-            Exit Sub
-
-        End If
+        If UserList(UserIndex).Faccion.Templario = 0 Then
+                        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "No perteneces a la Orden Templaria, vete de aquí o volaras al vacio de tu ignorancia!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                        Exit Sub
+      End If
         
-        If .Faccion.ArmadaReal = 0 And .Faccion.Templario = 0 Then
+        If .Stats.ELV < 25 Then
 
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "No perteneces a la Armada del Credo, vete de aquí o te ahogaras en tu insolencia!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-            Exit Sub
-
-        End If
-        
-        If .Stats.ELV < 40 Then
-
-            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Para recibir la recompensa debes ser al menos de nivel 40" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Para recibir la recompensa debes ser al menos de nivel 25" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
 
         End If
@@ -1187,7 +1282,7 @@ Public Sub RecompensaArmadaTemplario(ByVal UserIndex As Integer)
                 Exit Sub
             Else
                 UserList(UserIndex).Faccion.RecompensasTemplaria = UserList(UserIndex).Faccion.RecompensasTemplaria + 1
-                Call SendData(ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasTemplaria & "en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+                Call SendData(ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Has subido al rango " & UserList(UserIndex).Faccion.RecompensasTemplaria & " en nuestras tropas!!!" & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpX100, MAXEXP)
                 Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpX100 & " puntos de experiencia." & FONTTYPE_Motd4)
                 Call CheckUserLevel(UserIndex)
