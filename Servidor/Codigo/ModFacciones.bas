@@ -20,16 +20,6 @@ Public MAX_ARMADURAS_ARMADA            As Integer
 
 Public Armaduras_Armada(1000)          As Integer
 
-Public Const NpcReyFaccion = 725
-
-Public Type tEventoFaccion
-       Status As Boolean
-       Map As Integer
-       Tipo As Byte
-End Type
-
-Public EventoFaccion As tEventoFaccion
-
 '#####ARMADURAS&TUNICAS ARMADAS DEL CREDO
 
 Public ArmaduraPaladinClero            As Integer
@@ -334,6 +324,15 @@ Public TunicaMagoAbaddonHobbitMujer3   As Integer
 
 Public TunicaMagoAbaddonMujer3         As Integer
 
+Public AlasClero As Integer
+Public AlasCleroII As Integer
+Public AlasTiniebla As Integer
+Public AlasTinieblaII As Integer
+Public AlasTemplario As Integer
+Public AlasTemplarioII As Integer
+Public AlasAbaddon As Integer
+Public AlasAbaddonII As Integer
+
 Public Sub EnlistarArmadaClero(ByVal UserIndex As Integer)
      
     With UserList(UserIndex)
@@ -557,6 +556,8 @@ Public Sub EnlistarArmadaTiniebla(ByVal UserIndex As Integer)
         .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
         .Faccion.RecompensasNemesis = 1
         
+        Call AddtoVar(UserList(UserIndex).Reputacion.AsesinoRep, "2000000", MAXREP)
+        
         Call WarpUserChar(UserIndex, .Pos.Map, .Pos.X, .Pos.Y, False)
         
         If .Faccion.RecibioExpInicialNemesis = 0 Then
@@ -580,18 +581,24 @@ Public Sub EnlistarArmadaAbaddon(ByVal UserIndex As Integer)
     With UserList(UserIndex)
     
         If .Faccion.FuerzasCaos = 1 Then
+
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "¡Ya perteneces a la armada del Abaddon, ve a combatir contra los enemigos!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
+
         End If
           
         If .Faccion.ArmadaReal = 1 Or .Faccion.Templario = 1 Or .Faccion.Nemesis = 1 Then
+
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
+
         End If
           
         If .Stats.ELV < 25 Then
+
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Para unirte a nuestras fuerzas debes ser al menos de nivel 25!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
             Exit Sub
+
         End If
         
         If .Faccion.RecompensasCaos = 0 Then
@@ -667,19 +674,22 @@ Public Sub EnlistarArmadaAbaddon(ByVal UserIndex As Integer)
         .Faccion.Reenlistadas = .Faccion.Reenlistadas + 1
         .Faccion.RecompensasCaos = 1
         
+        Call AddtoVar(UserList(UserIndex).Reputacion.AsesinoRep, "2000000", MAXREP)
+        
         Call WarpUserChar(UserIndex, .Pos.Map, .Pos.X, .Pos.Y, False)
         
         If .Faccion.RecibioExpInicialCaos = 0 Then
+
             Call AddtoVar(UserList(UserIndex).Stats.Exp, ExpAlUnirse, MAXEXP)
             Call SendData(ToIndex, UserIndex, 0, "||Has ganado " & ExpAlUnirse & " puntos de experiencia." & FONTTYPE_Motd4)
             .Faccion.RecibioExpInicialCaos = 1
             .Faccion.RecibioExpInicialNemesis = 0
             Call CheckUserLevel(UserIndex)
+
         End If
            
         Call LogArmada("ABADDON " & UserList(UserIndex).Name)
         Call SendData(ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Bienvenido a las Armada de Abaddon!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 Niveles q subas te dare un recompensa, buena suerte soldado!" & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
-
           
     End With
 
@@ -2699,3 +2709,339 @@ Public Function RangoFaccion(ByVal UserIndex As Integer) As Integer
       
 End Function
 
+'###################[QUEST FACCION]####################
+
+Public Sub DarIconoFaccion(ByVal UserIndex As Integer)
+      
+      Dim NI As Integer
+      Dim Faccion As Integer
+      
+      With UserList(UserIndex)
+          If .Faccion.ArmadaReal = 1 Then
+              Faccion = 0
+          ElseIf .Faccion.FuerzasCaos = 1 Then
+              Faccion = 1
+          ElseIf .Faccion.Templario = 1 Then
+              Faccion = 3
+          ElseIf .Faccion.Nemesis = 1 Then
+              Faccion = 5
+          End If
+      End With
+      
+      For NI = 1 To LastNPC
+           
+          If Npclist(NI).NPCtype = eNPCType.armada Then
+              If Npclist(NI).flags.Faccion = Faccion Then
+                  Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(NI).char.CharIndex & "," & 2)
+              End If
+          End If
+           
+      Next NI
+      
+End Sub
+
+Public Sub QuitarIconoFaccion(ByVal UserIndex As Integer)
+      
+      Dim NI As Integer
+      Dim Faccion As Integer
+      
+      With UserList(UserIndex)
+          If .Faccion.ArmadaReal = 1 Then
+              Faccion = 0
+          ElseIf .Faccion.FuerzasCaos = 1 Then
+              Faccion = 1
+          ElseIf .Faccion.Templario = 1 Then
+              Faccion = 3
+          ElseIf .Faccion.Nemesis = 1 Then
+              Faccion = 5
+          End If
+      End With
+      
+      For NI = 1 To LastNPC
+           
+          If Npclist(NI).NPCtype = eNPCType.armada Then
+              If Npclist(NI).flags.Faccion = Faccion Then
+                  Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(NI).char.CharIndex & "," & 0)
+              End If
+          End If
+           
+      Next NI
+      
+End Sub
+
+Public Sub QuestFaccion(ByVal UserIndex As Integer, ByVal NI As Integer)
+       
+      Dim Faccion As Integer
+      Dim Obj As Obj
+      
+      With UserList(UserIndex)
+          
+          If .Faccion.ArmadaReal = 0 And .Faccion.FuerzasCaos = 0 And .Faccion.Nemesis = 0 And .Faccion.Templario = 0 Then
+               Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "¡No perteneces a ninguna armada!" & "°" & CStr(Npclist(NI).char.CharIndex))
+               Exit Sub
+          End If
+          
+          If .Faccion.ArmadaReal = 1 Then
+              Faccion = 0
+          ElseIf .Faccion.FuerzasCaos = 1 Then
+              Faccion = 1
+          ElseIf .Faccion.Templario = 1 Then
+              Faccion = 3
+          ElseIf .Faccion.Nemesis = 1 Then
+              Faccion = 5
+          End If
+          
+          Select Case Faccion
+             Case 0
+             
+             If Npclist(NI).flags.Faccion = 1 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 ElseIf Npclist(NI).flags.Faccion = 3 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 ElseIf Npclist(NI).flags.Faccion = 5 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 End If
+             
+               If .Faccion.ActiveQuest = 0 Then
+                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "¡No tienes ninguna misión por realizar!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                  Exit Sub
+               End If
+               
+               If Not TienePlumas(UserIndex) Then
+                   Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "¡Te faltan algunas plumas en tu inventario!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                   Exit Sub
+               End If
+               
+               If .Faccion.Quest = 1 Then
+                 If .Stats.ELV < 45 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Para realizar misión debes ser al menos de nivel 45" & "°" & CStr(Npclist(NI).char.CharIndex))
+                     Exit Sub
+                 End If
+                 
+                 Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
+                 
+                 Obj.ObjIndex = AlasClero
+                 Obj.Amount = 1
+                 
+                 .Faccion.ActiveQuest = 0
+                 Call QuitarIconoFaccion(UserIndex)
+                 
+                 Call MeterItemEnInventario(UserIndex, Obj)
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                 
+               ElseIf .Faccion.Quest = 2 Then
+                 If .Stats.ELV < 55 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Para realizar misión debes ser al menos de nivel 55" & "°" & CStr(Npclist(NI).char.CharIndex))
+                     Exit Sub
+                 End If
+                 
+                 Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
+                 
+                 Obj.ObjIndex = AlasCleroII
+                 Obj.Amount = 1
+                 
+                 .Faccion.ActiveQuest = 0
+                 Call QuitarIconoFaccion(UserIndex)
+                 
+                 Call MeterItemEnInventario(UserIndex, Obj)
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
+               End If
+               
+             Case 1
+                 
+                 If Npclist(NI).flags.Faccion = 0 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 ElseIf Npclist(NI).flags.Faccion = 3 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 ElseIf Npclist(NI).flags.Faccion = 5 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 End If
+                 
+                 If .Faccion.ActiveQuest = 0 Then
+                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "¡No tienes ninguna misión por realizar!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                  Exit Sub
+               End If
+               
+               If Not TienePlumas(UserIndex) Then
+                   Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "¡Te faltan algunas plumas en tu inventario!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                   Exit Sub
+               End If
+               
+               If .Faccion.Quest = 1 Then
+                 If .Stats.ELV < 45 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "vbred" & "°" & "Para realizar misión debes ser al menos de nivel 45" & "°" & CStr(Npclist(NI).char.CharIndex))
+                     Exit Sub
+                 End If
+                 
+                 Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
+                 
+                 Obj.ObjIndex = AlasAbaddon
+                 Obj.Amount = 1
+                 
+                 .Faccion.ActiveQuest = 0
+                 Call QuitarIconoFaccion(UserIndex)
+                 
+                 Call MeterItemEnInventario(UserIndex, Obj)
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                 
+               ElseIf .Faccion.Quest = 2 Then
+                 If .Stats.ELV < 55 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Para realizar misión debes ser al menos de nivel 55" & "°" & CStr(Npclist(NI).char.CharIndex))
+                     Exit Sub
+                 End If
+                 
+                 Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
+                 
+                 Obj.ObjIndex = AlasAbaddonII
+                 Obj.Amount = 1
+                 
+                 .Faccion.ActiveQuest = 0
+                 Call QuitarIconoFaccion(UserIndex)
+                 
+                 Call MeterItemEnInventario(UserIndex, Obj)
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
+               End If
+                
+             Case 3
+             
+                If Npclist(NI).flags.Faccion = 0 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 ElseIf Npclist(NI).flags.Faccion = 1 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 ElseIf Npclist(NI).flags.Faccion = 5 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 End If
+             
+                If .Faccion.ActiveQuest = 0 Then
+                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "¡No tienes ninguna misión por realizar!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                  Exit Sub
+               End If
+               
+               If Not TienePlumas(UserIndex) Then
+                   Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "¡Te faltan algunas plumas en tu inventario!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                   Exit Sub
+               End If
+               
+               If .Faccion.Quest = 1 Then
+                 If .Stats.ELV < 45 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Para realizar misión debes ser al menos de nivel 45" & "°" & CStr(Npclist(NI).char.CharIndex))
+                     Exit Sub
+                 End If
+                 
+                 Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
+                 
+                 Obj.ObjIndex = AlasTemplario
+                 Obj.Amount = 1
+                 
+                 .Faccion.ActiveQuest = 0
+                 Call QuitarIconoFaccion(UserIndex)
+                 
+                 Call MeterItemEnInventario(UserIndex, Obj)
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                 
+               ElseIf .Faccion.Quest = 2 Then
+                 If .Stats.ELV < 55 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Para realizar misión debes ser al menos de nivel 55" & "°" & CStr(Npclist(NI).char.CharIndex))
+                     Exit Sub
+                 End If
+                 
+                 Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
+                 
+                 Obj.ObjIndex = AlasTemplarioII
+                 Obj.Amount = 1
+                 
+                 .Faccion.ActiveQuest = 0
+                 Call QuitarIconoFaccion(UserIndex)
+                 
+                 Call MeterItemEnInventario(UserIndex, Obj)
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
+               End If
+               
+             Case 5
+                
+                If Npclist(NI).flags.Faccion = 0 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 ElseIf Npclist(NI).flags.Faccion = 1 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 ElseIf Npclist(NI).flags.Faccion = 3 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Maldito insolente!!! vete de aqui, ya perceneces a otra armada!!!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
+                     Exit Sub
+                 End If
+             
+                If .Faccion.ActiveQuest = 0 Then
+                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "¡No tienes ninguna misión por realizar!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                  Exit Sub
+               End If
+               
+               If Not TienePlumas(UserIndex) Then
+                   Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "¡Te faltan algunas plumas en tu inventario!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                   Exit Sub
+               End If
+               
+               If .Faccion.Quest = 1 Then
+                 If .Stats.ELV < 45 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Para realizar misión debes ser al menos de nivel 45" & "°" & CStr(Npclist(NI).char.CharIndex))
+                     Exit Sub
+                 End If
+                 
+                 Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
+                 
+                 Obj.ObjIndex = AlasTiniebla
+                 Obj.Amount = 1
+                 
+                 .Faccion.ActiveQuest = 0
+                 Call QuitarIconoFaccion(UserIndex)
+                 
+                 Call MeterItemEnInventario(UserIndex, Obj)
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                 
+               ElseIf .Faccion.Quest = 2 Then
+                 If .Stats.ELV < 55 Then
+                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Para realizar misión debes ser al menos de nivel 55" & "°" & CStr(Npclist(NI).char.CharIndex))
+                     Exit Sub
+                 End If
+                 
+                 Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
+                 Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
+                 
+                 Obj.ObjIndex = AlasTinieblaII
+                 Obj.Amount = 1
+                 
+                 Call MeterItemEnInventario(UserIndex, Obj)
+                 
+                 .Faccion.ActiveQuest = 0
+                 Call QuitarIconoFaccion(UserIndex)
+                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
+               End If
+               
+          End Select
+          
+      End With
+       
+End Sub

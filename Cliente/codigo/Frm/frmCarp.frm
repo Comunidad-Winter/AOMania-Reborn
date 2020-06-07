@@ -20,7 +20,7 @@ Begin VB.Form frmCarp
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.TextBox Text1 
-      BackColor       =   &H00FFFF00&
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -39,7 +39,7 @@ Begin VB.Form frmCarp
       Width           =   855
    End
    Begin VB.ListBox lstArmas 
-      BackColor       =   &H00FFFF00&
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25

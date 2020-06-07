@@ -80,11 +80,6 @@ Sub NpcLanzaSpellSobreUser(ByVal NpcIndex As Integer, _
             If UserList(UserIndex).Stats.MinHP < 1 Then
                 UserList(UserIndex).Stats.MinHP = 0
 
-                If Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-                    RestarCriminalidad (UserIndex)
-
-                End If
-
                 MuereSpell = Hechizos(Spell).FXgrh
                 LoopSpell = Hechizos(Spell).loops
 

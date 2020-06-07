@@ -25,7 +25,7 @@ Begin VB.Form frmHerreroMagico
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.ListBox List1 
-      BackColor       =   &H00FFFF00&
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -81,12 +81,7 @@ Option Explicit
 
 Private Sub CmdConstruir_Click()
    Dim m As Integer
-   
-   If List1.ListIndex = -1 Then
-        Unload Me
-        Exit Sub
-   End If
-   
+      
    Call SendData("COMHERM" & ObjHerreroMagico(List1.ListIndex))
    
    For m = 0 To UBound(ObjHerreroMagico)
@@ -103,7 +98,7 @@ Private Sub CmdConstruir_MouseMove(Button As Integer, Shift As Integer, X As Sin
     CmdConstruir.MouseIcon = Iconos.Ico_Mano
 End Sub
 
-Private Sub CmdSalir_Click()
+Private Sub cmdSalir_Click()
   Dim m As Integer
   
  For m = 0 To UBound(ObjHerreroMagico)
@@ -116,7 +111,7 @@ Private Sub CmdSalir_Click()
 End Sub
 
 Private Sub CmdSalir_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    CmdSalir.MouseIcon = Iconos.Ico_Mano
+    cmdSalir.MouseIcon = Iconos.Ico_Mano
 End Sub
 
 Private Sub Command1_Click()

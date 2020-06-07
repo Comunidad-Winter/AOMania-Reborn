@@ -7050,3 +7050,261 @@
 05/06/2020 3:27:54 Se conecto con ip:127.0.0.1Hora: 05/06/2020 3:27:54
 05/06/2020 3:28:06 Comando: /subir r 5
 05/06/2020 3:28:49 Comando: /subir r 5
+05/06/2020 18:28:39 Se conecto con ip:127.0.0.1Hora: 05/06/2020 18:28:39
+05/06/2020 18:28:46 Comando: /panelgm
+05/06/2020 18:28:57 Comando: /SEARCHITEMS martillo
+05/06/2020 18:29:02 Comando: /CI 389 1
+05/06/2020 18:29:02 Creo: 1 Martillo de Herrero
+05/06/2020 18:29:08 Comando: /TELEP YO 34 26 43
+05/06/2020 18:29:08 Transporto a Bassinger hacia Mapa34 X:26 Y:43
+05/06/2020 18:29:08 Comando: /TELEP YO 34 23 35
+05/06/2020 18:29:08 Transporto a Bassinger hacia Mapa34 X:23 Y:35
+05/06/2020 18:29:09 Comando: /TELEP YO 34 21 25
+05/06/2020 18:29:09 Transporto a Bassinger hacia Mapa34 X:21 Y:25
+05/06/2020 18:29:24 Dijo:  
+05/06/2020 18:29:26 Dijo:  
+05/06/2020 18:29:46 Comando: /mod yo skills herreria 100
+05/06/2020 18:29:50 Dijo:  
+05/06/2020 18:30:00 Comando: /mod yo clase Trabajador
+05/06/2020 18:30:04 Dijo:  
+05/06/2020 18:30:11 Dijo:  
+05/06/2020 18:32:34 Comando: /panelgm
+05/06/2020 18:32:45 Comando: /SEARCHITEMS lingotes
+05/06/2020 18:32:48 Comando: /SEARCHITEMS lingote
+05/06/2020 18:32:53 Comando: /CI 386 1000
+05/06/2020 18:32:53 Creo: 1000 Lingote de hierro
+05/06/2020 18:32:57 Comando: /CI 387 1000
+05/06/2020 18:32:57 Creo: 1000 Lingote de plata
+05/06/2020 18:33:01 Comando: /CI 388 1000
+05/06/2020 18:33:01 Creo: 1000 Lingote de oro
+05/06/2020 18:33:04 Comando: /CI 1584 1000
+05/06/2020 18:33:04 Creo: 1000 Lingote de Mercurio
+05/06/2020 18:33:16 Dijo:  
+05/06/2020 18:33:57 Dijo:  
+05/06/2020 18:34:04 Dijo:  
+05/06/2020 18:36:01 Dijo:  
+05/06/2020 18:36:12 Dijo:  
+05/06/2020 18:36:35 Dijo:  
+05/06/2020 18:38:13 Dijo:  
+05/06/2020 18:38:51 Dijo:  
+05/06/2020 18:42:31 Dijo: NM,
+05/06/2020 18:42:35 Dijo:  
+05/06/2020 18:42:53 Dijo:  
+05/06/2020 18:43:03 Dijo:  
+05/06/2020 18:47:33 Se conecto con ip:127.0.0.1Hora: 05/06/2020 18:47:33
+05/06/2020 18:47:39 Comando: /TELEP YO 34 28 42
+05/06/2020 18:47:39 Transporto a bassinger hacia Mapa34 X:28 Y:42
+05/06/2020 18:47:39 Comando: /TELEP YO 34 20 36
+05/06/2020 18:47:39 Transporto a bassinger hacia Mapa34 X:20 Y:36
+05/06/2020 18:47:39 Comando: /TELEP YO 34 12 31
+05/06/2020 18:47:39 Transporto a bassinger hacia Mapa34 X:12 Y:31
+05/06/2020 18:47:41 Comando: /TELEP YO 34 17 22
+05/06/2020 18:47:41 Transporto a bassinger hacia Mapa34 X:17 Y:22
+05/06/2020 18:47:55 Dijo:  
+05/06/2020 18:48:07 Dijo:  
+05/06/2020 18:48:31 Dijo:  
+05/06/2020 18:49:15 Dijo:  
+05/06/2020 18:50:14 Se conecto con ip:127.0.0.1Hora: 05/06/2020 18:50:14
+05/06/2020 18:50:21 Comando: /TELEP YO 34 27 40
+05/06/2020 18:50:21 Transporto a Bassinger hacia Mapa34 X:27 Y:40
+05/06/2020 18:50:22 Comando: /TELEP YO 34 22 32
+05/06/2020 18:50:22 Transporto a Bassinger hacia Mapa34 X:22 Y:32
+05/06/2020 18:50:23 Comando: /TELEP YO 34 19 22
+05/06/2020 18:50:23 Transporto a Bassinger hacia Mapa34 X:19 Y:22
+05/06/2020 18:50:29 Dijo:  
+05/06/2020 18:51:28 Se conecto con ip:127.0.0.1Hora: 05/06/2020 18:51:28
+05/06/2020 18:51:34 Comando: /TELEP YO 34 31 42
+05/06/2020 18:51:34 Transporto a bassinger hacia Mapa34 X:31 Y:42
+05/06/2020 18:51:34 Comando: /TELEP YO 34 24 37
+05/06/2020 18:51:34 Transporto a bassinger hacia Mapa34 X:24 Y:37
+05/06/2020 18:51:35 Comando: /TELEP YO 34 20 28
+05/06/2020 18:51:35 Transporto a bassinger hacia Mapa34 X:20 Y:28
+05/06/2020 18:51:43 Dijo:  
+05/06/2020 18:57:52 Se conecto con ip:127.0.0.1Hora: 05/06/2020 18:57:52
+05/06/2020 18:57:58 Comando: /TELEP YO 34 30 42
+05/06/2020 18:57:58 Transporto a bassinger hacia Mapa34 X:30 Y:42
+05/06/2020 18:57:58 Comando: /TELEP YO 34 25 36
+05/06/2020 18:57:58 Transporto a bassinger hacia Mapa34 X:25 Y:36
+05/06/2020 18:57:59 Comando: /TELEP YO 34 20 27
+05/06/2020 18:57:59 Transporto a bassinger hacia Mapa34 X:20 Y:27
+05/06/2020 18:58:06 Dijo:  
+05/06/2020 19:00:12 Comando: /panelgm
+05/06/2020 19:00:21 Comando: /SEARCHITEMS mart
+05/06/2020 19:00:26 Comando: /CI 1272 1
+05/06/2020 19:00:26 Creo: 1 Martillo Herrero Magico
+05/06/2020 19:00:32 Dijo:  
+05/06/2020 19:01:55 Comando: /mod yo skills herreriamagica 100
+05/06/2020 19:02:07 Comando: /mod yo skills herreriamagicas 100
+05/06/2020 19:02:43 Comando: /MOD YO SKILLS HERRERO+MÁGICO 100
+05/06/2020 19:02:48 Dijo:  
+05/06/2020 23:44:45 Se conecto con ip:127.0.0.1Hora: 05/06/2020 23:44:45
+06/06/2020 1:11:51 Se conecto con ip:127.0.0.1Hora: 06/06/2020 1:11:51
+06/06/2020 1:12:07 Comando: /telep yo 84 50 50
+06/06/2020 1:12:07 Transporto a Bassinger hacia Mapa84 X:50 Y:50
+06/06/2020 1:12:10 Comando: /TELEP YO 84 49 54
+06/06/2020 1:12:10 Transporto a Bassinger hacia Mapa84 X:49 Y:54
+06/06/2020 1:13:54 Comando: /sum real
+06/06/2020 1:13:54 /SUM real Map:84 X:49 Y:54
+06/06/2020 1:14:12 Comando: /telep yo 85 50 50
+06/06/2020 1:14:12 Transporto a Bassinger hacia Mapa85 X:50 Y:50
+06/06/2020 1:14:32 Comando: /telep yo 59 50 50
+06/06/2020 1:14:32 Transporto a Bassinger hacia Mapa59 X:50 Y:50
+06/06/2020 1:14:36 Comando: /sum real
+06/06/2020 1:14:36 /SUM real Map:59 X:50 Y:50
+06/06/2020 18:27:22 Se conecto con ip:127.0.0.1Hora: 06/06/2020 18:27:22
+06/06/2020 18:27:27 Comando: /TELEP YO 47 62 17
+06/06/2020 18:27:27 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+06/06/2020 18:27:28 Comando: /TELEP YO 34 35 51
+06/06/2020 18:27:28 Transporto a Bassinger hacia Mapa34 X:35 Y:51
+06/06/2020 18:27:29 Comando: /TELEP YO 34 30 49
+06/06/2020 18:27:29 Transporto a Bassinger hacia Mapa34 X:30 Y:49
+06/06/2020 18:27:34 Comando: /panelgm
+06/06/2020 18:27:38 Comando: /SEARCHNPCS 
+06/06/2020 18:27:43 Comando: /ACC 22
+06/06/2020 18:28:13 Comando: /panelgm
+06/06/2020 18:28:19 Comando: /SEARCHNPCS dem
+06/06/2020 18:28:22 Comando: /ACC 23
+06/06/2020 18:28:27 Comando: /SEARCHNPCS tem
+06/06/2020 18:28:29 Comando: /ACC 109
+06/06/2020 18:30:51 Se conecto con ip:127.0.0.1Hora: 06/06/2020 18:30:51
+06/06/2020 18:30:52 Se conecto con ip:127.0.0.1Hora: 06/06/2020 18:30:52
+06/06/2020 18:31:06 Comando: /TELEP YO 47 62 17
+06/06/2020 18:31:06 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+06/06/2020 18:31:11 Dijo: l
+06/06/2020 18:31:12 Comando: /TELEP YO 34 33 51
+06/06/2020 18:31:12 Transporto a Bassinger hacia Mapa34 X:33 Y:51
+06/06/2020 18:31:13 Comando: /TELEP YO 34 30 51
+06/06/2020 18:31:13 Transporto a Bassinger hacia Mapa34 X:30 Y:51
+06/06/2020 19:22:51 Se conecto con ip:127.0.0.1Hora: 06/06/2020 19:22:51
+06/06/2020 19:23:41 Comando: /panelgm
+06/06/2020 19:23:52 Comando: /SEARCHNPCS nemes
+06/06/2020 19:23:54 Comando: /ACC 106
+06/06/2020 19:25:12 Comando: /TELEP YO 34 27 43
+06/06/2020 19:25:12 Transporto a Bassinger hacia Mapa34 X:27 Y:43
+06/06/2020 19:25:13 Comando: /TELEP YO 34 26 35
+06/06/2020 19:25:13 Transporto a Bassinger hacia Mapa34 X:26 Y:35
+06/06/2020 19:25:13 Comando: /TELEP YO 34 25 30
+06/06/2020 19:25:13 Transporto a Bassinger hacia Mapa34 X:25 Y:30
+06/06/2020 19:25:13 Comando: /TELEP YO 34 24 24
+06/06/2020 19:25:13 Transporto a Bassinger hacia Mapa34 X:24 Y:24
+06/06/2020 19:25:14 Comando: /TELEP YO 34 24 20
+06/06/2020 19:25:14 Transporto a Bassinger hacia Mapa34 X:24 Y:20
+06/06/2020 19:25:14 Comando: /TELEP YO 34 24 15
+06/06/2020 19:25:14 Transporto a Bassinger hacia Mapa34 X:24 Y:15
+06/06/2020 19:25:18 Comando: /TELEP YO 34 26 15
+06/06/2020 19:25:18 Transporto a Bassinger hacia Mapa34 X:26 Y:15
+06/06/2020 19:25:18 Comando: /TELEP YO 34 26 17
+06/06/2020 19:25:18 Transporto a Bassinger hacia Mapa34 X:26 Y:17
+06/06/2020 19:25:18 Comando: /TELEP YO 34 26 20
+06/06/2020 19:25:18 Transporto a Bassinger hacia Mapa34 X:26 Y:20
+06/06/2020 19:25:18 Comando: /TELEP YO 34 26 24
+06/06/2020 19:25:18 Transporto a Bassinger hacia Mapa34 X:26 Y:24
+06/06/2020 19:25:18 Comando: /TELEP YO 34 26 27
+06/06/2020 19:25:18 Transporto a Bassinger hacia Mapa34 X:26 Y:27
+06/06/2020 19:25:19 Comando: /TELEP YO 34 26 31
+06/06/2020 19:25:19 Transporto a Bassinger hacia Mapa34 X:26 Y:31
+06/06/2020 19:25:19 Comando: /TELEP YO 34 26 35
+06/06/2020 19:25:19 Transporto a Bassinger hacia Mapa34 X:26 Y:35
+06/06/2020 19:25:19 Comando: /TELEP YO 34 26 38
+06/06/2020 19:25:19 Transporto a Bassinger hacia Mapa34 X:26 Y:38
+06/06/2020 19:25:19 Comando: /TELEP YO 34 26 42
+06/06/2020 19:25:19 Transporto a Bassinger hacia Mapa34 X:26 Y:42
+06/06/2020 19:25:19 Comando: /TELEP YO 34 26 47
+06/06/2020 19:25:19 Transporto a Bassinger hacia Mapa34 X:26 Y:47
+06/06/2020 19:25:20 Comando: /TELEP YO 34 26 52
+06/06/2020 19:25:20 Transporto a Bassinger hacia Mapa34 X:26 Y:52
+06/06/2020 19:25:26 Comando: /telep yo 35 50 50
+06/06/2020 19:25:26 Transporto a Bassinger hacia Mapa35 X:50 Y:50
+06/06/2020 19:25:31 Comando: /telep yo 34 30 50
+06/06/2020 19:25:31 Transporto a Bassinger hacia Mapa34 X:30 Y:50
+06/06/2020 19:32:42 Se conecto con ip:127.0.0.1Hora: 06/06/2020 19:32:42
+06/06/2020 19:32:45 Comando: /TELEP YO 47 62 17
+06/06/2020 19:32:45 Transporto a Bassinger hacia Mapa47 X:62 Y:17
+06/06/2020 19:34:08 Comando: /TELEP YO 34 30 53
+06/06/2020 19:34:08 Transporto a Bassinger hacia Mapa34 X:30 Y:53
+06/06/2020 19:34:13 Comando: /ACC 304
+06/06/2020 19:39:02 Se conecto con ip:127.0.0.1Hora: 06/06/2020 19:39:02
+06/06/2020 21:44:58 Se conecto con ip:127.0.0.1Hora: 06/06/2020 21:44:58
+06/06/2020 21:45:10 Comando: /TELEP YO 47 62 17
+06/06/2020 21:45:10 Transporto a bassinger hacia Mapa47 X:62 Y:17
+06/06/2020 22:34:40 Se conecto con ip:127.0.0.1Hora: 06/06/2020 22:34:40
+06/06/2020 23:28:57 Se conecto con ip:127.0.0.1Hora: 06/06/2020 23:28:57
+06/06/2020 23:37:40 Se conecto con ip:127.0.0.1Hora: 06/06/2020 23:37:40
+06/06/2020 23:37:54 Comando: /sum real
+06/06/2020 23:37:54 /SUM real Map:34 X:27 Y:50
+06/06/2020 23:46:02 Comando: /subir real 1
+06/06/2020 23:54:02 Comando: /subir real 1
+06/06/2020 23:58:23 Comando: /sum faccion
+06/06/2020 23:58:23 /SUM FACCION Map:34 X:22 Y:50
+06/06/2020 23:58:29 Comando: /subir faccion 30
+06/06/2020 23:58:52 Comando: /subir faccion 20
+06/06/2020 23:59:56 Comando: /subir faccion 43
+07/06/2020 0:00:16 Comando: /subir faccion 1
+07/06/2020 0:01:11 Comando: /subir faccion 1
+07/06/2020 0:02:57 Comando: /subir faccion 43
+07/06/2020 0:03:57 Comando: /subir faccion 1
+07/06/2020 0:07:10 Comando: /subir real 1
+07/06/2020 0:19:19 Comando: /subir real 1
+07/06/2020 0:19:59 Comando: /subir real 1
+07/06/2020 0:21:23 Comando: /subir faccion 43
+07/06/2020 0:21:45 Comando: /subir faccion 1
+07/06/2020 0:23:15 Comando: /subir real 1
+07/06/2020 0:27:24 Comando: /subir real 1
+07/06/2020 0:29:17 Comando: /subir real 43
+07/06/2020 0:29:23 Comando: /Subir faccion 43
+07/06/2020 0:29:39 Comando: /subir faccion 1
+07/06/2020 0:32:26 Comando: /subir real 1
+07/06/2020 0:44:44 Comando: /subir real 1
+07/06/2020 1:09:19 Comando: /subir real 1
+07/06/2020 1:20:14 Comando: /subir real 1
+07/06/2020 1:21:48 Comando: /subir f 43
+07/06/2020 1:22:09 Comando: /subir f 1
+07/06/2020 1:25:59 Comando: /subir real 1
+07/06/2020 1:33:05 Comando: /subir real 1
+07/06/2020 1:34:29 Comando: /subir f 43
+07/06/2020 1:36:24 Comando: /subir faccion 1
+07/06/2020 1:37:24 Comando: /subir f 1
+07/06/2020 1:38:13 Comando: /subir faccion 1
+07/06/2020 1:41:49 Comando: /subir r 1
+07/06/2020 1:57:19 Se conecto con ip:127.0.0.1Hora: 07/06/2020 1:57:19
+07/06/2020 1:57:21 Se conecto con ip:127.0.0.1Hora: 07/06/2020 1:57:21
+07/06/2020 1:57:22 Se conecto con ip:127.0.0.1Hora: 07/06/2020 1:57:22
+07/06/2020 3:37:12 Se conecto con ip:127.0.0.1Hora: 07/06/2020 3:37:12
+07/06/2020 3:37:19  tiró 830 Lingote de plata
+07/06/2020 3:37:24  tiró 860 Lingote de oro
+07/06/2020 3:37:26  tiró 800 Lingote de hierro
+07/06/2020 3:37:31  tiró 163 Poción amarilla
+07/06/2020 3:37:35  tiró 1 Espada Sagrada
+07/06/2020 3:37:37  tiró 1 Martillo de Herrero
+07/06/2020 3:37:41  tiró 1981 Víno
+07/06/2020 3:37:45  tiró 1000 Lingote de Mercurio
+07/06/2020 3:37:49  tiró 9869 Poción azul
+07/06/2020 3:37:53  tiró 880 Poción resucitadora
+07/06/2020 3:37:57  tiró 986 Poción de invisibilidad
+07/06/2020 3:38:00  tiró 1000 Pocion Desparalizar
+07/06/2020 3:38:05  tiró 701 Amuleto Teletransportador
+07/06/2020 3:38:09  tiró 2 Espada Halcon
+07/06/2020 3:38:12  tiró 1 Armadura del agua 1ª jerarquia
+07/06/2020 3:38:15 Agarro:1 Objeto:Armadura del agua 1ª jerarquia
+07/06/2020 3:38:18  tiró 1 Vale Cambio Sagrados
+07/06/2020 3:38:20  tiró 1 Placas de Oro
+07/06/2020 3:38:23  tiró 1 Espada Demoledora
+07/06/2020 3:38:26  tiró 1 Alas del agua +1
+07/06/2020 3:38:30  tiró 1 Casco Sagrado
+07/06/2020 3:38:56 Comando: /panelgm
+07/06/2020 3:39:02 Comando: /SEARCHITEMS pluma
+07/06/2020 3:39:06 Comando: /CI 1688 10
+07/06/2020 3:39:06 Creo: 10 Pluma de Ampere
+07/06/2020 3:39:09 Comando: /CI 1689 10
+07/06/2020 3:39:09 Creo: 10 Pluma de Bassinger
+07/06/2020 3:39:13 Comando: /CI 1690 10
+07/06/2020 3:39:13 Creo: 10 Pluma Dios Seth
+07/06/2020 3:39:17 Comando: /CI 1688 1000
+07/06/2020 3:39:17 Creo: 1000 Pluma de Ampere
+07/06/2020 3:39:21 Comando: /CI 1689 1000
+07/06/2020 3:39:21 Creo: 1000 Pluma de Bassinger
+07/06/2020 3:39:25 Comando: /CI 1690 1000
+07/06/2020 3:39:25 Creo: 1000 Pluma Dios Seth
+07/06/2020 3:39:30  tiró 10 Pluma de Ampere
+07/06/2020 3:39:34  tiró 10 Pluma de Bassinger
+07/06/2020 3:39:38  tiró 10 Pluma Dios Seth

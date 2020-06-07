@@ -56,8 +56,9 @@ End Sub
 
 Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
-   If UserList(UserIndex).Quest.Start = 1 Then
+    If UserList(UserIndex).Quest.Start = 1 Then
         If UserList(UserIndex).Quest.NumNpc > 0 Then
+
             Call MuereNpcQuest(UserIndex, NpcIndex, UserList(UserIndex).Quest.Quest)
 
         End If
@@ -65,12 +66,14 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     End If
 
     If Npclist(NpcIndex).Numero = ReyNPC And NpcIndex = ReyIndex Then
+
         Call modAsedio.MuereRey(UserIndex)
         Exit Sub
 
     End If
 
     If Npclist(NpcIndex).Numero = MurallaNPC Then
+
         Call modAsedio.CalcularGrafico(NpcIndex)
 
     End If
@@ -86,16 +89,19 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     MiNPC = Npclist(NpcIndex)
 
     If MiNPC.Numero = NpcThorn And Npclist(NpcIndex).Pos.Map = MapaCasaAbandonada1 Then
+
         NpcThornVive = False
 
     End If
 
     If MiNPC.Numero = NpcDragonAlado And Npclist(NpcIndex).Pos.Map = MapaGenios Then
+
         NpcDragonAladoVive = False
 
     End If
 
     If MiNPC.Numero = 661 And Npclist(NpcIndex).Pos.Map = mapainvo Then
+
         StatusInvo = False
         ConfInvo = 0
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has ganado 250000 puntos de experiencia!" & FONTTYPE_FIGHT)
@@ -103,9 +109,11 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
         UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + 250000
         Call EnviarExp(UserIndex)
         Call CheckUserLevel(UserIndex)
+
     End If
     
     If MiNPC.Numero = 705 And Npclist(NpcIndex).Pos.Map = mapahades Then
+
         StatusHades = True
         ConfHades = 0
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Has ganado 250000 puntos de experiencia!" & FONTTYPE_FIGHT)
@@ -113,9 +121,11 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
         UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + 250000
         Call EnviarExp(UserIndex)
         Call CheckUserLevel(UserIndex)
+
     End If
 
     If MiNPC.Numero = 253 Then
+
         Call SendData(ToAll, 0, 0, "||Angeles ganaron la guerra entre bandas, reciben como premio experiencia!!!" & FONTTYPE_GUERRA)
         Call RespGuerrasAngeles
         Call Ban_Angeles
@@ -123,6 +133,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     End If
 
     If MiNPC.Numero = 254 Then
+
         Call SendData(ToAll, 0, 0, "||Demonios ganaron la guerra entre bandas, reciben como premio experiencia!!!" & FONTTYPE_GUERRA)
         Call RespGuerrasDemonio
         Call Ban_Demonios
@@ -130,6 +141,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     End If
 
     If MiNPC.Numero = NpcCorsarios Then
+
         Call SendData(ToAll, 0, 0, "||Piratas ganaron la batalla de medusas, reciben experiencia como premio!!!" & FONTTYPE_GUERRA)
         Call RespGuerrasCorsarios
         Call Med_Piratas
@@ -137,6 +149,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     End If
 
     If MiNPC.Numero = NpcPiratas Then
+
         Call SendData(ToAll, 0, 0, "||Corsarios ganaron la batalla de medusas, reciben experiencia como premio!!!" & FONTTYPE_GUERRA)
         Call RespGuerrasPiratas
         Call Med_Corsarios
@@ -144,6 +157,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
     End If
 
     If MiNPC.Numero = NpcNosfe Then
+
         NickMataNosfe = UserIndex
         MataNosfe = True
 
@@ -165,6 +179,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
                 If NPCI > 0 Then
                     If esPretoriano(NPCI) > 0 Then
+
                         Npclist(NPCI).Invent.ArmourEqpSlot = IIf(Npclist(NpcIndex).Pos.X > 50, 1, 5)
 
                     End If
@@ -203,6 +218,7 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
                 If UserList(UserIndex).MascotasIndex(T) > 0 Then
                     If Npclist(UserList(UserIndex).MascotasIndex(T)).TargetNpc = NpcIndex Then
+
                         Call FollowAmo(UserList(UserIndex).MascotasIndex(T))
 
                     End If
@@ -212,26 +228,6 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
             Next T
 
         End If
-
-        '        Call CalcularDarExp(UserIndex, MiNPC.Numero, Daño)
-        '[KEVIN]
-        'If MiNPC.flags.ExpCount > 0 Then
-        '
-        '            If UserList(UserIndex).PartyIndex > 0 Then
-        '                Call mdParty.ObtenerExito(UserIndex, MiNPC.flags.ExpCount, MiNPC.pos.Map, MiNPC.pos.X, MiNPC.pos.Y)
-        '            Else
-        '                UserList(UserIndex).Stats.Exp = UserList(UserIndex).Stats.Exp + MiNPC.flags.ExpCount
-        '
-        '                If UserList(UserIndex).Stats.Exp > MAXEXP Then UserList(UserIndex).Stats.Exp = MAXEXP
-        ''                Call SendData(SendTarget.toIndex, UserIndex, 0, "||Has ganado " & MiNPC.flags.ExpCount & " puntos de experiencia." & FONTTYPE_FIGHT)
-        '               Call EnviarExp(UserIndex)
-        '
-        '            End If
-        ''
-        '           MiNPC.flags.ExpCount = 0
-        '
-        '       End If '
-        '[/KEVIN]
 
         If MiNPC.MaestroUser = 0 Then
 
@@ -251,33 +247,19 @@ Sub MuereNpc(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
         If MiNPC.Stats.Alineacion = 0 Then
             If MiNPC.Numero = Guardias Then
-                UserList(UserIndex).Reputacion.NobleRep = 0
-                UserList(UserIndex).Reputacion.PlebeRep = 0
-                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + 500
 
-                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
+                Call VolverCriminal(UserIndex)
 
             End If
 
-            If MiNPC.MaestroUser = 0 Then
-                UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep + vlASESINO
-
-                If UserList(UserIndex).Reputacion.AsesinoRep > MAXREP Then UserList(UserIndex).Reputacion.AsesinoRep = MAXREP
-
-            End If
+            If Not EsDios(UserList(UserIndex).Name) Then Call AddtoVar(UserList(UserIndex).Reputacion.AsesinoRep, vlASESINO, MAXREP)
 
         ElseIf MiNPC.Stats.Alineacion = 1 Then
-            UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlCAZADOR
-
-            If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
+            Call AddtoVar(UserList(UserIndex).Reputacion.PlebeRep, vlCAZADOR, MAXREP)
         ElseIf MiNPC.Stats.Alineacion = 2 Then
-            UserList(UserIndex).Reputacion.NobleRep = UserList(UserIndex).Reputacion.NobleRep + vlASESINO / 2
-
-            If UserList(UserIndex).Reputacion.NobleRep > MAXREP Then UserList(UserIndex).Reputacion.NobleRep = MAXREP
+            Call AddtoVar(UserList(UserIndex).Reputacion.NobleRep, vlASESINO / 2, MAXREP)
         ElseIf MiNPC.Stats.Alineacion = 4 Then
-            UserList(UserIndex).Reputacion.PlebeRep = UserList(UserIndex).Reputacion.PlebeRep + vlCAZADOR
-
-            If UserList(UserIndex).Reputacion.PlebeRep > MAXREP Then UserList(UserIndex).Reputacion.PlebeRep = MAXREP
+            Call AddtoVar(UserList(UserIndex).Reputacion.PlebeRep, vlCAZADOR, MAXREP)
 
         End If
 

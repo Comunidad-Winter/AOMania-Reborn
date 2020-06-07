@@ -143,6 +143,7 @@ Begin VB.Form frmMain
       Top             =   4800
       Width           =   4935
       Begin VB.ListBox Gms 
+         ForeColor       =   &H000000C0&
          Height          =   1320
          Left            =   120
          TabIndex        =   15
@@ -271,7 +272,7 @@ Begin VB.Form frmMain
       Begin VB.Timer TNosfeSagrada 
          Interval        =   1000
          Left            =   4560
-         Top             =   1080
+         Top             =   1125
       End
       Begin VB.Label CantNumGM 
          AutoSize        =   -1  'True
@@ -1323,6 +1324,7 @@ Private Sub Resetear()
     Dim Canjeadores As String
     Dim Restard As Double
     Dim RSubasta As String
+    Dim Armadas As String
 
     CharFile = FileExist(App.Path & "\Charfile\*.*", vbNormal)
     Guilds = FileExist(App.Path & "\Guilds\*.*", vbNormal)
@@ -1338,6 +1340,7 @@ Private Sub Resetear()
     Donaciones = FileExist(App.Path & "\Logs\Donaciones\*,*", vbNormal)
     Canjeadores = FileExist(App.Path & "\Logs\Canjeadores\*,*", vbNormal)
     RSubasta = FileExist(DatPath & "\Subastas.Dat", vbNormal)
+    Armadas = Canjeadores = FileExist(App.Path & "\Logs\Armadas\*,*", vbNormal)
     
     If CharFile = True Then
         Kill (App.Path & "\Charfile\*.*")
@@ -1411,6 +1414,10 @@ Private Sub Resetear()
 
     End If
     
+    If Armadas = True Then
+        Kill (App.Path & "\Logs\Armadas\*.*")
+    End If
+    
     If RSubasta = True Then
        Kill (DatPath & "\Subastas.DAT")
     End If
@@ -1435,6 +1442,7 @@ Private Sub Resetear()
     Call WriteVar(DirINI & "Ranking.ini", "Ranking", "MonedaOroMax", "0")
     Call WriteVar(DirINI & "Ranking.ini", "Ranking", "MaxOro", vbNullString)
     Call WriteVar(DatPath & "Subastas.dat", "INIT", "NumSubasta", "0")
+    Call WriteVar(App.Path & "\Server.ini", "OPCIONES", "Clan", "0")
 
     #If MYSQL = 1 Then
         Call Reset_Mysql
@@ -1541,11 +1549,12 @@ Private Sub TIMER_AI_Timer()
     On Error GoTo ErrorHandler
 
     Dim NpcIndex As Integer
-    Dim X As Integer
-    Dim Y As Integer
-    Dim UseAI As Integer
-    Dim Mapa As Integer
-    Dim e_p As Integer
+
+    Dim X        As Integer
+
+    Dim Y        As Integer
+
+    Dim Mapa     As Integer
 
     'Barrin 29/9/03
     If Not haciendoBK And Not EnPausa Then
@@ -1553,54 +1562,26 @@ Private Sub TIMER_AI_Timer()
         'Update NPCs
         For NpcIndex = 1 To LastNPC
 
-            If Npclist(NpcIndex).flags.NPCActive Then    'Nos aseguramos que sea INTELIGENTE!
-                e_p = esPretoriano(NpcIndex)
+            ''ia comun
+            If Npclist(NpcIndex).flags.Paralizado = 1 Then
 
-                If e_p > 0 Then
-                    If Npclist(NpcIndex).flags.Paralizado = 1 Then Call EfectoParalisisNpc(NpcIndex)
+                Call EfectoParalisisNpc(NpcIndex)
+            Else
 
-                    Select Case e_p
+                'Usamos AI si hay algun user en el mapa
+                If Npclist(NpcIndex).flags.Inmovilizado = 1 Then
 
-                    Case 1  ''clerigo
-                        Call PRCLER_AI(NpcIndex)
+                    Call EfectoParalisisNpc(NpcIndex)
 
-                    Case 2  ''mago
-                        Call PRMAGO_AI(NpcIndex)
+                End If
 
-                    Case 3  ''cazador
-                        Call PRCAZA_AI(NpcIndex)
+                Mapa = Npclist(NpcIndex).Pos.Map
 
-                    Case 4  ''rey
-                        Call PRREY_AI(NpcIndex)
+                If Mapa > 0 Then
+                    If MapInfo(Mapa).NumUsers > 0 Then
+                        If Npclist(NpcIndex).Movement <> TipoAI.ESTATICO Then
 
-                    Case 5  ''guerre
-                        Call PRGUER_AI(NpcIndex)
-
-                    End Select
-
-                Else
-
-                    ''ia comun
-                    If Npclist(NpcIndex).flags.Paralizado = 1 Then
-                        Call EfectoParalisisNpc(NpcIndex)
-                    Else
-
-                        'Usamos AI si hay algun user en el mapa
-                        If Npclist(NpcIndex).flags.Inmovilizado = 1 Then
-                            Call EfectoParalisisNpc(NpcIndex)
-
-                        End If
-
-                        Mapa = Npclist(NpcIndex).Pos.Map
-
-                        If Mapa > 0 Then
-                            If MapInfo(Mapa).NumUsers > 0 Then
-                                If Npclist(NpcIndex).Movement <> TipoAI.ESTATICO Then
-                                    Call NPCAI(NpcIndex)
-
-                                End If
-
-                            End If
+                            Call NPCAI(NpcIndex)
 
                         End If
 
@@ -1611,7 +1592,9 @@ Private Sub TIMER_AI_Timer()
             End If
 
             If Npclist(NpcIndex).Numero = NpcRey Or Npclist(NpcIndex).Numero = NpcFortaleza Then
+
                 Call CuraRey(NpcIndex)
+
             End If
 
         Next NpcIndex

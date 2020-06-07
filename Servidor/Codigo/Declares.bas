@@ -1463,6 +1463,10 @@ Public Type tFacciones
     Reenlistado As Integer
 
     FEnlistado As String
+    
+    'Quest de Facciones
+    Quest As Byte
+    ActiveQuest As Byte
 
 End Type
 
@@ -2230,33 +2234,33 @@ Public Enum Plumas
     Seth = 1690
 End Enum
 
-Public Enum AlasCaos
-    One = 1691
-    Second = 1692
-    Thir = 1693
-    Four = 1694
-End Enum
-
-Public Enum AlasReal
-    One = 1704
-    Second = 1736
-    Thir = 1703
-    Four = 1697
-End Enum
-
-Public Enum AlasNemesis
-    One = 1751
-    Second = 1752
-    Thir = 1770
-    Four = 1698
-End Enum
-
-Public Enum AlasTemplario
-    One = 1737
-    Second = 1738
-    Thir = 1749
-    Four = 1699
-End Enum
+'Public Enum AlasCaos
+'    One = 1691
+'    Second = 1692
+'    Thir = 1693
+'    Four = 1694
+'End Enum
+'
+'Public Enum AlasReal
+'    One = 1704
+'    Second = 1736
+'    Thir = 1703
+'    Four = 1697
+'End Enum
+'
+'Public Enum AlasNemesis
+'    One = 1751
+'    Second = 1752
+'    Thir = 1770
+'    Four = 1698
+'End Enum
+'
+'Public Enum AlasTemplario
+'    One = 1737
+'    Second = 1738
+'    Thir = 1749
+'    Four = 1699
+'End Enum
 
 Public Const IntervaloAttack As Integer = 12
 

@@ -25,7 +25,7 @@ Begin VB.Form frmHechiceria
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.TextBox Text1 
-      BackColor       =   &H00FFFF00&
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -44,7 +44,7 @@ Begin VB.Form frmHechiceria
       Width           =   855
    End
    Begin VB.ListBox List1 
-      BackColor       =   &H00FFFF00&
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -108,7 +108,7 @@ Private Sub CmdFabricar_MouseMove(Button As Integer, Shift As Integer, X As Sing
      CmdFabricar.MouseIcon = Iconos.Ico_Mano
 End Sub
 
-Private Sub CmdSalir_Click()
+Private Sub cmdSalir_Click()
      Dim m As Integer
   
  For m = 0 To UBound(ObjHechizeria)
@@ -121,7 +121,7 @@ Private Sub CmdSalir_Click()
 End Sub
 
 Private Sub CmdSalir_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    CmdSalir.MouseIcon = Iconos.Ico_Mano
+    cmdSalir.MouseIcon = Iconos.Ico_Mano
 End Sub
 
 Private Sub Form_Load()

@@ -2,3 +2,6 @@
 · Ahora estando en carcel no recibes el gran poder.
 · Se dio con la solución del enter.
 · Las armadas han sido mejorado.
+· Ahora en herreria normal/magica deja crear armaduras.
+· Se ha eliminado comando /MEZCLAR.
+· Ahora en nivel 45 y 55, se hacen quest facciones, deberan entregarles 3 plumas para recibir recompensa con el comando /QUESTENTREGA

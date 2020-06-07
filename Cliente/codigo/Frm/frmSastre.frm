@@ -25,7 +25,7 @@ Begin VB.Form frmSastre
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.ListBox List1 
-      BackColor       =   &H00FFFF00&
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -65,7 +65,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub CmdSalir_Click()
+Private Sub cmdSalir_Click()
   Dim m As Integer
   
  For m = 0 To UBound(ObjSastre)
@@ -78,7 +78,7 @@ Private Sub CmdSalir_Click()
 End Sub
 
 Private Sub CmdSalir_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    CmdSalir.MouseIcon = Iconos.Ico_Mano
+    cmdSalir.MouseIcon = Iconos.Ico_Mano
 End Sub
 
 Private Sub CmdTejer_Click()

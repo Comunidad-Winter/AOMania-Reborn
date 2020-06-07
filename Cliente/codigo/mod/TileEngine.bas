@@ -1968,6 +1968,8 @@ Private Sub CharRender(ByVal charindex As Integer, _
     Dim pos               As Integer
 
     Dim TempChar          As Char
+    
+    Dim Value             As Integer
 
     With CharList(charindex)
 
@@ -1988,6 +1990,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
 
                 'Check if we already got there
                 If (Sgn(.scrollDirectionX) = 1 And .MoveOffsetX >= 0) Or (Sgn(.scrollDirectionX) = -1 And .MoveOffsetX <= 0) Then
+
                     .MoveOffsetX = 0
                     .scrollDirectionX = 0
 
@@ -1996,9 +1999,11 @@ Private Sub CharRender(ByVal charindex As Integer, _
             End If
 
             If .scrollDirectionY <> 0 Then
+
                 .MoveOffsetY = .MoveOffsetY + ScrollPixelFrame * Sgn(.scrollDirectionY) * timerTicksPerFrame
 
                 If .Body.Walk(.Heading).Speed > 0 Then .Body.Walk(.Heading).Started = 1
+
                 .Alas.Walk(.Heading).Started = 1
                 .Arma.WeaponWalk(.Heading).Started = 1
                 .Escudo.ShieldWalk(.Heading).Started = 1
@@ -2007,6 +2012,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
                 .AnimTime = 10
 
                 If (Sgn(.scrollDirectionY) = 1 And .MoveOffsetY >= 0) Or (Sgn(.scrollDirectionY) = -1 And .MoveOffsetY <= 0) Then
+
                     .MoveOffsetY = 0
                     .scrollDirectionY = 0
 
@@ -2021,6 +2027,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
         If Moved = 0 Then
 
             If .AnimTime = 0 Then
+
                 .Moving = 0
 
                 .Body.Walk(.Heading).FrameCounter = 1
@@ -2030,9 +2037,11 @@ Private Sub CharRender(ByVal charindex As Integer, _
                 .Alas.Walk(.Heading).Started = 0
 
                 If .Arma.WeaponAttack > 0 Then
+
                     .Arma.WeaponAttack = .Arma.WeaponAttack - 0.2
 
                     If .Arma.WeaponAttack <= 0 Then
+
                         .Arma.WeaponWalk(.Heading).Started = 0
                         .Arma.WeaponWalk(.Heading).FrameCounter = 1
 
@@ -2045,9 +2054,11 @@ Private Sub CharRender(ByVal charindex As Integer, _
                 End If
 
                 If .Escudo.ShieldAttack > 0 Then
+
                     .Escudo.ShieldAttack = .Escudo.ShieldAttack - 0.2
 
                     If .Escudo.ShieldAttack <= 0 Then
+
                         .Escudo.ShieldWalk(.Heading).Started = 0
                         .Escudo.ShieldWalk(.Heading).FrameCounter = 1
 
@@ -2069,13 +2080,14 @@ Private Sub CharRender(ByVal charindex As Integer, _
         PixelOffSetX = PixelOffSetX + .MoveOffsetX
         PixelOffSetY = PixelOffSetY + .MoveOffsetY
 
-       ' Velocidad = 0.5
+        ' Velocidad = 0.5
         MismoChar = (UserCharIndex = charindex)
 
         If Not .Invisible Or MismoClan(charindex) Or MismoChar Or MismaParty(charindex) Or EsGm(UserCharIndex) Then
 
             If MismoChar Then
                 If CharList(UserCharIndex).PartyIndex > 0 And (CharList(UserCharIndex).Invisible = True Or CharList(UserCharIndex).Invisible = False) Then
+
                     PartyIndexTrue = True
 
                 End If
@@ -2087,6 +2099,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
 
             If .Heading = E_Heading.SOUTH Then
                 If .Alas.Walk(.Heading).GrhIndex <> 0 Then
+
                     Call DrawGrhtoSurface(.Alas.Walk(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y + 35, 1, 1, White, 0)
 
                 End If
@@ -2098,12 +2111,14 @@ Private Sub CharRender(ByVal charindex As Integer, _
             Call DrawGrhtoSurface(.Head.Head(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y, 1, 0, White)
 
             If .Casco.Head(.Heading).GrhIndex <> 0 Then
+
                 Call DrawGrhtoSurface(.Casco.Head(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y, 1, 0, White)
 
             End If
 
             If .Heading <> E_Heading.SOUTH Then
                 If .Alas.Walk(.Heading).GrhIndex <> 0 Then
+
                     Call DrawGrhtoSurface(.Alas.Walk(.Heading), PixelOffSetX + .Body.HeadOffset.X, PixelOffSetY + .Body.HeadOffset.Y + IIf(.Heading = E_Heading.NORTH, 35, 35), 1, 1, White, 0)    'El primer 25, es cuando esta mirando para arriba, el siguiente 20 es cuando esta mirando para izquierda o derecha ?Ta?, anda cambiando el "20"
 
                 End If
@@ -2114,6 +2129,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
 
             If .Arma.WeaponWalk(.Heading).GrhIndex <> 0 Then
                 If .Body.HeadOffset.Y = -69 Then
+
                     xx = 31
                 ElseIf .Body.HeadOffset.Y = -94 Then
                     xx = 59
@@ -2164,6 +2180,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
 
             If .Escudo.ShieldWalk(.Heading).GrhIndex <> 0 Then
                 If .Body.HeadOffset.Y = -69 Then
+
                     xx = 31
                 ElseIf .Body.HeadOffset.Y = -94 Then
                     xx = 59
@@ -2220,19 +2237,33 @@ Private Sub CharRender(ByVal charindex As Integer, _
         
         If AoSetup.bNombreNpc Then
             If .Hostile = 1 Then
+
                 Call DarNickNpcs(charindex, PixelOffSetX, PixelOffSetY)
 
             End If
 
         End If
         
+        If .iHead = 0 Then
+            Value = GrhData(BodyData(.iBody).Walk(1).GrhIndex).pixelHeight - 20
+        ElseIf .iHead > 0 Then
+            Value = GrhData(BodyData(.iBody).Walk(1).GrhIndex).pixelHeight
+        End If
+        
         If .Icono = 1 Then
 
             With GrhData("17395")
-                Call Directx_Render_Texture(.FileNum, PixelOffSetX + 12.5, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
+                Call Directx_Render_Texture(.FileNum, PixelOffSetX + 12.5, PixelOffSetY - Value, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
 
             End With
+            
+        ElseIf .Icono = 2 Then
+             
+            With GrhData("17396")
+                Call Directx_Render_Texture(.FileNum, PixelOffSetX + 12.5, PixelOffSetY - Value, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
 
+            End With
+             
         End If
         
         If .NpcType = eNPCType.nQuest Then
@@ -2240,21 +2271,21 @@ Private Sub CharRender(ByVal charindex As Integer, _
             If ProcesoQuest = 0 Then
             
                 With GrhData("17394")
-                    Call Directx_Render_Texture(.FileNum, PixelOffSetX + 12.5, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
+                    Call Directx_Render_Texture(.FileNum, PixelOffSetX + 12.5, PixelOffSetY - Value, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
 
                 End With
            
             ElseIf ProcesoQuest = 1 Then
            
                 With GrhData("17397")
-                    Call Directx_Render_Texture(.FileNum, PixelOffSetX + 10, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
+                    Call Directx_Render_Texture(.FileNum, PixelOffSetX + 10, PixelOffSetY - Value, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
 
                 End With
            
             ElseIf ProcesoQuest = 2 Then
             
                 With GrhData("17396")
-                    Call Directx_Render_Texture(.FileNum, PixelOffSetX + 10, PixelOffSetY - 45, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
+                    Call Directx_Render_Texture(.FileNum, PixelOffSetX + 10, PixelOffSetY - Value, .pixelHeight, .pixelWidth, .sX, .sY, White, 0, 0)
 
                 End With
            
@@ -2277,6 +2308,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
             For i = 1 To .Particle_Count
 
                 If .Particle_Group(i) > 0 Then
+
                     Call Particle_Group_Render(.Particle_Group(i), PixelOffSetX, PixelOffSetY)
 
                 End If
@@ -2294,6 +2326,7 @@ Private Sub CharRender(ByVal charindex As Integer, _
             Call longToArray(Colormeditar, D3DColorRGBA(255, 255, 255, 120))
 
             If AoSetup.bTransparencia = 0 Then
+
                 Call DrawGrhtoSurface(.fx, PixelOffSetX + FxData(.FxIndex).OffsetX, PixelOffSetY + FxData(.FxIndex).OffsetY, 1, 1, Colormeditar)
             Else
                 Call DrawGrhtoSurface(.fx, PixelOffSetX + FxData(.FxIndex).OffsetX, PixelOffSetY + FxData(.FxIndex).OffsetY, 1, 1, White)
@@ -2305,8 +2338,10 @@ Private Sub CharRender(ByVal charindex As Integer, _
         End If
         
         If UserCiego Then
+
             Call Draw_Box(0, 0, frmMain.MainViewPic.Width, frmMain.MainViewPic.Height, Black)
             Call Text_Draw((frmMain.MainViewPic.Width / 2), (frmMain.MainViewPic.Height / 2), "¡ESTÁS CIEGO!", White)
+
         End If
 
     End With
@@ -3513,7 +3548,7 @@ Public Function Directx_Initialize(ByVal Flags As CONST_D3DCREATEFLAGS) As Boole
 126       '    Flags = D3DCREATE_SOFTWARE_VERTEXPROCESSING
               'End If
               
-              Flags = D3DCREATE_SOFTWARE_VERTEXPROCESSING
+              Flags = D3DCREATE_MIXED_VERTEXPROCESSING
              
           'create device
 128       Set DirectDevice = DirectD3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, frmMain.MainViewPic.hwnd, Flags, DirectD3Dpp)

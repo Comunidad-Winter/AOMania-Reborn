@@ -17,7 +17,7 @@ Begin VB.Form frmHerrero
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.ListBox lstArmas 
-      BackColor       =   &H00FFFF00&
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -36,6 +36,7 @@ Begin VB.Form frmHerrero
       Width           =   3960
    End
    Begin VB.ListBox lstArmaduras 
+      BackColor       =   &H00000000&
       BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -45,6 +46,7 @@ Begin VB.Form frmHerrero
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H0000FFFF&
       Height          =   1620
       Left            =   360
       MousePointer    =   99  'Custom
@@ -113,16 +115,10 @@ End Sub
 
 Private Sub Command3_Click()
 
-    If lstArmas.ListIndex = -1 Then
-        Unload Me
-        Exit Sub
-    End If
-
     If lstArmas.Visible Then
         Call SendData("CNS" & ArmasHerrero(lstArmas.ListIndex))
-    Else
+    ElseIf lstArmaduras.Visible Then
         Call SendData("CNS" & ArmadurasHerrero(lstArmaduras.ListIndex))
-
     End If
 
     Unload Me

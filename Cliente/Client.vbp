@@ -123,7 +123,6 @@ Startup="Sub Main"
 HelpFile=""
 Title="AoMania"
 ExeName32="AoMania.exe"
-Path32="..\.."
 Command32=""
 Name="AoManiaCliente"
 HelpContextID="0"
@@ -138,7 +137,7 @@ VersionCompanyName="AoMania"
 VersionFileDescription="AoMania"
 VersionLegalCopyright="AoMania"
 VersionLegalTrademarks="AoMania"
-CondComp="ClienteGM = 0 : Launcher = 1"
+CondComp="ClienteGM = 0 : Launcher = 0"
 CompilationType=0
 OptimizationType=0
 FavorPentiumPro(tm)=0

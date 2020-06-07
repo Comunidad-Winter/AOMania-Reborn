@@ -1300,204 +1300,229 @@ LookatTile_Err:
 
 End Sub
 
-'</EhFooter>
-
 Function FindDirection(Pos As WorldPos, Target As WorldPos) As Byte
 
-Dim X As Integer
-Dim Y As Integer
+    '*****************************************************************
+    'Devuelve la direccion en la cual el target se encuentra
+    'desde pos, 0 si la direc es igual
+    '*****************************************************************
+    Dim X As Integer
 
-X = Pos.X - Target.X
-Y = Pos.Y - Target.Y
+    Dim Y As Integer
 
-If Sgn(X) = -1 And Sgn(Y) = 1 Then
-    FindDirection = NORTH
-    Exit Function
-End If
+    X = Pos.X - Target.X
+    Y = Pos.Y - Target.Y
 
+    'NE
+    If Sgn(X) = -1 And Sgn(Y) = 1 Then
 
-If Sgn(X) = 1 And Sgn(Y) = 1 Then
-    FindDirection = WEST
-    Exit Function
-End If
-
-If Sgn(X) = 1 And Sgn(Y) = -1 Then
-    FindDirection = WEST
-    Exit Function
-End If
-
-If Sgn(X) = -1 And Sgn(Y) = -1 Then
-    FindDirection = SOUTH
-    Exit Function
-End If
-
-If Sgn(X) = 0 And Sgn(Y) = -1 Then
-    FindDirection = SOUTH
-    Exit Function
-End If
-
-If Sgn(X) = 0 And Sgn(Y) = 1 Then
-    FindDirection = NORTH
-    Exit Function
-End If
-
-If Sgn(X) = 1 And Sgn(Y) = 0 Then
-    FindDirection = WEST
-    Exit Function
-End If
-
-If Sgn(X) = -1 And Sgn(Y) = 0 Then
-    FindDirection = EAST
-    Exit Function
-End If
-
-If Sgn(X) = 0 And Sgn(Y) = 0 Then
-    FindDirection = 0
-    Exit Function
-End If
-
-End Function
-
-Function FindDirectionEAO(a As WorldPos, b As WorldPos, Optional PuedeAgu As Boolean) As Byte
-
-    Dim r As Byte
-
-    'Mejoras:
-    'Ahora los NPC puden doblar las esquinas, y pasar a los lados de los arboles, _
-     Tambien cuando te persiguen en ves de ir en forma orizontal y despues en vertical, te van sigsagueando.
-
-    'A = NPCPOS
-    'B = UserPos
-
-    'Esto es para que el NPC retroceda en caso de no poder seguir adelante, en ese caso se retrocede.
-
-    'Lo que no pueden hacer los Npcs, es rodear cosas, EJ:
-
-    '
-    ' *******************
-    ' *                 *
-    ' *                 *
-    ' * B              *
-    ' ******     ********
-    '   A  <------- El npc se va a quedar loco tratando de pasar de frente en ves de rodearlo.
-    '
-    '
-    'Saluda: <-.Siameze.->
-
-
-    Dim PV As Integer
-
-    r = RandomNumber(1, 2)
-
-    If a.X > b.X And a.Y > b.Y Then
-        FindDirectionEAO = IIf(r = 1, NORTH, WEST)
-
-    ElseIf a.X < b.X And a.Y < b.Y Then
-        FindDirectionEAO = IIf(r = 1, SOUTH, EAST)
-
-    ElseIf a.X < b.X And a.Y > b.Y Then
-        FindDirectionEAO = IIf(r = 1, NORTH, EAST)
-
-    ElseIf a.X > b.X And a.Y < b.Y Then
-        FindDirectionEAO = IIf(r = 1, SOUTH, WEST)
-
-    ElseIf a.X = b.X Then
-        FindDirectionEAO = IIf(a.Y < b.Y, SOUTH, NORTH)
-
-    ElseIf a.Y = b.Y Then
-        FindDirectionEAO = IIf(a.X < b.X, EAST, WEST)
-
-    Else
-
-        FindDirectionEAO = 0    ' this is imposible!
+        FindDirection = NORTH
+        Exit Function
 
     End If
 
+    'NW
+    If Sgn(X) = 1 And Sgn(Y) = 1 Then
+
+        FindDirection = WEST
+        Exit Function
+
+    End If
+
+    'SW
+    If Sgn(X) = 1 And Sgn(Y) = -1 Then
+
+        FindDirection = WEST
+        Exit Function
+
+    End If
+
+    'SE
+    If Sgn(X) = -1 And Sgn(Y) = -1 Then
+
+        FindDirection = SOUTH
+        Exit Function
+
+    End If
+
+    'Sur
+    If Sgn(X) = 0 And Sgn(Y) = -1 Then
+
+        FindDirection = SOUTH
+        Exit Function
+
+    End If
+
+    'norte
+    If Sgn(X) = 0 And Sgn(Y) = 1 Then
+
+        FindDirection = NORTH
+        Exit Function
+
+    End If
+
+    'oeste
+    If Sgn(X) = 1 And Sgn(Y) = 0 Then
+
+        FindDirection = WEST
+        Exit Function
+
+    End If
+
+    'este
+    If Sgn(X) = -1 And Sgn(Y) = 0 Then
+
+        FindDirection = EAST
+        Exit Function
+
+    End If
+
+    'misma
+    If Sgn(X) = 0 And Sgn(Y) = 0 Then
+
+        FindDirection = 0
+        Exit Function
+
+    End If
+
+End Function
+
+Function FindDirectionEAO(a As WorldPos, _
+                          b As WorldPos, _
+                          Optional PuedeAgu As Boolean) As Byte
+
+    Dim r  As Byte
+ 
+    Dim PV As Integer
+ 
+    r = RandomNumber(1, 2)
+ 
+    If a.X > b.X And a.Y > b.Y Then
+
+        FindDirectionEAO = IIf(r = 1, eHeading.NORTH, eHeading.WEST)
+   
+    ElseIf a.X < b.X And a.Y < b.Y Then
+        FindDirectionEAO = IIf(r = 1, eHeading.SOUTH, eHeading.EAST)
+   
+    ElseIf a.X < b.X And a.Y > b.Y Then
+        FindDirectionEAO = IIf(r = 1, eHeading.NORTH, eHeading.EAST)
+   
+    ElseIf a.X > b.X And a.Y < b.Y Then
+        FindDirectionEAO = IIf(r = 1, eHeading.SOUTH, eHeading.WEST)
+   
+    ElseIf a.X = b.X Then
+        FindDirectionEAO = IIf(a.Y < b.Y, eHeading.SOUTH, eHeading.NORTH)
+   
+    ElseIf a.Y = b.Y Then
+        FindDirectionEAO = IIf(a.X < b.X, eHeading.EAST, eHeading.WEST)
+ 
+    Else
+ 
+        FindDirectionEAO = 0 ' this is imposible!
+   
+    End If
+ 
     If Distancia(a, b) > 1 Then
-
+ 
         Select Case FindDirectionEAO
-
-
-        Case NORTH
-            If Not LegalPos(a.Map, a.X, a.Y - 1, PuedeAgu) Then
-
-                If a.X > b.X Then
-                    FindDirectionEAO = WEST
-                ElseIf a.X < b.X Then
-                    FindDirectionEAO = EAST
-                Else
-                    FindDirectionEAO = IIf(r > 1, WEST, EAST)
-                End If
-                PV = 1
-
-            End If
-
-
-        Case SOUTH
-            If Not LegalPos(a.Map, a.X, a.Y + 1, PuedeAgu) Then
-
-                If a.X > b.X Then
-                    FindDirectionEAO = WEST
-                ElseIf a.X < b.X Then
-                    FindDirectionEAO = EAST
-                Else
-                    FindDirectionEAO = IIf(r > 1, WEST, EAST)
-                End If
-                PV = 1
-
-            End If
-
-
-
-        Case WEST
-            If Not LegalPos(a.Map, a.X - 1, a.Y, PuedeAgu) Then
-
-                If a.Y > b.Y Then
-                    FindDirectionEAO = NORTH
-                ElseIf a.Y < b.Y Then
-                    FindDirectionEAO = SOUTH
-                Else
-                    FindDirectionEAO = IIf(r > 1, NORTH, SOUTH)
-                End If
-                PV = 1
-            End If
-
-        Case EAST
-            If Not LegalPos(a.Map, a.X + 1, a.Y, PuedeAgu) Then
-                If a.Y > b.Y Then
-                    FindDirectionEAO = NORTH
-                ElseIf a.Y < b.Y Then
-                    FindDirectionEAO = SOUTH
-                Else
-                    FindDirectionEAO = IIf(r > 1, NORTH, SOUTH)
-                End If
-                PV = 1
-
-            End If
-
-        End Select
-
-        If PV = 1 Then
-
-            Select Case FindDirectionEAO
-            Case EAST
-                If Not LegalPos(a.Map, a.X + 1, a.Y) Then FindDirectionEAO = WEST
-
-            Case WEST
-                If Not LegalPos(a.Map, a.X - 1, a.Y) Then FindDirectionEAO = EAST
-
+ 
             Case NORTH
-                If Not LegalPos(a.Map, a.X, a.Y - 1) Then FindDirectionEAO = SOUTH
 
+                If Not LegalPos(a.Map, a.X, a.Y - 1, PuedeAgu) Then
+ 
+                    If a.X > b.X Then
+
+                        FindDirectionEAO = eHeading.WEST
+                    ElseIf a.X < b.X Then
+                        FindDirectionEAO = eHeading.EAST
+                    Else
+                        FindDirectionEAO = IIf(r > 1, eHeading.WEST, eHeading.EAST)
+
+                    End If
+
+                    PV = 1
+       
+                End If
+ 
             Case SOUTH
-                If Not LegalPos(a.Map, a.X, a.Y + 1) Then FindDirectionEAO = NORTH
 
+                If Not LegalPos(a.Map, a.X, a.Y + 1, PuedeAgu) Then
+ 
+                    If a.X > b.X Then
+
+                        FindDirectionEAO = eHeading.WEST
+                    ElseIf a.X < b.X Then
+                        FindDirectionEAO = eHeading.EAST
+                    Else
+                        FindDirectionEAO = IIf(r > 1, eHeading.WEST, eHeading.EAST)
+
+                    End If
+
+                    PV = 1
+ 
+                End If
+       
+            Case WEST
+
+                If Not LegalPos(a.Map, a.X - 1, a.Y, PuedeAgu) Then
+ 
+                    If a.Y > b.Y Then
+
+                        FindDirectionEAO = eHeading.NORTH
+                    ElseIf a.Y < b.Y Then
+                        FindDirectionEAO = eHeading.SOUTH
+                    Else
+                        FindDirectionEAO = IIf(r > 1, eHeading.NORTH, eHeading.SOUTH)
+
+                    End If
+
+                    PV = 1
+
+                End If
+       
+            Case EAST
+
+                If Not LegalPos(a.Map, a.X + 1, a.Y, PuedeAgu) Then
+                    If a.Y > b.Y Then
+
+                        FindDirectionEAO = eHeading.NORTH
+                    ElseIf a.Y < b.Y Then
+                        FindDirectionEAO = eHeading.SOUTH
+                    Else
+                        FindDirectionEAO = IIf(r > 1, eHeading.NORTH, eHeading.SOUTH)
+
+                    End If
+
+                    PV = 1
+   
+                End If
+       
+        End Select
+ 
+        If PV = 1 Then
+ 
+            Select Case FindDirectionEAO
+
+                Case EAST
+
+                    If Not LegalPos(a.Map, a.X + 1, a.Y) Then FindDirectionEAO = eHeading.WEST
+       
+                Case WEST
+
+                    If Not LegalPos(a.Map, a.X - 1, a.Y) Then FindDirectionEAO = eHeading.EAST
+           
+                Case NORTH
+
+                    If Not LegalPos(a.Map, a.X, a.Y - 1) Then FindDirectionEAO = eHeading.SOUTH
+       
+                Case SOUTH
+
+                    If Not LegalPos(a.Map, a.X, a.Y + 1) Then FindDirectionEAO = eHeading.NORTH
+       
             End Select
-
-
+   
         End If
-
-
+ 
     End If
 
 End Function

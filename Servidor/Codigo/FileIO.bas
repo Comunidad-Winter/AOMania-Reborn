@@ -1247,6 +1247,9 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).Faccion.NextRecompensas = CInt(UserFile.GetValue("FACCIONES", "NextRecompensas"))
 
     UserList(UserIndex).Faccion.FEnlistado = UserFile.GetValue("FACCIONES", "FechaIngreso")
+    
+    UserList(UserIndex).Faccion.Quest = val(UserFile.GetValue("FACCIONES", "Quest"))
+    UserList(UserIndex).Faccion.ActiveQuest = val(UserFile.GetValue("FACCIONES", "QuestActive"))
 
     UserList(UserIndex).flags.Muerto = CByte(UserFile.GetValue("FLAGS", "Muerto"))
     UserList(UserIndex).flags.Escondido = CByte(UserFile.GetValue("FLAGS", "Escondido"))
@@ -2099,6 +2102,9 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
         Call Manager.ChangeValue("FACCIONES", "NextRecompensas", CStr(.Faccion.NextRecompensas))
 
         Call Manager.ChangeValue("FACCIONES", "FechaIngreso", .Faccion.FEnlistado)
+        
+        Call Manager.ChangeValue("FACCIONES", "Quest", .Faccion.Quest)
+        Call Manager.ChangeValue("FACCIONES", "QuestActive", .Faccion.ActiveQuest)
 
         '¿Fueron modificados los atributos del usuario?
         If Not .flags.TomoPocionAmarilla And Not .flags.TomoPocionVerde Then
@@ -3256,6 +3262,17 @@ Public Sub CargarJerarquias()
     TunicaMagoAbaddonMujer3 = val(Leer.GetValue("JerarquiaIIIAbaddon", "TunicaMagoAbaddonMujer3"))
     MAX_ARMADURAS_ARMADA = MAX_ARMADURAS_ARMADA + 1
     Armaduras_Armada(MAX_ARMADURAS_ARMADA) = TunicaMagoAbaddonMujer3
+    
+    '#####LOADING ALAS JERARQUIA
+    
+    AlasClero = val(Leer.GetValue("AlasClero", "Nivel45"))
+    AlasCleroII = val(Leer.GetValue("AlasClero", "Nivel55"))
+    AlasTiniebla = val(Leer.GetValue("AlasTiniebla", "Nivel45"))
+    AlasTinieblaII = val(Leer.GetValue("AlasTiniebla", "Nivel55"))
+    AlasTemplario = val(Leer.GetValue("AlasTemplario", "Nivel45"))
+    AlasTemplarioII = val(Leer.GetValue("AlasTemplario", "Nivel55"))
+    AlasAbaddon = val(Leer.GetValue("AlasAbaddon", "Nivel45"))
+    AlasAbaddonII = val(Leer.GetValue("AlasAbaddon", "Nivel55"))
     
     Set Leer = Nothing
 

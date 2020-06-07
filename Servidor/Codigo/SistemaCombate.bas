@@ -726,13 +726,6 @@ Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "6")    ' Le informamos que ha muerto ;)
 
-        'Si lo mato un guardia
-        If Criminal(UserIndex) And Npclist(NpcIndex).NPCtype = eNPCType.GuardiaReal Then
-
-            Call RestarCriminalidad(UserIndex)
-
-        End If
-
         If Npclist(NpcIndex).MaestroUser > 0 Then
 
             Call AllFollowAmo(Npclist(NpcIndex).MaestroUser)
@@ -750,28 +743,6 @@ Public Sub NpcDaño(ByVal NpcIndex As Integer, ByVal UserIndex As Integer)
         End If
 
         Call UserDie(UserIndex)
-
-    End If
-
-End Sub
-
-Public Sub RestarCriminalidad(ByVal UserIndex As Integer)
-
-    If UserList(UserIndex).Reputacion.AsesinoRep > 0 Then
-
-        UserList(UserIndex).Reputacion.AsesinoRep = UserList(UserIndex).Reputacion.AsesinoRep - vlASESINO
-
-        If UserList(UserIndex).Reputacion.AsesinoRep < 0 Then UserList(UserIndex).Reputacion.AsesinoRep = 0
-
-    ElseIf UserList(UserIndex).Reputacion.BandidoRep > 0 Then
-        UserList(UserIndex).Reputacion.BandidoRep = UserList(UserIndex).Reputacion.BandidoRep - vlASALTO
-
-        If UserList(UserIndex).Reputacion.BandidoRep < 0 Then UserList(UserIndex).Reputacion.BandidoRep = 0
-
-    ElseIf UserList(UserIndex).Reputacion.LadronesRep > 0 Then
-        UserList(UserIndex).Reputacion.LadronesRep = UserList(UserIndex).Reputacion.LadronesRep - (vlCAZADOR * 10)
-
-        If UserList(UserIndex).Reputacion.LadronesRep < 0 Then UserList(UserIndex).Reputacion.LadronesRep = 0
 
     End If
 
@@ -1017,8 +988,6 @@ Public Sub NpcAtacaNpc(ByVal Atacante As Integer, _
 End Sub
 
 Public Sub UsuarioAtacaNpc(ByVal UserIndex As Integer, ByVal NpcIndex As Integer)
-
-    Call RestarCriminalidad(UserIndex)
 
     If UserList(UserIndex).flags.Privilegios = PlayerType.Consejero Then Exit Sub
 

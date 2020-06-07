@@ -2889,50 +2889,71 @@ Sub DarCabezaDragon(ByVal UserIndex As Integer, ByVal Color As String)
 
 End Sub
 
-Sub MezclarAlas(ByVal UserIndex As Integer, ByVal iAV As Integer, ByVal iAN As Integer)
+'Sub MezclarAlas(ByVal UserIndex As Integer, ByVal iAV As Integer, ByVal iAN As Integer)
+'
+'    Dim Obj As Obj
+'    Dim Porc As Byte
+'
+'    If TieneObjetos(ObjCreacionAlas, 1, UserIndex) Then
+'        Porc = "100"
+'    Else
+'        Porc = RandomNumber(1, 100)
+'    End If
+'
+'    If Porc > 75 Then
+'
+'        If iAV > 0 Then
+'            Call QuitarObjetos(iAV, 1, UserIndex)
+'        End If
+'
+'        Obj.ObjIndex = iAN
+'        Obj.Amount = 1
+'        Call MeterItemEnInventario(UserIndex, Obj)
+'
+'        Call SendData(SendTarget.ToAll, 0, 0, "TW141")
+'        Call SendData(SendTarget.ToAll, 0, 0, "||El usuario " & UserList(UserIndex).Name & " ha creado " & Chr(147) & ObjData(iAN).Name & Chr(147) & " exitosamente." & FONTTYPE_TALKMSG)
+'
+'    Else
+'
+'        If iAV > 0 Then
+'            Call QuitarObjetos(iAV, 1, UserIndex)
+'        End If
+'
+'        Call SendData(SendTarget.ToAll, 0, 0, "TW140")
+'        Call SendData(SendTarget.ToAll, 0, 0, "||El usuario " & UserList(UserIndex).Name & " ha fallado en crear " & Chr(147) & ObjData(iAN).Name & Chr(147) & " y ha perdido los items de la mezcla." & FONTTYPE_TALKMSG)
+'
+'    End If
+'
+'    If TieneObjetos(ObjCreacionAlas, 1, UserIndex) Then
+'        Call QuitarObjetos(ObjCreacionAlas, 1, UserIndex)
+'    End If
+'
+'    Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
+'    Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
+'    Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
+'
+'End Sub
 
-    Dim Obj As Obj
-    Dim Porc As Byte
-
-    If TieneObjetos(ObjCreacionAlas, 1, UserIndex) Then
-        Porc = "100"
-    Else
-        Porc = RandomNumber(1, 100)
-    End If
-
-    If Porc > 75 Then
-
-        If iAV > 0 Then
-            Call QuitarObjetos(iAV, 1, UserIndex)
-        End If
-
-        Obj.ObjIndex = iAN
-        Obj.Amount = 1
-        Call MeterItemEnInventario(UserIndex, Obj)
-
-        Call SendData(SendTarget.ToAll, 0, 0, "TW141")
-        Call SendData(SendTarget.ToAll, 0, 0, "||El usuario " & UserList(UserIndex).Name & " ha creado " & Chr(147) & ObjData(iAN).Name & Chr(147) & " exitosamente." & FONTTYPE_TALKMSG)
-
-    Else
-
-        If iAV > 0 Then
-            Call QuitarObjetos(iAV, 1, UserIndex)
-        End If
-
-        Call SendData(SendTarget.ToAll, 0, 0, "TW140")
-        Call SendData(SendTarget.ToAll, 0, 0, "||El usuario " & UserList(UserIndex).Name & " ha fallado en crear " & Chr(147) & ObjData(iAN).Name & Chr(147) & " y ha perdido los items de la mezcla." & FONTTYPE_TALKMSG)
-
-    End If
-
-    If TieneObjetos(ObjCreacionAlas, 1, UserIndex) Then
-        Call QuitarObjetos(ObjCreacionAlas, 1, UserIndex)
-    End If
-
-    Call QuitarObjetos(Plumas.Ampere, 1, UserIndex)
-    Call QuitarObjetos(Plumas.Bassinger, 1, UserIndex)
-    Call QuitarObjetos(Plumas.Seth, 1, UserIndex)
-
-End Sub
+Public Function TienePlumas(ByVal UserIndex As Integer) As Boolean
+      
+      If Not TieneObjetos(Plumas.Ampere, 1, UserIndex) Then
+          TienePlumas = False
+          Exit Function
+      End If
+      
+      If Not TieneObjetos(Plumas.Bassinger, 1, UserIndex) Then
+          TienePlumas = False
+          Exit Function
+      End If
+      
+      If Not TieneObjetos(Plumas.Seth, 1, UserIndex) Then
+          TienePlumas = False
+          Exit Function
+      End If
+      
+      TienePlumas = True
+      
+End Function
 
 Public Function TieneGemas(ByVal UserIndex As Integer) As Boolean
        
