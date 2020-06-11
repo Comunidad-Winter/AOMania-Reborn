@@ -20,6 +20,10 @@ Public MAX_ARMADURAS_ARMADA            As Integer
 
 Public Armaduras_Armada(1000)          As Integer
 
+Public MAX_ALAS_ARMADA As Integer
+
+Public Alas_Armada(8) As Integer
+
 '#####ARMADURAS&TUNICAS ARMADAS DEL CREDO
 
 Public ArmaduraPaladinClero            As Integer
@@ -324,13 +328,22 @@ Public TunicaMagoAbaddonHobbitMujer3   As Integer
 
 Public TunicaMagoAbaddonMujer3         As Integer
 
+'ALAS FACCIONARIAS QUEST [45/55]
+
 Public AlasClero As Integer
+
 Public AlasCleroII As Integer
+
 Public AlasTiniebla As Integer
+
 Public AlasTinieblaII As Integer
+
 Public AlasTemplario As Integer
+
 Public AlasTemplarioII As Integer
+
 Public AlasAbaddon As Integer
+
 Public AlasAbaddonII As Integer
 
 Public Sub EnlistarArmadaClero(ByVal UserIndex As Integer)
@@ -436,6 +449,15 @@ Public Sub EnlistarArmadaClero(ByVal UserIndex As Integer)
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Bienvenido a las Armada del Credo!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 Niveles q subas te dare un recompensa, buena suerte soldado!" & "°" & CStr(Npclist(.flags.TargetNpc).char.CharIndex))
         
         Call LogArmada("CLERO " & UserList(UserIndex).Name)
+        
+        If .Stats.ELV >= 45 Then
+
+                    .Faccion.ActiveQuest = 1
+                    .Faccion.Quest = .Faccion.Quest + 1
+                    Call SendData(ToIndex, UserIndex, 0, "||¡Nueva misión faccion! Traeme 3 plumas y entregamelas con el comando /QUESTENTREGA para recibir la recompensa." & FONTTYPE_Motd5)
+                    Call DarIconoFaccion(UserIndex)
+                    
+        End If
              
     End With
      
@@ -572,6 +594,15 @@ Public Sub EnlistarArmadaTiniebla(ByVal UserIndex As Integer)
              
         Call LogArmada("TINIEBLA " & UserList(UserIndex).Name)
         
+        If .Stats.ELV >= 45 Then
+
+                    .Faccion.ActiveQuest = 1
+                    .Faccion.Quest = .Faccion.Quest + 1
+                    Call SendData(ToIndex, UserIndex, 0, "||¡Nueva misión faccion! Traeme 3 plumas y entregamelas con el comando /QUESTENTREGA para recibir la recompensa." & FONTTYPE_Motd5)
+                    Call DarIconoFaccion(UserIndex)
+                    
+        End If
+        
     End With
       
 End Sub
@@ -690,6 +721,15 @@ Public Sub EnlistarArmadaAbaddon(ByVal UserIndex As Integer)
            
         Call LogArmada("ABADDON " & UserList(UserIndex).Name)
         Call SendData(ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Bienvenido a las Armada de Abaddon!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 Niveles q subas te dare un recompensa, buena suerte soldado!" & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+          
+        If .Stats.ELV >= 45 Then
+
+                    .Faccion.ActiveQuest = 1
+                    .Faccion.Quest = .Faccion.Quest + 1
+                    Call SendData(ToIndex, UserIndex, 0, "||¡Nueva misión faccion! Traeme 3 plumas y entregamelas con el comando /QUESTENTREGA para recibir la recompensa." & FONTTYPE_Motd5)
+                    Call DarIconoFaccion(UserIndex)
+                    
+        End If
           
     End With
 
@@ -1127,6 +1167,15 @@ Public Sub EnlistarArmadaTemplario(ByVal UserIndex As Integer)
         
         Call LogArmada("TEMPLARIO " & UserList(UserIndex).Name)
         Call SendData(ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Bienvenido a las Orden Templaria!!!, aqui tienes tu ropaje de 1ª Jerarquia. Por cada 2 Niveles q subas te dare un recompensa, buena suerte soldado!" & "°" & str(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
+           
+        If .Stats.ELV >= 45 Then
+
+                    .Faccion.ActiveQuest = 1
+                    .Faccion.Quest = .Faccion.Quest + 1
+                    Call SendData(ToIndex, UserIndex, 0, "||¡Nueva misión faccion! Traeme 3 plumas y entregamelas con el comando /QUESTENTREGA para recibir la recompensa." & FONTTYPE_Motd5)
+                    Call DarIconoFaccion(UserIndex)
+                    
+        End If
            
     End With
       
@@ -2279,6 +2328,7 @@ End Function
 Public Sub PerderItemsFaccionarios(ByVal UserIndex As Integer)
      
     Dim i As Integer
+    Dim Slot As Integer
      
     For i = 1 To MAX_INVENTORY_SLOTS
 
@@ -2290,15 +2340,20 @@ Public Sub PerderItemsFaccionarios(ByVal UserIndex As Integer)
                 UserList(UserIndex).Invent.ArmourEqpObjIndex = 0
                 UserList(UserIndex).Invent.ArmourEqpSlot = 0
                 Call DarCuerpoDesnudo(UserIndex)
+                Slot = i
+                
             
             End If
                 
             UserList(UserIndex).Invent.Object(i).ObjIndex = 0
             UserList(UserIndex).Invent.Object(i).Amount = 0
+            Slot = i
         
         End If
 
     Next i
+    
+    Call UpdateUserInv(True, UserIndex, Slot)
      
 End Sub
 
@@ -2834,6 +2889,15 @@ Public Sub QuestFaccion(ByVal UserIndex As Integer, ByVal NI As Integer)
                  Call MeterItemEnInventario(UserIndex, Obj)
                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
                  
+                 If .Stats.ELV = 55 Then
+                
+                    .Faccion.ActiveQuest = 1
+                    .Faccion.Quest = .Faccion.Quest + 1
+                    Call SendData(ToIndex, UserIndex, 0, "||¡Nueva misión faccion! Traeme 3 plumas y entregamelas con el comando /QUESTENTREGA para recibir la recompensa." & FONTTYPE_Motd5)
+                    Call DarIconoFaccion(UserIndex)
+                     Exit Sub
+                End If
+                 
                ElseIf .Faccion.Quest = 2 Then
                  If .Stats.ELV < 55 Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbBlue & "°" & "Para realizar misión debes ser al menos de nivel 55" & "°" & CStr(Npclist(NI).char.CharIndex))
@@ -2895,6 +2959,15 @@ Public Sub QuestFaccion(ByVal UserIndex As Integer, ByVal NI As Integer)
                  
                  Call MeterItemEnInventario(UserIndex, Obj)
                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbRed & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
+                 
+                 If .Stats.ELV = 55 Then
+                
+                    .Faccion.ActiveQuest = 1
+                    .Faccion.Quest = .Faccion.Quest + 1
+                    Call SendData(ToIndex, UserIndex, 0, "||¡Nueva misión faccion! Traeme 3 plumas y entregamelas con el comando /QUESTENTREGA para recibir la recompensa." & FONTTYPE_Motd5)
+                    Call DarIconoFaccion(UserIndex)
+                     Exit Sub
+                End If
                  
                ElseIf .Faccion.Quest = 2 Then
                  If .Stats.ELV < 55 Then
@@ -2958,6 +3031,15 @@ Public Sub QuestFaccion(ByVal UserIndex As Integer, ByVal NI As Integer)
                  Call MeterItemEnInventario(UserIndex, Obj)
                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
                  
+                 If .Stats.ELV = 55 Then
+                
+                    .Faccion.ActiveQuest = 1
+                    .Faccion.Quest = .Faccion.Quest + 1
+                    Call SendData(ToIndex, UserIndex, 0, "||¡Nueva misión faccion! Traeme 3 plumas y entregamelas con el comando /QUESTENTREGA para recibir la recompensa." & FONTTYPE_Motd5)
+                    Call DarIconoFaccion(UserIndex)
+                     Exit Sub
+                End If
+                 
                ElseIf .Faccion.Quest = 2 Then
                  If .Stats.ELV < 55 Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & "Para realizar misión debes ser al menos de nivel 55" & "°" & CStr(Npclist(NI).char.CharIndex))
@@ -3020,6 +3102,15 @@ Public Sub QuestFaccion(ByVal UserIndex As Integer, ByVal NI As Integer)
                  Call MeterItemEnInventario(UserIndex, Obj)
                  Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Aqui tienes!" & "°" & CStr(Npclist(NI).char.CharIndex))
                  
+                 If .Stats.ELV = 55 Then
+                
+                    .Faccion.ActiveQuest = 1
+                    .Faccion.Quest = .Faccion.Quest + 1
+                    Call SendData(ToIndex, UserIndex, 0, "||¡Nueva misión faccion! Traeme 3 plumas y entregamelas con el comando /QUESTENTREGA para recibir la recompensa." & FONTTYPE_Motd5)
+                    Call DarIconoFaccion(UserIndex)
+                     Exit Sub
+                End If
+                 
                ElseIf .Faccion.Quest = 2 Then
                  If .Stats.ELV < 55 Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & "&H808080" & "°" & "Para realizar misión debes ser al menos de nivel 55" & "°" & CStr(Npclist(NI).char.CharIndex))
@@ -3045,3 +3136,54 @@ Public Sub QuestFaccion(ByVal UserIndex As Integer, ByVal NI As Integer)
       End With
        
 End Sub
+
+Public Sub PerderAlasFaccionarios(ByVal UserIndex As Integer)
+     
+    Dim i As Integer
+    Dim Slot As Integer
+     
+    For i = 1 To MAX_INVENTORY_SLOTS
+
+        If TieneAlaArmada(UserIndex, i) Then
+    
+            If UserList(UserIndex).Invent.Object(i).Equipped = 1 Then
+                Call Desequipar(UserIndex, UserList(UserIndex).Invent.AlaEqpSlot)
+                UserList(UserIndex).Invent.Object(i).Equipped = 0
+                UserList(UserIndex).Invent.AlaEqpObjIndex = 0
+                UserList(UserIndex).Invent.AlaEqpSlot = 0
+
+                
+                Slot = i
+            End If
+                
+            UserList(UserIndex).Invent.Object(i).ObjIndex = 0
+            UserList(UserIndex).Invent.Object(i).Amount = 0
+            
+            Slot = i
+        
+        End If
+
+    Next i
+    
+    Call UpdateUserInv(True, UserIndex, Slot)
+     
+End Sub
+
+Function TieneAlaArmada(UserIndex As Integer, Slot As Integer) As Boolean
+
+    Dim i As Integer
+
+    For i = 1 To MAX_ALAS_ARMADA
+    
+        If UserList(UserIndex).Invent.Object(Slot).ObjIndex = Alas_Armada(i) Then
+
+            TieneAlaArmada = True
+            Exit Function
+
+        End If
+     
+    Next i
+    
+    TieneAlaArmada = False
+
+End Function

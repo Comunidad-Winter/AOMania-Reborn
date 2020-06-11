@@ -135,6 +135,11 @@ Public Sub CrearSubasta(ByVal UserIndex As Integer, ByVal Objeto As Integer, ByV
              Exit Sub
         End If
         
+        If ObjData(Objeto).Gm = 1 Then
+            Call SendData(ToIndex, UserIndex, 0, "||No puedes subastar un objeto Game Master." & FONTTYPE_INFO)
+            Exit Sub
+        End If
+        
         If ObjData(Objeto).sagrado = 1 Then
             Call SendData(ToIndex, UserIndex, 0, "||No puedes subastar un objeto sagrado." & FONTTYPE_INFO)
             Exit Sub

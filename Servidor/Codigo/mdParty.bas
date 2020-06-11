@@ -65,10 +65,11 @@ Public Function PuedeCrearParty(ByVal UserIndex As Integer) As Boolean
     PuedeCrearParty = True
 
     '    If UserList(UserIndex).Stats.ELV < MINPARTYLEVEL Then
-    If UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) <= 14 Then
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| Tu carisma no es suficiente para liderar una party." & FONTTYPE_PARTY)
-        PuedeCrearParty = False
-    ElseIf UserList(UserIndex).flags.Muerto = 1 Then
+    'If UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) <= 14 Then
+    '    Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| Tu carisma no es suficiente para liderar una party." & FONTTYPE_PARTY)
+    '    PuedeCrearParty = False
+    'Else
+    If UserList(UserIndex).flags.Muerto = 1 Then
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| Estás muerto!" & FONTTYPE_PARTY)
         PuedeCrearParty = False
     ElseIf UserList(UserIndex).PartyIndex > 0 Then

@@ -390,14 +390,14 @@ Public Function CalcularDaño(ByVal UserIndex As Integer, Optional ByVal NpcIndex
 
     End If
 
-    DañoUsuario = RandomNumber(UserList(UserIndex).Stats.MinHit, UserList(UserIndex).Stats.MaxHit)
+    DañoUsuario = RandomNumber(UserList(UserIndex).Stats.MinHit, UserList(UserIndex).Stats.MaxHit) * 1.1
     
     If UserList(UserIndex).GranPoder = 1 And GranPoder.TipoAura = hGranPoder.Daño Then
-
-        CalcularDaño = (((3 * DañoArma) + ((DañoMaxArma / 5) * Maximo(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) + DañoUsuario) * ModifClase) * 2
+       CalcularDaño = (((DañoArma * (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15) / 4) + ((DañoMaxArma / 10) * Maximo(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) + DañoUsuario) * ModifClase) * 2
     Else
-        CalcularDaño = (((3 * DañoArma) + ((DañoMaxArma / 5) * Maximo(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) + DañoUsuario) * ModifClase)
-
+        'CalcularDaño = (((3 * DañoArma) + ((DañoMaxArma / 5) * Maximo(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) + DañoUsuario) * ModifClase)
+        CalcularDaño = (((DañoArma * (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15) / 4) + ((DañoMaxArma / 10) * Maximo(0, (UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) - 15))) + DañoUsuario) * ModifClase)
+        Debug.Print CalcularDaño
     End If
     
     'Debug.Print "FUERZA: " & UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza)

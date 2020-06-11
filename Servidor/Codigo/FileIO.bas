@@ -992,7 +992,7 @@ Sub LoadOBJData()
 
         ObjData(Object).Gm = val(Leer.GetValue("OBJ" & Object, "GM"))
 
-        ObjData(Object).sagrado = val(Leer.GetValue("OBJ" & Object, "Sagrada"))
+        ObjData(Object).sagrado = val(Leer.GetValue("OBJ" & Object, "Sagrado"))
 
         ObjData(Object).Limpiar = val(Leer.GetValue("OBJ" & Object, "Limpiar"))
 
@@ -1272,7 +1272,9 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
 
     UserList(UserIndex).Counters.Pena = CLng(UserFile.GetValue("COUNTERS", "Pena"))
     UserList(UserIndex).Counters.Silenciamiento = val(UserFile.GetValue("COUNTERS", "Silenciamiento"))
-
+     
+    UserList(UserIndex).Counters.TimerNivel = val(UserFile.GetValue("COUNTERS", "TimerPasarNivel"))
+     
     UserList(UserIndex).Email = UserFile.GetValue("CONTACTO", "Email")
 
     UserList(UserIndex).Telepatia = UserFile.GetValue("INIT", "Telepatia")
@@ -2069,6 +2071,8 @@ Sub SaveUser(ByVal UserIndex As Integer, ByVal UserFile As String)
 
         Call Manager.ChangeValue("COUNTERS", "Pena", CStr(.Counters.Pena))
         Call Manager.ChangeValue("COUNTERS", "Silenciamiento", val(.Counters.Silenciamiento))
+        
+        Call Manager.ChangeValue("COUNTERS", "TimerPasarNivel", val(.Counters.TimerNivel))
 
         Call Manager.ChangeValue("FACCIONES", "EjercitoReal", CStr(.Faccion.ArmadaReal))
         Call Manager.ChangeValue("FACCIONES", "EjercitoCaos", CStr(.Faccion.FuerzasCaos))
@@ -3265,14 +3269,39 @@ Public Sub CargarJerarquias()
     
     '#####LOADING ALAS JERARQUIA
     
+    MAX_ALAS_ARMADA = 0
+    
     AlasClero = val(Leer.GetValue("AlasClero", "Nivel45"))
+    MAX_ALAS_ARMADA = MAX_ALAS_ARMADA + 1
+    Alas_Armada(MAX_ALAS_ARMADA) = AlasClero
+    
     AlasCleroII = val(Leer.GetValue("AlasClero", "Nivel55"))
+    MAX_ALAS_ARMADA = MAX_ALAS_ARMADA + 1
+    Alas_Armada(MAX_ALAS_ARMADA) = AlasCleroII
+    
     AlasTiniebla = val(Leer.GetValue("AlasTiniebla", "Nivel45"))
+    MAX_ALAS_ARMADA = MAX_ALAS_ARMADA + 1
+    Alas_Armada(MAX_ALAS_ARMADA) = AlasTiniebla
+    
     AlasTinieblaII = val(Leer.GetValue("AlasTiniebla", "Nivel55"))
+    MAX_ALAS_ARMADA = MAX_ALAS_ARMADA + 1
+    Alas_Armada(MAX_ALAS_ARMADA) = AlasTinieblaII
+    
     AlasTemplario = val(Leer.GetValue("AlasTemplario", "Nivel45"))
+    MAX_ALAS_ARMADA = MAX_ALAS_ARMADA + 1
+    Alas_Armada(MAX_ALAS_ARMADA) = AlasTemplario
+    
     AlasTemplarioII = val(Leer.GetValue("AlasTemplario", "Nivel55"))
+    MAX_ALAS_ARMADA = MAX_ALAS_ARMADA + 1
+    Alas_Armada(MAX_ALAS_ARMADA) = AlasTemplarioII
+    
     AlasAbaddon = val(Leer.GetValue("AlasAbaddon", "Nivel45"))
+    MAX_ALAS_ARMADA = MAX_ALAS_ARMADA + 1
+    Alas_Armada(MAX_ALAS_ARMADA) = AlasAbaddon
+    
     AlasAbaddonII = val(Leer.GetValue("AlasAbaddon", "Nivel55"))
+    MAX_ALAS_ARMADA = MAX_ALAS_ARMADA + 1
+    Alas_Armada(MAX_ALAS_ARMADA) = AlasAbaddonII
     
     Set Leer = Nothing
 

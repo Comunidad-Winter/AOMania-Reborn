@@ -1786,3 +1786,27 @@ Sub RefreshAllChars()
    Next LooPC
    
 End Sub
+
+Public Sub LeerMotd()
+
+        AddtoRichTextBox frmMain.RecTxt, "       .oo .oPYo. o     o               o              .oPYo.    .oPYo.       .oo", 255, 0, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "       .P 8 8    8 8b   d8                              8  .o8    8  .o8      .P 8", 235, 0, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "      .P  8 8    8 8`b d'8 .oPYo. odYo. o8 .oPYo.       8 .P'8    8 .P'8     .P  8", 215, 0, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "     oPooo8 8    8 8 `o' 8 .oooo8 8' `8  8 .oooo8       8.d' 8    8.d' 8         8", 195, 0, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "    .P    8 8    8 8     8 8    8 8   8  8 8    8       8o'  8    8o'  8         8", 175, 0, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "   .P     8 `YooP' 8     8 `YooP8 8   8  8 `YooP8       `YooP' 88 `YooP'88       8", 155, 0, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "                                                                  www.AoMania.Net", 255, 50, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "      X = Seguro Objetos   Q = Mapa   P = Mapa  S = Seguro   W = Seguro de clan", 255, 50, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "                         F1 = /Meditar   F12 = Macro Interno Para trabajadores.", 255, 50, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "                     Si tienes alguna duda o necesitas ayuda, escribe /GM TEXTO", 255, 50, 0, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "                                                        Version 0.0.1 Año: 2020", 255, 50, 0, 0, 0
+        
+        AddtoRichTextBox frmMain.RecTxt, ":- Argentumania -:", 65, 190, 156, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "> ¡¡¡Bienvenidos al Servidor Oficial AoManiA 2019!!!", 255, 255, 255, 1, 0
+        AddtoRichTextBox frmMain.RecTxt, "> Versión Actual v1 de AOMania, Argentumania 2018. Mod Argentum Online", 0, 255, 0, 1, 0
+        AddtoRichTextBox frmMain.RecTxt, "> Para cualquier duda, /gm consulta", 0, 255, 0, 1, 0
+        AddtoRichTextBox frmMain.RecTxt, "> Web Oficial aomania.net argentumania.es", 255, 0, 0, 1, 0
+        AddtoRichTextBox frmMain.RecTxt, "> Foro Oficial foro.argentumania.es", 255, 0, 0, 1, 0
+        AddtoRichTextBox frmMain.RecTxt, "---------------", 199, 200, 209, 0, 0
+        AddtoRichTextBox frmMain.RecTxt, "Para ver el Mapa de AOMania dejar pulsada la tecla Q ó P.", 255, 255, 0, 1, 0
+End Sub

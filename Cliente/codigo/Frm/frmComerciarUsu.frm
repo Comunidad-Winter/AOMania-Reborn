@@ -49,7 +49,6 @@ Begin VB.Form frmComerciarUsu
       Width           =   3135
       Begin VB.OptionButton optQue 
          Caption         =   "Oro"
-         Enabled         =   0   'False
          BeginProperty Font 
             Name            =   "Tahoma"
             Size            =   8.25
@@ -164,7 +163,6 @@ Begin VB.Form frmComerciarUsu
       Width           =   3135
       Begin VB.CommandButton cmdRechazar 
          Caption         =   "Rechazar"
-         Enabled         =   0   'False
          BeginProperty Font 
             Name            =   "Tahoma"
             Size            =   8.25
@@ -182,7 +180,6 @@ Begin VB.Form frmComerciarUsu
       End
       Begin VB.CommandButton cmdAceptar 
          Caption         =   "Aceptar"
-         Enabled         =   0   'False
          BeginProperty Font 
             Name            =   "Tahoma"
             Size            =   8.25
@@ -270,22 +267,22 @@ End Sub
 
 Private Sub cmdOfrecer_Click()
 
-    If optQue(0).value = True Then
+    If optQue(0).Value = True Then
         If List1.ListIndex < 0 Then Exit Sub
         If List1.ItemData(List1.ListIndex) <= 0 Then Exit Sub
     
         '    If Val(txtCant.Text) > List1.ItemData(List1.ListIndex) Or _
         '        Val(txtCant.Text) <= 0 Then Exit Sub
-    ElseIf optQue(1).value = True Then
+    ElseIf optQue(1).Value = True Then
 
         '    If Val(txtCant.Text) > UserGLD Then
         '        Exit Sub
         '    End If
     End If
 
-    If optQue(0).value = True Then
+    If optQue(0).Value = True Then
         Call SendData("OFRECER" & List1.ListIndex + 1 & "," & Trim(Val(txtCant.Text)))
-    ElseIf optQue(1).value = True Then
+    ElseIf optQue(1).Value = True Then
         Call SendData("OFRECER" & FLAGORO & "," & Trim(Val(txtCant.Text)))
     Else
         Exit Sub
@@ -344,12 +341,12 @@ Public Sub DibujaGrh(Grh As Long)
     SR.Left = 0
     SR.Top = 0
     SR.Right = 32
-    SR.bottom = 32
+    SR.Bottom = 32
 
     DR.Left = 0
     DR.Top = 0
     DR.Right = 32
-    DR.bottom = 32
+    DR.Bottom = 32
 
     Call DrawGrhtoHdc(Picture1.hdc, Grh, DR)
 

@@ -2008,7 +2008,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, _
             
             UserList(UserIndex).flags.HablanMute = 1
             IndexHablaParty(UserList(UserIndex).PartyIndex) = UserIndex
-            Call mdParty.BroadCastParty(UserIndex, "MiembroParty: " & UserList(UserIndex).Name & " dice: " & mid$(rData, 7) & FONTTYPE_PARTY)
+            Call mdParty.BroadCastParty(UserIndex, "MiembroParty: " & UserList(UserIndex).Name & " dice: " & mid$(rData, 7) & FONTTYPE_GUILD)
             rData = Right$(rData, Len(rData) - 6)
             FrmUserhablan.hParty (Now & " Mensaje de " & UserList(UserIndex).Name & ":>" & rData)
             Call LogUser(UserList(UserIndex).Name, "Dice en Party: " & rData)

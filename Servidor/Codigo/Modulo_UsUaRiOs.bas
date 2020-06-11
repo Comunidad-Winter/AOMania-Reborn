@@ -673,7 +673,7 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
             'Actualizamos Mana
             .Stats.MaxMAN = .Stats.MaxMAN + AumentoMANA
 
-            If .Stats.ELV < 36 Then
+            If .Stats.ELV < 33 Then
                 If .Stats.MaxMAN > STAT_MAXMAN Then .Stats.MaxMAN = STAT_MAXMAN
 
             Else
@@ -707,9 +707,10 @@ Sub CheckUserLevel(ByVal UserIndex As Integer)
             End If
 
             'Promedio CHOTS
-
-            Call LogDesarrollo(Date$ & " " & .Name & " paso a nivel " & .Stats.ELV & " gano HP: " & AumentoHP)
-
+           
+            Call LogNivel(UserIndex, UCase$(UserList(UserIndex).Name) & " paso a nivel " & UserList(UserIndex).Stats.ELV & " gano HP: " & AumentoHP & " Golpe: " & AumentoHIT & " Le pide de EXP: " & UserList(UserIndex).Stats.ELU & " completó el nivel " & (UserList(UserIndex).Stats.ELV - 1) & " en " & UserList(UserIndex).Counters.TimerNivel & " segundos.")
+            UserList(UserIndex).Counters.TimerNivel = 0
+            
         Loop
 
         AumentoLVL = .Stats.ELV - LastLvl

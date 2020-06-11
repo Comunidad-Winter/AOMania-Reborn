@@ -199,7 +199,14 @@ Sub HandleData2(ByVal rData As String)
     End Select
    
     Select Case UCase$(Left$(rData, 4))
-   
+        
+       Case "MOTD"
+            Call frmMain.ClearConsolas
+            Call LeerMotd
+            Call Audio.StopWave
+            Call Audio.StopMidi
+       Exit Sub
+        
         Case "HUCT"
             rData = Right$(rData, Len(rData) - 4)
             TimeChange = rData
@@ -407,6 +414,28 @@ Sub HandleData2(ByVal rData As String)
              Call frmSubasta.ReloadVentanaSubasta
         Exit Sub
          
+    End Select
+    
+    Select Case UCase(Left$(rData, 9))
+        Case "COMUSUINV"
+         rData = Right(rData, Len(rData) - 9)
+         OtroInventario(1).ObjIndex = ReadField(2, rData, 44)
+         OtroInventario(1).Name = ReadField(3, rData, 44)
+         OtroInventario(1).Amount = ReadField(4, rData, 44)
+         OtroInventario(1).Equipped = ReadField(5, rData, 44)
+         OtroInventario(1).GrhIndex = Val(ReadField(6, rData, 44))
+         OtroInventario(1).ObjType = Val(ReadField(7, rData, 44))
+         OtroInventario(1).MaxHit = Val(ReadField(8, rData, 44))
+         OtroInventario(1).MinHit = Val(ReadField(9, rData, 44))
+         OtroInventario(1).MaxDef = Val(ReadField(10, rData, 44))
+         OtroInventario(1).Valor = Val(ReadField(11, rData, 44))
+         
+         frmComerciarUsu.List2.Clear
+         
+         frmComerciarUsu.List2.AddItem OtroInventario(1).Name
+         frmComerciarUsu.List2.ItemData(frmComerciarUsu.List2.NewIndex) = OtroInventario(1).Amount
+         
+         frmComerciarUsu.lblEstadoResp.Visible = False
     End Select
 
 End Sub

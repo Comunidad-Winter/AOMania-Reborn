@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "comctl32.ocx"
+Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.4#0"; "COMCTL32.OCX"
 Begin VB.Form FrmUserhablan 
    BorderStyle     =   0  'None
    Caption         =   "Form1"
@@ -153,25 +153,21 @@ Begin VB.Form FrmUserhablan
          NumTabs         =   4
          BeginProperty Tab1 {0713F341-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Usuarios Hablan"
-            Key             =   ""
             Object.Tag             =   "Tab 1"
             ImageVarType    =   2
          EndProperty
          BeginProperty Tab2 {0713F341-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Hablan por Clan"
-            Key             =   ""
             Object.Tag             =   ""
             ImageVarType    =   2
          EndProperty
          BeginProperty Tab3 {0713F341-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Hablan en Privado"
-            Key             =   ""
             Object.Tag             =   ""
             ImageVarType    =   2
          EndProperty
          BeginProperty Tab4 {0713F341-850A-101B-AFC0-4210102A8DA7} 
             Caption         =   "Party Hablan"
-            Key             =   ""
             Object.Tag             =   ""
             ImageVarType    =   2
          EndProperty
@@ -257,9 +253,12 @@ Public Sub hUser(ByVal texto As String)
 End Sub
 
 Public Sub hClan(ByVal texto As String)
+
     Dim CadenaOne() As String
-    Dim CountLen As Long
-    Dim LenMax As Long
+
+    Dim CountLen    As Long
+
+    Dim LenMax      As Long
 
     CadenaOne = Split(texto, Chr(62))
     Clan.AddItem (CadenaOne(0))
@@ -268,17 +267,20 @@ Public Sub hClan(ByVal texto As String)
     LenMax = 128
 
     If CountLen < 100 Then
+
         Clan.AddItem (mid(LCase(CadenaOne(1)), 1, 100))
 
     End If
 
     If CountLen > 100 And CountLen < 200 Then
+
         Clan.AddItem (mid(LCase(CadenaOne(1)), 1, "100"))
         Clan.AddItem (mid(LCase(CadenaOne(1)), 101, "100"))
 
     End If
 
     If CountLen > 200 Then
+
         Clan.AddItem (mid(LCase(CadenaOne(1)), 1, 100))
         Clan.AddItem (mid(LCase(CadenaOne(1)), 101, 100))
         Clan.AddItem (mid(LCase(CadenaOne(1)), 201, 55))

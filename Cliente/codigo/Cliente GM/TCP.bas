@@ -952,7 +952,10 @@ Sub HandleData(ByVal rData As String)
         Else
             AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
                                                                                                                                      ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
-
+            
+            AddtoRichTextBox frmMain.RecRmsg, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+            
         End If
 
         Exit Sub
@@ -966,10 +969,61 @@ Sub HandleData(ByVal rData As String)
 
             AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
                                                                                                                                      ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
-
+            
+            AddtoRichTextBox frmMain.RecGuild, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+            
         End If
 
         Exit Sub
+        
+   Case "|-"                 ' >>>>> Consola de party
+        rData = Right$(rData, Len(rData) - 2)
+
+        iUser = Val(ReadField(3, rData, 176))
+
+        If iUser = 0 Then
+
+            AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+                                                                                                                                     
+           AddtoRichTextBox frmMain.RecParty, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+    End If
+
+    Exit Sub
+    
+    Case "|*"                 ' >>>>> Consola de GM's
+        rData = Right$(rData, Len(rData) - 2)
+
+        iUser = Val(ReadField(3, rData, 176))
+
+        If iUser = 0 Then
+
+            AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+                                                                                                                                     
+           AddtoRichTextBox frmMain.RecGM, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+    End If
+
+    Exit Sub
+    
+    Case "|^"                 ' >>>>> Consola de rmsg
+        rData = Right$(rData, Len(rData) - 2)
+
+        iUser = Val(ReadField(3, rData, 176))
+
+        If iUser = 0 Then
+
+            AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+                                                                                                                                     
+           AddtoRichTextBox frmMain.RecRmsg, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+    End If
+
+    Exit Sub
 
     Case "!!"                ' >>>>> Msgbox :: !!
 

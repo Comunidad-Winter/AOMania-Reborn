@@ -1175,6 +1175,16 @@ Public Sub LogDesarrollo(ByVal str As String)
 
 End Sub
 
+Public Sub LogNivel(ByVal UserIndex As Integer, ByVal str As String)
+
+    Dim nfile As Integer
+    nfile = FreeFile    ' obtenemos un canal
+    Open App.Path & "\logs\NewUser\" & UserList(UserIndex).Name & ".log" For Append Shared As #nfile
+    Print #nfile, Date & " " & Time & " " & str
+    Close #nfile
+
+End Sub
+
 Public Sub LogGM(nombre As String, texto As String)
 
     On Error GoTo errhandler

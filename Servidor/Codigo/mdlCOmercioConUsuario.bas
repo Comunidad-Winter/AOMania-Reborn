@@ -54,37 +54,49 @@ Public Sub IniciarComercioConUsuario(ByVal Origen As Integer, ByVal Destino As I
 
     Exit Sub
 errhandler:
-    Call LogError("Error en IniciarComercioConUsuario: " & Err.Description)
+    Call LogError("Error en IniciarComercioConUsuario: " & err.Description)
 
 End Sub
 
 'envia a AQuien el objeto del otro
 Public Sub EnviarObjetoTransaccion(ByVal AQuien As Integer)
+'Dim Object As UserOBJ
+Dim ObjInd As Integer
+Dim ObjCant As Long
 
-    Dim ObjInd As Integer
-    Dim ObjCant As Long
+'[Alejo]: En esta funcion se centralizaba el problema
+'         de no poder comerciar con mas de 32k de oro.
+'         Ahora si funciona!!!
 
-    '[Alejo]: En esta funcion se centralizaba el problema
-    '         de no poder comerciar con mas de 32k de oro.
-    '         Ahora si funciona!!!
+'Object.Amount = UserList(UserList(AQuien).ComUsu.DestUsu).ComUsu.Cant
+ObjCant = UserList(UserList(AQuien).ComUsu.DestUsu).ComUsu.Cant
+If UserList(UserList(AQuien).ComUsu.DestUsu).ComUsu.Objeto = FLAGORO Then
+    'Object.ObjIndex = iORO
+    ObjInd = iORO
+Else
+    'Object.ObjIndex = UserList(UserList(AQuien).ComUsu.DestUsu).Invent.Object(UserList(UserList(AQuien).ComUsu.DestUsu).ComUsu.Objeto).ObjIndex
+    ObjInd = UserList(UserList(AQuien).ComUsu.DestUsu).Invent.Object(UserList(UserList(AQuien).ComUsu.DestUsu).ComUsu.Objeto).ObjIndex
+End If
 
-    ObjCant = UserList(UserList(AQuien).ComUsu.DestUsu).ComUsu.Cant
+If ObjCant <= 0 Or ObjInd <= 0 Then Exit Sub
 
-    If UserList(UserList(AQuien).ComUsu.DestUsu).ComUsu.Objeto = FLAGORO Then
-        ObjInd = iORO
-    Else
-        ObjInd = UserList(UserList(AQuien).ComUsu.DestUsu).Invent.Object(UserList(UserList(AQuien).ComUsu.DestUsu).ComUsu.Objeto).ObjIndex
-
-    End If
-
-    If ObjCant <= 0 Or ObjInd <= 0 Then Exit Sub
-
-    If ObjInd > 0 And ObjCant > 0 Then
-        Call SendData(SendTarget.ToIndex, AQuien, 0, "COMUSUPET" & 1 & "," & ObjInd & "," & ObjData(ObjInd).Name & "," & ObjCant & "," & 0 & "," & _
-                                                     ObjData(ObjInd).GrhIndex & "," & ObjData(ObjInd).ObjType & "," & ObjData(ObjInd).MaxHit & "," & ObjData(ObjInd).MinHit & "," & _
-                                                     ObjData(ObjInd).MaxDef & "," & ObjData(ObjInd).MinDef & "," & ObjData(ObjInd).Valor \ 3)
-
-    End If
+'If Object.ObjIndex > 0 And Object.Amount > 0 Then
+'    Call SendData(ToIndex, AQuien, 0, "COMUSUINV" & 1 & "," & Object.ObjIndex & "," & ObjData(Object.ObjIndex).Name & "," & Object.Amount & "," & Object.Equipped & "," & ObjData(Object.ObjIndex).GrhIndex & "," _
+'    & ObjData(Object.ObjIndex).ObjType & "," _
+'    & ObjData(Object.ObjIndex).MaxHIT & "," _
+'    & ObjData(Object.ObjIndex).MinHIT & "," _
+'    & ObjData(Object.ObjIndex).MaxDef & "," _
+'    & ObjData(Object.ObjIndex).Valor \ 3)
+'End If
+If ObjInd > 0 And ObjCant > 0 Then
+    
+    Call SendData(ToIndex, AQuien, 0, "COMUSUINV" & 1 & "," & ObjInd & "," & ObjData(ObjInd).Name & "," & ObjCant & "," & 0 & "," & ObjData(ObjInd).GrhIndex & "," _
+    & ObjData(ObjInd).ObjType & "," _
+    & ObjData(ObjInd).MaxHit & "," _
+    & ObjData(ObjInd).MinHit & "," _
+    & ObjData(ObjInd).MaxDef & "," _
+    & ObjData(ObjInd).Valor \ 3)
+End If
 
 End Sub
 
@@ -231,7 +243,7 @@ Public Sub AceptarComercioUsu(ByVal UserIndex As Integer)
 
         'Quita el objeto y se lo da al otro
         If MeterItemEnInventario(UserIndex, Obj2) = False Then
-            Call TirarItemAlPiso(UserList(UserIndex).pos, Obj2)
+            Call TirarItemAlPiso(UserList(UserIndex).Pos, Obj2)
 
         End If
 
@@ -257,7 +269,7 @@ Public Sub AceptarComercioUsu(ByVal UserIndex As Integer)
 
         'Quita el objeto y se lo da al otro
         If MeterItemEnInventario(OtroUserIndex, Obj1) = False Then
-            Call TirarItemAlPiso(UserList(OtroUserIndex).pos, Obj1)
+            Call TirarItemAlPiso(UserList(OtroUserIndex).Pos, Obj1)
 
         End If
 

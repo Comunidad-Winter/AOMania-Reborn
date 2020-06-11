@@ -63,9 +63,6 @@ Private Type tGUID
    abData4(7) As Byte
 End Type
 
-
-
-
 'Byte array <<<<<<
 Private Type BITMAP
     bmType As Long

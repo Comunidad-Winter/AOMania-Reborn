@@ -1,7 +1,7 @@
 frmMain = 130, 130, 696, 499, , 52, 52, 188, 336, C
 Declaraciones = 182, 182, 748, 551, 
-General = 26, 26, 162, 310, 
-ModCompression = 130, 130, 696, 499, Z
+General = 26, 26, 162, 310, Z
+ModCompression = 130, 130, 696, 499, 
 Logs = 0, 0, 0, 0, C
 ModLoadCompression = 182, 182, 748, 551, 
 Mod_TileEngine = 0, 0, 0, 0, C

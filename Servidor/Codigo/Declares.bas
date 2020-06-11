@@ -572,7 +572,7 @@ Public Const MAX_INVENTORY_SLOTS As Byte = 64
 
 ''
 ' Constante para indicar que se esta usando ORO
-Public Const FLAGORO As Integer = MAX_INVENTORY_SLOTS + 1
+Public Const FLAGORO As Integer = 12
 
 ' CATEGORIAS PRINCIPALES
 
@@ -638,10 +638,8 @@ End Enum
 'Texto
 Public Const FONTTYPE_TALK As String = "~255~255~255~0~0"
 Public Const FONTTYPE_TURQ As String = "~5~205~216~0~0"
-Public Const fonttype_HABLAR As String = "~6~159~60~0~0"
-Public Const FONTTYPE_FIGHT As String = "~206~4~4~0~0"
+Public Const FONTTYPE_FIGHT As String = "~255~0~0~1~0"
 Public Const FONTTYPE_WARNING As String = "~54~69~245~1~0"
-Public Const FONTTYPE_WARNIN As String = "~4~249~90~0~0"
 Public Const FONTTYPE_INFO As String = "~65~190~156~0~0"
 Public Const FONTTYPE_APU As String = "~77~238~238~1~0"
 Public Const FONTTYPE_INFON As String = "~65~190~156~1~0"
@@ -649,22 +647,17 @@ Public Const FONTTYPE_INFOBOLD As String = "~65~190~156~1~0"
 Public Const FONTTYPE_EJECUCION As String = "~199~32~7~1~0"
 Public Const FONTTYPE_PARTY As String = "~67~134~201~1~0"
 Public Const FONTTYPE_VENENO As String = "~0~255~0~1~0"
-Public Const FONTTYPE_CHEAT As String = "~77~198~36~1~0"
 Public Const FONTTYPE_GUILD As String = "~255~255~255~1~0"
 Public Const FONTTYPE_TALKMSG As String = "~244~244~244~1~0"
-Public Const FONTTYPE_DENUNCIAR As String = "~200~168~147~0~0"
 Public Const FONTTYPE_SERVER As String = "~199~200~209~0~0"
 Public Const FONTTYPE_GUILDMSG As String = "~0~255~0~0~0"
 Public Const FONTTYPE_CONSEJO As String = "~106~181~255~1~0"
 Public Const FONTTYPE_RETOS As String = "~77~198~36~0~"
 Public Const FONTTYPE_RETOS2V2 As String = "~5~205~216~0~0"
-Public Const FONTTYPE_GUERRA As String = "~77~198~36~1~0"
-Public Const FONTTYPE_DEATH As String = "~106~181~255~1~0"
-Public Const FONTTYPE_PLANTE As String = "~255~128~64~0~"
+Public Const FONTTYPE_GUERRA As String = "~25~200~25~1~0"
 Public Const FONTTYPE_CONSEJOCAOS As String = "~255~128~54~1~0"
 Public Const FONTTYPE_CONSEJOVesA As String = "~106~181~255~1~0"
 Public Const FONTTYPE_CONSEJOCAOSVesA As String = "~255~150~0~1~0"
-Public Const FONTTYPE_WETAS As String = "~128~128~128~1~0"
 Public Const FONTTYPE_CENTINELA As String = "~0~255~0~1~0"
 Public Const FONTTYPE_ORO As String = "~255~255~0~1~0"
 Public Const FONTTYPE_CYAN As String = "~67~188~188~0~0"
@@ -677,22 +670,16 @@ Public Const FONTTYPE_Motd4 As String = "~255~0~0~1~0"
 Public Const FONTTYPE_Motd5 As String = "~255~255~0~1~0"
 Public Const FONTTYPE_AMARILLON As String = "~255~255~0~1~0"
 Public Const FONTTYPE_BLANCO As String = "~255~255~255~0~0"
-Public Const FONTTYPE_BORDO As String = "~128~0~0~0~0"
 Public Const FONTTYPE_VERDE As String = "~0~255~0~0~0"
 Public Const FONTTYPE_ROJO As String = "~255~0~0~0~0"
 Public Const FONTTYPE_AZUL As String = "~0~0~255~0~0"
 Public Const FONTTYPE_VIOLETA As String = "~128~0~128~0~0"
 Public Const FONTTYPE_AMARILLO As String = "~255~255~0~0~0"
 Public Const FONTTYPE_CELESTE As String = "~128~255~255~0~0"
-Public Const FONTTYPE_GRIS As String = "~130~130~130~0~0"
-Public Const FONTTYPE_BLANCON As String = "~255~255~255~1~0"
-Public Const FONTTYPE_BORDON As String = "~128~0~0~1~0"
-Public Const FONTTYPE_VERDEN As String = "~0~255~0~1~0"
 Public Const FONTTYPE_ROJON As String = "~255~0~0~1~0"
 Public Const FONTTYPE_AZULN As String = "~0~0~255~1~0"
 Public Const FONTTYPE_VIOLETAN As String = "~128~0~128~1~0"
 Public Const FONTTYPE_CELESTEN As String = "~128~255~255~1~0"
-Public Const FONTTYPE_GRISN As String = "~130~130~130~1~0"
 Public Const FONTTYPE_QUEST As String = "~128~255~0~1~0"
 
 
@@ -702,7 +689,7 @@ Public Const STAT_MAXHP As Integer = 999
 Public Const STAT_MAXSTA As Integer = 999
 Public Const STAT_MAXMAN As Integer = 3000
 Public Const STAT_MAXHIT_UNDER36 As Byte = 99
-Public Const STAT_MAXHIT_OVER36 As Integer = 999
+Public Const STAT_MAXHIT_OVER36 As Integer = 224
 Public Const STAT_MAXDEF As Byte = 99
 
 ' **************************************************************
@@ -1421,6 +1408,9 @@ Public Type UserCounters
     TimerAttack As Integer
     
     Silenciamiento As Integer
+    
+    TimerNivel As Long
+    CountTimerNivel As Byte
 
 End Type
 

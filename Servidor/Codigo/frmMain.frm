@@ -1150,6 +1150,13 @@ Private Sub GameTimer_Timer()
                     Call modGuilds.TimerPuntosClan(iUserIndex)
                 End If
             End If
+            
+        .Counters.CountTimerNivel = .Counters.CountTimerNivel + 1
+            
+         If .Counters.CountTimerNivel = 25 Then
+             .Counters.TimerNivel = .Counters.TimerNivel + 1
+             .Counters.CountTimerNivel = 0
+         End If
 
         End With
 
@@ -1325,6 +1332,7 @@ Private Sub Resetear()
     Dim Restard As Double
     Dim RSubasta As String
     Dim Armadas As String
+    Dim NewUser As String
 
     CharFile = FileExist(App.Path & "\Charfile\*.*", vbNormal)
     Guilds = FileExist(App.Path & "\Guilds\*.*", vbNormal)
@@ -1340,7 +1348,8 @@ Private Sub Resetear()
     Donaciones = FileExist(App.Path & "\Logs\Donaciones\*,*", vbNormal)
     Canjeadores = FileExist(App.Path & "\Logs\Canjeadores\*,*", vbNormal)
     RSubasta = FileExist(DatPath & "\Subastas.Dat", vbNormal)
-    Armadas = Canjeadores = FileExist(App.Path & "\Logs\Armadas\*,*", vbNormal)
+    Armadas = FileExist(App.Path & "\Logs\Armadas\*,*", vbNormal)
+    NewUser = FileExist(App.Path & "\Logs\NewUser\*,*", vbNormal)
     
     If CharFile = True Then
         Kill (App.Path & "\Charfile\*.*")
@@ -1416,6 +1425,10 @@ Private Sub Resetear()
     
     If Armadas = True Then
         Kill (App.Path & "\Logs\Armadas\*.*")
+    End If
+    
+    If NewUser = True Then
+        Kill (App.Path & "\Logs\NewUser\*.*")
     End If
     
     If RSubasta = True Then

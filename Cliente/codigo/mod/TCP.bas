@@ -967,10 +967,42 @@ Sub HandleData(ByVal rData As String)
 
             AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
                                                                                                                                      ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
-
+                                                                                                                                     
+           AddtoRichTextBox frmMain.RecGuild, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
         End If
 
         Exit Sub
+        
+    Case "|-"                 ' >>>>> Consola de clan y NPCs :: |+
+        rData = Right$(rData, Len(rData) - 2)
+
+        iUser = Val(ReadField(3, rData, 176))
+
+        If iUser = 0 Then
+
+            AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+                                                                                                                                     
+           AddtoRichTextBox frmMain.RecParty, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+        End If
+
+        Exit Sub
+        
+    Case "|^"                 ' >>>>> Consola de rmsg
+        rData = Right$(rData, Len(rData) - 2)
+
+        iUser = Val(ReadField(3, rData, 176))
+
+        If iUser = 0 Then
+
+            AddtoRichTextBox frmMain.RecTxt, ReadField(1, rData, 126), Val(ReadField(2, rData, 126)), Val(ReadField(3, rData, 126)), Val( _
+                                                                                                                                     ReadField(4, rData, 126)), Val(ReadField(5, rData, 126)), Val(ReadField(6, rData, 126))
+                                                                                                                                     
+    End If
+
+    Exit Sub
 
     Case "!!"                ' >>>>> Msgbox :: !!
 
@@ -2539,20 +2571,20 @@ Sub SendData(ByVal sdData As String)
 End Sub
 
 Sub login()
-    Dim Version As String
+    Dim version As String
     
-    Version = App.Major & "." & App.Minor & "." & App.Revision
+    version = App.Major & "." & App.Minor & "." & App.Revision
 
     Select Case EstadoLogin
    
         Case E_MODO.Normal
             
-            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & Version & "," & HDD & "," & "0")
+            Call SendData("MARAKA" & UserName & "," & UserPassword & "," & version & "," & HDD & "," & "0")
           
         Case E_MODO.CrearNuevoPj
             Call SendData("TIRDAD" & UserFuerza & "," & UserAgilidad _
                & "," & UserInteligencia & "," & UserCarisma & "," & UserConstitucion)
-            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & Version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
+            Call SendData("ZORRON" & UserName & "," & UserPassword & "," & version & "," & UserRaza & "," & UserSexo & "," & UserClase & "," & _
                 UserBanco & "," & UserPersonaje & "," & UserEmail & "," & HDD)
 
         Case E_MODO.Dados

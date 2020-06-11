@@ -477,7 +477,10 @@ Sub ConnectNewUser(UserIndex As Integer, _
     UserList(UserIndex).Stats.ELU = levelELU(UserList(UserIndex).Stats.ELV)
 
     Call SetearInv(UserIndex, UCase$(UserList(UserIndex).Clase), UCase$(UserList(UserIndex).Raza))
-
+    
+    Call LogNivel(UserIndex, "Creo El personaje " & UCase$(UserList(UserIndex).Name) & " Le pide Exp: " & UserList(UserIndex).Stats.ELU & " De Nivel " & UserList(UserIndex).Stats.ELV & " Con una vida Max: " & UserList(UserIndex).Stats.MaxHP & " Con una Mana Max: " & UserList(UserIndex).Stats.MaxMAN & " Golpe: " & UserList(UserIndex).Stats.MaxHit)
+    Call LogNivel(UserIndex, "-----------------------------------------------------------------------------")
+    
     'Open User
 
     'Call EnviaRegistro(Name, Password, UserEmail, UserClase, UserRaza)
@@ -1429,36 +1432,9 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
 
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "INVI0")
 
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||       .oo .oPYo. o     o               o              .oPYo.    .oPYo.       .oo" & _
-                                                        FONTTYPE_Motd1)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||       .P 8 8    8 8b   d8                              8  .o8    8  .o8      .P 8" & _
-                                                        FONTTYPE_Motd1)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||      .P  8 8    8 8`b d'8 .oPYo. odYo. o8 .oPYo.       8 .P'8    8 .P'8     .P  8" & _
-                                                        FONTTYPE_Motd1)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||     oPooo8 8    8 8 `o' 8 .oooo8 8' `8  8 .oooo8       8.d' 8    8.d' 8         8" & _
-                                                        FONTTYPE_Motd1)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||    .P    8 8    8 8     8 8    8 8   8  8 8    8       8o'  8    8o'  8         8" & _
-                                                        FONTTYPE_Motd1)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||   .P     8 `YooP' 8     8 `YooP8 8   8  8 `YooP8       `YooP' 88 `YooP'88       8" & _
-                                                        FONTTYPE_Motd1)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                                                                  www.AoMania.Net" & _
-                                                        FONTTYPE_Motd1)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||      X = Seguro Objetos   Q = Mapa   P = Mapa  S = Seguro   W = Seguro de clan" & _
-                                                        FONTTYPE_Motd2)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                         F1 = /Meditar   F12 = Macro Interno Para trabajadores." & _
-                                                        FONTTYPE_Motd2)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                     Si tienes alguna duda o necesitas ayuda, escribe /GM TEXTO" & _
-                                                        FONTTYPE_Motd2)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||                                                        Version 0.0.1 Año: 2019" & _
-                                                        FONTTYPE_Motd2)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||:- Argentumania -:" & FONTTYPE_INFO)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> ¡¡¡Bienvenidos al Servidor Oficial AoManiA 2019!!!" & FONTTYPE_GUILD)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Versión Actual v1 de AOMania, Argentumania 2018. Mod Argentum Online" & FONTTYPE_Motd3)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Para cualquier duda, /gm consulta" & FONTTYPE_Motd3)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Web Oficial aomania.net argentumania.es" & FONTTYPE_Motd4)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||> Foro Oficial foro.argentumania.es" & FONTTYPE_Motd4)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||---------------" & FONTTYPE_SERVER)
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Para ver el Mapa de AOMania dejar pulsada la tecla Q ó P." & FONTTYPE_Motd5)
+        Call SendData(ToIndex, UserIndex, 0, "MOTD")
+        
+        Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & FONTTYPE_INFO)
 
         Call SendInfoCastillos(UserIndex)
 
@@ -1466,20 +1442,17 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & FONTTYPE_INFO)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El máximo nivel es " & MaxLevel & ", adquirido por " & UserMaxLevel & "." & _
                                                             FONTTYPE_SERVER)
-
         End If
-
-        Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & FONTTYPE_INFO)
 
         If MultMsg = "" Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & "." & FONTTYPE_Motd5)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & "." & FONTTYPE_Motd5)
         Else
+            Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & FONTTYPE_INFO)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||La Experiencia del Servidor esta subido por " & Multexp & ". " & MultMsg & "." & _
                                                             FONTTYPE_Motd5)
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El Oro del Servidor esta subido por " & MultOro & ". " & MultMsg & "." & _
                                                             FONTTYPE_Motd5)
-
         End If
 
         If StatusNosfe = True Then
@@ -1489,23 +1462,19 @@ Sub ConnectUser(ByVal UserIndex As Integer, Name As String, Password As String, 
         If ExpCriatura = True Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Hoy es día de " & NombreCriatura & ", su experencia esta aumentada x" & _
                                                             LoteriaCriatura & "." & FONTTYPE_TALK)
-
         End If
 
         If OroCriatura = True Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Hoy es día de " & NombreCriatura & ", su oro esta aumentada x" & LoteriaCriatura & _
                                                             "." & FONTTYPE_TALK)
-
         End If
 
         If DiaEspecialExp = True Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Estáis de suerte! Día especial, la experencia esta aumentada por x2" & FONTTYPE_TALK)
-
         End If
 
         If DiaEspecialOro = True Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Estáis de suerte! Día especial, el oro esta aumentada por x2" & FONTTYPE_TALK)
-
         End If
 
         'Controlamos no pasar el maximo de usuarios
@@ -2110,6 +2079,9 @@ Sub ResetContadores(ByVal UserIndex As Integer)
         .Silenciamiento = 0
         .Metamorfosis = 0
         .Cerdo = 0
+        
+        .CountTimerNivel = 0
+        .TimerNivel = 0
 
     End With
 

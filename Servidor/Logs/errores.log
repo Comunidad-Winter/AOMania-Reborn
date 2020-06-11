@@ -392,3 +392,171 @@
 07/06/2020 3:39:17 HandleData. CadOri:/CI 1688 1000 Nom:BassingerUI:1 N: 0 D: 
 07/06/2020 3:39:21 HandleData. CadOri:/CI 1689 1000 Nom:BassingerUI:1 N: 0 D: 
 07/06/2020 3:39:25 HandleData. CadOri:/CI 1690 1000 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:15:15 HandleData. CadOri:/CI 1204 1000 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:15:41 HandleData. CadOri:/SEARCHNPCS piedra Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:16:07 HandleData. CadOri:/SEARCHNPCS  Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:16:11 HandleData. CadOri:/ACC 22 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+07/06/2020 20:16:19 HandleData. CadOri:/SEARCHNPCS dem Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:16:20 HandleData. CadOri:/ACC 23 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+07/06/2020 20:16:30 HandleData. CadOri:/SEARCHNPCS tem Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:16:31 HandleData. CadOri:/ACC 109 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+07/06/2020 20:16:39 HandleData. CadOri:/SEARCHNPCS nem Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:16:41 HandleData. CadOri:/ACC 106 Nom:BassingerUI:1 N: 9 D: El subíndice está fuera del intervalo
+07/06/2020 20:17:52 HandleData. CadOri:/TELEP YO 34 28 58 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:17:52 HandleData. CadOri:/TELEP YO 34 29 53 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:17:54 HandleData. CadOri:/TELEP YO 34 29 51 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:18:02 HandleData. CadOri:/TELEP YO 34 26 51 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:26:09 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:26:10 HandleData. CadOri:/TELEP YO 34 34 50 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:26:10 HandleData. CadOri:/TELEP YO 34 28 51 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:26:16 HandleData. CadOri:/TELEP YO 34 27 52 Nom:BassingerUI:1 N: 0 D: 
+07/06/2020 20:39:39 HandleData. CadOri:/subir real 10 Nom:BassingerUI:1 N: 0 D: 
+08/06/2020 1:37:05 HandleData. CadOri:/telep yo 59 50 50 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:07 HandleData. CadOri:/TELEP YO 59 44 47 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:07 HandleData. CadOri:/TELEP YO 59 38 43 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:07 HandleData. CadOri:/TELEP YO 59 32 39 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:08 HandleData. CadOri:/TELEP YO 59 27 35 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:08 HandleData. CadOri:/TELEP YO 59 23 31 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:09 HandleData. CadOri:/TELEP YO 59 21 26 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:09 HandleData. CadOri:/TELEP YO 59 19 21 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:10 HandleData. CadOri:/TELEP YO 59 18 17 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:13 HandleData. CadOri:/sum real Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:26 HandleData. CadOri:/telep yo 34 30 50 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:37:29 HandleData. CadOri:/sum real Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:38:27 HandleData. CadOri:/telep yo 59 50 50 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:38:28 HandleData. CadOri:/TELEP YO 59 45 45 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:38:29 HandleData. CadOri:/TELEP YO 59 39 40 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:38:29 HandleData. CadOri:/TELEP YO 59 33 35 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:38:29 HandleData. CadOri:/TELEP YO 59 27 30 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:38:30 HandleData. CadOri:/MOV Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:38:30 HandleData. CadOri:/TELEP YO 59 22 25 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:38:31 HandleData. CadOri:/TELEP YO 59 18 21 Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 1:38:34 HandleData. CadOri:/sum real Nom:BassingerUI:2 N: 0 D: 
+08/06/2020 19:03:12 Error en CloseUser. Número 91 Descripción: Variable de tipo Object o la variable de bloque With no está establecida
+08/06/2020 22:35:03 HandleData. CadOri:/Gmsg vale Nom:bassingerUI:1 N: 0 D: 
+08/06/2020 22:35:16 HandleData. CadOri:/Rmsg Enviamos poer Nom:bassingerUI:1 N: 0 D: 
+08/06/2020 22:36:36 HandleData. CadOri:/Rmsg hgj Nom:bassingerUI:1 N: 0 D: 
+08/06/2020 22:36:50 HandleData. CadOri:/Rmsg hj Nom:bassingerUI:1 N: 0 D: 
+08/06/2020 22:38:50 HandleData. CadOri:/Gmsg ok Nom:bassingerUI:1 N: 0 D: 
+08/06/2020 22:38:58 HandleData. CadOri:/Rmsg jajaj ok Nom:bassingerUI:1 N: 0 D: 
+08/06/2020 22:39:09 HandleData. CadOri:/contar Nom:bassingerUI:1 N: 0 D: 
+08/06/2020 22:40:48 HandleData. CadOri:/contar Nom:bassingerUI:1 N: 0 D: 
+08/06/2020 22:40:55 HandleData. CadOri:/Rmsg menudo torneazo Nom:bassingerUI:1 N: 0 D: 
+09/06/2020 23:23:27 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:23:30 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:23:42 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:24:08 HandleData. CadOri:/CI 594 1 Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:24:11 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:26:39 HandleData. CadOri:/CI 594 1 Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:26:41 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:26:41 HandleData. CadOri:/TELEP YO 34 46 48 Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:26:42 HandleData. CadOri:/TELEP YO 34 52 46 Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:26:42 HandleData. CadOri:/TELEP YO 34 59 44 Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:26:42 HandleData. CadOri:/TELEP YO 34 64 45 Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:26:43 HandleData. CadOri:/TELEP YO 34 68 45 Nom:BassingerUI:1 N: 0 D: 
+09/06/2020 23:26:44 HandleData. CadOri:/MOV Nom:BassingerUI:1 N: 0 D: 
+11/06/2020 1:21:12 HandleData. CadOri:/CI 399 1 Nom:BassingerUI:2 N: 0 D: 
+11/06/2020 1:21:15 HandleData. CadOri:/CI 638 1 Nom:BassingerUI:2 N: 0 D: 
+11/06/2020 1:21:17 HandleData. CadOri:/TELEP YO 47 62 18 Nom:BassingerUI:2 N: 0 D: 
+11/06/2020 1:21:17 HandleData. CadOri:/TELEP YO 47 61 13 Nom:BassingerUI:2 N: 0 D: 
+11/06/2020 1:21:19 HandleData. CadOri:/TELEP YO 47 62 17 Nom:BassingerUI:2 N: 0 D: 
+11/06/2020 1:21:20 HandleData. CadOri:/TELEP YO 34 33 50 Nom:BassingerUI:2 N: 0 D: 
+11/06/2020 5:12:20 HandleData. CadOri:/subir t  13 Nom:BassingerUI:1 N: 13 D: No coinciden los tipos
+11/06/2020 5:12:34 HandleData. CadOri:/subir tookete 12 Nom:BassingerUI:1 N: 0 D: 
+11/06/2020 5:12:41 HandleData. CadOri:/subir tokete 6 Nom:BassingerUI:1 N: 0 D: 
+11/06/2020 5:12:46 HandleData. CadOri:/subir tookete 6 Nom:BassingerUI:1 N: 0 D: 
+11/06/2020 5:24:05 HandleData. CadOri:/subir keoh 1 Nom:BassingerUI:1 N: 0 D: 
+11/06/2020 5:24:41 HandleData. CadOri:/mod keoh mana 2800 Nom:BassingerUI:1 N: 0 D: 
+11/06/2020 5:24:51 HandleData. CadOri:/subir keoh 55 Nom:BassingerUI:1 N: 0 D: 
+11/06/2020 6:20:21 HandleData. CadOri:ZORRONMANOLIN,aa,1.1.9,Humano,Hombre,MAGO,sdasdasd,sdsdsdsd,a@a.com,1393232527 Nom:MANOLINUI:1 N: 76 D: No se ha encontrado la ruta de acceso
+11/06/2020 6:20:34 HandleData. CadOri:ZORRONMANOLIN,aa,1.1.9,Humano,Hombre,MAGO,sdasdasd,sdsdsdsd,a@a.com,1393232527 Nom:MANOLINUI:1 N: 76 D: No se ha encontrado la ruta de acceso
+11/06/2020 6:21:14 HandleData. CadOri:ZORRONMANOLIN,AA,1.1.9,Humano,Hombre,MAGO,DSFDSFDSF,DSFSDFFD,A@A.COM,1393232527 Nom:MANOLINUI:1 N: 76 D: No se ha encontrado la ruta de acceso
+11/06/2020 6:22:00 HandleData. CadOri:ZORRONMANOLIN,AA,1.1.9,Humano,Hombre,MAGO,DSFDSFDSF,DSFSDFFD,A@A.COM,1393232527 Nom:MANOLINUI:1 N: 76 D: No se ha encontrado la ruta de acceso
+11/06/2020 6:58:49 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:50 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:50 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:50 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:51 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:51 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:57 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:57 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:57 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:57 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:57 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:58 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:58 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:58 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:58 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:58 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:59 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:59 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:59 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 6:58:59 HandleData. CadOri:FINCOMUSU Nom:EINARUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:13:44 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:09 HandleData. CadOri:COMUSUOK Nom:einarUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:11 HandleData. CadOri:COMUSUOK Nom:einarUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:11 HandleData. CadOri:COMUSUOK Nom:einarUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:18 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:20 HandleData. CadOri:COMUSUOK Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:28 HandleData. CadOri:COMUSUOK Nom:einarUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:29 HandleData. CadOri:COMUSUOK Nom:einarUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:29 HandleData. CadOri:COMUSUOK Nom:einarUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:30 HandleData. CadOri:COMUSUOK Nom:einarUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:39 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:39 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:40 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:40 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:40 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:40 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:40 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:41 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:41 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:41 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:41 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:41 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:41 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:42 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:43 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:43 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:43 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:46 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:47 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:47 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:47 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:47 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:47 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:47 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:48 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:48 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:48 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:48 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:48 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:49 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:49 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:14:49 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:00 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:02 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:02 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:02 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:03 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:03 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:03 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:03 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:03 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:04 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:04 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:04 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:04 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:04 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:04 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:05 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:05 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:05 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:05 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:05 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 7:15:06 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:1 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 9:53:27 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 9:54:18 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 9:55:11 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 9:56:25 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:2 N: 9 D: El subíndice está fuera del intervalo
+11/06/2020 9:57:54 HandleData. CadOri:OFRECER65,10000 Nom:faccionUI:2 N: 9 D: El subíndice está fuera del intervalo

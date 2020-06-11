@@ -893,7 +893,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 rData = Right$(rData, Len(rData) - 6)
 
                 If rData <> "" Then
-                    Call SendData(ToAll, 0, 0, "||<" & UserList(UserIndex).Name & "> " & rData & FONTTYPE_TALK)
+                    Call SendData(ToAll, 0, 0, "|^<" & UserList(UserIndex).Name & "> " & rData & FONTTYPE_TALK)
 
                 End If
 
@@ -906,7 +906,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 rData = Right$(rData, Len(rData) - 6)
 
                 If rData <> "" Then
-                    Call SendData(ToAdmins, 0, 0, "||" & UserList(UserIndex).Name & "> " & rData & FONTTYPE_TALK)
+                    Call SendData(ToAdmins, 0, 0, "|*" & UserList(UserIndex).Name & "> " & rData & FONTTYPE_TALK)
 
                 End If
 
@@ -3268,8 +3268,11 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                     UserList(TIndex).Faccion.Templario = 0
                     UserList(TIndex).Faccion.Reenlistadas = 200
                     UserList(TIndex).Faccion.RecibioArmaduraTemplaria = 0
+                    UserList(TIndex).Faccion.Quest = 0
+                    UserList(TIndex).Faccion.ActiveQuest = 0
 
                     Call PerderItemsFaccionarios(TIndex)
+                    Call PerderAlasFaccionarios(TIndex)
 
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & rData & " expulsado de las fuerzas TEMPLARIAS y prohibida la reenlistada" & FONTTYPE_INFO)
 
@@ -3277,6 +3280,10 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Else
 
                     If FileExist(CharPath & rData & ".chr") Then
+                    Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Templario", 0)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Reenlistadas", 200)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Extra", "Expulsado por " & UserList(UserIndex).Name)
@@ -3303,14 +3310,21 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                     UserList(TIndex).Faccion.Nemesis = 0
                     UserList(TIndex).Faccion.Reenlistadas = 200
                     UserList(TIndex).Faccion.RecibioArmaduraNemesis = 0
+                    UserList(TIndex).Faccion.Quest = 0
+                    UserList(TIndex).Faccion.ActiveQuest = 0
 
                     Call PerderItemsFaccionarios(TIndex)
+                    Call PerderAlasFaccionarios(TIndex)
 
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & rData & " expulsado de las fuerzas NEMESIS y prohibida la reenlistada" & FONTTYPE_INFO)
                     Call SendData(SendTarget.ToIndex, TIndex, 0, "|| " & UserList(UserIndex).Name & " te ha expulsado en forma definitiva de las fuerzas NEMESIS." & FONTTYPE_FIGHT)
                 Else
 
                     If FileExist(CharPath & rData & ".chr") Then
+                    Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Nemesis", 0)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Reenlistadas", 200)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Extra", "Expulsado por " & UserList(UserIndex).Name)
@@ -3337,14 +3351,21 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                     UserList(TIndex).Faccion.FuerzasCaos = 0
                     UserList(TIndex).Faccion.Reenlistadas = 200
                     UserList(TIndex).Faccion.RecibioArmaduraCaos = 0
+                    UserList(TIndex).Faccion.Quest = 0
+                    UserList(TIndex).Faccion.ActiveQuest = 0
 
                     Call PerderItemsFaccionarios(TIndex)
-
+                    Call PerderAlasFaccionarios(TIndex)
+                    
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & rData & " expulsado de las fuerzas del caos y prohibida la reenlistada" & FONTTYPE_INFO)
                     Call SendData(SendTarget.ToIndex, TIndex, 0, "|| " & UserList(UserIndex).Name & " te ha expulsado en forma definitiva de las fuerzas del caos." & FONTTYPE_FIGHT)
                 Else
 
                     If FileExist(CharPath & rData & ".chr") Then
+                    Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "EjercitoCaos", 0)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Reenlistadas", 200)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Extra", "Expulsado por " & UserList(UserIndex).Name)
@@ -3374,14 +3395,21 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                     UserList(TIndex).Faccion.ArmadaReal = 0
                     UserList(TIndex).Faccion.Reenlistadas = 200
                     UserList(TIndex).Faccion.RecibioArmaduraReal = 0
+                    UserList(TIndex).Faccion.Quest = 0
+                    UserList(TIndex).Faccion.ActiveQuest = 0
 
                     Call PerderItemsFaccionarios(TIndex)
+                    Call PerderAlasFaccionarios(TIndex)
 
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & rData & " expulsado de las fuerzas reales y prohibida la reenlistada" & FONTTYPE_INFO)
                     Call SendData(SendTarget.ToIndex, TIndex, 0, "|| " & UserList(UserIndex).Name & " te ha expulsado en forma definitiva de las fuerzas reales." & FONTTYPE_FIGHT)
                 Else
 
                     If FileExist(CharPath & rData & ".chr") Then
+                    Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "EjercitoReal", 0)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Reenlistadas", 200)
                         Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Extra", "Expulsado por " & UserList(UserIndex).Name)
@@ -4112,7 +4140,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         rData = Right$(rData, Len(rData) - 6)
 
         If rData <> "" Then
-            Call SendData(ToAll, 0, 0, "||<" & UserList(UserIndex).Name & "> " & rData & FONTTYPE_TALK)
+            Call SendData(ToAll, 0, 0, "|^<" & UserList(UserIndex).Name & "> " & rData & FONTTYPE_TALK)
 
         End If
 
@@ -6868,7 +6896,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         rData = Right$(rData, Len(rData) - 6)
 
         If rData <> "" Then
-            Call SendData(ToAdmins, 0, 0, "||" & UserList(UserIndex).Name & "> " & rData & FONTTYPE_TALK)
+            Call SendData(ToAdmins, 0, 0, "|*" & UserList(UserIndex).Name & "> " & rData & FONTTYPE_TALK)
 
         End If
 
@@ -7063,8 +7091,11 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             UserList(TIndex).Faccion.Templario = 0
             UserList(TIndex).Faccion.Reenlistadas = 200
             UserList(TIndex).Faccion.RecibioArmaduraTemplaria = 0
+            UserList(TIndex).Faccion.Quest = 0
+            UserList(TIndex).Faccion.ActiveQuest = 0
 
             Call PerderItemsFaccionarios(TIndex)
+            Call PerderAlasFaccionarios(TIndex)
 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & rData & " expulsado de las fuerzas TEMPLARIAS y prohibida la reenlistada" & FONTTYPE_INFO)
 
@@ -7072,6 +7103,10 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Else
 
             If FileExist(CharPath & rData & ".chr") Then
+            Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                        Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
+                Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Templario", 0)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Reenlistadas", 200)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Extra", "Expulsado por " & UserList(UserIndex).Name)
@@ -7098,14 +7133,19 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             UserList(TIndex).Faccion.Nemesis = 0
             UserList(TIndex).Faccion.Reenlistadas = 200
             UserList(TIndex).Faccion.RecibioArmaduraNemesis = 0
+            UserList(TIndex).Faccion.Quest = 0
+            UserList(TIndex).Faccion.ActiveQuest = 0
 
             Call PerderItemsFaccionarios(TIndex)
+            Call PerderAlasFaccionarios(TIndex)
 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & rData & " expulsado de las fuerzas NEMESIS y prohibida la reenlistada" & FONTTYPE_INFO)
             Call SendData(SendTarget.ToIndex, TIndex, 0, "|| " & UserList(UserIndex).Name & " te ha expulsado en forma definitiva de las fuerzas NEMESIS." & FONTTYPE_FIGHT)
         Else
 
             If FileExist(CharPath & rData & ".chr") Then
+               Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Nemesis", 0)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Reenlistadas", 200)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Extra", "Expulsado por " & UserList(UserIndex).Name)
@@ -7132,14 +7172,19 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             UserList(TIndex).Faccion.FuerzasCaos = 0
             UserList(TIndex).Faccion.Reenlistadas = 200
             UserList(TIndex).Faccion.RecibioArmaduraCaos = 0
+            UserList(TIndex).Faccion.Quest = 0
+            UserList(TIndex).Faccion.ActiveQuest = 0
 
             Call PerderItemsFaccionarios(TIndex)
+            Call PerderAlasFaccionarios(TIndex)
 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & rData & " expulsado de las fuerzas del caos y prohibida la reenlistada" & FONTTYPE_INFO)
             Call SendData(SendTarget.ToIndex, TIndex, 0, "|| " & UserList(UserIndex).Name & " te ha expulsado en forma definitiva de las fuerzas del caos." & FONTTYPE_FIGHT)
         Else
 
             If FileExist(CharPath & rData & ".chr") Then
+                Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "EjercitoCaos", 0)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Reenlistadas", 200)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Extra", "Expulsado por " & UserList(UserIndex).Name)
@@ -7169,14 +7214,19 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             UserList(TIndex).Faccion.ArmadaReal = 0
             UserList(TIndex).Faccion.Reenlistadas = 200
             UserList(TIndex).Faccion.RecibioArmaduraReal = 0
+            UserList(TIndex).Faccion.Quest = 0
+            UserList(TIndex).Faccion.ActiveQuest = 0
 
             Call PerderItemsFaccionarios(TIndex)
+            Call PerderAlasFaccionarios(TIndex)
 
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "|| " & rData & " expulsado de las fuerzas reales y prohibida la reenlistada" & FONTTYPE_INFO)
             Call SendData(SendTarget.ToIndex, TIndex, 0, "|| " & UserList(UserIndex).Name & " te ha expulsado en forma definitiva de las fuerzas reales." & FONTTYPE_FIGHT)
         Else
 
             If FileExist(CharPath & rData & ".chr") Then
+               Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Quest", 0)
+                Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "QuestActive", 0)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "EjercitoReal", 0)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Reenlistadas", 200)
                 Call WriteVar(CharPath & rData & ".chr", "FACCIONES", "Extra", "Expulsado por " & UserList(UserIndex).Name)

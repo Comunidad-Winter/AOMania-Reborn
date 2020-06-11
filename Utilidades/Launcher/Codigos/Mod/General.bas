@@ -86,7 +86,8 @@ Function Comprobar_Conexión(Url As String) As Boolean
 End Function
 
 Public Sub RevDlls()
-    
+     
+     Call MRRegisterLibrary(DirLibs & "MSVBVM50.DLL", "MSVBVM50")
      Call MRRegisterLibrary(DirLibs & "Captura.ocx", "CAPTURA")
      Call MRRegisterLibrary(DirLibs & "COMCTL32.OCX", "COMCTL32")
      Call MRRegisterLibrary(DirLibs & "CSWSK32.OCX", "CSWSK32")

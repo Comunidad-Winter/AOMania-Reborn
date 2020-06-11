@@ -55,7 +55,6 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             Else
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbYellow & "°" & "No tienes la piedra vuelve cuando la tengas." & "°" & CStr(Npclist(UserList(UserIndex).flags.TargetNpc).char.CharIndex))
                 Exit Sub
-
             End If
 
             Rs = RandomNumber(1, 10)
@@ -69,6 +68,7 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
 
             If UserList(UserIndex).Faccion.ArmadaReal = 1 Then
                 Call PerderItemsFaccionarios(UserIndex)
+                Call PerderAlasFaccionarios(UserIndex)
                 Call QuitarObjetos(n, 1, UserIndex)
                 UserList(UserIndex).Faccion.ArmadaReal = 0
                 UserList(UserIndex).Faccion.FEnlistado = 0
@@ -76,8 +76,11 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
                 UserList(UserIndex).Faccion.RecibioArmaduraReal = 0
                 UserList(UserIndex).Faccion.RecibioExpInicialReal = 0
                 UserList(UserIndex).Faccion.RecompensasReal = 0
+                UserList(UserIndex).Faccion.Quest = 0
+                UserList(UserIndex).Faccion.ActiveQuest = 0
             ElseIf UserList(UserIndex).Faccion.FuerzasCaos = 1 Then
                 Call PerderItemsFaccionarios(UserIndex)
+                Call PerderAlasFaccionarios(UserIndex)
                 Call QuitarObjetos(n, 1, UserIndex)
                 UserList(UserIndex).Faccion.FuerzasCaos = 0
                 UserList(UserIndex).Faccion.FEnlistado = 0
@@ -85,8 +88,11 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
                 UserList(UserIndex).Faccion.RecibioArmaduraCaos = 0
                 UserList(UserIndex).Faccion.RecibioExpInicialCaos = 0
                 UserList(UserIndex).Faccion.RecompensasCaos = 0
+                UserList(UserIndex).Faccion.Quest = 0
+                UserList(UserIndex).Faccion.ActiveQuest = 0
             ElseIf UserList(UserIndex).Faccion.Nemesis = 1 Then
                 Call PerderItemsFaccionarios(UserIndex)
+                Call PerderAlasFaccionarios(UserIndex)
                 Call QuitarObjetos(n, 1, UserIndex)
                 UserList(UserIndex).Faccion.Nemesis = 0
                 UserList(UserIndex).Faccion.FEnlistado = 0
@@ -94,8 +100,11 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
                 UserList(UserIndex).Faccion.RecibioArmaduraNemesis = 0
                 UserList(UserIndex).Faccion.RecibioExpInicialNemesis = 0
                 UserList(UserIndex).Faccion.RecompensasNemesis = 0
+                UserList(UserIndex).Faccion.Quest = 0
+                UserList(UserIndex).Faccion.ActiveQuest = 0
             ElseIf UserList(UserIndex).Faccion.Templario = 1 Then
                 Call PerderItemsFaccionarios(UserIndex)
+                Call PerderAlasFaccionarios(UserIndex)
                 Call QuitarObjetos(n, 1, UserIndex)
                 UserList(UserIndex).Faccion.Templario = 0
                 UserList(UserIndex).Faccion.FEnlistado = 0
@@ -103,7 +112,8 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
                 UserList(UserIndex).Faccion.RecibioArmaduraTemplaria = 0
                 UserList(UserIndex).Faccion.RecibioExpInicialTemplaria = 0
                 UserList(UserIndex).Faccion.RecompensasTemplaria = 0
-
+                UserList(UserIndex).Faccion.Quest = 0
+                UserList(UserIndex).Faccion.ActiveQuest = 0
             End If
 
             UserList(UserIndex).Reputacion.AsesinoRep = 0

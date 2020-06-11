@@ -25,6 +25,6 @@
 24=#P0#=mb	#P1#=Main	#P2#=LauncherAoMania/General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200514035612	#P7#=0	#P8#=-1	.
 25=#P0#=mb	#P1#=LoadServer	#P2#=LauncherAoMania/ES/LoadServer	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200514035553	#P7#=0	#P8#=2	.
 26=#P0#=mb	#P1#=SaveConfig	#P2#=LauncherAoMania/ES/SaveConfig	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200514034950	#P7#=0	#P8#=12	.
-27=#P0#=mb	#P1#=RevDlls	#P2#=LauncherAoMania/General/RevDlls	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513193113	#P7#=0	#P8#=15	.
+27=#P0#=mb	#P1#=RevDlls	#P2#=LauncherAoMania/General/RevDlls	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200611102226	#P7#=0	#P8#=5	.
 28=#P0#=mb	#P1#=Comprobar_Conexión	#P2#=LauncherAoMania/General/Comprobar_Conexión	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513193112	#P7#=0	#P8#=15	.
 29=#P0#=mb	#P1#=MRRegisterLibrary	#P2#=LauncherAoMania/General/MRRegisterLibrary	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200513192814	#P7#=0	#P8#=7	.
