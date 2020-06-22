@@ -352,8 +352,8 @@ Sub DepositarItemOffline(ByVal Comprador As String, _
     For LoopC = 1 To MAX_BANCOINVENTORY_SLOTS
         ln = GetVar(App.Path & "\Charfile\" & Comprador & ".chr", "BancoInventory", "Obj" & LoopC)
         Debug.Print ln
-        bancoObj(LoopC).ObjIndex = CInt(ReadField(1, ln, 45))
-        bancoObj(LoopC).Amount = CInt(ReadField(2, ln, 45))
+        bancoObj(LoopC).ObjIndex = CInt(readfield2(1, ln, 45))
+        bancoObj(LoopC).Amount = CInt(readfield2(2, ln, 45))
     Next LoopC
 
     '¿Ya tiene un objeto de este tipo?
@@ -425,9 +425,9 @@ Sub ItemLastPos(ByVal PJ As String, sCant As Integer, objndX As Integer)
 
     DameLastPos = GetVar(App.Path & "\Charfile\" & PJ & ".chr", "INIT", "Position")
 
-    lastPos.Map = CInt(ReadField(1, DameLastPos, 45))
-    lastPos.X = CInt(ReadField(2, DameLastPos, 45))
-    lastPos.Y = CInt(ReadField(3, DameLastPos, 45))
+    lastPos.Map = CInt(readfield2(1, DameLastPos, 45))
+    lastPos.X = CInt(readfield2(2, DameLastPos, 45))
+    lastPos.Y = CInt(readfield2(3, DameLastPos, 45))
 
     Call TirarItemAlPiso(lastPos, MiObj)
 

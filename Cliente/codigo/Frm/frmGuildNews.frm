@@ -148,25 +148,25 @@ End Sub
 
 Public Sub ParseGuildNews(ByVal s As String)
 
-    news = Replace(ReadField(1, s, Asc("¬")), "º", vbCrLf)
+    news = Replace(readfield2(1, s, Asc("¬")), "º", vbCrLf)
 
-    Dim h%, j%
+    Dim H%, j%
 
-    h% = Val(ReadField(2, s, Asc("¬")))
+    H% = Val(readfield2(2, s, Asc("¬")))
 
-    For j% = 1 To h%
+    For j% = 1 To H%
     
-        guerra.AddItem ReadField(j% + 2, s, Asc("¬"))
+        guerra.AddItem readfield2(j% + 2, s, Asc("¬"))
     
     Next j%
 
     j% = j% + 2
 
-    h% = Val(ReadField(j%, s, Asc("¬")))
+    H% = Val(readfield2(j%, s, Asc("¬")))
 
-    For j% = j% + 1 To j% + h%
+    For j% = j% + 1 To j% + H%
     
-        aliados.AddItem ReadField(j%, s, Asc("¬"))
+        aliados.AddItem readfield2(j%, s, Asc("¬"))
     
     Next j%
 
@@ -174,7 +174,7 @@ Public Sub ParseGuildNews(ByVal s As String)
 
 End Sub
 
-Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command1.MouseIcon = Iconos.Ico_Mano
 End Sub
 

@@ -251,16 +251,16 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Public Sub ParseExpulsarClan(nombre As String, Raza As String, Clase As String, Genero As String, _
+Public Sub ParseExpulsarClan(Nombre As String, Raza As String, Clase As String, Genero As String, _
     Nivel As String, Oro As String, Banco As String, status As String)
 
-    NombreData.Caption = ReadField(2, nombre, 58)
-    RazaData.Caption = ReadField(2, Raza, 58)
-    ClaseData.Caption = ReadField(2, Clase, 58)
-    GeneroData.Caption = ReadField(2, Genero, 58)
-    NivelData.Caption = ReadField(2, Nivel, 58)
-    OroData.Caption = ReadField(2, Oro, 58)
-    BancoData.Caption = ReadField(2, Banco, 58)
+    NombreData.Caption = readfield2(2, Nombre, 58)
+    RazaData.Caption = readfield2(2, Raza, 58)
+    ClaseData.Caption = readfield2(2, Clase, 58)
+    GeneroData.Caption = readfield2(2, Genero, 58)
+    NivelData.Caption = readfield2(2, Nivel, 58)
+    OroData.Caption = readfield2(2, Oro, 58)
+    BancoData.Caption = readfield2(2, Banco, 58)
     If UCase$(status) = " (CIUDADANO)" Then
         StatusData.Caption = "Ciudadano"
         StatusData.ForeColor = vbBlue
@@ -275,7 +275,7 @@ Private Sub Command1_Click()
     Unload Me
 End Sub
 
-Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Command1.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -297,7 +297,7 @@ Private Sub Command2_Click()
    
 End Sub
 
-Private Sub Command2_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command2_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Command2.MouseIcon = Iconos.Ico_Mano
 End Sub
 

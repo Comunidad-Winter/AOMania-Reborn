@@ -90,7 +90,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, _
 
         rData = Right$(rData, Len(rData) - 11)
 
-        tName = ReadField(1, rData, 32)
+        tName = readfield2(1, rData, 32)
         tMessage = Right$(rData, Len(rData) - (1 + Len(tName)))
         TIndex = NameIndex(tName)
 
@@ -1310,10 +1310,17 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, _
                 Exit Sub
 
             End If
+            
+            If UserList(UserIndex).flags.Navegando = 1 Then
+                Call SendData(ToIndex, UserIndex, 0, "||¡¡Estando Navegando No puedes comerciar!!" & FONTTYPE_INFO)
+                Exit Sub
+            End If
+            
+            
 
             If UserList(UserIndex).flags.Montado = True Then
 
-                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡Debes Demontarte para poder Comerciar!.!" & FONTTYPE_INFO)
+                Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡¡Estando Montado No puedes comerciar!!" & FONTTYPE_INFO)
                 Exit Sub
 
             End If
@@ -1370,6 +1377,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, _
                     Exit Sub
 
                 End If
+                
 
                 If UserList(UserList(UserIndex).flags.TargetUser).flags.Muerto = 1 Then
 
@@ -1381,7 +1389,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, _
                 'soy yo ?
                 If UserList(UserIndex).flags.TargetUser = UserIndex Then
 
-                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No puedes comerciar con vos mismo..." & FONTTYPE_INFO)
+                    Call SendData(SendTarget.ToIndex, UserIndex, 0, "||¡ No puedes comerciar contigo mismo !" & FONTTYPE_INFO)
                     Exit Sub
 
                 End If
@@ -2356,7 +2364,7 @@ Public Sub HandleData_2(ByVal UserIndex As Integer, _
             '2vs2
         Case "/PAREJA "
             rData = Right$(rData, Len(rData) - 8)
-            TIndex = NameIndex(ReadField(1, rData, 32))
+            TIndex = NameIndex(readfield2(1, rData, 32))
 
             If TIndex = UserIndex Then
 

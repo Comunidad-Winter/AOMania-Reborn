@@ -985,7 +985,7 @@ Function FileExist(ByVal File As String, Optional FileType As VbFileAttribute = 
 
 End Function
 
-Public Function ReadField(ByVal Pos As Long, ByRef Text As String, ByVal SepASCII As Long) As String
+Public Function readfield(ByVal Pos As Long, ByRef Text As String, ByVal SepASCII As Long) As String
 '*****************************************************************
 'Author: Juan Martín Sotuyo Dodero (Maraxus)
 'Last Modify Date: 11/15/2004
@@ -1002,11 +1002,34 @@ Public Function ReadField(ByVal Pos As Long, ByRef Text As String, ByVal SepASCI
     Next i
 
     If CurrentPos = 0 Then
-        ReadField = mid$(Text, lastPos + 1, Len(Text) - lastPos)
+        readfield = mid$(Text, lastPos + 1, Len(Text) - lastPos)
     Else
-        ReadField = mid$(Text, lastPos + 1, CurrentPos - lastPos - 1)
+        readfield = mid$(Text, lastPos + 1, CurrentPos - lastPos - 1)
     End If
 
+End Function
+
+Function readfield2(ByVal iPos As Long, _
+                    ByRef sText As String, _
+                    ByVal CharAscii As Long) As String
+    ' Mismo que anterior con los parametros formales...
+ 
+    '
+    ' @ maTih.-
+     
+    Dim Read_Field() As String
+ 
+    'Creo un array temporal.
+    Read_Field = Split(sText, ChrW$(CharAscii))
+    ' Mismo que antes con chrW
+     
+    If (iPos - 1) <= UBound(Read_Field()) Then
+
+        'devuelve
+        readfield2 = (Read_Field(iPos - 1))
+
+    End If
+     
 End Function
 
 Function MapaValido(ByVal Map As Integer) As Boolean
@@ -1376,7 +1399,7 @@ Function ValidInputNP(ByVal cad As String) As Boolean
 
     For i = 1 To 33
 
-        Arg = ReadField(i, cad, 44)
+        Arg = readfield2(i, cad, 44)
 
         If Arg = "" Then Exit Function
 

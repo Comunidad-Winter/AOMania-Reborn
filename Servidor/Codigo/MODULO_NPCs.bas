@@ -977,8 +977,8 @@ Function OpenNPC(ByVal NPCNumber As Integer, Optional ByVal Respawn = True) As I
 
         For LagaNDrop = 1 To Npclist(NpcIndex).Drops.NumDrop
 
-            Npclist(NpcIndex).Drops.DropIndex(LagaNDrop) = val(ReadField(1, Leer.GetValue("NPC" & NPCNumber, "Obj" & LagaNDrop & ""), 45))
-            Npclist(NpcIndex).Drops.Amount(LagaNDrop) = val(ReadField(2, Leer.GetValue("NPC" & NPCNumber, "Obj" & LagaNDrop & ""), 45))
+            Npclist(NpcIndex).Drops.DropIndex(LagaNDrop) = val(readfield2(1, Leer.GetValue("NPC" & NPCNumber, "Obj" & LagaNDrop & ""), 45))
+            Npclist(NpcIndex).Drops.Amount(LagaNDrop) = val(readfield2(2, Leer.GetValue("NPC" & NPCNumber, "Obj" & LagaNDrop & ""), 45))
             Npclist(NpcIndex).Drops.Porcentaje(LagaNDrop) = val(Leer.GetValue("NPC" & NPCNumber, "Prob" & LagaNDrop & ""))
         Next LagaNDrop
 
@@ -1049,9 +1049,9 @@ Function OpenNPC(ByVal NPCNumber As Integer, Optional ByVal Respawn = True) As I
 
             End If
 
-            Npclist(NpcIndex).Invent.Object(LoopC).ObjIndex = val(ReadField(1, ln, 45))
-            Npclist(NpcIndex).Invent.Object(LoopC).Amount = val(ReadField(2, ln, 45))
-            Npclist(NpcIndex).Invent.Object(LoopC).ProbTirar = val(ReadField(3, ln, 45))
+            Npclist(NpcIndex).Invent.Object(LoopC).ObjIndex = val(readfield2(1, ln, 45))
+            Npclist(NpcIndex).Invent.Object(LoopC).Amount = val(readfield2(2, ln, 45))
+            Npclist(NpcIndex).Invent.Object(LoopC).ProbTirar = val(readfield2(3, ln, 45))
 
         End If
 

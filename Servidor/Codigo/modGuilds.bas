@@ -216,7 +216,7 @@ Public Function m_ValidarPermanencia(ByVal UserIndex As Integer, _
             CambioLider = False
             i = 1
             ML = Guilds(GuildIndex).GetMemberList(",")
-            m = ReadField(i, ML, Asc(","))
+            m = readfield2(i, ML, Asc(","))
 
             While m <> vbNullString
 
@@ -268,7 +268,7 @@ Public Function m_ValidarPermanencia(ByVal UserIndex As Integer, _
                 End If
 
                 i = i + 1
-                m = ReadField(i, ML, Asc(","))
+                m = readfield2(i, ML, Asc(","))
             Wend
         Else
             'no se va el fundador, el peor caso es que se vaya el lider
@@ -345,7 +345,7 @@ Public Function m_EcharMiembroDeClan(ByVal Expulsador As Integer, ByVal Expulsad
                 Call Guilds(GI).ExpulsarMiembro(Expulsado)
                 Call LogClanes(Expulsado & " ha sido expulsado de " & Guilds(GI).GuildName & " Expulsador = " & Expulsador)
                 UserList(UserIndex).GuildIndex = 0
-                Call WarpUserChar(UserIndex, UserList(UserIndex).pos.Map, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+                Call WarpUserChar(UserIndex, UserList(UserIndex).Pos.Map, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
                 m_EcharMiembroDeClan = GI
                 If UseItem Then
                     Call QuitarObjetos(1660, 1, Expulsador)
@@ -408,11 +408,11 @@ Public Sub ActualizarCodexYDesc(ByRef Datos As String, ByVal GuildIndex As Integ
     Dim i As Integer
 
     If GuildIndex = 0 Then Exit Sub
-    Call Guilds(GuildIndex).SetDesc(ReadField(1, Datos, Asc("¬")))
-    CantCodex = CInt(ReadField(2, Datos, Asc("¬")))
+    Call Guilds(GuildIndex).SetDesc(readfield2(1, Datos, Asc("¬")))
+    CantCodex = CInt(readfield2(2, Datos, Asc("¬")))
 
     For i = 1 To CantCodex
-        Call Guilds(GuildIndex).SetCodex(i, ReadField(2 + i, Datos, Asc("¬")))
+        Call Guilds(GuildIndex).SetCodex(i, readfield2(2 + i, Datos, Asc("¬")))
     Next i
 
     For i = CantCodex + 1 To CANTIDADMAXIMACODEX
@@ -454,7 +454,7 @@ Public Function CrearNuevoClan(ByRef GuildInfo As String, _
 
     End If
 
-    GuildName = Trim$(ReadField(2, GuildInfo, Asc("¬")))
+    GuildName = Trim$(readfield2(2, GuildInfo, Asc("¬")))
 
     If GuildName = vbNullString Or Not GuildNameValido(GuildName) Then
         refError = "Nombre de clan inválido."
@@ -468,16 +468,16 @@ Public Function CrearNuevoClan(ByRef GuildInfo As String, _
 
     End If
 
-    Descripcion = ReadField(1, GuildInfo, Asc("¬"))
-    URL = ReadField(3, GuildInfo, Asc("¬"))
-    CantCodex = CInt(ReadField(4, GuildInfo, Asc("¬")))
-    Password = ReadField(5, GuildInfo, Asc("¬"))
+    Descripcion = readfield2(1, GuildInfo, Asc("¬"))
+    URL = readfield2(3, GuildInfo, Asc("¬"))
+    CantCodex = CInt(readfield2(4, GuildInfo, Asc("¬")))
+    Password = readfield2(5, GuildInfo, Asc("¬"))
 
     If CantCodex > 0 Then
         ReDim codex(1 To CantCodex) As String
 
         For i = 1 To CantCodex
-            codex(i) = ReadField(4 + i, GuildInfo, Asc("¬"))
+            codex(i) = readfield2(4 + i, GuildInfo, Asc("¬"))
         Next i
 
     End If
@@ -509,7 +509,7 @@ Public Function CrearNuevoClan(ByRef GuildInfo As String, _
         Call Guilds(CANTIDADDECLANES).AceptarNuevoMiembro(UserList(FundadorIndex).Name)
         Call Guilds(CANTIDADDECLANES).ConectarMiembro(FundadorIndex)
         UserList(FundadorIndex).GuildIndex = CANTIDADDECLANES
-        Call WarpUserChar(FundadorIndex, UserList(FundadorIndex).pos.Map, UserList(FundadorIndex).pos.X, UserList(FundadorIndex).pos.Y, False)
+        Call WarpUserChar(FundadorIndex, UserList(FundadorIndex).Pos.Map, UserList(FundadorIndex).Pos.X, UserList(FundadorIndex).Pos.Y, False)
 
         For i = 1 To CANTIDADDECLANES - 1
             Call Guilds(i).ProcesarFundacionDeOtroClan

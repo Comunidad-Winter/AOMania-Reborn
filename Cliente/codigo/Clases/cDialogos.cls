@@ -75,8 +75,8 @@ Private Const MS_ADD_EXTRA As Integer = 5000
 Private Type dialog
 
     textLine()  As String
-    x           As Integer
-    y           As Integer
+    X           As Integer
+    Y           As Integer
     startTime   As Long
     lifeTime    As Long
     charindex   As Integer
@@ -168,20 +168,20 @@ Public Sub CreateDialog(ByRef Chat As String, ByVal charindex As Integer, ByVal 
     'Changed life time of the dialogs to a variable amount,
     'depending on the number of chars
     '**************************************************************
-    Dim slot As Integer
+    Dim Slot As Integer
     Dim i    As Long
     
     Color = LONGTORGBDX8(Color) ' Pasaje a DX8
     
-    slot = BinarySearch(charindex)
+    Slot = BinarySearch(charindex)
     
-    If slot < 0 Then
+    If Slot < 0 Then
         If dialogCount = MAX_DIALOGS Then Exit Sub  'Out of space! Should never happen....
         
         'We need to add it. Get insertion index and move list backwards.
-        slot = Not slot
+        Slot = Not Slot
         
-        For i = dialogCount To slot + 1 Step -1
+        For i = dialogCount To Slot + 1 Step -1
             dialogs(i) = dialogs(i - 1)
         Next i
         
@@ -189,7 +189,7 @@ Public Sub CreateDialog(ByRef Chat As String, ByVal charindex As Integer, ByVal 
 
     End If
     
-    With dialogs(slot)
+    With dialogs(Slot)
         .charindex = charindex
         .Color(0) = Color
         .Color(1) = Color
@@ -241,7 +241,7 @@ Private Function FormatChat(ByRef Chat As String) As String()
     
     'Start formating
     Do While acumLength < Length
-        word = ReadField(curPos, Chat, 32)
+        word = readfield2(curPos, Chat, 32)
         
         wordLength = Len(word)
         
@@ -296,22 +296,22 @@ End Function
 ' @param    y           The Y coord where to start rendering.
 ' @param    charIndex   The character whose dialog's position is being updated.
 
-Public Sub UpdateDialogPos(ByVal x As Integer, ByVal y As Integer, ByVal charindex As Integer)
+Public Sub UpdateDialogPos(ByVal X As Integer, ByVal Y As Integer, ByVal charindex As Integer)
 
     '**************************************************************
     'Author: Juan Martín Sotuyo Dodero
     'Last Modify Date: 07/28/07
     'Updates a dialog's position.
     '**************************************************************
-    Dim slot As Integer
+    Dim Slot As Integer
     
-    slot = BinarySearch(charindex)
+    Slot = BinarySearch(charindex)
     
-    If slot >= 0 Then
+    If Slot >= 0 Then
 
-        With dialogs(slot)
-            .x = x - (MAX_LENGTH \ 2) * 3
-            .y = y - (UBound(.textLine()) * 3)
+        With dialogs(Slot)
+            .X = X - (MAX_LENGTH \ 2) * 3
+            .Y = Y - (UBound(.textLine()) * 3)
             .renderable = True
 
         End With
@@ -332,7 +332,7 @@ Public Sub Render()
     '**************************************************************
     Dim i              As Long
     Dim j              As Long
-    Dim Offset         As Integer
+    Dim offset         As Integer
     Dim removedDialogs As Long
     
     For i = 0 To dialogCount - 1
@@ -350,16 +350,16 @@ Public Sub Render()
                 If .lifeTime >= 293 Then
                     .Sube = .Sube - 1
 
-                    If .Sube > 0 Then .y = .y + .Sube
+                    If .Sube > 0 Then .Y = .Y + .Sube
 
                 End If
 
-                Offset = -(9) * UBound(.textLine())
+                offset = -(9) * UBound(.textLine())
                 
                 'Render it
                 For j = 0 To UBound(.textLine())
-                    Call Text_Draw(.x, .y + Offset, .textLine(j), .Color)
-                    Offset = Offset + 12
+                    Call Text_Draw(.X, .Y + offset, .textLine(j), .Color)
+                    offset = offset + 12
                 Next j
                 
                 'Won't render it unless it's updated in next frmae
@@ -385,15 +385,15 @@ Public Sub RemoveDialog(ByVal charindex As Integer)
     'Last Modify Date: 07/28/07
     'Removes the dialog from the requested char.
     '**************************************************************
-    Dim slot As Integer
+    Dim Slot As Integer
 
     Dim i    As Long
     
-    slot = BinarySearch(charindex)
+    Slot = BinarySearch(charindex)
     
-    If slot < 0 Then Exit Sub
+    If Slot < 0 Then Exit Sub
     
-    For i = slot To MAX_DIALOGS - 2
+    For i = Slot To MAX_DIALOGS - 2
         dialogs(i) = dialogs(i + 1)
     Next i
     

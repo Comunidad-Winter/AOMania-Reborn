@@ -59,7 +59,7 @@ Public Sub NPC_TIRAR_ITEMS(ByRef npc As npc, ByVal UserIndex As Integer)
 
     Dim Probabilidad As Long
 
-    Dim P            As Double
+    Dim p            As Double
 
     If npc.Invent.NroItems > 0 Then
 
@@ -73,8 +73,8 @@ Public Sub NPC_TIRAR_ITEMS(ByRef npc As npc, ByVal UserIndex As Integer)
                 If npc.Drops.Porcentaje(LagaI) <> 0 Then
                 
                     Suerte = ((UserList(UserIndex).Stats.UserSkills(eSkill.Suerte) + 5) / 10)
-                    P = (100 / npc.Drops.Porcentaje(LagaI))
-                    Probabilidad = Int(P)
+                    p = (100 / npc.Drops.Porcentaje(LagaI))
+                    Probabilidad = Int(p)
                  
                     If Suerte = 0 Then Suerte = 1
                     If UserList(UserIndex).Stats.UserSkills(eSkill.Suerte) = 100 Then Suerte = 11
@@ -153,8 +153,8 @@ Function EncontrarCant(ByVal NpcIndex As Integer, ByVal ObjIndex As Integer) As 
     For i = 1 To MAX_INVENTORY_SLOTS
         ln = GetVar(npcfile, "NPC" & Npclist(NpcIndex).Numero, "Obj" & i)
 
-        If ObjIndex = val(ReadField(1, ln, 45)) Then
-            EncontrarCant = val(ReadField(2, ln, 45))
+        If ObjIndex = val(readfield2(1, ln, 45)) Then
+            EncontrarCant = val(readfield2(2, ln, 45))
             Exit Function
 
         End If
@@ -246,8 +246,8 @@ Npclist(NpcIndex).Invent.NroItems = val(GetVar(npcfile, "NPC" & Npclist(NpcIndex
 
 For LoopC = 1 To Npclist(NpcIndex).Invent.NroItems
     ln = GetVar(npcfile, "NPC" & Npclist(NpcIndex).Numero, "Obj" & LoopC)
-    Npclist(NpcIndex).Invent.Object(LoopC).ObjIndex = val(ReadField(1, ln, 45))
-    Npclist(NpcIndex).Invent.Object(LoopC).Amount = val(ReadField(2, ln, 45))
+    Npclist(NpcIndex).Invent.Object(LoopC).ObjIndex = val(readfield2(1, ln, 45))
+    Npclist(NpcIndex).Invent.Object(LoopC).Amount = val(readfield2(2, ln, 45))
      'TTT////////////////77
        ' Npclist(NpcIndex).Prob(LoopC) = val(Leer.DarValor("NPC" & NpcIndex, "prob" & LoopC))
     'TTT////////////////77

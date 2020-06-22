@@ -192,7 +192,7 @@ Sub CommandGuerra(UserIndex As Integer)
     End If
 
     If Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype = eNPCType.Banda Then
-        If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > _
+        If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > _
            10 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
             Exit Sub
@@ -293,31 +293,31 @@ Sub Ban_Entra(UserIndex As Integer)
     If CantQuitBan > 0 Then
 
         For X = LBound(Quit_Luchadores) To UBound(Quit_Luchadores)
-            If ReadField(2, Quit_Luchadores(X), 44) = "Angel" Then
+            If readfield2(2, Quit_Luchadores(X), 44) = "Angel" Then
 
-                Ban_Luchadores(ReadField(1, Quit_Luchadores(X), 44)) = UserIndex
+                Ban_Luchadores(readfield2(1, Quit_Luchadores(X), 44)) = UserIndex
                 Angeles = Angeles + 1
 
-                UserList(Ban_Luchadores(ReadField(1, Quit_Luchadores(X), 44))).flags.bandas = True
-                UserList(Ban_Luchadores(ReadField(1, Quit_Luchadores(X), 44))).flags.Angel = True
+                UserList(Ban_Luchadores(readfield2(1, Quit_Luchadores(X), 44))).flags.bandas = True
+                UserList(Ban_Luchadores(readfield2(1, Quit_Luchadores(X), 44))).flags.Angel = True
                 Call Transforma(UserIndex)
 
-                Call WarpGuerra(UserIndex, ReadField(3, Quit_Luchadores(X), 44))
+                Call WarpGuerra(UserIndex, readfield2(3, Quit_Luchadores(X), 44))
                 CantQuitBan = CantQuitBan - 1
                 Quit_Luchadores(X) = ""
                 Exit Sub
             End If
 
-            If ReadField(2, Quit_Luchadores(X), 44) = "Demonio" Then
+            If readfield2(2, Quit_Luchadores(X), 44) = "Demonio" Then
 
-                Ban_Luchadores(ReadField(1, Quit_Luchadores(X), 44)) = UserIndex
+                Ban_Luchadores(readfield2(1, Quit_Luchadores(X), 44)) = UserIndex
                 Demonios = Demonios + 1
 
-                UserList(Ban_Luchadores(ReadField(1, Quit_Luchadores(X), 44))).flags.bandas = True
-                UserList(Ban_Luchadores(ReadField(1, Quit_Luchadores(X), 44))).flags.Demonio = True
+                UserList(Ban_Luchadores(readfield2(1, Quit_Luchadores(X), 44))).flags.bandas = True
+                UserList(Ban_Luchadores(readfield2(1, Quit_Luchadores(X), 44))).flags.Demonio = True
                 Call Transforma(UserIndex)
 
-                Call WarpGuerra(UserIndex, ReadField(3, Quit_Luchadores(X), 44))
+                Call WarpGuerra(UserIndex, readfield2(3, Quit_Luchadores(X), 44))
                 CantQuitBan = CantQuitBan - 1
                 Quit_Luchadores(X) = ""
                 Exit Sub
@@ -441,7 +441,7 @@ Sub Destransforma(ByVal UserIndex As Integer)
         UserList(UserIndex).Counters.Mimetismo = 0
         UserList(UserIndex).flags.Mimetizado = 0
 
-        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserIndex, UserList( _
+        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).Pos.Map, UserIndex, UserList( _
                                                                                                  UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, _
                             UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList( _
                                                                                                       UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
@@ -476,7 +476,7 @@ Sub Transforma(ByVal UserIndex As Integer)
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, _
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, _
                                 .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
 
         End With
@@ -503,7 +503,7 @@ Sub Transforma(ByVal UserIndex As Integer)
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, _
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, _
                                 .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
 
         End With
@@ -525,7 +525,7 @@ Sub Ban_ReloadTransforma(UserIndex)
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, _
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, _
                                 .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
         End If
 
@@ -538,7 +538,7 @@ Sub Ban_ReloadTransforma(UserIndex)
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, _
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, _
                                 .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
         End If
     End With
@@ -815,7 +815,7 @@ Sub Ban_Desconecta(ByVal UserIndex As Integer)
 
         If UserList(UserIndex).flags.Demonio = True Then
 
-            Posicion = PositionGuerra(UserIndex, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+            Posicion = PositionGuerra(UserIndex, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
 
             InfoQuit = InfoQuit & "," & Posicion
 
@@ -825,7 +825,7 @@ Sub Ban_Desconecta(ByVal UserIndex As Integer)
         End If
 
         If UserList(UserIndex).flags.Angel = True Then
-            Posicion = PositionGuerra(UserIndex, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+            Posicion = PositionGuerra(UserIndex, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
 
             InfoQuit = InfoQuit & "," & Posicion
 
@@ -861,7 +861,7 @@ Function PositionGuerra(UserIndex As Integer, PosX As Integer, PosY As Integer)
 
     With UserList(UserIndex)
 
-        If .pos.Map = MapaBan Then
+        If .Pos.Map = MapaBan Then
 
             If .flags.Angel = True Then
 
@@ -1283,7 +1283,7 @@ Sub PasaTimeBan()
 
     For i = 1 To NumNPCs
 
-        If Npclist(i).pos.Map = MapaBan Then
+        If Npclist(i).Pos.Map = MapaBan Then
 
             If Npclist(i).Numero = 253 Then
                 HpDemonios = Npclist(i).Stats.MinHP

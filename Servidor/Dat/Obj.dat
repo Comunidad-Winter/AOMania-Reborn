@@ -3846,6 +3846,7 @@ Anim=7
 MaxHIT=9
 MinHIT=7
 Proyectil=1
+TipoMunicion=1
 Municiones=1
 Valor=45000
 CP1=MAGO
@@ -4905,6 +4906,7 @@ MaxHIT=5
 MinHIT=3
 Proyectil=1
 Municiones=1
+TipoMunicion=1
 Valor=16000
 Crucial=1
 CP1=MAGO
@@ -4931,6 +4933,7 @@ MaxHIT=12
 MinHIT=10
 Proyectil=1
 Municiones=1
+TipoMunicion=1
 Valor=100000
 Crucial=1
 CP1=MAGO
@@ -4959,6 +4962,7 @@ CP1=MAGO
 CP2=CLERIGO
 CP11=BRUJO
 SkCarpinteria=20
+TipoMunicion=1
 Madera=1
  
 [OBJ481]
@@ -6079,6 +6083,7 @@ CP1=MAGO
 CP11=BRUJO
 SkCarpinteria=30
 Madera=3
+TipoMunicion=1
  
 [OBJ552]
 Name=Flecha + 2
@@ -6092,6 +6097,7 @@ CP1=MAGO
 CP11=BRUJO
 SkCarpinteria=40
 Madera=5
+TipoMunicion=1
  
 [OBJ553]
 Name=Flecha + 3
@@ -6104,6 +6110,7 @@ CP1=MAGO
 CP11=BRUJO
 SkCarpinteria=50
 Madera=7
+TipoMunicion=1
  
 [OBJ554]
 Name=Lampara Plata
@@ -7242,6 +7249,7 @@ MaxHIT=17
 MinHIT=15
 Proyectil=1
 Municiones=1
+TipoMunicion=1
 LingH=70
 LingP=60
 LingO=50
@@ -10673,6 +10681,7 @@ CP7=DRUIDA
 CP11=BRUJO
 SkCarpinteria=40
 Madera=1500
+TipoMunicion=4
  
 [OBJ931]
 Name=Puerta de madera abierta blanca
@@ -11008,6 +11017,7 @@ CP7=DRUIDA
 CP11=BRUJO
 SkCarpinteria=30
 Madera=20
+TipoMunicion=4
  
 [OBJ965]
 Name=Ballesta Compuesta
@@ -11024,6 +11034,7 @@ CP7=DRUIDA
 CP11=BRUJO
 SkCarpinteria=70
 Madera=2500
+TipoProyectil=4
  
 [OBJ966]
 Name=Dardo
@@ -11482,6 +11493,7 @@ MaxHIT=13
 MinHIT=11
 Proyectil=1
 Municiones=1
+TipoMunicion=1
 ObjetoEspecial=54
 Sagrado=1
 NoRobable=1
@@ -13451,6 +13463,7 @@ MaxHIT=3
 MinHIT=2
 Proyectil=1
 Municiones=1
+TipoMunicion=1
 Crucial=1
 CP1=MAGO
 CP2=CLERIGO
@@ -13465,6 +13478,7 @@ Newbie=1
 MaxHIT=1
 MinHIT=1
 Crucial=1
+TipoMunicion=1
 CP1=MAGO
 CP2=CLERIGO
 CP7=DRUIDA

@@ -429,7 +429,7 @@ Sub OroConnectRank(UserIndex As Integer)
 
     Do While Arch > ""
         Arch = Dir
-        Name = UCase(ReadField(1, Arch, 46))
+        Name = UCase(readfield2(1, Arch, 46))
 
         If RevNickOro(Name) = False Then
             If val(GetVar(App.Path & "\Charfile\" & Arch, "INIT", "LOGGED")) = 0 Then

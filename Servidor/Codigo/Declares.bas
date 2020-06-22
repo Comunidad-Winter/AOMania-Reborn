@@ -950,6 +950,7 @@ Public Type ObjData
 
     proyectil As Integer
     Municion As Integer
+    TipoMunicion As Integer
 
     Nivel As Byte    'nivel minimo usar item
 

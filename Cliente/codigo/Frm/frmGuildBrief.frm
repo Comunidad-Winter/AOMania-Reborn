@@ -593,28 +593,28 @@ Public Sub ParseGuildInfo(ByVal buffer As String)
 
     End If
 
-    nombre.Caption = "Nombre:" & ReadField(1, buffer, Asc("¬"))
-    fundador.Caption = "Fundador:" & ReadField(2, buffer, Asc("¬"))
-    creacion.Caption = "Fecha de creacion:" & ReadField(3, buffer, Asc("¬"))
-    lider.Caption = "Lider:" & ReadField(4, buffer, Asc("¬"))
-    web.Caption = "Web site:" & ReadField(5, buffer, Asc("¬"))
-    Miembros.Caption = "Miembros:" & ReadField(6, buffer, Asc("¬"))
-    eleccion.Caption = "Dias para proxima eleccion de lider:" & ReadField(7, buffer, Asc("¬"))
-    'Oro.Caption = "Oro:" & ReadField(8, Buffer, Asc("¬"))
-    Enemigos.Caption = "Clanes enemigos:" & ReadField(8, buffer, Asc("¬"))
-    aliados.Caption = "Clanes aliados:" & ReadField(9, buffer, Asc("¬"))
-    antifaccion.Caption = "Puntos Antifaccion: " & ReadField(10, buffer, Asc("¬"))
+    Nombre.Caption = "Nombre:" & readfield2(1, buffer, Asc("¬"))
+    fundador.Caption = "Fundador:" & readfield2(2, buffer, Asc("¬"))
+    creacion.Caption = "Fecha de creacion:" & readfield2(3, buffer, Asc("¬"))
+    lider.Caption = "Lider:" & readfield2(4, buffer, Asc("¬"))
+    web.Caption = "Web site:" & readfield2(5, buffer, Asc("¬"))
+    Miembros.Caption = "Miembros:" & readfield2(6, buffer, Asc("¬"))
+    eleccion.Caption = "Dias para proxima eleccion de lider:" & readfield2(7, buffer, Asc("¬"))
+    'Oro.Caption = "Oro:" & readfield2(8, Buffer, Asc("¬"))
+    Enemigos.Caption = "Clanes enemigos:" & readfield2(8, buffer, Asc("¬"))
+    aliados.Caption = "Clanes aliados:" & readfield2(9, buffer, Asc("¬"))
+    antifaccion.Caption = "Puntos Antifaccion: " & readfield2(10, buffer, Asc("¬"))
 
     Dim T As Long
 
     For T = 1 To 8
-        Codex(T - 1).Caption = ReadField(11 + T, buffer, Asc("¬"))
+        Codex(T - 1).Caption = readfield2(11 + T, buffer, Asc("¬"))
     Next T
 
     Dim des As String
 
-    des = ReadField(20, buffer, Asc("¬"))
-    Desc.Text = Replace(des, "º", vbCrLf)
+    des = readfield2(20, buffer, Asc("¬"))
+    desc.Text = Replace(des, "º", vbCrLf)
 
     Me.Show vbModeless, frmMain
 
@@ -622,7 +622,7 @@ End Sub
 
 Private Sub aliado_Click()
 
-    frmCommet.nombre = Right(nombre.Caption, Len(nombre.Caption) - 7)
+    frmCommet.Nombre = Right(Nombre.Caption, Len(Nombre.Caption) - 7)
     frmCommet.T = ALIANZA
     frmCommet.Caption = "Ingrese propuesta de alianza"
     Call frmCommet.Show(, frmGuildBrief)
@@ -631,7 +631,7 @@ Private Sub aliado_Click()
     'Unload Me
 End Sub
 
-Private Sub aliado_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub aliado_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set aliado.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -641,25 +641,25 @@ Private Sub Command1_Click()
 
 End Sub
 
-Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command1.MouseIcon = Iconos.Ico_Mano
 End Sub
 
 Private Sub Command2_Click()
 
-    Call frmGuildSol.RecieveSolicitud(Right$(nombre, Len(nombre) - 7))
+    Call frmGuildSol.RecieveSolicitud(Right$(Nombre, Len(Nombre) - 7))
     Call frmGuildSol.Show(, frmGuildBrief)
     'Unload Me
 
 End Sub
 
-Private Sub Command2_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command2_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command2.MouseIcon = Iconos.Ico_Mano
 End Sub
 
 Private Sub Command3_Click()
 
-    frmCommet.nombre = Right(nombre.Caption, Len(nombre.Caption) - 7)
+    frmCommet.Nombre = Right(Nombre.Caption, Len(Nombre.Caption) - 7)
     frmCommet.T = PAZ
     frmCommet.Caption = "Ingrese propuesta de paz"
     Call frmCommet.Show(, frmGuildBrief)
@@ -667,7 +667,7 @@ Private Sub Command3_Click()
     'Unload Me
 End Sub
 
-Private Sub Command3_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command3_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command3.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -681,12 +681,12 @@ Private Sub Guerra_Click()
      
     frmMain.SetFocus
 
-    Call SendData("DECGUERR" & Right(nombre.Caption, Len(nombre.Caption) - 7))
+    Call SendData("DECGUERR" & Right(Nombre.Caption, Len(Nombre.Caption) - 7))
 
     Unload Me
 
 End Sub
 
-Private Sub Guerra_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Guerra_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set guerra.MouseIcon = Iconos.Ico_Mano
 End Sub

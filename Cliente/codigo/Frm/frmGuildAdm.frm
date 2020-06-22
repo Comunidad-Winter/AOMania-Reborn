@@ -139,7 +139,7 @@ Private Sub Command1_Click()
 
 End Sub
 
-Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command1.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -149,7 +149,7 @@ Private Sub Command2_Click()
     Call frmListClanes.ParseListClanes
 End Sub
 
-Private Sub Command2_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command2_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Command2.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -159,7 +159,7 @@ Private Sub Command3_Click()
 
 End Sub
 
-Public Sub ParseGuildList(ByVal Rdata As String)
+Public Sub ParseGuildList(ByVal rData As String)
 
     Dim j As Integer, k As Integer
 
@@ -167,17 +167,17 @@ Public Sub ParseGuildList(ByVal Rdata As String)
         Me.guildslist.RemoveItem 0
     Next j
 
-    k = CInt(ReadField(1, Rdata, 44))
+    k = CInt(readfield2(1, rData, 44))
 
     For j = 1 To k
-        guildslist.AddItem ReadField(1 + j, Rdata, 44)
+        guildslist.AddItem readfield2(1 + j, rData, 44)
     Next j
 
     Me.Show , frmMain
 
 End Sub
 
-Private Sub Command3_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command3_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command3.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -185,6 +185,6 @@ Private Sub Form_Load()
     Set Me.MouseIcon = Iconos.Ico_Diablo
 End Sub
 
-Private Sub GuildsList_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub GuildsList_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     guildslist.MouseIcon = Iconos.Ico_Diablo
 End Sub

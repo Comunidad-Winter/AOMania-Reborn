@@ -83,31 +83,31 @@ Sub Med_Entra(UserIndex As Integer)
     If CantQuitMed > 0 Then
 
         For X = LBound(QuitMed_Luchadores) To UBound(QuitMed_Luchadores)
-            If ReadField(2, QuitMed_Luchadores(X), 44) = "Corsario" Then
+            If readfield2(2, QuitMed_Luchadores(X), 44) = "Corsario" Then
 
-                Med_Participantes(ReadField(1, QuitMed_Luchadores(X), 44)) = UserIndex
+                Med_Participantes(readfield2(1, QuitMed_Luchadores(X), 44)) = UserIndex
                 Corsarios = Corsarios + 1
 
-                UserList(Med_Participantes(ReadField(1, QuitMed_Luchadores(X), 44))).flags.bandas = True
-                UserList(Med_Participantes(ReadField(1, QuitMed_Luchadores(X), 44))).flags.Angel = True
+                UserList(Med_Participantes(readfield2(1, QuitMed_Luchadores(X), 44))).flags.bandas = True
+                UserList(Med_Participantes(readfield2(1, QuitMed_Luchadores(X), 44))).flags.Angel = True
                 Call Med_Transforma(UserIndex)
 
-                Call WarpMedusas(UserIndex, ReadField(3, QuitMed_Luchadores(X), 44))
+                Call WarpMedusas(UserIndex, readfield2(3, QuitMed_Luchadores(X), 44))
                 CantQuitMed = CantQuitMed - 1
                 QuitMed_Luchadores(X) = ""
                 Exit Sub
             End If
 
-            If ReadField(2, QuitMed_Luchadores(X), 44) = "Pirata" Then
+            If readfield2(2, QuitMed_Luchadores(X), 44) = "Pirata" Then
 
-                Med_Participantes(ReadField(1, QuitMed_Luchadores(X), 44)) = UserIndex
+                Med_Participantes(readfield2(1, QuitMed_Luchadores(X), 44)) = UserIndex
                 Piratas = Piratas + 1
 
-                UserList(Med_Participantes(ReadField(1, QuitMed_Luchadores(X), 44))).flags.bandas = True
-                UserList(Med_Participantes(ReadField(1, QuitMed_Luchadores(X), 44))).flags.Demonio = True
+                UserList(Med_Participantes(readfield2(1, QuitMed_Luchadores(X), 44))).flags.bandas = True
+                UserList(Med_Participantes(readfield2(1, QuitMed_Luchadores(X), 44))).flags.Demonio = True
                 Call Med_Transforma(UserIndex)
 
-                Call WarpMedusas(UserIndex, ReadField(3, QuitMed_Luchadores(X), 44))
+                Call WarpMedusas(UserIndex, readfield2(3, QuitMed_Luchadores(X), 44))
                 CantQuitMed = CantQuitMed - 1
                 QuitMed_Luchadores(X) = ""
                 Exit Sub
@@ -437,7 +437,7 @@ Sub Med_Transforma(ByVal UserIndex As Integer)
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, _
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, _
                                 .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
 
         End With
@@ -464,7 +464,7 @@ Sub Med_Transforma(ByVal UserIndex As Integer)
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, _
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, _
                                 .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
 
         End With
@@ -486,7 +486,7 @@ Sub Med_ReloadTransforma(UserIndex)
             .char.ShieldAnim = 2
             .char.Alas = 0
 
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, _
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, _
                                 .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
         End If
 
@@ -498,7 +498,7 @@ Sub Med_ReloadTransforma(UserIndex)
             .char.WeaponAnim = 2
             .char.ShieldAnim = 2
             .char.Alas = 0
-            Call ChangeUserChar(SendTarget.ToMap, 0, .pos.Map, UserIndex, .char.Body, .char.Head, _
+            Call ChangeUserChar(SendTarget.ToMap, 0, .Pos.Map, UserIndex, .char.Body, .char.Head, _
                                 .char.heading, .char.WeaponAnim, .char.ShieldAnim, .char.CascoAnim, .char.Alas)
         End If
     End With
@@ -525,7 +525,7 @@ Sub Med_Destransforma(ByVal UserIndex As Integer)
         UserList(UserIndex).Counters.Mimetismo = 0
         UserList(UserIndex).flags.Mimetizado = 0
 
-        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).pos.Map, UserIndex, UserList( _
+        Call ChangeUserChar(SendTarget.ToMap, UserIndex, UserList(UserIndex).Pos.Map, UserIndex, UserList( _
                                                                                                  UserIndex).char.Body, UserList(UserIndex).char.Head, UserList(UserIndex).char.heading, _
                             UserList(UserIndex).char.WeaponAnim, UserList(UserIndex).char.ShieldAnim, UserList( _
                                                                                                       UserIndex).char.CascoAnim, UserList(UserIndex).char.Alas)
@@ -554,7 +554,7 @@ Sub Med_Desconecta(UserIndex As Integer)
 
         If UserList(UserIndex).flags.Piratas = True Then
 
-            Posicion = PositionMedusa(UserIndex, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+            Posicion = PositionMedusa(UserIndex, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
 
             Piratas = Piratas - 1
 
@@ -566,7 +566,7 @@ Sub Med_Desconecta(UserIndex As Integer)
 
         If UserList(UserIndex).flags.Corsarios = True Then
 
-            Posicion = PositionMedusa(UserIndex, UserList(UserIndex).pos.X, UserList(UserIndex).pos.Y)
+            Posicion = PositionMedusa(UserIndex, UserList(UserIndex).Pos.X, UserList(UserIndex).Pos.Y)
 
             Corsarios = Corsarios - 1
 
@@ -605,7 +605,7 @@ End Sub
 Function PositionMedusa(UserIndex As Integer, PosX As Integer, PosY As Integer)
     With UserList(UserIndex)
 
-        If .pos.Map = MapaMedusa Then
+        If .Pos.Map = MapaMedusa Then
 
             If .flags.Corsarios = True Then
 
@@ -767,16 +767,16 @@ Sub Med_Empieza()
     Next i
 End Sub
 
-Sub MedLegalPos(UserIndex As Integer, StartPos As Integer, pos As WorldPos, ByRef nPos As WorldPos)
+Sub MedLegalPos(UserIndex As Integer, StartPos As Integer, Pos As WorldPos, ByRef nPos As WorldPos)
     Dim Tx As Byte
     Dim Ty As Byte
 
-    nPos.Map = pos.Map
+    nPos.Map = Pos.Map
 
     If UserList(UserIndex).flags.Corsarios = True Then
 
-        Ty = pos.Y
-        Tx = pos.X - StartPos
+        Ty = Pos.Y
+        Tx = Pos.X - StartPos
 
         If Not LegalPos(nPos.Map, Tx, Ty) Then
             nPos.X = Tx
@@ -786,8 +786,8 @@ Sub MedLegalPos(UserIndex As Integer, StartPos As Integer, pos As WorldPos, ByRe
 
     If UserList(UserIndex).flags.Piratas = True Then
 
-        Ty = pos.Y
-        Tx = pos.X + StartPos
+        Ty = Pos.Y
+        Tx = Pos.X + StartPos
 
         If Not LegalPos(nPos.Map, Tx, Ty) Then
             nPos.X = Tx
@@ -797,26 +797,26 @@ Sub MedLegalPos(UserIndex As Integer, StartPos As Integer, pos As WorldPos, ByRe
 
 End Sub
 
-Sub MedFinishPos(UserIndex As Integer, pos As WorldPos, ByRef nPos As WorldPos)
+Sub MedFinishPos(UserIndex As Integer, Pos As WorldPos, ByRef nPos As WorldPos)
 
     Dim Tx As Byte
     Dim Ty As Byte
 
-    nPos.Map = pos.Map
+    nPos.Map = Pos.Map
 
     If CountFinishPos <= 16 Then
 
         CountFinishPos = CountFinishPos + 1
 
-        Ty = pos.Y
-        Tx = pos.X + CountFinishPos
+        Ty = Pos.Y
+        Tx = Pos.X + CountFinishPos
 
     Else
 
         CountTwoFinishPos = CountTwoFinishPos + 1
 
-        Ty = pos.Y + 1
-        Tx = pos.X + CountTwoFinishPos
+        Ty = Pos.Y + 1
+        Tx = Pos.X + CountTwoFinishPos
     End If
 
     If Not LegalPos(nPos.Map, Tx, Ty) Then
@@ -1097,7 +1097,7 @@ Sub PasaTimeMed()
 
     For i = 1 To NumNPCs
 
-        If Npclist(i).pos.Map = MapaMedusa Then
+        If Npclist(i).Pos.Map = MapaMedusa Then
 
             If Npclist(i).Numero = NpcCorsarios Then
 

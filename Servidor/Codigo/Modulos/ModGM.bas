@@ -80,7 +80,7 @@ Function ComandosPermitidos(ByVal UserIndex As Integer) As Boolean
                     X = Len(r)
 
                     For n = 1 To X
-                        info = ReadField(n, d, 32)
+                        info = readfield2(n, d, 32)
 
                         For g = 1 To NumGCP
 
@@ -231,8 +231,8 @@ Public Sub CommandAdmins(ByVal UserIndex As Integer, ByVal rData As String)
 
         Dim Procesoo As String
 
-        Nombree = ReadField(1, rData, 44)
-        Procesoo = ReadField(2, rData, 44)
+        Nombree = readfield2(1, rData, 44)
+        Procesoo = readfield2(2, rData, 44)
         TIndex = NameIndex(Nombree)
 
         If TIndex <= 0 Then
@@ -456,9 +456,9 @@ Select Case UCase$(Left$(rData, 13))
         If UserList(UserIndex).flags.Privilegios < PlayerType.Dios And Not UserList(UserIndex).flags.EsRolesMaster Then Exit Sub
 
         'Obtenemos el número de midi
-        Arg1 = ReadField(1, rData, vbKeySpace)
+        Arg1 = readfield2(1, rData, vbKeySpace)
         ' y el de mapa
-        Arg2 = ReadField(2, rData, vbKeySpace)
+        Arg2 = readfield2(2, rData, vbKeySpace)
 
         'Si el mapa no fue enviado tomo el actual
         If IsNumeric(Arg2) Then
@@ -493,13 +493,13 @@ Select Case UCase$(Left$(rData, 13))
         If UserList(UserIndex).flags.Privilegios < PlayerType.Dios And Not UserList(UserIndex).flags.EsRolesMaster Then Exit Sub
 
         'Obtenemos el número de wav
-        Arg1 = ReadField(1, rData, vbKeySpace)
+        Arg1 = readfield2(1, rData, vbKeySpace)
         ' el de mapa
-        Arg2 = ReadField(2, rData, vbKeySpace)
+        Arg2 = readfield2(2, rData, vbKeySpace)
         ' el de X
-        Arg3 = ReadField(3, rData, vbKeySpace)
+        Arg3 = readfield2(3, rData, vbKeySpace)
         ' y el de Y (las coords X-Y sólo tendrán sentido al implementarse el panning en la 11.6)
-        Arg4 = ReadField(4, rData, vbKeySpace)
+        Arg4 = readfield2(4, rData, vbKeySpace)
 
         If IsNumeric(Arg2) And IsNumeric(Arg3) And IsNumeric(Arg4) Then
             tInt = CInt(Arg2)
@@ -918,7 +918,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 6)
 
-                tName = ReadField(1, rData, 32)
+                tName = readfield2(1, rData, 32)
                 tMessage = Right$(rData, Len(rData) - (1 + Len(tName)))
                 TIndex = NameIndex(tName)
 
@@ -1088,10 +1088,10 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
             If UCase$(Left$(rData, 7)) = "/TELEP " Then
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 7)
-                Mapa = val(ReadField(2, rData, 32))
+                Mapa = val(readfield2(2, rData, 32))
 
                 If Not MapaValido(Mapa) Then Exit Sub
-                Name = ReadField(1, rData, 32)
+                Name = readfield2(1, rData, 32)
 
                 If Name = "" Then Exit Sub
 
@@ -1099,8 +1099,8 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 If Name = "PaneldeGM" Then
                     TIndex = UserIndex
 
-                    X = val(ReadField(3, rData, 32))
-                    Y = val(ReadField(4, rData, 32))
+                    X = val(readfield2(3, rData, 32))
+                    Y = val(readfield2(4, rData, 32))
 
                     If Not InMapBounds(Mapa, X, Y) Then Exit Sub
                     Call WarpUserChar(TIndex, Mapa, X, Y, True)
@@ -1123,8 +1123,8 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 End If
 
-                X = val(ReadField(3, rData, 32))
-                Y = val(ReadField(4, rData, 32))
+                X = val(readfield2(3, rData, 32))
+                Y = val(readfield2(4, rData, 32))
 
                 If Not InMapBounds(Mapa, X, Y) Then Exit Sub
                 If TIndex <= 0 Then
@@ -1506,16 +1506,16 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 rData = Right$(rData, Len(rData) - 8)
 
-                Name = ReadField(1, rData, Asc("@"))
-                tStr = ReadField(2, rData, Asc("@"))
+                Name = readfield2(1, rData, Asc("@"))
+                tStr = readfield2(2, rData, Asc("@"))
 
-                If (Not IsNumeric(ReadField(3, rData, Asc("@")))) Or Name = "" Or tStr = "" Then
+                If (Not IsNumeric(readfield2(3, rData, Asc("@")))) Or Name = "" Or tStr = "" Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Utilice /carcel nick@motivo@tiempo" & FONTTYPE_INFO)
                     Exit Sub
 
                 End If
 
-                i = val(ReadField(3, rData, Asc("@")))
+                i = val(readfield2(3, rData, Asc("@")))
 
                 TIndex = NameIndex(Name)
 
@@ -1560,9 +1560,9 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Dim MSilencio As String
                 Dim TSilencio As Integer
                 
-                MSilencio = ReadField(2, rData, 64)
-                TSilencio = val(ReadField(3, rData, 64))
-                rData = ReadField(1, rData, 64)
+                MSilencio = readfield2(2, rData, 64)
+                TSilencio = val(readfield2(3, rData, 64))
+                rData = readfield2(1, rData, 64)
                 
                 If rData = "" Or MSilencio = "" Or TSilencio = 0 Then
                     Call SendData(ToIndex, UserIndex, 0, "||Sintaxis errónea. Escriba /SILENCIAR NICK@MOTIVO@TIEMPO" & FONTTYPE_INFO)
@@ -1922,9 +1922,9 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
                 rData = Right$(rData, Len(rData) - 5)
-                tStr = ReadField(2, rData, Asc("@"))    ' NICK
+                tStr = readfield2(2, rData, Asc("@"))    ' NICK
                 TIndex = NameIndex(tStr)
-                Name = ReadField(1, rData, Asc("@"))    ' MOTIVO
+                Name = readfield2(1, rData, Asc("@"))    ' MOTIVO
 
                 If TIndex <= 0 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El usuario no esta online." & FONTTYPE_TALK)
@@ -2077,8 +2077,8 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 rData = Right$(rData, Len(rData) - 12)
 
-                Name = ReadField(1, rData, Asc("@"))
-                tStr = ReadField(2, rData, Asc("@"))
+                Name = readfield2(1, rData, Asc("@"))
+                tStr = readfield2(2, rData, Asc("@"))
 
                 If Name = "" Or tStr = "" Or Not IsNumeric(tStr) Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Utilice /borrarpj Nick@NumeroDePena" & FONTTYPE_INFO)
@@ -2103,10 +2103,10 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
             If UCase$(Left$(rData, 7)) = "/PJBAN " Then
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 7)
-                TIndex = NameIndex(ReadField(2, rData, Asc("@")))
-                Name = ReadField(1, rData, Asc("@"))
+                TIndex = NameIndex(readfield2(2, rData, Asc("@")))
+                Name = readfield2(1, rData, Asc("@"))
 
-                Arg1 = ReadField(2, rData, Asc("@"))
+                Arg1 = readfield2(2, rData, Asc("@"))
                 Arg2 = CharPath & Left$(Arg1, 1) & "\" & Arg1 & ".chr"
 
                 If TIndex <= 0 Then
@@ -2144,7 +2144,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
                 rData = UCase$(Right$(rData, Len(rData) - 5))
-                tStr = Replace$(ReadField(1, rData, 32), "+", " ")
+                tStr = Replace$(readfield2(1, rData, 32), "+", " ")
                 TIndex = NameIndex(tStr)
 
                 If LCase$(tStr) = "yo" Then
@@ -2152,10 +2152,10 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 End If
 
-                Arg1 = ReadField(2, rData, 32)
-                Arg2 = ReadField(3, rData, 32)
-                Arg3 = ReadField(4, rData, 32)
-                Arg4 = ReadField(5, rData, 32)
+                Arg1 = readfield2(2, rData, 32)
+                Arg2 = readfield2(3, rData, 32)
+                Arg3 = readfield2(4, rData, 32)
+                Arg4 = readfield2(5, rData, 32)
 
                 If UserList(UserIndex).flags.EsRolesMaster Then
 
@@ -2164,21 +2164,21 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                         Case PlayerType.Consejero
 
                             ' Los RMs consejeros sólo se pueden editar su head, body y exp
-                            If NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
+                            If NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
                             If Arg1 <> "BODY" And Arg1 <> "HEAD" And Arg1 <> "LEVEL" Then Exit Sub
 
                         Case PlayerType.SemiDios
 
                             ' Los RMs sólo se pueden editar su level y el head y body de cualquiera
-                            If Arg1 = "EXP" And NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
+                            If Arg1 = "EXP" And NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
                             If Arg1 <> "BODY" And Arg1 <> "HEAD" Then Exit Sub
 
                         Case PlayerType.Dios
 
                             ' Si quiere modificar el level sólo lo puede hacer sobre sí mismo
-                            If Arg1 = "NIVEL" And NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
-                            If Arg1 = "LEVEL" And NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
-                            If Arg1 = "ORO" And NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
+                            If Arg1 = "NIVEL" And NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
+                            If Arg1 = "LEVEL" And NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
+                            If Arg1 = "ORO" And NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
 
                             ' Los DRMs pueden aplicar los siguientes comandos sobre cualquiera
                             If Arg1 <> "BODY" And Arg1 <> "HEAD" And Arg1 <> "CIU" And Arg1 <> "CRI" And Arg1 <> "CLASE" And Arg1 <> "SKILLS" And Arg1 <> "RAZA" Then Exit Sub
@@ -2199,7 +2199,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                         Dim ChangeVida As Long
 
                         MaxVida = "32000"
-                        ChangeVida = ReadField(3, rData, 32)
+                        ChangeVida = readfield2(3, rData, 32)
 
                         If ChangeVida > MaxVida Then
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No se ha cambiado el valor, por que has superado la maxima vida. (Max: " & MaxVida & ")" & FONTTYPE_INFO)
@@ -2231,7 +2231,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                         Dim ChangeMana As Long
 
                         MaxMana = "32000"
-                        ChangeMana = val(ReadField(3, rData, 32))
+                        ChangeMana = val(readfield2(3, rData, 32))
 
                         If ChangeMana > MaxMana Then
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No se ha cambiado el valor, por que has superado la maxima mana. (Max: " & MaxMana & ")" & FONTTYPE_INFO)
@@ -2372,7 +2372,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                     Case "BODY"
 
                         If TIndex <= 0 Then
-                            Call WriteVar(CharPath & Replace$(ReadField(1, rData, 32), "+", " ") & ".chr", "INIT", "Body", Arg2)
+                            Call WriteVar(CharPath & Replace$(readfield2(1, rData, 32), "+", " ") & ".chr", "INIT", "Body", Arg2)
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Charfile Alterado:" & tStr & FONTTYPE_INFO)
                             Exit Sub
 
@@ -2385,7 +2385,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                     Case "HEAD"
 
                         If TIndex <= 0 Then
-                            Call WriteVar(CharPath & Replace$(ReadField(1, rData, 32), "+", " ") & ".chr", "INIT", "Head", Arg2)
+                            Call WriteVar(CharPath & Replace$(readfield2(1, rData, 32), "+", " ") & ".chr", "INIT", "Head", Arg2)
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Charfile Alterado:" & tStr & FONTTYPE_INFO)
                             Exit Sub
 
@@ -2523,7 +2523,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                         End If
 
                         If TIndex = 0 Then
-                            Call WriteVar(CharPath & Replace$(ReadField(1, rData, 32), "+", " ") & ".chr", "Skills", "SK" & n, Arg3)
+                            Call WriteVar(CharPath & Replace$(readfield2(1, rData, 32), "+", " ") & ".chr", "Skills", "SK" & n, Arg3)
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Charfile Alterado:" & tStr & FONTTYPE_INFO)
                         Else
                             UserList(TIndex).Stats.UserSkills(n) = val(Arg3)
@@ -2545,7 +2545,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                         If Left(Arg2, 1) = "-" Then
 
                             If TIndex = 0 Then
-                                SLName = ReadField(1, rData, 32)
+                                SLName = readfield2(1, rData, 32)
 
                                 If Not FileExist(CharPath & UCase(SLName) & ".chr") Then
                                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El personaje: " & SLName & " no existe." & FONTTYPE_INFO)
@@ -2590,7 +2590,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                             If TIndex = 0 Then
 
-                                SLName = ReadField(1, rData, 32)
+                                SLName = readfield2(1, rData, 32)
 
                                 If Not FileExist(CharPath & UCase(SLName) & ".chr") Then
                                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El personaje: " & SLName & " no existe." & FONTTYPE_INFO)
@@ -2638,8 +2638,8 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 rData = Right$(rData, Len(rData) - 10)
                 
-                TIndex = NameIndex(ReadField(1, rData, 32))
-                SLSkills = ReadField(2, rData, 32)
+                TIndex = NameIndex(readfield2(1, rData, 32))
+                SLSkills = readfield2(2, rData, 32)
                 
                 If TIndex > 0 Then
                     UserList(TIndex).Stats.SkillPts = UserList(TIndex).Stats.SkillPts + SLSkills
@@ -2659,7 +2659,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 rData = Right$(rData, Len(rData) - 7)
 
-                TIndex = NameIndex(ReadField(1, rData, 32))
+                TIndex = NameIndex(readfield2(1, rData, 32))
 
                 If TIndex <= 0 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline: " & tStr & FONTTYPE_INFO)
@@ -2667,7 +2667,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 End If
 
-                MassNivel = ReadField(2, rData, 32)
+                MassNivel = readfield2(2, rData, 32)
                 ExpMAX = UserList(TIndex).Stats.ELU
                 ExpMIN = UserList(TIndex).Stats.Exp
 
@@ -2713,8 +2713,8 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 12)
                 
-                TIndex = NameIndex(ReadField(1, rData, 32))
-                tInt = ReadField(2, rData, 32)
+                TIndex = NameIndex(readfield2(1, rData, 32))
+                tInt = readfield2(2, rData, 32)
                 
                 If TIndex > 0 Then
                     UserList(TIndex).Stats.UsuariosMatados = tInt
@@ -2731,8 +2731,8 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 12)
                 
-                TIndex = NameIndex(ReadField(1, rData, 32))
-                tInt = ReadField(2, rData, 32)
+                TIndex = NameIndex(readfield2(1, rData, 32))
+                tInt = readfield2(2, rData, 32)
                 
                 If TIndex > 0 Then
                     UserList(TIndex).Stats.CriminalesMatados = tInt
@@ -2751,7 +2751,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
 
                 rData = Right$(rData, Len(rData) - 13)
-                tStr = ReadField(1, rData, Asc("-"))
+                tStr = readfield2(1, rData, Asc("-"))
 
                 If tStr = "" Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||usar /CAMBIARMAIL <pj>-<nuevomail>" & FONTTYPE_GUILD)
@@ -2767,7 +2767,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 End If
 
-                Arg1 = ReadField(2, rData, Asc("-"))
+                Arg1 = readfield2(2, rData, Asc("-"))
 
                 If Arg1 = "" Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||usar /CAMBIARMAIL <pj>-<nuevomail>" & FONTTYPE_INFO)
@@ -2793,8 +2793,8 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
 
                 rData = Right$(rData, Len(rData) - 13)
-                tStr = ReadField(1, rData, Asc("@"))
-                Arg1 = ReadField(2, rData, Asc("@"))
+                tStr = readfield2(1, rData, Asc("@"))
+                Arg1 = readfield2(2, rData, Asc("@"))
 
                 If tStr = "" Or Arg1 = "" Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usar: /CAMBIARNICK NiCK@NUEVO NICK" & FONTTYPE_INFO)
@@ -2872,9 +2872,9 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 rData = Right$(rData, Len(rData) - 8)
 
-                TIndex = NameIndex(ReadField(1, rData, 32))
-                QuitObjeto.ObjIndex = ReadField(2, rData, 32)
-                QuitObjeto.Amount = ReadField(3, rData, 32)
+                TIndex = NameIndex(readfield2(1, rData, 32))
+                QuitObjeto.ObjIndex = readfield2(2, rData, 32)
+                QuitObjeto.Amount = readfield2(3, rData, 32)
 
                 If TIndex <= 0 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||ERROR: El usuario no esta conectado." & FONTTYPE_EJECUCION)
@@ -2892,9 +2892,9 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 rData = Right$(rData, Len(rData) - 11)
 
-                TIndex = NameIndex(ReadField(1, rData, 32))
-                QuitObjeto.ObjIndex = ReadField(2, rData, 32)
-                QuitObjeto.Amount = ReadField(3, rData, 32)
+                TIndex = NameIndex(readfield2(1, rData, 32))
+                QuitObjeto.ObjIndex = readfield2(2, rData, 32)
+                QuitObjeto.Amount = readfield2(3, rData, 32)
 
                 If TIndex <= 0 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||ERROR: El usuario no esta conectado." & FONTTYPE_EJECUCION)
@@ -2911,7 +2911,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 7)
 
-                tStr = ReadField(1, rData, 32)
+                tStr = readfield2(1, rData, 32)
                 TIndex = NameIndex(tStr)
 
                 If TIndex > 0 Then
@@ -2922,7 +2922,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 If FileExist(CharPath & UCase$(tStr) & ".chr", vbNormal) Then
 
-                    If UCase$(GetVar(CharPath & tStr & ".chr", "CONTACTO", "Email")) <> UCase$(ReadField(2, rData, 32)) Then
+                    If UCase$(GetVar(CharPath & tStr & ".chr", "CONTACTO", "Email")) <> UCase$(readfield2(2, rData, 32)) Then
                         Call SendData(ToIndex, UserIndex, 0, "||El email no coincide." & FONTTYPE_INFO)
                         Exit Sub
                     Else
@@ -2932,7 +2932,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                             Arg1 = Arg1 + Chr$(tInt)
                         Next i
 
-                        Call SendData(ToIndex, UserIndex, 0, "||  Su email es:" & ReadField(2, rData, 32) & FONTTYPE_INFO)
+                        Call SendData(ToIndex, UserIndex, 0, "||  Su email es:" & readfield2(2, rData, 32) & FONTTYPE_INFO)
                         Call SendData(ToIndex, UserIndex, 0, "|| La Ultima Ip es:" & GetVar(CharPath & UCase$(tStr) & ".chr", "INIT", "LASTIP") & FONTTYPE_INFO)
                         Call SendData(ToIndex, UserIndex, 0, "||La nueva clave es: " & Arg1 & FONTTYPE_INFO)
                         Arg1 = MD5String(Arg1)
@@ -2981,9 +2981,9 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 '/ct mapa_dest x_dest y_dest
                 rData = Right(rData, Len(rData) - 4)
-                Mapa = ReadField(1, rData, 32)
-                X = ReadField(2, rData, 32)
-                Y = ReadField(3, rData, 32)
+                Mapa = readfield2(1, rData, 32)
+                X = readfield2(2, rData, 32)
+                Y = readfield2(3, rData, 32)
 
                 If MapaValido(Mapa) = False Or InMapBounds(Mapa, X, Y) = False Then
                     Exit Sub
@@ -3196,7 +3196,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Dim BanIP As String, XNick As Boolean
 
                 rData = Right$(rData, Len(rData) - 7)
-                tStr = Replace(ReadField(1, rData, Asc(" ")), "+", " ")
+                tStr = Replace(readfield2(1, rData, Asc(" ")), "+", " ")
 
                 TIndex = NameIndex(tStr)
 
@@ -3576,10 +3576,10 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 9)
 
-                If Len(ReadField(1, rData, Asc("@"))) = 0 Or Len(ReadField(2, rData, Asc("@"))) = 0 Or Len(ReadField(3, rData, Asc("@"))) = 0 Then
+                If Len(readfield2(1, rData, Asc("@"))) = 0 Or Len(readfield2(2, rData, Asc("@"))) = 0 Or Len(readfield2(3, rData, Asc("@"))) = 0 Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Formato invalido, el formato deberia ser /CREARASEDIO SLOTS@COSTE@TIEMPO." & FONTTYPE_INFO)
                 Else
-                    Call modAsedio.Iniciar_Asedio(UserIndex, val(ReadField(1, rData, Asc("@"))), val(ReadField(2, rData, Asc("@"))), val(ReadField(3, rData, Asc("@"))))
+                    Call modAsedio.Iniciar_Asedio(UserIndex, val(readfield2(1, rData, Asc("@"))), val(readfield2(2, rData, Asc("@"))), val(readfield2(3, rData, Asc("@"))))
 
                 End If
 
@@ -3741,9 +3741,9 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 10)
 
-                n = val(ReadField(1, rData, 32))
-                Mapa = val(ReadField(2, rData, 32))
-                tInt = val(ReadField(3, rData, 32))
+                n = val(readfield2(1, rData, 32))
+                Mapa = val(readfield2(2, rData, 32))
+                tInt = val(readfield2(3, rData, 32))
 
                 If n = "0" Or Mapa = "0" Or tInt = "0" Then
                     Call SendData(ToIndex, UserIndex, 0, "||Debes utilizar /INVASION NUMERO NPC MAPA CANTIDAD." & FONTTYPE_GUILD)
@@ -4052,10 +4052,10 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
 
                 rData = Right(rData, Len(rData) - 5)
 
-                Select Case UCase(ReadField(1, rData, 32))
+                Select Case UCase(readfield2(1, rData, 32))
 
                     Case "PK"
-                        tStr = ReadField(2, rData, 32)
+                        tStr = readfield2(2, rData, 32)
 
                         If tStr <> "" Then
                             MapInfo(UserList(UserIndex).Pos.Map).Pk = IIf(tStr = "0", True, False)
@@ -4066,7 +4066,7 @@ Public Sub CommandGm(ByVal UserIndex As Integer, _
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Mapa " & UserList(UserIndex).Pos.Map & " PK: " & MapInfo(UserList(UserIndex).Pos.Map).Pk & FONTTYPE_INFO)
 
                     Case "BACKUP"
-                        tStr = ReadField(2, rData, 32)
+                        tStr = readfield2(2, rData, 32)
 
                         If tStr <> "" Then
                             MapInfo(UserList(UserIndex).Pos.Map).BackUp = CByte(tStr)
@@ -4334,10 +4334,10 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
     If UCase$(Left$(rData, 7)) = "/TELEP " Then
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 7)
-        Mapa = val(ReadField(2, rData, 32))
+        Mapa = val(readfield2(2, rData, 32))
 
         If Not MapaValido(Mapa) Then Exit Sub
-        Name = ReadField(1, rData, 32)
+        Name = readfield2(1, rData, 32)
 
         If Name = "" Then Exit Sub
 
@@ -4345,8 +4345,8 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         If Name = "PaneldeGM" Then
             TIndex = UserIndex
 
-            X = val(ReadField(3, rData, 32))
-            Y = val(ReadField(4, rData, 32))
+            X = val(readfield2(3, rData, 32))
+            Y = val(readfield2(4, rData, 32))
 
             If Not InMapBounds(Mapa, X, Y) Then Exit Sub
             Call WarpUserChar(TIndex, Mapa, X, Y, True)
@@ -4369,8 +4369,8 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         End If
 
-        X = val(ReadField(3, rData, 32))
-        Y = val(ReadField(4, rData, 32))
+        X = val(readfield2(3, rData, 32))
+        Y = val(readfield2(4, rData, 32))
 
         If Not InMapBounds(Mapa, X, Y) Then Exit Sub
         If TIndex <= 0 Then
@@ -4399,9 +4399,9 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 Dim MSilencio As String
                 Dim TSilencio As Integer
                 
-                MSilencio = ReadField(2, rData, 64)
-                TSilencio = val(ReadField(3, rData, 64))
-                rData = ReadField(1, rData, 64)
+                MSilencio = readfield2(2, rData, 64)
+                TSilencio = val(readfield2(3, rData, 64))
+                rData = readfield2(1, rData, 64)
                 
                 If rData = "" Or MSilencio = "" Or TSilencio = 0 Then
                     Call SendData(ToIndex, UserIndex, 0, "||Sintaxis errónea. Escriba /SILENCIAR NICK@MOTIVO@TIEMPO" & FONTTYPE_INFO)
@@ -4857,16 +4857,16 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         rData = Right$(rData, Len(rData) - 8)
 
-        Name = ReadField(1, rData, Asc("@"))
-        tStr = ReadField(2, rData, Asc("@"))
+        Name = readfield2(1, rData, Asc("@"))
+        tStr = readfield2(2, rData, Asc("@"))
 
-        If (Not IsNumeric(ReadField(3, rData, Asc("@")))) Or Name = "" Or tStr = "" Then
+        If (Not IsNumeric(readfield2(3, rData, Asc("@")))) Or Name = "" Or tStr = "" Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Utilice /carcel nick@motivo@tiempo" & FONTTYPE_INFO)
             Exit Sub
 
         End If
 
-        i = val(ReadField(3, rData, Asc("@")))
+        i = val(readfield2(3, rData, Asc("@")))
 
         TIndex = NameIndex(Name)
 
@@ -4940,9 +4940,9 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 10)
 
-        n = val(ReadField(1, rData, 32))
-        Mapa = val(ReadField(2, rData, 32))
-        tInt = val(ReadField(3, rData, 32))
+        n = val(readfield2(1, rData, 32))
+        Mapa = val(readfield2(2, rData, 32))
+        tInt = val(readfield2(3, rData, 32))
 
         If n = "0" Or Mapa = "0" Or tInt = "0" Then
             Call SendData(ToIndex, UserIndex, 0, "||Debes utilizar /INVASION NUMERO NPC MAPA CANTIDAD." & FONTTYPE_GUILD)
@@ -5059,8 +5059,8 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         rData = Right$(rData, Len(rData) - 13)
 
-        Name = ReadField(1, rData, Asc("@"))
-        tStr = ReadField(2, rData, Asc("@"))
+        Name = readfield2(1, rData, Asc("@"))
+        tStr = readfield2(2, rData, Asc("@"))
 
         If Name = "" Or tStr = "" Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Utilice /advertencia nick@motivo" & FONTTYPE_INFO)
@@ -5101,7 +5101,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
 
         rData = UCase$(Right$(rData, Len(rData) - 5))
-        tStr = Replace$(ReadField(1, rData, 32), "+", " ")
+        tStr = Replace$(readfield2(1, rData, 32), "+", " ")
         TIndex = NameIndex(tStr)
 
         If LCase$(tStr) = "yo" Then
@@ -5109,10 +5109,10 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         End If
 
-        Arg1 = ReadField(2, rData, 32)
-        Arg2 = ReadField(3, rData, 32)
-        Arg3 = ReadField(4, rData, 32)
-        Arg4 = ReadField(5, rData, 32)
+        Arg1 = readfield2(2, rData, 32)
+        Arg2 = readfield2(3, rData, 32)
+        Arg3 = readfield2(4, rData, 32)
+        Arg4 = readfield2(5, rData, 32)
 
         If UserList(UserIndex).flags.EsRolesMaster Then
 
@@ -5121,21 +5121,21 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 Case PlayerType.Consejero
 
                     ' Los RMs consejeros sólo se pueden editar su head, body y exp
-                    If NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
+                    If NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
                     If Arg1 <> "BODY" And Arg1 <> "HEAD" And Arg1 <> "LEVEL" Then Exit Sub
 
                 Case PlayerType.SemiDios
 
                     ' Los RMs sólo se pueden editar su level y el head y body de cualquiera
-                    If Arg1 = "EXP" And NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
+                    If Arg1 = "EXP" And NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
                     If Arg1 <> "BODY" And Arg1 <> "HEAD" Then Exit Sub
 
                 Case PlayerType.Dios
 
                     ' Si quiere modificar el level sólo lo puede hacer sobre sí mismo
-                    If Arg1 = "NIVEL" And NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
-                    If Arg1 = "LEVEL" And NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
-                    If Arg1 = "ORO" And NameIndex(ReadField(1, rData, 32)) <> UserIndex Then Exit Sub
+                    If Arg1 = "NIVEL" And NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
+                    If Arg1 = "LEVEL" And NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
+                    If Arg1 = "ORO" And NameIndex(readfield2(1, rData, 32)) <> UserIndex Then Exit Sub
 
                     ' Los DRMs pueden aplicar los siguientes comandos sobre cualquiera
                     If Arg1 <> "BODY" And Arg1 <> "HEAD" And Arg1 <> "CIU" And Arg1 <> "CRI" And Arg1 <> "CLASE" And Arg1 <> "SKILLS" And Arg1 <> "RAZA" Then Exit Sub
@@ -5156,7 +5156,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 Dim ChangeVida As Long
 
                 MaxVida = "32000"
-                ChangeVida = ReadField(3, rData, 32)
+                ChangeVida = readfield2(3, rData, 32)
 
                 If ChangeVida > MaxVida Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No se ha cambiado el valor, por que has superado la maxima vida. (Max: " & MaxVida & ")" & FONTTYPE_INFO)
@@ -5188,7 +5188,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 Dim ChangeMana As Long
 
                 MaxMana = "32000"
-                ChangeMana = val(ReadField(3, rData, 32))
+                ChangeMana = val(readfield2(3, rData, 32))
 
                 If ChangeMana > MaxMana Then
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||No se ha cambiado el valor, por que has superado la maxima mana. (Max: " & MaxMana & ")" & FONTTYPE_INFO)
@@ -5329,7 +5329,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             Case "BODY"
 
                 If TIndex <= 0 Then
-                    Call WriteVar(CharPath & Replace$(ReadField(1, rData, 32), "+", " ") & ".chr", "INIT", "Body", Arg2)
+                    Call WriteVar(CharPath & Replace$(readfield2(1, rData, 32), "+", " ") & ".chr", "INIT", "Body", Arg2)
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Charfile Alterado:" & tStr & FONTTYPE_INFO)
                     Exit Sub
 
@@ -5342,7 +5342,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
             Case "HEAD"
 
                 If TIndex <= 0 Then
-                    Call WriteVar(CharPath & Replace$(ReadField(1, rData, 32), "+", " ") & ".chr", "INIT", "Head", Arg2)
+                    Call WriteVar(CharPath & Replace$(readfield2(1, rData, 32), "+", " ") & ".chr", "INIT", "Head", Arg2)
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Charfile Alterado:" & tStr & FONTTYPE_INFO)
                     Exit Sub
 
@@ -5480,7 +5480,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 End If
 
                 If TIndex = 0 Then
-                    Call WriteVar(CharPath & Replace$(ReadField(1, rData, 32), "+", " ") & ".chr", "Skills", "SK" & n, Arg3)
+                    Call WriteVar(CharPath & Replace$(readfield2(1, rData, 32), "+", " ") & ".chr", "Skills", "SK" & n, Arg3)
                     Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Charfile Alterado:" & tStr & FONTTYPE_INFO)
                 Else
                     UserList(TIndex).Stats.UserSkills(n) = val(Arg3)
@@ -5502,7 +5502,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 If Left(Arg2, 1) = "-" Then
 
                     If TIndex = 0 Then
-                        SLName = ReadField(1, rData, 32)
+                        SLName = readfield2(1, rData, 32)
 
                         If Not FileExist(CharPath & UCase(SLName) & ".chr") Then
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El personaje: " & SLName & " no existe." & FONTTYPE_INFO)
@@ -5547,7 +5547,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
                     If TIndex = 0 Then
 
-                        SLName = ReadField(1, rData, 32)
+                        SLName = readfield2(1, rData, 32)
 
                         If Not FileExist(CharPath & UCase(SLName) & ".chr") Then
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El personaje: " & SLName & " no existe." & FONTTYPE_INFO)
@@ -5595,8 +5595,8 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         rData = Right$(rData, Len(rData) - 10)
                 
-        TIndex = NameIndex(ReadField(1, rData, 32))
-        SLSkills = ReadField(2, rData, 32)
+        TIndex = NameIndex(readfield2(1, rData, 32))
+        SLSkills = readfield2(2, rData, 32)
                 
         If TIndex > 0 Then
             UserList(TIndex).Stats.SkillPts = UserList(TIndex).Stats.SkillPts + SLSkills
@@ -5616,7 +5616,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         rData = Right$(rData, Len(rData) - 7)
 
-        TIndex = NameIndex(ReadField(1, rData, 32))
+        TIndex = NameIndex(readfield2(1, rData, 32))
 
         If TIndex <= 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usuario offline: " & tStr & FONTTYPE_INFO)
@@ -5624,7 +5624,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         End If
 
-        MassNivel = ReadField(2, rData, 32)
+        MassNivel = readfield2(2, rData, 32)
         ExpMAX = UserList(TIndex).Stats.ELU
         ExpMIN = UserList(TIndex).Stats.Exp
 
@@ -5735,9 +5735,9 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         rData = Right$(rData, Len(rData) - 8)
 
-        TIndex = NameIndex(ReadField(1, rData, 32))
-        QuitObjeto.ObjIndex = ReadField(2, rData, 32)
-        QuitObjeto.Amount = ReadField(3, rData, 32)
+        TIndex = NameIndex(readfield2(1, rData, 32))
+        QuitObjeto.ObjIndex = readfield2(2, rData, 32)
+        QuitObjeto.Amount = readfield2(3, rData, 32)
 
         If TIndex <= 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||ERROR: El usuario no esta conectado." & FONTTYPE_EJECUCION)
@@ -5773,9 +5773,9 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         rData = Right$(rData, Len(rData) - 11)
 
-        TIndex = NameIndex(ReadField(1, rData, 32))
-        QuitObjeto.ObjIndex = ReadField(2, rData, 32)
-        QuitObjeto.Amount = ReadField(3, rData, 32)
+        TIndex = NameIndex(readfield2(1, rData, 32))
+        QuitObjeto.ObjIndex = readfield2(2, rData, 32)
+        QuitObjeto.Amount = readfield2(3, rData, 32)
 
         If TIndex <= 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||ERROR: El usuario no esta conectado." & FONTTYPE_EJECUCION)
@@ -5792,7 +5792,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 7)
 
-        tStr = ReadField(1, rData, 32)
+        tStr = readfield2(1, rData, 32)
         TIndex = NameIndex(tStr)
 
         If TIndex > 0 Then
@@ -5803,7 +5803,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         If FileExist(CharPath & UCase$(tStr) & ".chr", vbNormal) Then
 
-            If UCase$(GetVar(CharPath & tStr & ".chr", "CONTACTO", "Email")) <> UCase$(ReadField(2, rData, 32)) Then
+            If UCase$(GetVar(CharPath & tStr & ".chr", "CONTACTO", "Email")) <> UCase$(readfield2(2, rData, 32)) Then
                 Call SendData(ToIndex, UserIndex, 0, "||El email no coincide." & FONTTYPE_INFO)
                 Exit Sub
             Else
@@ -5813,7 +5813,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                     Arg1 = Arg1 + Chr$(tInt)
                 Next i
 
-                Call SendData(ToIndex, UserIndex, 0, "||  Su email es:" & ReadField(2, rData, 32) & FONTTYPE_INFO)
+                Call SendData(ToIndex, UserIndex, 0, "||  Su email es:" & readfield2(2, rData, 32) & FONTTYPE_INFO)
                 Call SendData(ToIndex, UserIndex, 0, "|| La Ultima Ip es:" & GetVar(CharPath & UCase$(tStr) & ".chr", "INIT", "LASTIP") & FONTTYPE_INFO)
                 Call SendData(ToIndex, UserIndex, 0, "||La nueva clave es: " & Arg1 & FONTTYPE_INFO)
                 Arg1 = MD5String(Arg1)
@@ -6309,9 +6309,9 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
         rData = Right$(rData, Len(rData) - 5)
-        tStr = ReadField(2, rData, Asc("@"))    ' NICK
+        tStr = readfield2(2, rData, Asc("@"))    ' NICK
         TIndex = NameIndex(tStr)
-        Name = ReadField(1, rData, Asc("@"))    ' MOTIVO
+        Name = readfield2(1, rData, Asc("@"))    ' MOTIVO
 
         If TIndex <= 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||El usuario no esta online." & FONTTYPE_TALK)
@@ -6537,9 +6537,9 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         '/ct mapa_dest x_dest y_dest
         rData = Right(rData, Len(rData) - 4)
-        Mapa = ReadField(1, rData, 32)
-        X = ReadField(2, rData, 32)
-        Y = ReadField(3, rData, 32)
+        Mapa = readfield2(1, rData, 32)
+        X = readfield2(2, rData, 32)
+        Y = readfield2(3, rData, 32)
 
         If MapaValido(Mapa) = False Or InMapBounds(Mapa, X, Y) = False Then
             Exit Sub
@@ -6830,7 +6830,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Dim BanIP As String, XNick As Boolean
 
         rData = Right$(rData, Len(rData) - 7)
-        tStr = Replace(ReadField(1, rData, Asc(" ")), "+", " ")
+        tStr = Replace(readfield2(1, rData, Asc(" ")), "+", " ")
 
         TIndex = NameIndex(tStr)
 
@@ -6908,7 +6908,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 6)
 
-        tName = ReadField(1, rData, 32)
+        tName = readfield2(1, rData, 32)
         tMessage = Right$(rData, Len(rData) - (1 + Len(tName)))
         TIndex = NameIndex(tName)
 
@@ -7277,8 +7277,8 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         rData = Right$(rData, Len(rData) - 12)
 
-        Name = ReadField(1, rData, Asc("@"))
-        tStr = ReadField(2, rData, Asc("@"))
+        Name = readfield2(1, rData, Asc("@"))
+        tStr = readfield2(2, rData, Asc("@"))
 
         If Name = "" Or tStr = "" Or Not IsNumeric(tStr) Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Utilice /borrarpj Nick@NumeroDePena" & FONTTYPE_INFO)
@@ -7303,10 +7303,10 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
     If UCase$(Left$(rData, 7)) = "/PJBAN " Then
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 7)
-        TIndex = NameIndex(ReadField(2, rData, Asc("@")))
-        Name = ReadField(1, rData, Asc("@"))
+        TIndex = NameIndex(readfield2(2, rData, Asc("@")))
+        Name = readfield2(1, rData, Asc("@"))
 
-        Arg1 = ReadField(2, rData, Asc("@"))
+        Arg1 = readfield2(2, rData, Asc("@"))
         Arg2 = CharPath & Left$(Arg1, 1) & "\" & Arg1 & ".chr"
 
         If TIndex <= 0 Then
@@ -7500,8 +7500,8 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 12)
                 
-                TIndex = NameIndex(ReadField(1, rData, 32))
-                tInt = ReadField(2, rData, 32)
+                TIndex = NameIndex(readfield2(1, rData, 32))
+                tInt = readfield2(2, rData, 32)
                 
                 If TIndex > 0 Then
                     UserList(TIndex).Stats.UsuariosMatados = tInt
@@ -7518,8 +7518,8 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
                 rData = Right$(rData, Len(rData) - 12)
                 
-                TIndex = NameIndex(ReadField(1, rData, 32))
-                tInt = ReadField(2, rData, 32)
+                TIndex = NameIndex(readfield2(1, rData, 32))
+                tInt = readfield2(2, rData, 32)
                 
                 If TIndex > 0 Then
                     UserList(TIndex).Stats.CriminalesMatados = tInt
@@ -7538,7 +7538,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
 
         rData = Right$(rData, Len(rData) - 13)
-        tStr = ReadField(1, rData, Asc("-"))
+        tStr = readfield2(1, rData, Asc("-"))
 
         If tStr = "" Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||usar /CAMBIARMAIL <pj>-<nuevomail>" & FONTTYPE_GUILD)
@@ -7554,7 +7554,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         End If
 
-        Arg1 = ReadField(2, rData, Asc("-"))
+        Arg1 = readfield2(2, rData, Asc("-"))
 
         If Arg1 = "" Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||usar /CAMBIARMAIL <pj>-<nuevomail>" & FONTTYPE_INFO)
@@ -7580,8 +7580,8 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         If UserList(UserIndex).flags.EsRolesMaster Or UserList(UserIndex).flags.Privilegios <= PlayerType.SemiDios Then Exit Sub
 
         rData = Right$(rData, Len(rData) - 13)
-        tStr = ReadField(1, rData, Asc("@"))
-        Arg1 = ReadField(2, rData, Asc("@"))
+        tStr = readfield2(1, rData, Asc("@"))
+        Arg1 = readfield2(2, rData, Asc("@"))
 
         If tStr = "" Or Arg1 = "" Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Usar: /CAMBIARNICK NiCK@NUEVO NICK" & FONTTYPE_INFO)
@@ -7687,10 +7687,10 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
         Call LogGM(UserList(UserIndex).Name, "Comando: " & rData)
         rData = Right$(rData, Len(rData) - 9)
 
-        If Len(ReadField(1, rData, Asc("@"))) = 0 Or Len(ReadField(2, rData, Asc("@"))) = 0 Or Len(ReadField(3, rData, Asc("@"))) = 0 Then
+        If Len(readfield2(1, rData, Asc("@"))) = 0 Or Len(readfield2(2, rData, Asc("@"))) = 0 Or Len(readfield2(3, rData, Asc("@"))) = 0 Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Formato invalido, el formato deberia ser /CREARASEDIO SLOTS@COSTE@TIEMPO." & FONTTYPE_INFO)
         Else
-            Call modAsedio.Iniciar_Asedio(UserIndex, val(ReadField(1, rData, Asc("@"))), val(ReadField(2, rData, Asc("@"))), val(ReadField(3, rData, Asc("@"))))
+            Call modAsedio.Iniciar_Asedio(UserIndex, val(readfield2(1, rData, Asc("@"))), val(readfield2(2, rData, Asc("@"))), val(readfield2(3, rData, Asc("@"))))
 
         End If
 
@@ -7709,10 +7709,10 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
 
         rData = Right(rData, Len(rData) - 5)
 
-        Select Case UCase(ReadField(1, rData, 32))
+        Select Case UCase(readfield2(1, rData, 32))
 
             Case "PK"
-                tStr = ReadField(2, rData, 32)
+                tStr = readfield2(2, rData, 32)
 
                 If tStr <> "" Then
                     MapInfo(UserList(UserIndex).Pos.Map).Pk = IIf(tStr = "0", True, False)
@@ -7723,7 +7723,7 @@ Public Sub AllCommands(ByVal UserIndex As Integer, ByVal rData As String)
                 Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Mapa " & UserList(UserIndex).Pos.Map & " PK: " & MapInfo(UserList(UserIndex).Pos.Map).Pk & FONTTYPE_INFO)
 
             Case "BACKUP"
-                tStr = ReadField(2, rData, 32)
+                tStr = readfield2(2, rData, 32)
 
                 If tStr <> "" Then
                     MapInfo(UserList(UserIndex).Pos.Map).BackUp = CByte(tStr)

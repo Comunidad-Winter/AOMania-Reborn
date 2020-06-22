@@ -83,8 +83,8 @@ Public Sub Load_Quest()
              
                 Datos = Leer.GetValue("Quest" & Quest, "RecompensaItem" & LooPC)
              
-                QuestList(Quest).RecompensaObjeto(LooPC).ObjIndex = Val(ReadField(1, Datos, 45))
-                QuestList(Quest).RecompensaObjeto(LooPC).Amount = Val(ReadField(2, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LooPC).ObjIndex = Val(readfield2(1, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LooPC).Amount = Val(readfield2(2, Datos, 45))
              
             Next LooPC
 

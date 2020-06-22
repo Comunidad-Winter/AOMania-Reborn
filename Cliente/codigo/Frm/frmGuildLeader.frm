@@ -383,7 +383,7 @@ Private Sub Command1_Click()
 
 End Sub
 
-Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command1.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -396,7 +396,7 @@ Private Sub Command2_Click()
 
 End Sub
 
-Private Sub Command2_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command2_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command2.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -410,7 +410,7 @@ Private Sub Command3_Click()
 
 End Sub
 
-Private Sub Command3_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command3_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command3.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -423,7 +423,7 @@ Private Sub Command4_Click()
 
 End Sub
 
-Private Sub Command4_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command4_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command4.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -435,7 +435,7 @@ Private Sub Command5_Click()
 
 End Sub
 
-Private Sub Command5_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command5_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command5.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -446,7 +446,7 @@ Private Sub Command6_Click()
     'Unload Me
 End Sub
 
-Private Sub Command6_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command6_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command6.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -457,7 +457,7 @@ Private Sub Command7_Click()
 End Sub
 
 
-Private Sub Command7_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command7_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command7.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -474,36 +474,36 @@ Public Sub ParseLeaderInfo(ByVal Data As String)
 
     Dim r%, T%
 
-    r% = Val(ReadField(1, Data, Asc("¬")))
+    r% = Val(readfield2(1, Data, Asc("¬")))
 
     For T% = 1 To r%
-        guildslist.AddItem ReadField(1 + T%, Data, Asc("¬"))
+        guildslist.AddItem readfield2(1 + T%, Data, Asc("¬"))
     Next T%
 
-    r% = Val(ReadField(T% + 1, Data, Asc("¬")))
+    r% = Val(readfield2(T% + 1, Data, Asc("¬")))
     Miembros.Caption = "El clan cuenta con " & r% & " miembros."
 
     Dim k%
 
     For k% = 1 To r%
-        members.AddItem ReadField(T% + 1 + k%, Data, Asc("¬"))
+        members.AddItem readfield2(T% + 1 + k%, Data, Asc("¬"))
     Next k%
 
-    txtguildnews = Replace(ReadField(T% + k% + 1, Data, Asc("¬")), "º", vbCrLf)
+    txtguildnews = Replace(readfield2(T% + k% + 1, Data, Asc("¬")), "º", vbCrLf)
 
     T% = T% + k% + 2
 
-    r% = Val(ReadField(T%, Data, Asc("¬")))
+    r% = Val(readfield2(T%, Data, Asc("¬")))
 
     For k% = 1 To r%
-        solicitudes.AddItem ReadField(T% + k%, Data, Asc("¬"))
+        solicitudes.AddItem readfield2(T% + k%, Data, Asc("¬"))
     Next k%
 
     Me.Show vbModeless, frmMain
 
 End Sub
 
-Private Sub Command8_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command8_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command8.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -513,7 +513,7 @@ Private Sub Command9_Click()
     Call frmListClanes.ParseListClanes
 End Sub
 
-Private Sub Command9_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command9_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command9.MouseIcon = Iconos.Ico_Mano
 End Sub
 

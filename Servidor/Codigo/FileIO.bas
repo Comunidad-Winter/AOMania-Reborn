@@ -163,8 +163,8 @@ Public Sub LoadAdministrativeUsers()
     For i = 1 To buf
         tStr = UCase$(ServerIni.GetValue("Administradores", "Admin" & i))
 
-        Name = ReadField(1, tStr, Asc("@"))
-        HDD = ReadField(2, tStr, Asc("@"))
+        Name = readfield2(1, tStr, Asc("@"))
+        HDD = readfield2(2, tStr, Asc("@"))
 
         If Left$(Name, 1) = "*" Or Left$(Name, 1) = "+" Then Name = Right$(Name, Len(Name) - 1)
 
@@ -180,8 +180,8 @@ Public Sub LoadAdministrativeUsers()
     For i = 1 To buf
         tStr = UCase$(ServerIni.GetValue("Dioses", "Dios" & i))
 
-        Name = ReadField(1, tStr, Asc("@"))
-        HDD = ReadField(2, tStr, Asc("@"))
+        Name = readfield2(1, tStr, Asc("@"))
+        HDD = readfield2(2, tStr, Asc("@"))
 
         If Left$(Name, 1) = "*" Or Left$(Name, 1) = "+" Then Name = Right$(Name, Len(Name) - 1)
 
@@ -197,8 +197,8 @@ Public Sub LoadAdministrativeUsers()
     For i = 1 To buf
         tStr = UCase$(ServerIni.GetValue("SemiDioses", "SemiDios" & i))
 
-        Name = ReadField(1, tStr, Asc("@"))
-        HDD = ReadField(2, tStr, Asc("@"))
+        Name = readfield2(1, tStr, Asc("@"))
+        HDD = readfield2(2, tStr, Asc("@"))
 
         If Left$(Name, 1) = "*" Or Left$(Name, 1) = "+" Then Name = Right$(Name, Len(Name) - 1)
 
@@ -213,8 +213,8 @@ Public Sub LoadAdministrativeUsers()
     For i = 1 To buf
         tStr = UCase$(ServerIni.GetValue("Consejeros", "Consejero" & i))
 
-        Name = ReadField(1, tStr, Asc("@"))
-        HDD = ReadField(2, tStr, Asc("@"))
+        Name = readfield2(1, tStr, Asc("@"))
+        HDD = readfield2(2, tStr, Asc("@"))
 
         If Left$(Name, 1) = "*" Or Left$(Name, 1) = "+" Then Name = Right$(Name, Len(Name) - 1)
 
@@ -229,8 +229,8 @@ Public Sub LoadAdministrativeUsers()
     For i = 1 To buf
         tStr = UCase$(ServerIni.GetValue("RolesMasters", "RM" & i))
 
-        Name = ReadField(1, tStr, Asc("@"))
-        HDD = ReadField(2, tStr, Asc("@"))
+        Name = readfield2(1, tStr, Asc("@"))
+        HDD = readfield2(2, tStr, Asc("@"))
 
         If Left$(Name, 1) = "*" Or Left$(Name, 1) = "+" Then Name = Right$(Name, Len(Name) - 1)
 
@@ -915,6 +915,7 @@ Sub LoadOBJData()
             ObjData(Object).Templ = val(Leer.GetValue("OBJ" & Object, "Templ"))
             ObjData(Object).ObjetoEspecial = val(Leer.GetValue("OBJ" & Object, "ObjetoEspecial"))
             ObjData(Object).Paraliza = val(Leer.GetValue("OBJ" & Object, "Paraliza"))
+            ObjData(Object).TipoMunicion = val(Leer.GetValue("OBJ" & Object, "TipoMunicion"))
 
         Case eOBJType.otherramientas
             ObjData(Object).LingH = val(Leer.GetValue("OBJ" & Object, "LingH"))
@@ -969,6 +970,7 @@ Sub LoadOBJData()
             ObjData(Object).Envenena = val(Leer.GetValue("OBJ" & Object, "Envenena"))
             ObjData(Object).Paraliza = val(Leer.GetValue("OBJ" & Object, "Paraliza"))
             ObjData(Object).ObjetoEspecial = val(Leer.GetValue("OBJ" & Object, "ObjetoEspecial"))
+            ObjData(Object).TipoMunicion = val(Leer.GetValue("OBJ" & Object, "TipoMunicion"))
 
         Case eOBJType.otPasaje
             ObjData(Object).Zona = val(Leer.GetValue("OBJ" & Object, "Zona"))
@@ -1309,9 +1311,9 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     UserList(UserIndex).Pregunta = UserFile.GetValue("INIT", "Pregunta")
     UserList(UserIndex).Respuesta = UserFile.GetValue("INIT", "Respuesta")
 
-    UserList(UserIndex).Pos.Map = CInt(ReadField(1, UserFile.GetValue("INIT", "Position"), 45))
-    UserList(UserIndex).Pos.X = CInt(ReadField(2, UserFile.GetValue("INIT", "Position"), 45))
-    UserList(UserIndex).Pos.Y = CInt(ReadField(3, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).Pos.Map = CInt(readfield2(1, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).Pos.X = CInt(readfield2(2, UserFile.GetValue("INIT", "Position"), 45))
+    UserList(UserIndex).Pos.Y = CInt(readfield2(3, UserFile.GetValue("INIT", "Position"), 45))
 
     UserList(UserIndex).PalabraSecreta = UserFile.GetValue("INIT", "PalabraSecreta")
     UserList(UserIndex).flags.RPasswd = UserFile.GetValue("FLAGS", "RPasswd")
@@ -1325,8 +1327,8 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     'Lista de objetos del banco
     For LoopC = 1 To MAX_BANCOINVENTORY_SLOTS
         ln = UserFile.GetValue("BancoInventory", "Obj" & LoopC)
-        UserList(UserIndex).BancoInvent.Object(LoopC).ObjIndex = CInt(ReadField(1, ln, 45))
-        UserList(UserIndex).BancoInvent.Object(LoopC).Amount = CInt(ReadField(2, ln, 45))
+        UserList(UserIndex).BancoInvent.Object(LoopC).ObjIndex = CInt(readfield2(1, ln, 45))
+        UserList(UserIndex).BancoInvent.Object(LoopC).Amount = CInt(readfield2(2, ln, 45))
     Next LoopC
 
     '------------------------------------------------------------------------------------
@@ -1335,9 +1337,9 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
     'Lista de objetos
     For LoopC = 1 To MAX_INVENTORY_SLOTS
         ln = UserFile.GetValue("Inventory", "Obj" & LoopC)
-        UserList(UserIndex).Invent.Object(LoopC).ObjIndex = CInt(ReadField(1, ln, 45))
-        UserList(UserIndex).Invent.Object(LoopC).Amount = CInt(ReadField(2, ln, 45))
-        UserList(UserIndex).Invent.Object(LoopC).Equipped = CByte(ReadField(3, ln, 45))
+        UserList(UserIndex).Invent.Object(LoopC).ObjIndex = CInt(readfield2(1, ln, 45))
+        UserList(UserIndex).Invent.Object(LoopC).Amount = CInt(readfield2(2, ln, 45))
+        UserList(UserIndex).Invent.Object(LoopC).Equipped = CByte(readfield2(3, ln, 45))
     Next LoopC
 
     UserList(UserIndex).Stats.ELV = CLng(UserFile.GetValue("STATS", "ELV"))
@@ -1504,7 +1506,7 @@ Sub LoadUserInit(ByVal UserIndex As Integer, ByRef UserFile As clsIniManager)
         Datos = UserFile.GetValue("IGNORE", "Ignorados")
         
         For LoopC = 1 To UserList(UserIndex).Ignore.NumIgnores
-               UserList(UserIndex).Ignore.Usuario(LoopC) = ReadField(LoopC, Datos, 44)
+               UserList(UserIndex).Ignore.Usuario(LoopC) = readfield2(LoopC, Datos, 44)
         Next LoopC
         
     End If
@@ -1766,9 +1768,9 @@ Public Sub CargarMapa(ByVal Map As Long, ByRef MAPFl As String)
         .Name = Leer.GetValue("Mapa" & Map, "Name")
         .Music = Leer.GetValue("Mapa" & Map, "MusicNum")
 
-        .StartPos.Map = val(ReadField(1, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
-        .StartPos.X = val(ReadField(2, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
-        .StartPos.Y = val(ReadField(3, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
+        .StartPos.Map = val(readfield2(1, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
+        .StartPos.X = val(readfield2(2, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
+        .StartPos.Y = val(readfield2(3, Leer.GetValue("Mapa" & Map, "StartPos"), Asc("-")))
 
         .MagiaSinEfecto = val(Leer.GetValue("Mapa" & Map, "MagiaSinEfecto"))
         .OcultarSinEfecto = val(Leer.GetValue("Mapa" & Map, "OcultarSinEfecto"))
@@ -1845,9 +1847,9 @@ Sub LoadSini()
     EncriptarProtocolosCriticos = val(GetVar(IniPath & "Server.ini", "INIT", "Encriptar"))
 
     'Start pos
-    StartPos.Map = val(ReadField(1, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
-    StartPos.X = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
-    StartPos.Y = val(ReadField(3, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
+    StartPos.Map = val(readfield2(1, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
+    StartPos.X = val(readfield2(2, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
+    StartPos.Y = val(readfield2(3, GetVar(IniPath & "Server.ini", "INIT", "StartPos"), 45))
 
     'Intervalos
     SanaIntervaloSinDescansar = val(GetVar(IniPath & "Server.ini", "INTERVALOS", "SanaIntervaloSinDescansar"))
@@ -1932,9 +1934,9 @@ Sub LoadSini()
     lvlDeath = val(GetVar(IniPath & "Server.ini", "EVENTOS", "LVLDEATH"))
 
     'Ressurect pos
-    ResPos.Map = val(ReadField(1, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
-    ResPos.X = val(ReadField(2, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
-    ResPos.Y = val(ReadField(3, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
+    ResPos.Map = val(readfield2(1, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
+    ResPos.X = val(readfield2(2, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
+    ResPos.Y = val(readfield2(3, GetVar(IniPath & "Server.ini", "INIT", "ResPos"), 45))
 
     recordusuarios = val(GetVar(IniPath & "Server.ini", "INIT", "Record"))
 
@@ -2535,8 +2537,8 @@ Sub CargarNpcBackUp(NpcIndex As Integer, ByVal NPCNumber As Integer)
 
             For LoopC = 1 To MAX_INVENTORY_SLOTS
                 ln = Leer.GetValue("NPC" & NPCNumber, "Obj" & LoopC)
-                .Invent.Object(LoopC).ObjIndex = val(ReadField(1, ln, 45))
-                .Invent.Object(LoopC).Amount = val(ReadField(2, ln, 45))
+                .Invent.Object(LoopC).ObjIndex = val(readfield2(1, ln, 45))
+                .Invent.Object(LoopC).Amount = val(readfield2(2, ln, 45))
 
             Next LoopC
 

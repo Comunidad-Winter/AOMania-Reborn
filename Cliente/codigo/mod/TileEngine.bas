@@ -864,12 +864,12 @@ Sub CargarParticulas()
             GrhListing = GetVar(StreamFile, Val(LooPC), "Grh_List")
         
             For i = 1 To .NumGrhs
-                .Grh_List(i) = ReadField(str(i), GrhListing, 44)
+                .Grh_List(i) = readfield2(str(i), GrhListing, 44)
             Next i
 
             For ColorSet = 1 To 4
                 TempSet = GetVar(StreamFile, Val(LooPC), "ColorSet" & ColorSet)
-                .ColortInt(ColorSet - 1) = D3DColorXRGB(ReadField(1, TempSet, 44), ReadField(2, TempSet, 44), ReadField(3, TempSet, 44))
+                .ColortInt(ColorSet - 1) = D3DColorXRGB(readfield2(1, TempSet, 44), readfield2(2, TempSet, 44), readfield2(3, TempSet, 44))
             Next ColorSet
 
         End With
@@ -4851,10 +4851,10 @@ Public Sub ActualizaPosicion(ByRef rData As String)
 
     cargandomapa = False
 
-    corrx = CInt(ReadField(2, rData, Asc("*")))
-    corry = CInt(ReadField(3, rData, Asc("*")))
-    'CodigoCorreccion = CByte(ReadFieldFast(1, StrPtr(rData), 42))
-    CodigoCorreccion = CByte(ReadField(1, rData, Asc("*")))
+    corrx = CInt(readfield2(2, rData, Asc("*")))
+    corry = CInt(readfield2(3, rData, Asc("*")))
+    'CodigoCorreccion = CByte(readfield2Fast(1, StrPtr(rData), 42))
+    CodigoCorreccion = CByte(readfield2(1, rData, Asc("*")))
     
     With CharList(UserCharIndex)
     
@@ -4921,8 +4921,8 @@ Public Sub ActualizaPosicionOld(ByRef rData As String)
 
         End If
 
-        .X = CInt(ReadField(1, rData, 44))
-        .Y = CInt(ReadField(2, rData, 44))
+        .X = CInt(readfield2(1, rData, 44))
+        .Y = CInt(readfield2(2, rData, 44))
         
         MapData(.X, .Y).charindex = UserCharIndex
 

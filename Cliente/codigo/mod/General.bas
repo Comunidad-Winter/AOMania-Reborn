@@ -1127,7 +1127,7 @@ Sub SwitchMap(ByVal Map As Integer)
 End Sub
 
 'TODO : Reemplazar por la nueva versión, esta apesta!!!
-Public Function ReadField(ByVal pos As Integer, ByVal Text As String, ByVal SepASCII As Integer) As String
+Public Function readfield(ByVal pos As Integer, ByVal Text As String, ByVal SepASCII As Integer) As String
 
     '*****************************************************************
     'Gets a field from a string
@@ -1149,7 +1149,7 @@ Public Function ReadField(ByVal pos As Integer, ByVal Text As String, ByVal SepA
             FieldNum = FieldNum + 1
 
             If FieldNum = pos Then
-                ReadField = mid$(Text, lastPos + 1, (InStr(lastPos + 1, Text, Seperator, vbTextCompare) - 1) - (lastPos))
+                readfield = mid$(Text, lastPos + 1, (InStr(lastPos + 1, Text, Seperator, vbTextCompare) - 1) - (lastPos))
                 Exit Function
 
             End If
@@ -1163,10 +1163,33 @@ Public Function ReadField(ByVal pos As Integer, ByVal Text As String, ByVal SepA
     FieldNum = FieldNum + 1
     
     If FieldNum = pos Then
-        ReadField = mid$(Text, lastPos + 1)
+        readfield = mid$(Text, lastPos + 1)
 
     End If
 
+End Function
+
+Function readfield2(ByVal iPos As Long, _
+                    ByRef sText As String, _
+                    ByVal CharAscii As Long) As String
+    ' Mismo que anterior con los parametros formales...
+ 
+    '
+    ' @ maTih.-
+     
+    Dim Read_Field() As String
+ 
+    'Creo un array temporal.
+    Read_Field = Split(sText, ChrW$(CharAscii))
+    ' Mismo que antes con chrW
+     
+    If (iPos - 1) <= UBound(Read_Field()) Then
+
+        'devuelve
+        readfield2 = (Read_Field(iPos - 1))
+
+    End If
+     
 End Function
 
 Function FileExist(ByVal File As String, ByVal FileType As VbFileAttribute) As Boolean

@@ -129,8 +129,8 @@ Public Sub Load_Quest()
              
                 Datos = Leer.GetValue("Quest" & Quest, "RecompensaItem" & LoopC)
              
-                QuestList(Quest).RecompensaObjeto(LoopC).ObjIndex = val(ReadField(1, Datos, 45))
-                QuestList(Quest).RecompensaObjeto(LoopC).Amount = val(ReadField(2, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LoopC).ObjIndex = val(readfield2(1, Datos, 45))
+                QuestList(Quest).RecompensaObjeto(LoopC).Amount = val(readfield2(2, Datos, 45))
              
             Next LoopC
 
@@ -184,8 +184,8 @@ Public Sub Load_Quest()
                 
                 Datos = Leer.GetValue("Quest" & Quest, "MataNPC" & LoopC)
                 
-                QuestList(Quest).MataNpc(LoopC).NpcIndex = val(ReadField(1, Datos, 45))
-                QuestList(Quest).MataNpc(LoopC).Cantidad = val(ReadField(2, Datos, 45))
+                QuestList(Quest).MataNpc(LoopC).NpcIndex = val(readfield2(1, Datos, 45))
+                QuestList(Quest).MataNpc(LoopC).Cantidad = val(readfield2(2, Datos, 45))
                 
             Next LoopC
         End If
@@ -232,8 +232,8 @@ Public Sub Load_Quest()
                     
                     Datos = Leer.GetValue("Quest" & Quest, "BuscaObjetos" & LoopC)
                     
-                    QuestList(Quest).BuscaObj(LoopC).ObjIndex = val(ReadField(1, Datos, 45))
-                    QuestList(Quest).BuscaObj(LoopC).Amount = val(ReadField(2, Datos, 45))
+                    QuestList(Quest).BuscaObj(LoopC).ObjIndex = val(readfield2(1, Datos, 45))
+                    QuestList(Quest).BuscaObj(LoopC).Amount = val(readfield2(2, Datos, 45))
                     
              Next LoopC
              
@@ -247,9 +247,9 @@ Public Sub Load_Quest()
                    
                    Datos = Leer.GetValue("Quest" & Quest, "ObjetoNpc" & LoopC)
                    
-                   QuestList(Quest).MapaObjsNpc = val(ReadField(1, Datos, 45))
-                   QuestList(Quest).ObjsNpc(LoopC).ObjIndex = val(ReadField(2, Datos, 45))
-                   QuestList(Quest).ObjsNpc(LoopC).Amount = val(ReadField(3, Datos, 45))
+                   QuestList(Quest).MapaObjsNpc = val(readfield2(1, Datos, 45))
+                   QuestList(Quest).ObjsNpc(LoopC).ObjIndex = val(readfield2(2, Datos, 45))
+                   QuestList(Quest).ObjsNpc(LoopC).Amount = val(readfield2(3, Datos, 45))
                    
             Next LoopC
             
@@ -283,9 +283,9 @@ Public Sub Load_Quest()
                       
                       Datos = Leer.GetValue("Quest" & Quest, "DescubrePalabra" & LoopC)
                                    
-                     QuestList(Quest).DescubrePalabra.Mapa = val(ReadField(1, Datos, 45))
-                     QuestList(Quest).DescubrePalabra.Pregunta = ReadField(2, Datos, 45)
-                     QuestList(Quest).DescubrePalabra.Frase = ReadField(3, Datos, 45)
+                     QuestList(Quest).DescubrePalabra.Mapa = val(readfield2(1, Datos, 45))
+                     QuestList(Quest).DescubrePalabra.Pregunta = readfield2(2, Datos, 45)
+                     QuestList(Quest).DescubrePalabra.Frase = readfield2(3, Datos, 45)
               
         End If
         
@@ -1001,7 +1001,7 @@ Public Sub EncuentraMapaQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
      
      With UserList(UserIndex)
           
-          Map = .pos.Map
+          Map = .Pos.Map
      
           For LoopC = 1 To QuestList(Quest).NumMapas
                 If .Quest.Mapa(LoopC) = 0 Then
@@ -1052,7 +1052,7 @@ Public Sub DobleClickNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
        
        With UserList(UserIndex)
          
-         Map = .pos.Map
+         Map = .Pos.Map
          
          If QuestList(Quest).NumNpcDD > 0 Then
              If QuestList(Quest).NpcDD = Map Then
@@ -1079,7 +1079,7 @@ Public Sub DescubreNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
       
       With UserList(UserIndex)
            
-           Map = .pos.Map
+           Map = .Pos.Map
            
            If QuestList(Quest).NumDescubre > 0 Then
                 If QuestList(Quest).DescubrePalabra.Mapa = Map Then
@@ -1089,7 +1089,7 @@ Public Sub DescubreNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                                
                                If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                                     
-                                   If Npclist(LoopC).pos.Map = Map Then
+                                   If Npclist(LoopC).Pos.Map = Map Then
                                       
                                        Call SendData(ToIndex, UserIndex, 0, "||" & vbCyan & "°" & QuestList(Quest).DescubrePalabra.Pregunta & "°" & CStr(Npclist(LoopC).char.CharIndex))
                                       
@@ -1119,14 +1119,14 @@ Public Sub RespuestaNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer,
           
           If QuestList(Quest).NumDescubre > 0 Then
               
-              Map = .pos.Map
+              Map = .Pos.Map
               
               If QuestList(Quest).DescubrePalabra.Mapa = Map Then
               
                   If Npclist(UserList(UserIndex).flags.TargetNpc).NPCtype = eNPCType.Misiones Then
                       If .Quest.PreguntaDescubre = 0 Then
                           
-                          If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 10 Then
+                          If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 10 Then
                               Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                               Exit Sub
                            End If
@@ -1204,7 +1204,7 @@ Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                    
                 If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                        
-                    If Npclist(LoopC).pos.Map = Map Then
+                    If Npclist(LoopC).Pos.Map = Map Then
                            
                         If .Quest.Icono = 0 Then
                             Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 0)
@@ -1229,7 +1229,7 @@ Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                        
                 If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                               
-                    If Npclist(LoopC).pos.Map = Map Then
+                    If Npclist(LoopC).Pos.Map = Map Then
                               
                         If .Quest.Icono = 0 Then
                             Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 0)
@@ -1254,7 +1254,7 @@ Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                            
                 If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                                
-                    If Npclist(LoopC).pos.Map = Map Then
+                    If Npclist(LoopC).Pos.Map = Map Then
                                    
                         If .Quest.Icono = 0 Then
                             Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 0)
@@ -1279,7 +1279,7 @@ Public Sub IconoNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer)
                               
                 If Npclist(LoopC).NPCtype = eNPCType.Misiones Then
                                   
-                    If Npclist(LoopC).pos.Map = Map Then
+                    If Npclist(LoopC).Pos.Map = Map Then
                                       
                         If .Quest.Icono = 0 Then
                             Call SendData(ToIndex, UserIndex, 0, "XI" & Npclist(LoopC).char.CharIndex & "," & 0)
@@ -1316,7 +1316,7 @@ Public Sub CambiaDescQuest(ByVal UserIndex As Integer, ByVal Quest As Integer, B
                End If
                
                If Npclist(TempCharIndex).NPCtype = eNPCType.Misiones Then
-                  If Npclist(TempCharIndex).pos.Map = QuestList(Quest).NpcDD Then
+                  If Npclist(TempCharIndex).Pos.Map = QuestList(Quest).NpcDD Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & QuestDesc.DobleClick & "°" & Npclist(TempCharIndex).char.CharIndex _
                                                                   & FONTTYPE_INFO)
                   Else
@@ -1333,7 +1333,7 @@ Public Sub CambiaDescQuest(ByVal UserIndex As Integer, ByVal Quest As Integer, B
               End If
               
               If Npclist(TempCharIndex).NPCtype = eNPCType.Misiones Then
-                  If Npclist(TempCharIndex).pos.Map = QuestList(Quest).DescubrePalabra.Mapa Then
+                  If Npclist(TempCharIndex).Pos.Map = QuestList(Quest).DescubrePalabra.Mapa Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & QuestDesc.Descubridor & "°" & Npclist(TempCharIndex).char.CharIndex _
                                                                   & FONTTYPE_INFO)
                   Else
@@ -1350,7 +1350,7 @@ Public Sub CambiaDescQuest(ByVal UserIndex As Integer, ByVal Quest As Integer, B
               End If
                  
               If Npclist(TempCharIndex).NPCtype = eNPCType.Misiones Then
-                  If Npclist(TempCharIndex).pos.Map = QuestList(Quest).MapaObjsNpc Then
+                  If Npclist(TempCharIndex).Pos.Map = QuestList(Quest).MapaObjsNpc Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & QuestDesc.DarObjNpc & "°" & Npclist(TempCharIndex).char.CharIndex _
                                                                   & FONTTYPE_INFO)
                   Else
@@ -1367,7 +1367,7 @@ Public Sub CambiaDescQuest(ByVal UserIndex As Integer, ByVal Quest As Integer, B
               End If
                  
               If Npclist(TempCharIndex).NPCtype = eNPCType.Misiones Then
-                  If Npclist(TempCharIndex).pos.Map = QuestList(Quest).MapaHablaNpc Then
+                  If Npclist(TempCharIndex).Pos.Map = QuestList(Quest).MapaHablaNpc Then
                      Call SendData(SendTarget.ToIndex, UserIndex, 0, "||" & vbWhite & "°" & QuestDesc.Hablador & "°" & Npclist(TempCharIndex).char.CharIndex _
                                                                   & FONTTYPE_INFO)
                   Else
@@ -1398,11 +1398,11 @@ Public Sub EntregaObjNpcQuest(ByVal UserIndex As Integer, ByVal Quest As Integer
              
              If QuestList(Quest).NumObjsNpc > 0 Then
                  
-                 Map = .pos.Map
+                 Map = .Pos.Map
                  
                 If QuestList(Quest).MapaObjsNpc = Map Then
                 
-                    If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).pos, UserList(UserIndex).pos) > 10 Then
+                    If Distancia(Npclist(UserList(UserIndex).flags.TargetNpc).Pos, UserList(UserIndex).Pos) > 10 Then
                               Call SendData(SendTarget.ToIndex, UserIndex, 0, "Z27")
                               Exit Sub
                     End If

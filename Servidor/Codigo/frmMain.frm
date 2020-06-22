@@ -1151,12 +1151,16 @@ Private Sub GameTimer_Timer()
                 End If
             End If
             
-        .Counters.CountTimerNivel = .Counters.CountTimerNivel + 1
+       If .Stats.ELV < STAT_MAXELV Then
+       
+           .Counters.CountTimerNivel = .Counters.CountTimerNivel + 1
             
-         If .Counters.CountTimerNivel = 25 Then
-             .Counters.TimerNivel = .Counters.TimerNivel + 1
-             .Counters.CountTimerNivel = 0
-         End If
+           If .Counters.CountTimerNivel = 25 Then
+               .Counters.TimerNivel = .Counters.TimerNivel + 1
+               .Counters.CountTimerNivel = 0
+           End If
+         
+       End If
 
         End With
 

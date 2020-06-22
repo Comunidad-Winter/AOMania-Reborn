@@ -2814,9 +2814,9 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
                 Dim HDD As String
 
-                tName = mid(ReadField(1, rData, 44), 7)
-                SeguridadCliente = val(ReadField(5, rData, 44))
-                HDD = ReadField(4, rData, 44)
+                tName = mid(readfield2(1, rData, 44), 7)
+                SeguridadCliente = val(readfield2(5, rData, 44))
+                HDD = readfield2(4, rData, 44)
 
                 If SeguridadCliente = 0 Then
                     If EsDios(tName) Or EsSemiDios(tName) Or EsConsejero(tName) Or EsRolesMaster(tName) Then
@@ -2848,11 +2848,11 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
                 End If
 
                 rData = Right$(rData, Len(rData) - 6)
-                Ver = ReadField(3, rData, 44)
+                Ver = readfield2(3, rData, 44)
 
                 If VersionOK(Ver) Then
 
-                    tName = ReadField(1, rData, 44)
+                    tName = readfield2(1, rData, 44)
 
                     If Not AsciiValidos(tName) Then
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRNombre invalido.")
@@ -2872,7 +2872,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
                         Dim HDD_Serial As String
 
-                        HDD_Serial = ReadField(4, rData, 44)
+                        HDD_Serial = readfield2(4, rData, 44)
 
                         If modHDSerial.check_HD(HDD_Serial) = -1 Then
 
@@ -2886,7 +2886,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
                             End If
 
-                            Call ConnectUser(UserIndex, tName, ReadField(2, rData, 44), HDD_Serial)
+                            Call ConnectUser(UserIndex, tName, readfield2(2, rData, 44), HDD_Serial)
 
                         Else
                             Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERRSe te ha prohibido la entrada a AOMania")
@@ -2929,15 +2929,15 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
                 End If
 
                 rData = Right$(rData, Len(rData) - 6)
-                Ver = ReadField(3, rData, 44)
+                Ver = readfield2(3, rData, 44)
 
                 If VersionOK(Ver) Then
 
-                    HDD_Serial = ReadField(10, rData, 44)
+                    HDD_Serial = readfield2(10, rData, 44)
 
                     If modHDSerial.check_HD(HDD_Serial) = -1 Then
 
-                        Call ConnectNewUser(UserIndex, ReadField(1, rData, 44), ReadField(2, rData, 44), ReadField(4, rData, 44), ReadField(5, rData, 44), ReadField(6, rData, 44), ReadField(7, rData, 44), ReadField(8, rData, 44), ReadField(9, rData, 44), HDD_Serial)
+                        Call ConnectNewUser(UserIndex, readfield2(1, rData, 44), readfield2(2, rData, 44), readfield2(4, rData, 44), readfield2(5, rData, 44), readfield2(6, rData, 44), readfield2(7, rData, 44), readfield2(8, rData, 44), readfield2(9, rData, 44), HDD_Serial)
                     Else
                         Call SendData(SendTarget.ToIndex, UserIndex, 0, "ERR1")
 
@@ -2954,11 +2954,11 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
 
                 rData = Right$(rData, Len(rData) - 6)
 
-                UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = ReadField(1, rData, 44)
-                UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = ReadField(2, rData, 44)
-                UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = ReadField(3, rData, 44)
-                UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = ReadField(4, rData, 44)
-                UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = ReadField(5, rData, 44)
+                UserList(UserIndex).Stats.UserAtributos(eAtributos.Fuerza) = readfield2(1, rData, 44)
+                UserList(UserIndex).Stats.UserAtributos(eAtributos.Agilidad) = readfield2(2, rData, 44)
+                UserList(UserIndex).Stats.UserAtributos(eAtributos.Inteligencia) = readfield2(3, rData, 44)
+                UserList(UserIndex).Stats.UserAtributos(eAtributos.Carisma) = readfield2(4, rData, 44)
+                UserList(UserIndex).Stats.UserAtributos(eAtributos.constitucion) = readfield2(5, rData, 44)
 
                 Exit Sub
 
@@ -2971,7 +2971,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
                 On Error GoTo ExitErr1
 
                 rData = Right$(rData, Len(rData) - 4)
-                Arg1 = ReadField(1, rData, 44)
+                Arg1 = readfield2(1, rData, 44)
 
                 If Not AsciiValidos(Arg1) Then Exit Sub
 
@@ -2983,7 +2983,7 @@ Sub HandleData(ByVal UserIndex As Integer, ByVal rData As String)
                 End If
 
                 '¿Es el passwd valido?
-                If UCase$(ReadField(2, rData, 44)) <> UCase$(GetVar(CharPath & UCase$(Arg1) & ".chr", "INIT", "Password")) Then
+                If UCase$(readfield2(2, rData, 44)) <> UCase$(GetVar(CharPath & UCase$(Arg1) & ".chr", "INIT", "Password")) Then
                     Call CloseSocket(UserIndex)
                     Exit Sub
 
@@ -3061,8 +3061,8 @@ ExitErr1:
 
         rData = Right$(rData, Len(rData) - 13)
 
-        Name = ReadField(1, rData, Asc("@"))
-        tStr = ReadField(2, rData, Asc("@"))
+        Name = readfield2(1, rData, Asc("@"))
+        tStr = readfield2(2, rData, Asc("@"))
 
         If Name = "" Or tStr = "" Then
             Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Utilice /advertencia nick@motivo" & FONTTYPE_INFO)

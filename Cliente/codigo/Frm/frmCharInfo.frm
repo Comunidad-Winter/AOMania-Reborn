@@ -361,14 +361,14 @@ Private Sub Aceptar_Click()
      
     frmmiembros = False
     frmsolicitudes = False
-    Call SendData("ACEPTARI" & Trim$(Right(nombre, Len(nombre) - 8)))
+    Call SendData("ACEPTARI" & Trim$(Right(Nombre, Len(Nombre) - 8)))
     Unload frmGuildLeader
     Call SendData("GLINFO")
     Unload Me
 
 End Sub
 
-Private Sub Aceptar_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Aceptar_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Aceptar.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -378,18 +378,18 @@ Private Sub Command1_Click()
 
 End Sub
 
-Public Sub parseCharInfo(ByVal Rdata As String)
+Public Sub parseCharInfo(ByVal rData As String)
 
     If frmmiembros Then
         Rechazar.Visible = False
         Aceptar.Visible = False
         Echar.Visible = True
-        Desc.Visible = False
+        desc.Visible = False
     Else
         Rechazar.Visible = True
         Aceptar.Visible = True
         Echar.Visible = False
-        Desc.Visible = True
+        desc.Visible = True
 
     End If
 
@@ -402,14 +402,14 @@ Public Sub parseCharInfo(ByVal Rdata As String)
     '    tstr = tstr & GetVar(UserFile, "STATS", "Banco") & "¬"7
     '    tstr = tstr & GetVar(UserFile, "REP", "Promedio") & "¬"8
 
-    nombre.Caption = "Nombre: " & ReadField(1, Rdata, Asc("¬"))
-    Raza.Caption = "Raza: " & ReadField(2, Rdata, Asc("¬"))
-    Clase.Caption = "Clase: " & ReadField(3, Rdata, Asc("¬"))
-    Genero.Caption = "Genero: " & ReadField(4, Rdata, Asc("¬"))
-    Nivel.Caption = "Nivel: " & ReadField(5, Rdata, Asc("¬"))
-    Oro.Caption = "Oro: " & ReadField(6, Rdata, Asc("¬"))
-    Banco.Caption = "Banco: " & ReadField(7, Rdata, Asc("¬"))
-    Me.reputacion.Caption = "Reputación: " & ReadField(8, Rdata, Asc("¬"))
+    Nombre.Caption = "Nombre: " & readfield2(1, rData, Asc("¬"))
+    Raza.Caption = "Raza: " & readfield2(2, rData, Asc("¬"))
+    Clase.Caption = "Clase: " & readfield2(3, rData, Asc("¬"))
+    Genero.Caption = "Genero: " & readfield2(4, rData, Asc("¬"))
+    Nivel.Caption = "Nivel: " & readfield2(5, rData, Asc("¬"))
+    Oro.Caption = "Oro: " & readfield2(6, rData, Asc("¬"))
+    Banco.Caption = "Banco: " & readfield2(7, rData, Asc("¬"))
+    Me.reputacion.Caption = "Reputación: " & readfield2(8, rData, Asc("¬"))
 
     '    Peticiones = GetVar(UserFile, "GUILDS", "Pedidos")9
     '    tstr = tstr & IIf(Len(Peticiones > 400), ".." & Right$(Peticiones, 400), Peticiones) & "¬"
@@ -417,53 +417,53 @@ Public Sub parseCharInfo(ByVal Rdata As String)
     '    Miembro = GetVar(UserFile, "GUILDS", "Miembro")10
     '    tstr = tstr & IIf(Len(Miembro) > 400, ".." & Right$(Miembro, 400), Miembro) & "¬"
 
-    Me.txtPeticiones.Text = ReadField(9, Rdata, Asc("¬"))
-    Me.txtMiembro.Text = ReadField(10, Rdata, Asc("¬"))
+    Me.txtPeticiones.Text = readfield2(9, rData, Asc("¬"))
+    Me.txtMiembro.Text = readfield2(10, rData, Asc("¬"))
 
     'GuildActual = val(GetVar(UserFile, "GUILD", "GuildIndex"))11
-    Me.guildactual.Caption = "Clan: " & ReadField(11, Rdata, Asc("¬"))
+    Me.guildactual.Caption = "Clan: " & readfield2(11, rData, Asc("¬"))
 
     '    tstr = tstr & GetVar(UserFile, "FACCIONES", "EjercitoReal") & "¬"12
     '    tstr = tstr & GetVar(UserFile, "FACCIONES", "EjercitoCaos") & "¬"13
     '    tstr = tstr & GetVar(UserFile, "FACCIONES", "CiudMatados") & "¬"14
     '    tstr = tstr & GetVar(UserFile, "FACCIONES", "CrimMatados") & "¬"15
 
-    Me.ejercito.Caption = "Ejército: " & IIf(Val(ReadField(12, Rdata, Asc("¬"))) <> 0, "Armada Real", IIf(Val(ReadField(13, Rdata, Asc("¬"))) <> 0, _
+    Me.ejercito.Caption = "Ejército: " & IIf(Val(readfield2(12, rData, Asc("¬"))) <> 0, "Armada Real", IIf(Val(readfield2(13, rData, Asc("¬"))) <> 0, _
         "Legión Oscura", "-"))
 
-    Ciudadanos.Caption = "Ciudadanos asesinados: " & ReadField(14, Rdata, Asc("¬"))
-    criminales.Caption = "Criminales asesinados: " & ReadField(15, Rdata, Asc("¬"))
+    Ciudadanos.Caption = "Ciudadanos asesinados: " & readfield2(14, rData, Asc("¬"))
+    criminales.Caption = "Criminales asesinados: " & readfield2(15, rData, Asc("¬"))
 
-    status.Caption = IIf(Val(ReadField(8, Rdata, Asc("¬"))) > 0, " (Ciudadano)", " (Criminal)")
-    status.ForeColor = IIf(Val(ReadField(8, Rdata, Asc("¬"))) > 0, vbBlue, vbRed)
+    status.Caption = IIf(Val(readfield2(8, rData, Asc("¬"))) > 0, " (Ciudadano)", " (Criminal)")
+    status.ForeColor = IIf(Val(readfield2(8, rData, Asc("¬"))) > 0, vbBlue, vbRed)
     Me.Show vbModeless, frmMain
 
 End Sub
 
-Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Command1_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Command1.MouseIcon = Iconos.Ico_Mano
 End Sub
 
 Private Sub desc_Click()
 
-    Call SendData("ENVCOMEN" & Right(nombre, Len(nombre) - 7))
+    Call SendData("ENVCOMEN" & Right(Nombre, Len(Nombre) - 7))
 
 End Sub
 
-Private Sub desc_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-    Set Desc.MouseIcon = Iconos.Ico_Mano
+Private Sub desc_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Set desc.MouseIcon = Iconos.Ico_Mano
 End Sub
 
 Private Sub Echar_Click()
       
     Call frmExpulsarClan.Show(vbModeless, frmMain)
     Call frmExpulsarClan.ParseExpulsarClan( _
-        nombre.Caption, Raza.Caption, Clase.Caption, Genero.Caption, _
+        Nombre.Caption, Raza.Caption, Clase.Caption, Genero.Caption, _
         Nivel.Caption, Oro.Caption, Banco.Caption, status.Caption)
 
 End Sub
 
-Private Sub Echar_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Echar_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Echar.MouseIcon = Iconos.Ico_Mano
 End Sub
 
@@ -475,12 +475,12 @@ Private Sub Rechazar_Click()
 
     Load frmCommet
     frmCommet.T = RECHAZOPJ
-    frmCommet.nombre = Right$(nombre, Len(nombre) - 7)
+    frmCommet.Nombre = Right$(Nombre, Len(Nombre) - 7)
     frmCommet.Caption = "Ingrese motivo para rechazo"
     frmCommet.Show vbModeless, frmCharInfo
 
 End Sub
 
-Private Sub Rechazar_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub Rechazar_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Set Rechazar.MouseIcon = Iconos.Ico_Mano
 End Sub

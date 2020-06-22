@@ -158,10 +158,10 @@ Public Sub ParsePeaceOffers(ByVal s As String)
 
     Dim T%, r%
 
-    T% = Val(ReadField(1, s, 44))
+    T% = Val(readfield2(1, s, 44))
 
     For r% = 1 To T%
-        Call lista.AddItem(ReadField(r% + 1, s, 44))
+        Call lista.AddItem(readfield2(r% + 1, s, 44))
     Next r%
 
     tipoprop = PAZ
@@ -174,10 +174,10 @@ Public Sub ParseAllieOffers(ByVal s As String)
 
     Dim T%, r%
 
-    T% = Val(ReadField(1, s, 44))
+    T% = Val(readfield2(1, s, 44))
 
     For r% = 1 To T%
-        Call lista.AddItem(ReadField(r% + 1, s, 44))
+        Call lista.AddItem(readfield2(r% + 1, s, 44))
     Next r%
 
     tipoprop = ALIANZA

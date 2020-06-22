@@ -307,8 +307,8 @@ Sub SendUserBovedaTxtFromChar(ByVal sendIndex As Integer, ByVal CharName As Stri
 
         For j = 1 To MAX_BANCOINVENTORY_SLOTS
             Tmp = GetVar(CharFile, "BancoInventory", "Obj" & j)
-            ObjInd = ReadField(1, Tmp, Asc("-"))
-            ObjCant = ReadField(2, Tmp, Asc("-"))
+            ObjInd = readfield2(1, Tmp, Asc("-"))
+            ObjCant = readfield2(2, Tmp, Asc("-"))
 
             If ObjInd > 0 Then
                 Call SendData(SendTarget.ToIndex, sendIndex, 0, "|| Objeto " & j & " " & ObjData(ObjInd).Name & " Cantidad:" & ObjCant & _

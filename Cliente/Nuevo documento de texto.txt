@@ -2,3 +2,4 @@
 · El MOTD lo carga por cliente.
 · Se agrego la formula de daño arma/arcos.
 · Se arreglo el /COMERCIAR entre usuarios, item/oro.
+· Se agrego que los arcos detecten que flechas pueden usar y cuales no.

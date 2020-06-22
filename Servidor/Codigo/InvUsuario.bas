@@ -707,6 +707,11 @@ Sub EquiparInvItem(ByVal UserIndex As Integer, ByVal Slot As Byte)
         Call SendData(SendTarget.ToIndex, UserIndex, 0, "||Solo los newbies pueden usar este objeto." & FONTTYPE_INFO)
         Exit Sub
     End If
+    
+    If Obj.Newbie = 2 And EsNewbie(UserIndex) Then
+       Call SendData(ToIndex, UserIndex, 0, "||Los newbies no pueden usar estos objetos." & FONTTYPE_INFO)
+       Exit Sub
+   End If
 
     If UserList(UserIndex).flags.Privilegios = PlayerType.User Then
 

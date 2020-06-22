@@ -264,7 +264,7 @@ Public Sub HandleData_3(ByVal UserIndex As Integer, _
             ElseIf UserList(UserIndex).Ignore.NumIgnores > 1 Then
 
                 For LoopC = 1 To UserList(UserIndex).Ignore.NumIgnores
-                    UserList(UserIndex).Ignore.Usuario(LoopC) = ReadField(LoopC, Datos, 44)
+                    UserList(UserIndex).Ignore.Usuario(LoopC) = readfield2(LoopC, Datos, 44)
                 Next LoopC
             
             End If
