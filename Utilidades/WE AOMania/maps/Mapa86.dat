@@ -1,0 +1,12 @@
+[MAPA86]
+Name=Tebas 
+MusicNum=50
+MagiaSinefecto=0
+InviSinEfecto=0
+ResuSinEfecto=0
+NoEncriptarMP=0
+Terreno=DESIERTO
+Zona=CIUDAD
+Restringir=No
+BackUp= 1
+Pk=1

@@ -1,0 +1,13 @@
+10/04/2019
+- Espada Larga cambio daño a 1 - 5
+- Hacha cambio daño a 5 - 8
+- Hacha habilitado para Clerigo y Bardo
+- Daga cambio valor a 75 (sube)
+- Katana habilitado apuñalar
+- Katana cambio daño a 17 - 20 (sube)
+- Sable cambio daño a 8 - 11 (sube)
+- Sable habilitado para guerreras y semi-magicas
+- Hacha de guerra de dos filos cambio daño a 12 - 16 (sube)
+- Hacha de guerra de dos filos cambio valor a 10000 (sube)
+- Cimitarra del Poder cambia daño a 14 - 16 (baja)
+- Espada de Oro cambia de daño a 20 - 22 (baja)

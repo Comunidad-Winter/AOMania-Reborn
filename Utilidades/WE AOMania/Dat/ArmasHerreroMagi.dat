@@ -1,0 +1,44 @@
+[INIT]
+NumArmas=14
+
+[Arma1] ' Espada de Cristal (5-7)
+Index=1307
+
+[Arma2] ' Espada Envenenada
+Index=1196
+
+[Arma3] ' Espada cegadora
+Index=1194
+
+[Arma4] ' Espada paralizante
+Index=643
+
+[Arma5] ' Espada ensangrentada (+300 Mana)
+Index=1296
+
+[Arma6] ' Arco Mágico (33% ahorro flechas)
+Index=1276
+
+[Arma7] ' Arco Mágico (50% ahorro flechas)
+Index=1311
+
+[Arma8] ' Arco Mágico (75% ahorro flechas)
+Index=1312
+
+[Arma9] ' Bastón de Supervivencia (8-15)
+Index=1309
+
+[Arma10] ' Basculo mago (+300 Mana)
+Index=1294
+
+[Arma11] ' Baculo de la magia
+Index=1310
+
+[Arma12] ' Daga torcida (+100 Mana)
+Index=1295
+
+[Arma13] ' Hacha Roñosa (+100 Mana)
+Index=1301
+
+[Arma14] ' Hacha de las tinieblas (+200 Mana)
+Index=1297

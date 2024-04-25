@@ -1,6 +1,6 @@
 frmMain = 130, 130, 696, 499, , 52, 52, 188, 336, C
 Declaraciones = 182, 182, 748, 551, 
-General = 26, 26, 162, 310, Z
+General = 26, 26, 162, 310, 
 ModCompression = 130, 130, 696, 499, 
 Logs = 0, 0, 0, 0, C
 ModLoadCompression = 182, 182, 748, 551, 
@@ -11,4 +11,4 @@ cJSONScript = 0, 0, 0, 0, C
 cStringBuilder = 0, 0, 0, 0, C
 JSON = 0, 0, 0, 0, C
 modUnzip = 104, 104, 737, 473, 
-ModUpdate = 130, 130, 696, 499, 
+ModUpdate = 130, 130, 696, 499, Z

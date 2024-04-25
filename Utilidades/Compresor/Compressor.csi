@@ -1,0 +1,22 @@
+[History]
+1=#P0#=mb	#P1#=Form_Load	#P2#=Compressor/frmMain/Form_Load	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190621153623	#P7#=0	#P8#=14	.
+2=#P0#=mb	#P1#=cmdCompress_Click	#P2#=Compressor/frmMain/cmdCompress_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190621020830	#P7#=0	#P8#=1	.
+3=#P0#=mb	#P1#=GetSourcePathByIndex	#P2#=Compressor/frmMain/GetSourcePathByIndex	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190621154119	#P7#=0	#P8#=25	.
+4=#P0#=mb	#P1#=Decompress_Data	#P2#=Compressor/modCompression/Decompress_Data	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190620034110	#P7#=0	#P8#=6	.
+5=#P0#=mb	#P1#=Compress_Data	#P2#=Compressor/modCompression/Compress_Data	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190621153359	#P7#=0	#P8#=26	.
+6=#P0#=mb	#P1#=General_Drive_Get_Free_Bytes	#P2#=Compressor/modCompression/General_Drive_Get_Free_Bytes	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190620033358	#P7#=0	#P8#=-2	.
+7=#P0#=mb	#P1#=cmdExtract_Click	#P2#=Compressor/frmMain/cmdExtract_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190618163455	#P7#=0	#P8#=1	.
+8=#P0#=mb	#P1#=Command9_Click	#P2#=Compressor/frmMain/Command9_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190618163338	#P7#=0	#P8#=125	.
+9=#P0#=mb	#P1#=Compress_Files	#P2#=Compressor/modCompression/Compress_Files	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190618153622	#P7#=0	#P8#=74	.
+10=#P0#=mb	#P1#=FileExist	#P2#=Compressor/modGeneral/FileExist	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190618144906	#P7#=0	#P8#=5	.
+11=#P0#=mb	#P1#=GetNext_Bitmap	#P2#=Compressor/modCompression/GetNext_Bitmap	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190618135612	#P7#=0	#P8#=22	.
+12=#P0#=mb	#P1#=Get_File_Data	#P2#=Compressor/modCompression/Get_File_Data	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617213141	#P7#=0	#P8#=8	.
+13=#P0#=mb	#P1#=Get_File_RawData	#P2#=Compressor/modCompression/Get_File_RawData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617213015	#P7#=0	#P8#=12	.
+14=#P0#=mb	#P1#=Get_InfoHeader	#P2#=Compressor/modCompression/Get_InfoHeader	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617210553	#P7#=0	#P8#=1	.
+15=#P0#=mb	#P1#=Get_Bitmap	#P2#=Compressor/modCompression/Get_Bitmap	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617210157	#P7#=0	#P8#=14	.
+16=#P0#=mb	#P1#=Compare_Datas	#P2#=Compressor/modCompression/Compare_Datas	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617210108	#P7#=0	#P8#=-3	.
+17=#P0#=mb	#P1#=Make_Patch	#P2#=Compressor/modCompression/Make_Patch	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617210023	#P7#=0	#P8#=-8	.
+18=#P0#=mb	#P1#=Apply_Patch	#P2#=Compressor/modCompression/Apply_Patch	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617205931	#P7#=0	#P8#=-9	.
+19=#P0#=mb	#P1#=Extract_Files	#P2#=Compressor/modCompression/Extract_Files	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617205754	#P7#=0	#P8#=30	.
+20=#P0#=mb	#P1#=BinarySearch	#P2#=Compressor/modCompression/BinarySearch	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617205428	#P7#=0	#P8#=16	.
+21=#P0#=mb	#P1#=Sort_Info_Headers	#P2#=Compressor/modCompression/Sort_Info_Headers	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190617205417	#P7#=0	#P8#=23	.

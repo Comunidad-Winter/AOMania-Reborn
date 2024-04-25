@@ -1,0 +1,59 @@
+[INIT]
+NumObjs=19
+
+[Obj1] ' Pocion Amarilla
+Index=36
+
+[Obj2] ' Pocion Azul
+Index=37
+
+[Obj3] ' Pocion Roja
+Index=38
+
+[Obj4] ' Pocion Verde
+Index=39
+
+[Obj5] ' Pocion Violeta
+Index=166
+
+[Obj6] ' Pocion Desparalizar
+Index=608
+
+[Obj7] ' Pocion Anti Ceguera
+Index=609
+
+[Obj8] ' Pocion Anti Estupidez
+Index=610
+
+[Obj9] ' Pocion Aprender Telepatia
+Index=611
+
+[Obj10] ' Gran Pocion Azul
+Index=612
+
+[Obj11] ' Gran Pocion Roja
+Index=613
+
+[Obj12] ' Gran Pocion Amarilla
+Index=614
+
+[Obj13] ' Gran Pocion Verde
+Index=615
+
+[Obj14] ' Pocion De Energia
+Index=629
+
+[Obj15] ' Pocion invisible
+Index=630
+
+[Obj16] ' Pocion Teleport a Nix
+Index=645
+
+[Obj17] ' Pocion Resucitar
+Index=990
+
+[Obj18] ' Pocion Teleport a Ulla
+Index=1137
+
+[Obj19] ' Pocion Teleport a Banderbill
+Index=1138

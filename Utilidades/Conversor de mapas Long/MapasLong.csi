@@ -1,0 +1,4 @@
+[History]
+1=#P0#=mb	#P1#=cmdCommand1_Click	#P2#=MapasLong/frmConversor/cmdCommand1_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20190508193507	#P7#=0	#P8#=7	.
+2=#P0#=mb	#P1#=GrabarMapa	#P2#=MapasLong/Mod_General/GrabarMapa	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190508184738	#P7#=0	#P8#=100	.
+3=#P0#=mb	#P1#=CargarMapaOLD	#P2#=MapasLong/Mod_General/CargarMapaOLD	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20190508184604	#P7#=0	#P8#=86	.

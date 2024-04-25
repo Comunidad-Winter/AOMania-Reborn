@@ -1,0 +1,9 @@
+modDX8Requires = 154, 203, 766, 659, 
+Mod_TileEngine = 0, 0, 613, 456, 
+clsSurfaceManDynDX8 = 22, 29, 635, 485, 
+Mod_Declaraciones = 66, 87, 678, 543, 
+frmCargando = 22, 29, 634, 485, , 88, 116, 700, 572, C
+frmMain = 182, 182, 959, 576, , 156, 156, 933, 550, C
+clsDX8Engine = 0, 0, 777, 394, 
+Mod_General = 182, 182, 959, 576, 
+frmCreditos = 78, 78, 855, 472, Z, 52, 52, 829, 446, C

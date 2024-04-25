@@ -1,0 +1,177 @@
+[INIT]
+
+NumEscudos=30
+
+[ESC1]
+Dir1=4727 'norte
+Dir2=4729
+Dir3=4726
+Dir4=4728 'sur
+
+[ESC3]
+Dir1=5025 'norte
+Dir2=5027
+Dir3=5024
+Dir4=5026 'sur
+
+[ESC4]
+Dir1=5051 'norte
+Dir2=5053
+Dir3=5050
+Dir4=5052 'sur
+
+[ESC5]'Escudo imperial Azul
+Dir3=13340
+Dir1=13341
+Dir4=13342
+Dir2=13343
+
+[ESC6]'Escudo imperial de oro
+Dir3=13366
+Dir1=13367
+Dir4=13368
+Dir2=13369
+
+[ESC7]'Escudo Real
+Dir3=13392
+Dir1=13393
+Dir4=13394
+Dir2=13395
+
+[ESC8]'Escudo Negro Estrella
+Dir3=13418
+Dir1=13419
+Dir4=13420
+Dir2=13421
+
+[ESC9]'Escudo Negro Dragon
+Dir3=13444
+Dir1=13445
+Dir4=13446
+Dir2=13447
+
+[ESC10]'Escudo Dragon
+Dir3=13470
+Dir1=13471
+Dir4=13472
+Dir2=13473
+
+[ESC11]'Escudo Borde Blanco
+Dir3=13496
+Dir1=13497
+Dir4=13498
+Dir2=13499
+
+[ESC12]'Escudo Borde Dorado
+Dir3=13522
+Dir1=13523
+Dir4=13524
+Dir2=13525
+
+[ESC13]'Escudo Real Blanco
+Dir3=13548
+Dir1=13549
+Dir4=13550
+Dir2=13551
+
+[ESC14]'Escudo Cruz
+Dir3=13574
+Dir1=13575
+Dir4=13576
+Dir2=13577
+
+[ESC15]'Escudo Dorado
+Dir3=13600
+Dir1=13601
+Dir4=13602
+Dir2=13603
+
+[ESC16]'Escudo Celeste
+Dir3=13626
+Dir1=13627
+Dir4=13628
+Dir2=13629
+
+[ESC17]'Escudo Cuadrado
+Dir3=13652
+Dir1=13653
+Dir4=13654
+Dir2=13655
+
+[ESC18]'Escudo Genoves
+Dir3=13678
+Dir1=13679
+Dir4=13680
+Dir2=13681
+
+[ESC19]'Escudo Venenciano
+Dir3=13704
+Dir1=13705
+Dir4=13706
+Dir2=13707
+
+[ESC20]'Escudo Perla verde
+Dir3=13730
+Dir1=13731
+Dir4=13732
+Dir2=13733
+
+[ESC21]'Escudo Perla Roja
+Dir3=13756
+Dir1=13757
+Dir4=13758
+Dir2=13759
+
+[ESC22]'Escudo Mongol
+Dir3=13782
+Dir1=13783
+Dir4=13784
+Dir2=13785
+
+[ESC23]'Escudo Ingles
+Dir3=13808
+Dir1=13809
+Dir4=13810
+Dir2=13811
+
+[ESC24]'Escudo Madera
+Dir3=13834
+Dir1=13835
+Dir4=13836
+Dir2=13837
+
+[ESC25]'Escudo Sajon
+Dir3=13860
+Dir1=13861
+Dir4=13862
+Dir2=13863
+
+[ESC26]'Escudo Bizantino
+Dir3=13886
+Dir1=13887
+Dir4=13888
+Dir2=13889
+
+[ESC27]'Escudo de Heroe
+Dir3=13912
+Dir1=13913
+Dir4=13914
+Dir2=13915
+
+[ESC28]'Anillo De Mago
+Dir3=13938
+Dir1=13939
+Dir4=13940
+Dir2=13941
+
+[ESC29]'Escudo Tortuga
+Dir3=16590
+Dir1=16591
+Dir4=16592
+Dir2=16593
+
+[ESC30]'Escudo De heken /bmp 452
+Dir3=1916
+Dir1=1917
+Dir4=1918
+Dir2=1919

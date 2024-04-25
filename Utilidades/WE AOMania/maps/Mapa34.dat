@@ -1,0 +1,18 @@
+[MAPA34]
+BACKUP= 1
+MAGIASINEFECTO=1
+MUSICNUM=13
+NAME=Nix                        
+OCULTARSINEFECTO=0
+PK=1
+RESTRINGIR=No
+STARTPOS=0-0-0
+TERRENO=BOSQUE
+ZONA=CIUDAD
+
+InviSinEfecto=0
+ResuSinEfecto=0
+NoEncriptarMP=0
+PuedeMascotas=0
+MinLevel=0
+SeCaenItems=1

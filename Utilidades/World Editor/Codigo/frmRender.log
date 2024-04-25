@@ -1,0 +1,7 @@
+Línea 52: la clase MSComctlLib.ProgressBar del control pgbProgress no era una clase de control cargada.
+Línea 58: el nombre de la propiedad _ExtentX de pgbProgress no es válido.
+Línea 59: el nombre de la propiedad _ExtentY de pgbProgress no es válido.
+Línea 60: el nombre de la propiedad _Version de pgbProgress no es válido.
+Línea 58: el nombre de la propiedad _ExtentX de pgbProgress no es válido.
+Línea 59: el nombre de la propiedad _ExtentY de pgbProgress no es válido.
+Línea 60: el nombre de la propiedad _Version de pgbProgress no es válido.

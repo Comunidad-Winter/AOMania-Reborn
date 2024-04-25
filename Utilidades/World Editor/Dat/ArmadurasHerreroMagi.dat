@@ -1,0 +1,83 @@
+[INIT]
+NumArmaduras=27
+
+[Armadura1] ' Túnica mago lujo (+100 Mana)
+Index=1282
+
+[Armadura2] ' Túnica mago lujo Enano (+100 Mana)
+Index=1644
+
+[Armadura3] ' Túnica mago lujo Hobbit (+100 Mana)
+Index=1643
+
+[Armadura4] ' Túnica mago lujo verde (+200 Mana)
+Index=1283
+
+[Armadura5] ' Túnica mago lujo Verde Hobbit (+200 Mana)
+Index=1632
+
+[Armadura6] ' Túnica mago lujo Verde Enano (+200 Mana)
+Index=1633
+
+[Armadura7] ' Túnica mago lujo azulón (+300 Mana)
+Index=1284
+
+[Armadura8] ' Tunica mago lujo enano (+300 Mana)
+Index=1631
+
+[Armadura9] ' Tunica mago lujo hobbit (+300 Mana)
+Index=1630
+
+[Armadura10] ' Armadura Justiciera (+200 Mana)
+Index=1226
+
+[Armadura11] ' Armadura Mágica Enanos (+300 Mana)
+Index=1275
+
+[Armadura12] ' Anillo hechicero +100 mana
+Index=1764
+
+[Armadura13] ' Escudo de Colores +100
+Index=584
+
+[Armadura14] ' Casco completo (+300 Mana)
+Index=1304
+
+[Armadura15] ' Sombrero de Mago (+300 Mago)
+Index=1306
+
+[Armadura16] ' Alas Rojas
+Index=983
+
+[Armadura17] ' Alas premium Oro
+Index=985
+
+[Armadura18] ' Alas Negras
+Index=977
+
+[Armadura19] ' Alas rosas
+Index=987
+
+[Armadura20] ' Alas blackfur
+Index=1056
+
+[Armadura21] ' Alas esmeralda
+Index=1195
+
+[Armadura22] ' Alas de colores
+Index=1237
+
+[Armadura23] ' Alas Amanecer
+Index=1062
+
+[Armadura24] ' Alas veletus
+Index=1235
+
+[Armadura25] ' Alas angel caido
+Index=1061
+
+[Armadura26] ' Alas de Lucifer
+Index=1200
+
+[Armadura27] ' Alas de San Marcos
+Index=1201

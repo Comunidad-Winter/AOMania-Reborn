@@ -1,1 +1,3 @@
-Línea 505: la clase ComctlLib.ImageList del control ImageList1 no era una clase de control cargada.
+Línea 140: la clase Captura.wndCaptura del control Foto no era una clase de control cargada.
+Línea 143: el nombre de la propiedad _ExtentX de Foto no es válido.
+Línea 144: el nombre de la propiedad _ExtentY de Foto no es válido.

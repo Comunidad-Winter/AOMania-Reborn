@@ -1,0 +1,12 @@
+[History]
+1=#P0#=mb	#P1#=LoadSurface	#P2#=AoManiaCliente/clsSurfaceManager/LoadSurface	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20240425192239	#P7#=0	#P8#=32	.
+2=#P0#=mb	#P1#=Main	#P2#=AoManiaCliente/Mod_General/Main	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20240425192221	#P7#=0	#P8#=27	.
+3=#P0#=mb	#P1#=LoadIconos	#P2#=AoManiaCliente/Mod_General/LoadIconos	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20240215063034	#P7#=0	#P8#=13	.
+4=#P0#=mb	#P1#=Char_Particle_Group_Create	#P2#=AoManiaCliente/Mod_TileEngine/Char_Particle_Group_Create	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20210904172052	#P7#=0	#P8#=0	.
+5=#P0#=mb	#P1#=Char_Particle_Create	#P2#=AoManiaCliente/Mod_TileEngine/Char_Particle_Create	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20210904172019	#P7#=0	#P8#=0	.
+6=#P0#=mb	#P1#=Socket1_Disconnect	#P2#=AoManiaCliente/frmMain/Socket1_Disconnect	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20210822192031	#P7#=0	#P8#=0	.
+7=#P0#=mb	#P1#=Socket1_Connect	#P2#=AoManiaCliente/frmMain/Socket1_Connect	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20210822192009	#P7#=0	#P8#=-1	.
+8=#P0#=mb	#P1#=CheckUserData	#P2#=AoManiaCliente/Mod_General/CheckUserData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20210529041311	#P7#=0	#P8#=30	.
+9=#P0#=mb	#P1#=MoveTo	#P2#=AoManiaCliente/Mod_General/MoveTo	#P3#=	#P4#=	#P5#=MembMethodPrivate	#P6#=20210529040608	#P7#=0	#P8#=10	.
+10=#P0#=mb	#P1#=CharRender	#P2#=AoManiaCliente/Mod_TileEngine/CharRender	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200919031815	#P7#=0	#P8#=0	.
+11=#P0#=mb	#P1#=SendData	#P2#=AoManiaCliente/Mod_TCP/SendData	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20200918155559	#P7#=0	#P8#=8	.

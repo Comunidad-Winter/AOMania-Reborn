@@ -1,0 +1,54 @@
+09/04/2019
+-Destello de luz modificacion daño 5 - 10
+-Curar heridas leves modificacion curacion 1 - 5
+- Envenenar eliminado solo Druida. Habilitado Mago, Brujo y Druida.
+- Viento Fugaz cambio daño a 8 - 14 (baja)
+- Golpe de luz cambia descripcion PropioMsg
+- Golpe de luz cambio de mana de 45 a 50 (sube)
+- Paralizar solo puede usarlo Mago y Druida
+- Paralirzar cambio de mana de 350 a 400 (sube)
+- Llama Infernal cambio de daño a 35 - 55 (igual)
+- Metamorfosis Mata Gente REVISAR. Habilitado para Magos y Bardos
+- Topeza cambio "Nombre". Se elimina (Solo Clerigos)
+- Aro de Zeus cambio daño en descripcion de MinHit (55)
+- Aro de Zeus habilitado ahora para Paladin, Asesino, Clerigo y Bardo
+- Rayo Divino solo puede usarlo Mago, Brujo y Druida
+- Inmovilizar prohibido para Mago, Brujos y Druidas
+- Inmovilizar cambio de mana de 260 a 300 (sube)
+- Apocalipsis exlusivo para Mago
+- Ceguera exclusivo para Clerigo
+- Ceguera cambio de mana de 450 a 250 (baja)
+- Estupidez cambio de mana de 450 a 250 (baja)
+- Apocalipsis Nuclear cambia de daño a 145 - 155 (sube)
+- Embrujo Letal cambia de daño a 135 - 145 (baja)
+- Curar heridas extremas prohibido para Mago y Brujo
+- Fuerza Golemica solo habilitada para Clerigo
+- Fuerza Golemica cambia MinSkill de 35 a 50 (sube)
+- Debilidad Golemica solo habilitada para Bardo
+- Sonata Funebre cambia daño a 95 - 115 (baja)
+- Sonata Funebre cambia mana de 1200 a 1350 (sube)
+- Sopa magica cambia MaxHam de 20 a 25 (sube)
+- Luz Suprema cambia daño a 80 - 90 (baja)
+- Esporas de curacion Maduras considerar subir HP para magia de Clerigo en area ???
+- Lluvia de fuego cambio MaxHP a 35 (baja) VERIFICAR DAÑO
+- Radioactividad cambio daño a 80 - 100 (sube) (solo hobbits)
+- Fuego Angmar camdio de daño 105 - 120 (baja)
+- Fuego Angmar cambia mana de 1200 a 1350 (sube)
+- Angeles cambio mana a 1500 (sube)
+- Metamorfosis a Golem cambia a solo Druida
+- Metamorfosis a Oso cambia a Druida, Mago y Brujo
+- Metamorfosis a Medusa cambia a solo Druida
+- Metamorfosis a Gran Dragon Rojo cambia a solo Druida
+- Metamorfosis a Gran Dragon Rojo cambia mana de 2000 a 1500 (baja)
+- Metamorfosis a Lobo cambia a solo Druida, Mago y Brujo
+- Metamorfosis a Araña Gigante cambia a solo Druida, Mago y Brujo
+- Veneno Extremo habilitado solo para Druida y Brujo
+- Llama de Venus cambio daño a 85 - 95 (baja)
+- Llama de Venus cambio mana a 1100 (sube)
+- Llama de Venus solo habilitado para Brujo y Druida
+- Santus Divina solo habilitado para Mago y Brujo
+- Santus Divina Real solo habilitado para Clerigo
+- Santus Divina Real cambio mana de 750 a 900 (sube)
+- Justicia Divina cambia de curar a dañar.
+- Justicia Divina cambia daño a 70 - 80
+- Justicia Divina cambia mana de 1100 a 900 (baja)
