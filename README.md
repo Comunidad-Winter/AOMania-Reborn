@@ -17,7 +17,7 @@ NOTA: Este proyecto se basa en la versión 0.11.5 de Argentum Online, pero utili
 
 ## Creditos
 
-Aportado por Saverok, contacto:
+Aportado por Sarevok, contacto:
 daniel@aomania.net
 discord: sarevok
 https://www.gs-zone.org/miembros/sarevok.10148/
